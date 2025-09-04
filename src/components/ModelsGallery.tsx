@@ -49,25 +49,9 @@ export const ModelsGallery: React.FC = () => {
             <h1 className="heading-xl mb-4">
               Our Companions
             </h1>
-            <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
               Discover our carefully selected companions, each offering unique charm and sophistication
             </p>
-            
-            {/* Stats */}
-            <div className="flex justify-center gap-8 text-sm">
-              <div className="text-center">
-                <div className="font-medium text-foreground">{availableCount}</div>
-                <div className="text-muted-foreground">Available</div>
-              </div>
-              <div className="text-center">
-                <div className="font-medium text-foreground">{busyCount}</div>
-                <div className="text-muted-foreground">Busy</div>
-              </div>
-              <div className="text-center">
-                <div className="font-medium text-foreground">{models.length}</div>
-                <div className="text-muted-foreground">Total</div>
-              </div>
-            </div>
           </div>
         </section>
 

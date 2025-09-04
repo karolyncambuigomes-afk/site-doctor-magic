@@ -156,6 +156,13 @@ const Index = () => {
                     loading="lazy"
                   />
                   
+                  {/* Price - Top Left - Discreet */}
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+                    <div className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white text-xs font-light">
+                      {model.price}
+                    </div>
+                  </div>
+                  
                   {/* Subtle Overlay - Only on Hover */}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
                   

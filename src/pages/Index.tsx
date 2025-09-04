@@ -51,6 +51,9 @@ const Index = () => {
     }
   ];
 
+  // Debug - verificar se models está carregando
+  console.log('Models array:', models, 'Length:', models?.length);
+
   return (
     <>
       <SEO 
@@ -79,7 +82,7 @@ const Index = () => {
 
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-              {models.slice(0, 8).map((model, index) => (
+              {models && models.length > 0 ? models.slice(0, 8).map((model, index) => (
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
@@ -108,7 +111,11 @@ const Index = () => {
                     </div>
                   </div>
                 </Link>
-              ))}
+              )) : (
+                <div className="col-span-2 text-center py-12">
+                  <p className="text-muted-foreground">No models available</p>
+                </div>
+              )}
             </div>
 
             {/* View All Button - Loro Piana Style */}

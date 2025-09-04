@@ -66,15 +66,15 @@ const About = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-16 bg-gradient-dark text-secondary-foreground">
+        <section className="py-12 lg:py-16 bg-gradient-dark text-secondary-foreground">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
               <div className="animate-fade-in-up order-1 lg:order-1">
-                <h1 className="heading-lg mb-4 lg:mb-6 text-center lg:text-left">
+                <h1 className="heading-lg mb-4 text-center lg:text-left">
                   About <span className="luxury-text-gradient">Five London</span>
                 </h1>
-                <p className="body-minimal text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-center lg:text-left">
-                  Since 2018, Five London has been the epitome of luxury companionship in the heart of England's capital. We've built our reputation on discretion, sophistication, and unparalleled service quality.
+                <p className="body-minimal text-muted-foreground mb-6 leading-relaxed text-center lg:text-left">
+                  London's most trusted luxury escort agency. Exceptional standards, absolute discretion, uncompromising quality since 2018.
                 </p>
                 <div className="flex justify-center lg:justify-start">
                   <Button 
@@ -101,9 +101,9 @@ const About = () => {
 
 
         {/* Our Story */}
-        <section className="py-12 lg:py-16 bg-muted/50">
+        <section className="py-10 lg:py-12 bg-muted/50">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
               <div className="animate-fade-in order-2 lg:order-1">
                 <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
                   <img 
@@ -111,126 +111,53 @@ const About = () => {
                     alt="Elegant woman at fine dining restaurant"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/30"></div>
+                  <div className="absolute inset-0 bg-black/20"></div>
                 </div>
               </div>
               <div className="animate-fade-in-up order-1 lg:order-2 px-4 lg:px-0">
-                <h2 className="heading-md mb-4 lg:mb-6 text-center lg:text-left">
-                  Our <span className="luxury-text-gradient">Story</span>
+                <h2 className="heading-md mb-4 text-center lg:text-left">
+                  Trust & <span className="luxury-text-gradient">Excellence</span>
                 </h2>
-                <div className="space-y-3 lg:space-y-4 body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
-                  <p>
-                    Five London was founded with a simple yet ambitious vision: to redefine luxury companionship in London. Our founders recognized a gap in the market for truly sophisticated, intelligent, and discreet companion services.
-                  </p>
-                  <p>
-                    What started as a boutique agency has grown into London's most respected escort service, known for our unwavering commitment to quality, discretion, and client satisfaction. We've built lasting relationships with discerning gentlemen who value sophistication and professionalism.
-                  </p>
-                  <p>
-                    Today, Five London represents the pinnacle of luxury companionship, with a carefully curated selection of exceptional women who embody intelligence, beauty, and grace. Our success is measured not just in numbers, but in the trust our clients place in us.
-                  </p>
-                </div>
+                <p className="body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
+                  We select only the most sophisticated, intelligent companions. Every detail is carefully managed with complete discretion and uncompromising standards.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Our Values */}
-        <section className="py-12 lg:py-16 bg-background">
+        <section className="py-10 lg:py-12 bg-background">
           <div className="container-width">
-            <div className="text-center mb-12 animate-fade-in">
-              <h2 className="heading-md mb-4">
-                Our <span className="luxury-text-gradient">Values</span>
+            <div className="text-center mb-8 animate-fade-in">
+              <h2 className="heading-md mb-3">
+                Our <span className="luxury-text-gradient">Standards</span>
               </h2>
-              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto">
-                The principles that guide everything we do and define who we are
-              </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {values.map((value, index) => (
-                <Card 
-                  key={value.title}
-                  className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
-                    <value.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="heading-sm mb-2">{value.title}</h3>
-                  <p className="body-sm text-muted-foreground">{value.description}</p>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Why Choose Us */}
-        <section className="py-16 bg-muted/50">
-          <div className="container-width">
-            <div className="text-center mb-12 animate-fade-in">
-              <h2 className="heading-md mb-4">
-                Why Choose <span className="luxury-text-gradient">Five London</span>
-              </h2>
-              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto">
-                What sets us apart in London's competitive luxury market
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="luxury-card p-6 animate-fade-in">
-                <div className="flex items-start space-x-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
-                    <Star className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">Rigorous Selection Process</h3>
-                    <p className="body-sm text-muted-foreground">
-                      Every companion undergoes a comprehensive vetting process ensuring intelligence, sophistication, and professionalism meet our exacting standards.
-                    </p>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Shield className="w-8 h-8 text-primary" />
                 </div>
+                <h3 className="heading-sm mb-2">Discretion</h3>
+                <p className="body-sm text-muted-foreground">Complete confidentiality in every interaction</p>
               </Card>
 
-              <Card className="luxury-card p-6 animate-fade-in">
-                <div className="flex items-start space-x-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
-                    <Clock className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">24/7 Concierge Service</h3>
-                    <p className="body-sm text-muted-foreground">
-                      Our dedicated team is available around the clock to handle bookings, special requests, and ensure your experience exceeds expectations.
-                    </p>
-                  </div>
+              <Card className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Award className="w-8 h-8 text-primary" />
                 </div>
+                <h3 className="heading-sm mb-2">Excellence</h3>
+                <p className="body-sm text-muted-foreground">Uncompromising quality in every detail</p>
               </Card>
 
-              <Card className="luxury-card p-6 animate-fade-in">
-                <div className="flex items-start space-x-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
-                    <Shield className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">Absolute Discretion</h3>
-                    <p className="body-sm text-muted-foreground">
-                      We understand the importance of privacy. All interactions are handled with the utmost confidentiality and professional discretion.
-                    </p>
-                  </div>
+              <Card className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Star className="w-8 h-8 text-primary" />
                 </div>
-              </Card>
-
-              <Card className="luxury-card p-6 animate-fade-in">
-                <div className="flex items-start space-x-4">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
-                    <Award className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="heading-sm mb-2">Unmatched Quality</h3>
-                    <p className="body-sm text-muted-foreground">
-                      From first contact to the conclusion of your experience, we maintain the highest standards of service and attention to detail.
-                    </p>
-                  </div>
-                </div>
+                <h3 className="heading-sm mb-2">Selectivity</h3>
+                <p className="body-sm text-muted-foreground">Only the most exceptional companions</p>
               </Card>
             </div>
           </div>
@@ -244,21 +171,16 @@ const About = () => {
         </div>
 
         {/* Excellence Section */}
-        <section className="py-12 lg:py-16 bg-background">
+        <section className="py-10 lg:py-12 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
               <div className="animate-fade-in-up order-1 lg:order-1 px-4 lg:px-0">
-                <h2 className="heading-md mb-4 lg:mb-6 text-center lg:text-left">
-                  Setting the <span className="luxury-text-gradient">Standard</span>
+                <h2 className="heading-md mb-4 text-center lg:text-left">
+                  Elite <span className="luxury-text-gradient">Companions</span>
                 </h2>
-                <div className="space-y-3 lg:space-y-4 body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
-                  <p>
-                    Our companions are more than just beautiful faces - they are intelligent, well-educated women who can engage in meaningful conversations and adapt to any social setting with grace and poise.
-                  </p>
-                  <p>
-                    Whether accompanying you to a business dinner, cultural event, or private occasion, our companions understand the importance of discretion and professionalism while ensuring your experience is memorable and enjoyable.
-                  </p>
-                </div>
+                <p className="body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
+                  Intelligent, educated women who excel in any social setting. Professional discretion and memorable experiences guaranteed.
+                </p>
               </div>
               <div className="animate-fade-in order-2 lg:order-2">
                 <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
@@ -267,7 +189,7 @@ const About = () => {
                     alt="Sophisticated woman at art gallery"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/30"></div>
+                  <div className="absolute inset-0 bg-black/20"></div>
                 </div>
               </div>
             </div>

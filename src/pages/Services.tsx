@@ -151,14 +151,14 @@ const Services = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
               {services.map((service, index) => (
                 <Card 
                   key={service.title}
-                  className="luxury-card p-8 group hover:scale-[1.02] transition-all duration-500 border-0 shadow-xl"
+                  className="luxury-card p-6 group hover:scale-[1.02] transition-all duration-500 border-0 shadow-xl"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex items-start space-x-6">
+                  <div className="flex items-start space-x-4">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex-shrink-0 group-hover:from-primary/30 group-hover:to-primary/20 transition-all duration-300">
                       <service.icon className="w-10 h-10 text-primary" />
                     </div>
@@ -233,10 +233,10 @@ const Services = () => {
               ].map((step, index) => (
                 <Card 
                   key={step.step}
-                  className="luxury-card p-8 text-center relative overflow-hidden border-0 shadow-lg group hover:scale-105 transition-all duration-300"
+                  className="luxury-card p-6 text-center relative overflow-hidden border-0 shadow-lg group hover:scale-105 transition-all duration-300"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <div className="absolute top-4 right-4 text-7xl font-bold text-primary/8 group-hover:text-primary/12 transition-colors">
+                  <div className="absolute top-3 right-3 text-4xl font-bold text-primary/8 group-hover:text-primary/12 transition-colors">
                     {step.step}
                   </div>
                   <div className="relative z-10">

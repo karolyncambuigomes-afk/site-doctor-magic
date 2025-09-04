@@ -78,13 +78,13 @@ const Index = () => {
               </div>
               
               <div className="space-y-4 md:space-y-6 text-muted-foreground">
-                <p className="text-xs md:text-sm lg:text-lg font-light leading-relaxed">
+                <p className="text-sm md:text-base lg:text-lg font-light leading-relaxed">
                   We are an elite agency specializing in luxury companions in London. 
                   Our careful selection ensures that each of our companions is sophisticated, 
                   elegant and dedicated to providing exceptional experiences.
                 </p>
                 
-                <p className="text-xs md:text-sm lg:text-base leading-relaxed">
+                <p className="text-sm md:text-base lg:text-base leading-relaxed">
                   With absolute discretion and personalized service, we cater to discerning clients 
                   seeking refined companionship for social events, business dinners or special moments. 
                   Available 24 hours a day, 7 days a week.
@@ -238,11 +238,11 @@ const Index = () => {
         <section className="py-16 md:py-20 bg-muted/10">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto space-y-8">
-              <h2 className="text-base md:text-lg lg:text-xl font-light tracking-[0.2em] uppercase text-foreground">
+              <h2 className="text-lg md:text-xl lg:text-xl font-light tracking-[0.2em] uppercase text-foreground">
                 Begin Your Experience
               </h2>
               
-              <p className="text-xs md:text-sm lg:text-base text-muted-foreground leading-relaxed">
+              <p className="text-sm md:text-base lg:text-base text-muted-foreground leading-relaxed">
                 Contact us to arrange your perfect companion. Available 24/7 for immediate bookings.
               </p>
               

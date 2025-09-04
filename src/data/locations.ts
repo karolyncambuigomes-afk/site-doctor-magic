@@ -152,5 +152,149 @@ export const locations: Location[] = [
     seoTitle: "Professional Escorts in Canary Wharf | Five London",
     seoDescription: "Elite escort services in Canary Wharf, London's financial district. Professional companions for business events and corporate entertainment.",
     keywords: ["canary wharf escorts", "business escorts london", "corporate companions", "professional escort services"]
+  },
+  {
+    id: "notting-hill",
+    name: "Notting Hill",
+    slug: "escorts-in-notting-hill",
+    description: "Charming escort services in vibrant Notting Hill",
+    content: `
+      <p>Experience charming escort services in Notting Hill, one of London's most vibrant and eclectic districts. Our stylish companions perfectly complement the bohemian and cosmopolitan atmosphere of this iconic area.</p>
+      
+      <p>Notting Hill, famous for its colorful houses, antique markets, and lively cultural scene, offers unique experiences. Our escorts are ideal for:</p>
+      
+      <ul>
+        <li>Exploring Portobello Road Market</li>
+        <li>Dining at trendy restaurants and gastropubs</li>
+        <li>Attending carnival events and festivals</li>
+        <li>Visiting vintage shops and boutiques</li>
+        <li>Enjoying the local nightlife scene</li>
+      </ul>
+      
+      <p>Our Notting Hill escorts are creative, free-spirited, and embrace the area's artistic energy while maintaining the highest standards of sophistication.</p>
+    `,
+    seoTitle: "Stylish Escorts in Notting Hill | Five London",
+    seoDescription: "Vibrant escort services in Notting Hill, London. Creative companions for markets, festivals, and the bohemian lifestyle of this iconic district.",
+    keywords: ["notting hill escorts", "vibrant escorts london", "creative companions", "portobello escorts"]
+  },
+  {
+    id: "covent-garden",
+    name: "Covent Garden",
+    slug: "escorts-in-covent-garden",
+    description: "Entertaining escort services in lively Covent Garden",
+    content: `
+      <p>Discover entertaining escort services in Covent Garden, London's premier entertainment district. Our vivacious companions are perfect for experiencing the theaters, restaurants, and vibrant street performances that define this cultural hub.</p>
+      
+      <p>Covent Garden, renowned for its world-class theaters and bustling market atmosphere, offers endless entertainment options. Our escorts excel at:</p>
+      
+      <ul>
+        <li>Theater visits and West End shows</li>
+        <li>Fine dining at acclaimed restaurants</li>
+        <li>Shopping at unique boutiques and markets</li>
+        <li>Enjoying street performances and entertainment</li>
+        <li>Experiencing the vibrant nightlife</li>
+      </ul>
+      
+      <p>Our Covent Garden escorts are cultured, entertaining, and well-versed in the arts, making them ideal companions for this theatrical district.</p>
+    `,
+    seoTitle: "Entertaining Escorts in Covent Garden | Five London",
+    seoDescription: "Premium escort services in Covent Garden, London's entertainment district. Cultured companions for theaters, dining, and cultural experiences.",
+    keywords: ["covent garden escorts", "theater escorts london", "entertainment companions", "west end escorts"]
+  },
+  {
+    id: "shoreditch",
+    name: "Shoreditch",
+    slug: "escorts-in-shoreditch",
+    description: "Trendy escort services in creative Shoreditch",
+    content: `
+      <p>Experience trendy escort services in Shoreditch, London's creative and artistic quarter. Our contemporary companions embody the innovative spirit and cutting-edge culture that makes this district so unique.</p>
+      
+      <p>Shoreditch, known for its street art, independent galleries, and avant-garde scene, attracts creative minds from around the world. Our escorts are perfect for:</p>
+      
+      <ul>
+        <li>Gallery hopping and art exhibitions</li>
+        <li>Exploring the vibrant street art scene</li>
+        <li>Dining at innovative restaurants</li>
+        <li>Experiencing the dynamic nightlife</li>
+        <li>Attending creative events and launches</li>
+      </ul>
+      
+      <p>Our Shoreditch escorts are artistic, contemporary, and embrace the district's creative energy while providing sophisticated companionship.</p>
+    `,
+    seoTitle: "Creative Escorts in Shoreditch | Five London",
+    seoDescription: "Contemporary escort services in Shoreditch, London's artistic quarter. Creative companions for galleries, street art, and innovative experiences.",
+    keywords: ["shoreditch escorts", "creative escorts london", "artistic companions", "contemporary escort services"]
+  },
+  {
+    id: "marylebone",
+    name: "Marylebone",
+    slug: "escorts-in-marylebone",
+    description: "Sophisticated escort services in charming Marylebone",
+    content: `
+      <p>Discover sophisticated escort services in Marylebone, a charming district that perfectly balances village-like tranquility with urban sophistication. Our refined companions are ideal for exploring this delightful area of central London.</p>
+      
+      <p>Marylebone, with its Georgian architecture and boutique shopping, offers a more intimate London experience. Our escorts are perfect for:</p>
+      
+      <ul>
+        <li>Shopping on Marylebone High Street</li>
+        <li>Dining at cozy restaurants and cafes</li>
+        <li>Visiting cultural attractions and museums</li>
+        <li>Exploring charming residential streets</li>
+        <li>Enjoying the relaxed atmosphere</li>
+      </ul>
+      
+      <p>Our Marylebone escorts are sophisticated yet approachable, perfectly matching the district's blend of elegance and warmth.</p>
+    `,
+    seoTitle: "Refined Escorts in Marylebone | Five London",
+    seoDescription: "Sophisticated escort services in Marylebone, London. Refined companions for boutique shopping, dining, and cultural experiences.",
+    keywords: ["marylebone escorts", "sophisticated escorts london", "boutique escorts", "marylebone companions"]
+  },
+  {
+    id: "fitzrovia",
+    name: "Fitzrovia",
+    slug: "escorts-in-fitzrovia",
+    description: "Intellectual escort services in literary Fitzrovia",
+    content: `
+      <p>Experience intellectual escort services in Fitzrovia, a district with a rich literary and artistic heritage. Our cultured companions appreciate the area's bohemian history and contemporary cultural significance.</p>
+      
+      <p>Fitzrovia, historically home to writers, artists, and intellectuals, maintains its reputation as a center of culture and creativity. Our escorts are ideal for:</p>
+      
+      <ul>
+        <li>Literary walks and historical tours</li>
+        <li>Dining at traditional pubs and modern restaurants</li>
+        <li>Visiting galleries and cultural venues</li>
+        <li>Exploring media and broadcasting landmarks</li>
+        <li>Enjoying intellectual conversations</li>
+      </ul>
+      
+      <p>Our Fitzrovia escorts are well-read, culturally aware, and appreciate the district's intellectual heritage and contemporary relevance.</p>
+    `,
+    seoTitle: "Cultured Escorts in Fitzrovia | Five London",
+    seoDescription: "Intellectual escort services in Fitzrovia, London's literary district. Cultured companions for cultural experiences and intellectual pursuits.",
+    keywords: ["fitzrovia escorts", "intellectual escorts london", "literary companions", "cultured escort services"]
+  },
+  {
+    id: "south-kensington",
+    name: "South Kensington",
+    slug: "escorts-in-south-kensington",
+    description: "Educational escort services in museum quarter",
+    content: `
+      <p>Discover educational escort services in South Kensington, London's renowned museum quarter. Our knowledgeable companions are perfect for exploring the world-class cultural institutions that make this area famous.</p>
+      
+      <p>South Kensington, home to some of the world's greatest museums and educational institutions, offers unparalleled cultural experiences. Our escorts excel at:</p>
+      
+      <ul>
+        <li>Museum visits and educational tours</li>
+        <li>Cultural events and exhibitions</li>
+        <li>Fine dining near cultural venues</li>
+        <li>Academic and intellectual discussions</li>
+        <li>Exploring beautiful garden squares</li>
+      </ul>
+      
+      <p>Our South Kensington escorts are educated, culturally sophisticated, and passionate about learning, making them ideal companions for this intellectually rich district.</p>
+    `,
+    seoTitle: "Educational Escorts in South Kensington | Five London",
+    seoDescription: "Premium escort services in South Kensington, London's museum quarter. Knowledgeable companions for cultural and educational experiences.",
+    keywords: ["south kensington escorts", "museum escorts london", "educational companions", "cultural escort services"]
   }
 ];

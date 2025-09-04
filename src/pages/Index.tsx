@@ -96,20 +96,17 @@ const Index = () => {
           <div className="container-width-lg">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-[0.1em] text-foreground">
-                  Five London
-                </h2>
                 <div className="w-24 h-px bg-foreground/20 mx-auto"></div>
               </div>
               
-              <div className="space-y-6 text-muted-foreground">
-                <p className="text-lg md:text-xl font-light leading-relaxed">
+              <div className="space-y-4 md:space-y-6 text-muted-foreground">
+                <p className="text-sm md:text-base lg:text-lg font-light leading-relaxed">
                   We are an elite agency specializing in luxury companions in London. 
                   Our careful selection ensures that each of our companions is sophisticated, 
                   elegant and dedicated to providing exceptional experiences.
                 </p>
                 
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-xs md:text-sm lg:text-base leading-relaxed">
                   With absolute discretion and personalized service, we cater to discerning clients 
                   seeking refined companionship for social events, business dinners or special moments. 
                   Available 24 hours a day, 7 days a week.

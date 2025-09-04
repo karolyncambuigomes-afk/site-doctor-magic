@@ -26,11 +26,11 @@ const Locations = () => {
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto">
                 <h1 className="heading-xl mb-6">
-                  Escort Services by Location
+                  Find Girls by Location
                 </h1>
                 <p className="body-lg text-muted-foreground mb-8">
-                  Discover our premium escort services across London's most prestigious districts. 
-                  Each location offers unique experiences tailored to the area's distinctive character.
+                  Browse our stunning escorts by their preferred London locations. 
+                  Click on any area below to discover the beautiful girls available in that district.
                 </p>
               </div>
             </div>
@@ -39,35 +39,29 @@ const Locations = () => {
           {/* Locations Grid */}
           <section className="section-padding">
             <div className="container-width">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {locations.map((location) => (
-                  <Card key={location.id} className="hover:shadow-lg transition-shadow duration-300">
-                    <CardHeader>
-                      <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <CardTitle className="heading-md mb-2">{location.name}</CardTitle>
-                          <CardDescription className="body-sm">
-                            {location.description}
-                          </CardDescription>
-                        </div>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
+                  <Link 
+                    key={location.id} 
+                    to={`/${location.slug}`}
+                    className="group"
+                  >
+                    <Button 
+                      variant="outline" 
+                      className="w-full h-auto p-6 flex flex-col items-center gap-3 hover:shadow-lg transition-all duration-300 group-hover:border-primary"
+                    >
+                      <MapPin className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+                      <div className="text-center">
+                        <h3 className="heading-sm mb-1 group-hover:text-primary transition-colors">
+                          {location.name}
+                        </h3>
                         <p className="body-sm text-muted-foreground">
-                          Premium escort services in {location.name}, offering sophisticated companionship 
-                          for discerning clients in this exclusive London district.
+                          Find girls in {location.name}
                         </p>
-                        <Link to={`/locations/${location.slug}`}>
-                          <Button variant="outline" className="w-full group">
-                            View Services in {location.name}
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </Link>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <ArrowRight className="w-4 h-4 mt-2 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -78,11 +72,11 @@ const Locations = () => {
             <div className="container-width">
               <div className="text-center max-w-3xl mx-auto">
                 <h2 className="heading-lg mb-4">
-                  Can't Find Your Location?
+                  Looking for a Different Area?
                 </h2>
                 <p className="body-lg text-muted-foreground mb-8">
-                  While we specialize in London's most prestigious districts, our services extend throughout 
-                  the Greater London area. Contact us to discuss your specific location requirements.
+                  Can't find your preferred location? Our beautiful escorts are available throughout London. 
+                  Contact us to find the perfect companion for your specific area.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/contact">

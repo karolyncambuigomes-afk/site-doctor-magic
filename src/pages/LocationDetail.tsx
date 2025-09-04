@@ -1,211 +1,134 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { locations } from '@/data/locations';
+import { models } from '@/data/models';
+import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, ArrowLeft, Phone, Calendar, Star, Users } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 
 const LocationDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const location = locations.find(loc => loc.slug === slug);
-
+  const { location: locationSlug } = useParams();
+  
+  // Find the location by extracting the area name from the slug
+  const areaName = locationSlug?.split('-').pop() || '';
+  const location = locations.find(loc => 
+    loc.name.toLowerCase() === areaName ||
+    loc.id === areaName ||
+    loc.slug.includes(areaName)
+  );
+  
   if (!location) {
     return <Navigate to="/404" replace />;
   }
 
-  const relatedLocations = locations.filter(loc => loc.id !== location.id).slice(0, 3);
+  // Filter models by location
+  const locationModels = models.filter(model => 
+    model.location.toLowerCase() === location.name.toLowerCase()
+  );
+
+  // Get other locations for the "Explore also" section
+  const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 3);
 
   return (
     <>
       <SEO 
-        title={location.seoTitle}
-        description={location.seoDescription}
-        keywords={location.keywords.join(', ')}
-        canonicalUrl={`/locations/${location.slug}`}
+        title={`Luxury Escorts in ${location.name} | Five London`}
+        description={`Find stunning escorts in ${location.name}, London. Browse available girls in this exclusive area. Premium escort services with verified profiles.`}
+        keywords={`${location.name.toLowerCase()} escorts, escorts in ${location.name.toLowerCase()}, ${location.name.toLowerCase()} girls, london escorts`}
+        canonicalUrl={`/${location.slug}`}
       />
       
       <div className="min-h-screen bg-background">
         <Navigation />
         
         <main className="pt-32">
-          {/* Breadcrumb */}
-          <section className="py-6 border-b border-border">
-            <div className="container-width">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-                <span>/</span>
-                <Link to="/locations" className="hover:text-foreground transition-colors">Locations</Link>
-                <span>/</span>
-                <span className="text-foreground">{location.name}</span>
-              </div>
-            </div>
-          </section>
-
           {/* Hero Section */}
           <section className="section-padding bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">
-              <div className="max-w-4xl mx-auto">
-                <Link 
-                  to="/locations" 
-                  className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to All Locations
-                </Link>
-                
-                <div className="flex items-start gap-4 mb-6">
-                  <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                  <div>
-                    <h1 className="heading-xl mb-4">
-                      Elite Escorts in {location.name}
-                    </h1>
-                    <p className="body-lg text-muted-foreground">
-                      {location.description}
-                    </p>
-                  </div>
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <MapPin className="w-6 h-6 text-primary" />
+                  <span className="body-lg text-muted-foreground">{location.name}, London</span>
                 </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Content Section */}
-          <section className="section-padding">
-            <div className="container-width">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {/* Main Content */}
-                <div className="lg:col-span-2">
-                  <div 
-                    className="prose prose-gray max-w-none"
-                    dangerouslySetInnerHTML={{ __html: location.content }}
-                  />
-                  
-                  {/* Features */}
-                  <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-3">
-                          <Star className="w-5 h-5 text-primary" />
-                          <CardTitle className="heading-sm">Premium Quality</CardTitle>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="body-sm text-muted-foreground">
-                          Only the finest companions, carefully selected for their elegance and sophistication.
-                        </p>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader>
-                        <div className="flex items-center gap-3">
-                          <Users className="w-5 h-5 text-primary" />
-                          <CardTitle className="heading-sm">Local Expertise</CardTitle>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="body-sm text-muted-foreground">
-                          Our escorts know {location.name} intimately and can enhance your experience.
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-
-                {/* Sidebar */}
-                <div className="space-y-8">
-                  {/* Contact Card */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="heading-md">Book Now</CardTitle>
-                      <CardDescription>
-                        Contact us to arrange your companion in {location.name}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <a href="tel:+442045678901" className="w-full">
-                        <Button className="w-full">
-                          <Phone className="w-4 h-4 mr-2" />
-                          Call Now
-                        </Button>
-                      </a>
-                      <Link to="/contact" className="block">
-                        <Button variant="outline" className="w-full">
-                          <Calendar className="w-4 h-4 mr-2" />
-                          Send Inquiry
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-
-                  {/* Quick Links */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="heading-md">Quick Links</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <Link 
-                        to="/models" 
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Browse Our Models
-                      </Link>
-                      <Link 
-                        to="/services" 
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Our Services
-                      </Link>
-                      <Link 
-                        to="/faq" 
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Frequently Asked Questions
-                      </Link>
-                      <Link 
-                        to="/reviews" 
-                        className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Client Reviews
-                      </Link>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Related Locations */}
-          <section className="section-padding bg-muted/50">
-            <div className="container-width">
-              <div className="text-center mb-12">
-                <h2 className="heading-lg mb-4">
-                  Other London Locations
-                </h2>
-                <p className="body-lg text-muted-foreground">
-                  Discover our services in other prestigious London districts
+                <h1 className="heading-xl mb-6">
+                  Luxury Escorts in {location.name}
+                </h1>
+                <p className="body-lg text-muted-foreground mb-8">
+                  Discover our stunning collection of elite escorts available in {location.name}. 
+                  Each companion is carefully selected for her beauty, intelligence, and sophistication.
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {relatedLocations.map((relatedLocation) => (
-                  <Card key={relatedLocation.id} className="hover:shadow-lg transition-shadow duration-300">
+            </div>
+          </section>
+
+          {/* Main Content Section */}
+          <section className="section-padding">
+            <div className="container-width">
+              <div className="space-y-12">
+                {/* Girls Available in this Location */}
+                <div>
+                  <h2 className="heading-lg mb-8 text-center">
+                    Available Girls in {location.name}
+                  </h2>
+                  
+                  {locationModels.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {locationModels.map((model) => (
+                        <ModelCard key={model.id} model={model} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <p className="body-lg text-muted-foreground mb-6">
+                        Currently no girls are specifically stationed in {location.name}, but our escorts are available throughout London.
+                      </p>
+                      <Link to="/models">
+                        <Button>Browse All Available Girls</Button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                {/* Location Information */}
+                <Card className="bg-muted/30">
+                  <CardContent className="p-8">
+                    <h3 className="heading-md mb-4">About {location.name}</h3>
+                    <p className="body-base text-muted-foreground">
+                      {location.description} Our elite companions in this prestigious area offer 
+                      the highest level of sophistication and discretion for discerning clients.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </section>
+
+          {/* Explore Other Locations */}
+          <section className="section-padding bg-muted/50">
+            <div className="container-width">
+              <h2 className="heading-lg text-center mb-8">
+                Explore Also: {otherLocations.map(loc => loc.name).join(', ')}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {otherLocations.map((loc) => (
+                  <Card key={loc.id} className="hover:shadow-lg transition-shadow">
                     <CardHeader>
-                      <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-                        <div>
-                          <CardTitle className="heading-sm mb-2">{relatedLocation.name}</CardTitle>
-                          <CardDescription className="body-sm">
-                            {relatedLocation.description}
-                          </CardDescription>
-                        </div>
-                      </div>
+                      <CardTitle className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        {loc.name}
+                      </CardTitle>
+                      <CardDescription>
+                        Find stunning girls in {loc.name}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Link to={`/locations/${relatedLocation.slug}`}>
+                      <Link to={`/${loc.slug}`}>
                         <Button variant="outline" className="w-full">
-                          View {relatedLocation.name}
+                          Girls in {loc.name}
+                          <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </Link>
                     </CardContent>

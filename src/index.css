@@ -102,6 +102,17 @@
   }
 }
 
+@layer utilities {
+  /* Five London Custom Transitions */
+  .transition-luxury {
+    transition: var(--transition-luxury);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}
+
 @layer components {
   /* Five London Component Classes */
   .five-london-text {

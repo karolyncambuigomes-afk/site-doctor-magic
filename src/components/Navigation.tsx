@@ -39,7 +39,7 @@ export const Navigation = () => {
         : 'bg-transparent'
     }`}>
       <div className="container-width">
-        <div className="flex items-center justify-between py-4">{/* Reduzido de py-8 para py-4 */}
+        <div className="flex items-center justify-between py-2 md:py-4">{/* Mais fino no mobile */}
           {/* Five London Logo */}
           <Link 
             to="/" 
@@ -93,7 +93,7 @@ export const Navigation = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="lg:hidden border-t border-border/30 bg-background/95 backdrop-blur-luxury">
-            <div className="container-width py-12">
+            <div className="container-width py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
                   <Link

@@ -91,9 +91,9 @@ export const ModelProfile: React.FC = () => {
       <Navigation />
 
       {/* Main Gallery Section */}
-      <section className="min-h-screen bg-background pt-20">
+      <section className="min-h-screen bg-background pt-32">
         {/* Hero Image Gallery */}
-        <div className="relative h-screen md:h-[50vh] lg:h-[60vh] w-full max-w-6xl mx-auto md:mt-8 md:rounded-lg overflow-hidden">
+        <div className="relative h-screen md:h-[50vh] lg:h-[60vh] w-full max-w-6xl mx-auto md:rounded-lg overflow-hidden">
           <img
             src={galleryImages[currentImageIndex]}
             alt={`${model.name} - Photo ${currentImageIndex + 1}`}

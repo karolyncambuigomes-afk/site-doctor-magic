@@ -3,7 +3,7 @@ import { ModelCard } from '@/components/ModelCard';
 import { models, Model } from '@/data/models';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Search, MapPin, Sparkles, Settings } from 'lucide-react';
+import { Search, MapPin, Sparkles, Settings, ChevronDown } from 'lucide-react';
 
 export const ModelsGallery: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -57,7 +57,7 @@ export const ModelsGallery: React.FC = () => {
         </section>
 
         {/* Sophisticated Filters */}
-        <section className="py-6 border-b border-border/50">
+        <section className="py-8 border-b border-border/50">
           <div className="container-width">
             <div className="flex flex-wrap gap-3 justify-center">
               {/* Search */}
@@ -68,17 +68,18 @@ export const ModelsGallery: React.FC = () => {
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-48 pl-9 pr-4 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all"
+                  className="w-48 pl-9 pr-4 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all"
                 />
               </div>
 
               {/* Location Filter */}
               <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
                 <select
                   value={selectedLocation}
                   onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-40 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                  className="w-40 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Areas</option>
                   {uniqueLocations.map(location => (
@@ -89,11 +90,12 @@ export const ModelsGallery: React.FC = () => {
 
               {/* Characteristic Filter */}
               <div className="relative">
-                <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
                 <select
                   value={selectedCharacteristic}
                   onChange={(e) => setSelectedCharacteristic(e.target.value)}
-                  className="w-44 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                  className="w-44 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Types</option>
                   {uniqueCharacteristics.map(characteristic => (
@@ -104,11 +106,12 @@ export const ModelsGallery: React.FC = () => {
 
               {/* Service Type Filter */}
               <div className="relative">
-                <Settings className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <Settings className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
+                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
                 <select
                   value={selectedServiceType}
                   onChange={(e) => setSelectedServiceType(e.target.value)}
-                  className="w-36 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                  className="w-36 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Services</option>
                   <option value="incall">Incall</option>

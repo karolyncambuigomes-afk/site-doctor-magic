@@ -20,15 +20,15 @@ const Locations = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-32">
+        <main className="pt-20">
           {/* Hero Section */}
-          <section className="section-padding bg-gradient-to-b from-muted/30 to-background">
+          <section className="py-8 bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="heading-xl mb-6">
+                <h1 className="heading-xl mb-4">
                   Find Girls by Location
                 </h1>
-                <p className="body-lg text-muted-foreground mb-8">
+                <p className="body-lg text-muted-foreground mb-6">
                   Browse our stunning escorts by their preferred London locations. 
                   Click on any area below to discover the beautiful girls available in that district.
                 </p>
@@ -37,7 +37,7 @@ const Locations = () => {
           </section>
 
           {/* Locations Grid */}
-          <section className="section-padding">
+          <section className="py-8">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {locations.map((location) => (
@@ -68,7 +68,7 @@ const Locations = () => {
           </section>
 
           {/* Call to Action */}
-          <section className="section-padding bg-muted/50">
+          <section className="py-8 bg-muted/50">
             <div className="container-width">
               <div className="text-center max-w-3xl mx-auto">
                 <h2 className="heading-lg mb-4">

@@ -44,19 +44,19 @@ const LocationDetail = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-32">
+        <main className="pt-20">
           {/* Hero Section */}
-          <section className="section-padding bg-gradient-to-b from-muted/30 to-background">
+          <section className="py-8 bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">
               <div className="max-w-4xl mx-auto text-center">
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <MapPin className="w-6 h-6 text-primary" />
                   <span className="body-lg text-muted-foreground">{location.name}, London</span>
                 </div>
-                <h1 className="heading-xl mb-6">
+                <h1 className="heading-xl mb-4">
                   Luxury Escorts in {location.name}
                 </h1>
-                <p className="body-lg text-muted-foreground mb-8">
+                <p className="body-lg text-muted-foreground mb-6">
                   Discover our stunning collection of elite escorts available in {location.name}. 
                   Each companion is carefully selected for her beauty, intelligence, and sophistication.
                 </p>
@@ -65,7 +65,7 @@ const LocationDetail = () => {
           </section>
 
           {/* Main Content Section */}
-          <section className="section-padding">
+          <section className="py-8">
             <div className="container-width">
               <div className="space-y-12">
                 {/* Girls Available in this Location */}
@@ -107,7 +107,7 @@ const LocationDetail = () => {
           </section>
 
           {/* Explore Other Locations */}
-          <section className="section-padding bg-muted/50">
+          <section className="py-8 bg-muted/50">
             <div className="container-width">
               <h2 className="heading-lg text-center mb-8">
                 Explore Also: {otherLocations.map(loc => loc.name).join(', ')}

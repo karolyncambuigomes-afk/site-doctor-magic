@@ -2,10 +2,11 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
-import { Shield, Clock, Heart, Star } from 'lucide-react';
+import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
 import { models } from '@/data/models';
+import { useState, useEffect } from 'react';
 
 const Index = () => {
   const structuredData = {
@@ -53,6 +54,27 @@ const Index = () => {
 
   // Debug - verificar se models está carregando
   console.log('Models array:', models, 'Length:', models?.length);
+
+  // Carrossel state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselImages = models.slice(0, 12); // Pegar 12 modelos para o carrossel
+
+  // Auto-play do carrossel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+    }, 4000); // Muda a cada 4 segundos
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
 
   return (
     <>
@@ -127,6 +149,88 @@ const Index = () => {
                   </span>
                 </div>
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Loro Piana Style - Photo Carousel */}
+        <section className="py-16 md:py-20 bg-muted/10 overflow-hidden">
+          <div className="max-w-full">
+            {/* Header */}
+            <div className="text-center mb-12 md:mb-16 px-4">
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground mb-4">
+                Gallery
+              </h2>
+              <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
+            </div>
+
+            {/* Carousel Container */}
+            <div className="relative">
+              {/* Main Carousel */}
+              <div className="flex transition-transform duration-700 ease-in-out">
+                {carouselImages.map((model, index) => {
+                  const position = (index - currentIndex + carouselImages.length) % carouselImages.length;
+                  const translateX = (position - 1) * 100; // Center the current image
+                  
+                  return (
+                    <div
+                      key={`${model.id}-${index}`}
+                      className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-1 sm:px-2"
+                      style={{
+                        transform: `translateX(${translateX}%)`,
+                        transition: 'transform 700ms ease-in-out'
+                      }}
+                    >
+                      <Link 
+                        to={`/models/${model.id}`}
+                        className="block relative overflow-hidden aspect-[3/4] group"
+                      >
+                        <img
+                          src={model.image}
+                          alt={`${model.name} - Gallery`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        
+                        {/* Overlay Info */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                          <h3 className="text-white text-sm font-light">{model.name}</h3>
+                          <p className="text-white/80 text-xs">{model.location}</p>
+                        </div>
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="flex justify-center mt-8 space-x-2">
+                {carouselImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentIndex ? 'bg-foreground' : 'bg-foreground/30'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>

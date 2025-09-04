@@ -68,9 +68,9 @@ export const Navigation = () => {
           </div>
 
           {/* Contact */}
-          <div className="hidden lg:flex flex-col items-end space-y-2 flex-1 justify-center pr-8 lg:pr-16">
+          <div className="hidden lg:flex flex-col items-center space-y-2 flex-1 justify-center pr-8 lg:pr-16">
             <Link to="/contact">
-              <button className="five-london-button-outline">
+              <button className="five-london-button-outline text-xs px-4 py-1.5">
                 Enquire
               </button>
             </Link>

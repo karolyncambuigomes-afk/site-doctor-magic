@@ -126,62 +126,72 @@ const Services = () => {
       
       <Navigation />
       
-      <main className="pt-20">
+      <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-8 bg-gradient-dark text-secondary-foreground">
+        <section className="py-20 lg:py-24 bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 animate-fade-in-up">
+            <h1 className="heading-lg mb-6 animate-fade-in-up">
               Our <span className="luxury-text-gradient">Services</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto animate-fade-in">
-              From intimate dinner dates to exclusive business events, we provide sophisticated companionship tailored to every occasion and preference
+            <p className="body-minimal text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-fade-in">
+              Sophisticated companionship tailored to every occasion. From intimate dinner dates to exclusive business events, experience luxury redefined.
             </p>
           </div>
         </section>
 
         {/* Services Grid */}
-        <section className="py-8 bg-background">
+        <section className="py-16 lg:py-20 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="text-center mb-12 animate-fade-in">
+              <h2 className="heading-md mb-4">
+                Exquisite <span className="luxury-text-gradient">Experiences</span>
+              </h2>
+              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto">
+                Each service crafted to perfection with uncompromising attention to detail
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
               {services.map((service, index) => (
                 <Card 
                   key={service.title}
-                  className="luxury-card p-8 group hover:scale-105 transition-all duration-300"
+                  className="luxury-card p-8 group hover:scale-[1.02] transition-all duration-500 border-0 shadow-xl"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="flex items-start space-x-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="w-8 h-8 text-primary" />
+                    <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl flex-shrink-0 group-hover:from-primary/30 group-hover:to-primary/20 transition-all duration-300">
+                      <service.icon className="w-10 h-10 text-primary" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-heading font-bold mb-3">{service.title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                      <h3 className="heading-sm mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                      <p className="body-sm text-muted-foreground mb-6 leading-relaxed">
                         {service.description}
                       </p>
                       
                       <div className="space-y-4">
                         <div>
-                          <h4 className="font-semibold text-sm uppercase tracking-wide text-primary mb-2">Features</h4>
-                          <ul className="grid grid-cols-2 gap-1 text-sm text-muted-foreground">
+                          <h4 className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">Included Features</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {service.features.map((feature, i) => (
-                              <li key={i} className="flex items-center">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></div>
+                              <div key={i} className="flex items-center text-sm text-muted-foreground">
+                                <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3 flex-shrink-0"></div>
                                 {feature}
-                              </li>
+                              </div>
                             ))}
-                          </ul>
-                        </div>
-                        
-                        <div className="flex justify-between items-center text-sm">
-                          <div>
-                            <span className="font-semibold text-primary">Duration: </span>
-                            <span className="text-muted-foreground">{service.duration}</span>
                           </div>
                         </div>
                         
-                        <p className="text-sm text-muted-foreground italic">
-                          {service.ideal}
-                        </p>
+                        <div className="pt-4 border-t border-border/50">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                              <span className="text-xs font-semibold text-primary">Duration:</span>
+                              <span className="text-sm text-muted-foreground">{service.duration}</span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-muted-foreground/80 italic mt-3">
+                            {service.ideal}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -192,14 +202,14 @@ const Services = () => {
         </section>
 
         {/* Booking Process */}
-        <section className="py-8 bg-muted/50">
+        <section className="py-16 lg:py-20 bg-muted/30">
           <div className="container-width">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            <div className="text-center mb-12 animate-fade-in">
+              <h2 className="heading-md mb-4">
                 How to <span className="luxury-text-gradient">Book</span>
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Our simple and discreet booking process ensures your perfect experience
+              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto">
+                Our discreet and seamless booking process ensures your perfect experience
               </p>
             </div>
 
@@ -208,30 +218,30 @@ const Services = () => {
                 {
                   step: "01",
                   title: "Choose Your Service",
-                  description: "Browse our services and select the perfect companionship experience for your needs"
+                  description: "Browse our curated services and select the perfect experience"
                 },
                 {
                   step: "02", 
                   title: "Contact Our Team",
-                  description: "Reach out via phone, email, or our contact form to discuss your requirements"
+                  description: "Reach out discreetly to discuss your requirements"
                 },
                 {
                   step: "03",
                   title: "Enjoy Your Experience",
-                  description: "Meet your chosen companion and enjoy an unforgettable, sophisticated experience"
+                  description: "Meet your chosen companion for an unforgettable encounter"
                 }
               ].map((step, index) => (
                 <Card 
                   key={step.step}
-                  className="luxury-card p-8 text-center relative overflow-hidden"
+                  className="luxury-card p-8 text-center relative overflow-hidden border-0 shadow-lg group hover:scale-105 transition-all duration-300"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <div className="absolute top-4 right-4 text-6xl font-bold text-primary/10">
+                  <div className="absolute top-4 right-4 text-7xl font-bold text-primary/8 group-hover:text-primary/12 transition-colors">
                     {step.step}
                   </div>
                   <div className="relative z-10">
-                    <h3 className="text-xl font-heading font-bold mb-4">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
+                    <h3 className="heading-sm mb-4 group-hover:text-primary transition-colors">{step.title}</h3>
+                    <p className="body-sm text-muted-foreground">{step.description}</p>
                   </div>
                 </Card>
               ))}
@@ -240,75 +250,62 @@ const Services = () => {
         </section>
 
         {/* Pricing Information */}
-        <section className="py-8 bg-background">
+        <section className="py-16 lg:py-20 bg-background">
           <div className="container-width">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            <div className="text-center mb-12 animate-fade-in">
+              <h2 className="heading-md mb-4">
                 <span className="luxury-text-gradient">Transparent</span> Pricing
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Our rates are competitive and transparent with no hidden fees
+              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto">
+                Competitive rates with complete transparency and no hidden fees
               </p>
             </div>
 
-            <Card className="luxury-card p-8 max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="luxury-card p-10 max-w-5xl mx-auto border-0 shadow-xl">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 <div>
-                  <h3 className="text-2xl font-heading font-bold mb-4">What's Included</h3>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      Professional companion service
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      Sophisticated conversation and companionship
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      Elegant presentation and attire
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      Complete discretion and confidentiality
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                      Dedicated concierge support
-                    </li>
-                  </ul>
+                  <h3 className="heading-sm mb-6">What's Included</h3>
+                  <div className="space-y-4">
+                    {[
+                      "Professional companion service",
+                      "Sophisticated conversation and companionship", 
+                      "Elegant presentation and attire",
+                      "Complete discretion and confidentiality",
+                      "Dedicated concierge support"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center">
+                        <div className="w-2 h-2 bg-primary rounded-full mr-4 flex-shrink-0"></div>
+                        <span className="body-sm text-muted-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-heading font-bold mb-4">Additional Information</h3>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                      Rates vary by companion and duration
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                      Travel expenses separate for outcalls
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                      Payment required in advance
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                      Cancellation policy applies
-                    </li>
-                    <li className="flex items-center">
-                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
-                      Custom packages available
-                    </li>
-                  </ul>
+                  <h3 className="heading-sm mb-6">Additional Information</h3>
+                  <div className="space-y-4">
+                    {[
+                      "Rates vary by companion and duration",
+                      "Travel expenses separate for outcalls",
+                      "Payment required in advance", 
+                      "Cancellation policy applies",
+                      "Custom packages available"
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center">
+                        <div className="w-2 h-2 bg-accent rounded-full mr-4 flex-shrink-0"></div>
+                        <span className="body-sm text-muted-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="text-center mt-8 pt-8 border-t border-border">
-                <p className="text-muted-foreground mb-4">
+              <div className="text-center mt-10 pt-8 border-t border-border/50">
+                <p className="body-sm text-muted-foreground mb-6">
                   For detailed pricing information and custom packages, please contact our team
                 </p>
-                <Button className="luxury-button text-lg px-8 py-4">
+                <Button 
+                  className="luxury-button text-lg px-8 py-4"
+                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                >
                   Get Pricing Information
                 </Button>
               </div>
@@ -317,23 +314,27 @@ const Services = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-8 bg-gradient-dark text-secondary-foreground">
+        <section className="py-16 lg:py-20 bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            <h2 className="heading-md mb-4">
               Ready to <span className="luxury-text-gradient">Book Your Experience</span>?
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="body-minimal text-muted-foreground mb-8 max-w-2xl mx-auto">
               Contact our concierge team to arrange your perfect companion for any occasion
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Button className="luxury-button text-lg px-8 py-4">
+              <Button 
+                className="luxury-button text-lg px-8 py-4"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+              >
                 Book Now
               </Button>
               <Button 
                 variant="outline" 
                 className="text-lg px-8 py-4 border-2 border-primary/30 text-secondary-foreground hover:bg-primary/10"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
-                Call: +44 20 4567 8901
+                Contact Us
               </Button>
             </div>
           </div>

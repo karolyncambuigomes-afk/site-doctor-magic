@@ -58,27 +58,25 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
         </div>
         
         {/* Overlay Content */}
-        {imageLoaded && !imageError && (
-          <>
-            <div className="model-card-overlay" />
-            <div className="model-card-content">
-              <div className="space-y-3">
-                <div>
-                  <h3 className="heading-sm text-white mb-2">{model.name}</h3>
-                  <p className="caption text-white/80">
-                    {model.age} • {model.location}
-                  </p>
-                </div>
-                
-                <div className="w-12 h-px bg-white/30"></div>
-                
-                <p className="body-sm text-white/90 line-clamp-2">
-                  {model.description}
+        <>
+          <div className="model-card-overlay" />
+          <div className="model-card-content">
+            <div className="space-y-3">
+              <div>
+                <h3 className="heading-sm text-white mb-2">{model.name}</h3>
+                <p className="caption text-white/80">
+                  {model.age} • {model.location}
                 </p>
               </div>
+              
+              <div className="w-12 h-px bg-white/30"></div>
+              
+              <p className="body-sm text-white/90 line-clamp-2">
+                {model.description}
+              </p>
             </div>
-          </>
-        )}
+          </div>
+        </>
       </div>
     </Link>
   );

@@ -200,9 +200,6 @@ const Index = () => {
           <div className="max-w-full">
             {/* Header */}
             <div className="text-center mb-12 md:mb-16 px-4">
-              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground mb-4">
-                Gallery
-              </h2>
               <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
             </div>
 

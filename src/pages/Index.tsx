@@ -104,15 +104,15 @@ const Index = () => {
               
               <div className="space-y-6 text-muted-foreground">
                 <p className="text-lg md:text-xl font-light leading-relaxed">
-                  Somos uma agência de elite especializada em oferecer acompanhantes de luxo em Londres. 
-                  Nossa seleção cuidadosa garante que cada uma de nossas acompanhantes seja sofisticada, 
-                  elegante e dedicada a proporcionar experiências excepcionais.
+                  We are an elite agency specializing in luxury companions in London. 
+                  Our careful selection ensures that each of our companions is sophisticated, 
+                  elegant and dedicated to providing exceptional experiences.
                 </p>
                 
                 <p className="text-base md:text-lg leading-relaxed">
-                  Com discrição absoluta e serviço personalizado, atendemos clientes exigentes que buscam 
-                  companhia refinada para eventos sociais, jantares de negócios ou momentos especiais. 
-                  Disponível 24 horas por dia, 7 dias por semana.
+                  With absolute discretion and personalized service, we cater to discerning clients 
+                  seeking refined companionship for social events, business dinners or special moments. 
+                  Available 24 hours a day, 7 days a week.
                 </p>
               </div>
 
@@ -140,14 +140,6 @@ const Index = () => {
         {/* Loro Piana Style - Models Gallery */}
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">
-            {/* Minimal Header */}
-            <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground mb-4">
-                Our Companions
-              </h2>
-              <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
-            </div>
-
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
               {models && models.length > 0 ? models.slice(0, 8).map((model, index) => (

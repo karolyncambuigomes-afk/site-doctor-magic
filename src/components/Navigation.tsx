@@ -37,10 +37,10 @@ export const Navigation = () => {
     }`}>
       <div className="container-width">
         <div className="flex items-center justify-between py-6">
-          {/* Logo */}
+          {/* Five London Logo */}
           <Link 
             to="/" 
-            className="text-2xl font-light tracking-wide text-foreground transition-colors hover:text-muted-foreground"
+            className="text-2xl font-light tracking-[0.2em] text-foreground transition-luxury hover:text-accent uppercase"
           >
             Five London
           </Link>
@@ -68,7 +68,7 @@ export const Navigation = () => {
             >
               +44 20 4567 8901
             </a>
-            <Button className="minimal-button-outline">
+            <Button className="five-london-button-outline">
               Book Now
             </Button>
           </div>
@@ -106,7 +106,7 @@ export const Navigation = () => {
                   >
                     +44 20 4567 8901
                   </a>
-                  <Button className="minimal-button w-full">Book Now</Button>
+                  <Button className="five-london-button w-full">Book Now</Button>
                 </div>
               </div>
             </div>

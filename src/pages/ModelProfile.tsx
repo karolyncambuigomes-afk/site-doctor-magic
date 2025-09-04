@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { models } from '@/data/models';
 import { Button } from '@/components/ui/button';
@@ -17,26 +17,36 @@ import {
   User,
   Ruler,
   Eye,
-  GraduationCap
+  GraduationCap,
+  ChevronDown
 } from 'lucide-react';
 import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 
 export const ModelProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const model = models.find(m => m.id === id);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   if (!model) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-2xl font-bold mb-4">Model Not Found</h1>
-        <p className="text-muted-foreground mb-6">The model you're looking for doesn't exist.</p>
-        <Link to="/models">
-          <Button>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Gallery
-          </Button>
-        </Link>
-      </div>
+      <>
+        <Navigation />
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="text-center space-y-8">
+            <h1 className="heading-lg text-foreground">Model Not Found</h1>
+            <p className="body-minimal text-muted-foreground">The model you're looking for doesn't exist.</p>
+            <Link to="/models">
+              <Button className="five-london-button-outline">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Gallery
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </>
     );
   }
 
@@ -49,7 +59,7 @@ export const ModelProfile: React.FC = () => {
       case 'unavailable':
         return 'text-red-500';
       default:
-        return 'text-gray-500';
+        return 'text-muted-foreground';
     }
   };
 
@@ -74,185 +84,216 @@ export const ModelProfile: React.FC = () => {
         keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`}
       />
       
-      <div className="container mx-auto px-4 py-8">
-        {/* Back Button */}
-        <div className="mb-6">
-          <Link to="/models">
-            <Button variant="ghost" className="mb-4">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Gallery
-            </Button>
-          </Link>
+      <Navigation />
+      
+      {/* Hero Section with Cover Image (Five London Style) */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Cover Image with Blur Overlay */}
+        <div className="absolute inset-0">
+          <img
+            src={model.image}
+            alt={`${model.name} cover`}
+            className="w-full h-full object-cover"
+            style={{ filter: 'blur(8px) brightness(0.7)' }}
+          />
+          <div className="five-london-hero-overlay"></div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Image Section */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8">
-              <Card className="overflow-hidden">
-                <img
-                  src={model.image}
-                  alt={model.name}
-                  className="w-full aspect-[3/4] object-cover"
-                />
-              </Card>
-              
-              {/* Action Buttons */}
-              <div className="mt-6 space-y-3">
-                <Button className="w-full" size="lg">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Book Now
-                </Button>
-                <Button variant="outline" className="w-full">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Send Message
-                </Button>
-                <Button variant="ghost" className="w-full">
-                  <Heart className="mr-2 h-4 w-4" />
-                  Add to Favorites
-                </Button>
-              </div>
+        
+        {/* Centered Content */}
+        <div className="relative z-20 h-full flex items-center justify-center">
+          <div className="text-center space-y-8">
+            {/* Circular Profile Image */}
+            <div className="relative">
+              <img
+                src={model.image}
+                alt={model.name}
+                className="five-london-circular-image"
+                onLoad={() => setImageLoaded(true)}
+              />
+              {/* Golden Border Animation */}
+              <div className="absolute inset-0 w-48 h-48 rounded-full border-4 border-accent mx-auto animate-glow"></div>
+            </div>
+            
+            {/* Model Name & Location */}
+            <div className="space-y-4">
+              <h1 className="heading-hero text-white text-shadow-luxury">
+                {model.name}
+              </h1>
+              <p className="body-luxury text-white/90 tracking-widest">
+                {model.location}
+              </p>
+            </div>
+            
+            {/* CTA Button */}
+            <div className="pt-8">
+              <Button className="five-london-button-outline bg-white/10 text-white border-white hover:bg-white hover:text-primary">
+                Book Me Below →
+              </Button>
             </div>
           </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70">
+          <ChevronDown className="w-8 h-8 animate-bounce" />
+        </div>
+      </section>
 
-          {/* Content Section */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Header */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h1 className="text-4xl font-bold text-foreground mb-2">{model.name}</h1>
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <span>{model.age} years old</span>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <MapPin className="h-4 w-4" />
-                      {model.location}
-                    </div>
+      {/* About Section */}
+      <section className="section-padding bg-background">
+        <div className="container-width">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Model Image */}
+            <div className="order-2 lg:order-1">
+              <img
+                src={model.image}
+                alt={`About ${model.name}`}
+                className="w-full aspect-[3/4] object-cover"
+              />
+            </div>
+            
+            {/* About Content */}
+            <div className="order-1 lg:order-2 space-y-8">
+              <div className="space-y-4">
+                <h2 className="heading-lg text-foreground">About {model.name}</h2>
+                <p className="body-luxury text-muted-foreground leading-relaxed">
+                  {model.description}
+                </p>
+              </div>
+              
+              {/* Availability & Price */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="body-minimal text-muted-foreground">Availability:</span>
+                  <div className={`flex items-center gap-2 ${getAvailabilityColor(model.availability)}`}>
+                    <Clock className="h-4 w-4" />
+                    <span className="font-medium">{getAvailabilityText(model.availability)}</span>
                   </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-3xl font-bold text-primary mb-1">{model.price}</div>
-                  <div className={`flex items-center gap-1 ${getAvailabilityColor(model.availability)}`}>
-                    <Clock className="h-4 w-4" />
-                    {getAvailabilityText(model.availability)}
-                  </div>
+                <div className="flex items-center justify-between">
+                  <span className="body-minimal text-muted-foreground">Starting from:</span>
+                  <span className="heading-md text-primary">{model.price}</span>
                 </div>
               </div>
               
               {/* Rating */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
-                  <Star className="h-5 w-5 fill-primary text-primary" />
-                  <span className="text-lg font-semibold">{model.rating}</span>
+                  <Star className="h-5 w-5 fill-accent text-accent" />
+                  <span className="heading-md text-foreground">{model.rating}</span>
                 </div>
-                <span className="text-muted-foreground">({model.reviews} reviews)</span>
+                <span className="body-sm">({model.reviews} reviews)</span>
               </div>
-              
-              {/* Description */}
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                {model.description}
-              </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <Separator />
-
-            {/* Details Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Physical Details */}
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  Physical Details
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Height:</span>
-                    <span>{model.height}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Measurements:</span>
-                    <span>{model.measurements}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Hair:</span>
-                    <span>{model.hair}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Eyes:</span>
-                    <span>{model.eyes}</span>
-                  </div>
+      {/* Details Section */}
+      <section className="section-padding bg-muted/30">
+        <div className="container-width">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Physical Details */}
+            <Card className="five-london-card p-8">
+              <h3 className="heading-md mb-6 flex items-center gap-3">
+                <User className="h-6 w-6 text-accent" />
+                Physical Details
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Height:</span>
+                  <span className="body-minimal text-foreground">{model.height}</span>
                 </div>
-              </Card>
-
-              {/* Personal Details */}
-              <Card className="p-6">
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
-                  Personal Details
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Nationality:</span>
-                    <span>{model.nationality}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Education:</span>
-                    <span>{model.education}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Languages:</span>
-                    <span>{model.languages.join(', ')}</span>
-                  </div>
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Measurements:</span>
+                  <span className="body-minimal text-foreground">{model.measurements}</span>
                 </div>
-              </Card>
-            </div>
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Hair:</span>
+                  <span className="body-minimal text-foreground">{model.hair}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Eyes:</span>
+                  <span className="body-minimal text-foreground">{model.eyes}</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* Personal Details */}
+            <Card className="five-london-card p-8">
+              <h3 className="heading-md mb-6 flex items-center gap-3">
+                <Globe className="h-6 w-6 text-accent" />
+                Personal Details
+              </h3>
+              <div className="space-y-4">
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Nationality:</span>
+                  <span className="body-minimal text-foreground">{model.nationality}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Education:</span>
+                  <span className="body-minimal text-foreground">{model.education}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="body-minimal text-muted-foreground">Languages:</span>
+                  <span className="body-minimal text-foreground">{model.languages.join(', ')}</span>
+                </div>
+              </div>
+            </Card>
 
             {/* Services */}
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Services Offered</h3>
+            <Card className="five-london-card p-8">
+              <h3 className="heading-md mb-6">Services Offered</h3>
               <div className="flex flex-wrap gap-2">
                 {model.services.map((service) => (
-                  <Badge key={service} variant="secondary" className="text-sm">
+                  <Badge key={service} variant="secondary" className="body-sm font-light">
                     {service}
                   </Badge>
                 ))}
               </div>
             </Card>
-
-            {/* Interests */}
-            <Card className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Interests & Hobbies</h3>
-              <div className="flex flex-wrap gap-2">
-                {model.interests.map((interest) => (
-                  <Badge key={interest} variant="outline" className="text-sm">
-                    {interest}
-                  </Badge>
-                ))}
-              </div>
-            </Card>
-
-            {/* Contact Information */}
-            <Card className="p-6 bg-primary/5 border-primary/20">
-              <h3 className="text-xl font-semibold mb-4">Book {model.name}</h3>
-              <p className="text-muted-foreground mb-4">
-                To arrange a meeting with {model.name}, please contact us through one of the methods below. 
-                All arrangements are handled with complete discretion and professionalism.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button className="flex-1">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Call Now
-                </Button>
-                <Button variant="outline" className="flex-1">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  WhatsApp
-                </Button>
-              </div>
-            </Card>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Interests Section */}
+      <section className="section-padding bg-background">
+        <div className="container-width">
+          <Card className="five-london-card p-12">
+            <h3 className="heading-lg mb-8 text-center">Interests & Hobbies</h3>
+            <div className="flex flex-wrap justify-center gap-3">
+              {model.interests.map((interest) => (
+                <Badge key={interest} variant="outline" className="body-minimal font-light px-4 py-2">
+                  {interest}
+                </Badge>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* Booking Section */}
+      <section className="section-padding bg-primary text-primary-foreground">
+        <div className="container-width text-center space-y-8">
+          <h2 className="heading-lg">Book {model.name}</h2>
+          <p className="body-luxury max-w-2xl mx-auto">
+            To arrange a meeting with {model.name}, please contact us through one of the methods below. 
+            All arrangements are handled with complete discretion and professionalism.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <Button className="five-london-button-outline border-white text-white hover:bg-white hover:text-primary flex-1">
+              <Phone className="mr-2 h-4 w-4" />
+              Call Now
+            </Button>
+            <Button className="five-london-button-outline border-white text-white hover:bg-white hover:text-primary flex-1">
+              <MessageCircle className="mr-2 h-4 w-4" />
+              WhatsApp
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </>
   );
 };

@@ -66,110 +66,87 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Featured Companions - Elegant Design */}
-        <section className="py-20 lg:py-24 bg-background relative overflow-hidden">
-          {/* Subtle background pattern */}
-          <div className="absolute inset-0 opacity-[0.02]">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary to-accent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-accent to-primary rounded-full blur-3xl"></div>
-          </div>
-          
-          <div className="container-width-lg relative z-10">
-            <div className="text-center mb-16 animate-fade-in">
-              <div className="inline-flex items-center space-x-4 mb-6">
-                <div className="w-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-                <span className="caption text-primary tracking-[0.3em]">CURATED SELECTION</span>
-                <div className="w-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
-              </div>
-              
-              <h2 className="heading-lg mb-6">
-                Selected <span className="luxury-text-gradient">Companions</span>
+        {/* Loro Piana Style - Models Gallery */}
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
+          <div className="container-width-lg">
+            {/* Minimal Header */}
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground mb-4">
+                Our Companions
               </h2>
-              
-              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Meet our carefully selected companions, each embodying elegance, sophistication, 
-                and the highest standards of discretion for your perfect London experience.
-              </p>
+              <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 md:gap-8 lg:gap-10">
-              {models.slice(0, 4).map((model, index) => (
-                <div 
+            {/* Gallery Grid - Loro Piana Style */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+              {models.slice(0, 8).map((model, index) => (
+                <Link 
                   key={model.id}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 0.15}s` }}
+                  to={`/models/${model.id}`} 
+                  className="group block relative overflow-hidden aspect-[3/4] bg-muted"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <ModelCard model={model} />
-                </div>
+                  <img
+                    src={model.image}
+                    alt={`${model.name} - Luxury Companion`}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  
+                  {/* Subtle Overlay - Only on Hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
+                  
+                  {/* Minimal Info - Bottom Left */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
+                    <div className="text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                      <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
+                        {model.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-white/80">
+                        {model.location}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
 
-            <div className="text-center">
-              <Link to="/models" className="group">
-                <button className="luxury-button px-10 py-4 text-base relative overflow-hidden">
-                  <span className="relative z-10">View All Companions</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                </button>
+            {/* View All Button - Loro Piana Style */}
+            <div className="text-center mt-12 md:mt-16">
+              <Link to="/models" className="group inline-block">
+                <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-8 py-3">
+                  <span className="text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
+                    View All
+                  </span>
+                </div>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Philosophy - Ultra Minimal */}
-        <section className="py-8 bg-gradient-subtle">
-          <div className="container-width">
-            <div className="max-w-4xl mx-auto text-center space-y-12">
-              <div className="space-y-8">
-                <h2 className="heading-lg">
-                  Our Philosophy
-                </h2>
-                <p className="body-luxury">
-                  We believe luxury lies in the details — the perfect conversation, 
-                  the thoughtful gesture, the seamless experience that transforms 
-                  an evening into an unforgettable memory.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {features.map((feature) => (
-                  <div key={feature.title} className="space-y-6 text-center">
-                    <div className="inline-flex items-center justify-center w-12 h-12 text-muted-foreground">
-                      <feature.icon className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="heading-sm">{feature.title}</h3>
-                      <p className="body-sm">{feature.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Simple CTA */}
-        <section className="py-8">
+        {/* Minimal Contact Section - Loro Piana Style */}
+        <section className="py-16 md:py-20 bg-muted/10">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto space-y-8">
-              <div className="space-y-8">
-                <h2 className="heading-lg">
-                  Begin Your Experience
-                </h2>
-                <p className="body-luxury">
-                  Contact us to arrange your perfect companion. 
-                  Available 24/7 for immediate bookings.
-                </p>
-              </div>
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground">
+                Begin Your Experience
+              </h2>
+              
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                Contact us to arrange your perfect companion. Available 24/7 for immediate bookings.
+              </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-                <Link to="/contact">
-                  <button className="five-london-button">
-                    Enquire Now
-                  </button>
+                <Link to="/contact" className="group">
+                  <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-8 py-3">
+                    <span className="text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
+                      Enquire Now
+                    </span>
+                  </div>
                 </Link>
                 <a 
                   href="tel:+442045678901"
-                  className="caption hover:text-foreground transition-luxury"
+                  className="text-sm tracking-[0.1em] text-muted-foreground hover:text-foreground transition-colors"
                 >
                   +44 20 4567 8901
                 </a>

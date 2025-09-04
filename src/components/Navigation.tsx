@@ -35,7 +35,7 @@ export const Navigation = () => {
           {/* Five London Logo */}
           <Link 
             to="/" 
-            className="font-heading font-light text-2xl lg:text-3xl tracking-[0.3em] text-foreground transition-luxury hover:text-accent uppercase"
+            className="font-heading font-light text-lg lg:text-xl tracking-[0.2em] text-foreground/80 transition-luxury hover:text-foreground uppercase"
           >
             Five London
           </Link>

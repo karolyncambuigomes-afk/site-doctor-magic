@@ -105,18 +105,12 @@ const Index = () => {
             </div>
 
             <div className="text-center">
-              <div className="inline-flex flex-col items-center space-y-6">
-                <Link to="/models" className="group">
-                  <button className="luxury-button px-10 py-4 text-base relative overflow-hidden">
-                    <span className="relative z-10">View All Companions</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                  </button>
-                </Link>
-                
-                <p className="caption text-muted-foreground/60">
-                  Discover more exclusive companions in our complete gallery
-                </p>
-              </div>
+              <Link to="/models" className="group">
+                <button className="luxury-button px-10 py-4 text-base relative overflow-hidden">
+                  <span className="relative z-10">View All Companions</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                </button>
+              </Link>
             </div>
           </div>
         </section>

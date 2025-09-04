@@ -64,9 +64,9 @@ export default {
 				'gradient-dark': 'var(--gradient-dark)',
 			},
 			boxShadow: {
-				'luxury': 'var(--shadow-luxury)',
-				'elegant': 'var(--shadow-elegant)',
-				'glow': 'var(--shadow-glow)',
+				'minimal': '0 1px 3px 0 hsl(0 0% 0% / 0.1)',
+				'elegant': '0 4px 6px -1px hsl(0 0% 0% / 0.1)',
+				'luxury': '0 20px 25px -5px hsl(0 0% 0% / 0.1)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

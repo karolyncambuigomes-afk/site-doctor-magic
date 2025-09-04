@@ -4,6 +4,9 @@ import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Shield, Award, Heart, Users, Clock, Star } from 'lucide-react';
+import aboutLuxury1 from '@/assets/about-luxury-1.jpg';
+import aboutLuxury2 from '@/assets/about-luxury-2.jpg';
+import aboutLuxury3 from '@/assets/about-luxury-3.jpg';
 
 const About = () => {
   const structuredData = {
@@ -87,8 +90,13 @@ const About = () => {
                 </Button>
               </div>
               <div className="relative animate-fade-in">
-                <div className="bg-gradient-luxury rounded-2xl h-96 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20"></div>
+                <div className="rounded-2xl h-96 relative overflow-hidden">
+                  <img 
+                    src={aboutLuxury1} 
+                    alt="Elegant woman in luxury hotel lobby"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30"></div>
                   <div className="absolute bottom-6 left-6 text-white">
                     <h3 className="heading-sm font-bold">Excellence Since 2018</h3>
                     <p className="body-sm opacity-90">London's Premier Agency</p>
@@ -126,8 +134,13 @@ const About = () => {
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-fade-in">
-                <div className="bg-gradient-luxury rounded-2xl h-96 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-black/20"></div>
+                <div className="rounded-2xl h-96 relative overflow-hidden">
+                  <img 
+                    src={aboutLuxury2} 
+                    alt="Elegant woman at fine dining restaurant"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30"></div>
                 </div>
               </div>
               <div className="animate-fade-in-up">

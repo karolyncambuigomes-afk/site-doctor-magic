@@ -92,7 +92,7 @@ export const ModelProfile: React.FC = () => {
       <Navigation />
 
       {/* Main Gallery Section */}
-      <section className="min-h-screen bg-background pt-32">
+      <section className="min-h-screen bg-background pt-20">
         {/* Hero Image Gallery */}
         <div className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] w-full md:w-auto md:max-w-md lg:max-w-lg mx-auto md:rounded-lg overflow-hidden md:aspect-[3/4]">
           <img
@@ -157,7 +157,7 @@ export const ModelProfile: React.FC = () => {
         )}
 
         {/* Model Details */}
-        <div className="max-w-4xl mx-auto p-6 md:p-8">
+        <div className="max-w-4xl mx-auto p-4 md:p-6">
           {/* Model Header */}
           <div className="text-center space-y-4 pb-8 mb-8 border-b border-border">
             <h1 className="text-3xl md:text-4xl font-light tracking-wide text-foreground">{model.name}</h1>

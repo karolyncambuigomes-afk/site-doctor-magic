@@ -1,3 +1,11 @@
+// Import das imagens
+import model1 from '@/assets/model1.jpg';
+import model2 from '@/assets/model2.jpg';
+import model3 from '@/assets/model3.jpg';
+import model4 from '@/assets/model4.jpg';
+import luisa1 from '@/assets/luisa1.jpg';
+import kate1 from '@/assets/kate1.jpg';
+
 export interface Model {
   id: string;
   name: string;
@@ -28,8 +36,8 @@ export const models: Model[] = [
     age: 24,
     location: 'Mayfair',
     price: '£500/hour',
-    image: '/images/model1.jpg',
-    gallery: ['/images/model1.jpg'],
+    image: model1,
+    gallery: [model1],
     services: ['Dinner Companion', 'Event Escort', 'Private Meetings'],
     languages: ['English', 'Portuguese', 'Spanish'],
     availability: 'available',
@@ -50,8 +58,8 @@ export const models: Model[] = [
     age: 26,
     location: 'Kensington',
     price: '£600/hour',
-    image: '/images/model2.jpg',
-    gallery: ['/images/model2.jpg'],
+    image: model2,
+    gallery: [model2],
     services: ['Social Events', 'Business Dinners', 'Travel Companion'],
     languages: ['English', 'French', 'Italian'],
     availability: 'available',
@@ -72,8 +80,8 @@ export const models: Model[] = [
     age: 23,
     location: 'Chelsea',
     price: '£550/hour',
-    image: '/images/model3.jpg',
-    gallery: ['/images/model3.jpg'],
+    image: model3,
+    gallery: [model3],
     services: ['Evening Companion', 'Cultural Events', 'Weekend Getaways'],
     languages: ['English', 'German'],
     availability: 'busy',
@@ -94,8 +102,8 @@ export const models: Model[] = [
     age: 25,
     location: 'Canary Wharf',
     price: '£650/hour',
-    image: '/images/model4.jpg',
-    gallery: ['/images/model4.jpg'],
+    image: model4,
+    gallery: [model4],
     services: ['Executive Dinners', 'International Events', 'Private Escort'],
     languages: ['English', 'Mandarin', 'Japanese'],
     availability: 'available',
@@ -116,8 +124,8 @@ export const models: Model[] = [
     age: 22,
     location: 'Belgravia',
     price: '£580/hour',
-    image: '/images/luisa1.jpg',
-    gallery: ['/images/luisa1.jpg'],
+    image: luisa1,
+    gallery: [luisa1],
     services: ['Dinner Companion', 'Social Events', 'Travel Companion'],
     languages: ['English', 'Portuguese', 'Spanish'],
     availability: 'available',
@@ -138,8 +146,8 @@ export const models: Model[] = [
     age: 27,
     location: 'Notting Hill',
     price: '£620/hour',
-    image: '/images/kate1.jpg',
-    gallery: ['/images/kate1.jpg'],
+    image: kate1,
+    gallery: [kate1],
     services: ['Business Events', 'Cultural Activities', 'Weekend Escapes'],
     languages: ['English', 'French'],
     availability: 'available',

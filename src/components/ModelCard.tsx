@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Model } from '@/data/models';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ interface ModelCardProps {
 }
 
 export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   const getAvailabilityColor = (availability: Model['availability']) => {
     switch (availability) {
@@ -24,24 +23,20 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
 
   return (
     <Link to={`/models/${model.id}`} className="model-card block">
-      <div className="relative overflow-hidden">
-        <div className={`aspect-[3/4] bg-muted transition-opacity duration-500 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`} />
+      <div className="relative overflow-hidden aspect-[3/4]">
         <img
           src={model.image}
-          alt={model.name}
-          className={`model-card-image absolute inset-0 transition-opacity duration-500 ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          onLoad={() => setImageLoaded(true)}
+          alt={`${model.name} - Luxury Escort in ${model.location}`}
+          className="model-card-image"
           loading="lazy"
         />
         
-        {/* Minimal Availability Indicator */}
+        {/* Availability Indicator */}
         <div className="absolute top-6 left-6">
           <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
         </div>
         
-        {/* Ultra Minimal Overlay Content */}
+        {/* Overlay Content */}
         <div className="model-card-overlay" />
         <div className="model-card-content">
           <div className="space-y-3">

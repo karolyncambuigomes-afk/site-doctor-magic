@@ -73,7 +73,7 @@ const Index = () => {
               <h2 className="heading-lg mb-12">
                 Selected Companions
               </h2>
-              <div className="w-24 h-px bg-accent mx-auto"></div>
+              <div className="w-24 h-px bg-primary mx-auto"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">

@@ -54,7 +54,6 @@ const About = () => {
   const stats = [
     { number: "500+", label: "Satisfied Clients" },
     { number: "50+", label: "Elite Companions" },
-    { number: "5+", label: "Years Experience" },
     { number: "24/7", label: "Availability" }
   ];
 

@@ -174,9 +174,18 @@ export const ModelProfile: React.FC = () => {
               </div>
             </div>
             
-            <div className="flex items-center justify-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
-              <span className="text-sm font-medium">{getAvailabilityText(model.availability)}</span>
+            <div className="flex justify-center">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="text-sm px-6 py-2 hover:bg-accent hover:text-accent-foreground transition-luxury"
+                onClick={() => {
+                  const bookSection = document.querySelector('#book-section');
+                  bookSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Book Now
+              </Button>
             </div>
           </div>
 
@@ -242,7 +251,7 @@ export const ModelProfile: React.FC = () => {
           </div>
 
           {/* Contact Section */}
-          <div className="bg-muted/30 rounded-lg p-8 text-center">
+          <div id="book-section" className="bg-muted/30 rounded-lg p-8 text-center">
             <h3 className="text-2xl md:text-3xl font-light text-foreground mb-2">Book {model.name}</h3>
             <p className="text-muted-foreground mb-8">Get in touch to arrange your appointment</p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

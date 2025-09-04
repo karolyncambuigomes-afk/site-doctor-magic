@@ -17,379 +17,379 @@ export const blogArticles: BlogArticle[] = [
   {
     id: "1",
     slug: "best-restaurants-london-dinner-dates",
-    title: "Os Melhores Restaurantes de Londres para Encontros Especiais",
-    excerpt: "Descubra os restaurantes mais sofisticados e românticos de Londres, perfeitos para uma noite inesquecível com sua acompanhante de luxo.",
-    metaDescription: "Guia dos melhores restaurantes de Londres para encontros especiais. Descubra locais sofisticados e românticos para uma experiência gastronômica única.",
-    seoKeywords: "restaurantes Londres, jantar romântico Londres, fine dining Londres, restaurantes luxo Londres, encontros especiais Londres",
+    title: "The Best Restaurants in London for Special Dinner Dates",
+    excerpt: "Discover London's most sophisticated and romantic restaurants, perfect for an unforgettable evening with your luxury companion.",
+    metaDescription: "Guide to the best restaurants in London for special dinner dates. Discover sophisticated and romantic venues for a unique dining experience.",
+    seoKeywords: "London restaurants, romantic dinner London, fine dining London, luxury restaurants London, special dates London",
     content: `
-      <h2>Experiências Gastronômicas Únicas em Londres</h2>
+      <h2>Unique Culinary Experiences in London</h2>
       
-      <p>Londres oferece algumas das experiências gastronômicas mais refinadas do mundo. Para um encontro verdadeiramente especial, selecionamos os restaurantes que proporcionam não apenas uma culinária excepcional, mas também uma atmosfera perfeita para momentos íntimos.</p>
+      <p>London offers some of the world's most refined dining experiences. For a truly special evening, we've selected restaurants that provide not only exceptional cuisine but also the perfect atmosphere for intimate moments.</p>
 
       <h3>1. Sketch - Mayfair</h3>
-      <p>Um dos restaurantes mais icônicos de Londres, o Sketch combina arte contemporânea com alta gastronomia. Seu interior surrealista e menu inovador criam uma experiência gastronômica única. Perfeito para impressionar em um primeiro encontro.</p>
+      <p>One of London's most iconic restaurants, Sketch combines contemporary art with haute cuisine. Its surreal interior and innovative menu create a unique dining experience. Perfect for impressing on a first date.</p>
       
-      <p><strong>Especialidade:</strong> Cozinha francesa moderna<br>
-      <strong>Ambiente:</strong> Artístico e sofisticado<br>
-      <strong>Preço médio:</strong> £150-200 por pessoa</p>
+      <p><strong>Specialty:</strong> Modern French cuisine<br>
+      <strong>Atmosphere:</strong> Artistic and sophisticated<br>
+      <strong>Average price:</strong> £150-200 per person</p>
 
       <h3>2. Core by Clare Smyth - Notting Hill</h3>
-      <p>Restaurante com 3 estrelas Michelin comandado pela primeira chef mulher no Reino Unido a conquistar tal distinção. A experiência gastronômica aqui é incomparável, com ingredientes britânicos de alta qualidade.</p>
+      <p>A 3-Michelin-starred restaurant led by the first female chef in the UK to achieve such distinction. The culinary experience here is incomparable, featuring high-quality British ingredients.</p>
 
-      <p><strong>Especialidade:</strong> Cozinha britânica contemporânea<br>
-      <strong>Ambiente:</strong> Elegante e intimista<br>
-      <strong>Preço médio:</strong> £180-250 por pessoa</p>
+      <p><strong>Specialty:</strong> Contemporary British cuisine<br>
+      <strong>Atmosphere:</strong> Elegant and intimate<br>
+      <strong>Average price:</strong> £180-250 per person</p>
 
       <h3>3. The Ritz Restaurant</h3>
-      <p>Localizado no icônico hotel The Ritz, este restaurante oferece uma experiência clássica e atemporal. O dress code formal e a decoração opulenta fazem dele o local perfeito para ocasiões especiais.</p>
+      <p>Located in the iconic Ritz hotel, this restaurant offers a classic and timeless experience. The formal dress code and opulent decoration make it perfect for special occasions.</p>
 
-      <p><strong>Especialidade:</strong> Cozinha francesa clássica<br>
-      <strong>Ambiente:</strong> Clássico e majestoso<br>
-      <strong>Preço médio:</strong> £120-180 por pessoa</p>
+      <p><strong>Specialty:</strong> Classic French cuisine<br>
+      <strong>Atmosphere:</strong> Classic and majestic<br>
+      <strong>Average price:</strong> £120-180 per person</p>
 
       <h3>4. Aqua Shard</h3>
-      <p>Situado no 31º andar do icônico The Shard, oferece vistas panorâmicas de Londres enquanto você desfruta de pratos britânicos contemporâneos. A vista noturna da cidade é simplesmente mágica.</p>
+      <p>Situated on the 31st floor of the iconic Shard, it offers panoramic views of London while you enjoy contemporary British dishes. The night view of the city is simply magical.</p>
 
-      <p><strong>Especialidade:</strong> Cozinha britânica moderna<br>
-      <strong>Ambiente:</strong> Moderno com vista panorâmica<br>
-      <strong>Preço médio:</strong> £100-150 por pessoa</p>
+      <p><strong>Specialty:</strong> Modern British cuisine<br>
+      <strong>Atmosphere:</strong> Modern with panoramic views<br>
+      <strong>Average price:</strong> £100-150 per person</p>
 
       <h3>5. Restaurant Gordon Ramsay</h3>
-      <p>O primeiro restaurante do renomado chef Gordon Ramsay mantém suas 3 estrelas Michelin há mais de 20 anos. A cozinha francesa refinada e o serviço impecável garantem uma experiência inesquecível.</p>
+      <p>The renowned chef Gordon Ramsay's first restaurant has maintained its 3 Michelin stars for over 20 years. The refined French cuisine and impeccable service ensure an unforgettable experience.</p>
 
-      <p><strong>Especialidade:</strong> Cozinha francesa refinada<br>
-      <strong>Ambiente:</strong> Sofisticado e profissional<br>
-      <strong>Preço médio:</strong> £200-300 por pessoa</p>
+      <p><strong>Specialty:</strong> Refined French cuisine<br>
+      <strong>Atmosphere:</strong> Sophisticated and professional<br>
+      <strong>Average price:</strong> £200-300 per person</p>
 
-      <h3>Dicas para um Encontro Perfeito</h3>
+      <h3>Tips for a Perfect Date</h3>
       <ul>
-        <li>Reserve com antecedência - os melhores restaurantes têm lista de espera</li>
-        <li>Informe sobre preferências alimentares ou alergias</li>
-        <li>Considere o dress code de cada estabelecimento</li>
-        <li>Solicite mesa em local mais reservado para maior privacidade</li>
-        <li>Pergunte sobre menus degustação para uma experiência completa</li>
+        <li>Book in advance - the best restaurants have waiting lists</li>
+        <li>Inform about dietary preferences or allergies</li>
+        <li>Consider each establishment's dress code</li>
+        <li>Request a table in a more private location for greater privacy</li>
+        <li>Ask about tasting menus for a complete experience</li>
       </ul>
 
-      <p>Cada um destes restaurantes oferece uma experiência única, perfeita para criar memórias especiais durante sua estadia em Londres.</p>
+      <p>Each of these restaurants offers a unique experience, perfect for creating special memories during your stay in London.</p>
     `,
     image: "/api/placeholder/800/600",
     publishedAt: "2024-01-15",
     author: "Five London Team",
-    category: "Gastronomia",
+    category: "Dining",
     readTime: 8
   },
   {
     id: "2",
     slug: "london-annual-events-luxury-experiences",
-    title: "Eventos Anuais Exclusivos em Londres: Um Calendário de Luxo",
-    excerpt: "Explore os eventos mais prestigiados de Londres ao longo do ano, desde Wimbledon até Royal Ascot, e descubra como vivê-los com estilo.",
-    metaDescription: "Guia completo dos eventos anuais mais exclusivos de Londres. De Wimbledon a Royal Ascot, descubra as experiências de luxo que Londres oferece.",
-    seoKeywords: "eventos Londres, Wimbledon, Royal Ascot, London Fashion Week, eventos exclusivos Londres, calendário Londres",
+    title: "London's Exclusive Annual Events: A Luxury Calendar",
+    excerpt: "Explore London's most prestigious events throughout the year, from Wimbledon to Royal Ascot, and discover how to experience them in style.",
+    metaDescription: "Complete guide to London's most exclusive annual events. From Wimbledon to Royal Ascot, discover the luxury experiences London offers.",
+    seoKeywords: "London events, Wimbledon, Royal Ascot, London Fashion Week, exclusive events London, London calendar",
     content: `
-      <h2>O Calendário Social de Londres</h2>
+      <h2>London's Social Calendar</h2>
       
-      <p>Londres é uma cidade que pulsa com eventos exclusivos durante todo o ano. Desde competições esportivas prestigiadas até festivais culturais únicos, a capital britânica oferece experiências incomparáveis para quem busca o melhor da vida social londrina.</p>
+      <p>London is a city that pulses with exclusive events throughout the year. From prestigious sporting competitions to unique cultural festivals, the British capital offers incomparable experiences for those seeking the best of London's social life.</p>
 
-      <h3>Primavera: Renascimento Cultural</h3>
+      <h3>Spring: Cultural Renaissance</h3>
       
-      <h4>Chelsea Flower Show (Maio)</h4>
-      <p>O evento de jardinagem mais prestigiado do mundo atrai a realeza e celebridades. Esta exposição floral única oferece uma experiência sensorial incomparável em meio aos jardins mais belos criados pelos melhores paisagistas do mundo.</p>
+      <h4>Chelsea Flower Show (May)</h4>
+      <p>The world's most prestigious gardening event attracts royalty and celebrities. This unique floral exhibition offers an incomparable sensory experience amid the most beautiful gardens created by the world's best landscape designers.</p>
       
-      <p><strong>Quando:</strong> Terceira semana de maio<br>
-      <strong>Local:</strong> Royal Hospital Chelsea<br>
-      <strong>Experiência VIP:</strong> Ingressos para Preview Days com champagne reception</p>
+      <p><strong>When:</strong> Third week of May<br>
+      <strong>Location:</strong> Royal Hospital Chelsea<br>
+      <strong>VIP Experience:</strong> Preview Days tickets with champagne reception</p>
 
-      <h4>London Fashion Week (Setembro/Fevereiro)</h4>
-      <p>Um dos eventos de moda mais importantes do mundo, onde os maiores designers apresentam suas coleções. Access exclusivo aos desfiles e after-parties fazem desta uma experiência inesquecível.</p>
+      <h4>London Fashion Week (September/February)</h4>
+      <p>One of the world's most important fashion events, where top designers present their collections. Exclusive access to shows and after-parties make this an unforgettable experience.</p>
 
-      <h3>Verão: A Temporada Social</h3>
+      <h3>Summer: The Social Season</h3>
       
-      <h4>Royal Ascot (Junho)</h4>
-      <p>O evento de corridas de cavalos mais elegante do mundo, frequentado pela família real. O dress code rigoroso e as tradições centenárias criam uma atmosfera única de elegância e sofisticação.</p>
+      <h4>Royal Ascot (June)</h4>
+      <p>The world's most elegant horse racing event, frequented by the royal family. The strict dress code and centuries-old traditions create a unique atmosphere of elegance and sophistication.</p>
       
-      <p><strong>Quando:</strong> Terceira semana de junho<br>
-      <strong>Dress Code:</strong> Formal (cartola para homens, chapéus para mulheres)<br>
-      <strong>Experiência:</strong> Royal Enclosure com acesso exclusivo</p>
+      <p><strong>When:</strong> Third week of June<br>
+      <strong>Dress Code:</strong> Formal (top hats for men, hats for women)<br>
+      <strong>Experience:</strong> Royal Enclosure with exclusive access</p>
 
-      <h4>Wimbledon Championships (Junho/Julho)</h4>
-      <p>O torneio de tênis mais prestigiado do mundo oferece uma experiência única combinando esporte de elite com tradições britânicas. Strawberries and cream no Centre Court são obrigatórios.</p>
+      <h4>Wimbledon Championships (June/July)</h4>
+      <p>The world's most prestigious tennis tournament offers a unique experience combining elite sport with British traditions. Strawberries and cream at Centre Court are mandatory.</p>
       
-      <p><strong>Quando:</strong> Últimas duas semanas de junho/primeira de julho<br>
-      <strong>Experiência VIP:</strong> Centre Court Debenture Seats com hospitality</p>
+      <p><strong>When:</strong> Last two weeks of June/first week of July<br>
+      <strong>VIP Experience:</strong> Centre Court Debenture Seats with hospitality</p>
 
-      <h4>Henley Royal Regatta (Julho)</h4>
-      <p>A regata mais elegante do mundo, onde a elite britânica se reúne às margens do Tamisa. O Stewards' Enclosure oferece a experiência mais exclusiva do evento.</p>
+      <h4>Henley Royal Regatta (July)</h4>
+      <p>The world's most elegant regatta, where the British elite gathers on the banks of the Thames. The Stewards' Enclosure offers the most exclusive experience of the event.</p>
 
-      <h3>Outono: Arte e Cultura</h3>
+      <h3>Autumn: Art and Culture</h3>
       
-      <h4>Frieze Art Fair (Outubro)</h4>
-      <p>Uma das feiras de arte contemporânea mais importantes do mundo, atraindo colecionadores e entusiastas da arte internacional. O evento acontece em tendas especialmente construídas no Regent's Park.</p>
+      <h4>Frieze Art Fair (October)</h4>
+      <p>One of the world's most important contemporary art fairs, attracting international collectors and art enthusiasts. The event takes place in specially built tents in Regent's Park.</p>
 
-      <h4>Lord Mayor's Show (Novembro)</h4>
-      <p>Uma tradição de mais de 800 anos que celebra a eleição do novo Lord Mayor da City de Londres. O cortejo pelas ruas históricas da cidade é um espetáculo único.</p>
+      <h4>Lord Mayor's Show (November)</h4>
+      <p>A tradition of more than 800 years celebrating the election of the new Lord Mayor of the City of London. The procession through the city's historic streets is a unique spectacle.</p>
 
-      <h3>Inverno: Elegância e Tradição</h3>
+      <h3>Winter: Elegance and Tradition</h3>
       
       <h4>Royal Opera House Season</h4>
-      <p>A temporada de ópera e balé do Royal Opera House oferece performances de classe mundial em um dos teatros mais belos de Londres.</p>
+      <p>The Royal Opera House opera and ballet season offers world-class performances in one of London's most beautiful theatres.</p>
       
-      <p><strong>Experiência VIP:</strong> Royal Box ou Grand Tier com jantar no Amphitheatre Restaurant</p>
+      <p><strong>VIP Experience:</strong> Royal Box or Grand Tier with dinner at the Amphitheatre Restaurant</p>
 
       <h4>New Year's Eve Fireworks</h4>
-      <p>A celebração do Ano Novo em Londres é mundialmente famosa, com fogos de artifício espetaculares sobre o London Eye e o Tamisa.</p>
+      <p>London's New Year's celebration is world-famous, with spectacular fireworks over the London Eye and Thames.</p>
 
-      <h3>Como Vivenciar Estes Eventos com Estilo</h3>
+      <h3>How to Experience These Events in Style</h3>
       <ul>
-        <li><strong>Planejamento antecipado:</strong> Muitos eventos têm ingressos limitados que se esgotam rapidamente</li>
-        <li><strong>Dress code apropriado:</strong> Cada evento tem suas próprias regras de vestimenta</li>
-        <li><strong>Experiências VIP:</strong> Considere pacotes que incluem hospitalidade e acesso exclusivo</li>
-        <li><strong>Acomodação de luxo:</strong> Reserve hotéis próximos aos locais dos eventos</li>
-        <li><strong>Transporte privado:</strong> Evite multidões com serviços de transporte exclusivos</li>
+        <li><strong>Advance planning:</strong> Many events have limited tickets that sell out quickly</li>
+        <li><strong>Appropriate dress code:</strong> Each event has its own dress rules</li>
+        <li><strong>VIP experiences:</strong> Consider packages that include hospitality and exclusive access</li>
+        <li><strong>Luxury accommodation:</strong> Book hotels near event venues</li>
+        <li><strong>Private transport:</strong> Avoid crowds with exclusive transport services</li>
       </ul>
 
-      <p>Estes eventos representam o melhor da vida social londrina e oferecem oportunidades únicas para vivenciar a cultura e tradições britânicas em sua forma mais refinada.</p>
+      <p>These events represent the best of London's social life and offer unique opportunities to experience British culture and traditions in their most refined form.</p>
     `,
     image: "/api/placeholder/800/600",
     publishedAt: "2024-01-10",
     author: "Five London Team",
-    category: "Eventos",
+    category: "Events",
     readTime: 10
   },
   {
     id: "3",
     slug: "exclusive-experiences-london-luxury",
-    title: "Experiências Exclusivas em Londres: Além do Turismo Convencional",
-    excerpt: "Descubra experiências verdadeiramente únicas disponíveis apenas para poucos privilegiados em Londres, desde visitas privadas a locais históricos até experiências gastronômicas exclusivas.",
-    metaDescription: "Guia de experiências exclusivas em Londres para visitantes sofisticados. Descubra atividades únicas e privadas além do turismo convencional.",
-    seoKeywords: "experiências exclusivas Londres, turismo luxo Londres, atividades privadas Londres, Londres VIP, experiências únicas Londres",
+    title: "Exclusive Experiences in London: Beyond Conventional Tourism",
+    excerpt: "Discover truly unique experiences available only to the privileged few in London, from private visits to historic locations to exclusive gastronomic experiences.",
+    metaDescription: "Guide to exclusive experiences in London for sophisticated visitors. Discover unique and private activities beyond conventional tourism.",
+    seoKeywords: "exclusive experiences London, luxury tourism London, private activities London, London VIP, unique experiences London",
     content: `
-      <h2>Londres Além do Convencional</h2>
+      <h2>London Beyond the Conventional</h2>
       
-      <p>Para aqueles que buscam experiências verdadeiramente únicas, Londres oferece uma infinidade de atividades exclusivas que vão muito além dos roteiros turísticos tradicionais. Estas experiências são desenhadas para proporcionar acesso privilegiado aos tesouros mais bem guardados da cidade.</p>
+      <p>For those seeking truly unique experiences, London offers an infinity of exclusive activities that go far beyond traditional tourist routes. These experiences are designed to provide privileged access to the city's best-kept treasures.</p>
 
-      <h3>Experiências Históricas Privadas</h3>
+      <h3>Private Historical Experiences</h3>
       
-      <h4>Torre de Londres - Acesso After Hours</h4>
-      <p>Visite a Torre de Londres após o fechamento ao público, com acesso exclusivo às Joias da Coroa e uma experiência íntima com os Beefeaters. Esta experiência limitada oferece uma perspectiva única da história real britânica.</p>
+      <h4>Tower of London - After Hours Access</h4>
+      <p>Visit the Tower of London after closing to the public, with exclusive access to the Crown Jewels and an intimate experience with the Beefeaters. This limited experience offers a unique perspective on British royal history.</p>
       
-      <p><strong>Duração:</strong> 3 horas<br>
-      <strong>Inclui:</strong> Guia privado, champagne reception, acesso às Joias da Coroa<br>
-      <strong>Capacidade:</strong> Máximo 12 pessoas</p>
+      <p><strong>Duration:</strong> 3 hours<br>
+      <strong>Includes:</strong> Private guide, champagne reception, access to Crown Jewels<br>
+      <strong>Capacity:</strong> Maximum 12 people</p>
 
-      <h4>Palácio de Buckingham - State Rooms com Guia Real</h4>
-      <p>Acesso privado aos State Rooms com um guia especializado em história real. Esta experiência oferece insights únicos sobre a vida da família real e a história do palácio.</p>
+      <h4>Buckingham Palace - State Rooms with Royal Guide</h4>
+      <p>Private access to the State Rooms with a guide specialized in royal history. This experience offers unique insights into royal family life and palace history.</p>
 
-      <h4>Westminster Abbey - Visita Privada</h4>
-      <p>Explore a abadia mais famosa da Inglaterra sem as multidões, com acesso a áreas normalmente fechadas ao público, incluindo o Chapter House e o Pyx Chamber.</p>
+      <h4>Westminster Abbey - Private Visit</h4>
+      <p>Explore England's most famous abbey without crowds, with access to areas normally closed to the public, including the Chapter House and Pyx Chamber.</p>
 
-      <h3>Experiências Gastronômicas Exclusivas</h3>
+      <h3>Exclusive Gastronomic Experiences</h3>
       
-      <h4>Private Dining no Sky Garden</h4>
-      <p>Jantar privado no topo do "Walkie-Talkie" com vistas panorâmicas de 360° de Londres. O chef prepara um menu personalizado enquanto você desfruta das vistas mais espetaculares da cidade.</p>
+      <h4>Private Dining at Sky Garden</h4>
+      <p>Private dinner at the top of the "Walkie-Talkie" with 360° panoramic views of London. The chef prepares a personalized menu while you enjoy the city's most spectacular views.</p>
       
-      <p><strong>Capacidade:</strong> 2-20 pessoas<br>
-      <strong>Inclui:</strong> Menu degustação personalizado, sommelier dedicado, fotógrafo profissional</p>
+      <p><strong>Capacity:</strong> 2-20 people<br>
+      <strong>Includes:</strong> Personalized tasting menu, dedicated sommelier, professional photographer</p>
 
-      <h4>Harrods Food Hall - Shopping Gastronômico Privado</h4>
-      <p>Experiência de compras gastronômicas privadas na lendária Food Hall da Harrods, com personal shopper especializado e degustação de produtos exclusivos.</p>
+      <h4>Harrods Food Hall - Private Gastronomic Shopping</h4>
+      <p>Private gastronomic shopping experience in Harrods' legendary Food Hall, with specialized personal shopper and exclusive product tastings.</p>
 
-      <h4>Borough Market - Tour Gastronômico VIP</h4>
-      <p>Explore o mercado gastronômico mais famoso de Londres com acesso VIP aos fornecedores exclusivos, degustações privadas e encontros com chefs renomados.</p>
+      <h4>Borough Market - VIP Gastronomic Tour</h4>
+      <p>Explore London's most famous gastronomic market with VIP access to exclusive suppliers, private tastings and meetings with renowned chefs.</p>
 
-      <h3>Experiências Culturais Únnicas</h3>
+      <h3>Unique Cultural Experiences</h3>
       
       <h4>Royal Opera House - Backstage Experience</h4>
-      <p>Acesso aos bastidores do Royal Opera House, incluindo ensaios privados, encontro com artistas e visita aos ateliês de figurinos e cenários.</p>
+      <p>Access to Royal Opera House backstage, including private rehearsals, artist meetings and visits to costume and set design workshops.</p>
       
-      <p><strong>Inclui:</strong> Ensaio privado, meet & greet com artistas, jantar no Amphitheatre Restaurant</p>
+      <p><strong>Includes:</strong> Private rehearsal, meet & greet with artists, dinner at Amphitheatre Restaurant</p>
 
-      <h4>Tate Modern - Curador Privado</h4>
-      <p>Tour privado com curador sênior da Tate Modern, com acesso a obras normalmente em reserva técnica e discussões aprofundadas sobre arte contemporânea.</p>
+      <h4>Tate Modern - Private Curator</h4>
+      <p>Private tour with senior Tate Modern curator, with access to works normally in technical reserve and in-depth discussions about contemporary art.</p>
 
-      <h4>Shakespeare's Globe - Performance Privada</h4>
-      <p>Assista a uma performance shakespeariana em sessão privada no histórico Globe Theatre, com atores profissionais e ambiente autêntico elizabetano.</p>
+      <h4>Shakespeare's Globe - Private Performance</h4>
+      <p>Watch a Shakespearean performance in private session at the historic Globe Theatre, with professional actors and authentic Elizabethan atmosphere.</p>
 
-      <h3>Experiências de Luxo e Bem-estar</h3>
+      <h3>Luxury and Wellness Experiences</h3>
       
-      <h4>The Ned - Spa Experience de Dia Inteiro</h4>
-      <p>Experiência completa de bem-estar no spa do The Ned, incluindo tratamentos personalizados, acesso à piscina na cobertura e relaxamento nos salões privados.</p>
+      <h4>The Ned - Full Day Spa Experience</h4>
+      <p>Complete wellness experience at The Ned spa, including personalized treatments, rooftop pool access and relaxation in private lounges.</p>
 
-      <h4>Claridge's - Afternoon Tea Privado</h4>
-      <p>O famoso afternoon tea do Claridge's em ambiente privado, com serviço personalizado e seleção especial de chás raros e delicacies exclusivas.</p>
+      <h4>Claridge's - Private Afternoon Tea</h4>
+      <p>Claridge's famous afternoon tea in private setting, with personalized service and special selection of rare teas and exclusive delicacies.</p>
 
-      <h3>Experiências Noturnas Exclusivas</h3>
+      <h3>Exclusive Night Experiences</h3>
       
-      <h4>London Eye - Cápsula Privada</h4>
-      <p>Experiência privada no London Eye com cápsula exclusiva, champagne Bollinger e vistas noturnas espetaculares da cidade iluminada.</p>
+      <h4>London Eye - Private Capsule</h4>
+      <p>Private London Eye experience with exclusive capsule, Bollinger champagne and spectacular night views of the illuminated city.</p>
       
-      <p><strong>Duração:</strong> 30 minutos<br>
-      <strong>Inclui:</strong> Champagne, chocolates Godiva, acesso prioritário</p>
+      <p><strong>Duration:</strong> 30 minutes<br>
+      <strong>Includes:</strong> Champagne, Godiva chocolates, priority access</p>
 
-      <h4>Thames - Cruise Privado</h4>
-      <p>Cruise privado pelo Tamisa em yacht luxuoso, com jantar preparado por chef renomado e vista única dos marcos históricos iluminados.</p>
+      <h4>Thames - Private Cruise</h4>
+      <p>Private Thames cruise on luxury yacht, with dinner prepared by renowned chef and unique view of illuminated historic landmarks.</p>
 
-      <h3>Experiências Sazonais</h3>
+      <h3>Seasonal Experiences</h3>
       
-      <h4>Winter Wonderland VIP (Dezembro/Janeiro)</h4>
-      <p>Acesso VIP ao Winter Wonderland em Hyde Park, com fast-track para todas as atrações, chalet privado e experiência gastronômica exclusiva.</p>
+      <h4>Winter Wonderland VIP (December/January)</h4>
+      <p>VIP access to Winter Wonderland in Hyde Park, with fast-track to all attractions, private chalet and exclusive gastronomic experience.</p>
 
-      <h4>Chelsea Physic Garden - Visita Privada</h4>
-      <p>Explore o jardim botânico mais antigo de Londres com o curador-chefe, aprendendo sobre plantas medicinais históricas e jardins secretos.</p>
+      <h4>Chelsea Physic Garden - Private Visit</h4>
+      <p>Explore London's oldest botanical garden with the head curator, learning about historic medicinal plants and secret gardens.</p>
 
-      <h3>Como Reservar Estas Experiências</h3>
+      <h3>How to Book These Experiences</h3>
       <ul>
-        <li><strong>Antecedência mínima:</strong> A maioria requer reserva com 2-4 semanas de antecedência</li>
-        <li><strong>Documentação:</strong> Algumas experiências podem requerer verificação de identidade</li>
-        <li><strong>Flexibilidade:</strong> Muitas experiências podem ser personalizadas conforme preferências</li>
-        <li><strong>Conciergeria especializada:</strong> Utilize serviços de concierge para acesso exclusivo</li>
-        <li><strong>Pacotes combinados:</strong> Muitas experiências podem ser combinadas para um dia completo</li>
+        <li><strong>Minimum advance notice:</strong> Most require booking 2-4 weeks in advance</li>
+        <li><strong>Documentation:</strong> Some experiences may require identity verification</li>
+        <li><strong>Flexibility:</strong> Many experiences can be customized according to preferences</li>
+        <li><strong>Specialized concierge:</strong> Use concierge services for exclusive access</li>
+        <li><strong>Combined packages:</strong> Many experiences can be combined for a full day</li>
       </ul>
 
-      <p>Estas experiências representam o melhor que Londres tem a oferecer para visitantes que buscam algo verdadeiramente especial e memorável, proporcionando acesso a aspectos da cidade que poucos têm o privilégio de conhecer.</p>
+      <p>These experiences represent the best London has to offer for visitors seeking something truly special and memorable, providing access to aspects of the city that few have the privilege to know.</p>
     `,
     image: "/api/placeholder/800/600",
     publishedAt: "2024-01-05",
     author: "Five London Team",
-    category: "Experiências",
+    category: "Experiences",
     readTime: 12
   },
   {
     id: "4",
     slug: "luxury-hotels-london-sophisticated-stays",
-    title: "Hotéis Sofisticados em Londres: Onde o Luxo Encontra a Tradição",
-    excerpt: "Explore os hotéis mais luxuosos de Londres, desde clássicos atemporais até propriedades boutique modernas, perfeitos para uma estadia inesquecível.",
-    metaDescription: "Guia dos hotéis mais luxuosos de Londres. Descubra acomodações sofisticadas, desde clássicos como Claridge's até boutique hotéis modernos.",
-    seoKeywords: "hotéis luxo Londres, hotel sofisticado Londres, Claridge's, The Ritz London, Savoy Hotel, acomodação luxo Londres",
+    title: "Sophisticated Hotels in London: Where Luxury Meets Tradition",
+    excerpt: "Explore London's most luxurious hotels, from timeless classics to modern boutique properties, perfect for an unforgettable stay.",
+    metaDescription: "Guide to London's most luxurious hotels. Discover sophisticated accommodations, from classics like Claridge's to modern boutique hotels.",
+    seoKeywords: "luxury hotels London, sophisticated hotel London, Claridge's, The Ritz London, Savoy Hotel, luxury accommodation London",
     content: `
-      <h2>A Arte da Hospitalidade Londrina</h2>
+      <h2>The Art of London Hospitality</h2>
       
-      <p>Londres abriga alguns dos hotéis mais prestigiados do mundo, onde tradição centenária se encontra com luxo contemporâneo. Estas propriedades não são apenas locais para pernoitar, mas destinos em si, oferecendo experiências únicas que definem o padrão de hospitalidade de luxo.</p>
+      <p>London houses some of the world's most prestigious hotels, where centuries-old tradition meets contemporary luxury. These properties are not just places to stay, but destinations in themselves, offering unique experiences that define the standard of luxury hospitality.</p>
 
-      <h3>Os Clássicos Atemporais</h3>
+      <h3>The Timeless Classics</h3>
       
       <h4>Claridge's - Mayfair</h4>
-      <p>Símbolo da elegância britânica há mais de 150 anos, o Claridge's é sinônimo de luxo discreto e serviço impecável. Frequentado pela realeza e celebridades, cada detalhe do hotel reflete sofisticação atemporal.</p>
+      <p>A symbol of British elegance for over 150 years, Claridge's is synonymous with discreet luxury and impeccable service. Frequented by royalty and celebrities, every detail of the hotel reflects timeless sophistication.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Art Déco autêntico dos anos 1930<br>
-      • Afternoon tea mundialmente famoso<br>
-      • Spa AKASHA com piscina art déco<br>
-      • Suítes reais com decoração personalizada<br>
-      • Localização privilegiada em Mayfair</p>
+      <p><strong>Unique features:</strong><br>
+      • Authentic 1930s Art Deco<br>
+      • World-famous afternoon tea<br>
+      • AKASHA Spa with art deco pool<br>
+      • Royal suites with personalized decoration<br>
+      • Privileged location in Mayfair</p>
       
-      <p><strong>Experiência destacada:</strong> Brook Penthouse com terraço privativo e vistas panorâmicas de Londres</p>
+      <p><strong>Featured experience:</strong> Brook Penthouse with private terrace and panoramic views of London</p>
 
       <h4>The Ritz London - Piccadilly</h4>
-      <p>O hotel que definiu o conceito de luxo há mais de um século continua sendo referência em elegância. Sua arquitetura francesa e decoração opulenta transportam os hóspedes para uma era de glamour incomparável.</p>
+      <p>The hotel that defined the concept of luxury over a century ago continues to be a reference in elegance. Its French architecture and opulent decoration transport guests to an era of incomparable glamour.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Arquitetura neoclássica francesa de César Ritz<br>
-      • Restaurant The Ritz com estrela Michelin<br>
-      • Palm Court para afternoon tea tradicional<br>
-      • Rivoli Bar com coquetéis artesanais<br>
+      <p><strong>Unique features:</strong><br>
+      • French neoclassical architecture by César Ritz<br>
+      • The Ritz Restaurant with Michelin star<br>
+      • Palm Court for traditional afternoon tea<br>
+      • Rivoli Bar with artisanal cocktails<br>
       • Green Park view rooms</p>
 
       <h4>The Savoy - Covent Garden</h4>
-      <p>Lenda da hospitalidade londrina, o Savoy combina tradição vitoriana com toques contemporâneos. Sua localização na Thames e história rica fazem dele uma escolha icônica.</p>
+      <p>Legend of London hospitality, The Savoy combines Victorian tradition with contemporary touches. Its location on the Thames and rich history make it an iconic choice.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Localização na curva do Rio Tamisa<br>
-      • American Bar, o bar de hotel mais famoso do mundo<br>
-      • Savoy Grill de Gordon Ramsay<br>
-      • Thames Foyer para afternoon tea com vista<br>
-      • Suíte Royal com entrada privativa</p>
+      <p><strong>Unique features:</strong><br>
+      • Location on the curve of the River Thames<br>
+      • American Bar, the world's most famous hotel bar<br>
+      • Savoy Grill by Gordon Ramsay<br>
+      • Thames Foyer for afternoon tea with view<br>
+      • Royal Suite with private entrance</p>
 
-      <h3>Elegância Contemporânea</h3>
+      <h3>Contemporary Elegance</h3>
       
       <h4>The Ned - City of London</h4>
-      <p>Instalado em um antigo banco dos anos 1920, The Ned redefine o conceito de hotel boutique de luxo. Seus múltiplos restaurantes e clube privado criam uma experiência social única.</p>
+      <p>Installed in a former 1920s bank, The Ned redefines the concept of luxury boutique hotel. Its multiple restaurants and private club create a unique social experience.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • 9 restaurantes no mesmo local<br>
-      • Ned's Club com piscina na cobertura<br>
-      • Spa Cowshed com tratamentos exclusivos<br>
-      • Arquitetura bancária histórica preservada<br>
-      • Localização no coração financeiro</p>
+      <p><strong>Unique features:</strong><br>
+      • 9 restaurants in the same location<br>
+      • Ned's Club with rooftop pool<br>
+      • Cowshed Spa with exclusive treatments<br>
+      • Preserved historic banking architecture<br>
+      • Location in the financial heart</p>
 
       <h4>Edition London - Fitzrovia</h4>
-      <p>A visão moderna de Ian Schrager para hospitalidade de luxo. Design minimalista e sofisticado combinado com tecnologia de ponta e serviço personalizado.</p>
+      <p>Ian Schrager's modern vision for luxury hospitality. Minimalist and sophisticated design combined with cutting-edge technology and personalized service.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Design de Ian Schrager<br>
-      • Punch Room bar exclusivo<br>
-      • Spa Edition com hamam<br>
-      • Berners Tavern com teto espetacular<br>
-      • Tecnologia de quarto avançada</p>
+      <p><strong>Unique features:</strong><br>
+      • Design by Ian Schrager<br>
+      • Exclusive Punch Room bar<br>
+      • Edition Spa with hammam<br>
+      • Berners Tavern with spectacular ceiling<br>
+      • Advanced room technology</p>
 
-      <h3>Boutique Hotels Exclusivos</h3>
+      <h3>Exclusive Boutique Hotels</h3>
       
       <h4>The Zetter Townhouse - Marylebone</h4>
-      <p>Charme georgiano autêntico em uma propriedade boutique íntima. Cada quarto é único, decorado com antiguidades e oferecendo uma experiência personalizada.</p>
+      <p>Authentic Georgian charm in an intimate boutique property. Each room is unique, decorated with antiques and offering a personalized experience.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Apenas 24 quartos únicos<br>
+      <p><strong>Unique features:</strong><br>
+      • Only 24 unique rooms<br>
       • Seymour's Parlour cocktail bar<br>
-      • Decoração com antiguidades autênticas<br>
-      • Atmosfera de casa georgiana privada<br>
-      • Localização discreta em Marylebone</p>
+      • Decoration with authentic antiques<br>
+      • Private Georgian house atmosphere<br>
+      • Discreet location in Marylebone</p>
 
       <h4>Chiltern Firehouse - Marylebone</h4>
-      <p>Ex-estação de bombeiros transformada em hotel boutique chic. Popular entre celebridades, oferece uma experiência exclusiva e contemporânea.</p>
+      <p>Former fire station transformed into chic boutique hotel. Popular among celebrities, it offers an exclusive and contemporary experience.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Arquitetura vitoriana de estação de bombeiros<br>
-      • Restaurante celebrity-favorite<br>
-      • Bar íntimo no térreo<br>
-      • Apenas 26 quartos exclusivos<br>
-      • Ambiente discreto e privativo</p>
+      <p><strong>Unique features:</strong><br>
+      • Victorian fire station architecture<br>
+      • Celebrity-favorite restaurant<br>
+      • Intimate ground floor bar<br>
+      • Only 26 exclusive rooms<br>
+      • Discreet and private atmosphere</p>
 
-      <h3>Luxo com História</h3>
+      <h3>Luxury with History</h3>
       
       <h4>Brown's Hotel - Mayfair</h4>
-      <p>O primeiro hotel de Londres (1837) mantém sua elegância vitoriana enquanto oferece confortos modernos. Sua história rica inclui hóspedes como Agatha Christie e Theodore Roosevelt.</p>
+      <p>London's first hotel (1837) maintains its Victorian elegance while offering modern comforts. Its rich history includes guests like Agatha Christie and Theodore Roosevelt.</p>
       
-      <p><strong>Características únicas:</strong><br>
-      • Primeiro hotel de Londres<br>
-      • Charlie's Bar com história centenária<br>
-      • Spa ESPA exclusivo<br>
+      <p><strong>Unique features:</strong><br>
+      • London's first hotel<br>
+      • Charlie's Bar with centenary history<br>
+      • Exclusive ESPA spa<br>
       • HIX Mayfair restaurant<br>
-      • Kipling Cotta para afternoon tea</p>
+      • Kipling Cotta for afternoon tea</p>
 
       <h4>The Langham - Marylebone</h4>
-      <p>Grande dame dos hotéis europeus, The Langham definiu padrões de luxo desde 1865. Sua elegância restaurada e localização privilegiada mantêm sua relevância contemporânea.</p>
+      <p>Grand dame of European hotels, The Langham has set luxury standards since 1865. Its restored elegance and privileged location maintain its contemporary relevance.</p>
 
-      <h3>Experiências Gastronômicas de Hotel</h3>
+      <h3>Hotel Dining Experiences</h3>
       
       <h4>Alain Ducasse at The Dorchester</h4>
-      <p>3 estrelas Michelin no coração de Mayfair, oferecendo culinária francesa contemporânea em ambiente opulento.</p>
+      <p>3 Michelin stars in the heart of Mayfair, offering contemporary French cuisine in opulent surroundings.</p>
 
       <h4>Fera at Claridge's</h4>
-      <p>Simon Rogan traz sua filosofia farm-to-table para Mayfair, criando experiências gastronômicas únicas com ingredientes britânicos.</p>
+      <p>Simon Rogan brings his farm-to-table philosophy to Mayfair, creating unique gastronomic experiences with British ingredients.</p>
 
-      <h3>Spas e Bem-estar</h3>
+      <h3>Spas and Wellness</h3>
       
       <h4>ESPA Life at Corinthia</h4>
-      <p>Considerado um dos melhores spas urbanos do mundo, oferece tratamentos exclusivos em ambiente termal luxuoso.</p>
+      <p>Considered one of the world's best urban spas, offering exclusive treatments in luxurious thermal environment.</p>
 
       <h4>The Spa at The Dorchester</h4>
-      <p>Spa íntimo com tratamentos personalizados e produtos exclusivos, perfeito para relaxamento completo.</p>
+      <p>Intimate spa with personalized treatments and exclusive products, perfect for complete relaxation.</p>
 
-      <h3>Dicas para Escolher o Hotel Perfeito</h3>
+      <h3>Tips for Choosing the Perfect Hotel</h3>
       <ul>
-        <li><strong>Localização:</strong> Considere proximidade aos locais de interesse</li>
-        <li><strong>Estilo:</strong> Clássico versus contemporâneo conforme preferência</li>
-        <li><strong>Experiências:</strong> Avalie restaurantes, spas e serviços únicos</li>
-        <li><strong>Reservas antecipadas:</strong> Melhores suítes requerem planejamento</li>
-        <li><strong>Concierge:</strong> Utilize serviços para experiências personalizadas</li>
-        <li><strong>Temporada:</strong> Considere eventos sazonais que podem afetar disponibilidade</li>
+        <li><strong>Location:</strong> Consider proximity to places of interest</li>
+        <li><strong>Style:</strong> Classic versus contemporary according to preference</li>
+        <li><strong>Experiences:</strong> Evaluate restaurants, spas and unique services</li>
+        <li><strong>Advance bookings:</strong> Best suites require planning</li>
+        <li><strong>Concierge:</strong> Use services for personalized experiences</li>
+        <li><strong>Season:</strong> Consider seasonal events that may affect availability</li>
       </ul>
 
-      <p>Cada hotel oferece uma interpretação única do luxo londrino, desde a tradição centenária até a inovação contemporânea. A escolha certa depende do estilo pessoal e das experiências desejadas durante sua estadia na capital britânica.</p>
+      <p>Each hotel offers a unique interpretation of London luxury, from centuries-old tradition to contemporary innovation. The right choice depends on personal style and desired experiences during your stay in the British capital.</p>
     `,
     image: "/api/placeholder/800/600",
     publishedAt: "2023-12-28",
     author: "Five London Team",
-    category: "Hospedagem",
+    category: "Accommodation",
     readTime: 15
   }
 ];

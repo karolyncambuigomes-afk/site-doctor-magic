@@ -13,9 +13,9 @@ const Blog = () => {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Five London Blog",
-    "description": "Guia exclusivo de experiências de luxo em Londres",
+    "description": "Exclusive guide to luxury experiences in London",
     "url": "https://fivelondon.com/blog",
-    "inLanguage": "pt-BR",
+    "inLanguage": "en-GB",
     "publisher": {
       "@type": "Organization",
       "name": "Five London",
@@ -41,9 +41,9 @@ const Blog = () => {
   return (
     <>
       <SEO
-        title="Blog - Guia Exclusivo de Londres"
-        description="Descubra os melhores restaurantes, eventos exclusivos, experiências únicas e hotéis sofisticados de Londres. Seu guia completo para viver Londres com estilo."
-        keywords="blog Londres, guia Londres, restaurantes Londres, hotéis luxo Londres, eventos Londres, experiências exclusivas Londres"
+        title="Blog - Exclusive London Guide"
+        description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style."
+        keywords="London blog, London guide, London restaurants, luxury hotels London, London events, exclusive experiences London"
         canonicalUrl="/blog"
         structuredData={structuredData}
       />
@@ -57,11 +57,11 @@ const Blog = () => {
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto">
                 <h1 className="text-5xl md:text-6xl font-light mb-6 text-foreground">
-                  Descubra Londres
+                  Discover London
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                  Seu guia exclusivo para experiências sofisticadas, restaurantes requintados, 
-                  eventos prestigiados e os segredos mais bem guardados da capital britânica.
+                  Your exclusive guide to sophisticated experiences, exquisite restaurants, 
+                  prestigious events and London's best-kept secrets.
                 </p>
               </div>
             </div>
@@ -73,7 +73,7 @@ const Blog = () => {
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link to="/blog">
                   <Badge variant="secondary" className="px-6 py-2 text-sm">
-                    Todos os Artigos
+                    All Articles
                   </Badge>
                 </Link>
                 {categories.map((category) => (
@@ -110,13 +110,13 @@ const Blog = () => {
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
-                          <time dateTime={article.publishedAt}>
-                            {new Date(article.publishedAt).toLocaleDateString('pt-BR', {
-                              day: 'numeric',
-                              month: 'long',
-                              year: 'numeric'
-                            })}
-                          </time>
+                           <time dateTime={article.publishedAt}>
+                             {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                               day: 'numeric',
+                               month: 'long',
+                               year: 'numeric'
+                             })}
+                           </time>
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-4 h-4" />
@@ -136,7 +136,7 @@ const Blog = () => {
                       
                       <Link to={`/blog/${article.slug}`}>
                         <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80">
-                          Ler artigo completo
+                          Read full article
                           <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
@@ -152,15 +152,15 @@ const Blog = () => {
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-light mb-6 text-foreground">
-                  Mantenha-se Atualizado
+                  Stay Updated
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Receba nossos artigos exclusivos sobre as melhores experiências em Londres 
-                  diretamente em seu e-mail.
+                  Receive our exclusive articles about the best experiences in London 
+                  directly in your email.
                 </p>
                 <Link to="/contact">
                   <Button size="lg" className="five-london-button">
-                    Fale Conosco
+                    Contact Us
                   </Button>
                 </Link>
               </div>

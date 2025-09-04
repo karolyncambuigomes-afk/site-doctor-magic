@@ -78,7 +78,7 @@ const BlogPost = () => {
                 className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Voltar ao Blog
+                Back to Blog
               </Link>
             </div>
           </section>
@@ -103,20 +103,20 @@ const BlogPost = () => {
                   <div className="flex items-center gap-6 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
-                      <time dateTime={article.publishedAt}>
-                        {new Date(article.publishedAt).toLocaleDateString('pt-BR', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </time>
+                       <time dateTime={article.publishedAt}>
+                         {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                           day: 'numeric',
+                           month: 'long',
+                           year: 'numeric'
+                         })}
+                       </time>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      <span>{article.readTime} minutos de leitura</span>
-                    </div>
-                    <div>
-                      Por {article.author}
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-4 h-4" />
+                          <span>{article.readTime} minutes read</span>
+                        </div>
+                        <div>
+                          By {article.author}
                     </div>
                   </div>
                 </div>
@@ -161,7 +161,7 @@ const BlogPost = () => {
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
                   <h2 className="text-3xl md:text-4xl font-light mb-12 text-center text-foreground">
-                    Artigos Relacionados
+                    Related Articles
                   </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -193,7 +193,7 @@ const BlogPost = () => {
                           
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80">
-                              Ler artigo
+                              Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                             </Button>
                           </Link>
@@ -211,21 +211,21 @@ const BlogPost = () => {
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-light mb-6 text-foreground">
-                  Pronto para Sua Experiência em Londres?
+                  Ready for Your London Experience?
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Entre em contato conosco para planejar sua experiência exclusiva 
-                  em Londres com os nossos serviços de acompanhante de luxo.
+                  Contact us to plan your exclusive experience 
+                  in London with our luxury companion services.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/contact">
                     <Button size="lg" className="five-london-button">
-                      Fale Conosco
+                      Contact Us
                     </Button>
                   </Link>
                   <Link to="/services">
                     <Button size="lg" variant="outline" className="five-london-button-outline">
-                      Nossos Serviços
+                      Our Services
                     </Button>
                   </Link>
                 </div>

@@ -68,18 +68,18 @@ export const Navigation = () => {
           </div>
 
           {/* Contact */}
-          <div className="hidden lg:flex items-center space-x-12 flex-1 justify-end pr-8 lg:pr-16">
-            <a 
-              href="tel:+442045678901" 
-              className="caption hover:text-foreground transition-luxury"
-            >
-              +44 20 4567 8901
-            </a>
+          <div className="hidden lg:flex flex-col items-end space-y-2 flex-1 justify-center pr-8 lg:pr-16">
             <Link to="/contact">
               <button className="five-london-button-outline">
                 Enquire
               </button>
             </Link>
+            <a 
+              href="tel:+442045678901" 
+              className="caption hover:text-foreground transition-luxury text-xs"
+            >
+              +44 20 4567 8901
+            </a>
           </div>
 
           {/* Mobile Menu Button */}

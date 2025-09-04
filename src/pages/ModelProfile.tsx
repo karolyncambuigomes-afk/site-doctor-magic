@@ -159,9 +159,9 @@ export const ModelProfile: React.FC = () => {
         <div className="max-w-4xl mx-auto p-6 md:p-8">
           {/* Model Header */}
           <div className="text-center space-y-6 pb-12 mb-12 border-b border-border">
-            <h1 className="text-4xl md:text-5xl font-light tracking-wide text-foreground">{model.name}</h1>
+            <h1 className="text-5xl md:text-6xl font-light tracking-wide text-foreground">{model.name}</h1>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-base md:text-lg text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-lg md:text-xl text-muted-foreground">
               <span className="font-medium">{model.age} years</span>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -175,7 +175,7 @@ export const ModelProfile: React.FC = () => {
             
             <div className="flex items-center justify-center gap-3">
               <div className={`w-3 h-3 rounded-full ${getAvailabilityColor(model.availability)}`} />
-              <span className="text-base font-medium">{getAvailabilityText(model.availability)}</span>
+              <span className="text-lg font-medium">{getAvailabilityText(model.availability)}</span>
             </div>
           </div>
 

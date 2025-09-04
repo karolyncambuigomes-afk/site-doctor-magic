@@ -262,6 +262,38 @@ export const ModelProfile: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* You Might Also Like Section */}
+        <div className="border-t border-border/30 bg-muted/20">
+          <div className="max-w-4xl mx-auto p-4 md:p-6">
+            <h3 className="text-xl font-light text-foreground mb-6 text-center">You Might Also Like</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {models
+                .filter(m => m.id !== model.id)
+                .slice(0, 6)
+                .map((suggestedModel) => (
+                  <Link 
+                    key={suggestedModel.id} 
+                    to={`/models/${suggestedModel.id}`}
+                    className="group"
+                  >
+                    <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-muted">
+                      <img
+                        src={suggestedModel.image}
+                        alt={suggestedModel.name}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute bottom-0 left-0 right-0 p-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                        <h4 className="font-medium text-sm">{suggestedModel.name}</h4>
+                        <p className="text-xs opacity-90">{suggestedModel.age} • {suggestedModel.location}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <Footer />

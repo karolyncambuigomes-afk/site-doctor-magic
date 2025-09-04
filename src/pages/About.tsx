@@ -238,6 +238,13 @@ const About = () => {
           </div>
         </section>
 
+        {/* Elegant Divider */}
+        <div className="py-8 bg-background">
+          <div className="container-width">
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-50"></div>
+          </div>
+        </div>
+
         {/* Excellence Section */}
         <section className="py-16 bg-background">
           <div className="container-width">

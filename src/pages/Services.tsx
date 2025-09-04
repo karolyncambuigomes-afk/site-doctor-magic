@@ -3,7 +3,8 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ExternalLink } from 'lucide-react';
 
 const Services = () => {
   const structuredData = {
@@ -54,7 +55,9 @@ const Services = () => {
       description: "Elegant companions for fine dining experiences at London's most prestigious restaurants",
       features: ["Michelin-starred restaurants", "Wine knowledge", "Sophisticated conversation", "Impeccable etiquette"],
       duration: "2-4 hours",
-      ideal: "Perfect for romantic evenings or business dinners"
+      ideal: "Perfect for romantic evenings or business dinners",
+      blogLink: "/blog/best-restaurants-london-dinner-dates",
+      blogTitle: "Best Restaurants in London for Special Dinner Dates"
     },
     {
       icon: Briefcase,
@@ -62,7 +65,9 @@ const Services = () => {
       description: "Professional and sophisticated companions for corporate functions and networking events",
       features: ["Corporate event experience", "Professional attire", "Business acumen", "Networking skills"],
       duration: "3-8 hours",
-      ideal: "Ideal for conferences, galas, and corporate functions"
+      ideal: "Ideal for conferences, galas, and corporate functions",
+      blogLink: "/blog/exclusive-experiences-london-luxury",
+      blogTitle: "Exclusive Business Experiences in London"
     },
     {
       icon: Plane,
@@ -70,7 +75,9 @@ const Services = () => {
       description: "Cultured and well-traveled companions for business trips and luxury vacations",
       features: ["International experience", "Cultural knowledge", "Passport ready", "Flexible schedules"],
       duration: "1-7 days",
-      ideal: "Perfect for business trips or luxury getaways"
+      ideal: "Perfect for business trips or luxury getaways",
+      blogLink: "/blog/luxury-hotels-london-sophisticated-stays",
+      blogTitle: "Sophisticated Hotels in London"
     },
     {
       icon: Theater,
@@ -78,7 +85,9 @@ const Services = () => {
       description: "Culturally sophisticated companions for London's finest entertainment venues",
       features: ["Arts appreciation", "Theatre knowledge", "Elegant evening wear", "Cultural conversations"],
       duration: "3-5 hours",
-      ideal: "Wonderful for West End shows and cultural events"
+      ideal: "Wonderful for West End shows and cultural events",
+      blogLink: "/blog/london-annual-events-luxury-experiences",
+      blogTitle: "London's Exclusive Annual Events"
     },
     {
       icon: Users,
@@ -86,7 +95,9 @@ const Services = () => {
       description: "Charming companions for parties, weddings, and exclusive social gatherings",
       features: ["Social grace", "Adaptability", "Engaging personality", "Event experience"],
       duration: "4-8 hours",
-      ideal: "Great for weddings, parties, and social occasions"
+      ideal: "Great for weddings, parties, and social occasions",
+      blogLink: "/blog/london-annual-events-luxury-experiences",
+      blogTitle: "London's Social Calendar"
     },
     {
       icon: Wine,
@@ -94,7 +105,9 @@ const Services = () => {
       description: "Sophisticated companions for wine tastings, cocktail events, and bar experiences",
       features: ["Wine knowledge", "Cocktail appreciation", "Bar etiquette", "Lively conversation"],
       duration: "2-4 hours",
-      ideal: "Perfect for wine bars and cocktail lounges"
+      ideal: "Perfect for wine bars and cocktail lounges",
+      blogLink: "/blog/best-restaurants-london-dinner-dates",
+      blogTitle: "Fine Dining & Wine Experiences"
     },
     {
       icon: Music,
@@ -102,7 +115,9 @@ const Services = () => {
       description: "Vivacious companions for concerts, festivals, and entertainment venues",
       features: ["Music appreciation", "Event enthusiasm", "Social energy", "Entertainment knowledge"],
       duration: "3-6 hours",
-      ideal: "Excellent for concerts and entertainment events"
+      ideal: "Excellent for concerts and entertainment events",
+      blogLink: "/blog/london-annual-events-luxury-experiences",
+      blogTitle: "London's Entertainment Calendar"
     },
     {
       icon: Calendar,
@@ -110,7 +125,9 @@ const Services = () => {
       description: "Longer arrangements for special occasions or extended social needs",
       features: ["Flexible scheduling", "Personal attention", "Customized experiences", "Dedicated service"],
       duration: "8+ hours",
-      ideal: "For special occasions and extended engagements"
+      ideal: "For special occasions and extended engagements",
+      blogLink: "/blog/exclusive-experiences-london-luxury",
+      blogTitle: "Exclusive Experiences in London"
     }
   ];
 
@@ -191,6 +208,20 @@ const Services = () => {
                           <p className="text-xs text-muted-foreground/80 italic mt-3">
                             {service.ideal}
                           </p>
+                          
+                          {/* Blog Link */}
+                          <div className="mt-4 pt-3 border-t border-border/30">
+                            <Link 
+                              to={service.blogLink}
+                              className="inline-flex items-center text-xs text-primary hover:text-primary/80 transition-colors group"
+                            >
+                              <span className="mr-2">📖</span>
+                              <span className="underline decoration-dotted underline-offset-2 group-hover:decoration-solid">
+                                {service.blogTitle}
+                              </span>
+                              <ExternalLink className="ml-2 w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                            </Link>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -20,13 +20,8 @@ export const BookNowButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const footer = document.querySelector('footer');
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        // Show button when footer is visible or close to visible
-        setIsVisible(footerRect.top <= windowHeight + 200);
-      }
+      // Show button after scrolling down 100px from the top
+      setIsVisible(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll);

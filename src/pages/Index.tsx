@@ -104,37 +104,6 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Features Section */}
-        <section className="section-padding bg-background">
-          <div className="container-width">
-            <div className="text-center mb-20">
-              <h2 className="heading-lg mb-4">
-                Why Choose Five London
-              </h2>
-              <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
-                Experience the pinnacle of luxury companionship with our carefully curated selection
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              {features.map((feature, index) => (
-                <div 
-                  key={feature.title}
-                  className="text-center space-y-4"
-                >
-                  <div className="inline-flex items-center justify-center w-12 h-12 text-foreground mb-6">
-                    <feature.icon className="w-8 h-8" />
-                  </div>
-                  <h3 className="heading-md">{feature.title}</h3>
-                  <p className="body-sm">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-
         {/* Featured Models Section */}
         <section className="section-padding bg-muted/50">
           <div className="container-width">
@@ -174,6 +143,35 @@ const Index = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="section-padding bg-background">
+          <div className="container-width">
+            <div className="text-center mb-20">
+              <h2 className="heading-lg mb-4">
+                Why Choose Five London
+              </h2>
+              <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+                Experience the pinnacle of luxury companionship with our carefully curated selection
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              {features.map((feature, index) => (
+                <div 
+                  key={feature.title}
+                  className="text-center space-y-4"
+                >
+                  <div className="inline-flex items-center justify-center w-12 h-12 text-foreground mb-6">
+                    <feature.icon className="w-8 h-8" />
+                  </div>
+                  <h3 className="heading-md">{feature.title}</h3>
+                  <p className="body-sm">{feature.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

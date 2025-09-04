@@ -141,7 +141,7 @@ export const ModelsGallery: React.FC = () => {
         <section className="py-16">
           <div className="container-width-lg">
             {filteredModels.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
+              <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                 {filteredModels.map(model => (
                   <ModelCard key={model.id} model={model} />
                 ))}

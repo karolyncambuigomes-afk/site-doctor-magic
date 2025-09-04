@@ -107,28 +107,27 @@ const Index = () => {
         {/* Features Section */}
         <section className="section-padding bg-background">
           <div className="container-width">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-                Why Choose <span className="luxury-text-gradient">Five London</span>
+            <div className="text-center mb-20">
+              <h2 className="heading-lg mb-4">
+                Why Choose Five London
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Experience the pinnacle of luxury companionship with our carefully curated selection of sophisticated ladies
+              <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+                Experience the pinnacle of luxury companionship with our carefully curated selection
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {features.map((feature, index) => (
-                <Card 
+                <div 
                   key={feature.title}
-                  className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="text-center space-y-4"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
-                    <feature.icon className="w-8 h-8 text-primary" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 text-foreground mb-6">
+                    <feature.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </Card>
+                  <h3 className="heading-md">{feature.title}</h3>
+                  <p className="body-sm">{feature.description}</p>
+                </div>
               ))}
             </div>
           </div>

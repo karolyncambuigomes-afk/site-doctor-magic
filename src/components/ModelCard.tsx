@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Star, MapPin, Clock, Heart } from 'lucide-react';
+import { Star, MapPin } from 'lucide-react';
 import { Model } from '@/data/models';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ interface ModelCardProps {
 }
 
 export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const getAvailabilityColor = (availability: Model['availability']) => {
@@ -28,13 +26,13 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-luxury border-border/50 bg-card/50 backdrop-blur-sm">
+    <Card className="minimal-card overflow-hidden transition-all duration-200 hover:shadow-elegant">
       <div className="relative overflow-hidden">
-        <div className={`aspect-[3/4] bg-muted animate-pulse ${imageLoaded ? 'hidden' : 'block'}`} />
+        <div className={`aspect-[3/4] bg-muted ${imageLoaded ? 'hidden' : 'block'}`} />
         <img
           src={model.image}
           alt={model.name}
-          className={`aspect-[3/4] w-full object-cover transition-all duration-500 group-hover:scale-105 ${
+          className={`aspect-[3/4] w-full object-cover transition-opacity duration-300 ${
             imageLoaded ? 'block' : 'hidden'
           }`}
           onLoad={() => setImageLoaded(true)}
@@ -43,64 +41,44 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
         
         {/* Availability Indicator */}
         <div className="absolute top-4 left-4">
-          <div className={`w-3 h-3 rounded-full ${getAvailabilityColor(model.availability)} animate-pulse`} />
+          <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
         </div>
         
-        {/* Favorite Button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          className="absolute top-4 right-4 bg-background/20 backdrop-blur-sm hover:bg-background/40"
-          onClick={() => setIsFavorite(!isFavorite)}
-        >
-          <Heart className={`h-4 w-4 ${isFavorite ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
-        </Button>
-        
-        {/* Rating */}
-        <div className="absolute bottom-4 left-4 flex items-center gap-1 bg-background/80 backdrop-blur-sm rounded-full px-2 py-1">
-          <Star className="h-3 w-3 fill-primary text-primary" />
-          <span className="text-sm font-medium">{model.rating}</span>
-          <span className="text-xs text-muted-foreground">({model.reviews})</span>
+        {/* Price */}
+        <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded px-2 py-1">
+          <span className="text-xs font-medium">{model.price}</span>
         </div>
       </div>
       
       <CardContent className="p-6">
-        <div className="flex items-start justify-between mb-3">
+        <div className="space-y-3">
           <div>
-            <h3 className="text-xl font-semibold text-foreground">{model.name}</h3>
-            <p className="text-sm text-muted-foreground">{model.age} years old</p>
+            <h3 className="text-lg font-medium text-foreground">{model.name}</h3>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <span>{model.age} years</span>
+              <span>•</span>
+              <div className="flex items-center gap-1">
+                <MapPin className="h-3 w-3" />
+                <span>{model.location}</span>
+              </div>
+            </div>
           </div>
-          <div className="text-right">
-            <p className="text-lg font-bold text-primary">{model.price}</p>
+          
+          <p className="text-sm text-muted-foreground line-clamp-2">
+            {model.description}
+          </p>
+          
+          <div className="flex items-center gap-2">
+            <Star className="h-3 w-3 fill-foreground text-foreground" />
+            <span className="text-sm font-medium">{model.rating}</span>
+            <span className="text-xs text-muted-foreground">({model.reviews})</span>
           </div>
-        </div>
-        
-        <div className="flex items-center gap-2 mb-3">
-          <MapPin className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground">{model.location}</span>
-        </div>
-        
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-          {model.description}
-        </p>
-        
-        <div className="flex flex-wrap gap-1 mb-4">
-          {model.services.slice(0, 2).map((service) => (
-            <Badge key={service} variant="secondary" className="text-xs">
-              {service}
-            </Badge>
-          ))}
-          {model.services.length > 2 && (
-            <Badge variant="outline" className="text-xs">
-              +{model.services.length - 2} more
-            </Badge>
-          )}
         </div>
       </CardContent>
       
       <CardFooter className="p-6 pt-0">
         <Link to={`/models/${model.id}`} className="w-full">
-          <Button className="w-full">
+          <Button className="minimal-button-outline w-full">
             View Profile
           </Button>
         </Link>

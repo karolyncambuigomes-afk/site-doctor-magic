@@ -8,82 +8,79 @@
 
 @layer base {
   :root {
-    /* Core Brand Colors - Luxury Gold & Deep Black */
-    --background: 0 0% 98%;
-    --foreground: 0 0% 5%;
+    /* Minimalist Color Palette - Inspired by Louis Vuitton */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
+    --card-foreground: 0 0% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 9%;
 
-    /* Primary: Luxury Gold */
-    --primary: 45 100% 85%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 45 100% 90%;
+    /* Primary: Deep Black (LV Style) */
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
 
-    /* Secondary: Deep Charcoal */
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary: Warm Off-White */
+    --secondary: 30 20% 97%;
+    --secondary-foreground: 0 0% 9%;
 
-    /* Accent: Rose Gold */
-    --accent: 15 50% 85%;
-    --accent-foreground: 0 0% 5%;
+    /* Accent: Subtle Gold */
+    --accent: 45 25% 85%;
+    --accent-foreground: 0 0% 9%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 50%;
 
-    --destructive: 0 70% 50%;
+    --destructive: 0 60% 45%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 95%;
-    --ring: 45 100% 85%;
+    --border: 0 0% 93%;
+    --input: 0 0% 96%;
+    --ring: 0 0% 9%;
 
-    --radius: 0.75rem;
+    --radius: 0.25rem;
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-    --gradient-dark: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(0 0% 8%) 100%);
+    /* Minimal Gradients */
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(0 0% 5%) 100%);
 
-    /* Shadows */
-    --shadow-luxury: 0 25px 50px -12px hsl(var(--primary) / 0.25);
-    --shadow-elegant: 0 10px 30px -10px hsl(0 0% 0% / 0.1);
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    /* Subtle Shadows */
+    --shadow-minimal: 0 1px 3px 0 hsl(0 0% 0% / 0.1);
+    --shadow-elegant: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-luxury: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
 
-    /* Animations */
-    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth Transitions */
+    --transition-minimal: all 0.2s ease-in-out;
+    --transition-smooth: all 0.3s ease-in-out;
   }
 
   .dark {
-    --background: 0 0% 3%;
+    --background: 0 0% 9%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 5%;
+    --card: 0 0% 9%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 5%;
+    --popover: 0 0% 9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 45 100% 75%;
-    --primary-foreground: 0 0% 5%;
-    --primary-glow: 45 100% 80%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
 
-    --secondary: 0 0% 12%;
+    --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --accent: 15 50% 75%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 45 25% 75%;
+    --accent-foreground: 0 0% 9%;
 
-    --muted: 0 0% 8%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
     --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --ring: 45 100% 75%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 98%;
   }
 }
 
@@ -103,24 +100,28 @@
 }
 
 @layer components {
-  .luxury-text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  .minimal-text {
+    @apply text-foreground;
   }
 
-  .luxury-button {
-    @apply relative overflow-hidden bg-gradient-to-r from-primary to-accent text-primary-foreground font-medium px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95;
+  .minimal-button {
+    @apply bg-primary text-primary-foreground font-medium px-8 py-3 rounded border-0 transition-all duration-200 hover:opacity-90;
   }
 
-  .luxury-card {
-    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl shadow-elegant hover:shadow-luxury transition-all duration-300;
+  .minimal-button-outline {
+    @apply border border-primary text-primary bg-transparent font-medium px-8 py-3 rounded transition-all duration-200 hover:bg-primary hover:text-primary-foreground;
+  }
+
+  .minimal-card {
+    @apply bg-card border border-border rounded shadow-minimal transition-all duration-200 hover:shadow-elegant;
   }
 
   .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 lg:py-24;
+    @apply px-6 lg:px-8 py-20 lg:py-32;
   }
 
   .container-width {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-6xl mx-auto;
   }
 
   .line-clamp-2 {
@@ -129,14 +130,25 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+  /* Minimalist Typography */
+  .heading-xl {
+    @apply text-4xl lg:text-6xl font-light tracking-tight leading-tight;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  .heading-lg {
+    @apply text-3xl lg:text-4xl font-light tracking-tight;
+  }
+
+  .heading-md {
+    @apply text-2xl lg:text-3xl font-normal tracking-tight;
+  }
+
+  .body-lg {
+    @apply text-lg leading-relaxed;
+  }
+
+  .body-sm {
+    @apply text-sm leading-relaxed text-muted-foreground;
   }
 }

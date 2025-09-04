@@ -7,22 +7,22 @@ export const Footer = () => {
   return (
     <footer className="bg-background border-t border-border">
       <div className="container-width section-padding-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Brand */}
-          <div className="space-y-8">
-            <h3 className="font-heading font-light text-2xl tracking-[0.3em] text-foreground uppercase">
+          <div className="space-y-4">
+            <h3 className="font-heading font-light text-lg tracking-[0.2em] text-foreground/60 uppercase">
               Five London
             </h3>
-            <p className="body-minimal max-w-sm">
+            <p className="text-xs text-foreground/40 max-w-sm leading-relaxed">
               London's premier luxury companion agency, providing sophisticated 
               and discreet services for discerning clientele.
             </p>
           </div>
 
           {/* Navigation */}
-          <div className="space-y-8">
-            <h4 className="heading-sm">Explore</h4>
-            <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-4">
+            <h4 className="text-xs font-medium text-foreground/60 uppercase tracking-wider">Explore</h4>
+            <div className="grid grid-cols-2 gap-2">
               {[
                 { href: '/', label: 'Home' },
                 { href: '/about', label: 'About' },
@@ -36,7 +36,7 @@ export const Footer = () => {
                 <Link 
                   key={link.href}
                   to={link.href}
-                  className="caption hover:text-foreground transition-luxury block"
+                  className="text-xs text-foreground/40 hover:text-foreground/60 transition-luxury block"
                 >
                   {link.label}
                 </Link>
@@ -45,25 +45,25 @@ export const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="space-y-8">
-            <h4 className="heading-sm">Connect</h4>
-            <div className="space-y-6">
+          <div className="space-y-4">
+            <h4 className="text-xs font-medium text-foreground/60 uppercase tracking-wider">Connect</h4>
+            <div className="space-y-3">
               <a 
                 href="tel:+442045678901"
-                className="flex items-center space-x-4 caption hover:text-foreground transition-luxury"
+                className="flex items-center space-x-2 text-xs text-foreground/40 hover:text-foreground/60 transition-luxury"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3 h-3" />
                 <span>+44 20 4567 8901</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-4 caption hover:text-foreground transition-luxury"
+                className="flex items-center space-x-2 text-xs text-foreground/40 hover:text-foreground/60 transition-luxury"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-3 h-3" />
                 <span>info@fivelondon.com</span>
               </a>
-              <div className="flex items-center space-x-4 caption">
-                <MapPin className="w-4 h-4" />
+              <div className="flex items-center space-x-2 text-xs text-foreground/40">
+                <MapPin className="w-3 h-3" />
                 <span>Central London</span>
               </div>
             </div>

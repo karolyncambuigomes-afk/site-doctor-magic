@@ -265,6 +265,37 @@ const About = () => {
           </div>
         </section>
 
+        {/* Excellence Section */}
+        <section className="py-16 bg-background">
+          <div className="container-width">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="animate-fade-in-up">
+                <h2 className="heading-md mb-6">
+                  Setting the <span className="luxury-text-gradient">Standard</span>
+                </h2>
+                <div className="space-y-4 body-minimal text-muted-foreground leading-relaxed">
+                  <p>
+                    Our companions are more than just beautiful faces - they are intelligent, well-educated women who can engage in meaningful conversations and adapt to any social setting with grace and poise.
+                  </p>
+                  <p>
+                    Whether accompanying you to a business dinner, cultural event, or private occasion, our companions understand the importance of discretion and professionalism while ensuring your experience is memorable and enjoyable.
+                  </p>
+                </div>
+              </div>
+              <div className="animate-fade-in">
+                <div className="rounded-2xl h-96 relative overflow-hidden">
+                  <img 
+                    src={aboutLuxury3} 
+                    alt="Sophisticated woman at art gallery"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">

@@ -71,8 +71,8 @@ export const Footer = () => {
         </div>
 
         {/* Minimal Bottom */}
-        <div className="mt-24 pt-12 border-t border-border">
-          <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
+        <div className="mt-12 pt-6 border-t border-border">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-3 lg:space-y-0">
             <p className="caption">
               © {currentYear} Five London. All rights reserved.
             </p>

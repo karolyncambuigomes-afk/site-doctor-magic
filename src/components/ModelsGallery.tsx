@@ -9,7 +9,7 @@ export const ModelsGallery: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
-  const [selectedAvailability, setSelectedAvailability] = useState('all');
+  const [selectedServiceType, setSelectedServiceType] = useState('all');
 
   // Get unique values for filters
   const uniqueLocations = [...new Set(models.map(model => model.location))];
@@ -22,20 +22,21 @@ export const ModelsGallery: React.FC = () => {
       const matchesLocation = selectedLocation === 'all' || model.location === selectedLocation;
       const matchesCharacteristic = selectedCharacteristic === 'all' || 
                                    model.characteristics.includes(selectedCharacteristic);
-      const matchesAvailability = selectedAvailability === 'all' || model.availability === selectedAvailability;
+      const matchesServiceType = selectedServiceType === 'all' || 
+                                 model.services.some(service => 
+                                   service.toLowerCase().includes(selectedServiceType.toLowerCase())
+                                 );
       
-      return matchesSearch && matchesLocation && matchesCharacteristic && matchesAvailability;
+      return matchesSearch && matchesLocation && matchesCharacteristic && matchesServiceType;
     });
-  }, [searchTerm, selectedLocation, selectedCharacteristic, selectedAvailability]);
+  }, [searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
 
-  const availableCount = models.filter(model => model.availability === 'available').length;
-  const busyCount = models.filter(model => model.availability === 'busy').length;
 
   const clearAllFilters = () => {
     setSearchTerm('');
     setSelectedLocation('all');
     setSelectedCharacteristic('all');
-    setSelectedAvailability('all');
+    setSelectedServiceType('all');
   };
 
   return (
@@ -95,21 +96,20 @@ export const ModelsGallery: React.FC = () => {
                 ))}
               </select>
 
-              {/* Availability Filter */}
+              {/* Service Type Filter */}
               <select
-                value={selectedAvailability}
-                onChange={(e) => setSelectedAvailability(e.target.value)}
+                value={selectedServiceType}
+                onChange={(e) => setSelectedServiceType(e.target.value)}
                 className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:border-primary outline-none transition-colors"
               >
-                <option value="all">All Status</option>
-                <option value="available">Available</option>
-                <option value="busy">Busy</option>
-                <option value="unavailable">Unavailable</option>
+                <option value="all">All Services</option>
+                <option value="incall">Incall</option>
+                <option value="outcall">Outcall</option>
               </select>
             </div>
 
             {/* Active Filters & Clear */}
-            {(searchTerm || selectedLocation !== 'all' || selectedCharacteristic !== 'all' || selectedAvailability !== 'all') && (
+            {(searchTerm || selectedLocation !== 'all' || selectedCharacteristic !== 'all' || selectedServiceType !== 'all') && (
               <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
                 <div className="text-sm text-muted-foreground">
                   Showing {filteredModels.length} of {models.length} companions

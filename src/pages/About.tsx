@@ -80,7 +80,7 @@ const About = () => {
                   Since 2018, Five London has been the epitome of luxury companionship in the heart of England's capital. We've built our reputation on discretion, sophistication, and unparalleled service quality.
                 </p>
                 <Button className="luxury-button text-lg px-8 py-4">
-                  View Our Services
+                  Contact Us
                 </Button>
               </div>
               <div className="relative animate-fade-in">

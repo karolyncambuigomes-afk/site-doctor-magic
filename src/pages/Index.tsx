@@ -70,7 +70,7 @@ const Index = () => {
         <HeroSection />
         
         {/* Introduction Section - About the Agency */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <section className="py-8 md:py-12 lg:py-16 bg-background">
           <div className="container-width-lg">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <div className="space-y-4">
@@ -96,7 +96,7 @@ const Index = () => {
         </section>
         
         {/* Loro Piana Style - Models Gallery */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <section className="py-8 md:py-12 lg:py-16 bg-background">
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">

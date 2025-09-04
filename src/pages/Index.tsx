@@ -2,7 +2,7 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
-import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
 import { models } from '@/data/models';
@@ -29,28 +29,6 @@ const Index = () => {
     }
   };
 
-  const features = [
-    {
-      icon: Shield,
-      title: "Discreet",
-      description: "Complete confidentiality and privacy guaranteed"
-    },
-    {
-      icon: Clock,
-      title: "Available",
-      description: "24/7 service with immediate confirmation"
-    },
-    {
-      icon: Heart,
-      title: "Curated",
-      description: "Each companion personally vetted for sophistication"
-    },
-    {
-      icon: Star,
-      title: "Premium",
-      description: "Luxury experiences tailored to exceed expectations"
-    }
-  ];
 
   // Debug - verificar se models está carregando
   console.log('Models array:', models, 'Length:', models?.length);
@@ -113,23 +91,6 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-                {features.map((feature, index) => (
-                  <div key={feature.title} className="text-center space-y-3">
-                    <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-muted/50">
-                      <feature.icon className="w-6 h-6 text-foreground/70" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-foreground">
-                        {feature.title}
-                      </h3>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </section>

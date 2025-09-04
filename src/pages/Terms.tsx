@@ -1,0 +1,96 @@
+import React from 'react';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
+import { SEO } from '@/components/SEO';
+
+const Terms = () => {
+  return (
+    <>
+      <SEO 
+        title="Terms of Service - Five London"
+        description="Terms of service for Five London luxury escort services. Read our terms and conditions."
+        canonicalUrl="/terms"
+        noIndex={true}
+      />
+      <Navigation />
+      
+      <main className="min-h-screen bg-white">
+        <div className="max-w-4xl mx-auto px-4 py-16">
+          <h1 className="text-3xl md:text-4xl font-light text-stone-900 mb-8">Terms of Service</h1>
+          
+          <div className="prose prose-stone max-w-none">
+            <p className="text-stone-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+            
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">1. Acceptance of Terms</h2>
+              <p className="text-stone-600 mb-4">
+                By accessing and using Five London services, you accept and agree to be bound by 
+                the terms and provision of this agreement.
+              </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">2. Service Description</h2>
+              <p className="text-stone-600 mb-4">
+                Five London provides luxury companion services for social events, business functions, 
+                and private engagements in London.
+              </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">3. Booking and Payment</h2>
+              <ul className="list-disc list-inside text-stone-600 space-y-2">
+                <li>All bookings must be confirmed in advance</li>
+                <li>Payment is required prior to service</li>
+                <li>Cancellation policy applies to all bookings</li>
+                <li>Additional charges may apply for extended services</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">4. Client Responsibilities</h2>
+              <p className="text-stone-600 mb-4">Clients agree to:</p>
+              <ul className="list-disc list-inside text-stone-600 space-y-2">
+                <li>Treat our companions with respect and courtesy</li>
+                <li>Provide accurate information during booking</li>
+                <li>Comply with all applicable laws</li>
+                <li>Maintain confidentiality and discretion</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">5. Privacy and Confidentiality</h2>
+              <p className="text-stone-600 mb-4">
+                We maintain strict confidentiality regarding all client information and expect 
+                the same level of discretion from our clients.
+              </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">6. Limitation of Liability</h2>
+              <p className="text-stone-600 mb-4">
+                Five London shall not be liable for any indirect, incidental, special, 
+                consequential, or punitive damages.
+              </p>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-stone-900 mb-4">7. Contact Information</h2>
+              <p className="text-stone-600 mb-4">
+                For questions regarding these terms, please contact us at:
+              </p>
+              <p className="text-stone-600">
+                Email: legal@fivelondon.com<br />
+                Phone: +44 20 7123 4567
+              </p>
+            </section>
+          </div>
+        </div>
+      </main>
+      
+      <Footer />
+    </>
+  );
+};
+
+export default Terms;

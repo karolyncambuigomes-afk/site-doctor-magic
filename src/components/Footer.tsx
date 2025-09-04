@@ -109,7 +109,7 @@ export const Footer = () => {
             </p>
             <div className="flex space-x-6 text-sm">
               <Link 
-                to="/privacy" 
+                to="/privacy-policy" 
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 Privacy Policy
@@ -121,10 +121,10 @@ export const Footer = () => {
                 Terms of Service
               </Link>
               <Link 
-                to="/age-verification" 
+                to="/contact" 
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                Age Verification
+                Contact
               </Link>
             </div>
           </div>

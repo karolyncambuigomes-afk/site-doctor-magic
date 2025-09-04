@@ -66,14 +66,14 @@ const About = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-12 lg:py-16 bg-gradient-dark text-secondary-foreground">
+        <section className="py-16 lg:py-20 bg-gradient-dark text-secondary-foreground">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div className="animate-fade-in-up order-1 lg:order-1">
-                <h1 className="heading-lg mb-4 text-center lg:text-left">
+                <h1 className="heading-lg mb-6 text-center lg:text-left">
                   About <span className="luxury-text-gradient">Five London</span>
                 </h1>
-                <p className="body-minimal text-muted-foreground mb-6 leading-relaxed text-center lg:text-left">
+                <p className="body-minimal text-muted-foreground mb-8 leading-relaxed text-center lg:text-left">
                   London's most trusted luxury escort agency. Exceptional standards, absolute discretion, uncompromising quality since 2018.
                 </p>
                 <div className="flex justify-center lg:justify-start">
@@ -101,9 +101,9 @@ const About = () => {
 
 
         {/* Our Story */}
-        <section className="py-10 lg:py-12 bg-muted/50">
+        <section className="py-16 lg:py-20 bg-muted/50">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div className="animate-fade-in order-2 lg:order-1">
                 <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
                   <img 
@@ -115,7 +115,7 @@ const About = () => {
                 </div>
               </div>
               <div className="animate-fade-in-up order-1 lg:order-2 px-4 lg:px-0">
-                <h2 className="heading-md mb-4 text-center lg:text-left">
+                <h2 className="heading-md mb-6 text-center lg:text-left">
                   Trust & <span className="luxury-text-gradient">Excellence</span>
                 </h2>
                 <p className="body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
@@ -127,15 +127,15 @@ const About = () => {
         </section>
 
         {/* Our Values */}
-        <section className="py-10 lg:py-12 bg-background">
+        <section className="py-16 lg:py-20 bg-background">
           <div className="container-width">
-            <div className="text-center mb-8 animate-fade-in">
-              <h2 className="heading-md mb-3">
+            <div className="text-center mb-12 animate-fade-in">
+              <h2 className="heading-md mb-4">
                 Our <span className="luxury-text-gradient">Standards</span>
               </h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="luxury-card p-6 text-center group hover:scale-105 transition-all duration-300">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
                   <Shield className="w-8 h-8 text-primary" />
@@ -171,11 +171,11 @@ const About = () => {
         </div>
 
         {/* Excellence Section */}
-        <section className="py-10 lg:py-12 bg-background">
+        <section className="py-16 lg:py-20 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               <div className="animate-fade-in-up order-1 lg:order-1 px-4 lg:px-0">
-                <h2 className="heading-md mb-4 text-center lg:text-left">
+                <h2 className="heading-md mb-6 text-center lg:text-left">
                   Elite <span className="luxury-text-gradient">Companions</span>
                 </h2>
                 <p className="body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">

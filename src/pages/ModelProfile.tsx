@@ -198,12 +198,31 @@ export const ModelProfile: React.FC = () => {
             </p>
           </div>
 
-          {/* Quick Info Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Price</div>
-              <div className="text-lg font-semibold text-accent">{model.price}</div>
+          {/* Pricing Section */}
+          <div className="mb-8">
+            <h3 className="text-lg font-light text-foreground mb-4">Pricing</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">1 Hora</div>
+                <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">2 Horas</div>
+                <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">3 Horas</div>
+                <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hora Adicional</div>
+                <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+              </div>
             </div>
+          </div>
+
+          {/* Quick Info Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div className="bg-card border border-border rounded-lg p-4 text-center">
               <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
               <div className="text-lg font-semibold text-foreground">{model.height}</div>

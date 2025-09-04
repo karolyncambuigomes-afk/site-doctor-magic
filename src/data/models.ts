@@ -12,6 +12,12 @@ export interface Model {
   age: number;
   location: string;
   price: string;
+  pricing: {
+    oneHour: string;
+    twoHours: string;
+    threeHours: string;
+    additionalHour: string;
+  };
   image: string;
   gallery: string[];
   services: string[];
@@ -36,6 +42,12 @@ export const models: Model[] = [
     age: 24,
     location: 'Mayfair',
     price: '£500/hour',
+    pricing: {
+      oneHour: '£500',
+      twoHours: '£900',
+      threeHours: '£1,300',
+      additionalHour: '£400'
+    },
     image: model1,
     gallery: [model1],
     services: ['Dinner Companion', 'Event Escort', 'Private Meetings'],
@@ -58,6 +70,12 @@ export const models: Model[] = [
     age: 26,
     location: 'Kensington',
     price: '£600/hour',
+    pricing: {
+      oneHour: '£600',
+      twoHours: '£1,100',
+      threeHours: '£1,500',
+      additionalHour: '£450'
+    },
     image: model2,
     gallery: [model2],
     services: ['Social Events', 'Business Dinners', 'Travel Companion'],
@@ -80,6 +98,12 @@ export const models: Model[] = [
     age: 23,
     location: 'Chelsea',
     price: '£550/hour',
+    pricing: {
+      oneHour: '£550',
+      twoHours: '£1,000',
+      threeHours: '£1,400',
+      additionalHour: '£425'
+    },
     image: model3,
     gallery: [model3],
     services: ['Evening Companion', 'Cultural Events', 'Weekend Getaways'],
@@ -102,6 +126,12 @@ export const models: Model[] = [
     age: 25,
     location: 'Canary Wharf',
     price: '£650/hour',
+    pricing: {
+      oneHour: '£650',
+      twoHours: '£1,200',
+      threeHours: '£1,700',
+      additionalHour: '£500'
+    },
     image: model4,
     gallery: [model4],
     services: ['Executive Dinners', 'International Events', 'Private Escort'],
@@ -124,6 +154,12 @@ export const models: Model[] = [
     age: 22,
     location: 'Belgravia',
     price: '£580/hour',
+    pricing: {
+      oneHour: '£580',
+      twoHours: '£1,050',
+      threeHours: '£1,450',
+      additionalHour: '£450'
+    },
     image: luisa1,
     gallery: [luisa1],
     services: ['Dinner Companion', 'Social Events', 'Travel Companion'],
@@ -146,6 +182,12 @@ export const models: Model[] = [
     age: 27,
     location: 'Notting Hill',
     price: '£620/hour',
+    pricing: {
+      oneHour: '£620',
+      twoHours: '£1,150',
+      threeHours: '£1,600',
+      additionalHour: '£480'
+    },
     image: kate1,
     gallery: [kate1],
     services: ['Business Events', 'Cultural Activities', 'Weekend Escapes'],

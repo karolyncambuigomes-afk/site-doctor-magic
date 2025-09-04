@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { models } from '@/data/models';
+import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -212,11 +213,31 @@ export const ModelProfile: React.FC = () => {
           <div className="mb-8">
             <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
             <div className="flex flex-wrap gap-2">
-              {model.characteristics.map((characteristic) => (
-                <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
-                  {characteristic}
-                </Badge>
-              ))}
+              {model.characteristics.map((characteristic) => {
+                // Find the corresponding characteristic object to get the slug
+                const characteristicData = characteristics.find(
+                  char => char.name.toLowerCase() === characteristic.toLowerCase()
+                );
+                
+                if (characteristicData) {
+                  return (
+                    <Link key={characteristic} to={`/${characteristicData.slug}`}>
+                      <Badge 
+                        variant="outline" 
+                        className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer"
+                      >
+                        {characteristic}
+                      </Badge>
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
+                      {characteristic}
+                    </Badge>
+                  );
+                }
+              })}
             </div>
           </div>
 

@@ -63,26 +63,15 @@ const Locations = () => {
           {/* Call to Action */}
           <section className="py-8 bg-muted/50">
             <div className="container-width">
-              <div className="text-center max-w-3xl mx-auto">
-                <h2 className="heading-sm mb-4">
-                  Looking for a Different Area?
-                </h2>
+              <div className="text-center max-w-2xl mx-auto">
                 <p className="body-sm text-muted-foreground mb-6">
-                  Can't find your preferred location? Our beautiful escorts are available throughout London. 
-                  Contact us to find the perfect companion for your specific area.
+                  Can't find your preferred location? Contact us to find the perfect companion for your specific area.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Link to="/contact">
-                    <Button className="minimal-button">
-                      Contact Us
-                    </Button>
-                  </Link>
-                  <Link to="/models">
-                    <Button variant="outline">
-                      Browse Our Models
-                    </Button>
-                  </Link>
-                </div>
+                <Link to="/contact">
+                  <Button className="minimal-button">
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
             </div>
           </section>

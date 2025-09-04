@@ -156,87 +156,91 @@ export const ModelProfile: React.FC = () => {
         )}
 
         {/* Model Details */}
-        <div className="max-w-4xl mx-auto p-6 md:p-8 space-y-8">
+        <div className="max-w-4xl mx-auto p-6 md:p-8">
           {/* Model Header */}
-          <div className="text-center space-y-4 border-b border-border pb-8">
-            <h1 className="text-4xl md:text-5xl font-light tracking-wide">{model.name}</h1>
-            <div className="flex items-center justify-center gap-6 text-lg text-muted-foreground">
-              <span>{model.age} years</span>
+          <div className="text-center space-y-6 pb-12 mb-12 border-b border-border">
+            <h1 className="text-4xl md:text-5xl font-light tracking-wide text-foreground">{model.name}</h1>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-base md:text-lg text-muted-foreground">
+              <span className="font-medium">{model.age} years</span>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                {model.location}
+                <span>{model.location}</span>
               </div>
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span>{model.rating}</span>
+                <span className="font-medium">{model.rating}</span>
               </div>
             </div>
-            <div className="flex items-center justify-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
-              <span className="text-sm">{getAvailabilityText(model.availability)}</span>
+            
+            <div className="flex items-center justify-center gap-3">
+              <div className={`w-3 h-3 rounded-full ${getAvailabilityColor(model.availability)}`} />
+              <span className="text-base font-medium">{getAvailabilityText(model.availability)}</span>
             </div>
           </div>
-          {/* About */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-light">About {model.name}</h2>
+
+          {/* About Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl md:text-3xl font-light text-foreground mb-6">About {model.name}</h2>
             <p className="text-muted-foreground leading-relaxed text-lg">
               {model.description}
             </p>
           </div>
 
           {/* Quick Info Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-6 border-t border-b border-border">
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Price</div>
-              <div className="font-medium text-accent">{model.price}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 mb-12 bg-muted/30 rounded-lg px-6">
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Price</div>
+              <div className="text-xl font-semibold text-accent">{model.price}</div>
             </div>
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Height</div>
-              <div className="font-medium">{model.height}</div>
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Height</div>
+              <div className="text-xl font-semibold text-foreground">{model.height}</div>
             </div>
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Hair</div>
-              <div className="font-medium">{model.hair}</div>
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Hair</div>
+              <div className="text-xl font-semibold text-foreground">{model.hair}</div>
             </div>
-            <div>
-              <div className="text-sm text-muted-foreground mb-1">Eyes</div>
-              <div className="font-medium">{model.eyes}</div>
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Eyes</div>
+              <div className="text-xl font-semibold text-foreground">{model.eyes}</div>
             </div>
           </div>
 
-          {/* Services */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-light">Services</h3>
-            <div className="flex flex-wrap gap-2">
+          {/* Services Section */}
+          <div className="mb-12">
+            <h3 className="text-xl md:text-2xl font-light text-foreground mb-6">Services</h3>
+            <div className="flex flex-wrap gap-3">
               {model.services.map((service) => (
-                <Badge key={service} variant="secondary" className="font-light">
+                <Badge key={service} variant="secondary" className="text-sm px-4 py-2 font-medium">
                   {service}
                 </Badge>
               ))}
             </div>
           </div>
 
-          {/* Languages */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-light">Languages</h3>
-            <div className="flex flex-wrap gap-2">
+          {/* Languages Section */}
+          <div className="mb-12">
+            <h3 className="text-xl md:text-2xl font-light text-foreground mb-6">Languages</h3>
+            <div className="flex flex-wrap gap-3">
               {model.languages.map((language) => (
-                <Badge key={language} variant="outline" className="font-light">
+                <Badge key={language} variant="outline" className="text-sm px-4 py-2 font-medium">
                   {language}
                 </Badge>
               ))}
             </div>
           </div>
 
-          {/* Contact Buttons */}
-          <div className="pt-8 space-y-4">
-            <h3 className="text-xl font-light">Book {model.name}</h3>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="five-london-button flex-1">
+          {/* Contact Section */}
+          <div className="bg-muted/30 rounded-lg p-8 text-center">
+            <h3 className="text-2xl md:text-3xl font-light text-foreground mb-2">Book {model.name}</h3>
+            <p className="text-muted-foreground mb-8">Get in touch to arrange your appointment</p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Button className="five-london-button flex-1 py-3">
                 <Phone className="mr-2 h-4 w-4" />
                 Call Now
               </Button>
-              <Button variant="outline" className="flex-1">
+              <Button variant="outline" className="flex-1 py-3">
                 <MessageCircle className="mr-2 h-4 w-4" />
                 WhatsApp
               </Button>

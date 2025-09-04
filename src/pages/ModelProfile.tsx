@@ -138,32 +138,6 @@ export const ModelProfile: React.FC = () => {
               </span>
             </div>
           )}
-
-          {/* Model Info Overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 md:p-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-white space-y-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
-                  <span className="text-sm opacity-90">{getAvailabilityText(model.availability)}</span>
-                </div>
-                <h1 className="text-4xl md:text-6xl font-light tracking-wide">{model.name}</h1>
-                <div className="flex items-center gap-4 text-lg opacity-90">
-                  <span>{model.age} years</span>
-                  <span>•</span>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    {model.location}
-                  </div>
-                  <span>•</span>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span>{model.rating}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Thumbnail Gallery */}
@@ -193,6 +167,25 @@ export const ModelProfile: React.FC = () => {
 
         {/* Model Details */}
         <div className="max-w-4xl mx-auto p-6 md:p-8 space-y-8">
+          {/* Model Header */}
+          <div className="text-center space-y-4 border-b border-border pb-8">
+            <h1 className="text-4xl md:text-5xl font-light tracking-wide">{model.name}</h1>
+            <div className="flex items-center justify-center gap-6 text-lg text-muted-foreground">
+              <span>{model.age} years</span>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                {model.location}
+              </div>
+              <div className="flex items-center gap-1">
+                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                <span>{model.rating}</span>
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
+              <span className="text-sm">{getAvailabilityText(model.availability)}</span>
+            </div>
+          </div>
           {/* About */}
           <div className="space-y-4">
             <h2 className="text-2xl font-light">About {model.name}</h2>

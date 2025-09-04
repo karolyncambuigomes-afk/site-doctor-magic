@@ -14,7 +14,140 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      model_gallery: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          model_id: string
+          order_index: number | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          model_id: string
+          order_index?: number | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          model_id?: string
+          order_index?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_gallery_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      models: {
+        Row: {
+          age: number | null
+          availability: string | null
+          characteristics: string[] | null
+          created_at: string
+          description: string | null
+          education: string | null
+          eyes: string | null
+          hair: string | null
+          height: string | null
+          id: string
+          image: string | null
+          interests: string[] | null
+          location: string | null
+          measurements: string | null
+          name: string
+          nationality: string | null
+          price: string | null
+          pricing: Json | null
+          rating: number | null
+          reviews: number | null
+          services: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          age?: number | null
+          availability?: string | null
+          characteristics?: string[] | null
+          created_at?: string
+          description?: string | null
+          education?: string | null
+          eyes?: string | null
+          hair?: string | null
+          height?: string | null
+          id?: string
+          image?: string | null
+          interests?: string[] | null
+          location?: string | null
+          measurements?: string | null
+          name: string
+          nationality?: string | null
+          price?: string | null
+          pricing?: Json | null
+          rating?: number | null
+          reviews?: number | null
+          services?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          age?: number | null
+          availability?: string | null
+          characteristics?: string[] | null
+          created_at?: string
+          description?: string | null
+          education?: string | null
+          eyes?: string | null
+          hair?: string | null
+          height?: string | null
+          id?: string
+          image?: string | null
+          interests?: string[] | null
+          location?: string | null
+          measurements?: string | null
+          name?: string
+          nationality?: string | null
+          price?: string | null
+          pricing?: Json | null
+          rating?: number | null
+          reviews?: number | null
+          services?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          role: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

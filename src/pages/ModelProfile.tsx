@@ -89,16 +89,6 @@ export const ModelProfile: React.FC = () => {
       />
       
       <Navigation />
-      
-      {/* Back Button */}
-      <div className="fixed top-20 left-4 z-50">
-        <Link to="/models">
-          <Button variant="outline" size="sm" className="bg-white/90 backdrop-blur-sm">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Button>
-        </Link>
-      </div>
 
       {/* Main Gallery Section */}
       <section className="min-h-screen bg-background">

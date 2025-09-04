@@ -242,7 +242,7 @@
 
   /* Model Cards - Ultra Minimal */
   .model-card {
-    @apply group relative overflow-hidden transition-luxury cursor-pointer;
+    @apply relative overflow-hidden transition-luxury cursor-pointer;
   }
 
   .model-card-image {

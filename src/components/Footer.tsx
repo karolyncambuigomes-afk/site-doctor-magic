@@ -58,21 +58,15 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="font-semibold text-foreground">Services</h4>
-            <ul className="space-y-2">
-              {[
-                'Dinner Dates',
-                'Business Events',
-                'Travel Companion',
-                'Theatre & Opera',
-                'Private Parties',
-                'Weekend Getaways'
-              ].map((service) => (
-                <li key={service}>
-                  <span className="text-muted-foreground">{service}</span>
-                </li>
-              ))}
-            </ul>
+            <h4 className="font-semibold text-foreground">Our Services</h4>
+            <div>
+              <Link 
+                to="/services"
+                className="inline-block text-muted-foreground hover:text-primary transition-colors border border-muted-foreground/20 hover:border-primary/30 px-4 py-2 rounded"
+              >
+                View All Services
+              </Link>
+            </div>
           </div>
 
           {/* Contact Info */}

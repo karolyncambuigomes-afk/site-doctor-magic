@@ -66,28 +66,57 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* Featured Companions - Ultra Minimal */}
-        <section className="py-8">
-          <div className="container-width-lg">
-            <div className="text-center mb-12">
+        {/* Featured Companions - Elegant Design */}
+        <section className="py-20 lg:py-24 bg-background relative overflow-hidden">
+          {/* Subtle background pattern */}
+          <div className="absolute inset-0 opacity-[0.02]">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary to-accent rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-tl from-accent to-primary rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container-width-lg relative z-10">
+            <div className="text-center mb-16 animate-fade-in">
+              <div className="inline-flex items-center space-x-4 mb-6">
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+                <span className="caption text-primary tracking-[0.3em]">CURATED SELECTION</span>
+                <div className="w-12 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+              </div>
+              
               <h2 className="heading-lg mb-6">
-                Selected Companions
+                Selected <span className="luxury-text-gradient">Companions</span>
               </h2>
-              <div className="w-24 h-px bg-primary mx-auto"></div>
+              
+              <p className="body-minimal text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Meet our carefully selected companions, each embodying elegance, sophistication, 
+                and the highest standards of discretion for your perfect London experience.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {models.slice(0, 4).map((model) => (
-                <ModelCard key={model.id} model={model} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              {models.slice(0, 4).map((model, index) => (
+                <div 
+                  key={model.id}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${index * 0.15}s` }}
+                >
+                  <ModelCard model={model} />
+                </div>
               ))}
             </div>
 
-            <div className="text-center mt-12">
-              <Link to="/models">
-                <button className="five-london-button-outline">
-                  View All
-                </button>
-              </Link>
+            <div className="text-center">
+              <div className="inline-flex flex-col items-center space-y-6">
+                <Link to="/models" className="group">
+                  <button className="luxury-button px-10 py-4 text-base relative overflow-hidden">
+                    <span className="relative z-10">View All Companions</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                  </button>
+                </Link>
+                
+                <p className="caption text-muted-foreground/60">
+                  Discover more exclusive companions in our complete gallery
+                </p>
+              </div>
             </div>
           </div>
         </section>

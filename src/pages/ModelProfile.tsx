@@ -158,10 +158,10 @@ export const ModelProfile: React.FC = () => {
         {/* Model Details */}
         <div className="max-w-4xl mx-auto p-6 md:p-8">
           {/* Model Header */}
-          <div className="text-center space-y-6 pb-12 mb-12 border-b border-border">
-            <h1 className="text-5xl md:text-6xl font-light tracking-wide text-foreground">{model.name}</h1>
+          <div className="text-center space-y-4 pb-8 mb-8 border-b border-border">
+            <h1 className="text-3xl md:text-4xl font-light tracking-wide text-foreground">{model.name}</h1>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-lg md:text-xl text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-muted-foreground">
               <span className="font-medium">{model.age} years</span>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -173,46 +173,46 @@ export const ModelProfile: React.FC = () => {
               </div>
             </div>
             
-            <div className="flex items-center justify-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${getAvailabilityColor(model.availability)}`} />
-              <span className="text-lg font-medium">{getAvailabilityText(model.availability)}</span>
+            <div className="flex items-center justify-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
+              <span className="text-sm font-medium">{getAvailabilityText(model.availability)}</span>
             </div>
           </div>
 
           {/* About Section */}
-          <div className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-light text-foreground mb-6">About {model.name}</h2>
-            <p className="text-muted-foreground leading-relaxed text-lg">
+          <div className="mb-8">
+            <h2 className="text-xl font-light text-foreground mb-4">About {model.name}</h2>
+            <p className="text-muted-foreground leading-relaxed text-base">
               {model.description}
             </p>
           </div>
 
-          {/* Quick Info Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 mb-12 bg-muted/30 rounded-lg px-6">
-            <div className="text-center">
-              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Price</div>
-              <div className="text-xl font-semibold text-accent">{model.price}</div>
+          {/* Quick Info Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-card border border-border rounded-lg p-4 text-center">
+              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Price</div>
+              <div className="text-lg font-semibold text-accent">{model.price}</div>
             </div>
-            <div className="text-center">
-              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Height</div>
-              <div className="text-xl font-semibold text-foreground">{model.height}</div>
+            <div className="bg-card border border-border rounded-lg p-4 text-center">
+              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
+              <div className="text-lg font-semibold text-foreground">{model.height}</div>
             </div>
-            <div className="text-center">
-              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Hair</div>
-              <div className="text-xl font-semibold text-foreground">{model.hair}</div>
+            <div className="bg-card border border-border rounded-lg p-4 text-center">
+              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
+              <div className="text-lg font-semibold text-foreground">{model.hair}</div>
             </div>
-            <div className="text-center">
-              <div className="text-sm text-muted-foreground mb-2 uppercase tracking-wide">Eyes</div>
-              <div className="text-xl font-semibold text-foreground">{model.eyes}</div>
+            <div className="bg-card border border-border rounded-lg p-4 text-center">
+              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
+              <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
             </div>
           </div>
 
           {/* Services Section */}
-          <div className="mb-12">
-            <h3 className="text-xl md:text-2xl font-light text-foreground mb-6">Services</h3>
-            <div className="flex flex-wrap gap-3">
+          <div className="mb-8">
+            <h3 className="text-lg font-light text-foreground mb-4">Services</h3>
+            <div className="flex flex-wrap gap-2">
               {model.services.map((service) => (
-                <Badge key={service} variant="secondary" className="text-sm px-4 py-2 font-medium">
+                <Badge key={service} variant="secondary" className="text-sm px-3 py-1">
                   {service}
                 </Badge>
               ))}
@@ -220,11 +220,11 @@ export const ModelProfile: React.FC = () => {
           </div>
 
           {/* Languages Section */}
-          <div className="mb-12">
-            <h3 className="text-xl md:text-2xl font-light text-foreground mb-6">Languages</h3>
-            <div className="flex flex-wrap gap-3">
+          <div className="mb-8">
+            <h3 className="text-lg font-light text-foreground mb-4">Languages</h3>
+            <div className="flex flex-wrap gap-2">
               {model.languages.map((language) => (
-                <Badge key={language} variant="outline" className="text-sm px-4 py-2 font-medium">
+                <Badge key={language} variant="outline" className="text-sm px-3 py-1">
                   {language}
                 </Badge>
               ))}

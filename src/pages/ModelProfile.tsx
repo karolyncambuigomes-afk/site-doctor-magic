@@ -207,17 +207,6 @@ export const ModelProfile: React.FC = () => {
             </div>
           </div>
 
-          {/* Services Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-light text-foreground mb-4">Services</h3>
-            <div className="flex flex-wrap gap-2">
-              {model.services.map((service) => (
-                <Badge key={service} variant="secondary" className="text-sm px-3 py-1">
-                  {service}
-                </Badge>
-              ))}
-            </div>
-          </div>
 
           {/* Languages Section */}
           <div className="mb-8">

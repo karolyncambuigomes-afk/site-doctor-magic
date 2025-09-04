@@ -168,10 +168,6 @@ export const ModelProfile: React.FC = () => {
                 <MapPin className="h-4 w-4" />
                 <span>{model.location}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span className="font-medium">{model.rating}</span>
-              </div>
             </div>
             
             <div className="flex justify-center">

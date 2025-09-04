@@ -92,11 +92,7 @@ const About = () => {
                     alt="Elegant woman in luxury hotel lobby"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/30"></div>
-                  <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white">
-                    <h3 className="text-lg lg:text-xl font-bold">Excellence Since 2018</h3>
-                    <p className="text-sm lg:text-base opacity-90">London's Premier Agency</p>
-                  </div>
+                  <div className="absolute inset-0 bg-black/20"></div>
                 </div>
               </div>
             </div>
@@ -139,7 +135,7 @@ const About = () => {
         </section>
 
         {/* Our Values */}
-        <section className="py-16 bg-background">
+        <section className="py-12 lg:py-16 bg-background">
           <div className="container-width">
             <div className="text-center mb-12 animate-fade-in">
               <h2 className="heading-md mb-4">

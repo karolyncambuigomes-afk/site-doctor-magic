@@ -13,6 +13,8 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import { Models } from "./pages/Models";
 import { ModelProfile } from "./pages/ModelProfile";
+import Locations from "./pages/Locations";
+import LocationDetail from "./pages/LocationDetail";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
@@ -35,6 +37,8 @@ const App = () => (
             <Route path="/services" element={<Services />} />
             <Route path="/models" element={<Models />} />
             <Route path="/models/:id" element={<ModelProfile />} />
+            <Route path="/locations" element={<Locations />} />
+            <Route path="/locations/:slug" element={<LocationDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

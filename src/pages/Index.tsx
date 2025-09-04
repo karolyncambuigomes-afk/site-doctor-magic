@@ -133,65 +133,10 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Services Preview */}
-        <section className="section-padding bg-muted/50">
-          <div className="container-width">
-            <div className="text-center mb-16 animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-                Our <span className="luxury-text-gradient">Services</span>
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                From intimate dinner dates to exclusive social events, we provide companionship for every occasion
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Dinner Dates",
-                  description: "Elegant companions for fine dining experiences at London's most prestigious restaurants",
-                  image: "/services/dinner.jpg"
-                },
-                {
-                  title: "Business Events",
-                  description: "Professional and sophisticated companions for corporate functions and networking events",
-                  image: "/services/business.jpg"
-                },
-                {
-                  title: "Travel Companion",
-                  description: "Cultured and well-traveled companions for business trips and luxury vacations",
-                  image: "/services/travel.jpg"
-                }
-              ].map((service, index) => (
-                <Card 
-                  key={service.title}
-                  className="luxury-card overflow-hidden group hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="h-48 bg-gradient-luxury relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-xl font-semibold">{service.title}</h3>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <p className="text-muted-foreground">{service.description}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-
-            <div className="text-center mt-12">
-              <Button className="luxury-button text-lg px-8 py-4">
-                View All Services
-              </Button>
-            </div>
-          </div>
-        </section>
 
 
         {/* Featured Models Section */}
-        <section className="section-padding bg-muted/30">
+        <section className="section-padding bg-muted/50">
           <div className="container-width">
             <div className="text-center mb-16 animate-fade-in">
               <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">

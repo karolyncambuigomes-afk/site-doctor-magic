@@ -208,13 +208,13 @@ export const ModelProfile: React.FC = () => {
           </div>
 
 
-          {/* Languages Section */}
+          {/* Characteristics Section */}
           <div className="mb-8">
-            <h3 className="text-lg font-light text-foreground mb-4">Languages</h3>
+            <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
             <div className="flex flex-wrap gap-2">
-              {model.languages.map((language) => (
-                <Badge key={language} variant="outline" className="text-sm px-3 py-1">
-                  {language}
+              {model.characteristics.map((characteristic) => (
+                <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
+                  {characteristic}
                 </Badge>
               ))}
             </div>

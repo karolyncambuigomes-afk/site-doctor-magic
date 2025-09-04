@@ -15,7 +15,7 @@ export interface Model {
   image: string;
   gallery: string[];
   services: string[];
-  languages: string[];
+  characteristics: string[];
   availability: 'available' | 'busy' | 'unavailable';
   rating: number;
   reviews: number;
@@ -39,7 +39,7 @@ export const models: Model[] = [
     image: model1,
     gallery: [model1],
     services: ['Dinner Companion', 'Event Escort', 'Private Meetings'],
-    languages: ['English', 'Portuguese', 'Spanish'],
+    characteristics: ['High Class', 'Bi Sexual', 'Open Minded'],
     availability: 'available',
     rating: 4.9,
     reviews: 156,
@@ -61,7 +61,7 @@ export const models: Model[] = [
     image: model2,
     gallery: [model2],
     services: ['Social Events', 'Business Dinners', 'Travel Companion'],
-    languages: ['English', 'French', 'Italian'],
+    characteristics: ['High Class', 'Sophisticated', 'Intelligent'],
     availability: 'available',
     rating: 4.8,
     reviews: 203,
@@ -83,7 +83,7 @@ export const models: Model[] = [
     image: model3,
     gallery: [model3],
     services: ['Evening Companion', 'Cultural Events', 'Weekend Getaways'],
-    languages: ['English', 'German'],
+    characteristics: ['High Class', 'Open Minded', 'Cultured'],
     availability: 'busy',
     rating: 4.9,
     reviews: 89,
@@ -105,7 +105,7 @@ export const models: Model[] = [
     image: model4,
     gallery: [model4],
     services: ['Executive Dinners', 'International Events', 'Private Escort'],
-    languages: ['English', 'Mandarin', 'Japanese'],
+    characteristics: ['High Class', 'International', 'Exclusive'],
     availability: 'available',
     rating: 5.0,
     reviews: 124,
@@ -127,7 +127,7 @@ export const models: Model[] = [
     image: luisa1,
     gallery: [luisa1],
     services: ['Dinner Companion', 'Social Events', 'Travel Companion'],
-    languages: ['English', 'Portuguese', 'Spanish'],
+    characteristics: ['High Class', 'Bi Sexual', 'Vibrant'],
     availability: 'available',
     rating: 4.9,
     reviews: 78,
@@ -149,7 +149,7 @@ export const models: Model[] = [
     image: kate1,
     gallery: [kate1],
     services: ['Business Events', 'Cultural Activities', 'Weekend Escapes'],
-    languages: ['English', 'French'],
+    characteristics: ['High Class', 'Open Minded', 'Sophisticated'],
     availability: 'available',
     rating: 4.8,
     reviews: 142,

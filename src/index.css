@@ -122,6 +122,13 @@
   .container-width {
     @apply max-w-7xl mx-auto;
   }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
 }
 
 @layer base {

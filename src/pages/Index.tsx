@@ -4,7 +4,11 @@ import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Shield, Clock, Heart, Star, Users, Award } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Shield, Clock, Heart, Star, Users, Award, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ModelCard } from '@/components/ModelCard';
+import { models } from '@/data/models';
 
 const Index = () => {
   const structuredData = {
@@ -217,6 +221,49 @@ const Index = () => {
                   </div>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Models Section */}
+        <section className="section-padding bg-muted/30">
+          <div className="container-width">
+            <div className="text-center mb-16 animate-fade-in">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+                Meet Our <span className="luxury-text-gradient">Exclusive Models</span>
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Discover our carefully selected collection of sophisticated companions, each offering elegance, intelligence, and exceptional service
+              </p>
+              <div className="flex items-center justify-center gap-2 mt-4">
+                <Badge variant="outline" className="bg-emerald-500/10 border-emerald-500/20">
+                  {models.filter(model => model.availability === 'available').length} Available Now
+                </Badge>
+                <Badge variant="outline">
+                  {models.length} Total Models
+                </Badge>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {models.slice(0, 4).map((model, index) => (
+                <div 
+                  key={model.id}
+                  className="animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <ModelCard model={model} />
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link to="/models">
+                <Button className="luxury-button text-lg px-8 py-4">
+                  View All Models
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

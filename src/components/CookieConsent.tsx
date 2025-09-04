@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 
@@ -38,9 +39,9 @@ export const CookieConsent = () => {
           <p className="text-sm text-stone-600">
             We use cookies to enhance your experience and analyze our traffic. 
             By continuing to use our site, you consent to our use of cookies.{' '}
-            <a href="/privacy-policy" className="text-stone-900 underline hover:no-underline">
+            <Link to="/privacy-policy" className="text-stone-900 underline hover:no-underline">
               Privacy Policy
-            </a>
+            </Link>
           </p>
         </div>
         <div className="flex items-center gap-3">

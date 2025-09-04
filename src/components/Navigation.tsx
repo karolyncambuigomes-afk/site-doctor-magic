@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/models', label: 'Companions' },
-  { href: '/locations', label: 'Locations' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/about', label: 'About Us' },
+  { href: '/services', label: 'Service' },
+  { href: '/locations', label: 'Location' },
+  { href: '/blog', label: 'Blog' },
 ];
 
 export const Navigation = () => {

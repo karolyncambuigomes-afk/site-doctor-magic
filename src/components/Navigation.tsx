@@ -41,14 +41,16 @@ export const Navigation = () => {
       <div className="container-width">
         <div className="flex items-center justify-between py-3 md:py-4">{/* Loro Piana style - clean spacing */}
           {/* Five London Logo - Always Dark for Loro Piana Style */}
-          <Link 
-            to="/" 
-            className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
-              isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
-            }`}
-          >
-            Five London
-          </Link>
+          <div className="flex-1">
+            <Link 
+              to="/" 
+              className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
+                isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
+              }`}
+            >
+              Five London
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-16">
@@ -66,7 +68,7 @@ export const Navigation = () => {
           </div>
 
           {/* Contact */}
-          <div className="hidden lg:flex items-center space-x-12">
+          <div className="hidden lg:flex items-center space-x-12 flex-1 justify-end">
             <a 
               href="tel:+442045678901" 
               className="caption hover:text-foreground transition-luxury"

@@ -58,12 +58,12 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator with Emoji */}
+      {/* Scroll Indicator with Elegant Emoji */}
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center">
-        <div className="text-white/60 text-2xl animate-bounce">
-          👇
+        <div className="text-white/30 text-2xl animate-bounce">
+          ⬇
         </div>
-        <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent mt-4"></div>
+        <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent mt-4"></div>
       </div>
     </section>
   );

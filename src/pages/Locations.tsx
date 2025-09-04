@@ -22,13 +22,13 @@ const Locations = () => {
         
         <main className="pt-16">
           {/* Hero Section */}
-          <section className="py-4 bg-gradient-to-b from-muted/30 to-background">
+          <section className="py-12 bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto">
-                <h1 className="heading-xl mb-4">
+                <h1 className="heading-lg mb-6">
                   Find Girls by Location
                 </h1>
-                <p className="body-lg text-muted-foreground mb-4">
+                <p className="body-minimal text-muted-foreground mb-8">
                   Browse our stunning escorts by their preferred London locations. 
                   Click on any area below to discover the beautiful girls available in that district.
                 </p>
@@ -37,9 +37,9 @@ const Locations = () => {
           </section>
 
           {/* Locations Grid */}
-          <section className="py-4">
+          <section className="py-8">
             <div className="container-width">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {locations.map((location) => (
                   <Link 
                     key={location.id} 
@@ -48,9 +48,9 @@ const Locations = () => {
                   >
                      <Button 
                       variant="outline" 
-                      className="w-full py-3 px-4 justify-center hover:shadow-md transition-all duration-300 group-hover:border-primary"
+                      className="w-full py-4 px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary"
                     >
-                      <span className="heading-sm group-hover:text-primary transition-colors">
+                      <span className="body-minimal font-medium group-hover:text-primary transition-colors">
                         {location.name}
                       </span>
                     </Button>
@@ -61,13 +61,13 @@ const Locations = () => {
           </section>
 
           {/* Call to Action */}
-          <section className="py-4 bg-muted/50">
+          <section className="py-12 bg-muted/50">
             <div className="container-width">
               <div className="text-center max-w-3xl mx-auto">
-                <h2 className="heading-lg mb-4">
+                <h2 className="heading-md mb-6">
                   Looking for a Different Area?
                 </h2>
-                <p className="body-lg text-muted-foreground mb-6">
+                <p className="body-minimal text-muted-foreground mb-8">
                   Can't find your preferred location? Our beautiful escorts are available throughout London. 
                   Contact us to find the perfect companion for your specific area.
                 </p>

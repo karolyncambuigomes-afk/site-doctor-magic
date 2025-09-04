@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 const navItems = [
@@ -15,7 +15,7 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,14 +73,23 @@ export const Navigation = () => {
           <div className="hidden lg:flex flex-col items-center space-y-2 flex-1 justify-center pr-8 lg:pr-16">
             <div className="flex items-center gap-2">
               {user ? (
-                isAdmin && (
-                  <Link to="/admin">
-                    <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
-                      <User className="h-3 w-3" />
-                      Admin
-                    </button>
-                  </Link>
-                )
+                <>
+                  {isAdmin && (
+                    <Link to="/admin">
+                      <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
+                        <User className="h-3 w-3" />
+                        Admin
+                      </button>
+                    </Link>
+                  )}
+                  <button 
+                    onClick={signOut}
+                    className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1"
+                  >
+                    <LogOut className="h-3 w-3" />
+                    Sair
+                  </button>
+                </>
               ) : (
                 <Link to="/auth">
                   <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">

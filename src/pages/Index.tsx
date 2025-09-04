@@ -91,6 +91,52 @@ const Index = () => {
       <main>
         <HeroSection />
         
+        {/* Introduction Section - About the Agency */}
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
+          <div className="container-width-lg">
+            <div className="max-w-4xl mx-auto text-center space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-[0.1em] text-foreground">
+                  Five London
+                </h2>
+                <div className="w-24 h-px bg-foreground/20 mx-auto"></div>
+              </div>
+              
+              <div className="space-y-6 text-muted-foreground">
+                <p className="text-lg md:text-xl font-light leading-relaxed">
+                  Somos uma agência de elite especializada em oferecer acompanhantes de luxo em Londres. 
+                  Nossa seleção cuidadosa garante que cada uma de nossas acompanhantes seja sofisticada, 
+                  elegante e dedicada a proporcionar experiências excepcionais.
+                </p>
+                
+                <p className="text-base md:text-lg leading-relaxed">
+                  Com discrição absoluta e serviço personalizado, atendemos clientes exigentes que buscam 
+                  companhia refinada para eventos sociais, jantares de negócios ou momentos especiais. 
+                  Disponível 24 horas por dia, 7 dias por semana.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+                {features.map((feature, index) => (
+                  <div key={feature.title} className="text-center space-y-3">
+                    <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-muted/50">
+                      <feature.icon className="w-6 h-6 text-foreground/70" />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-foreground">
+                        {feature.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* Loro Piana Style - Models Gallery */}
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">

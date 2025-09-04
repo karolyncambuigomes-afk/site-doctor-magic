@@ -17,6 +17,8 @@ import { Models } from "./pages/Models";
 import { ModelProfile } from "./pages/ModelProfile";
 import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
+import Characteristics from "./pages/Characteristics";
+import CharacteristicDetail from "./pages/CharacteristicDetail";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
@@ -42,7 +44,9 @@ const App = () => (
             <Route path="/models" element={<Models />} />
             <Route path="/models/:id" element={<ModelProfile />} />
             <Route path="/locations" element={<Locations />} />
+            <Route path="/characteristics" element={<Characteristics />} />
             <Route path="/:locationSlug" element={<LocationDetail />} />
+            <Route path="/:characteristicSlug" element={<CharacteristicDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

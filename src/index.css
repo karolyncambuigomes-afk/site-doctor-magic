@@ -111,6 +111,36 @@
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+
+  /* Five London Custom Gradients */
+  .bg-gradient-overlay {
+    background-image: var(--gradient-overlay);
+  }
+
+  .bg-gradient-luxury {
+    background-image: var(--gradient-luxury);
+  }
+
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+
+  .bg-gradient-dark {
+    background-image: var(--gradient-dark);
+  }
+
+  /* Five London Custom Shadows */
+  .shadow-minimal {
+    box-shadow: var(--shadow-minimal);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-luxury {
+    box-shadow: var(--shadow-luxury);
+  }
 }
 
 @layer components {

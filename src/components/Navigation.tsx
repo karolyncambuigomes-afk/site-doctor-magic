@@ -139,6 +139,32 @@ export const Navigation = () => {
                   </Link>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
+                  {user ? (
+                    <>
+                      {isAdmin && (
+                        <Link to="/admin">
+                          <button className="five-london-button w-full flex items-center justify-center gap-2">
+                            <User className="h-4 w-4" />
+                            Admin
+                          </button>
+                        </Link>
+                      )}
+                      <button 
+                        onClick={signOut}
+                        className="five-london-button-outline w-full flex items-center justify-center gap-2"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Sair
+                      </button>
+                    </>
+                  ) : (
+                    <Link to="/auth">
+                      <button className="five-london-button-outline w-full flex items-center justify-center gap-2">
+                        <User className="h-4 w-4" />
+                        Login
+                      </button>
+                    </Link>
+                  )}
                   <a 
                     href="tel:+442045678901" 
                     className="block caption hover:text-foreground transition-luxury"

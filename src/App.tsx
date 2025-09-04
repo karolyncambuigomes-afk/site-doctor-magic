@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
+import { BookNowButton } from "@/components/BookNowButton";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -34,6 +35,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <CookieConsent />
+        <BookNowButton />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />

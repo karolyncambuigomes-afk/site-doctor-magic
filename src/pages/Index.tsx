@@ -67,22 +67,22 @@ const Index = () => {
         <HeroSection />
         
         {/* Featured Companions - Ultra Minimal */}
-        <section className="section-padding">
+        <section className="py-8">
           <div className="container-width-lg">
-            <div className="text-center mb-20">
-              <h2 className="heading-lg mb-12">
+            <div className="text-center mb-12">
+              <h2 className="heading-lg mb-6">
                 Selected Companions
               </h2>
               <div className="w-24 h-px bg-primary mx-auto"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {models.slice(0, 4).map((model) => (
                 <ModelCard key={model.id} model={model} />
               ))}
             </div>
 
-            <div className="text-center mt-20">
+            <div className="text-center mt-12">
               <Link to="/models">
                 <button className="five-london-button-outline">
                   View All
@@ -93,9 +93,9 @@ const Index = () => {
         </section>
 
         {/* Philosophy - Ultra Minimal */}
-        <section className="section-padding bg-gradient-subtle">
+        <section className="py-8 bg-gradient-subtle">
           <div className="container-width">
-            <div className="max-w-4xl mx-auto text-center space-y-16">
+            <div className="max-w-4xl mx-auto text-center space-y-12">
               <div className="space-y-8">
                 <h2 className="heading-lg">
                   Our Philosophy
@@ -107,7 +107,7 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                 {features.map((feature) => (
                   <div key={feature.title} className="space-y-6 text-center">
                     <div className="inline-flex items-center justify-center w-12 h-12 text-muted-foreground">
@@ -125,9 +125,9 @@ const Index = () => {
         </section>
 
         {/* Simple CTA */}
-        <section className="section-padding">
+        <section className="py-8">
           <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto space-y-12">
+            <div className="max-w-2xl mx-auto space-y-8">
               <div className="space-y-8">
                 <h2 className="heading-lg">
                   Begin Your Experience

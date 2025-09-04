@@ -51,9 +51,6 @@ const About = () => {
     }
   ];
 
-  const stats = [
-    { number: "24/7", label: "Availability" }
-  ];
 
   return (
     <>
@@ -104,27 +101,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="py-12 bg-background">
-          <div className="container-width">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div 
-                  key={stat.label}
-                  className="text-center animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="heading-md font-bold luxury-text-gradient mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="body-sm text-muted-foreground font-medium">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Our Story */}
         <section className="py-16 bg-muted/50">

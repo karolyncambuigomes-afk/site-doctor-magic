@@ -34,17 +34,17 @@ export const Navigation = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-luxury ${
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
-        : isScrolled 
-        ? 'bg-background/95 backdrop-blur-luxury border-b border-border/50' 
+        : isScrolled || location.pathname === '/'
+        ? 'bg-white/95 backdrop-blur-luxury border-b border-border/10' 
         : 'bg-transparent'
     }`}>
       <div className="container-width">
-        <div className="flex items-center justify-between py-2 md:py-4">{/* Mais fino no mobile */}
-          {/* Five London Logo */}
+        <div className="flex items-center justify-between py-3 md:py-4">{/* Loro Piana style - clean spacing */}
+          {/* Five London Logo - Always Dark for Loro Piana Style */}
           <Link 
             to="/" 
-            className={`font-heading font-light tracking-[0.2em] text-foreground/80 transition-luxury hover:text-foreground uppercase ${
-              isScrolled ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
+            className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
+              isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
             }`}
           >
             Five London

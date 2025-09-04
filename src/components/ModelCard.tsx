@@ -24,8 +24,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
   };
 
   return (
-    <Link to={`/models/${model.id}`} className="model-card block">
-      <div className="relative overflow-hidden aspect-[3/4] bg-muted">
+    <Link to={`/models/${model.id}`} className="model-card block group">
+      <div className="relative overflow-hidden aspect-[3/4] bg-muted rounded-sm transition-all duration-300 group-hover:shadow-lg">
         {!imageError ? (
           <img
             src={model.image}
@@ -53,25 +53,25 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
         )}
         
         {/* Availability Indicator */}
-        <div className="absolute top-6 left-6">
-          <div className={`w-2 h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 lg:top-6 lg:left-6">
+          <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${getAvailabilityColor(model.availability)}`} />
         </div>
         
-        {/* Overlay Content */}
+        {/* Overlay Content - Responsivo */}
         <>
           <div className="model-card-overlay" />
-          <div className="model-card-content">
-            <div className="space-y-3">
+          <div className="model-card-content px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4">
+            <div className="space-y-1 sm:space-y-2 lg:space-y-3">
               <div>
-                <h3 className="heading-sm text-white mb-2">{model.name}</h3>
-                <p className="caption text-white/80">
+                <h3 className="text-sm sm:text-base lg:text-lg font-light text-white mb-1">{model.name}</h3>
+                <p className="text-xs sm:text-sm text-white/80">
                   {model.age} • {model.location}
                 </p>
               </div>
               
-              <div className="w-12 h-px bg-white/30"></div>
+              <div className="w-8 sm:w-10 lg:w-12 h-px bg-white/30"></div>
               
-              <p className="body-sm text-white/90 line-clamp-2">
+              <p className="text-xs sm:text-sm text-white/90 line-clamp-2 leading-relaxed">
                 {model.description}
               </p>
             </div>

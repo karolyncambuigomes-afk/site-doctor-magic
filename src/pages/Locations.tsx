@@ -43,10 +43,10 @@ const Locations = () => {
             </div>
           </section>
 
-          {/* Locations Grid */}
+          {/* Locations Grid - Loro Piana Style Mobile */}
           <section className="py-8">
             <div className="container-width">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                 {locations.map((location) => (
                   <Link 
                     key={location.id} 
@@ -55,9 +55,9 @@ const Locations = () => {
                   >
                      <Button 
                       variant="outline" 
-                      className="w-full py-4 px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary"
+                      className="w-full h-12 sm:h-14 md:h-16 px-3 sm:px-4 md:px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary text-xs sm:text-sm md:text-base"
                     >
-                      <span className="body-minimal font-medium group-hover:text-primary transition-colors">
+                      <span className="body-minimal font-medium group-hover:text-primary transition-colors leading-tight text-center">
                         {location.name}
                       </span>
                     </Button>

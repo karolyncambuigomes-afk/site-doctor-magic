@@ -32,7 +32,7 @@ export const Navigation = () => {
       isScrolled ? 'bg-background/95 backdrop-blur-luxury border-b border-border/50' : 'bg-transparent'
     }`}>
       <div className="container-width">
-        <div className="flex items-center justify-between py-8">
+        <div className="flex items-center justify-between py-4">{/* Reduzido de py-8 para py-4 */}
           {/* Five London Logo */}
           <Link 
             to="/" 

@@ -8,16 +8,8 @@ export const Footer = () => {
     <footer className="bg-background border-t border-border">
       <div className="container-width section-padding-sm">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          {/* Brand */}
-          <div className="space-y-4">
-            <h3 className="font-heading font-light text-lg tracking-[0.2em] text-foreground/60 uppercase">
-              Five London
-            </h3>
-            <p className="text-xs text-foreground/40 max-w-sm leading-relaxed">
-              London's premier luxury companion agency, providing sophisticated 
-              and discreet services for discerning clientele.
-            </p>
-          </div>
+          {/* Brand - Removed */}
+          <div className="hidden"></div>
 
           {/* Navigation */}
           <div className="space-y-4">
@@ -71,21 +63,21 @@ export const Footer = () => {
         </div>
 
         {/* Minimal Bottom */}
-        <div className="mt-12 pt-6 border-t border-border">
-          <div className="flex flex-col lg:flex-row justify-between items-center space-y-3 lg:space-y-0">
-            <p className="caption">
-              © {currentYear} Five London. All rights reserved.
+        <div className="mt-8 pt-4 border-t border-border">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-2 lg:space-y-0">
+            <p className="text-[10px] text-foreground/30">
+              © {currentYear}
             </p>
-            <div className="flex space-x-8">
+            <div className="flex space-x-6">
               <Link 
                 to="/privacy-policy" 
-                className="caption hover:text-foreground transition-luxury"
+                className="text-[10px] text-foreground/30 hover:text-foreground/50 transition-luxury"
               >
                 Privacy
               </Link>
               <Link 
                 to="/terms" 
-                className="caption hover:text-foreground transition-luxury"
+                className="text-[10px] text-foreground/30 hover:text-foreground/50 transition-luxury"
               >
                 Terms
               </Link>

@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { BookNowButton } from "@/components/BookNowButton";
+import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -23,6 +24,8 @@ import CharacteristicDetail from "./pages/CharacteristicDetail";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
+import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,34 +33,38 @@ const queryClient = new QueryClient();
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Analytics />
-        <Toaster />
-        <Sonner />
-        <CookieConsent />
-        <BookNowButton />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/models" element={<Models />} />
-            <Route path="/models/:id" element={<ModelProfile />} />
-            <Route path="/locations" element={<Locations />} />
-            <Route path="/characteristics" element={<Characteristics />} />
-            <Route path="/:locationSlug" element={<LocationDetail />} />
-            <Route path="/:characteristicSlug" element={<CharacteristicDetail />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/reviews" element={<Reviews />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Analytics />
+          <Toaster />
+          <Sonner />
+          <CookieConsent />
+          <BookNowButton />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/models" element={<Models />} />
+              <Route path="/models/:id" element={<ModelProfile />} />
+              <Route path="/locations" element={<Locations />} />
+              <Route path="/characteristics" element={<Characteristics />} />
+              <Route path="/:locationSlug" element={<LocationDetail />} />
+              <Route path="/:characteristicSlug" element={<CharacteristicDetail />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );

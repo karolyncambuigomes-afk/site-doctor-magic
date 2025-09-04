@@ -27,9 +27,16 @@ export const Navigation = () => {
     setIsOpen(false);
   }, [location]);
 
+  // Check if we're on a model profile page
+  const isModelPage = location.pathname.startsWith('/models/');
+  
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-luxury ${
-      isScrolled ? 'bg-background/95 backdrop-blur-luxury border-b border-border/50' : 'bg-transparent'
+      isScrolled && isModelPage 
+        ? 'opacity-0 pointer-events-none transform -translate-y-full' 
+        : isScrolled 
+        ? 'bg-background/95 backdrop-blur-luxury border-b border-border/50' 
+        : 'bg-transparent'
     }`}>
       <div className="container-width">
         <div className="flex items-center justify-between py-4">{/* Reduzido de py-8 para py-4 */}

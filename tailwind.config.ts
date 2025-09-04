@@ -20,7 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'body': ['Inter', 'system-ui', 'sans-serif'],
-				'heading': ['Playfair Display', 'serif'],
+				'heading': ['Cormorant Garamond', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -59,14 +59,15 @@ export default {
 				}
 			},
 			backgroundImage: {
-				'gradient-luxury': 'var(--gradient-luxury)',
-				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-dark': 'var(--gradient-dark)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-subtle': 'var(--gradient-subtle)',
+				'gradient-overlay': 'var(--gradient-overlay)',
+				'gradient-text': 'var(--gradient-text)',
 			},
 			boxShadow: {
-				'minimal': '0 1px 3px 0 hsl(0 0% 0% / 0.1)',
-				'elegant': '0 4px 6px -1px hsl(0 0% 0% / 0.1)',
-				'luxury': '0 20px 25px -5px hsl(0 0% 0% / 0.1)',
+				'minimal': 'var(--shadow-minimal)',
+				'elegant': 'var(--shadow-elegant)',
+				'luxury': 'var(--shadow-luxury)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

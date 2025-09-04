@@ -72,16 +72,14 @@ export const Navigation = () => {
           {/* Contact & Auth */}
           <div className="hidden lg:flex flex-col items-center space-y-2 flex-1 justify-center pr-8 lg:pr-16">
             <div className="flex items-center gap-2">
-              {user ? (
+              {user && isAdmin && (
                 <>
-                  {isAdmin && (
-                    <Link to="/admin">
-                      <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
-                        <User className="h-3 w-3" />
-                        Admin
-                      </button>
-                    </Link>
-                  )}
+                  <Link to="/admin">
+                    <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
+                      <User className="h-3 w-3" />
+                      Admin
+                    </button>
+                  </Link>
                   <button 
                     onClick={signOut}
                     className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1"
@@ -90,13 +88,6 @@ export const Navigation = () => {
                     Sair
                   </button>
                 </>
-              ) : (
-                <Link to="/auth">
-                  <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
-                    <User className="h-3 w-3" />
-                    Login
-                  </button>
-                </Link>
               )}
               <Link to="/contact">
                 <button className="five-london-button-outline text-xs px-4 py-1.5">
@@ -139,16 +130,14 @@ export const Navigation = () => {
                   </Link>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
-                  {user ? (
+                  {user && isAdmin && (
                     <>
-                      {isAdmin && (
-                        <Link to="/admin">
-                          <button className="five-london-button w-full flex items-center justify-center gap-2">
-                            <User className="h-4 w-4" />
-                            Admin
-                          </button>
-                        </Link>
-                      )}
+                      <Link to="/admin">
+                        <button className="five-london-button w-full flex items-center justify-center gap-2">
+                          <User className="h-4 w-4" />
+                          Admin
+                        </button>
+                      </Link>
                       <button 
                         onClick={signOut}
                         className="five-london-button-outline w-full flex items-center justify-center gap-2"
@@ -157,13 +146,6 @@ export const Navigation = () => {
                         Sair
                       </button>
                     </>
-                  ) : (
-                    <Link to="/auth">
-                      <button className="five-london-button-outline w-full flex items-center justify-center gap-2">
-                        <User className="h-4 w-4" />
-                        Login
-                      </button>
-                    </Link>
                   )}
                   <a 
                     href="tel:+442045678901" 

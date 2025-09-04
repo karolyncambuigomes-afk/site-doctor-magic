@@ -36,6 +36,13 @@ const Locations = () => {
             </div>
           </section>
 
+          {/* Elegant Divider */}
+          <section className="py-0">
+            <div className="container-width">
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+            </div>
+          </section>
+
           {/* Locations Grid */}
           <section className="py-8">
             <div className="container-width">

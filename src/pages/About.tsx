@@ -85,12 +85,12 @@ const About = () => {
                   </Button>
                 </div>
               </div>
-              <div className="relative animate-fade-in order-2 lg:order-2">
-                <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
+              <div className="relative animate-fade-in order-2 lg:order-2 flex justify-center">
+                <div className="rounded-2xl h-64 md:h-80 lg:h-96 w-full max-w-md lg:max-w-none relative overflow-hidden">
                   <img 
                     src={aboutLuxury1} 
                     alt="Elegant woman in luxury hotel lobby"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                   <div className="absolute inset-0 bg-black/20"></div>
                 </div>

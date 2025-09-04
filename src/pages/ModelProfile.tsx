@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { models } from '@/data/models';
 import { characteristics } from '@/data/characteristics';
@@ -22,6 +22,11 @@ export const ModelProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const model = models.find(m => m.id === id);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Scroll to top when model changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   if (!model) {
     return (

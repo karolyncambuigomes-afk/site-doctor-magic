@@ -1,31 +1,21 @@
 import { Link } from 'react-router-dom';
+import heroElegantWoman from '@/assets/hero-elegant-woman.jpg';
 
 export const HeroSection = () => {
   return (
     <>
       {/* Loro Piana Style - Fullscreen Hero */}
       <section className="h-screen relative overflow-hidden">
-        {/* Background Video/Image - Fullscreen */}
+        {/* Background Image - Elegant Woman */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="w-full h-full object-cover"
-            poster="/video/woman-walking-preview.jpg"
-          >
-            <source src="/video/woman-walking.mp4" type="video/mp4" />
-            {/* Fallback background */}
-            <div 
-              className="w-full h-full bg-cover bg-center"
-              style={{
-                backgroundImage: "url('/video/woman-walking-preview.jpg')"
-              }}
-            ></div>
-          </video>
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${heroElegantWoman})`
+            }}
+          ></div>
           {/* Subtle overlay only on mobile for readability */}
-          <div className="absolute inset-0 bg-black/10 md:bg-transparent"></div>
+          <div className="absolute inset-0 bg-black/5 md:bg-transparent"></div>
         </div>
         
         {/* Bottom Content - Only visible on larger screens */}

@@ -45,16 +45,17 @@ export default function Admin() {
     image: ''
   });
 
-  // Redirect if not admin
-  if (!loading && (!user || !isAdmin)) {
-    return <Navigate to="/auth" replace />;
-  }
-
+  // Todos os hooks primeiro, antes de qualquer return
   useEffect(() => {
     if (isAdmin) {
       fetchModels();
     }
   }, [isAdmin]);
+
+  // Redirect if not admin - DEPOIS dos hooks
+  if (!loading && (!user || !isAdmin)) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const fetchModels = async () => {
     const { data, error } = await supabase

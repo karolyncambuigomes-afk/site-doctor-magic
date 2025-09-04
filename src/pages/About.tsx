@@ -68,32 +68,34 @@ const About = () => {
         {/* Hero Section */}
         <section className="py-16 bg-gradient-dark text-secondary-foreground">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="animate-fade-in-up">
-                <h1 className="heading-lg mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+              <div className="animate-fade-in-up order-1 lg:order-1">
+                <h1 className="heading-lg mb-4 lg:mb-6 text-center lg:text-left">
                   About <span className="luxury-text-gradient">Five London</span>
                 </h1>
-                <p className="body-minimal text-muted-foreground mb-8 leading-relaxed">
+                <p className="body-minimal text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-center lg:text-left">
                   Since 2018, Five London has been the epitome of luxury companionship in the heart of England's capital. We've built our reputation on discretion, sophistication, and unparalleled service quality.
                 </p>
-                <Button 
-                  className="luxury-button text-lg px-8 py-4"
-                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                >
-                  Contact Us
-                </Button>
+                <div className="flex justify-center lg:justify-start">
+                  <Button 
+                    className="luxury-button text-lg px-8 py-4"
+                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                  >
+                    Contact Us
+                  </Button>
+                </div>
               </div>
-              <div className="relative animate-fade-in">
-                <div className="rounded-2xl h-96 relative overflow-hidden">
+              <div className="relative animate-fade-in order-2 lg:order-2">
+                <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
                   <img 
                     src={aboutLuxury1} 
                     alt="Elegant woman in luxury hotel lobby"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/30"></div>
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="heading-sm font-bold">Excellence Since 2018</h3>
-                    <p className="body-sm opacity-90">London's Premier Agency</p>
+                  <div className="absolute bottom-4 lg:bottom-6 left-4 lg:left-6 text-white">
+                    <h3 className="text-lg lg:text-xl font-bold">Excellence Since 2018</h3>
+                    <p className="text-sm lg:text-base opacity-90">London's Premier Agency</p>
                   </div>
                 </div>
               </div>
@@ -103,11 +105,11 @@ const About = () => {
 
 
         {/* Our Story */}
-        <section className="py-16 bg-muted/50">
+        <section className="py-12 lg:py-16 bg-muted/50">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div className="animate-fade-in order-2 lg:order-1">
-                <div className="rounded-2xl h-96 relative overflow-hidden">
+                <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
                   <img 
                     src={aboutLuxury2} 
                     alt="Elegant woman at fine dining restaurant"
@@ -116,11 +118,11 @@ const About = () => {
                   <div className="absolute inset-0 bg-black/30"></div>
                 </div>
               </div>
-              <div className="animate-fade-in-up order-1 lg:order-2">
-                <h2 className="heading-md mb-6">
+              <div className="animate-fade-in-up order-1 lg:order-2 px-4 lg:px-0">
+                <h2 className="heading-md mb-4 lg:mb-6 text-center lg:text-left">
                   Our <span className="luxury-text-gradient">Story</span>
                 </h2>
-                <div className="space-y-4 body-minimal text-muted-foreground leading-relaxed">
+                <div className="space-y-3 lg:space-y-4 body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
                   <p>
                     Five London was founded with a simple yet ambitious vision: to redefine luxury companionship in London. Our founders recognized a gap in the market for truly sophisticated, intelligent, and discreet companion services.
                   </p>
@@ -246,14 +248,14 @@ const About = () => {
         </div>
 
         {/* Excellence Section */}
-        <section className="py-16 bg-background">
+        <section className="py-12 lg:py-16 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-in-up order-1 lg:order-1">
-                <h2 className="heading-md mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="animate-fade-in-up order-1 lg:order-1 px-4 lg:px-0">
+                <h2 className="heading-md mb-4 lg:mb-6 text-center lg:text-left">
                   Setting the <span className="luxury-text-gradient">Standard</span>
                 </h2>
-                <div className="space-y-4 body-minimal text-muted-foreground leading-relaxed">
+                <div className="space-y-3 lg:space-y-4 body-minimal text-muted-foreground leading-relaxed text-center lg:text-left">
                   <p>
                     Our companions are more than just beautiful faces - they are intelligent, well-educated women who can engage in meaningful conversations and adapt to any social setting with grace and poise.
                   </p>
@@ -263,7 +265,7 @@ const About = () => {
                 </div>
               </div>
               <div className="animate-fade-in order-2 lg:order-2">
-                <div className="rounded-2xl h-96 relative overflow-hidden">
+                <div className="rounded-2xl h-64 md:h-80 lg:h-96 relative overflow-hidden">
                   <img 
                     src={aboutLuxury3} 
                     alt="Sophisticated woman at art gallery"

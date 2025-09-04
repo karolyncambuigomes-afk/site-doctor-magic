@@ -42,7 +42,7 @@ const App = () => (
             <Route path="/models" element={<Models />} />
             <Route path="/models/:id" element={<ModelProfile />} />
             <Route path="/locations" element={<Locations />} />
-            <Route path="/escorts-in-:location" element={<LocationDetail />} />
+            <Route path="/:locationSlug" element={<LocationDetail />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />

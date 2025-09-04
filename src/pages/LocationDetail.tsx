@@ -10,15 +10,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { MapPin, ArrowRight } from 'lucide-react';
 
 const LocationDetail = () => {
-  const { location: locationSlug } = useParams();
+  const { locationSlug } = useParams();
   
-  // Find the location by extracting the area name from the slug
-  const areaName = locationSlug?.split('-').pop() || '';
-  const location = locations.find(loc => 
-    loc.name.toLowerCase() === areaName ||
-    loc.id === areaName ||
-    loc.slug.includes(areaName)
-  );
+  // Find the location by matching the complete slug
+  const location = locations.find(loc => loc.slug === locationSlug);
   
   if (!location) {
     return <Navigate to="/404" replace />;

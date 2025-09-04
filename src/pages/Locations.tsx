@@ -46,20 +46,13 @@ const Locations = () => {
                     to={`/${location.slug}`}
                     className="group"
                   >
-                    <Button 
+                     <Button 
                       variant="outline" 
-                      className="w-full h-auto p-6 flex flex-col items-center gap-3 hover:shadow-lg transition-all duration-300 group-hover:border-primary"
+                      className="w-full py-3 px-4 justify-center hover:shadow-md transition-all duration-300 group-hover:border-primary"
                     >
-                      <MapPin className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                      <div className="text-center">
-                        <h3 className="heading-sm mb-1 group-hover:text-primary transition-colors">
-                          {location.name}
-                        </h3>
-                        <p className="body-sm text-muted-foreground">
-                          Find girls in {location.name}
-                        </p>
-                      </div>
-                      <ArrowRight className="w-4 h-4 mt-2 group-hover:translate-x-1 transition-transform" />
+                      <span className="heading-sm group-hover:text-primary transition-colors">
+                        {location.name}
+                      </span>
                     </Button>
                   </Link>
                 ))}

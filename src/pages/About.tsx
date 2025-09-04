@@ -79,7 +79,10 @@ const About = () => {
                 <p className="body-minimal text-muted-foreground mb-8 leading-relaxed">
                   Since 2018, Five London has been the epitome of luxury companionship in the heart of England's capital. We've built our reputation on discretion, sophistication, and unparalleled service quality.
                 </p>
-                <Button className="luxury-button text-lg px-8 py-4">
+                <Button 
+                  className="luxury-button text-lg px-8 py-4"
+                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                >
                   Contact Us
                 </Button>
               </div>
@@ -259,12 +262,16 @@ const About = () => {
               Join our distinguished clientele and discover why Five London is London's most trusted luxury escort agency
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Button className="luxury-button text-lg px-8 py-4">
+              <Button 
+                className="luxury-button text-lg px-8 py-4"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+              >
                 Book Your Experience
               </Button>
               <Button 
                 variant="outline" 
                 className="text-lg px-8 py-4 border-2 border-primary/30 text-secondary-foreground hover:bg-primary/10"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Contact Us
               </Button>

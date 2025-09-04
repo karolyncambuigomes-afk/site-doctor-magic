@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 export const HeroSection = () => {
   return (
     <section className="min-h-screen relative overflow-hidden bg-black">
-      {/* Background Video */}
+      {/* Background Video/Image */}
       <div className="absolute inset-0 z-0">
+        {/* Temporary background image - replace with video when available */}
+        <div 
+          className="w-full h-full bg-cover bg-center opacity-40"
+          style={{
+            backgroundImage: "url('/video/woman-walking-preview.jpg')"
+          }}
+        ></div>
+        {/* Uncomment when you have the video file */}
+        {/* 
         <video 
           autoPlay 
           muted 
@@ -12,8 +21,9 @@ export const HeroSection = () => {
           playsInline
           className="w-full h-full object-cover opacity-40"
         >
-          <source src="/video/luxury-heels.mp4" type="video/mp4" />
+          <source src="/video/woman-walking.mp4" type="video/mp4" />
         </video>
+        */}
         <div className="absolute inset-0 bg-black/60"></div>
       </div>
       

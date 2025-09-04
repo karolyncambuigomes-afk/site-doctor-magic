@@ -3,7 +3,7 @@ import { ModelCard } from '@/components/ModelCard';
 import { models, Model } from '@/data/models';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Search, Filter } from 'lucide-react';
+import { Search, MapPin, Sparkles, Settings } from 'lucide-react';
 
 export const ModelsGallery: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,10 +44,10 @@ export const ModelsGallery: React.FC = () => {
       <Navigation />
       
       <main className="pt-20">
-        {/* Clean Header */}
-        <section className="py-12 bg-muted/30">
+        {/* Elegant Header */}
+        <section className="py-16 bg-gradient-to-b from-muted/20 to-background">
           <div className="container-width text-center">
-            <h1 className="heading-xl mb-4">
+            <h1 className="heading-xl mb-4 tracking-tight">
               Our Companions
             </h1>
             <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
@@ -56,77 +56,86 @@ export const ModelsGallery: React.FC = () => {
           </div>
         </section>
 
-        {/* Filters Section */}
-        <section className="py-8 border-b border-border">
+        {/* Sophisticated Filters */}
+        <section className="py-6 border-b border-border/50">
           <div className="container-width">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="flex flex-wrap gap-3 justify-center">
               {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Search by name..."
+                  placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background focus:border-primary outline-none transition-colors"
+                  className="w-48 pl-9 pr-4 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all"
                 />
               </div>
 
               {/* Location Filter */}
-              <select
-                value={selectedLocation}
-                onChange={(e) => setSelectedLocation(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:border-primary outline-none transition-colors"
-              >
-                <option value="all">All Locations</option>
-                {uniqueLocations.map(location => (
-                  <option key={location} value={location}>{location}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <select
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                  className="w-40 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="all">All Areas</option>
+                  {uniqueLocations.map(location => (
+                    <option key={location} value={location}>{location}</option>
+                  ))}
+                </select>
+              </div>
 
               {/* Characteristic Filter */}
-              <select
-                value={selectedCharacteristic}
-                onChange={(e) => setSelectedCharacteristic(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:border-primary outline-none transition-colors"
-              >
-                <option value="all">All Characteristics</option>
-                {uniqueCharacteristics.map(characteristic => (
-                  <option key={characteristic} value={characteristic}>{characteristic}</option>
-                ))}
-              </select>
+              <div className="relative">
+                <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <select
+                  value={selectedCharacteristic}
+                  onChange={(e) => setSelectedCharacteristic(e.target.value)}
+                  className="w-44 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="all">All Types</option>
+                  {uniqueCharacteristics.map(characteristic => (
+                    <option key={characteristic} value={characteristic}>{characteristic}</option>
+                  ))}
+                </select>
+              </div>
 
               {/* Service Type Filter */}
-              <select
-                value={selectedServiceType}
-                onChange={(e) => setSelectedServiceType(e.target.value)}
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:border-primary outline-none transition-colors"
-              >
-                <option value="all">All Services</option>
-                <option value="incall">Incall</option>
-                <option value="outcall">Outcall</option>
-              </select>
+              <div className="relative">
+                <Settings className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <select
+                  value={selectedServiceType}
+                  onChange={(e) => setSelectedServiceType(e.target.value)}
+                  className="w-36 pl-9 pr-8 py-2 text-sm border border-border/50 rounded-full bg-background/50 backdrop-blur-sm focus:border-primary focus:bg-background outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="all">All Services</option>
+                  <option value="incall">Incall</option>
+                  <option value="outcall">Outcall</option>
+                </select>
+              </div>
             </div>
 
-            {/* Active Filters & Clear */}
+            {/* Results Counter & Clear */}
             {(searchTerm || selectedLocation !== 'all' || selectedCharacteristic !== 'all' || selectedServiceType !== 'all') && (
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-                <div className="text-sm text-muted-foreground">
-                  Showing {filteredModels.length} of {models.length} companions
-                </div>
+              <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border/30">
+                <span className="text-sm text-muted-foreground">
+                  {filteredModels.length} companions found
+                </span>
                 <button
                   onClick={clearAllFilters}
-                  className="text-sm text-primary hover:text-primary/80 transition-colors"
+                  className="text-sm text-primary hover:text-primary/80 transition-colors underline underline-offset-4"
                 >
-                  Clear all filters
+                  Clear filters
                 </button>
               </div>
             )}
           </div>
         </section>
 
-        {/* Models Grid */}
-        <section className="py-12">
+        {/* Elegant Gallery */}
+        <section className="py-16">
           <div className="container-width-lg">
             {filteredModels.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -135,17 +144,19 @@ export const ModelsGallery: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16">
-                <Filter className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="heading-lg mb-4">No companions found</h3>
-                <p className="body-lg text-muted-foreground mb-8">
-                  Try adjusting your search or filter criteria
+              <div className="text-center py-24">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-muted/30 flex items-center justify-center">
+                  <Search className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <h3 className="heading-lg mb-3">No companions found</h3>
+                <p className="body-md text-muted-foreground mb-8 max-w-md mx-auto">
+                  Try adjusting your search criteria or browse all companions
                 </p>
                 <button 
                   onClick={clearAllFilters}
-                  className="five-london-button-outline"
+                  className="inline-flex items-center px-6 py-2 text-sm font-medium text-primary hover:text-primary/80 border border-primary/20 hover:border-primary/40 rounded-full transition-all"
                 >
-                  Clear All Filters
+                  Clear Filters
                 </button>
               </div>
             )}

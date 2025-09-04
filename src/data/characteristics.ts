@@ -11,6 +11,54 @@ export interface Characteristic {
 
 export const characteristics: Characteristic[] = [
   {
+    id: "open-minded",
+    name: "Open Minded",
+    slug: "open-minded-escorts",
+    description: "Non-judgmental open-minded companions",
+    content: `
+      <p>Experience true acceptance with our open-minded escorts who provide non-judgmental companionship for all types of clients and preferences. These exceptional companions pride themselves on their accepting attitudes and flexible approaches.</p>
+      
+      <p>Our open-minded escorts excel at:</p>
+      
+      <ul>
+        <li>Creating comfortable, judgment-free environments</li>
+        <li>Accommodating diverse preferences and requests</li>
+        <li>Providing emotional support and understanding</li>
+        <li>Adapting to unique situations and requirements</li>
+        <li>Offering genuine acceptance and warmth</li>
+      </ul>
+      
+      <p>These companions are chosen for their emotional maturity, acceptance of diversity, and ability to make every client feel valued and understood, creating truly meaningful connections.</p>
+    `,
+    seoTitle: "Open Minded Escorts London | Non-Judgmental Companions | Five London",
+    seoDescription: "Open-minded escorts in London offering accepting companionship. Non-judgmental services with flexible and understanding companions.",
+    keywords: ["open minded escorts", "non-judgmental escorts", "accepting companions", "flexible escorts london", "understanding escorts"]
+  },
+  {
+    id: "party-model",
+    name: "Party Model",
+    slug: "party-model-escorts",
+    description: "Fun-loving party companions for social events",
+    content: `
+      <p>Meet our exciting party model escorts who bring energy, fun, and social charisma to any event. These vivacious companions are perfect for clients who love to celebrate and enjoy London's vibrant nightlife scene.</p>
+      
+      <p>Our party model escorts provide:</p>
+      
+      <ul>
+        <li>Energetic presence at clubs and parties</li>
+        <li>Social butterfly personalities</li>
+        <li>Knowledge of London's best nightlife spots</li>
+        <li>Fun and engaging conversation</li>
+        <li>Perfect companions for celebrations</li>
+      </ul>
+      
+      <p>These companions are selected for their outgoing personalities, social skills, and ability to ensure you have an unforgettable time at any social gathering or celebration.</p>
+    `,
+    seoTitle: "Party Model Escorts London | Fun Social Companions | Five London",
+    seoDescription: "Party model escorts in London. Energetic companions for nightlife, clubs, and social events. Fun-loving escorts for celebrations.",
+    keywords: ["party model escorts", "nightlife escorts london", "party companions", "social escorts", "club escorts"]
+  },
+  {
     id: "high-class",
     name: "High Class",
     slug: "high-class-escorts",
@@ -33,6 +81,30 @@ export const characteristics: Characteristic[] = [
     seoTitle: "High Class Escorts London | Elite Luxury Companions | Five London",
     seoDescription: "Premium high-class escorts in London. Elite companions for luxury events, business functions, and sophisticated experiences. Discreet and professional services.",
     keywords: ["high class escorts", "elite escorts london", "luxury companions", "sophisticated escorts", "high-class companionship"]
+  },
+  {
+    id: "natural",
+    name: "Natural",
+    slug: "natural-escorts",
+    description: "Naturally beautiful companions with authentic charm",
+    content: `
+      <p>Experience authentic beauty with our natural escorts who showcase genuine charm and unenhanced allure. These stunning companions embrace their natural beauty and radiate confidence from within.</p>
+      
+      <p>Our natural escorts offer:</p>
+      
+      <ul>
+        <li>Authentic beauty and genuine personalities</li>
+        <li>Natural confidence and self-assurance</li>
+        <li>Real and meaningful connections</li>
+        <li>Unpretentious and down-to-earth attitudes</li>
+        <li>Fresh and natural approach to companionship</li>
+      </ul>
+      
+      <p>These companions are chosen for their natural beauty, genuine personalities, and ability to create authentic connections that feel real and meaningful.</p>
+    `,
+    seoTitle: "Natural Escorts London | Authentic Beauty Companions | Five London",
+    seoDescription: "Natural escorts in London with authentic beauty and genuine charm. Real companions for meaningful connections and authentic experiences.",
+    keywords: ["natural escorts", "authentic escorts london", "genuine companions", "natural beauty escorts", "real escorts"]
   },
   {
     id: "bi-sexual",
@@ -59,171 +131,147 @@ export const characteristics: Characteristic[] = [
     keywords: ["bi sexual escorts", "bisexual escorts london", "open minded escorts", "couples escorts", "threesome escorts"]
   },
   {
-    id: "open-minded",
-    name: "Open Minded",
-    slug: "open-minded-escorts",
-    description: "Non-judgmental open-minded companions",
+    id: "slim",
+    name: "Slim",
+    slug: "slim-escorts",
+    description: "Elegant slim escorts with graceful figures",
     content: `
-      <p>Experience true acceptance with our open-minded escorts who provide non-judgmental companionship for all types of clients and preferences. These exceptional companions pride themselves on their accepting attitudes and flexible approaches.</p>
+      <p>Discover our collection of slim escorts who possess elegant, graceful figures and natural poise. These stunning companions maintain their beautiful physiques through healthy lifestyles and active living.</p>
       
-      <p>Our open-minded escorts excel at:</p>
+      <p>Our slim escorts offer:</p>
       
       <ul>
-        <li>Creating comfortable, judgment-free environments</li>
-        <li>Accommodating diverse preferences and requests</li>
-        <li>Providing emotional support and understanding</li>
-        <li>Adapting to unique situations and requirements</li>
-        <li>Offering genuine acceptance and warmth</li>
+        <li>Elegant and graceful appearance</li>
+        <li>Fashion-forward style and presentation</li>
+        <li>Active and health-conscious lifestyles</li>
+        <li>Versatile looks for any occasion</li>
+        <li>Natural elegance and poise</li>
       </ul>
       
-      <p>These companions are chosen for their emotional maturity, acceptance of diversity, and ability to make every client feel valued and understood, creating truly meaningful connections.</p>
+      <p>These companions are perfect for clients who appreciate classic beauty, elegant figures, and companions who embody grace and sophistication in their appearance.</p>
     `,
-    seoTitle: "Open Minded Escorts London | Non-Judgmental Companions | Five London",
-    seoDescription: "Open-minded escorts in London offering accepting companionship. Non-judgmental services with flexible and understanding companions.",
-    keywords: ["open minded escorts", "non-judgmental escorts", "accepting companions", "flexible escorts london", "understanding escorts"]
+    seoTitle: "Slim Escorts London | Elegant Figure Companions | Five London",
+    seoDescription: "Slim escorts in London with elegant figures and graceful poise. Beautiful companions with classic beauty and sophisticated style.",
+    keywords: ["slim escorts", "elegant escorts london", "graceful companions", "slender escorts", "petite escorts"]
   },
   {
-    id: "sophisticated",
-    name: "Sophisticated",
-    slug: "sophisticated-escorts",
-    description: "Cultured and sophisticated companions",
+    id: "gym-toned",
+    name: "Gym Toned",
+    slug: "gym-toned-escorts",
+    description: "Athletic and toned fitness enthusiasts",
     content: `
-      <p>Meet our sophisticated escorts who combine beauty with intelligence, culture, and refinement. These exceptional companions are well-educated, well-traveled, and possess the cultural knowledge necessary for the most discerning clients.</p>
+      <p>Meet our gym-toned escorts who combine stunning beauty with athletic physiques. These fitness-focused companions maintain their toned bodies through dedicated exercise and healthy living.</p>
       
-      <p>Our sophisticated escorts offer:</p>
+      <p>Our gym-toned escorts provide:</p>
       
       <ul>
-        <li>Intelligent conversation on diverse topics</li>
-        <li>Cultural knowledge and artistic appreciation</li>
-        <li>Impeccable social etiquette and manners</li>
-        <li>Refined tastes in dining, art, and entertainment</li>
-        <li>Elegant presence at sophisticated events</li>
+        <li>Athletic and toned physiques</li>
+        <li>High energy and vitality</li>
+        <li>Fitness and wellness knowledge</li>
+        <li>Active lifestyle companionship</li>
+        <li>Strong and confident presence</li>
       </ul>
       
-      <p>These companions are selected for their education, cultural awareness, and ability to engage meaningfully with clients who appreciate intelligence and sophistication in their companions.</p>
+      <p>These companions are ideal for active clients who appreciate fitness, health, and companions who share their passion for physical wellness and athletic pursuits.</p>
     `,
-    seoTitle: "Sophisticated Escorts London | Cultured Companions | Five London",
-    seoDescription: "Sophisticated escorts in London. Intelligent, cultured companions for discerning clients. Elite educated escorts for sophisticated experiences.",
-    keywords: ["sophisticated escorts", "cultured escorts london", "intelligent companions", "educated escorts", "refined escorts"]
+    seoTitle: "Gym Toned Escorts London | Athletic Fitness Companions | Five London",
+    seoDescription: "Gym-toned escorts in London with athletic physiques. Fitness-focused companions for active clients who appreciate health and wellness.",
+    keywords: ["gym toned escorts", "athletic escorts london", "fitness escorts", "toned companions", "sporty escorts"]
   },
   {
-    id: "international",
-    name: "International",
-    slug: "international-escorts",
-    description: "Worldly international companions",
+    id: "young",
+    name: "Young",
+    slug: "young-escorts",
+    description: "Youthful and energetic companions",
     content: `
-      <p>Discover our international escorts who bring global perspectives and multicultural experiences to their companionship. These worldly companions have traveled extensively and understand diverse cultures and customs.</p>
+      <p>Experience the vitality and fresh energy of our young escorts who bring youthful enthusiasm and modern perspectives to their companionship. These vibrant companions offer fresh outlooks and energetic personalities.</p>
       
-      <p>Our international escorts provide:</p>
+      <p>Our young escorts provide:</p>
       
       <ul>
-        <li>Multicultural understanding and sensitivity</li>
-        <li>Language skills and international etiquette</li>
-        <li>Global perspectives on business and culture</li>
-        <li>Travel companionship and cultural guidance</li>
-        <li>International networking and social connections</li>
+        <li>Youthful energy and enthusiasm</li>
+        <li>Modern perspectives and current trends</li>
+        <li>Fresh and vibrant personalities</li>
+        <li>Adventurous and open attitudes</li>
+        <li>Dynamic social presence</li>
       </ul>
       
-      <p>These companions are perfect for international business travelers, cultural events, and clients who appreciate global perspectives and multicultural experiences.</p>
+      <p>These companions are perfect for clients who appreciate youthful energy, contemporary perspectives, and companions who bring fresh vitality to social experiences.</p>
     `,
-    seoTitle: "International Escorts London | Multicultural Companions | Five London",
-    seoDescription: "International escorts in London. Worldly companions with global experience. Multicultural escorts for international clients and events.",
-    keywords: ["international escorts", "multicultural escorts london", "global companions", "worldly escorts", "international companionship"]
+    seoTitle: "Young Escorts London | Youthful Energy Companions | Five London",
+    seoDescription: "Young escorts in London with vibrant energy and fresh perspectives. Youthful companions for dynamic social experiences.",
+    keywords: ["young escorts", "youthful escorts london", "energetic companions", "vibrant escorts", "fresh escorts"]
   },
   {
-    id: "intelligent",
-    name: "Intelligent",
-    slug: "intelligent-escorts",
-    description: "Highly intelligent and articulate companions",
+    id: "baby-face",
+    name: "Baby Face",
+    slug: "baby-face-escorts",
+    description: "Sweet and innocent-looking companions",
     content: `
-      <p>Engage with our intelligent escorts who offer stimulating conversation, quick wit, and intellectual companionship. These exceptional companions are highly educated and capable of meaningful discourse on a wide range of topics.</p>
+      <p>Discover our baby face escorts who possess sweet, youthful features and innocent charm. These adorable companions combine natural beauty with endearing personalities that capture hearts instantly.</p>
       
-      <p>Our intelligent escorts excel in:</p>
+      <p>Our baby face escorts offer:</p>
       
       <ul>
-        <li>Engaging intellectual conversations</li>
-        <li>Business discussions and professional support</li>
-        <li>Academic and cultural topics</li>
-        <li>Problem-solving and strategic thinking</li>
-        <li>Articulate and thoughtful communication</li>
+        <li>Sweet and youthful facial features</li>
+        <li>Innocent and charming personalities</li>
+        <li>Natural and fresh beauty</li>
+        <li>Warm and caring attitudes</li>
+        <li>Adorable and endearing presence</li>
       </ul>
       
-      <p>These companions are ideal for clients who value intelligence and seek partners who can engage meaningfully on both professional and personal levels.</p>
+      <p>These companions are chosen for their naturally sweet features, caring personalities, and ability to bring joy and warmth to every interaction with their innocent charm.</p>
     `,
-    seoTitle: "Intelligent Escorts London | Smart Companions | Five London",
-    seoDescription: "Intelligent escorts in London. Highly educated companions for stimulating conversation and intellectual companionship. Smart and articulate escorts.",
-    keywords: ["intelligent escorts", "smart escorts london", "educated companions", "intellectual escorts", "articulate escorts"]
+    seoTitle: "Baby Face Escorts London | Sweet Innocent Companions | Five London",
+    seoDescription: "Baby face escorts in London with sweet, youthful features. Innocent and charming companions with natural beauty and caring personalities.",
+    keywords: ["baby face escorts", "sweet escorts london", "innocent companions", "youthful escorts", "cute escorts"]
   },
   {
-    id: "exclusive",
-    name: "Exclusive",
-    slug: "exclusive-escorts",
-    description: "Ultra-exclusive premium companions",
+    id: "blonde",
+    name: "Blonde",
+    slug: "blonde-escorts",
+    description: "Stunning blonde companions with golden beauty",
     content: `
-      <p>Experience the pinnacle of companionship with our exclusive escorts who represent the absolute finest in luxury escort services. These ultra-premium companions are available only to the most discerning clients.</p>
+      <p>Meet our gorgeous blonde escorts who embody classic beauty with their stunning golden locks and radiant personalities. These captivating companions showcase the timeless allure of blonde beauty.</p>
       
-      <p>Our exclusive escorts offer:</p>
+      <p>Our blonde escorts provide:</p>
       
       <ul>
-        <li>Ultra-premium companionship experiences</li>
-        <li>Absolute discretion and confidentiality</li>
-        <li>Personalized and bespoke services</li>
-        <li>Exceptional beauty and sophistication</li>
-        <li>Limited availability for select clients</li>
+        <li>Classic blonde beauty and elegance</li>
+        <li>Radiant and captivating presence</li>
+        <li>Versatile styling and presentation</li>
+        <li>Bright and engaging personalities</li>
+        <li>Timeless appeal and sophistication</li>
       </ul>
       
-      <p>These companions represent the apex of our service, offering unparalleled experiences for clients who demand nothing but the very best in luxury companionship.</p>
+      <p>These companions are perfect for clients who appreciate the classic beauty of blonde hair, radiant personalities, and the timeless elegance that blonde companions bring to any occasion.</p>
     `,
-    seoTitle: "Exclusive Escorts London | Ultra-Premium Companions | Five London",
-    seoDescription: "Exclusive escorts in London. Ultra-premium companions for discerning clients. Limited availability luxury escort services with absolute discretion.",
-    keywords: ["exclusive escorts", "premium escorts london", "luxury companions", "ultra-exclusive escorts", "VIP escorts"]
+    seoTitle: "Blonde Escorts London | Golden Beauty Companions | Five London",
+    seoDescription: "Blonde escorts in London with stunning golden beauty. Classic blonde companions with radiant personalities and elegant presence.",
+    keywords: ["blonde escorts", "blonde escorts london", "golden hair companions", "fair hair escorts", "classic blonde beauty"]
   },
   {
-    id: "vibrant",
-    name: "Vibrant",
-    slug: "vibrant-escorts",
-    description: "Energetic and vibrant personalities",
+    id: "brunette",
+    name: "Brunette",
+    slug: "brunette-escorts",
+    description: "Sophisticated brunette companions with exotic allure",
     content: `
-      <p>Meet our vibrant escorts who bring energy, enthusiasm, and zest for life to every encounter. These dynamic companions are perfect for clients who appreciate lively personalities and engaging social experiences.</p>
+      <p>Discover our stunning brunette escorts who possess sophisticated dark beauty and mysterious allure. These captivating companions showcase the elegant appeal of rich, dark hair and intense personalities.</p>
       
-      <p>Our vibrant escorts provide:</p>
+      <p>Our brunette escorts offer:</p>
       
       <ul>
-        <li>Energetic and enthusiastic companionship</li>
-        <li>Engaging social presence and conversation</li>
-        <li>Adventure and excitement in experiences</li>
-        <li>Positive attitudes and uplifting energy</li>
-        <li>Dynamic personalities that light up any room</li>
+        <li>Sophisticated dark beauty and elegance</li>
+        <li>Mysterious and alluring presence</li>
+        <li>Rich and luxurious hair styling</li>
+        <li>Intense and passionate personalities</li>
+        <li>Classic and timeless sophistication</li>
       </ul>
       
-      <p>These companions are ideal for social events, parties, and any occasion where energy and enthusiasm are valued, bringing joy and excitement to every interaction.</p>
+      <p>These companions are ideal for clients who appreciate the sophisticated beauty of dark hair, mysterious charm, and the classic elegance that brunette companions bring to sophisticated encounters.</p>
     `,
-    seoTitle: "Vibrant Escorts London | Energetic Companions | Five London",
-    seoDescription: "Vibrant escorts in London. Energetic companions with dynamic personalities. Enthusiastic escorts for social events and exciting experiences.",
-    keywords: ["vibrant escorts", "energetic escorts london", "dynamic companions", "enthusiastic escorts", "lively escorts"]
-  },
-  {
-    id: "cultured",
-    name: "Cultured",
-    slug: "cultured-escorts",
-    description: "Refined and culturally aware companions",
-    content: `
-      <p>Discover our cultured escorts who possess deep appreciation for arts, literature, and cultural refinement. These sophisticated companions bring intellectual depth and cultural awareness to their interactions.</p>
-      
-      <p>Our cultured escorts excel in:</p>
-      
-      <ul>
-        <li>Arts and cultural appreciation</li>
-        <li>Literature and philosophical discussions</li>
-        <li>Museum and gallery companionship</li>
-        <li>Classical music and theater appreciation</li>
-        <li>Refined cultural experiences</li>
-      </ul>
-      
-      <p>These companions are perfect for cultural events, art gallery openings, and any occasion where appreciation for the finer aspects of culture is valued.</p>
-    `,
-    seoTitle: "Cultured Escorts London | Refined Companions | Five London",
-    seoDescription: "Cultured escorts in London. Refined companions with cultural appreciation. Arts-loving escorts for museum visits and cultural events.",
-    keywords: ["cultured escorts", "refined escorts london", "arts-loving companions", "cultural escorts", "sophisticated companions"]
+    seoTitle: "Brunette Escorts London | Dark Beauty Companions | Five London",
+    seoDescription: "Brunette escorts in London with sophisticated dark beauty. Elegant brunette companions with mysterious allure and passionate personalities.",
+    keywords: ["brunette escorts", "brunette escorts london", "dark hair companions", "sophisticated brunettes", "exotic brunette beauty"]
   }
 ];

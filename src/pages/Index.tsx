@@ -164,59 +164,58 @@ const Index = () => {
               <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
             </div>
 
-            {/* Carousel Container */}
-            <div className="relative">
+            {/* Carousel Container - Uma foto por vez */}
+            <div className="relative max-w-4xl mx-auto px-4">
               {/* Main Carousel */}
-              <div className="flex transition-transform duration-700 ease-in-out">
-                {carouselImages.map((model, index) => {
-                  const position = (index - currentIndex + carouselImages.length) % carouselImages.length;
-                  const translateX = (position - 1) * 100; // Center the current image
-                  
-                  return (
-                    <div
-                      key={`${model.id}-${index}`}
-                      className="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-1 sm:px-2"
-                      style={{
-                        transform: `translateX(${translateX}%)`,
-                        transition: 'transform 700ms ease-in-out'
-                      }}
+              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[16/10] overflow-hidden">
+                {carouselImages.map((model, index) => (
+                  <div
+                    key={`${model.id}-${index}`}
+                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                      index === currentIndex 
+                        ? 'opacity-100 transform translate-x-0' 
+                        : index < currentIndex
+                        ? 'opacity-0 transform -translate-x-full'
+                        : 'opacity-0 transform translate-x-full'
+                    }`}
+                  >
+                    <Link 
+                      to={`/models/${model.id}`}
+                      className="block relative w-full h-full group"
                     >
-                      <Link 
-                        to={`/models/${model.id}`}
-                        className="block relative overflow-hidden aspect-[3/4] group"
-                      >
-                        <img
-                          src={model.image}
-                          alt={`${model.name} - Gallery`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        
-                        {/* Overlay Info */}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
-                        <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                          <h3 className="text-white text-sm font-light">{model.name}</h3>
-                          <p className="text-white/80 text-xs">{model.location}</p>
+                      <img
+                        src={model.image}
+                        alt={`${model.name} - Gallery`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      
+                      {/* Overlay Info */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                        <div className="text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                          <h3 className="text-lg md:text-xl font-light mb-2">{model.name}</h3>
+                          <p className="text-white/80 text-sm md:text-base">{model.location}</p>
                         </div>
-                      </Link>
-                    </div>
-                  );
-                })}
+                      </div>
+                    </Link>
+                  </div>
+                ))}
               </div>
 
               {/* Navigation Arrows */}
               <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10 shadow-lg"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-6 h-6" />
               </button>
               
               <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10 shadow-lg"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-6 h-6" />
               </button>
 
               {/* Dots Indicator */}

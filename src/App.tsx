@@ -15,6 +15,7 @@ import { Models } from "./pages/Models";
 import { ModelProfile } from "./pages/ModelProfile";
 import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
+import { ModelsLayoutSelector } from "./pages/ModelsLayoutSelector";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/models" element={<Models />} />
+            <Route path="/models-preview" element={<ModelsLayoutSelector />} />
             <Route path="/models/:id" element={<ModelProfile />} />
             <Route path="/locations" element={<Locations />} />
             <Route path="/locations/:slug" element={<LocationDetail />} />

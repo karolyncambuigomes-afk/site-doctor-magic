@@ -106,7 +106,7 @@ const About = () => {
         <section className="py-16 bg-muted/50">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-in">
+              <div className="animate-fade-in order-2 lg:order-1">
                 <div className="rounded-2xl h-96 relative overflow-hidden">
                   <img 
                     src={aboutLuxury2} 
@@ -116,7 +116,7 @@ const About = () => {
                   <div className="absolute inset-0 bg-black/30"></div>
                 </div>
               </div>
-              <div className="animate-fade-in-up">
+              <div className="animate-fade-in-up order-1 lg:order-2">
                 <h2 className="heading-md mb-6">
                   Our <span className="luxury-text-gradient">Story</span>
                 </h2>
@@ -249,7 +249,7 @@ const About = () => {
         <section className="py-16 bg-background">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-in-up">
+              <div className="animate-fade-in-up order-1 lg:order-1">
                 <h2 className="heading-md mb-6">
                   Setting the <span className="luxury-text-gradient">Standard</span>
                 </h2>
@@ -262,7 +262,7 @@ const About = () => {
                   </p>
                 </div>
               </div>
-              <div className="animate-fade-in">
+              <div className="animate-fade-in order-2 lg:order-2">
                 <div className="rounded-2xl h-96 relative overflow-hidden">
                   <img 
                     src={aboutLuxury3} 

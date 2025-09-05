@@ -1129,7 +1129,7 @@ export const Admin: React.FC = () => {
                       <div className="space-y-4">
                         <Label>Palavras-chave de Serviços (para vincular aos links da página Services)</Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                          {serviceKeywords.map((keyword) => (
+                           {serviceKeywords.map((keyword) => (
                             <label
                               key={keyword}
                               className="flex items-center space-x-2 cursor-pointer"

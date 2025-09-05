@@ -85,9 +85,11 @@ export const ModelsCarousel = () => {
                       <h3 className="font-sans text-lg font-normal text-black mb-1">
                         {model.name}
                       </h3>
-                      <p className="text-sm text-gray-600 tracking-wide">
-                        {model.location}
-                      </p>
+                      <div className="space-y-1">
+                        <p className="text-sm text-gray-600 tracking-wide">
+                          {model.age ? `${model.age} anos` : ''} {model.age && model.location ? '•' : ''} {model.location}
+                        </p>
+                      </div>
                     </div>
                   </Link>
                 </div>

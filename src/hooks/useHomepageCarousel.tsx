@@ -8,6 +8,7 @@ export interface CarouselModel {
   image: string;
   location?: string;
   price?: string;
+  age?: number;
 }
 
 export const useHomepageCarousel = () => {
@@ -40,7 +41,7 @@ export const useHomepageCarousel = () => {
       if (modelIds.length > 0) {
         const { data, error: modelsError } = await supabase
           .from('models')
-          .select('id, location, price')
+          .select('id, location, price, age')
           .in('id', modelIds);
 
         if (modelsError) {
@@ -53,13 +54,14 @@ export const useHomepageCarousel = () => {
       // Transform data to match our interface
       const transformedModels = carouselData?.map((item: any) => {
         const modelDetails = modelsData.find(m => m.id === item.model_id);
-        return {
-          id: item.model_id,
-          name: item.model_name,
-          image: getImageUrl(item.image_url),
-          location: modelDetails?.location || '',
-          price: modelDetails?.price || ''
-        };
+          return {
+            id: item.model_id,
+            name: item.model_name,
+            image: getImageUrl(item.image_url),
+            location: modelDetails?.location || '',
+            price: modelDetails?.price || '',
+            age: modelDetails?.age || null
+          };
       }) || [];
 
       setModels(transformedModels);

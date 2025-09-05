@@ -1826,38 +1826,46 @@ export const Admin: React.FC = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {blogPosts.map((post) => (
-                        <TableRow key={post.id}>
-                          <TableCell className="font-medium">{post.title}</TableCell>
-                          <TableCell>{post.author || '-'}</TableCell>
-                          <TableCell>
-                            <Badge variant={post.is_published ? "default" : "secondary"}>
-                              {post.is_published ? 'Publicado' : 'Rascunho'}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            {new Date(post.created_at).toLocaleDateString('pt-BR')}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex space-x-2">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleEditBlogPost(post)}
-                              >
-                                <Edit className="w-4 h-4" />
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => handleDeleteBlogPost(post.id)}
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </div>
+                      {blogPosts.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                            Nenhum post de blog encontrado. Clique em "Adicionar Post" para criar o primeiro post.
                           </TableCell>
                         </TableRow>
-                      ))}
+                      ) : (
+                        blogPosts.map((post) => (
+                          <TableRow key={post.id}>
+                            <TableCell className="font-medium">{post.title}</TableCell>
+                            <TableCell>{post.author || '-'}</TableCell>
+                            <TableCell>
+                              <Badge variant={post.is_published ? "default" : "secondary"}>
+                                {post.is_published ? 'Publicado' : 'Rascunho'}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              {new Date(post.created_at).toLocaleDateString('pt-BR')}
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex space-x-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleEditBlogPost(post)}
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleDeleteBlogPost(post.id)}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
                     </TableBody>
                   </Table>
                 </CardContent>

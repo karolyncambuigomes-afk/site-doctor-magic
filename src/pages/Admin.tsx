@@ -81,6 +81,8 @@ export const Admin: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
   const [galleryImages, setGalleryImages] = useState<Array<{id?: string, image_url: string, caption: string, order_index: number}>>([]);
+  const [publicGallery, setPublicGallery] = useState<Array<{id: string, image_url: string, model_id: string, model_name: string, is_featured: boolean}>>([]);
+  const [availableImages, setAvailableImages] = useState<Array<{id: string, image_url: string, model_id: string, model_name: string, source: 'profile' | 'gallery', caption?: string}>>([]);
 
   // Form state
   const [formData, setFormData] = useState<Partial<Model>>({

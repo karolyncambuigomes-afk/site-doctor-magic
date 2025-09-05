@@ -20,6 +20,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
+import { GalleryManager } from '@/components/GalleryManager';
 
 interface Model {
   id: string;
@@ -81,8 +82,6 @@ export const Admin: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
   const [galleryImages, setGalleryImages] = useState<Array<{id?: string, image_url: string, caption: string, order_index: number}>>([]);
-  const [publicGallery, setPublicGallery] = useState<Array<{id: string, image_url: string, model_id: string, model_name: string, is_featured: boolean}>>([]);
-  const [availableImages, setAvailableImages] = useState<Array<{id: string, image_url: string, model_id: string, model_name: string, source: 'profile' | 'gallery', caption?: string}>>([]);
 
   // Form state
   const [formData, setFormData] = useState<Partial<Model>>({
@@ -171,11 +170,10 @@ export const Admin: React.FC = () => {
       console.log('Fetching admin data...');
 
       try {
-        const [modelsResponse, profilesResponse, blogResponse, galleryResponse] = await Promise.all([
+        const [modelsResponse, profilesResponse, blogResponse] = await Promise.all([
           supabase.from('models').select('*').order('created_at', { ascending: false }),
           supabase.from('profiles').select('*').order('created_at', { ascending: false }),
-          supabase.from('blog_posts').select('*').order('created_at', { ascending: false }),
-          supabase.from('public_gallery').select('*').order('order_index')
+          supabase.from('blog_posts').select('*').order('created_at', { ascending: false })
         ]);
 
         if (modelsResponse.error) {
@@ -187,7 +185,6 @@ export const Admin: React.FC = () => {
           });
         } else {
           setModels(modelsResponse.data || []);
-          await loadAvailableImages(modelsResponse.data || []);
         }
 
         if (profilesResponse.error) {
@@ -200,12 +197,6 @@ export const Admin: React.FC = () => {
           console.error('Error fetching blog posts:', blogResponse.error);
         } else {
           setBlogPosts(blogResponse.data || []);
-        }
-
-        if (galleryResponse.error) {
-          console.error('Error fetching public gallery:', galleryResponse.error);
-        } else {
-          setPublicGallery(galleryResponse.data || []);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -546,105 +537,6 @@ export const Admin: React.FC = () => {
     );
   };
 
-  // Load available images from models for gallery selection
-  const loadAvailableImages = async (modelsData: Model[]) => {
-    try {
-      const images: Array<{id: string, image_url: string, model_id: string, model_name: string, source: 'profile' | 'gallery', caption?: string}> = [];
-      
-      // Add profile images
-      modelsData.forEach(model => {
-        if (model.image) {
-          images.push({
-            id: `profile-${model.id}`,
-            image_url: model.image,
-            model_id: model.id,
-            model_name: model.name,
-            source: 'profile'
-          });
-        }
-      });
-      
-      // Add gallery images
-      const { data: galleryData, error } = await supabase
-        .from('model_gallery')
-        .select('*, models!inner(name)')
-        .order('order_index');
-        
-      if (!error && galleryData) {
-        galleryData.forEach(gallery => {
-          images.push({
-            id: `gallery-${gallery.id}`,
-            image_url: gallery.image_url,
-            model_id: gallery.model_id,
-            model_name: gallery.models.name,
-            source: 'gallery',
-            caption: gallery.caption
-          });
-        });
-      }
-      
-      setAvailableImages(images);
-    } catch (error) {
-      console.error('Error loading available images:', error);
-    }
-  };
-
-  // Public gallery management functions
-  const addToPublicGallery = async (imageData: {image_url: string, model_id: string, model_name: string, caption?: string}) => {
-    try {
-      const { data, error } = await supabase
-        .from('public_gallery')
-        .insert([{
-          image_url: imageData.image_url,
-          model_id: imageData.model_id,
-          model_name: imageData.model_name,
-          caption: imageData.caption || '',
-          order_index: publicGallery.length
-        }])
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      setPublicGallery([...publicGallery, data]);
-      toast({
-        title: "Sucesso",
-        description: "Imagem adicionada à galeria pública"
-      });
-    } catch (error) {
-      console.error('Error adding to public gallery:', error);
-      toast({
-        title: "Erro",
-        description: "Erro ao adicionar imagem à galeria",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const removeFromPublicGallery = async (id: string) => {
-    try {
-      const { error } = await supabase
-        .from('public_gallery')
-        .delete()
-        .eq('id', id);
-
-      if (error) throw error;
-
-      setPublicGallery(publicGallery.filter(item => item.id !== id));
-      toast({
-        title: "Sucesso",
-        description: "Imagem removida da galeria pública"
-      });
-    } catch (error) {
-      console.error('Error removing from public gallery:', error);
-      toast({
-        title: "Erro",
-        description: "Erro ao remover imagem da galeria",
-        variant: "destructive"
-      });
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -704,28 +596,26 @@ export const Admin: React.FC = () => {
       
       <div className="min-h-screen bg-background pt-20 pb-16">
         <div className="container-width">
-          <div className="mb-8">
-            <h1 className="text-3xl font-light tracking-wide mb-2">
-              Painel de <span className="luxury-text-gradient">Administração</span>
-            </h1>
-            <p className="text-muted-foreground">
-              Gerencie modelos, usuários e conteúdo do site
-            </p>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-3xl font-bold">Painel de Administração</h1>
+              <p className="text-muted-foreground">Gerencie conteúdo, usuários e configurações</p>
+            </div>
           </div>
 
-          <Tabs defaultValue="models" className="w-full">
+          <Tabs defaultValue="models" className="space-y-6">
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="models" className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
-                Modelos ({models.length})
+                Modelos
               </TabsTrigger>
               <TabsTrigger value="blog" className="flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                Blog ({blogPosts.length})
+                Blog
               </TabsTrigger>
               <TabsTrigger value="users" className="flex items-center gap-2">
-                <Settings className="w-4 h-4" />
-                Usuários ({profiles.length})
+                <Users className="w-4 h-4" />
+                Usuários
               </TabsTrigger>
               <TabsTrigger value="gallery" className="flex items-center gap-2">
                 <Image className="w-4 h-4" />
@@ -767,17 +657,14 @@ export const Admin: React.FC = () => {
                       Adicionar Modelo
                     </Button>
                   </DialogTrigger>
-                  
                   <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>
-                        {editingModel ? 'Editar Modelo' : 'Adicionar Novo Modelo'}
-                      </DialogTitle>
+                      <DialogTitle>{editingModel ? 'Editar' : 'Adicionar'} Modelo</DialogTitle>
                       <DialogDescription>
-                        Preencha as informações do modelo abaixo.
+                        Preencha as informações do modelo
                       </DialogDescription>
                     </DialogHeader>
-
+                    
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -796,7 +683,7 @@ export const Admin: React.FC = () => {
                             id="age"
                             type="number"
                             value={formData.age || ''}
-                            onChange={(e) => setFormData({...formData, age: parseInt(e.target.value) || null})}
+                            onChange={(e) => setFormData({...formData, age: e.target.value ? parseInt(e.target.value) : null})}
                           />
                         </div>
 
@@ -1081,17 +968,14 @@ export const Admin: React.FC = () => {
                       Adicionar Post
                     </Button>
                   </DialogTrigger>
-                  
                   <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle>
-                        {editingBlogPost ? 'Editar Post' : 'Adicionar Novo Post'}
-                      </DialogTitle>
+                      <DialogTitle>{editingBlogPost ? 'Editar' : 'Adicionar'} Post</DialogTitle>
                       <DialogDescription>
-                        Preencha as informações do post do blog.
+                        Preencha as informações do post do blog
                       </DialogDescription>
                     </DialogHeader>
-
+                    
                     <form onSubmit={handleBlogSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
@@ -1112,12 +996,11 @@ export const Admin: React.FC = () => {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="blog-slug">Slug *</Label>
+                          <Label htmlFor="blog-slug">Slug</Label>
                           <Input
                             id="blog-slug"
                             value={blogFormData.slug || ''}
                             onChange={(e) => setBlogFormData({...blogFormData, slug: e.target.value})}
-                            required
                           />
                         </div>
 
@@ -1137,25 +1020,6 @@ export const Admin: React.FC = () => {
                             value={blogFormData.category || ''}
                             onChange={(e) => setBlogFormData({...blogFormData, category: e.target.value})}
                           />
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="blog-read-time">Tempo de Leitura (min)</Label>
-                          <Input
-                            id="blog-read-time"
-                            type="number"
-                            value={blogFormData.read_time || ''}
-                            onChange={(e) => setBlogFormData({...blogFormData, read_time: parseInt(e.target.value) || null})}
-                          />
-                        </div>
-
-                        <div className="space-y-2 flex items-center gap-2">
-                          <Switch
-                            id="blog-published"
-                            checked={blogFormData.is_published || false}
-                            onCheckedChange={(checked) => setBlogFormData({...blogFormData, is_published: checked})}
-                          />
-                          <Label htmlFor="blog-published">Publicado</Label>
                         </div>
                       </div>
 
@@ -1197,13 +1061,22 @@ export const Admin: React.FC = () => {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="blog-keywords">Palavras-chave SEO</Label>
+                        <Label htmlFor="blog-seo-keywords">Palavras-chave SEO</Label>
                         <Input
-                          id="blog-keywords"
+                          id="blog-seo-keywords"
                           value={blogFormData.seo_keywords || ''}
                           onChange={(e) => setBlogFormData({...blogFormData, seo_keywords: e.target.value})}
                           placeholder="palavra1, palavra2, palavra3"
                         />
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          id="blog-published"
+                          checked={blogFormData.is_published || false}
+                          onCheckedChange={(checked) => setBlogFormData({...blogFormData, is_published: checked})}
+                        />
+                        <Label htmlFor="blog-published">Publicar imediatamente</Label>
                       </div>
 
                       <div className="flex justify-end space-x-2">
@@ -1229,9 +1102,9 @@ export const Admin: React.FC = () => {
                     <TableHeader>
                       <TableRow>
                         <TableHead>Título</TableHead>
-                        <TableHead>Categoria</TableHead>
+                        <TableHead>Autor</TableHead>
                         <TableHead>Status</TableHead>
-                        <TableHead>Data de Criação</TableHead>
+                        <TableHead>Data</TableHead>
                         <TableHead>Ações</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -1239,20 +1112,10 @@ export const Admin: React.FC = () => {
                       {blogPosts.map((post) => (
                         <TableRow key={post.id}>
                           <TableCell className="font-medium">{post.title}</TableCell>
-                          <TableCell>{post.category || '-'}</TableCell>
+                          <TableCell>{post.author || '-'}</TableCell>
                           <TableCell>
-                            <Badge variant={post.is_published ? 'default' : 'secondary'}>
-                              {post.is_published ? (
-                                <>
-                                  <Eye className="w-3 h-3 mr-1" />
-                                  Publicado
-                                </>
-                              ) : (
-                                <>
-                                  <EyeOff className="w-3 h-3 mr-1" />
-                                  Rascunho
-                                </>
-                              )}
+                            <Badge variant={post.is_published ? "default" : "secondary"}>
+                              {post.is_published ? 'Publicado' : 'Rascunho'}
                             </Badge>
                           </TableCell>
                           <TableCell>
@@ -1284,35 +1147,29 @@ export const Admin: React.FC = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="users">
+            <TabsContent value="users" className="space-y-6">
+              <h2 className="text-xl font-semibold">Gerenciar Usuários</h2>
+              
               <Card>
-                <CardHeader>
-                  <CardTitle>Usuários Cadastrados</CardTitle>
-                  <CardDescription>
-                    Lista de todos os usuários do sistema
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
+                <CardContent className="p-0">
                   <Table>
                     <TableHeader>
                       <TableRow>
                         <TableHead>Email</TableHead>
-                        <TableHead>Role</TableHead>
-                        <TableHead>Data de Criação</TableHead>
+                        <TableHead>Função</TableHead>
+                        <TableHead>Data de Cadastro</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {profiles.map((profile) => (
                         <TableRow key={profile.id}>
-                          <TableCell>{profile.email}</TableCell>
+                          <TableCell className="font-medium">{profile.email}</TableCell>
                           <TableCell>
-                            <Badge variant={profile.role === 'admin' ? 'default' : 'secondary'}>
+                            <Badge variant={profile.role === 'admin' ? "default" : "secondary"}>
                               {profile.role}
                             </Badge>
                           </TableCell>
-                          <TableCell>
-                            {new Date().toLocaleDateString('pt-BR')}
-                          </TableCell>
+                          <TableCell>-</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -1322,171 +1179,7 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="gallery">
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Available Images Section */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Imagens Disponíveis</CardTitle>
-                      <CardDescription>
-                        Fotos das modelos (perfil e galeria)
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="max-h-96 overflow-y-auto">
-                      {availableImages.length > 0 ? (
-                        <div className="grid grid-cols-2 gap-4">
-                          {availableImages.map((image) => {
-                            const isInPublicGallery = publicGallery.some(pg => pg.image_url === image.image_url);
-                            
-                            return (
-                              <div key={image.id} className="group relative">
-                                <div className="aspect-square overflow-hidden rounded-lg border">
-                                  <img
-                                    src={image.image_url}
-                                    alt={image.model_name}
-                                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                                  />
-                                </div>
-                                
-                                <div className="mt-2 space-y-1">
-                                  <p className="text-sm font-medium truncate">{image.model_name}</p>
-                                  <div className="flex items-center gap-2">
-                                    <Badge variant="outline" className="text-xs">
-                                      {image.source === 'profile' ? 'Perfil' : 'Galeria'}
-                                    </Badge>
-                                    {image.caption && (
-                                      <span className="text-xs text-muted-foreground truncate">
-                                        {image.caption}
-                                      </span>
-                                    )}
-                                  </div>
-                                </div>
-                                
-                                <div className="mt-2">
-                                  {!isInPublicGallery ? (
-                                    <Button
-                                      size="sm"
-                                      variant="outline"
-                                      className="w-full"
-                                      onClick={() => addToPublicGallery({
-                                        image_url: image.image_url,
-                                        model_id: image.model_id,
-                                        model_name: image.model_name,
-                                        caption: image.caption
-                                      })}
-                                    >
-                                      <Plus className="w-4 h-4 mr-2" />
-                                      Adicionar à Galeria
-                                    </Button>
-                                  ) : (
-                                    <Button size="sm" variant="secondary" className="w-full" disabled>
-                                      ✓ Na Galeria Pública
-                                    </Button>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div className="text-center py-8">
-                          <Image className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                          <p className="text-muted-foreground">
-                            Nenhuma imagem disponível. Adicione modelos primeiro.
-                          </p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-
-                  {/* Public Gallery Section */}
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Galeria Pública</CardTitle>
-                      <CardDescription>
-                        Imagens que aparecem na galeria do site ({publicGallery.length} fotos)
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="max-h-96 overflow-y-auto">
-                      {publicGallery.length > 0 ? (
-                        <div className="grid grid-cols-2 gap-4">
-                          {publicGallery.map((item) => (
-                            <div key={item.id} className="group relative">
-                              <div className="aspect-square overflow-hidden rounded-lg border">
-                                <img
-                                  src={item.image_url}
-                                  alt={item.model_name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              
-                              <div className="mt-2 space-y-1">
-                                <p className="text-sm font-medium truncate">{item.model_name}</p>
-                                <div className="flex items-center justify-between">
-                                  <Badge variant="default" className="text-xs">
-                                    Público
-                                  </Badge>
-                                  <Button
-                                    size="sm"
-                                    variant="destructive"
-                                    onClick={() => removeFromPublicGallery(item.id)}
-                                  >
-                                    <Trash2 className="w-3 h-3" />
-                                  </Button>
-                                </div>
-                              </div>
-                              
-                              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Button
-                                  size="sm"
-                                  variant="secondary"
-                                  className="bg-black/50 text-white border-none hover:bg-black/70"
-                                  onClick={() => {
-                                    // Navigate to model profile
-                                    window.open(`/models/${item.model_id}`, '_blank');
-                                  }}
-                                >
-                                  <Eye className="w-3 h-3" />
-                                </Button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="text-center py-8">
-                          <Image className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                          <p className="text-muted-foreground">
-                            Nenhuma imagem na galeria pública.
-                          </p>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            Selecione imagens da seção "Imagens Disponíveis" para adicionar.
-                          </p>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </div>
-
-                {/* Instructions */}
-                <Card>
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="p-2 bg-primary/10 rounded-lg">
-                        <Settings className="w-5 h-5 text-primary" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-1">Como funciona a Galeria</h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• <strong>Imagens Disponíveis:</strong> Todas as fotos das modelos (perfil + galeria individual)</li>
-                          <li>• <strong>Galeria Pública:</strong> Fotos que aparecem na página de galeria do site</li>
-                          <li>• <strong>Clique na imagem:</strong> Quando visitantes clicarem numa foto da galeria pública, serão redirecionados para o perfil da modelo</li>
-                          <li>• <strong>Gestão:</strong> Adicione/remova fotos da galeria pública conforme necessário</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <GalleryManager />
             </TabsContent>
           </Tabs>
         </div>

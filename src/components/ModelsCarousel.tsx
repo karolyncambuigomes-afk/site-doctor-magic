@@ -87,7 +87,7 @@ export const ModelsCarousel = () => {
                       </h3>
                       <div className="space-y-1">
                         <p className="text-sm text-gray-600 tracking-wide">
-                          {model.age ? `${model.age} anos` : ''} {model.age && model.location ? '•' : ''} {model.location}
+                          {model.age ? `${model.age} anos` : ''} {model.age && model.characteristics?.[0] ? '•' : ''} {model.characteristics?.[0] || ''}
                         </p>
                       </div>
                     </div>

@@ -9,6 +9,7 @@ export interface CarouselModel {
   location?: string;
   price?: string;
   age?: number;
+  characteristics?: string[];
 }
 
 export const useHomepageCarousel = () => {
@@ -41,7 +42,7 @@ export const useHomepageCarousel = () => {
       if (modelIds.length > 0) {
         const { data, error: modelsError } = await supabase
           .from('models')
-          .select('id, location, price, age')
+          .select('id, location, price, age, characteristics')
           .in('id', modelIds);
 
         if (modelsError) {
@@ -60,7 +61,8 @@ export const useHomepageCarousel = () => {
             image: getImageUrl(item.image_url),
             location: modelDetails?.location || '',
             price: modelDetails?.price || '',
-            age: modelDetails?.age || null
+            age: modelDetails?.age || null,
+            characteristics: modelDetails?.characteristics || []
           };
       }) || [];
 

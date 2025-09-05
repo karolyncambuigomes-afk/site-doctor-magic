@@ -118,23 +118,38 @@ export const Admin: React.FC = () => {
   // Check if user is admin
   useEffect(() => {
     const checkAdminStatus = async () => {
-      if (!user) return;
+      if (!user) {
+        console.log('No user found');
+        setIsAdmin(false);
+        setLoadingData(false);
+        return;
+      }
+      
+      console.log('Checking admin status for user:', user.id);
       
       try {
         const { data, error } = await supabase
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
 
         if (error) {
           console.error('Error checking admin status:', error);
+          setIsAdmin(false);
+          setLoadingData(false);
           return;
         }
 
-        setIsAdmin(data?.role === 'admin');
+        console.log('Profile data:', data);
+        const adminStatus = data?.role === 'admin';
+        console.log('Is admin:', adminStatus);
+        setIsAdmin(adminStatus);
       } catch (error) {
         console.error('Error checking admin status:', error);
+        setIsAdmin(false);
+      } finally {
+        setLoadingData(false);
       }
     };
 
@@ -144,7 +159,12 @@ export const Admin: React.FC = () => {
   // Fetch data
   useEffect(() => {
     const fetchData = async () => {
-      if (!isAdmin) return;
+      if (!isAdmin) {
+        console.log('User is not admin, skipping data fetch');
+        return;
+      }
+
+      console.log('Fetching admin data...');
 
       try {
         const [modelsResponse, profilesResponse, blogResponse] = await Promise.all([
@@ -423,12 +443,23 @@ export const Admin: React.FC = () => {
     }
   };
 
-  if (loading || loadingData) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Carregando...</p>
+          <p className="text-muted-foreground">Verificando autenticação...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loadingData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Verificando permissões...</p>
         </div>
       </div>
     );

@@ -30,7 +30,7 @@ export default function Auth() {
         : await signUp(email, password);
 
       if (error) {
-        toast.error(error.message);
+        toast.error(error.message || 'Erro inesperado. Tente novamente.');
       } else {
         if (isLogin) {
           toast.success('Login realizado com sucesso!');

@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, useContext } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { sanitizeError, logSecureError } from '@/utils/errorHandler';
 
 interface AuthContextType {
   user: User | null;
@@ -89,29 +90,62 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
-    return { error };
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+      
+      if (error) {
+        logSecureError(error, 'signIn');
+        return { error: sanitizeError(error) };
+      }
+      
+      return { error: null };
+    } catch (error) {
+      logSecureError(error, 'signIn');
+      return { error: sanitizeError(error) };
+    }
   };
 
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/`;
-    
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: redirectUrl
+    try {
+      const redirectUrl = `${window.location.origin}/`;
+      
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectUrl
+        }
+      });
+      
+      if (error) {
+        logSecureError(error, 'signUp');
+        return { error: sanitizeError(error) };
       }
-    });
-    return { error };
+      
+      return { error: null };
+    } catch (error) {
+      logSecureError(error, 'signUp');
+      return { error: sanitizeError(error) };
+    }
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    return { error };
+    try {
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        logSecureError(error, 'signOut');
+        return { error: sanitizeError(error) };
+      }
+      
+      return { error: null };
+    } catch (error) {
+      logSecureError(error, 'signOut');
+      return { error: sanitizeError(error) };
+    }
   };
 
   const value = {

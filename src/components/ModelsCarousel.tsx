@@ -1,0 +1,136 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useModels } from '@/hooks/useModels';
+
+export const ModelsCarousel = () => {
+  const { models, loading } = useModels();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const modelsPerPage = 2;
+  const totalPages = Math.ceil(models.length / modelsPerPage);
+  
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalPages);
+  };
+  
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
+  };
+  
+  const getCurrentModels = () => {
+    const startIndex = currentIndex * modelsPerPage;
+    return models.slice(startIndex, startIndex + modelsPerPage);
+  };
+
+  if (loading) {
+    return (
+      <section className="py-20 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16 md:mb-24">
+            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-4">
+              Our Models
+            </h2>
+            <div className="w-16 h-px bg-black/20 mx-auto"></div>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-gray-600">Loading models...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-20 md:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-24">
+          <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-4">
+            Our Models
+          </h2>
+          <div className="w-16 h-px bg-black/20 mx-auto"></div>
+        </div>
+        
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Navigation Arrows */}
+          {totalPages > 1 && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/80 backdrop-blur-sm border border-black/10 hover:border-black/20 transition-all duration-300 flex items-center justify-center group"
+                aria-label="Previous models"
+              >
+                <ChevronLeft className="w-5 h-5 text-black group-hover:text-black/80 transition-colors" />
+              </button>
+              
+              <button
+                onClick={nextSlide}
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/80 backdrop-blur-sm border border-black/10 hover:border-black/20 transition-all duration-300 flex items-center justify-center group"
+                aria-label="Next models"
+              >
+                <ChevronRight className="w-5 h-5 text-black group-hover:text-black/80 transition-colors" />
+              </button>
+            </>
+          )}
+          
+          {/* Models Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+            {getCurrentModels().map((model) => (
+              <div key={model.id} className="group">
+                <Link to={`/models/${model.id}`} className="block">
+                  <div className="relative overflow-hidden mb-4">
+                    <img
+                      src={model.image}
+                      alt={model.name}
+                      className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="font-sans text-lg font-normal text-black mb-1">
+                      {model.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 tracking-wide">
+                      {model.location}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+          
+          {/* Pagination Dots */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-8 space-x-2">
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex 
+                      ? 'bg-black scale-125' 
+                      : 'bg-black/30 hover:bg-black/50'
+                  }`}
+                  aria-label={`Go to page ${index + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* View All Models Button */}
+        <div className="text-center mt-16 md:mt-24">
+          <Link 
+            to="/models" 
+            className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+          >
+            <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+              All Models
+            </span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};

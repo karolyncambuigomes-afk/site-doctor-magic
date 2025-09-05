@@ -1,6 +1,7 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroCarousel } from '@/components/HeroCarousel';
+import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -70,59 +71,8 @@ const Index = () => {
         {/* YSL Style Hero Carousel */}
         <HeroCarousel />
 
-        {/* Featured Models Section - YSL Style */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            {/* Section Header */}
-            <div className="text-center mb-16 md:mb-24">
-              <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-4">
-                Our Models
-              </h2>
-              <div className="w-16 h-px bg-black/20 mx-auto"></div>
-            </div>
-            
-            {/* Models Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-              {models && models.length > 0 ? models.slice(0, 6).map((model, index) => (
-                <div key={model.id} className="group">
-                  <Link to={`/models/${model.id}`} className="block">
-                    <div className="relative overflow-hidden mb-4">
-                      <img
-                        src={model.image}
-                        alt={model.name}
-                        className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="text-center">
-                      <h3 className="font-sans text-lg font-normal text-black mb-1">
-                        {model.name}
-                      </h3>
-                      <p className="text-sm text-gray-600 tracking-wide">
-                        {model.location}
-                      </p>
-                    </div>
-                  </Link>
-                </div>
-              )) : (
-                <div className="col-span-full text-center py-12">
-                  <p className="text-gray-600">Loading models...</p>
-                </div>
-              )}
-            </div>
-            
-            {/* View All Link */}
-            <div className="text-center mt-16 md:mt-24">
-              <Link 
-                to="/models" 
-                className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
-              >
-                <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                  View All Models
-                </span>
-              </Link>
-            </div>
-          </div>
-        </section>
+        {/* Featured Models Section - YSL Style Carousel */}
+        <ModelsCarousel />
 
         {/* Services Section - Minimal */}
         <section className="py-20 md:py-32 bg-gray-50">

@@ -99,7 +99,7 @@ const Index = () => {
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:gap-6 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-4">
               {models && models.length > 0 ? models.slice(0, 12).map((model, index) => {
                 return (
                   <ModelCard 
@@ -109,7 +109,7 @@ const Index = () => {
                   />
                 );
               }) : (
-                <div className="col-span-2 xl:col-span-3 2xl:col-span-4 text-center py-12">
+                <div className="col-span-1 sm:col-span-2 xl:col-span-3 2xl:col-span-4 text-center py-12">
                   <p className="text-muted-foreground">No models available</p>
                 </div>
               )}

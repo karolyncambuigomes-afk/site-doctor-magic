@@ -27,7 +27,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
 import { Admin } from "./pages/Admin";
-import { HeroAdmin } from "./pages/admin/Hero";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,7 +61,6 @@ const App = () => (
               <Route path="/terms" element={<Terms />} />
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/admin" element={<Admin />} />
-              <Route path="/admin/hero" element={<HeroAdmin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

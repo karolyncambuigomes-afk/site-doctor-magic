@@ -2,13 +2,19 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
+import { PrivacyBanner } from '@/components/PrivacyBanner';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
 import { models } from '@/data/models';
 import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { anonymizeModelsArray } from '@/utils/dataAnonymizer';
 
 const Index = () => {
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
+  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -33,9 +39,12 @@ const Index = () => {
   // Debug - verificar se models está carregando
   console.log('Models array:', models, 'Length:', models?.length);
 
+  // Use anonymized data for non-authenticated users
+  const displayModels = anonymizeModelsArray(models, isAuthenticated);
+  
   // Carrossel state
   const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselImages = models.slice(0, 12); // Pegar 12 modelos para o carrossel
+  const carouselImages = displayModels.slice(0, 12); // Pegar 12 modelos para o carrossel
 
   // Auto-play do carrossel
   useEffect(() => {
@@ -65,6 +74,7 @@ const Index = () => {
       />
       
       <Navigation />
+      <PrivacyBanner />
       
       <main>
         <HeroSection />
@@ -100,7 +110,7 @@ const Index = () => {
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-              {models && models.length > 0 ? models.slice(0, 8).map((model, index) => (
+              {displayModels && displayModels.length > 0 ? displayModels.slice(0, 8).map((model, index) => (
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
@@ -131,7 +141,7 @@ const Index = () => {
                         {model.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-white/80">
-                        {model.location}
+                        {model.age ? `${model.age} • ` : ''}{model.location}
                       </p>
                     </div>
                   </div>

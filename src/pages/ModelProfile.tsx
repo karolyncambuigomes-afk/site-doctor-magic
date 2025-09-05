@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { models } from '@/data/models';
 import { characteristics } from '@/data/characteristics';
+import { useAuth } from '@/hooks/useAuth';
+import { anonymizeModelData } from '@/utils/dataAnonymizer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -19,8 +21,11 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 
 export const ModelProfile: React.FC = () => {
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
   const { id } = useParams<{ id: string }>();
-  const model = models.find(m => m.id === id);
+  const rawModel = models.find(m => m.id === id);
+  const model = rawModel ? anonymizeModelData(rawModel, isAuthenticated) : null;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Scroll to top when model changes

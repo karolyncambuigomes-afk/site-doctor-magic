@@ -3,20 +3,28 @@ import { ModelCard } from '@/components/ModelCard';
 import { models, Model } from '@/data/models';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { PrivacyBanner } from '@/components/PrivacyBanner';
 import { Search, MapPin, Sparkles, Settings, ChevronDown } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { anonymizeModelsArray } from '@/utils/dataAnonymizer';
 
 export const ModelsGallery: React.FC = () => {
+  const { user } = useAuth();
+  const isAuthenticated = !!user;
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
   const [selectedServiceType, setSelectedServiceType] = useState('all');
+
+  // Use anonymized data for non-authenticated users
+  const displayModels = anonymizeModelsArray(models, isAuthenticated);
 
   // Get unique values for filters
   const uniqueLocations = [...new Set(models.map(model => model.location))];
   const uniqueCharacteristics = [...new Set(models.flatMap(model => model.characteristics))];
 
   const filteredModels = useMemo(() => {
-    return models.filter(model => {
+    return displayModels.filter(model => {
       const matchesSearch = model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            model.description.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesLocation = selectedLocation === 'all' || model.location === selectedLocation;
@@ -29,7 +37,7 @@ export const ModelsGallery: React.FC = () => {
       
       return matchesSearch && matchesLocation && matchesCharacteristic && matchesServiceType;
     });
-  }, [searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
+  }, [displayModels, searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
 
 
   const clearAllFilters = () => {
@@ -42,6 +50,7 @@ export const ModelsGallery: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <PrivacyBanner />
       
       <main className="pt-20">
         {/* Elegant Header */}

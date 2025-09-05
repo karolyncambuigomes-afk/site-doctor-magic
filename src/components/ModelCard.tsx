@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Model } from '@/data/models';
+import { AnonymizedModel } from '@/utils/dataAnonymizer';
 import { Link } from 'react-router-dom';
 
 interface ModelCardProps {
-  model: Model;
+  model: Model | AnonymizedModel;
 }
 
 export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
@@ -65,7 +66,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
               <div>
                 <h3 className="text-sm sm:text-base lg:text-lg font-light text-white mb-1">{model.name}</h3>
                 <p className="text-xs sm:text-sm text-white/80">
-                  {model.age} • {model.location}
+                  {model.age ? `${model.age} • ` : ''}{model.location}
                 </p>
               </div>
               

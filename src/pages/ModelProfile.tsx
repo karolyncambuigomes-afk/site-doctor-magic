@@ -232,23 +232,25 @@ export const ModelProfile: React.FC = () => {
           {/* Pricing Section - Only show for premium users with pricing data */}
           {model.pricing && (
             <div className="mb-8">
-              <h3 className="text-lg font-light text-foreground mb-4">Pricing</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">1 Hora</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
-                </div>
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">2 Horas</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
-                </div>
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">3 Horas</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
-                </div>
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hora Adicional</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+              <h3 className="text-lg font-light text-foreground mb-4">Preços</h3>
+              <div className="bg-card border border-border rounded-lg p-6">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">1 hora</span>
+                    <span className="text-lg font-semibold text-accent">{model.pricing.oneHour}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">2 horas</span>
+                    <span className="text-lg font-semibold text-accent">{model.pricing.twoHours}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">3 horas</span>
+                    <span className="text-lg font-semibold text-accent">{model.pricing.threeHours}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Hora adicional</span>
+                    <span className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</span>
+                  </div>
                 </div>
               </div>
             </div>

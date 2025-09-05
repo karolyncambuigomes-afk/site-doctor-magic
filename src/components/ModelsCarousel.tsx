@@ -21,6 +21,8 @@ export const ModelsCarousel = () => {
   const modelsPerPage = isMobile ? 1 : 2;
   const totalPages = Math.ceil(models.length / modelsPerPage);
   
+  console.log('ModelsCarousel:', { modelsLength: models.length, modelsPerPage, totalPages, currentIndex });
+  
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev + 1) % totalPages);
   };
@@ -35,6 +37,7 @@ export const ModelsCarousel = () => {
   };
 
   if (loading) {
+    console.log('ModelsCarousel: Loading models...');
     return (
       <section className="py-20 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4">
@@ -90,24 +93,28 @@ export const ModelsCarousel = () => {
           <div className={`grid gap-8 max-w-4xl mx-auto ${
             isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2 md:gap-12'
           }`}>
-            {getCurrentModels().map((model) => (
-              <div key={model.id} className="group">
-                <Link to={`/models/${model.id}`} className="block">
-                  <div className="relative overflow-hidden mb-4">
-                    {/* Main Image */}
-                    <img
-                      src={model.image}
-                      alt={model.name}
-                      className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:opacity-0 absolute inset-0"
-                    />
-                    {/* Second Image (from gallery) */}
-                    {model.gallery && model.gallery[1] && (
+            {getCurrentModels().map((model) => {
+              console.log('Rendering model:', model.name, 'Gallery length:', model.gallery?.length);
+              return (
+                <div key={model.id} className="group">
+                  <Link to={`/models/${model.id}`} className="block">
+                    <div className="relative overflow-hidden mb-4">
+                      {/* Main Image */}
                       <img
-                        src={model.gallery[1]}
-                        alt={`${model.name} - alternate view`}
-                        className="w-full aspect-[3/4] object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
+                        src={model.image}
+                        alt={model.name}
+                        className={`w-full aspect-[3/4] object-cover transition-all duration-700 ${
+                          model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
+                        }`}
                       />
-                    )}
+                      {/* Second Image (from gallery) - only if available */}
+                      {model.gallery && model.gallery.length > 1 && (
+                        <img
+                          src={model.gallery[0]}
+                          alt={`${model.name} - alternate view`}
+                          className="w-full aspect-[3/4] object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
+                        />
+                      )}
                     {/* Price overlay */}
                     {model.price && (
                       <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1 text-sm font-light tracking-wide z-10">
@@ -124,8 +131,9 @@ export const ModelsCarousel = () => {
                     </p>
                   </div>
                 </Link>
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
           
           {/* Pagination Dots */}

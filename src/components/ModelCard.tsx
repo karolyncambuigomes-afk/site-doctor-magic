@@ -41,18 +41,20 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 <img
                   src={model.image}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full object-cover transition-all duration-700 absolute inset-0 ${
+                  className={`w-full h-full object-cover transition-all duration-700 ${
                     imageLoaded ? 'opacity-100' : 'opacity-0'
-                  } group-hover:opacity-0`}
+                  } ${
+                    model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
+                  }`}
                   onLoad={() => setImageLoaded(true)}
                   onError={() => setImageError(true)}
                   loading="lazy"
                 />
                 
-                {/* Second Image (from gallery) */}
-                {model.gallery && model.gallery[1] && (
+                {/* Second Image (from gallery) - only if available */}
+                {model.gallery && model.gallery.length > 1 && (
                   <img
-                    src={model.gallery[1]}
+                    src={model.gallery[0]}
                     alt={`${model.name} - alternate view`}
                     className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
                     loading="lazy"

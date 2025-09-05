@@ -19,8 +19,8 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'display': ['Playfair Display', 'serif'],
-				'sans': ['Montserrat', 'sans-serif'],
+				'display': ['Abril Fatface', 'serif'],
+				'sans': ['Lato', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

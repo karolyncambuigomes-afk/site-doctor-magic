@@ -17,7 +17,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff } from 'lucide-react';
+import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 
@@ -80,6 +80,7 @@ export const Admin: React.FC = () => {
   const [editingBlogPost, setEditingBlogPost] = useState<BlogPost | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
+  const [galleryImages, setGalleryImages] = useState<Array<{id?: string, image_url: string, caption: string, order_index: number}>>([]);
 
   // Form state
   const [formData, setFormData] = useState<Partial<Model>>({
@@ -210,6 +211,8 @@ export const Admin: React.FC = () => {
     e.preventDefault();
     
     try {
+      let modelId: string;
+      
       if (editingModel) {
         // Update existing model
         const { error } = await supabase
@@ -221,6 +224,8 @@ export const Admin: React.FC = () => {
           .eq('id', editingModel.id);
 
         if (error) throw error;
+        
+        modelId = editingModel.id;
 
         setModels(models.map(model => 
           model.id === editingModel.id 
@@ -241,13 +246,44 @@ export const Admin: React.FC = () => {
           .single();
 
         if (error) throw error;
-
+        
+        modelId = data.id;
         setModels([data, ...models]);
 
         toast({
           title: "Sucesso",
           description: "Modelo criado com sucesso"
         });
+      }
+
+      // Save gallery images
+      if (galleryImages.length > 0) {
+        // First, delete existing gallery images for this model
+        await supabase
+          .from('model_gallery')
+          .delete()
+          .eq('model_id', modelId);
+
+        // Then insert new gallery images
+        const galleryData = galleryImages.map((img, index) => ({
+          model_id: modelId,
+          image_url: img.image_url,
+          caption: img.caption,
+          order_index: index
+        }));
+
+        const { error: galleryError } = await supabase
+          .from('model_gallery')
+          .insert(galleryData);
+
+        if (galleryError) {
+          console.error('Error saving gallery:', galleryError);
+          toast({
+            title: "Aviso",
+            description: "Modelo salvo, mas houve erro ao salvar as imagens da galeria",
+            variant: "destructive"
+          });
+        }
       }
 
       // Reset form
@@ -269,6 +305,7 @@ export const Admin: React.FC = () => {
         interests: [],
         education: ''
       });
+      setGalleryImages([]);
       setEditingModel(null);
       setIsDialogOpen(false);
     } catch (error) {
@@ -281,9 +318,25 @@ export const Admin: React.FC = () => {
     }
   };
 
-  const handleEdit = (model: Model) => {
+  const handleEdit = async (model: Model) => {
     setEditingModel(model);
     setFormData(model);
+    
+    // Load gallery images for this model
+    try {
+      const { data, error } = await supabase
+        .from('model_gallery')
+        .select('*')
+        .eq('model_id', model.id)
+        .order('order_index');
+      
+      if (error) throw error;
+      
+      setGalleryImages(data || []);
+    } catch (error) {
+      console.error('Error loading gallery images:', error);
+    }
+    
     setIsDialogOpen(true);
   };
 
@@ -444,6 +497,45 @@ export const Admin: React.FC = () => {
     }
   };
 
+  // Gallery management functions
+  const addGalleryImage = () => {
+    setGalleryImages([
+      ...galleryImages,
+      {
+        image_url: '',
+        caption: '',
+        order_index: galleryImages.length
+      }
+    ]);
+  };
+
+  const updateGalleryImage = (index: number, field: 'image_url' | 'caption', value: string) => {
+    setGalleryImages(
+      galleryImages.map((img, i) => 
+        i === index ? { ...img, [field]: value } : img
+      )
+    );
+  };
+
+  const removeGalleryImage = (index: number) => {
+    setGalleryImages(
+      galleryImages
+        .filter((_, i) => i !== index)
+        .map((img, i) => ({ ...img, order_index: i }))
+    );
+  };
+
+  const moveGalleryImage = (fromIndex: number, toIndex: number) => {
+    const newImages = [...galleryImages];
+    const [movedImage] = newImages.splice(fromIndex, 1);
+    newImages.splice(toIndex, 0, movedImage);
+    
+    // Update order indexes
+    setGalleryImages(
+      newImages.map((img, i) => ({ ...img, order_index: i }))
+    );
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -541,6 +633,7 @@ export const Admin: React.FC = () => {
                     <Button 
                       onClick={() => {
                         setEditingModel(null);
+                        setGalleryImages([]);
                         setFormData({
                           name: '',
                           age: null,
@@ -688,6 +781,89 @@ export const Admin: React.FC = () => {
                             </label>
                           ))}
                         </div>
+                      </div>
+
+                      {/* Gallery Images Section */}
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <Label>Galeria de Imagens do Modelo</Label>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={addGalleryImage}
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Adicionar Foto à Galeria
+                          </Button>
+                        </div>
+                        
+                        {galleryImages.length > 0 && (
+                          <div className="space-y-4 border rounded-lg p-4">
+                            {galleryImages.map((image, index) => (
+                              <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end p-4 border rounded-lg bg-muted/20">
+                                <div className="md:col-span-6">
+                                  <ImageUpload
+                                    value={image.image_url}
+                                    onChange={(url) => updateGalleryImage(index, 'image_url', url)}
+                                    label={`Imagem ${index + 1}`}
+                                    placeholder="URL da imagem da galeria"
+                                  />
+                                </div>
+                                
+                                <div className="md:col-span-4">
+                                  <Label htmlFor={`caption-${index}`}>Legenda</Label>
+                                  <Input
+                                    id={`caption-${index}`}
+                                    value={image.caption}
+                                    onChange={(e) => updateGalleryImage(index, 'caption', e.target.value)}
+                                    placeholder="Legenda opcional"
+                                  />
+                                </div>
+                                
+                                <div className="md:col-span-2 flex gap-2">
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => moveGalleryImage(index, Math.max(0, index - 1))}
+                                    disabled={index === 0}
+                                  >
+                                    <ArrowUp className="w-4 h-4" />
+                                  </Button>
+                                  
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => moveGalleryImage(index, Math.min(galleryImages.length - 1, index + 1))}
+                                    disabled={index === galleryImages.length - 1}
+                                  >
+                                    <ArrowDown className="w-4 h-4" />
+                                  </Button>
+                                  
+                                  <Button
+                                    type="button"
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() => removeGalleryImage(index)}
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {galleryImages.length === 0 && (
+                          <div className="text-center py-8 border-2 border-dashed border-muted rounded-lg">
+                            <Image className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
+                            <p className="text-muted-foreground">
+                              Nenhuma imagem na galeria. Clique em "Adicionar Foto à Galeria" para começar.
+                            </p>
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex justify-end space-x-2">

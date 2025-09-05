@@ -50,6 +50,8 @@ const Blog = () => {
     }
   ];
 
+  const categories = [...new Set(blogArticles.map(article => article.category))];
+
   return (
     <>
       <SEO

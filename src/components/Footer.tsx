@@ -34,8 +34,9 @@ export const Footer = () => {
                 { href: '/models', label: 'Companions' },
                 { href: '/locations', label: 'Locations' },
                 { href: '/reviews', label: 'Reviews' },
+                { href: '/faq', label: 'FAQ' },
                 { href: '/contact', label: 'Contact' },
-              ].slice(0, 4).map((link) => (
+              ].slice(0, 9).map((link) => (
                 <Link 
                   key={link.href}
                   to={link.href}

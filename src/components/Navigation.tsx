@@ -41,19 +41,18 @@ export const Navigation = () => {
   const isModelPage = location.pathname.startsWith('/models/');
   
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-luxury ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled || location.pathname === '/'
-        ? 'nav-glass shadow-elegant' 
+        ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200/50' 
         : 'bg-transparent'
     }`}>
-      <div className="container-width">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4 md:py-6">
-          {/* Five London Logo - Ultra Luxurious */}
           <Link 
             to="/" 
-            className={`font-display font-medium tracking-[0.15em] text-foreground transition-luxury hover:text-gold uppercase ${
+            className={`font-medium tracking-wide text-foreground transition-colors hover:text-primary ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
@@ -66,12 +65,10 @@ export const Navigation = () => {
               <Link
                 key={item.href}
                 to={item.href}
-                className={`relative font-body font-medium text-sm tracking-wide uppercase transition-luxury hover:text-accent ${
+                className={`font-medium text-sm transition-colors ${
                   location.pathname === item.href 
-                    ? 'text-accent' 
+                    ? 'text-primary' 
                     : 'text-muted-foreground hover:text-foreground'
-                } after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[1px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 ${
-                  location.pathname === item.href ? 'after:scale-x-100' : ''
                 }`}
               >
                 {item.label}
@@ -83,7 +80,7 @@ export const Navigation = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <a 
               href="tel:+442045678901" 
-              className="font-body text-sm text-muted-foreground hover:text-foreground transition-luxury tracking-wide"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               +44 20 4567 8901
             </a>
@@ -134,9 +131,9 @@ export const Navigation = () => {
                   </Button>
                 </Link>
                 <Link to="/contact">
-                  <button className="five-london-button-outline">
+                  <Button variant="outline">
                     Enquire
-                  </button>
+                  </Button>
                 </Link>
               </div>
             )}
@@ -144,7 +141,7 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-foreground hover:text-muted-foreground transition-luxury"
+            className="lg:hidden p-2 text-foreground hover:text-muted-foreground transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -154,15 +151,15 @@ export const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-border/30 bg-background/95 backdrop-blur-luxury">
-            <div className="container-width py-6">
+          <div className="lg:hidden border-t border-border bg-background">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
-                    className={`nav-link text-lg ${
-                      location.pathname === item.href ? 'nav-link-active' : ''
+                    className={`text-lg font-medium transition-colors ${
+                      location.pathname === item.href ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     {item.label}
@@ -171,7 +168,7 @@ export const Navigation = () => {
                 <div className="pt-8 border-t border-border/30 space-y-6">
                   <a 
                     href="tel:+442045678901" 
-                    className="block caption hover:text-foreground transition-luxury"
+                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     +44 20 4567 8901
                   </a>
@@ -191,10 +188,10 @@ export const Navigation = () => {
                       </div>
                       {!hasAccess && (
                         <Link to="/upgrade">
-                          <button className="five-london-button w-full">
+                          <Button className="w-full">
                             <Crown className="w-4 h-4 mr-2" />
                             Upgrade to Premium
-                          </button>
+                          </Button>
                         </Link>
                       )}
                       <button 
@@ -208,14 +205,14 @@ export const Navigation = () => {
                   ) : (
                     <div className="space-y-4">
                       <Link to="/auth">
-                        <button className="five-london-button-outline w-full">
+                        <Button variant="outline" className="w-full">
                           Sign In
-                        </button>
+                        </Button>
                       </Link>
                       <Link to="/contact">
-                        <button className="five-london-button w-full">
+                        <Button className="w-full">
                           Enquire
-                        </button>
+                        </Button>
                       </Link>
                     </div>
                   )}

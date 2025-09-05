@@ -107,16 +107,14 @@ const Index = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-              <a 
-                href="https://wa.me/447436190679"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link 
+                to="/contact"
                 className="inline-block border border-white/30 hover:border-white/60 px-8 py-3 transition-all duration-300"
               >
                 <span className="text-sm tracking-[0.3em] uppercase font-light">
                   Contact Us
                 </span>
-              </a>
+              </Link>
               
               <a 
                 href="tel:+447436190679"

@@ -6,48 +6,68 @@ import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ChevronRight, Clock } from 'lucide-react';
 import { useBlogLinks } from '@/hooks/useBlogLinks';
+import { generateServiceSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const Services = () => {
   const { getBlogLinkForKeyword, getBlogTitleForKeyword } = useBlogLinks();
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Luxury Companionship Services",
-    "provider": {
-      "@type": "Organization",
-      "name": "Five London"
-    },
-    "areaServed": "London, United Kingdom",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Luxury Escort Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Dinner Dates",
-            "description": "Elegant companions for fine dining experiences"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Business Events",
-            "description": "Professional companions for corporate functions"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Travel Companion",
-            "description": "Sophisticated travel companionship services"
-          }
+  
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "Services", url: "https://fivelondon.com/services" }
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Luxury Companionship Services",
+      "provider": {
+        "@type": "Organization",
+        "name": "Five London",
+        "telephone": "+447436190679",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "London",
+          "addressCountry": "GB"
         }
-      ]
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "London",
+        "addressCountry": "GB"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Luxury Escort Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dinner Companion Services",
+              "description": "Elegant companions for fine dining experiences at London's finest restaurants"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Business Event Companions",
+              "description": "Professional companions for corporate functions and business events"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Travel Companion Services",
+              "description": "Sophisticated travel companionship for business trips and leisure travel"
+            }
+          }
+        ]
+      }
     }
+  ];
   };
 
   const services = [
@@ -136,9 +156,9 @@ const Services = () => {
   return (
     <>
       <SEO 
-        title="Luxury Escort Services in London - Five London"
-        description="Explore Five London's comprehensive range of luxury escort services including dinner dates, business events, travel companions, and cultural experiences. Available 24/7."
-        keywords="luxury escort services london, dinner date escort, business event companion, travel escort, theatre companion, social event escort"
+        title="Luxury Escort Services in London - Premium Companion Services | Five London"
+        description="Explore Five London's comprehensive range of luxury escort services including dinner dates, business events, travel companions, cultural experiences, and social events. Professional, discreet, and sophisticated companions available 24/7 across London."
+        keywords="luxury escort services London, premium companion services, dinner date escorts, business event companions, travel companion services, cultural event escorts, professional escort services, VIP companion services London, elite escort agency services"
         canonicalUrl="/services"
         structuredData={structuredData}
       />

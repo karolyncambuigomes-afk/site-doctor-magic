@@ -4,37 +4,27 @@ import { HeroCarousel } from '@/components/HeroCarousel';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
+import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 
 const Index = () => {
   
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Five London",
-    "description": "London's premier luxury escort agency providing sophisticated companionship services",
-    "url": "https://fivelondon.com",
-    "logo": "https://fivelondon.com/logo.png",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+44-20-4567-8901",
-      "contactType": "customer service",
-      "availableLanguage": "English"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "London",
-      "addressCountry": "GB"
-    }
-  };
-
-  const features = [];
+  // Generate comprehensive structured data for homepage
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateWebsiteSchema(),
+    generateServiceSchema(
+      "Premium Luxury Escort Services",
+      "Exclusive companion services in London offering sophisticated, professional companionship for discerning clients seeking luxury experiences.",
+      "500-1000"
+    )
+  ];
 
   return (
     <>
       <SEO 
-        title="Five London - Premium Luxury Companions"
-        description="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London."
-        keywords="luxury companions london, premium escort services, high-class companions, elite companion agency"
+        title="Five London - Premium Luxury Escort Services & Elite Companions in London"
+        description="Discover London's most sophisticated escort agency. Elite companions for discerning clients seeking luxury experiences. Professional, discreet, and exclusive services across London's finest locations."
+        keywords="luxury escort London, premium companion services, elite escorts London, sophisticated companions, VIP escort service, high-class escort agency, exclusive escort London, professional companions, luxury lifestyle services, Mayfair escorts, Knightsbridge escorts, Chelsea escorts"
         canonicalUrl="/"
         structuredData={structuredData}
       />

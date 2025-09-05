@@ -7,43 +7,55 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { blogArticles } from "@/data/blog-articles";
+import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const Blog = () => {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": "Five London Blog",
-    "description": "Exclusive guide to luxury experiences in London",
-    "url": "https://fivelondon.com/blog",
-    "inLanguage": "en-GB",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Five London",
-      "url": "https://fivelondon.com"
-    },
-    "blogPost": blogArticles.map(article => ({
-      "@type": "BlogPosting",
-      "headline": article.title,
-      "description": article.excerpt,
-      "url": `https://fivelondon.com/blog/${article.slug}`,
-      "datePublished": article.publishedAt,
-      "author": {
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "Blog", url: "https://fivelondon.com/blog" }
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Five London Blog - Exclusive London Guide",
+      "description": "Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with luxury recommendations.",
+      "url": "https://fivelondon.com/blog",
+      "inLanguage": "en-GB",
+      "publisher": {
         "@type": "Organization",
-        "name": article.author
+        "name": "Five London",
+        "url": "https://fivelondon.com",
+        "logo": "https://fivelondon.com/logo.png"
       },
-      "image": article.image,
-      "keywords": article.seoKeywords
-    }))
-  };
-
-  const categories = [...new Set(blogArticles.map(article => article.category))];
+      "blogPost": blogArticles.map(article => ({
+        "@type": "BlogPosting",
+        "headline": article.title,
+        "description": article.excerpt,
+        "url": `https://fivelondon.com/blog/${article.slug}`,
+        "datePublished": article.publishedAt,
+        "dateModified": article.publishedAt,
+        "author": {
+          "@type": "Organization",
+          "name": article.author
+        },
+        "image": article.image,
+        "keywords": article.seoKeywords,
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://fivelondon.com/blog/${article.slug}`
+        }
+      }))
+    }
+  ];
 
   return (
     <>
       <SEO
-        title="Blog - Exclusive London Guide"
-        description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style."
-        keywords="London blog, London guide, London restaurants, luxury hotels London, London events, exclusive experiences London"
+        title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
+        description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations from luxury lifestyle experts."
+        keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London, London experiences, sophisticated dining London, luxury travel London, London lifestyle guide"
         canonicalUrl="/blog"
         structuredData={structuredData}
       />

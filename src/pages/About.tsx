@@ -7,26 +7,37 @@ import { Shield, Award, Heart, Users, Clock, Star, Diamond, Crown, Sparkles, Che
 import aboutLuxury1 from '@/assets/about-luxury-1.jpg';
 import aboutLuxury2 from '@/assets/about-luxury-2.jpg';
 import aboutLuxury3 from '@/assets/about-luxury-3.jpg';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
 
 const About = () => {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "Five London",
-      "description": "London's premier luxury escort agency established in 2018, providing sophisticated companionship services with complete discretion",
-      "foundingDate": "2018",
-      "founders": [
-        {
-          "@type": "Person",
-          "name": "Five London Management Team"
-        }
-      ],
-      "areaServed": "London, United Kingdom",
-      "serviceType": "Luxury Companionship Services"
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "About Us", url: "https://fivelondon.com/about" }
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Five London",
+        "description": "London's premier luxury escort agency established with a commitment to providing sophisticated companionship services with complete discretion and uncompromising excellence",
+        "foundingDate": "2020",
+        "areaServed": {
+          "@type": "City",
+          "name": "London",
+          "addressCountry": "GB"
+        },
+        "serviceType": "Luxury Companionship Services",
+        "hasCredential": [
+          "Verified Agency",
+          "Discrete Service Provider",
+          "Premium Quality Assurance"
+        ]
+      }
     }
-  };
+  ];
 
   const values = [
     {
@@ -62,9 +73,9 @@ const About = () => {
   return (
     <>
       <SEO 
-        title="About Five London - Premier Luxury Escort Agency"
-        description="Learn about Five London, London's most prestigious escort agency. Established in 2018, we provide sophisticated, discreet companionship services with unmatched professionalism."
-        keywords="about five london, luxury escort agency history, premium escort services london, elite companion agency"
+        title="About Five London - London's Premier Luxury Escort Agency"
+        description="Discover Five London, London's most trusted luxury escort agency since 2020. Exceptional standards, absolute discretion, and sophisticated companion services for discerning clients across London's finest locations."
+        keywords="about Five London, luxury escort agency London, premium companion services, elite escort agency, sophisticated companions London, high-class escort services, VIP escort agency, professional companion services, exclusive escort London"
         canonicalUrl="/about"
         structuredData={structuredData}
       />

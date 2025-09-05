@@ -97,19 +97,19 @@ const Index = () => {
         </section>
 
         {/* Contact Section - YSL Style */}
-        <section className="py-20 md:py-32 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight mb-8">
+        <section className="py-16 md:py-32 bg-black text-white">
+          <div className="max-w-4xl mx-auto px-6 md:px-4 text-center">
+            <h2 className="font-display text-xl sm:text-2xl md:text-4xl font-normal tracking-tight mb-6 md:mb-8">
               Begin Your Journey
             </h2>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-12 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
               Contact us for a discreet consultation. Available 24/7 for exclusive bookings.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8 px-4 sm:px-0">
               <Link 
                 to="/contact"
-                className="inline-block border border-white/30 hover:border-white/60 px-8 py-3 transition-all duration-300"
+                className="inline-block border border-white/30 hover:border-white/60 px-6 sm:px-8 py-3 transition-all duration-300 w-full sm:w-auto text-center"
               >
                 <span className="text-sm tracking-[0.3em] uppercase font-light">
                   Contact Us
@@ -118,7 +118,7 @@ const Index = () => {
               
               <a 
                 href="tel:+447436190679"
-                className="text-lg tracking-wide text-white/80 hover:text-white transition-colors"
+                className="text-base sm:text-lg tracking-wide text-white/80 hover:text-white transition-colors"
               >
                 +44 7436 190679
               </a>

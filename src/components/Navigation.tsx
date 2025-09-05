@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogOut, Crown } from 'lucide-react';
+import { Menu, X, User, LogOut, Crown, Settings } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { 
@@ -105,6 +105,13 @@ export const Navigation = () => {
                       {user.email}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="flex items-center">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     {!hasAccess && (
                       <>
                         <DropdownMenuItem asChild>
@@ -181,6 +188,12 @@ export const Navigation = () => {
                           </div>
                         )}
                       </div>
+                      <Link to="/admin">
+                        <Button variant="outline" className="w-full">
+                          <Settings className="w-4 h-4 mr-2" />
+                          Admin
+                        </Button>
+                      </Link>
                       {!hasAccess && (
                         <Link to="/upgrade">
                           <Button className="w-full">

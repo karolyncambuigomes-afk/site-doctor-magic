@@ -183,7 +183,7 @@ export const Admin: React.FC = () => {
                   ) : models.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-gray-600 mb-4">Nenhum modelo encontrado</p>
-                      <Button className="bg-white text-black border border-gray-300 hover:bg-gray-50">
+                      <Button className="bg-black text-white hover:bg-gray-800">
                         <Plus className="w-4 h-4 mr-2" />
                         Adicionar Primeiro Modelo
                       </Button>
@@ -202,10 +202,10 @@ export const Admin: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -229,7 +229,7 @@ export const Admin: React.FC = () => {
                   ) : blogPosts.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-gray-600 mb-4">Nenhum post encontrado</p>
-                      <Button className="bg-white text-black border border-gray-300 hover:bg-gray-50">
+                      <Button className="bg-black text-white hover:bg-gray-800">
                         <Plus className="w-4 h-4 mr-2" />
                         Criar Primeiro Post
                       </Button>
@@ -253,10 +253,10 @@ export const Admin: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -292,8 +292,8 @@ export const Admin: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="border-gray-300 bg-white text-black hover:bg-gray-50">Aprovar</Button>
-                            <Button variant="outline" size="sm" className="border-gray-300 bg-white text-black hover:bg-gray-50">Rejeitar</Button>
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">Aprovar</Button>
+                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">Rejeitar</Button>
                           </div>
                         </div>
                       ))}

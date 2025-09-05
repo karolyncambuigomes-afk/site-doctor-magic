@@ -309,8 +309,10 @@ export const Admin: React.FC = () => {
                   <CardTitle className="text-black">Gerenciar Galeria</CardTitle>
                   <CardDescription className="text-gray-600">Gerencie imagens e carrosséis da galeria</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <GalleryManager />
+                <CardContent className="text-black">
+                  <div className="text-black [&_*]:text-black">
+                    <GalleryManager />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -321,8 +323,10 @@ export const Admin: React.FC = () => {
                   <CardTitle className="text-black">Gerenciar Conteúdo</CardTitle>
                   <CardDescription className="text-gray-600">Gerencie conteúdo das páginas do site</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <SiteContentManager />
+                <CardContent className="text-black">
+                  <div className="text-black [&_*]:text-black">
+                    <SiteContentManager />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

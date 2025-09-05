@@ -1,6 +1,6 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { HeroSection } from '@/components/HeroSection';
+import { HeroCarousel } from '@/components/HeroCarousel';
 import { Footer } from '@/components/Footer';
 import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -67,43 +67,8 @@ const Index = () => {
       <Navigation />
       
       <main className="min-h-screen">
-        {/* YSL Style Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="/images/model1.jpg"
-              alt="Elegant companion"
-              className="w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-black/40"></div>
-          </div>
-          
-          {/* Content */}
-          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight mb-8">
-              Five London
-            </h1>
-            <p className="text-lg md:text-xl lg:text-2xl font-light tracking-wide text-white/90 mb-12 max-w-2xl mx-auto">
-              Premier luxury companion services in London
-            </p>
-            
-            {/* CTA Button */}
-            <Link 
-              to="/models" 
-              className="inline-block border border-white/30 hover:border-white/60 px-8 py-3 md:px-12 md:py-4 transition-all duration-300"
-            >
-              <span className="text-sm md:text-base tracking-[0.3em] uppercase font-light">
-                Discover
-              </span>
-            </Link>
-          </div>
-          
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-px h-16 bg-white/40"></div>
-          </div>
-        </section>
+        {/* YSL Style Hero Carousel */}
+        <HeroCarousel />
 
         {/* Featured Models Section - YSL Style */}
         <section className="py-20 md:py-32 bg-white">

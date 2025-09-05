@@ -3,6 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
 import { PrivacyBanner } from '@/components/PrivacyBanner';
+import { CookieConsent } from '@/components/CookieConsent';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
@@ -277,6 +278,7 @@ const Index = () => {
       </main>
 
       <Footer />
+      <CookieConsent />
     </>
   );
 };

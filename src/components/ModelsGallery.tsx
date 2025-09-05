@@ -4,6 +4,7 @@ import { models, Model } from '@/data/models';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { PrivacyBanner } from '@/components/PrivacyBanner';
+import { CookieConsent } from '@/components/CookieConsent';
 import { Search, MapPin, Sparkles, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { anonymizeModelsArray } from '@/utils/dataAnonymizer';
@@ -177,6 +178,7 @@ export const ModelsGallery: React.FC = () => {
       </main>
       
       <Footer />
+      <CookieConsent />
     </div>
   );
 };

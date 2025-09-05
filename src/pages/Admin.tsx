@@ -21,6 +21,7 @@ import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, Arro
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
+import { SiteContentManager } from '@/components/SiteContentManager';
 
 interface Model {
   id: string;
@@ -604,7 +605,7 @@ export const Admin: React.FC = () => {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="models" className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
                 Modelos
@@ -620,6 +621,10 @@ export const Admin: React.FC = () => {
               <TabsTrigger value="gallery" className="flex items-center gap-2">
                 <Image className="w-4 h-4" />
                 Galeria
+              </TabsTrigger>
+              <TabsTrigger value="content" className="flex items-center gap-2">
+                <Settings className="w-4 h-4" />
+                Conteúdo
               </TabsTrigger>
             </TabsList>
 
@@ -1180,6 +1185,10 @@ export const Admin: React.FC = () => {
 
             <TabsContent value="gallery">
               <GalleryManager />
+            </TabsContent>
+
+            <TabsContent value="content">
+              <SiteContentManager />
             </TabsContent>
           </Tabs>
         </div>

@@ -73,21 +73,24 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Minimal Info - Bottom Left - Animates on Scroll */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 z-10">
-                  <div className={`text-white transform transition-transform duration-700 ${
+                  <div className={`bg-black/60 backdrop-blur-sm rounded-lg p-4 text-white transform transition-transform duration-700 ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
-                    <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
-                      {model.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-white/80 mb-3">
-                      {model.location}
-                    </p>
+                    {/* Nome e Localização */}
+                    <div className="mb-3">
+                      <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
+                        {model.name}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-white/80">
+                        {model.location}
+                      </p>
+                    </div>
                     
                     {/* Pricing Details */}
                     {model.pricing && (
-                      <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 space-y-1">
-                        <div className="text-xs text-white/90 font-medium mb-2">Pricing</div>
-                        <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="space-y-1">
+                        <div className="text-xs text-white/90 font-medium mb-2">Preços</div>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
                           <div className="flex justify-between">
                             <span className="text-white/70">1 hora:</span>
                             <span className="text-white font-medium">{model.pricing.oneHour}</span>

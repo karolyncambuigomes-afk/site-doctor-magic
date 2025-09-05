@@ -17,7 +17,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown } from 'lucide-react';
+import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown, Edit3, X, Check } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
@@ -122,8 +122,8 @@ export const Admin: React.FC = () => {
     read_time: null
   });
 
-  // Available service keywords that can be linked
-  const availableServiceKeywords = [
+  // Available service keywords that can be linked - now manageable
+  const [serviceKeywords, setServiceKeywords] = useState([
     "Michelin-starred restaurants",
     "Corporate event experience", 
     "International experience",
@@ -132,7 +132,42 @@ export const Admin: React.FC = () => {
     "Wine knowledge",
     "Music appreciation",
     "Customized experiences"
-  ];
+  ]);
+  const [editingKeyword, setEditingKeyword] = useState<string | null>(null);
+  const [editKeywordValue, setEditKeywordValue] = useState('');
+  const [newKeyword, setNewKeyword] = useState('');
+
+  // Functions to manage service keywords
+  const handleEditKeyword = (keyword: string) => {
+    setEditingKeyword(keyword);
+    setEditKeywordValue(keyword);
+  };
+
+  const handleSaveKeyword = () => {
+    if (editKeywordValue.trim() && editingKeyword) {
+      setServiceKeywords(serviceKeywords.map(k => 
+        k === editingKeyword ? editKeywordValue.trim() : k
+      ));
+      setEditingKeyword(null);
+      setEditKeywordValue('');
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditingKeyword(null);
+    setEditKeywordValue('');
+  };
+
+  const handleDeleteKeyword = (keyword: string) => {
+    setServiceKeywords(serviceKeywords.filter(k => k !== keyword));
+  };
+
+  const handleAddKeyword = () => {
+    if (newKeyword.trim() && !serviceKeywords.includes(newKeyword.trim())) {
+      setServiceKeywords([...serviceKeywords, newKeyword.trim()]);
+      setNewKeyword('');
+    }
+  };
 
   // Check if user is admin
   useEffect(() => {
@@ -1094,7 +1129,7 @@ export const Admin: React.FC = () => {
                       <div className="space-y-4">
                         <Label>Palavras-chave de Serviços (para vincular aos links da página Services)</Label>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                          {availableServiceKeywords.map((keyword) => (
+                          {serviceKeywords.map((keyword) => (
                             <label
                               key={keyword}
                               className="flex items-center space-x-2 cursor-pointer"
@@ -1237,54 +1272,125 @@ export const Admin: React.FC = () => {
                         Configure quais posts do blog devem ser linkados nas palavras-chave da página de serviços
                       </p>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {availableServiceKeywords.map((keyword) => {
-                          const linkedBlog = blogPosts.find(post => 
-                            post.service_keywords?.includes(keyword) && post.is_published
-                          );
-                          
-                          return (
-                            <div key={keyword} className="p-4 border rounded-lg bg-card">
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <h4 className="font-medium text-sm">{keyword}</h4>
-                                  {linkedBlog ? (
-                                    <div className="mt-2">
-                                      <Badge variant="secondary" className="text-xs">
-                                        Linkado: {linkedBlog.title}
-                                      </Badge>
-                                      <p className="text-xs text-muted-foreground mt-1">
-                                        Slug: /blog/{linkedBlog.slug}
-                                      </p>
-                                    </div>
-                                  ) : (
-                                    <div className="mt-2">
-                                      <Badge variant="outline" className="text-xs">
-                                        Sem link - usando link padrão
-                                      </Badge>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
+                      <div className="space-y-4">
+                        {/* Editor de palavras-chave */}
+                        <div className="border rounded-lg p-4">
+                          <div className="flex items-center justify-between mb-4">
+                            <h4 className="font-medium text-sm">Editor de Palavras-chave</h4>
+                            <div className="flex items-center gap-2">
+                              <Input
+                                value={newKeyword}
+                                onChange={(e) => setNewKeyword(e.target.value)}
+                                placeholder="Nova palavra-chave"
+                                className="w-48"
+                              />
+                              <Button 
+                                size="sm" 
+                                onClick={handleAddKeyword}
+                                disabled={!newKeyword.trim() || serviceKeywords.includes(newKeyword.trim())}
+                              >
+                                <Plus className="w-4 h-4" />
+                              </Button>
                             </div>
-                          );
-                        })}
-                      </div>
-                      
-                      <div className="p-4 bg-muted/50 rounded-lg">
-                        <h3 className="font-medium mb-2">Como linkar palavras-chave:</h3>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          <li>• Vá para a aba "Blog" e edite ou crie um novo post</li>
-                          <li>• No campo "Service Keywords", selecione as palavras-chave que devem linkar para este post</li>
-                          <li>• Publique o post para que o link apareça na página de serviços</li>
-                          <li>• Se nenhum post estiver linkado, será usado o link padrão estático</li>
-                        </ul>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            {serviceKeywords.map((keyword) => (
+                              <div key={keyword} className="flex items-center justify-between p-2 border rounded bg-card">
+                                {editingKeyword === keyword ? (
+                                  <div className="flex items-center gap-2 flex-1">
+                                    <Input
+                                      value={editKeywordValue}
+                                      onChange={(e) => setEditKeywordValue(e.target.value)}
+                                      className="flex-1"
+                                    />
+                                    <Button size="sm" onClick={handleSaveKeyword}>
+                                      <Check className="w-4 h-4" />
+                                    </Button>
+                                    <Button size="sm" variant="outline" onClick={handleCancelEdit}>
+                                      <X className="w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <>
+                                    <span className="text-sm font-medium">{keyword}</span>
+                                    <div className="flex items-center gap-2">
+                                      <Button 
+                                        size="sm" 
+                                        variant="outline"
+                                        onClick={() => handleEditKeyword(keyword)}
+                                      >
+                                        <Edit3 className="w-4 h-4" />
+                                      </Button>
+                                      <Button 
+                                        size="sm" 
+                                        variant="outline"
+                                        onClick={() => handleDeleteKeyword(keyword)}
+                                      >
+                                        <Trash2 className="w-4 h-4" />
+                                      </Button>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Status dos links */}
+                        <div>
+                          <h4 className="font-medium text-sm mb-3">Status dos Links</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {serviceKeywords.map((keyword) => {
+                              const linkedBlog = blogPosts.find(post => 
+                                post.service_keywords?.includes(keyword) && post.is_published
+                              );
+                              
+                              return (
+                                <div key={keyword} className="p-4 border rounded-lg bg-card">
+                                  <div className="flex items-start justify-between">
+                                    <div className="flex-1">
+                                      <h4 className="font-medium text-sm">{keyword}</h4>
+                                      {linkedBlog ? (
+                                        <div className="mt-2">
+                                          <Badge variant="secondary" className="text-xs">
+                                            Linkado: {linkedBlog.title}
+                                          </Badge>
+                                          <p className="text-xs text-muted-foreground mt-1">
+                                            Slug: /blog/{linkedBlog.slug}
+                                          </p>
+                                        </div>
+                                      ) : (
+                                        <div className="mt-2">
+                                          <Badge variant="outline" className="text-xs">
+                                            Sem link - usando link padrão
+                                          </Badge>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        
+                        <div className="p-4 bg-muted/50 rounded-lg">
+                          <h3 className="font-medium mb-2">Como linkar palavras-chave:</h3>
+                          <ul className="text-sm text-muted-foreground space-y-1">
+                            <li>• Use o editor acima para adicionar, editar ou remover palavras-chave</li>
+                            <li>• Vá para a aba "Blog" e edite ou crie um novo post</li>
+                            <li>• No campo "Service Keywords", selecione as palavras-chave que devem linkar para este post</li>
+                            <li>• Publique o post para que o link apareça na página de serviços</li>
+                            <li>• Se nenhum post estiver linkado, será usado o link padrão estático</li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </TabsContent>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </TabsContent>
 
           </Tabs>
         </div>

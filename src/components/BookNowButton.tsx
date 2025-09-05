@@ -86,6 +86,7 @@ export const BookNowButton = () => {
               <a
                 href="tel:+442045678901"
                 className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury text-sm"
+                rel="noopener noreferrer"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call Now</span>
@@ -93,6 +94,7 @@ export const BookNowButton = () => {
               <a
                 href="mailto:info@fivelondon.com"
                 className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury text-sm"
+                rel="noopener noreferrer"
               >
                 <Mail className="w-4 h-4" />
                 <span>Email Us</span>

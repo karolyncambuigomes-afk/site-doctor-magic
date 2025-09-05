@@ -35,7 +35,7 @@ const handler = async (req: Request): Promise<Response> => {
     const confirmationUrl = `${email_data.site_url}/auth/v1/verify?token=${email_data.token_hash}&type=${email_data.email_action_type}&redirect_to=${email_data.redirect_to}`;
 
     const emailResponse = await resend.emails.send({
-      from: "Five London <noreply@yourdomain.com>",
+      from: "Five London <onboarding@resend.dev>",
       to: [user.email],
       subject: "Confirme seu cadastro - Five London",
       html: `

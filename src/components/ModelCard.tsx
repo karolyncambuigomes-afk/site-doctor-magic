@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Model } from '@/data/models';
 import { AnonymizedModel } from '@/utils/dataAnonymizer';
+import { DisplayModel } from '@/hooks/useModels';
 import { Link } from 'react-router-dom';
 
 interface ModelCardProps {
-  model: Model | AnonymizedModel;
+  model: DisplayModel;
 }
 
 export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const getAvailabilityColor = (availability: Model['availability']) => {
+  const getAvailabilityColor = (availability: string) => {
     switch (availability) {
       case 'available':
         return 'bg-accent';
@@ -66,7 +67,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
               <div>
                 <h3 className="text-sm sm:text-base lg:text-lg font-light text-white mb-1">{model.name}</h3>
                 <p className="text-xs sm:text-sm text-white/80">
-                  {model.age ? `${model.age} • ` : ''}{model.location}
+                  {'age' in model && model.age ? `${model.age} • ` : ''}{model.location}
                 </p>
               </div>
               

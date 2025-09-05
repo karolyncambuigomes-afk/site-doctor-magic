@@ -259,6 +259,23 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_public_models: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          availability: string
+          characteristics: string[]
+          created_at: string
+          description: string
+          id: string
+          image: string
+          location: string
+          name: string
+          price: string
+          rating: number
+          reviews: number
+          services: string[]
+        }[]
+      }
       update_user_role: {
         Args: { new_role: string; user_id: string }
         Returns: undefined

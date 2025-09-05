@@ -1,28 +1,23 @@
 import React, { useState, useMemo } from 'react';
 import { ModelCard } from '@/components/ModelCard';
-import { models, Model } from '@/data/models';
+import { models as fallbackModels } from '@/data/models';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { PrivacyBanner } from '@/components/PrivacyBanner';
 import { CookieConsent } from '@/components/CookieConsent';
-import { Search, MapPin, Sparkles, Settings, ChevronDown } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
-import { anonymizeModelsArray } from '@/utils/dataAnonymizer';
+import { Search, MapPin, Sparkles, Settings, ChevronDown, Loader2 } from 'lucide-react';
+import { useModels } from '@/hooks/useModels';
 
 export const ModelsGallery: React.FC = () => {
-  const { user } = useAuth();
-  const isAuthenticated = !!user;
+  const { models: displayModels, loading, error, isAuthenticated } = useModels();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
   const [selectedServiceType, setSelectedServiceType] = useState('all');
 
-  // Use anonymized data for non-authenticated users
-  const displayModels = anonymizeModelsArray(models, isAuthenticated);
-
-  // Get unique values for filters
-  const uniqueLocations = [...new Set(models.map(model => model.location))];
-  const uniqueCharacteristics = [...new Set(models.flatMap(model => model.characteristics))];
+  // Get unique values for filters (use fallback data for consistent filters)
+  const uniqueLocations = [...new Set(fallbackModels.map(model => model.location))];
+  const uniqueCharacteristics = [...new Set(fallbackModels.flatMap(model => model.characteristics))];
 
   const filteredModels = useMemo(() => {
     return displayModels.filter(model => {
@@ -150,7 +145,27 @@ export const ModelsGallery: React.FC = () => {
         {/* Elegant Gallery - Loro Piana Style Mobile */}
         <section className="py-16">
           <div className="container-width-lg">
-            {filteredModels.length > 0 ? (
+            {loading ? (
+              <div className="text-center py-24">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-muted/30 flex items-center justify-center">
+                  <Loader2 className="w-8 h-8 text-muted-foreground animate-spin" />
+                </div>
+                <h3 className="heading-lg mb-3">Loading companions...</h3>
+                <p className="body-md text-muted-foreground">
+                  Please wait while we prepare our exclusive collection
+                </p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-24">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-destructive/10 flex items-center justify-center">
+                  <Search className="w-8 h-8 text-destructive" />
+                </div>
+                <h3 className="heading-lg mb-3">Unable to load companions</h3>
+                <p className="body-md text-muted-foreground mb-8 max-w-md mx-auto">
+                  We're experiencing technical difficulties. Please try again later.
+                </p>
+              </div>
+            ) : filteredModels.length > 0 ? (
               <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                 {filteredModels.map(model => (
                   <ModelCard key={model.id} model={model} />

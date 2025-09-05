@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { models } from '@/data/models';
 import { characteristics } from '@/data/characteristics';
-import { useAuth } from '@/hooks/useAuth';
-import { anonymizeModelData } from '@/utils/dataAnonymizer';
+import { useModel } from '@/hooks/useModel';
+import { useModels } from '@/hooks/useModels';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -21,17 +20,29 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 
 export const ModelProfile: React.FC = () => {
-  const { user } = useAuth();
-  const isAuthenticated = !!user;
   const { id } = useParams<{ id: string }>();
-  const rawModel = models.find(m => m.id === id);
-  const model = rawModel ? anonymizeModelData(rawModel, isAuthenticated) : null;
+  const { model, loading, error, isAuthenticated } = useModel(id);
+  const { models: allModels } = useModels();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Scroll to top when model changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  if (loading) {
+    return (
+      <>
+        <Navigation />
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="text-center space-y-8">
+            <h1 className="heading-lg text-foreground">Loading...</h1>
+            <p className="body-minimal text-muted-foreground">Please wait while we load the profile.</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (!model) {
     return (
@@ -55,7 +66,8 @@ export const ModelProfile: React.FC = () => {
   }
 
   // Create gallery with all available images
-  const galleryImages = [model.image, ...(model.gallery || [])];
+  const modelGallery = 'gallery' in model ? model.gallery : [model.image];
+  const galleryImages = [model.image, ...modelGallery.filter(img => img !== model.image)];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
@@ -95,8 +107,8 @@ export const ModelProfile: React.FC = () => {
     <>
       <SEO 
         title={`${model.name} - Luxury Escort in ${model.location}`}
-        description={`Meet ${model.name}, an elegant ${model.age}-year-old companion in ${model.location}. ${model.description}`}
-        keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`}
+        description={`Meet ${model.name}, an elegant companion in ${model.location}. ${model.description}`}
+        keywords={`${model.name}, luxury escort, ${model.location}, companion`}
       />
       
       <Navigation />
@@ -173,7 +185,7 @@ export const ModelProfile: React.FC = () => {
             <h1 className="text-3xl md:text-4xl font-light tracking-wide text-foreground">{model.name}</h1>
             
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-muted-foreground">
-              <span className="font-medium">{model.age} years</span>
+              {'age' in model && model.age && <span className="font-medium">{model.age} years</span>}
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
                 <span>{model.location}</span>
@@ -204,45 +216,72 @@ export const ModelProfile: React.FC = () => {
           </div>
 
           {/* Pricing Section */}
-          <div className="mb-8">
-            <div className="bg-card border border-border rounded-lg p-6">
-              <div className="text-xs text-muted-foreground mb-4 uppercase tracking-wide text-center">Preços</div>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-muted-foreground">1 Hora</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-muted-foreground">2 Horas</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-muted-foreground">3 Horas</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
-                </div>
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-muted-foreground">Hora Adicional</div>
-                  <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+          {'pricing' in model && model.pricing && (
+            <div className="mb-8">
+              <div className="bg-card border border-border rounded-lg p-6">
+                <div className="text-xs text-muted-foreground mb-4 uppercase tracking-wide text-center">Preços</div>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-muted-foreground">1 Hora</div>
+                    <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-muted-foreground">2 Horas</div>
+                    <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-muted-foreground">3 Horas</div>
+                    <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-muted-foreground">Hora Adicional</div>
+                    <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
+          
+          {!('pricing' in model) && (
+            <div className="mb-8">
+              <div className="bg-card border border-border rounded-lg p-6 text-center">
+                <div className="text-lg font-semibold text-accent">{model.price}</div>
+                <div className="text-sm text-muted-foreground mt-2">
+                  {isAuthenticated ? 'Contact for detailed pricing' : 'Login to view detailed pricing'}
+                </div>
+              </div>
+            </div>
+          )}
 
-          {/* Quick Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
-              <div className="text-lg font-semibold text-foreground">{model.height}</div>
+          {/* Quick Info Cards - Only for authenticated users */}
+          {isAuthenticated && 'height' in model && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
+                <div className="text-lg font-semibold text-foreground">{model.height}</div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
+                <div className="text-lg font-semibold text-foreground">{model.hair}</div>
+              </div>
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
+                <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
+              </div>
             </div>
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
-              <div className="text-lg font-semibold text-foreground">{model.hair}</div>
+          )}
+          
+          {/* Privacy message for unauthenticated users */}
+          {!isAuthenticated && (
+            <div className="mb-8 bg-muted/30 rounded-lg p-6 text-center">
+              <p className="text-muted-foreground mb-4">
+                Additional details available after registration
+              </p>
+              <Link to="/auth">
+                <Button variant="outline">Register to View Full Profile</Button>
+              </Link>
             </div>
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
-              <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
-            </div>
-          </div>
+          )}
 
 
           {/* Characteristics Section */}
@@ -299,7 +338,7 @@ export const ModelProfile: React.FC = () => {
           <div className="max-w-4xl mx-auto p-4 md:p-6">
             <h3 className="text-xl font-light text-foreground mb-6 text-center">You Might Also Like</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {models
+              {allModels
                 .filter(m => m.id !== model.id)
                 .slice(0, 6)
                 .map((suggestedModel) => (
@@ -317,7 +356,10 @@ export const ModelProfile: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                         <h4 className="font-medium text-sm">{suggestedModel.name}</h4>
-                        <p className="text-xs opacity-90">{suggestedModel.age} • {suggestedModel.location}</p>
+                        <p className="text-xs opacity-90">
+                          {'age' in suggestedModel && suggestedModel.age ? `${suggestedModel.age} • ` : ''}
+                          {suggestedModel.location}
+                        </p>
                       </div>
                     </div>
                   </Link>

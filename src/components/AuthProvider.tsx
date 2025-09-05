@@ -62,15 +62,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     // Set up auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
 
         if (session?.user) {
-          // Check if user has premium access
-          const access = await checkUserAccess(session.user.id);
-          setHasAccess(access);
+          // Defer Supabase calls to prevent deadlock using setTimeout
+          setTimeout(() => {
+            checkUserAccess(session.user.id).then(access => {
+              setHasAccess(access);
+            });
+          }, 0);
         } else {
           setHasAccess(false);
         }
@@ -78,14 +81,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
 
     // Then check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
 
       if (session?.user) {
-        const access = await checkUserAccess(session.user.id);
-        setHasAccess(access);
+        // Defer Supabase calls to prevent deadlock using setTimeout
+        setTimeout(() => {
+          checkUserAccess(session.user.id).then(access => {
+            setHasAccess(access);
+          });
+        }, 0);
       }
     });
 

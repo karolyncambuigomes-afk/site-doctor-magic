@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { models } from '@/data/models';
+import { useModels } from '@/hooks/useModels';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,13 +20,43 @@ import { Footer } from '@/components/Footer';
 
 export const ModelProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const model = models.find(m => m.id === id);
+  const { getModelById, models, loading, error } = useModels();
+  const model = id ? getModelById(id) : null;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Scroll to top when model changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading companion profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navigation />
+        <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-2xl font-light mb-4">Unable to load profile</h2>
+            <p className="text-muted-foreground mb-6">{error}</p>
+            <Link to="/models" className="text-primary hover:underline">
+              ← Back to companions
+            </Link>
+          </div>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   if (!model) {
     return (
@@ -198,77 +228,89 @@ export const ModelProfile: React.FC = () => {
             </p>
           </div>
 
-          {/* Pricing Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-light text-foreground mb-4">Pricing</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-card border border-border rounded-lg p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">1 Hora</div>
-                <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
-              </div>
-              <div className="bg-card border border-border rounded-lg p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">2 Horas</div>
-                <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
-              </div>
-              <div className="bg-card border border-border rounded-lg p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">3 Horas</div>
-                <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
-              </div>
-              <div className="bg-card border border-border rounded-lg p-4 text-center">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hora Adicional</div>
-                <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+          {/* Pricing Section - Only show for premium users with pricing data */}
+          {model.pricing && (
+            <div className="mb-8">
+              <h3 className="text-lg font-light text-foreground mb-4">Pricing</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">1 Hora</div>
+                  <div className="text-lg font-semibold text-accent">{model.pricing.oneHour}</div>
+                </div>
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">2 Horas</div>
+                  <div className="text-lg font-semibold text-accent">{model.pricing.twoHours}</div>
+                </div>
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">3 Horas</div>
+                  <div className="text-lg font-semibold text-accent">{model.pricing.threeHours}</div>
+                </div>
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hora Adicional</div>
+                  <div className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Quick Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
-              <div className="text-lg font-semibold text-foreground">{model.height}</div>
+          {/* Quick Info Cards - Only show if data is available */}
+          {(model.height || model.hair || model.eyes) && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              {model.height && (
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
+                  <div className="text-lg font-semibold text-foreground">{model.height}</div>
+                </div>
+              )}
+              {model.hair && (
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
+                  <div className="text-lg font-semibold text-foreground">{model.hair}</div>
+                </div>
+              )}
+              {model.eyes && (
+                <div className="bg-card border border-border rounded-lg p-4 text-center">
+                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
+                  <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
+                </div>
+              )}
             </div>
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
-              <div className="text-lg font-semibold text-foreground">{model.hair}</div>
-            </div>
-            <div className="bg-card border border-border rounded-lg p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
-              <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
-            </div>
-          </div>
+          )}
 
 
-          {/* Characteristics Section */}
-          <div className="mb-8">
-            <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
-            <div className="flex flex-wrap gap-2">
-              {model.characteristics.map((characteristic) => {
-                // Find the corresponding characteristic object to get the slug
-                const characteristicData = characteristics.find(
-                  char => char.name.toLowerCase() === characteristic.toLowerCase()
-                );
-                
-                if (characteristicData) {
-                  return (
-                    <Link key={characteristic} to={`/${characteristicData.slug}`}>
-                      <Badge 
-                        variant="outline" 
-                        className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer"
-                      >
+          {/* Characteristics Section - Only show if data exists */}
+          {model.characteristics && model.characteristics.length > 0 && (
+            <div className="mb-8">
+              <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
+              <div className="flex flex-wrap gap-2">
+                {model.characteristics.map((characteristic) => {
+                  // Find the corresponding characteristic object to get the slug
+                  const characteristicData = characteristics.find(
+                    char => char.name.toLowerCase() === characteristic.toLowerCase()
+                  );
+                  
+                  if (characteristicData) {
+                    return (
+                      <Link key={characteristic} to={`/${characteristicData.slug}`}>
+                        <Badge 
+                          variant="outline" 
+                          className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer"
+                        >
+                          {characteristic}
+                        </Badge>
+                      </Link>
+                    );
+                  } else {
+                    return (
+                      <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
                         {characteristic}
                       </Badge>
-                    </Link>
-                  );
-                } else {
-                  return (
-                    <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
-                      {characteristic}
-                    </Badge>
-                  );
-                }
-              })}
+                    );
+                  }
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Contact Section */}
           <div id="book-section" className="bg-muted/30 rounded-lg p-8 text-center">

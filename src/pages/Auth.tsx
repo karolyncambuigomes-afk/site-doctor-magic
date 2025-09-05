@@ -56,8 +56,17 @@ export const Auth: React.FC = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
+  // Sanitize input to prevent XSS attacks
+  const sanitizeInput = (input: string): string => {
+    return input
+      .replace(/[<>]/g, '') // Remove potential HTML tags
+      .trim()
+      .slice(0, 255); // Limit length
+  };
+
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    const sanitizedValue = sanitizeInput(value);
+    setFormData(prev => ({ ...prev, [field]: sanitizedValue }));
     setError('');
   };
 
@@ -72,8 +81,18 @@ export const Auth: React.FC = () => {
       return false;
     }
 
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long');
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return false;
+    }
+
+    // Enhanced password validation
+    const hasUppercase = /[A-Z]/.test(formData.password);
+    const hasLowercase = /[a-z]/.test(formData.password);
+    const hasNumbers = /\d/.test(formData.password);
+
+    if (!hasUppercase || !hasLowercase || !hasNumbers) {
+      setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
       return false;
     }
 
@@ -306,7 +325,7 @@ export const Auth: React.FC = () => {
                           </button>
                         </div>
                         <p className="text-xs text-muted-foreground">
-                          Minimum 6 characters
+                          Minimum 8 characters with uppercase, lowercase, and numbers
                         </p>
                       </div>
 

@@ -1,35 +1,40 @@
 import React, { useState, useMemo } from 'react';
 import { ModelCard } from '@/components/ModelCard';
-import { models, Model } from '@/data/models';
+import { useModels } from '@/hooks/useModels';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Search, MapPin, Sparkles, Settings, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle } from 'lucide-react';
 
 export const ModelsGallery: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
   const [selectedServiceType, setSelectedServiceType] = useState('all');
+  
+  // Use secure hook instead of hardcoded data
+  const { models, loading, error } = useModels();
 
   // Get unique values for filters
-  const uniqueLocations = [...new Set(models.map(model => model.location))];
-  const uniqueCharacteristics = [...new Set(models.flatMap(model => model.characteristics))];
+  const uniqueLocations = [...new Set(models.map(model => model.location).filter(Boolean))];
+  const uniqueCharacteristics = [...new Set(models.flatMap(model => model.characteristics || []).filter(Boolean))];
 
   const filteredModels = useMemo(() => {
+    if (!models.length) return [];
+    
     return models.filter(model => {
-      const matchesSearch = model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           model.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = model.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           model.description?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesLocation = selectedLocation === 'all' || model.location === selectedLocation;
       const matchesCharacteristic = selectedCharacteristic === 'all' || 
-                                   model.characteristics.includes(selectedCharacteristic);
+                                   (model.characteristics && model.characteristics.includes(selectedCharacteristic));
       const matchesServiceType = selectedServiceType === 'all' || 
-                                 model.services.some(service => 
+                                 (model.services && model.services.some(service => 
                                    service.toLowerCase().includes(selectedServiceType.toLowerCase())
-                                 );
+                                 ));
       
       return matchesSearch && matchesLocation && matchesCharacteristic && matchesServiceType;
     });
-  }, [searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
+  }, [models, searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
 
 
   const clearAllFilters = () => {
@@ -140,7 +145,22 @@ export const ModelsGallery: React.FC = () => {
         {/* Elegant Gallery - Loro Piana Style Mobile */}
         <section className="py-16">
           <div className="container-width-lg">
-            {filteredModels.length > 0 ? (
+            {loading ? (
+              <div className="text-center py-24">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <p className="text-muted-foreground">Loading companions...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-24">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
+                  <AlertCircle className="w-8 h-8 text-red-500" />
+                </div>
+                <h3 className="heading-lg mb-3">Unable to load companions</h3>
+                <p className="body-md text-muted-foreground mb-8 max-w-md mx-auto">
+                  {error}. Please try again later.
+                </p>
+              </div>
+            ) : filteredModels.length > 0 ? (
               <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
                 {filteredModels.map(model => (
                   <ModelCard key={model.id} model={model} />

@@ -3,7 +3,7 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { locations } from '@/data/locations';
-import { models } from '@/data/models';
+import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { MapPin, ArrowRight } from 'lucide-react';
 
 const LocationDetail = () => {
   const { locationSlug } = useParams();
+  const { models, loading, error } = useModels();
   
   // Find the location by matching the complete slug
   const location = locations.find(loc => loc.slug === locationSlug);
@@ -21,7 +22,7 @@ const LocationDetail = () => {
 
   // Filter models by location
   const locationModels = models.filter(model => 
-    model.location.toLowerCase() === location.name.toLowerCase()
+    model.location && model.location.toLowerCase() === location.name.toLowerCase()
   );
 
   // Get other locations for the "Explore also" section

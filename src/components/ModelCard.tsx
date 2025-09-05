@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Model } from '@/data/models';
+import { Model } from '@/hooks/useModels';
 import { Link } from 'react-router-dom';
 
 interface ModelCardProps {

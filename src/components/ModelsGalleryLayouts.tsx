@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { models, Model } from '@/data/models';
+import { useModels, Model } from '@/hooks/useModels';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -19,15 +19,19 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   const [filterAvailability, setFilterAvailability] = useState('all');
   const [filterLocation, setFilterLocation] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
+  const { models, loading, error } = useModels();
 
   const locations = useMemo(() => {
-    return Array.from(new Set(models.map(model => model.location)));
-  }, []);
+    return Array.from(new Set(models.map(model => model.location).filter(Boolean)));
+  }, [models]);
 
   const filteredAndSortedModels = useMemo(() => {
+    if (!models.length) return [];
+    
     let filtered = models.filter(model => {
-      const matchesSearch = model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           model.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch = model.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           model.description?.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesAvailability = filterAvailability === 'all' || model.availability === filterAvailability;
       const matchesLocation = filterLocation === 'all' || model.location === filterLocation;
       
@@ -37,18 +41,18 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
     return filtered.sort((a, b) => {
       switch (sortBy) {
         case 'name':
-          return a.name.localeCompare(b.name);
+          return (a.name || '').localeCompare(b.name || '');
         case 'age':
-          return a.age - b.age;
+          return (a.age || 0) - (b.age || 0);
         case 'price':
-          return parseInt(a.price.replace(/[£,/hour]/g, '')) - parseInt(b.price.replace(/[£,/hour]/g, ''));
+          return parseInt((a.price || '').replace(/[£,/hour]/g, '') || '0') - parseInt((b.price || '').replace(/[£,/hour]/g, '') || '0');
         case 'rating':
-          return b.rating - a.rating;
+          return (b.rating || 0) - (a.rating || 0);
         default:
           return 0;
       }
     });
-  }, [searchTerm, sortBy, filterAvailability, filterLocation]);
+  }, [models, searchTerm, sortBy, filterAvailability, filterLocation]);
 
   const availableCount = models.filter(model => model.availability === 'available').length;
 

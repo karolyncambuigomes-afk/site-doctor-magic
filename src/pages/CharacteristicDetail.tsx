@@ -3,12 +3,13 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { characteristics } from '@/data/characteristics';
-import { models } from '@/data/models';
+import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 
 const CharacteristicDetail = () => {
   const { characteristicSlug } = useParams();
+  const { models, loading, error } = useModels();
   
   // Find the characteristic by matching the complete slug
   const characteristic = characteristics.find(char => char.slug === characteristicSlug);
@@ -19,7 +20,7 @@ const CharacteristicDetail = () => {
 
   // Filter models by characteristic
   const characteristicModels = models.filter(model => 
-    model.characteristics.some(char => char.toLowerCase() === characteristic.name.toLowerCase())
+    model.characteristics && model.characteristics.some(char => char.toLowerCase() === characteristic.name.toLowerCase())
   );
 
   return (
@@ -103,12 +104,12 @@ const CharacteristicDetail = () => {
                   .map((char) => (
                     <Link key={char.id} to={`/${char.slug}`}>
                       <Button variant="outline" className="w-full p-4 h-auto">
-                        <div className="text-center">
-                          <div className="font-medium">{char.name}</div>
-                          <div className="text-xs text-muted-foreground mt-1">
-                            {models.filter(m => m.characteristics.some(c => c.toLowerCase() === char.name.toLowerCase())).length} models
-                          </div>
-                        </div>
+                         <div className="text-center">
+                           <div className="font-medium">{char.name}</div>
+                           <div className="text-xs text-muted-foreground mt-1">
+                             {models.filter(m => m.characteristics && m.characteristics.some(c => c.toLowerCase() === char.name.toLowerCase())).length} models
+                           </div>
+                         </div>
                       </Button>
                     </Link>
                   ))}

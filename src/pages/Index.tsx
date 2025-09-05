@@ -5,10 +5,12 @@ import { Footer } from '@/components/Footer';
 import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
-import { models } from '@/data/models';
+import { useModels } from '@/hooks/useModels';
 import { useState, useEffect } from 'react';
 
 const Index = () => {
+  const { models, loading, error } = useModels();
+  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -51,9 +53,6 @@ const Index = () => {
       description: "Luxury experiences tailored to exceed expectations"
     }
   ];
-
-  // Debug - verificar se models está carregando
-  console.log('Models array:', models, 'Length:', models?.length);
 
   // Carrossel state
   const [currentIndex, setCurrentIndex] = useState(0);

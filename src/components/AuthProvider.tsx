@@ -38,9 +38,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .select('*')
         .eq('user_id', userId)
         .eq('active', true)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      if (error) {
         console.error('Error checking subscription:', error);
         return false;
       }

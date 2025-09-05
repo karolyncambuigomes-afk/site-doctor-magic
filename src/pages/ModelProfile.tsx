@@ -230,6 +230,12 @@ export const ModelProfile: React.FC = () => {
           </div>
 
           {/* Pricing Section - Only show for premium users with pricing data */}
+          {(() => {
+            console.log('ModelProfile - model.pricing exists?', !!model.pricing);
+            console.log('ModelProfile - model.pricing value:', model.pricing);
+            console.log('ModelProfile - model name:', model.name);
+            return null;
+          })()}
           {model.pricing && (
             <div className="mb-6">
               <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>

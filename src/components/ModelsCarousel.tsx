@@ -70,18 +70,18 @@ export const ModelsCarousel = () => {
             <>
               <button
                 onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/80 backdrop-blur-sm border border-black/10 hover:border-black/20 transition-all duration-300 flex items-center justify-center group"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-transparent hover:bg-white/5 border border-white/0 hover:border-white/20 transition-all duration-500 flex items-center justify-center group backdrop-blur-sm"
                 aria-label="Previous models"
               >
-                <ChevronLeft className="w-5 h-5 text-black group-hover:text-black/80 transition-colors" />
+                <ChevronLeft className="w-4 h-4 text-black/40 group-hover:text-black/70 transition-all duration-300" />
               </button>
               
               <button
                 onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/80 backdrop-blur-sm border border-black/10 hover:border-black/20 transition-all duration-300 flex items-center justify-center group"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-transparent hover:bg-white/5 border border-white/0 hover:border-white/20 transition-all duration-500 flex items-center justify-center group backdrop-blur-sm"
                 aria-label="Next models"
               >
-                <ChevronRight className="w-5 h-5 text-black group-hover:text-black/80 transition-colors" />
+                <ChevronRight className="w-4 h-4 text-black/40 group-hover:text-black/70 transition-all duration-300" />
               </button>
             </>
           )}

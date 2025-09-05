@@ -496,6 +496,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_current_user_status: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       get_public_models: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -512,6 +516,10 @@ export type Database = {
           reviews: number
           services: string[]
         }[]
+      }
+      is_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
       }
       update_user_role: {
         Args: { new_role: string; user_id: string }

@@ -37,22 +37,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkUserStatus = async (userId: string) => {
     try {
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('status')
-        .eq('id', userId)
-        .single();
+      // Use the security definer function to avoid recursion
+      const { data: status, error } = await supabase
+        .rpc('get_current_user_status');
 
-      if (profileError) {
-        console.error('Error checking user status:', profileError);
+      if (error) {
+        console.error('Error checking user status:', error);
         return { approved: false, status: null };
       }
 
-      const approved = profile?.status === 'approved';
+      const approved = status === 'approved';
       setIsApproved(approved);
-      setUserStatus(profile?.status || null);
+      setUserStatus(status || null);
 
-      return { approved, status: profile?.status };
+      return { approved, status };
     } catch (error) {
       console.error('Error checking user status:', error);
       return { approved: false, status: null };

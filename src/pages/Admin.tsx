@@ -708,11 +708,9 @@ export const Admin: React.FC = () => {
       console.log('Checking admin status for user:', user.id);
       
       try {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', user.id)
-          .maybeSingle();
+        // Use the security definer function to check admin status
+        const { data: role, error } = await supabase
+          .rpc('get_current_user_role');
 
         if (error) {
           console.error('Error checking admin status:', error);
@@ -721,8 +719,8 @@ export const Admin: React.FC = () => {
           return;
         }
 
-        console.log('Profile data:', data);
-        const adminStatus = data?.role === 'admin';
+        console.log('User role:', role);
+        const adminStatus = role === 'admin';
         console.log('Is admin:', adminStatus);
         setIsAdmin(adminStatus);
       } catch (error) {

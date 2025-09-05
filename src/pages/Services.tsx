@@ -190,21 +190,34 @@ const Services = () => {
                         <div>
                           <h4 className="text-sm font-medium text-primary mb-3">What's Included</h4>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            {service.features.map((feature, i) => (
-                              <div key={i} className="flex items-center text-sm text-muted-foreground">
-                                <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
-                                {feature === "Michelin-starred restaurants" ? (
-                                  <Link 
-                                    to={service.blogLink}
-                                    className="text-primary hover:text-primary/80 transition-colors underline"
-                                  >
-                                    {feature}
-                                  </Link>
-                                ) : (
-                                  feature
-                                )}
-                              </div>
-                            ))}
+                            {service.features.map((feature, i) => {
+                              const linkableFeatures = {
+                                "Michelin-starred restaurants": true,
+                                "Corporate event experience": true,
+                                "International experience": true,
+                                "Theatre knowledge": true,
+                                "Event experience": true,
+                                "Wine knowledge": true,
+                                "Music appreciation": true,
+                                "Customized experiences": true
+                              };
+                              
+                              return (
+                                <div key={i} className="flex items-center text-sm text-muted-foreground">
+                                  <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
+                                  {linkableFeatures[feature] ? (
+                                    <Link 
+                                      to={service.blogLink}
+                                      className="text-primary hover:text-primary/80 transition-colors underline"
+                                    >
+                                      {feature}
+                                    </Link>
+                                  ) : (
+                                    feature
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
 

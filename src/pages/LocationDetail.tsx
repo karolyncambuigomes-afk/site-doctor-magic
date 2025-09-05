@@ -96,53 +96,6 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* Location Content */}
-          <section className="py-16 bg-gray-50">
-            <div className="max-w-4xl mx-auto px-4">
-              <div className="prose prose-lg max-w-none text-gray-700">
-                <div dangerouslySetInnerHTML={{ __html: location.content }} />
-              </div>
-            </div>
-          </section>
-
-          {/* Trust Indicators */}
-          <section className="py-16 bg-white">
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
-                    <Shield className="w-8 h-8 text-black" />
-                  </div>
-                  <h3 className="font-medium text-black mb-2">100% Discrete</h3>
-                  <p className="text-sm text-gray-600">Complete confidentiality in {location.name}</p>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
-                    <Clock className="w-8 h-8 text-black" />
-                  </div>
-                  <h3 className="font-medium text-black mb-2">24/7 Available</h3>
-                  <p className="text-sm text-gray-600">Round-the-clock service</p>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
-                    <Users className="w-8 h-8 text-black" />
-                  </div>
-                  <h3 className="font-medium text-black mb-2">Elite Companions</h3>
-                  <p className="text-sm text-gray-600">Carefully selected for {location.name}</p>
-                </div>
-                
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
-                    <Star className="w-8 h-8 text-black" />
-                  </div>
-                  <h3 className="font-medium text-black mb-2">Premium Service</h3>
-                  <p className="text-sm text-gray-600">Exceptional experiences delivered</p>
-                </div>
-              </div>
-            </div>
-          </section>
 
           {/* Available Models */}
           <section className="py-16 md:py-24 bg-gray-50">

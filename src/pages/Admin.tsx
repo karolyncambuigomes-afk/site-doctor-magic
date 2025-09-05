@@ -19,6 +19,7 @@ import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
+import { ImageUpload } from '@/components/ImageUpload';
 
 interface Model {
   id: string;
@@ -652,14 +653,12 @@ export const Admin: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="image">URL da Imagem</Label>
-                        <Input
-                          id="image"
-                          value={formData.image || ''}
-                          onChange={(e) => setFormData({...formData, image: e.target.value})}
-                        />
-                      </div>
+                      <ImageUpload
+                        value={formData.image || ''}
+                        onChange={(url) => setFormData({...formData, image: url})}
+                        label="Imagem do Modelo"
+                        placeholder="URL da imagem ou faça upload da sua galeria"
+                      />
 
                       <div className="space-y-2">
                         <Label htmlFor="description">Descrição</Label>
@@ -875,14 +874,12 @@ export const Admin: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="blog-image">URL da Imagem</Label>
-                        <Input
-                          id="blog-image"
-                          value={blogFormData.image || ''}
-                          onChange={(e) => setBlogFormData({...blogFormData, image: e.target.value})}
-                        />
-                      </div>
+                      <ImageUpload
+                        value={blogFormData.image || ''}
+                        onChange={(url) => setBlogFormData({...blogFormData, image: url})}
+                        label="Imagem do Post"
+                        placeholder="URL da imagem ou faça upload da sua galeria"
+                      />
 
                       <div className="space-y-2">
                         <Label htmlFor="blog-excerpt">Resumo</Label>

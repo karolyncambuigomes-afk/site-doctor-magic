@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useModels } from '@/hooks/useModels';
@@ -6,8 +6,19 @@ import { useModels } from '@/hooks/useModels';
 export const ModelsCarousel = () => {
   const { models, loading } = useModels();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   
-  const modelsPerPage = 2;
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  const modelsPerPage = isMobile ? 1 : 2;
   const totalPages = Math.ceil(models.length / modelsPerPage);
   
   const nextSlide = () => {
@@ -76,7 +87,9 @@ export const ModelsCarousel = () => {
           )}
           
           {/* Models Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+          <div className={`grid gap-8 max-w-4xl mx-auto ${
+            isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2 md:gap-12'
+          }`}>
             {getCurrentModels().map((model) => (
               <div key={model.id} className="group">
                 <Link to={`/models/${model.id}`} className="block">

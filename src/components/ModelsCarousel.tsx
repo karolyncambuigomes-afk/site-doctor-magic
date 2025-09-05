@@ -39,7 +39,7 @@ export const ModelsCarousel = () => {
       <section className="py-20 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16 md:mb-24">
-            <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-black mb-4">
+            <h2 className="font-sans text-2xl md:text-4xl lg:text-5xl font-extralight tracking-wide text-black mb-4">
               Discover our exquisite models
             </h2>
             <div className="w-16 h-px bg-black/20 mx-auto"></div>
@@ -57,7 +57,7 @@ export const ModelsCarousel = () => {
       <div className="max-w-7xl mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-black mb-4">
+          <h2 className="font-sans text-2xl md:text-4xl lg:text-5xl font-extralight tracking-wide text-black mb-4">
             Discover our exquisite models
           </h2>
           <div className="w-16 h-px bg-black/20 mx-auto"></div>

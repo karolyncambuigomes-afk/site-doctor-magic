@@ -100,12 +100,6 @@ const LocationDetail = () => {
           {/* Available Models */}
           <section className="py-16 md:py-24 bg-gray-50">
             <div className="max-w-6xl mx-auto px-4">
-              <div className="text-center mb-16">
-                <h2 className="font-sans text-2xl md:text-4xl font-extralight tracking-wide text-black mb-6">
-                  {location.name} Escorts Gallery
-                </h2>
-                <div className="w-16 h-px bg-black/20 mx-auto"></div>
-              </div>
               
               {loading ? (
                 <div className="text-center py-12">

@@ -7,14 +7,14 @@ export const Footer = () => {
   return (
     <footer className="bg-background border-t border-border">
       <div className="container-width section-padding-sm">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-12">
           {/* Brand - Removed */}
-          <div className="hidden"></div>
+          <div className="hidden lg:block"></div>
 
           {/* Navigation */}
-          <div className="space-y-4">
+          <div className="space-y-2 lg:space-y-4">
             <h4 className="caption text-foreground/60">Explore</h4>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2">
               {[
                 { href: '/', label: 'Home' },
                 { href: '/about', label: 'About' },
@@ -24,7 +24,7 @@ export const Footer = () => {
                 { href: '/locations', label: 'Locations' },
                 { href: '/reviews', label: 'Reviews' },
                 { href: '/contact', label: 'Contact' },
-              ].map((link) => (
+              ].slice(0, 4).map((link) => (
                 <Link 
                   key={link.href}
                   to={link.href}
@@ -37,9 +37,9 @@ export const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="space-y-4">
+          <div className="space-y-2 lg:space-y-4">
             <h4 className="caption text-foreground/60">Connect</h4>
-            <div className="space-y-3">
+            <div className="space-y-1 lg:space-y-3">
               <a 
                 href="tel:+447436190679"
                 className="flex items-center space-x-2 caption text-foreground/40 hover:text-foreground/60 transition-luxury"

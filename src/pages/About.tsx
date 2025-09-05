@@ -3,6 +3,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import { Shield, Award, Heart, Users, Clock, Star, Diamond, Crown, Sparkles, CheckCircle } from 'lucide-react';
 import aboutLuxury1 from '@/assets/about-luxury-1.jpg';
 import aboutLuxury2 from '@/assets/about-luxury-2.jpg';
@@ -208,6 +209,128 @@ const About = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="py-3">
+          <div className="container-width">
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
+          </div>
+        </div>
+
+        {/* Premium Locations Section */}
+        <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
+          <div className="container-width">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight mb-4">
+                Serving London's <span className="text-primary">Premier Locations</span>
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Our sophisticated companions are available across London's most exclusive districts, 
+                each offering unique experiences tailored to the area's distinct character.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+              <Link 
+                to="/escorts-in-mayfair" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Mayfair
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Elite & Exclusive
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-knightsbridge" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Knightsbridge
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Luxury & Sophistication
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-chelsea" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Chelsea
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Trendy & Artistic
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-belgravia" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Belgravia
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Refined & Prestigious
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-kensington" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Kensington
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Cultural & Historic
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-canary-wharf" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Canary Wharf
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Business & Professional
+                </p>
+              </Link>
+              
+              <Link 
+                to="/escorts-in-notting-hill" 
+                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+              >
+                <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
+                  Notting Hill
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">
+                  Vibrant & Creative
+                </p>
+              </Link>
+              
+              <Link 
+                to="/locations" 
+                className="group bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-lg p-4 md:p-6 transition-all duration-300 flex items-center justify-center"
+              >
+                <div className="text-center">
+                  <h3 className="font-medium text-sm md:text-base text-primary">
+                    View All
+                  </h3>
+                  <p className="text-xs md:text-sm text-primary/70 mt-1">
+                    12 Locations
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </section>

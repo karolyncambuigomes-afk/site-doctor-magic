@@ -73,10 +73,10 @@ const About = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-20 md:py-28 lg:py-36 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-center">
-              <div className="space-y-6 md:space-y-8 text-center lg:text-left px-4 md:px-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight">
                   About <span className="text-primary">Five London</span>
                 </h1>
@@ -107,16 +107,16 @@ const About = () => {
         </section>
 
         {/* Divider */}
-        <div className="py-4">
+        <div className="py-3">
           <div className="container-width">
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
           </div>
         </div>
 
         {/* Story Section */}
-        <section className="py-20 md:py-28 lg:py-36 bg-muted/20">
+        <section className="py-16 md:py-20 lg:py-24 bg-muted/20">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-18 lg:gap-24 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="w-full max-w-sm md:max-w-md mx-auto lg:mx-0 h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden px-4 md:px-0 order-2 lg:order-1">
                 <img 
                   src={aboutLuxury2} 
@@ -125,7 +125,7 @@ const About = () => {
                 />
               </div>
               
-              <div className="space-y-6 md:space-y-8 text-center lg:text-left px-4 md:px-0 order-1 lg:order-2">
+              <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-1 lg:order-2">
                 <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                   Our <span className="text-primary">Philosophy</span>
                 </h2>
@@ -141,24 +141,24 @@ const About = () => {
         </section>
 
         {/* Divider */}
-        <div className="py-4">
+        <div className="py-3">
           <div className="container-width">
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
           </div>
         </div>
 
         {/* Values Section */}
-        <section className="py-20 md:py-28 lg:py-36 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width">
-            <div className="text-center mb-16 md:mb-20 px-4 md:px-0">
+            <div className="text-center mb-12 md:mb-14 px-4 md:px-0">
               <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight mb-4">
                 Our <span className="text-primary">Values</span>
               </h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 px-4 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-0">
               {values.map((value, index) => (
-                <div key={index} className="text-center space-y-4 md:space-y-5">
+                <div key={index} className="text-center space-y-3 md:space-y-4">
                   <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-primary">
                     <value.icon className="w-6 h-6 md:w-8 md:h-8" />
                   </div>
@@ -171,17 +171,17 @@ const About = () => {
         </section>
 
         {/* Divider */}
-        <div className="py-4">
+        <div className="py-3">
           <div className="container-width">
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
           </div>
         </div>
 
         {/* Experience Section */}
-        <section className="py-20 md:py-28 lg:py-36 bg-muted/20">
+        <section className="py-16 md:py-20 lg:py-24 bg-muted/20">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-18 lg:gap-24 items-center">
-              <div className="space-y-6 md:space-y-8 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
                 <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                   Your <span className="text-primary">Experience</span>
                 </h2>
@@ -202,16 +202,16 @@ const About = () => {
         </section>
 
         {/* Divider */}
-        <div className="py-4">
+        <div className="py-3">
           <div className="container-width">
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
           </div>
         </div>
 
         {/* CTA Section */}
-        <section className="py-20 md:py-28 lg:py-36 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto space-y-8 md:space-y-10 px-4 md:px-0">
+            <div className="max-w-2xl mx-auto space-y-6 md:space-y-7 px-4 md:px-0">
               <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                 Experience <span className="text-primary">Five London</span>
               </h2>
@@ -219,7 +219,7 @@ const About = () => {
                 Join London's most discerning gentlemen who trust Five London for exceptional companionship.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                 <Button 
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-white px-6 md:px-8 py-3 w-full sm:w-auto"

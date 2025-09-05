@@ -66,7 +66,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
 
-      // Then check subscription
+      // Check if user is admin - admins always have access
+      const { data: userRole, error: roleError } = await supabase
+        .rpc('get_current_user_role');
+
+      if (roleError) {
+        console.error('Error checking user role:', roleError);
+      } else if (userRole === 'admin') {
+        setHasAccess(true);
+        return true;
+      }
+
+      // Then check subscription for regular users
       const { data, error } = await supabase
         .from('user_subscriptions')
         .select('*')

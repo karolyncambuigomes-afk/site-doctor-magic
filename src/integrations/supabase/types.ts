@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_log: {
+        Row: {
+          id: string
+          new_values: Json | null
+          old_values: Json | null
+          operation: string
+          table_name: string
+          timestamp: string
+          user_id: string | null
+        }
+        Insert: {
+          id?: string
+          new_values?: Json | null
+          old_values?: Json | null
+          operation: string
+          table_name: string
+          timestamp?: string
+          user_id?: string | null
+        }
+        Update: {
+          id?: string
+          new_values?: Json | null
+          old_values?: Json | null
+          operation?: string
+          table_name?: string
+          timestamp?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           author: string | null
@@ -181,21 +211,18 @@ export type Database = {
       profiles: {
         Row: {
           created_at: string
-          email: string | null
           id: string
           role: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
-          email?: string | null
           id: string
           role?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
-          email?: string | null
           id?: string
           role?: string | null
           updated_at?: string

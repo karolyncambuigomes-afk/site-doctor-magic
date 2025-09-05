@@ -323,8 +323,8 @@ export const Admin: React.FC = () => {
                   <CardTitle className="text-black">Gerenciar Conteúdo</CardTitle>
                   <CardDescription className="text-gray-600">Gerencie conteúdo das páginas do site</CardDescription>
                 </CardHeader>
-                <CardContent className="text-black">
-                  <div className="text-black [&_*]:text-black">
+                <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
+                  <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
                     <SiteContentManager />
                   </div>
                 </CardContent>

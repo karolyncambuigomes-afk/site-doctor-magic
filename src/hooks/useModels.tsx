@@ -173,6 +173,12 @@ export const useModels = () => {
     fetchModels();
   }, [user, hasAccess]);
 
+  // Force refresh every 5 seconds for testing
+  useEffect(() => {
+    const interval = setInterval(fetchModels, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;
   };

@@ -21,11 +21,11 @@ export const HeroSection = () => {
         {/* Bottom Content - Only visible on larger screens */}
         <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-10 hidden md:block">
           <div className="text-center space-y-6">
-            <div className="text-white/80 text-sm tracking-[0.3em] uppercase font-light">
+            <div className="text-white/80 caption">
               Luxury Companions
             </div>
             <Link to="/models">
-              <button className="bg-white/90 backdrop-blur-sm text-black px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white transition-all duration-300 font-medium">
+              <button className="bg-white/90 backdrop-blur-sm text-black px-8 py-3 caption hover:bg-white transition-all duration-300 font-medium">
                 Discover
               </button>
             </Link>
@@ -35,7 +35,7 @@ export const HeroSection = () => {
         {/* Mobile CTA - Positioned at bottom */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 md:hidden">
           <Link to="/models">
-            <button className="bg-white/95 backdrop-blur-sm text-black px-6 py-2.5 text-xs tracking-[0.2em] uppercase font-medium rounded-full">
+            <button className="bg-white/95 backdrop-blur-sm text-black px-6 py-2.5 caption font-medium rounded-full">
               Discover
             </button>
           </Link>

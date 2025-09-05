@@ -99,13 +99,13 @@ const Index = () => {
               </div>
               
               <div className="space-y-4 md:space-y-6 text-muted-foreground">
-                <p className="text-sm md:text-base lg:text-lg font-light leading-relaxed">
+                <p className="body-minimal leading-relaxed">
                   We are an elite agency specializing in luxury companions in London. 
                   Our careful selection ensures that each of our companions is sophisticated, 
                   elegant and dedicated to providing exceptional experiences.
                 </p>
                 
-                <p className="text-xs md:text-sm lg:text-base leading-relaxed">
+                <p className="body-sm leading-relaxed">
                   With absolute discretion and personalized service, we cater to discerning clients 
                   seeking refined companionship for social events, business dinners or special moments. 
                   Available 24 hours a day, 7 days a week.
@@ -119,7 +119,7 @@ const Index = () => {
                       <feature.icon className="w-6 h-6 text-foreground/70" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-foreground">
+                      <h3 className="caption text-foreground">
                         {feature.title}
                       </h3>
                       <p className="text-xs text-muted-foreground leading-relaxed">

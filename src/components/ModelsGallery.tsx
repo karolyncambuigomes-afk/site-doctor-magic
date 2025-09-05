@@ -73,7 +73,7 @@ export const ModelsGallery: React.FC = () => {
                   placeholder="Search..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-48 pl-9 pr-4 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all"
+                  className="w-48 pl-9 pr-4 py-2 body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all"
                 />
               </div>
 
@@ -84,7 +84,7 @@ export const ModelsGallery: React.FC = () => {
                 <select
                   value={selectedLocation}
                   onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-40 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
+                  className="w-40 pl-9 pr-10 py-2 body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Areas</option>
                   {uniqueLocations.map(location => (
@@ -100,7 +100,7 @@ export const ModelsGallery: React.FC = () => {
                 <select
                   value={selectedCharacteristic}
                   onChange={(e) => setSelectedCharacteristic(e.target.value)}
-                  className="w-44 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
+                  className="w-44 pl-9 pr-10 py-2 body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Types</option>
                   {uniqueCharacteristics.map(characteristic => (
@@ -116,7 +116,7 @@ export const ModelsGallery: React.FC = () => {
                 <select
                   value={selectedServiceType}
                   onChange={(e) => setSelectedServiceType(e.target.value)}
-                  className="w-36 pl-9 pr-10 py-2 text-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
+                  className="w-36 pl-9 pr-10 py-2 body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
                   <option value="all">All Services</option>
                   <option value="incall">Incall</option>
@@ -128,12 +128,12 @@ export const ModelsGallery: React.FC = () => {
             {/* Results Counter & Clear */}
             {(searchTerm || selectedLocation !== 'all' || selectedCharacteristic !== 'all' || selectedServiceType !== 'all') && (
               <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border/30">
-                <span className="text-sm text-muted-foreground">
+                <span className="body-sm text-muted-foreground">
                   {filteredModels.length} companions found
                 </span>
                 <button
                   onClick={clearAllFilters}
-                  className="text-sm text-primary hover:text-primary/80 transition-colors underline underline-offset-4"
+                  className="body-sm text-primary hover:text-primary/80 transition-colors underline underline-offset-4"
                 >
                   Clear filters
                 </button>
@@ -177,7 +177,7 @@ export const ModelsGallery: React.FC = () => {
                 </p>
                 <button 
                   onClick={clearAllFilters}
-                  className="inline-flex items-center px-6 py-2 text-sm font-medium text-primary hover:text-primary/80 border border-primary/20 hover:border-primary/40 rounded-full transition-all"
+                  className="inline-flex items-center px-6 py-2 body-sm font-medium text-primary hover:text-primary/80 border border-primary/20 hover:border-primary/40 rounded-full transition-all"
                 >
                   Clear Filters
                 </button>

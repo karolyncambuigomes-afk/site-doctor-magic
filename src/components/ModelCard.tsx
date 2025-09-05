@@ -47,7 +47,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
           <div className="w-full h-full bg-muted flex items-center justify-center">
             <div className="text-muted-foreground text-center">
               <div className="text-2xl mb-2">👤</div>
-              <div className="text-sm">{model.name}</div>
+              <div className="body-sm">{model.name}</div>
             </div>
           </div>
         )}
@@ -63,15 +63,15 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model }) => {
           <div className="model-card-content px-3 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4">
             <div className="space-y-1 sm:space-y-2 lg:space-y-3">
               <div>
-                <h3 className="text-sm sm:text-base lg:text-lg font-light text-white mb-1">{model.name}</h3>
-                <p className="text-xs sm:text-sm text-white/80">
+                <h3 className="heading-sm text-white mb-1">{model.name}</h3>
+                <p className="body-sm text-white/80">
                   {model.age} • {model.location}
                 </p>
               </div>
               
               <div className="w-8 sm:w-10 lg:w-12 h-px bg-white/30"></div>
               
-              <p className="text-xs sm:text-sm text-white/90 line-clamp-2 leading-relaxed">
+              <p className="body-sm text-white/90 line-clamp-2 leading-relaxed">
                 {model.description}
               </p>
             </div>

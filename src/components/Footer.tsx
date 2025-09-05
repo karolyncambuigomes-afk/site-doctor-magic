@@ -13,7 +13,7 @@ export const Footer = () => {
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h4 className="text-xs font-medium text-foreground/60 uppercase tracking-wider">Explore</h4>
+            <h4 className="caption text-foreground/60">Explore</h4>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { href: '/', label: 'Home' },
@@ -28,7 +28,7 @@ export const Footer = () => {
                 <Link 
                   key={link.href}
                   to={link.href}
-                  className="text-xs text-foreground/40 hover:text-foreground/60 transition-luxury block"
+                  className="caption text-foreground/40 hover:text-foreground/60 transition-luxury block"
                 >
                   {link.label}
                 </Link>
@@ -38,23 +38,23 @@ export const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-4">
-            <h4 className="text-xs font-medium text-foreground/60 uppercase tracking-wider">Connect</h4>
+            <h4 className="caption text-foreground/60">Connect</h4>
             <div className="space-y-3">
               <a 
                 href="tel:+442045678901"
-                className="flex items-center space-x-2 text-xs text-foreground/40 hover:text-foreground/60 transition-luxury"
+                className="flex items-center space-x-2 caption text-foreground/40 hover:text-foreground/60 transition-luxury"
               >
                 <Phone className="w-3 h-3" />
                 <span>+44 20 4567 8901</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-2 text-xs text-foreground/40 hover:text-foreground/60 transition-luxury"
+                className="flex items-center space-x-2 caption text-foreground/40 hover:text-foreground/60 transition-luxury"
               >
                 <Mail className="w-3 h-3" />
                 <span>info@fivelondon.com</span>
               </a>
-              <div className="flex items-center space-x-2 text-xs text-foreground/40">
+              <div className="flex items-center space-x-2 caption text-foreground/40">
                 <MapPin className="w-3 h-3" />
                 <span>Central London</span>
               </div>
@@ -65,19 +65,19 @@ export const Footer = () => {
         {/* Minimal Bottom */}
         <div className="mt-8 pt-4 border-t border-border">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-2 lg:space-y-0">
-            <p className="text-[10px] text-foreground/30">
+            <p className="caption text-foreground/30">
               © {currentYear}
             </p>
             <div className="flex space-x-6">
               <Link 
                 to="/privacy-policy" 
-                className="text-[10px] text-foreground/30 hover:text-foreground/50 transition-luxury"
+                className="caption text-foreground/30 hover:text-foreground/50 transition-luxury"
               >
                 Privacy
               </Link>
               <Link 
                 to="/terms" 
-                className="text-[10px] text-foreground/30 hover:text-foreground/50 transition-luxury"
+                className="caption text-foreground/30 hover:text-foreground/50 transition-luxury"
               >
                 Terms
               </Link>

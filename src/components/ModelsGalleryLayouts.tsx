@@ -69,8 +69,8 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         
         {/* Minimal Info Overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <h3 className="text-xl font-light tracking-wide mb-1">{model.name}</h3>
-          <p className="text-sm text-white/80 mb-2">{model.location}</p>
+          <h3 className="heading-sm mb-1">{model.name}</h3>
+          <p className="body-sm text-white/80 mb-2">{model.location}</p>
           <div className="w-12 h-[1px] bg-white/40"></div>
         </div>
       </div>
@@ -95,8 +95,8 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
               {model.availability === 'available' ? 'Available' : 'Busy'}
             </Badge>
           </div>
-          <h3 className="text-xl font-medium mb-1">{model.name}</h3>
-          <div className="flex items-center gap-4 text-sm text-white/80 mb-2">
+          <h3 className="heading-sm mb-1">{model.name}</h3>
+          <div className="flex items-center gap-4 body-sm text-white/80 mb-2">
             <span className="flex items-center gap-1">
               <MapPin className="w-3 h-3" />
               {model.location}
@@ -106,7 +106,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
               {model.rating}
             </span>
           </div>
-          <p className="text-white/70 text-sm line-clamp-2">{model.description}</p>
+          <p className="text-white/70 body-sm line-clamp-2">{model.description}</p>
         </div>
       </div>
     </Link>
@@ -130,7 +130,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
           <div className="flex items-start justify-between mb-2">
             <div>
               <h3 className="font-medium text-foreground">{model.name}</h3>
-              <p className="text-sm text-muted-foreground">{model.location}</p>
+              <p className="body-sm text-muted-foreground">{model.location}</p>
             </div>
             <Badge variant={model.availability === 'available' ? 'default' : 'secondary'} className="text-xs">
               {model.availability}

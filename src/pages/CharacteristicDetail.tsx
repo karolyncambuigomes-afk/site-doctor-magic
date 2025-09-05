@@ -106,7 +106,7 @@ const CharacteristicDetail = () => {
                       <Button variant="outline" className="w-full p-4 h-auto">
                          <div className="text-center">
                            <div className="font-medium">{char.name}</div>
-                           <div className="text-xs text-muted-foreground mt-1">
+                           <div className="caption text-muted-foreground mt-1">
                              {models.filter(m => m.characteristics && m.characteristics.some(c => c.toLowerCase() === char.name.toLowerCase())).length} models
                            </div>
                          </div>

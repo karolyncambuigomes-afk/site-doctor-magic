@@ -190,7 +190,7 @@ export const Auth: React.FC = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-light mb-4">Welcome back!</h2>
+          <h2 className="heading-md mb-4">Welcome back!</h2>
           <p className="text-muted-foreground mb-6">Redirecting you to your account...</p>
         </div>
       </div>
@@ -213,7 +213,7 @@ export const Auth: React.FC = () => {
             {/* Back link */}
             <Link 
               to="/" 
-              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+              className="inline-flex items-center body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to home
@@ -221,7 +221,7 @@ export const Auth: React.FC = () => {
 
             <Card className="border border-border/50 shadow-luxury">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-2xl font-light tracking-wide">
+                <CardTitle className="heading-md">
                   Welcome to Five London
                 </CardTitle>
                 <CardDescription className="text-muted-foreground">
@@ -324,7 +324,7 @@ export const Auth: React.FC = () => {
                             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </button>
                         </div>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="caption text-muted-foreground">
                           Minimum 8 characters with uppercase, lowercase, and numbers
                         </p>
                       </div>
@@ -354,7 +354,7 @@ export const Auth: React.FC = () => {
                 </Tabs>
 
                 <div className="mt-6 text-center">
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="caption text-muted-foreground leading-relaxed">
                     By creating an account, you agree to our{' '}
                     <Link to="/terms" className="text-primary hover:underline">
                       Terms of Service

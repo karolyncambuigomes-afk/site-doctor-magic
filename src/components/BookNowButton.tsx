@@ -66,7 +66,7 @@ export const BookNowButton = () => {
         <DialogTrigger asChild>
           <Button
             size="sm"
-            className="shadow-elegant hover:shadow-luxury transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90 font-light tracking-[0.2em] text-xs uppercase px-6 py-3"
+            className="shadow-elegant hover:shadow-luxury transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90 caption px-6 py-3"
           >
             <MessageCircle className="w-4 h-4 mr-2" />
             Book Now
@@ -75,7 +75,7 @@ export const BookNowButton = () => {
         
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-heading font-light text-2xl tracking-[0.1em] text-center">
+            <DialogTitle className="heading-md text-center">
               Make an Inquiry
             </DialogTitle>
           </DialogHeader>
@@ -85,14 +85,14 @@ export const BookNowButton = () => {
             <div className="grid grid-cols-2 gap-3">
               <a
                 href="tel:+442045678901"
-                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury text-sm"
+                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury body-sm"
               >
                 <Phone className="w-4 h-4" />
                 <span>Call Now</span>
               </a>
               <a
                 href="mailto:info@fivelondon.com"
-                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury text-sm"
+                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury body-sm"
               >
                 <Mail className="w-4 h-4" />
                 <span>Email Us</span>
@@ -103,7 +103,7 @@ export const BookNowButton = () => {
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t border-border" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
+              <div className="relative flex justify-center caption">
                 <span className="bg-background px-2 text-muted-foreground">Or fill the form</span>
               </div>
             </div>
@@ -111,7 +111,7 @@ export const BookNowButton = () => {
             {/* Contact Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-light">Name *</Label>
+                <Label htmlFor="name" className="body-sm">Name *</Label>
                 <Input
                   id="name"
                   value={formData.name}
@@ -122,7 +122,7 @@ export const BookNowButton = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-light">Email *</Label>
+                <Label htmlFor="email" className="body-sm">Email *</Label>
                 <Input
                   id="email"
                   type="email"
@@ -134,7 +134,7 @@ export const BookNowButton = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-light">Phone</Label>
+                <Label htmlFor="phone" className="body-sm">Phone</Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -146,7 +146,7 @@ export const BookNowButton = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message" className="text-sm font-light">Message *</Label>
+                <Label htmlFor="message" className="body-sm">Message *</Label>
                 <Textarea
                   id="message"
                   value={formData.message}
@@ -164,7 +164,7 @@ export const BookNowButton = () => {
               </Button>
             </form>
 
-            <p className="text-xs text-muted-foreground text-center leading-relaxed">
+            <p className="caption text-center leading-relaxed">
               All inquiries are handled with complete discretion and confidentiality.
             </p>
           </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Crown, Settings } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
@@ -46,7 +47,7 @@ export const Navigation = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled || location.pathname === '/'
-        ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200/50' 
+        ? 'bg-background/95 backdrop-blur-sm border-b border-border/50' 
         : 'bg-transparent'
     }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,7 +79,8 @@ export const Navigation = () => {
           </div>
 
           {/* Contact & Auth */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-4">
+            <ThemeToggle />
             <a 
               href="tel:+442045678901" 
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -89,7 +91,7 @@ export const Navigation = () => {
             {user ? (
               <div className="flex items-center space-x-4">
                 {hasAccess && (
-                  <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+                  <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full border border-amber-200 dark:border-amber-700">
                     <Crown className="w-3 h-3" />
                     <span>Premium</span>
                   </div>
@@ -169,6 +171,10 @@ export const Navigation = () => {
                   </Link>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Theme</span>
+                    <ThemeToggle />
+                  </div>
                   <a 
                     href="tel:+442045678901" 
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -183,7 +189,7 @@ export const Navigation = () => {
                           {user.email}
                         </span>
                         {hasAccess && (
-                          <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+                          <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full border border-amber-200 dark:border-amber-700">
                             <Crown className="w-3 h-3" />
                             <span>Premium</span>
                           </div>

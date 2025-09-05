@@ -94,14 +94,23 @@ export const ModelsCarousel = () => {
               <div key={model.id} className="group">
                 <Link to={`/models/${model.id}`} className="block">
                   <div className="relative overflow-hidden mb-4">
+                    {/* Main Image */}
                     <img
                       src={model.image}
                       alt={model.name}
-                      className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:opacity-0 absolute inset-0"
                     />
+                    {/* Second Image (from gallery) */}
+                    {model.gallery && model.gallery[1] && (
+                      <img
+                        src={model.gallery[1]}
+                        alt={`${model.name} - alternate view`}
+                        className="w-full aspect-[3/4] object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
+                      />
+                    )}
                     {/* Price overlay */}
                     {model.price && (
-                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1 text-sm font-light tracking-wide">
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1 text-sm font-light tracking-wide z-10">
                         {model.price}
                       </div>
                     )}

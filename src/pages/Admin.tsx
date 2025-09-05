@@ -1203,6 +1203,66 @@ export const Admin: React.FC = () => {
               </Card>
             </TabsContent>
 
+            <TabsContent value="services" className="space-y-6">
+              <h2 className="text-xl font-semibold">Gerenciar Serviços</h2>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Palavras-chave dos Serviços</CardTitle>
+                  <CardDescription>
+                    Configure quais posts do blog devem ser linkados nas palavras-chave da página de serviços
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {availableServiceKeywords.map((keyword) => {
+                        const linkedBlog = blogPosts.find(post => 
+                          post.service_keywords?.includes(keyword) && post.is_published
+                        );
+                        
+                        return (
+                          <div key={keyword} className="p-4 border rounded-lg bg-card">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h4 className="font-medium text-sm">{keyword}</h4>
+                                {linkedBlog ? (
+                                  <div className="mt-2">
+                                    <Badge variant="secondary" className="text-xs">
+                                      Linkado: {linkedBlog.title}
+                                    </Badge>
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                      Slug: /blog/{linkedBlog.slug}
+                                    </p>
+                                  </div>
+                                ) : (
+                                  <div className="mt-2">
+                                    <Badge variant="outline" className="text-xs">
+                                      Sem link - usando link padrão
+                                    </Badge>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="mt-8 p-4 bg-muted/50 rounded-lg">
+                      <h3 className="font-medium mb-2">Como linkar palavras-chave:</h3>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• Vá para a aba "Blog" e edite ou crie um novo post</li>
+                        <li>• No campo "Service Keywords", selecione as palavras-chave que devem linkar para este post</li>
+                        <li>• Publique o post para que o link apareça na página de serviços</li>
+                        <li>• Se nenhum post estiver linkado, será usado o link padrão estático</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
             <TabsContent value="users" className="space-y-6">
               <h2 className="text-xl font-semibold">Gerenciar Usuários</h2>
               

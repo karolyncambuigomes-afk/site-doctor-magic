@@ -99,6 +99,12 @@ export const ModelsCarousel = () => {
                       alt={model.name}
                       className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
                     />
+                    {/* Price overlay */}
+                    {model.price && (
+                      <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1 text-sm font-light tracking-wide">
+                        {model.price}
+                      </div>
+                    )}
                   </div>
                   <div className="text-center">
                     <h3 className="font-sans text-lg font-normal text-black mb-1">

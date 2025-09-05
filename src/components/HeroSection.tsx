@@ -33,7 +33,11 @@ export const HeroSection = () => {
                 </button>
               </Link>
               
-              <a href="tel:+447436190679">
+              <a 
+                href="https://wa.me/447436190679"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
                   <Phone className="w-4 h-4 inline mr-2" />
                   Contact Us

@@ -159,7 +159,11 @@ const Blog = () => {
                   directly in your email.
                 </p>
                 <Link to="/contact">
-                  <Button size="lg" className="five-london-button">
+                  <Button 
+                    size="lg" 
+                    className="five-london-button"
+                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                  >
                     Contact Us
                   </Button>
                 </Link>

@@ -95,7 +95,10 @@ export const HeroCarousel = () => {
                 </Link>
                 
                 <a href="tel:+447436190679">
-                  <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
+                  <button 
+                    className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors"
+                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                  >
                     Contact Us
                   </button>
                 </a>

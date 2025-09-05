@@ -75,7 +75,10 @@ const Locations = () => {
                   Can't find your preferred location? Contact us to find the perfect companion for your specific area.
                 </p>
                 <Link to="/contact">
-                  <Button className="minimal-button">
+                  <Button 
+                    className="minimal-button"
+                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                  >
                     Contact Us
                   </Button>
                 </Link>

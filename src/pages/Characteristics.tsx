@@ -79,7 +79,10 @@ const Characteristics = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/contact">
-                    <Button className="minimal-button">
+                    <Button 
+                      className="minimal-button"
+                      onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                    >
                       Contact Us
                     </Button>
                   </Link>

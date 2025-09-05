@@ -219,7 +219,11 @@ const BlogPost = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/contact">
-                    <Button size="lg" className="five-london-button">
+                    <Button 
+                      size="lg" 
+                      className="five-london-button"
+                      onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                    >
                       Contact Us
                     </Button>
                   </Link>

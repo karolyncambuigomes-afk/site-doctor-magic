@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [exploreOpen, setExploreOpen] = useState(false);
+  const [connectOpen, setConnectOpen] = useState(false);
 
   return (
     <footer className="bg-background border-t border-border">
@@ -13,8 +16,16 @@ export const Footer = () => {
 
           {/* Navigation */}
           <div className="space-y-2 lg:space-y-4">
-            <h4 className="caption text-foreground/60">Explore</h4>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2">
+            <button 
+              onClick={() => setExploreOpen(!exploreOpen)}
+              className="flex items-center justify-between w-full lg:cursor-default"
+            >
+              <h4 className="caption text-foreground/60">Explore</h4>
+              <div className="lg:hidden">
+                {exploreOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              </div>
+            </button>
+            <div className={`grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2 ${exploreOpen ? 'block' : 'hidden lg:grid'}`}>
               {[
                 { href: '/', label: 'Home' },
                 { href: '/about', label: 'About' },
@@ -38,8 +49,16 @@ export const Footer = () => {
 
           {/* Contact */}
           <div className="space-y-2 lg:space-y-4">
-            <h4 className="caption text-foreground/60">Connect</h4>
-            <div className="space-y-1 lg:space-y-3">
+            <button 
+              onClick={() => setConnectOpen(!connectOpen)}
+              className="flex items-center justify-between w-full lg:cursor-default"
+            >
+              <h4 className="caption text-foreground/60">Connect</h4>
+              <div className="lg:hidden">
+                {connectOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              </div>
+            </button>
+            <div className={`space-y-1 lg:space-y-3 ${connectOpen ? 'block' : 'hidden lg:block'}`}>
               <a 
                 href="tel:+447436190679"
                 className="flex items-center space-x-2 caption text-foreground/40 hover:text-foreground/60 transition-luxury"

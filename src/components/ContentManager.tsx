@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Edit, Upload, Save, Eye, EyeOff } from 'lucide-react';
+import { sanitizeHtml, sanitizeText, sanitizeUrl } from '@/utils/sanitizer';
 
 interface SiteContent {
   id: string;
@@ -112,9 +113,21 @@ export default function ContentManager() {
     
     if (!editingContent) return;
 
+    // Sanitize input data
+    const sanitizedData = {
+      title: sanitizeText(formData.title),
+      subtitle: sanitizeText(formData.subtitle),
+      content: sanitizeHtml(formData.content),
+      image_url: formData.image_url,
+      image_alt: sanitizeText(formData.image_alt),
+      button_text: sanitizeText(formData.button_text),
+      button_url: sanitizeUrl(formData.button_url),
+      is_active: formData.is_active
+    };
+
     const { error } = await supabase
       .from('site_content')
-      .update(formData)
+      .update(sanitizedData)
       .eq('id', editingContent.id);
 
     if (error) {

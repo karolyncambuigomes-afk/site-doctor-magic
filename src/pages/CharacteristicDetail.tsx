@@ -6,6 +6,7 @@ import { characteristics } from '@/data/characteristics';
 import { models } from '@/data/models';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
+import { sanitizeHtml } from '@/utils/sanitizer';
 
 const CharacteristicDetail = () => {
   const { characteristicSlug } = useParams();
@@ -79,7 +80,7 @@ const CharacteristicDetail = () => {
                 <div className="max-w-4xl mx-auto">
                   <div 
                     className="prose prose-lg max-w-none text-muted-foreground"
-                    dangerouslySetInnerHTML={{ __html: characteristic.content }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(characteristic.content) }}
                   />
                 </div>
               </div>

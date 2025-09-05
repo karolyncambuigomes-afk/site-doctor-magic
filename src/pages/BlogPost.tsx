@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { getBlogArticleBySlug, getRelatedArticles } from "@/data/blog-articles";
 import NotFound from "./NotFound";
+import { sanitizeHtml } from "@/utils/sanitizer";
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -149,7 +150,7 @@ const BlogPost = () => {
                     prose-ul:my-6 prose-ol:my-6
                     prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6
                     prose-blockquote:italic prose-blockquote:text-muted-foreground"
-                  dangerouslySetInnerHTML={{ __html: article.content }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
                 />
               </div>
             </div>

@@ -13,6 +13,7 @@ import { Plus, Edit, Trash2, Upload, Users, FileText, Settings } from 'lucide-re
 import { SEO } from '@/components/SEO';
 import BlogManager from '@/components/BlogManager';
 import ContentManager from '@/components/ContentManager';
+import { sanitizeText } from '@/utils/sanitizer';
 
 interface Model {
   id: string;
@@ -105,8 +106,18 @@ export default function Admin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Sanitize input data
     const modelData = {
-      ...formData,
+      name: sanitizeText(formData.name),
+      location: sanitizeText(formData.location),
+      price: sanitizeText(formData.price),
+      description: sanitizeText(formData.description),
+      height: sanitizeText(formData.height),
+      measurements: sanitizeText(formData.measurements),
+      hair: sanitizeText(formData.hair),
+      eyes: sanitizeText(formData.eyes),
+      nationality: sanitizeText(formData.nationality),
+      image: formData.image,
       age: parseInt(formData.age) || 0
     };
 

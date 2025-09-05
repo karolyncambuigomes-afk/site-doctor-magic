@@ -8,6 +8,7 @@ import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Plus, Edit, Trash2, Upload, Eye } from 'lucide-react';
+import { sanitizeHtml, sanitizeText } from '@/utils/sanitizer';
 
 interface BlogPost {
   id: string;
@@ -112,8 +113,16 @@ export default function BlogManager() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Sanitize input data
     const postData = {
       ...formData,
+      title: sanitizeText(formData.title),
+      excerpt: sanitizeText(formData.excerpt),
+      content: sanitizeHtml(formData.content),
+      author: sanitizeText(formData.author),
+      category: sanitizeText(formData.category),
+      seo_keywords: sanitizeText(formData.seo_keywords),
+      meta_description: sanitizeText(formData.meta_description),
       read_time: parseInt(formData.read_time) || 5,
       published_at: formData.is_published ? new Date().toISOString() : null
     };

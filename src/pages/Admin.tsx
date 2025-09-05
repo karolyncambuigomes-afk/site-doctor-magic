@@ -292,8 +292,8 @@ export const Admin: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">Aprovar</Button>
-                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">Rejeitar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 bg-black text-white hover:bg-gray-800">Aprovar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 bg-black text-white hover:bg-gray-800">Rejeitar</Button>
                           </div>
                         </div>
                       ))}

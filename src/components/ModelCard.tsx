@@ -34,7 +34,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
       <Link to={`/models/${model.id}`} className="block group">
         <div className="card-luxury hover-lift overflow-hidden relative">
           {/* Image Container */}
-          <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4] xl:aspect-[4/5] overflow-hidden bg-muted">
+          <div className="relative aspect-[3/4] md:aspect-[3/4] lg:aspect-[2/3] xl:aspect-[3/4] overflow-hidden bg-muted">
             {!imageError ? (
               <>
                 <img

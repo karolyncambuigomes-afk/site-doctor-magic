@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
-import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu, 
@@ -80,9 +79,8 @@ export const Navigation = () => {
 
           {/* Contact & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
-            <ThemeToggle />
             <a 
-              href="tel:+442045678901" 
+              href="tel:+442045678901"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               +44 20 4567 8901
@@ -153,10 +151,6 @@ export const Navigation = () => {
                   </Link>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Theme</span>
-                    <ThemeToggle />
-                  </div>
                   <a 
                     href="tel:+442045678901" 
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"

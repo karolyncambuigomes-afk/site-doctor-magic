@@ -74,9 +74,9 @@ export const ModelsCarousel = () => {
                         alt={model.name}
                         className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:scale-105"
                       />
-                      {/* Price overlay - Top center, more prominent */}
+                      {/* Price overlay - Top right corner */}
                       {model.price && (
-                        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm text-white px-4 py-2 text-sm font-medium tracking-wide z-10 rounded-lg">
+                        <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm text-white px-3 py-1 text-sm font-medium tracking-wide z-10 rounded-lg">
                           {model.price}
                         </div>
                       )}

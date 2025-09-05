@@ -1,10 +1,10 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ExternalLink } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ChevronRight, Clock } from 'lucide-react';
 
 const Services = () => {
   const structuredData = {
@@ -144,194 +144,103 @@ const Services = () => {
       <Navigation />
       
       <main className="pt-16">
-        {/* Sophisticated Hero Section */}
-        <section className="relative py-32 bg-gradient-to-br from-background via-muted/20 to-background overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_70%)]"></div>
-          <div className="container-width text-center relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <h1 className="text-5xl lg:text-6xl font-light mb-8 tracking-tight">
-                Bespoke <span className="bg-gradient-to-r from-primary via-muted-foreground to-primary bg-clip-text text-transparent">Experiences</span>
-              </h1>
-              <p className="text-xl lg:text-2xl text-muted-foreground font-light leading-relaxed">
-                Curated companionship for the discerning individual. 
-                <br className="hidden sm:block" />
-                Where sophistication meets unparalleled service.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Premium Services Grid */}
+        {/* Minimal Hero */}
         <section className="py-24 bg-background">
-          <div className="container-width">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl font-light mb-6 tracking-tight">
-                Our <span className="text-primary">Services</span>
-              </h2>
-              <div className="w-24 h-0.5 bg-primary mx-auto"></div>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-              {services.slice(0, 6).map((service, index) => (
-                <div 
-                  key={service.title}
-                  className="group relative bg-card border border-border/40 rounded-3xl p-8 hover:border-primary/30 transition-all duration-700 hover:shadow-2xl hover:shadow-primary/5"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {/* Gradient Background Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  
-                  <div className="relative z-10">
-                    {/* Icon */}
-                    <div className="mb-6">
-                      <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl group-hover:bg-primary/20 transition-colors duration-500">
-                        <service.icon className="w-8 h-8 text-primary" />
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <h3 className="text-2xl font-light mb-4 group-hover:text-primary transition-colors duration-300">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-                    
-                    {/* Features */}
-                    <div className="space-y-3 mb-6">
-                      {service.features.slice(0, 3).map((feature, i) => (
-                        <div key={i} className="flex items-center text-sm text-muted-foreground">
-                          <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-                    
-                    {/* Duration */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border/30">
-                      <span className="text-sm text-muted-foreground">{service.duration}</span>
-                      <div className="w-6 h-0.5 bg-primary/30 group-hover:bg-primary transition-colors duration-300"></div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Additional Services */}
-            <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {services.slice(6).map((service, index) => (
-                <div 
-                  key={service.title}
-                  className="group bg-card border border-border/40 rounded-3xl p-10 hover:border-primary/30 transition-all duration-700 hover:shadow-xl"
-                >
-                  <div className="flex items-start space-x-6">
-                    <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-2xl flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-500">
-                      <service.icon className="w-10 h-10 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-light mb-4 group-hover:text-primary transition-colors">
-                        {service.title}
-                      </h3>
-                      <p className="text-muted-foreground leading-relaxed mb-6">
-                        {service.description}
-                      </p>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <span className="mr-3">Duration:</span>
-                        <span className="text-primary font-medium">{service.duration}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Elegant Process Section */}
-        <section className="py-24 bg-muted/30 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.02)_50%,transparent_75%)]"></div>
-          <div className="container-width relative z-10">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl font-light mb-6 tracking-tight">
-                How It <span className="text-primary">Works</span>
-              </h2>
-              <div className="w-24 h-0.5 bg-primary mx-auto"></div>
-            </div>
-
-            <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                {[
-                  {
-                    step: "01",
-                    title: "Consultation",
-                    description: "Discuss your preferences and requirements with our dedicated concierge team",
-                    icon: "💬"
-                  },
-                  {
-                    step: "02", 
-                    title: "Selection",
-                    description: "We carefully match you with the perfect companion based on your unique needs",
-                    icon: "✨"
-                  },
-                  {
-                    step: "03",
-                    title: "Experience",
-                    description: "Enjoy an exceptional encounter crafted to exceed your expectations",
-                    icon: "🌟"
-                  }
-                ].map((step, index) => (
-                  <div 
-                    key={step.step}
-                    className="text-center group"
-                    style={{ animationDelay: `${index * 0.2}s` }}
-                  >
-                    <div className="relative mb-8">
-                      <div className="w-24 h-24 mx-auto bg-card border border-border/40 rounded-full flex items-center justify-center text-2xl group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-lg">
-                        {step.icon}
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-medium">
-                        {step.step}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-light mb-4 group-hover:text-primary transition-colors">
-                      {step.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Premium CTA Section */}
-        <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-muted/20">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl lg:text-5xl font-light mb-8 tracking-tight">
-                Begin Your <span className="text-primary">Journey</span>
-              </h2>
-              <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
-                Contact our concierge team to arrange your bespoke experience. 
-                Discretion and excellence, guaranteed.
+              <h1 className="text-5xl lg:text-6xl font-extralight mb-6 tracking-tight">
+                Services
+              </h1>
+              <p className="text-lg text-muted-foreground font-light">
+                Sophisticated companionship for every occasion
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-                <Button 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-4 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
-                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                >
-                  Start Consultation
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="border-2 border-primary/30 text-foreground hover:bg-primary/10 px-12 py-4 text-lg rounded-full transition-all duration-300"
-                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                >
-                  Contact Us
-                </Button>
-              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Minimal Services Accordion */}
+        <section className="py-16 bg-background">
+          <div className="container-width">
+            <div className="max-w-4xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {services.map((service, index) => (
+                  <AccordionItem 
+                    key={service.title} 
+                    value={`item-${index}`}
+                    className="border border-border/30 rounded-2xl px-6 py-2 hover:border-primary/30 transition-all duration-300 data-[state=open]:border-primary/50"
+                  >
+                    <AccordionTrigger className="hover:no-underline py-6 text-left">
+                      <div className="flex items-center space-x-4 w-full">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                          <service.icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1 text-left">
+                          <h3 className="text-xl font-light mb-1">{service.title}</h3>
+                          <p className="text-sm text-muted-foreground">{service.description}</p>
+                        </div>
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Clock className="w-4 h-4" />
+                          <span>{service.duration}</span>
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-6">
+                      <div className="ml-16 space-y-6">
+                        {/* Features */}
+                        <div>
+                          <h4 className="text-sm font-medium text-primary mb-3">What's Included</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {service.features.map((feature, i) => (
+                              <div key={i} className="flex items-center text-sm text-muted-foreground">
+                                <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
+                                {feature}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Ideal for */}
+                        <div>
+                          <p className="text-sm text-muted-foreground italic">
+                            {service.ideal}
+                          </p>
+                        </div>
+
+                        {/* Blog link */}
+                        <div className="pt-4 border-t border-border/30">
+                          <Link 
+                            to={service.blogLink}
+                            className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors"
+                          >
+                            <span>Related article</span>
+                            <ChevronRight className="ml-1 w-4 h-4" />
+                          </Link>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* Minimal Contact Section */}
+        <section className="py-24 bg-muted/20">
+          <div className="container-width text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-3xl font-extralight mb-4">
+                Ready to begin?
+              </h2>
+              <p className="text-muted-foreground mb-8">
+                Contact our team for a consultation
+              </p>
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+              >
+                Get in touch
+              </Button>
             </div>
           </div>
         </section>

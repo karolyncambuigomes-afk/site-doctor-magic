@@ -229,38 +229,33 @@ export const ModelProfile: React.FC = () => {
             </p>
           </div>
 
-          {/* Pricing Section - Only show for premium users with pricing data */}
-          {(() => {
-            console.log('ModelProfile - model.pricing exists?', !!model.pricing);
-            console.log('ModelProfile - model.pricing value:', model.pricing);
-            console.log('ModelProfile - model name:', model.name);
-            return null;
-          })()}
-          {model.pricing && (
-            <div className="mb-6">
-              <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
-              <div className="bg-card border border-border rounded-lg p-4">
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.oneHour}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground text-sm">2 horas</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.twoHours}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground text-sm">3 horas</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.threeHours}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground text-sm">Hora adicional</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.additionalHour}</span>
-                  </div>
+          {/* Pricing Section - FORCED DISPLAY FOR DEBUG */}
+          <div className="mb-6">
+            <h3 className="text-lg font-light text-foreground mb-3">Preços (Debug: {model.pricing ? 'TEM' : 'NÃO TEM'} pricing)</h3>
+            <div className="bg-card border border-border rounded-lg p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground text-sm">1 hora</span>
+                  <span className="text-base font-semibold text-accent">{model.pricing?.oneHour || 'N/A'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground text-sm">2 horas</span>
+                  <span className="text-base font-semibold text-accent">{model.pricing?.twoHours || 'N/A'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground text-sm">3 horas</span>
+                  <span className="text-base font-semibold text-accent">{model.pricing?.threeHours || 'N/A'}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground text-sm">Hora adicional</span>
+                  <span className="text-base font-semibold text-accent">{model.pricing?.additionalHour || 'N/A'}</span>
                 </div>
               </div>
+              <div className="mt-3 text-xs text-muted-foreground">
+                Debug: {JSON.stringify(model.pricing, null, 2)}
+              </div>
             </div>
-          )}
+          </div>
 
           {/* Quick Info Cards - Only show if data is available */}
           {(model.height || model.hair || model.eyes) && (

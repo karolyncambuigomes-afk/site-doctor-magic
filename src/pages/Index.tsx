@@ -3,14 +3,9 @@ import { Navigation } from '@/components/Navigation';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
-import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ModelCard } from '@/components/ModelCard';
-import { useModels } from '@/hooks/useModels';
-import { useState, useEffect } from 'react';
 
 const Index = () => {
-  const { models, loading, error } = useModels();
   
   const structuredData = {
     "@context": "https://schema.org",
@@ -33,27 +28,6 @@ const Index = () => {
   };
 
   const features = [];
-
-  // Carrossel state
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselImages = models.slice(0, 12); // Pegar 12 modelos para o carrossel
-
-  // Auto-play do carrossel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
-    }, 4000); // Muda a cada 4 segundos
-
-    return () => clearInterval(interval);
-  }, [carouselImages.length]);
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-  };
 
   return (
     <>

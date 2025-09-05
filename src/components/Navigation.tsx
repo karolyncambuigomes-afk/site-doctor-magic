@@ -123,11 +123,11 @@ export const Navigation = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-3">
-                <Link to="/contact">
+                <a href="https://wa.me/447436190679">
                   <Button variant="outline">
-                    Enquire
+                    Book Now
                   </Button>
-                </Link>
+                </a>
               </div>
             )}
           </div>
@@ -189,11 +189,11 @@ export const Navigation = () => {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <Link to="/contact">
+                      <a href="https://wa.me/447436190679">
                         <Button className="w-full">
-                          Enquire
+                          Book Now
                         </Button>
-                      </Link>
+                      </a>
                     </div>
                   )}
                 </div>

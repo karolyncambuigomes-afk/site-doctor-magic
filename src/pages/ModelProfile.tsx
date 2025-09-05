@@ -231,25 +231,25 @@ export const ModelProfile: React.FC = () => {
 
           {/* Pricing Section - Only show for premium users with pricing data */}
           {model.pricing && (
-            <div className="mb-8">
-              <h3 className="text-lg font-light text-foreground mb-4">Preços</h3>
-              <div className="bg-card border border-border rounded-lg p-6">
-                <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+            <div className="mb-6">
+              <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
+              <div className="bg-card border border-border rounded-lg p-4">
+                <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">1 hora</span>
-                    <span className="text-lg font-semibold text-accent">{model.pricing.oneHour}</span>
+                    <span className="text-muted-foreground text-sm">1 hora</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.oneHour}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">2 horas</span>
-                    <span className="text-lg font-semibold text-accent">{model.pricing.twoHours}</span>
+                    <span className="text-muted-foreground text-sm">2 horas</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.twoHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">3 horas</span>
-                    <span className="text-lg font-semibold text-accent">{model.pricing.threeHours}</span>
+                    <span className="text-muted-foreground text-sm">3 horas</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.threeHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Hora adicional</span>
-                    <span className="text-lg font-semibold text-accent">{model.pricing.additionalHour}</span>
+                    <span className="text-muted-foreground text-sm">Hora adicional</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.additionalHour}</span>
                   </div>
                 </div>
               </div>

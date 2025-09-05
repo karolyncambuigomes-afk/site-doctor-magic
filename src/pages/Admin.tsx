@@ -51,6 +51,10 @@ interface Profile {
   id: string;
   email: string;
   role: string;
+  status: 'pending' | 'approved' | 'rejected';
+  requested_at: string;
+  approved_at?: string;
+  approved_by?: string;
 }
 
 interface BlogPost {
@@ -595,7 +599,7 @@ const HeroAdmin: React.FC = () => {
 };
 
 export const Admin: React.FC = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, isApproved, userStatus } = useAuth();
   const { toast } = useToast();
   const [models, setModels] = useState<Model[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -1048,6 +1052,103 @@ export const Admin: React.FC = () => {
     }
   };
 
+  // User management functions
+  const approveUser = async (userId: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ 
+          status: 'approved', 
+          approved_at: new Date().toISOString(),
+          approved_by: user?.id 
+        })
+        .eq('id', userId);
+
+      if (error) throw error;
+
+      // Update local state
+      setProfiles(profiles.map(profile => 
+        profile.id === userId 
+          ? { ...profile, status: 'approved' as const, approved_at: new Date().toISOString() }
+          : profile
+      ));
+
+      toast({
+        title: "Sucesso",
+        description: "Usuário aprovado com sucesso"
+      });
+    } catch (error) {
+      console.error('Error approving user:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao aprovar usuário",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const rejectUser = async (userId: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ 
+          status: 'rejected',
+          approved_by: user?.id 
+        })
+        .eq('id', userId);
+
+      if (error) throw error;
+
+      // Update local state
+      setProfiles(profiles.map(profile => 
+        profile.id === userId 
+          ? { ...profile, status: 'rejected' as const }
+          : profile
+      ));
+
+      toast({
+        title: "Sucesso",
+        description: "Usuário rejeitado"
+      });
+    } catch (error) {
+      console.error('Error rejecting user:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao rejeitar usuário",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const deleteUser = async (userId: string) => {
+    if (!confirm('Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.')) return;
+
+    try {
+      // Delete from profiles table
+      const { error } = await supabase
+        .from('profiles')
+        .delete()
+        .eq('id', userId);
+
+      if (error) throw error;
+
+      // Update local state
+      setProfiles(profiles.filter(profile => profile.id !== userId));
+
+      toast({
+        title: "Sucesso",
+        description: "Usuário removido com sucesso"
+      });
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao remover usuário",
+        variant: "destructive"
+      });
+    }
+  };
+
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
@@ -1135,6 +1236,10 @@ export const Admin: React.FC = () => {
 
   if (!user) {
     return <Navigate to="/auth" replace />;
+  }
+
+  if (!isApproved) {
+    return <Navigate to="/approval-status" replace />;
   }
 
   if (!isAdmin) {
@@ -1757,6 +1862,169 @@ export const Admin: React.FC = () => {
                       ))}
                     </TableBody>
                   </Table>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="users" className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-semibold">Gerenciar Usuários</h2>
+                <div className="flex items-center gap-4">
+                  <div className="text-sm text-muted-foreground">
+                    Total: {profiles.length} usuários
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">
+                        {profiles.filter(p => p.status === 'approved').length}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Aprovados</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-yellow-600">
+                        {profiles.filter(p => p.status === 'pending').length}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Pendentes</div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-red-600">
+                        {profiles.filter(p => p.status === 'rejected').length}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Rejeitados</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card>
+                <CardContent className="p-0">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Email</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Papel</TableHead>
+                        <TableHead>Solicitação</TableHead>
+                        <TableHead>Aprovação</TableHead>
+                        <TableHead>Ações</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {profiles.map((profile) => (
+                        <TableRow key={profile.id}>
+                          <TableCell className="font-medium">{profile.email}</TableCell>
+                          <TableCell>
+                            <Badge 
+                              variant={
+                                profile.status === 'approved' ? 'default' : 
+                                profile.status === 'pending' ? 'secondary' : 
+                                'destructive'
+                              }
+                            >
+                              {profile.status === 'approved' ? 'Aprovado' : 
+                               profile.status === 'pending' ? 'Pendente' : 
+                               'Rejeitado'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline">
+                              {profile.role === 'admin' ? 'Admin' : 'Usuário'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell>
+                            {new Date(profile.requested_at).toLocaleDateString('pt-BR')}
+                          </TableCell>
+                          <TableCell>
+                            {profile.approved_at ? new Date(profile.approved_at).toLocaleDateString('pt-BR') : '-'}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex space-x-2">
+                              {profile.status === 'pending' && (
+                                <>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => approveUser(profile.id)}
+                                    className="text-green-600 hover:text-green-700"
+                                    title="Aprovar usuário"
+                                  >
+                                    <Check className="w-4 h-4" />
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => rejectUser(profile.id)}
+                                    className="text-red-600 hover:text-red-700"
+                                    title="Rejeitar usuário"
+                                  >
+                                    <X className="w-4 h-4" />
+                                  </Button>
+                                </>
+                              )}
+                              {profile.status === 'approved' && profile.role !== 'admin' && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => rejectUser(profile.id)}
+                                  className="text-red-600 hover:text-red-700"
+                                  title="Revogar acesso"
+                                >
+                                  <X className="w-4 h-4" />
+                                </Button>
+                              )}
+                              {profile.status === 'rejected' && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => approveUser(profile.id)}
+                                  className="text-green-600 hover:text-green-700"
+                                  title="Aprovar usuário"
+                                >
+                                  <Check className="w-4 h-4" />
+                                </Button>
+                              )}
+                              {profile.role !== 'admin' && (
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => deleteUser(profile.id)}
+                                  className="text-red-600 hover:text-red-700"
+                                  title="Excluir usuário"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  
+                  {profiles.length === 0 && (
+                    <div className="text-center py-12">
+                      <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold mb-2">Nenhum usuário encontrado</h3>
+                      <p className="text-muted-foreground">
+                        Os usuários aparecerão aqui quando se registrarem no sistema.
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>

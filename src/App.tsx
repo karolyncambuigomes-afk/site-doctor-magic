@@ -9,6 +9,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { BookNowButton } from "@/components/BookNowButton";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { Auth } from "./pages/Auth";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -45,6 +46,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/approval-status" element={<UserApprovalStatus />} />
               <Route path="/about" element={<About />} />
               <Route path="/services" element={<Services />} />
               <Route path="/blog" element={<Blog />} />

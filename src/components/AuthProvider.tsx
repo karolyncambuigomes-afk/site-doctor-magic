@@ -8,6 +8,8 @@ interface AuthContextType {
   loading: boolean;
   signOut: () => Promise<void>;
   hasAccess: boolean;
+  isApproved: boolean;
+  userStatus: 'pending' | 'approved' | 'rejected' | null;
   refreshAccess: () => Promise<void>;
 }
 
@@ -30,9 +32,43 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | null>(null);
+
+  const checkUserStatus = async (userId: string) => {
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('status')
+        .eq('id', userId)
+        .single();
+
+      if (profileError) {
+        console.error('Error checking user status:', profileError);
+        return { approved: false, status: null };
+      }
+
+      const approved = profile?.status === 'approved';
+      setIsApproved(approved);
+      setUserStatus(profile?.status || null);
+
+      return { approved, status: profile?.status };
+    } catch (error) {
+      console.error('Error checking user status:', error);
+      return { approved: false, status: null };
+    }
+  };
 
   const checkUserAccess = async (userId: string) => {
     try {
+      // First check if user is approved
+      const { approved } = await checkUserStatus(userId);
+      if (!approved) {
+        setHasAccess(false);
+        return false;
+      }
+
+      // Then check subscription
       const { data, error } = await supabase
         .from('user_subscriptions')
         .select('*')
@@ -45,7 +81,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
 
-      return !!data;
+      const hasSubscription = !!data;
+      setHasAccess(hasSubscription);
+      return hasSubscription;
     } catch (error) {
       console.error('Error checking user access:', error);
       return false;
@@ -54,8 +92,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const refreshAccess = async () => {
     if (user) {
-      const access = await checkUserAccess(user.id);
-      setHasAccess(access);
+      await checkUserAccess(user.id);
     }
   };
 
@@ -70,12 +107,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (session?.user) {
           // Defer Supabase calls to prevent deadlock using setTimeout
           setTimeout(() => {
-            checkUserAccess(session.user.id).then(access => {
-              setHasAccess(access);
-            });
+            checkUserAccess(session.user.id);
           }, 0);
         } else {
           setHasAccess(false);
+          setIsApproved(false);
+          setUserStatus(null);
         }
       }
     );
@@ -89,9 +126,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (session?.user) {
         // Defer Supabase calls to prevent deadlock using setTimeout
         setTimeout(() => {
-          checkUserAccess(session.user.id).then(access => {
-            setHasAccess(access);
-          });
+          checkUserAccess(session.user.id);
         }, 0);
       }
     });
@@ -104,6 +139,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
     setSession(null);
     setHasAccess(false);
+    setIsApproved(false);
+    setUserStatus(null);
   };
 
   const value = {
@@ -112,6 +149,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading,
     signOut,
     hasAccess,
+    isApproved,
+    userStatus,
     refreshAccess,
   };
 

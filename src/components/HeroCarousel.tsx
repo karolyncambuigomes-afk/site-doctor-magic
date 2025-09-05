@@ -87,31 +87,24 @@ export const HeroCarousel = () => {
           {/* Content */}
           <div className="relative z-20 h-full flex items-center justify-center">
             <div className="text-center px-4 max-w-4xl mx-auto">
-              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight text-white mb-6">
-                {slide.title}
-              </h1>
-              {slide.subtitle && (
-                <p className="text-lg md:text-xl lg:text-2xl font-light tracking-wide text-white/90 max-w-2xl mx-auto">
-                  {slide.subtitle}
-                </p>
-              )}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link to="/models">
+                  <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors">
+                    View Our Models
+                  </button>
+                </Link>
+                
+                <a href="tel:+442045678901">
+                  <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
+                    Contact Us
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       ))}
 
-      {/* Book Now Button - Bottom Right */}
-      <div className="absolute bottom-8 right-8 z-30">
-        <Link 
-          to="/contact" 
-          className="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40 px-6 py-3 transition-all duration-300"
-        >
-          <span className="relative z-10 text-sm tracking-[0.2em] uppercase font-light text-white">
-            Book Now
-          </span>
-          <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-        </Link>
-      </div>
 
       {/* Navigation Dots - Bottom Center */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">

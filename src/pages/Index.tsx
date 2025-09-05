@@ -207,28 +207,28 @@ const Index = () => {
         </section>
 
         {/* Minimal Contact Section - Loro Piana Style */}
-        <section className="py-16 md:py-20 bg-muted/10">
+        <section className="py-8 md:py-16 lg:py-20 bg-muted/10">
           <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto space-y-8">
-              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground">
+            <div className="max-w-2xl mx-auto space-y-4 md:space-y-8">
+              <h2 className="text-base md:text-lg lg:text-xl font-light tracking-[0.2em] uppercase text-foreground">
                 Begin Your Experience
               </h2>
               
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+              <p className="text-xs md:text-sm lg:text-base text-muted-foreground leading-relaxed px-4">
                 Contact us to arrange your perfect companion. Available 24/7 for immediate bookings.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-8 px-4">
                 <Link to="/contact" className="group">
-                  <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-8 py-3">
-                    <span className="text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
+                  <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-6 py-2 md:px-8 md:py-3">
+                    <span className="text-xs md:text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
                       Enquire Now
                     </span>
                   </div>
                 </Link>
                 <a 
                   href="tel:+442045678901"
-                  className="text-sm tracking-[0.1em] text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-xs md:text-sm tracking-[0.1em] text-muted-foreground hover:text-foreground transition-colors"
                 >
                   +44 20 4567 8901
                 </a>

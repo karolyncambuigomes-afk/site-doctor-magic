@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogOut, Crown, Settings } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
@@ -90,13 +90,6 @@ export const Navigation = () => {
             
             {user ? (
               <div className="flex items-center space-x-4">
-                {hasAccess && (
-                  <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full border border-amber-200 dark:border-amber-700">
-                    <Crown className="w-3 h-3" />
-                    <span>Premium</span>
-                  </div>
-                )}
-                
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full">
@@ -115,17 +108,6 @@ export const Navigation = () => {
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    {!hasAccess && (
-                      <>
-                        <DropdownMenuItem asChild>
-                          <Link to="/upgrade" className="flex items-center">
-                            <Crown className="w-4 h-4 mr-2" />
-                            Upgrade to Premium
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                      </>
-                    )}
                     <DropdownMenuItem onClick={signOut} className="text-red-600">
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
@@ -188,12 +170,6 @@ export const Navigation = () => {
                         <span className="text-sm text-muted-foreground">
                           {user.email}
                         </span>
-                        {hasAccess && (
-                          <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full border border-amber-200 dark:border-amber-700">
-                            <Crown className="w-3 h-3" />
-                            <span>Premium</span>
-                          </div>
-                        )}
                       </div>
                       <Link to="/admin">
                         <Button variant="outline" className="w-full">
@@ -201,14 +177,6 @@ export const Navigation = () => {
                           Admin
                         </Button>
                       </Link>
-                      {!hasAccess && (
-                        <Link to="/upgrade">
-                          <Button className="w-full">
-                            <Crown className="w-4 h-4 mr-2" />
-                            Upgrade to Premium
-                          </Button>
-                        </Link>
-                      )}
                       <button 
                         onClick={signOut}
                         className="w-full text-left text-red-600 hover:text-red-700 transition-colors text-sm"

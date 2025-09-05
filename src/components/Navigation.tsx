@@ -125,11 +125,6 @@ export const Navigation = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-3">
-                <Link to="/auth">
-                  <Button variant="ghost" size="sm">
-                    Sign In
-                  </Button>
-                </Link>
                 <Link to="/contact">
                   <Button variant="outline">
                     Enquire
@@ -204,11 +199,6 @@ export const Navigation = () => {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <Link to="/auth">
-                        <Button variant="outline" className="w-full">
-                          Sign In
-                        </Button>
-                      </Link>
                       <Link to="/contact">
                         <Button className="w-full">
                           Enquire

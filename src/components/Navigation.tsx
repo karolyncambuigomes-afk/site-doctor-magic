@@ -114,7 +114,7 @@ export const Navigation = () => {
               <NavigationMenuList className="space-x-8">
                 {navItems.map((item) => (
                   <NavigationMenuItem key={item.href}>
-                    <NavigationMenuTrigger className="h-auto p-0 bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
+                    <NavigationMenuTrigger className="h-auto p-0 bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent border-0 shadow-none">
                       <span className={`font-medium text-sm transition-colors ${
                         location.pathname === item.href || location.pathname.startsWith(item.href + '/')
                           ? 'text-primary' 

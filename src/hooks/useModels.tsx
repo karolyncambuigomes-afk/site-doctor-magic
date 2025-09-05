@@ -94,39 +94,34 @@ export const useModels = () => {
         }
 
         // Transform database data to match our Model interface
-        const transformedModels = data?.map((model: any) => {
-          console.log('useModels - Raw model from DB:', model.name, model.pricing);
-          const transformed = {
-            id: model.id,
-            name: model.name,
-            age: model.age,
-            location: model.location,
-            price: model.price,
-            pricing: model.pricing || {
-              oneHour: model.price || '£500',
-              twoHours: '£900',
-              threeHours: '£1,300',
-              additionalHour: '£400'
-            },
-            image: getImageUrl(model.image),
-            gallery: [model.image], // For now, use main image
-            services: model.services || [],
-            characteristics: model.characteristics || [],
-            availability: model.availability || 'available',
-            rating: model.rating || 0,
-            reviews: model.reviews || 0,
-            description: model.description || '',
-            height: model.height || '',
-            measurements: model.measurements || '',
-            hair: model.hair || '',
-            eyes: model.eyes || '',
-            nationality: model.nationality || '',
-            education: model.education || '',
-            interests: model.interests || []
-          };
-          console.log('useModels - Transformed model:', transformed.name, transformed.pricing);
-          return transformed;
-        }) || [];
+        const transformedModels = data?.map((model: any) => ({
+          id: model.id,
+          name: model.name,
+          age: model.age,
+          location: model.location,
+          price: model.price,
+          pricing: model.pricing || {
+            oneHour: model.price || '£500',
+            twoHours: '£900',
+            threeHours: '£1,300',
+            additionalHour: '£400'
+          },
+          image: getImageUrl(model.image),
+          gallery: [model.image], // For now, use main image
+          services: model.services || [],
+          characteristics: model.characteristics || [],
+          availability: model.availability || 'available',
+          rating: model.rating || 0,
+          reviews: model.reviews || 0,
+          description: model.description || '',
+          height: model.height || '',
+          measurements: model.measurements || '',
+          hair: model.hair || '',
+          eyes: model.eyes || '',
+          nationality: model.nationality || '',
+          education: model.education || '',
+          interests: model.interests || []
+        })) || [];
 
         setModels(transformedModels);
       } else {
@@ -177,12 +172,6 @@ export const useModels = () => {
   useEffect(() => {
     fetchModels();
   }, [user, hasAccess]);
-
-  // Force refresh every 5 seconds for testing
-  useEffect(() => {
-    const interval = setInterval(fetchModels, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;

@@ -79,9 +79,34 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                     <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
                       {model.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-white/80">
+                    <p className="text-xs sm:text-sm text-white/80 mb-3">
                       {model.location}
                     </p>
+                    
+                    {/* Pricing Details */}
+                    {model.pricing && (
+                      <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 space-y-1">
+                        <div className="text-xs text-white/90 font-medium mb-2">Pricing</div>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div className="flex justify-between">
+                            <span className="text-white/70">1 hora:</span>
+                            <span className="text-white font-medium">{model.pricing.oneHour}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white/70">2 horas:</span>
+                            <span className="text-white font-medium">{model.pricing.twoHours}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white/70">3 horas:</span>
+                            <span className="text-white font-medium">{model.pricing.threeHours}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white/70">+horas:</span>
+                            <span className="text-white font-medium">{model.pricing.additionalHour}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </>

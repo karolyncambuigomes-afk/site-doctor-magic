@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, LogOut, Crown } from 'lucide-react';
+import { useAuth } from '@/components/AuthProvider';
+import { Button } from '@/components/ui/button';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuSeparator, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
 
 const navItems = [
   { href: '/about', label: 'About Us' },
@@ -14,6 +23,7 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { user, signOut, hasAccess } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,19 +75,67 @@ export const Navigation = () => {
             ))}
           </div>
 
-          {/* Contact */}
-          <div className="hidden lg:flex items-center space-x-12">
+          {/* Contact & Auth */}
+          <div className="hidden lg:flex items-center space-x-6">
             <a 
               href="tel:+442045678901" 
               className="caption hover:text-foreground transition-luxury"
             >
               +44 20 4567 8901
             </a>
-            <Link to="/contact">
-              <button className="five-london-button-outline">
-                Enquire
-              </button>
-            </Link>
+            
+            {user ? (
+              <div className="flex items-center space-x-4">
+                {hasAccess && (
+                  <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+                    <Crown className="w-3 h-3" />
+                    <span>Premium</span>
+                  </div>
+                )}
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full">
+                      <User className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem className="font-medium">
+                      {user.email}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    {!hasAccess && (
+                      <>
+                        <DropdownMenuItem asChild>
+                          <Link to="/upgrade" className="flex items-center">
+                            <Crown className="w-4 h-4 mr-2" />
+                            Upgrade to Premium
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                      </>
+                    )}
+                    <DropdownMenuItem onClick={signOut} className="text-red-600">
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-3">
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm">
+                    Sign In
+                  </Button>
+                </Link>
+                <Link to="/contact">
+                  <button className="five-london-button-outline">
+                    Enquire
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,11 +171,50 @@ export const Navigation = () => {
                   >
                     +44 20 4567 8901
                   </a>
-                  <Link to="/contact">
-                    <button className="five-london-button w-full">
-                      Enquire
-                    </button>
-                  </Link>
+                  
+                  {user ? (
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">
+                          {user.email}
+                        </span>
+                        {hasAccess && (
+                          <div className="flex items-center space-x-1 text-xs px-2 py-1 bg-amber-50 text-amber-700 rounded-full border border-amber-200">
+                            <Crown className="w-3 h-3" />
+                            <span>Premium</span>
+                          </div>
+                        )}
+                      </div>
+                      {!hasAccess && (
+                        <Link to="/upgrade">
+                          <button className="five-london-button w-full">
+                            <Crown className="w-4 h-4 mr-2" />
+                            Upgrade to Premium
+                          </button>
+                        </Link>
+                      )}
+                      <button 
+                        onClick={signOut}
+                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors text-sm"
+                      >
+                        <LogOut className="w-4 h-4 mr-2 inline" />
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      <Link to="/auth">
+                        <button className="five-london-button-outline w-full">
+                          Sign In
+                        </button>
+                      </Link>
+                      <Link to="/contact">
+                        <button className="five-london-button w-full">
+                          Enquire
+                        </button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

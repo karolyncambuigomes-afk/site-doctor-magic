@@ -1,52 +1,81 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 
 interface HeroSlide {
-  id: number;
-  image: string;
+  id: string;
+  image_url: string;
   title: string;
   subtitle?: string;
+  button_text?: string;
+  button_link?: string;
 }
-
-const heroSlides: HeroSlide[] = [
-  {
-    id: 1,
-    image: '/images/model1.jpg',
-    title: 'Five London',
-    subtitle: 'Premier luxury companion services'
-  },
-  {
-    id: 2,
-    image: '/images/model2.jpg',
-    title: 'Sophisticated Elegance',
-    subtitle: 'Exclusive experiences in London'
-  },
-  {
-    id: 3,
-    image: '/images/model3.jpg',
-    title: 'Discretion & Quality',
-    subtitle: 'Unparalleled companion services'
-  },
-  {
-    id: 4,
-    image: '/images/model4.jpg',
-    title: 'Exceptional Standards',
-    subtitle: 'Where luxury meets sophistication'
-  }
-];
 
 export const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
+  const [settings, setSettings] = useState({
+    auto_play: true,
+    slide_duration: 5000,
+    show_dots: true,
+    show_scroll_indicator: true,
+    overlay_opacity: 30
+  });
+
+  // Load slides and settings from database
+  useEffect(() => {
+    loadHeroData();
+  }, []);
+
+  const loadHeroData = async () => {
+    try {
+      // Load slides
+      const { data: slidesData } = await supabase
+        .from('hero_slides')
+        .select('*')
+        .eq('active', true)
+        .order('order_index');
+
+      // Load settings
+      const { data: settingsData } = await supabase
+        .from('hero_settings')
+        .select('*')
+        .limit(1);
+
+      if (slidesData) {
+        setHeroSlides(slidesData);
+      }
+
+      if (settingsData && settingsData[0]) {
+        setSettings(settingsData[0]);
+      }
+    } catch (error) {
+      console.error('Error loading hero data:', error);
+      // Fallback to default slides if database fails
+      setHeroSlides([
+        {
+          id: '1',
+          image_url: '/images/model1.jpg',
+          title: 'Five London',
+          subtitle: 'Premier luxury companion services',
+          button_text: 'View Our Models',
+          button_link: '/models'
+        }
+      ]);
+    }
+  };
 
   // Auto-play functionality
   useEffect(() => {
+    if (!settings.auto_play || heroSlides.length === 0) return;
+    
     const interval = setInterval(() => {
       handleSlideChange((currentSlide + 1) % heroSlides.length);
-    }, 5000);
+    }, settings.slide_duration);
 
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [currentSlide, settings.auto_play, settings.slide_duration, heroSlides.length]);
 
   const handleSlideChange = (slideIndex: number) => {
     if (isTransitioning) return;
@@ -64,6 +93,10 @@ export const HeroCarousel = () => {
     }
   };
 
+  if (heroSlides.length === 0) {
+    return null;
+  }
+
   return (
     <section className="relative h-screen overflow-hidden">
       {/* Slides */}
@@ -77,31 +110,46 @@ export const HeroCarousel = () => {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src={slide.image}
+              src={slide.image_url}
               alt={slide.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/30"></div>
+            <div className="absolute inset-0" style={{backgroundColor: `rgba(0, 0, 0, ${settings.overlay_opacity / 100})`}}></div>
           </div>
 
           {/* Content */}
           <div className="relative z-20 h-full flex items-center justify-center">
             <div className="text-center px-4 max-w-4xl mx-auto">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link to="/models">
-                  <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                    View Our Models
-                  </button>
-                </Link>
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
+                  {slide.title}
+                </h1>
                 
-                <a href="tel:+447436190679">
-                  <button 
-                    className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors"
-                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                {slide.subtitle && (
+                  <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
+                    {slide.subtitle}
+                  </p>
+                )}
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+                  {slide.button_link && slide.button_text && (
+                    <Link to={slide.button_link}>
+                      <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors">
+                        {slide.button_text}
+                      </button>
+                    </Link>
+                  )}
+                  
+                  <a 
+                    href="https://wa.me/447436190679"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Contact Us
-                  </button>
-                </a>
+                    <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
+                      Contact Us
+                    </button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -110,27 +158,31 @@ export const HeroCarousel = () => {
 
 
       {/* Navigation Dots - Bottom Center */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
-        <div className="flex space-x-3">
-          {heroSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/40 hover:bg-white/60'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+      {settings.show_dots && heroSlides.length > 1 && (
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+          <div className="flex space-x-3">
+            {heroSlides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? 'bg-white scale-125' 
+                    : 'bg-white/40 hover:bg-white/60'
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-        <div className="w-px h-8 bg-white/40"></div>
-      </div>
+      {settings.show_scroll_indicator && (
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+          <div className="w-px h-8 bg-white/40"></div>
+        </div>
+      )}
     </section>
   );
 };

@@ -23,6 +23,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
+import { HeroCarouselManager } from '@/components/HeroCarouselManager';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Model {
@@ -149,7 +150,11 @@ export const Admin: React.FC = () => {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6 bg-white border border-gray-300">
+            <TabsList className="grid w-full grid-cols-7 bg-white border border-gray-300">
+              <TabsTrigger value="hero" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
+                <Image className="w-4 h-4 mr-2" />
+                Hero
+              </TabsTrigger>
               <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Users className="w-4 h-4 mr-2" />
                 Modelos
@@ -175,6 +180,20 @@ export const Admin: React.FC = () => {
                 FAQ
               </TabsTrigger>
             </TabsList>
+
+            <TabsContent value="hero" className="space-y-6">
+              <Card className="bg-white border-gray-200 border">
+                <CardHeader>
+                  <CardTitle className="text-black">Gerenciar Hero Carousel</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie os slides do carousel principal da homepage</CardDescription>
+                </CardHeader>
+                <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
+                  <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
+                    <HeroCarouselManager />
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
             <TabsContent value="models" className="space-y-6">
               <Card className="bg-white border-gray-200 border">

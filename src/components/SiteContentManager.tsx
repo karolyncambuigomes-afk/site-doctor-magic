@@ -98,7 +98,6 @@ export const SiteContentManager: React.FC = () => {
 
   const getSectionDisplayName = (sectionKey: string): string => {
     const sectionNames: Record<string, string> = {
-      'hero': 'Seção Principal (Hero)',
       'about_intro': 'About Us - Introdução',
       'about_mission': 'About Us - Nossa Missão',
       'about_values': 'About Us - Nossos Valores'
@@ -131,7 +130,7 @@ export const SiteContentManager: React.FC = () => {
   return (
     <div className="space-y-6">
       <Accordion type="single" collapsible className="w-full space-y-4">
-        {contentSections.map((section) => (
+        {contentSections.filter(section => section.section !== 'hero').map((section) => (
           <AccordionItem key={section.id} value={section.id} className="border rounded-lg">
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2">

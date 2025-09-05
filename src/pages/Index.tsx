@@ -114,7 +114,7 @@ const Index = () => {
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
-                  className="group block relative overflow-hidden aspect-[4/5] bg-muted"
+                  className="group block relative overflow-hidden aspect-[3/4] bg-muted"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <img
@@ -177,7 +177,7 @@ const Index = () => {
             {/* Carousel Container - Uma foto por vez */}
             <div className="relative max-w-4xl mx-auto px-4">
               {/* Main Carousel */}
-              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[16/10] overflow-hidden">
+              <div className="relative aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] overflow-hidden">
                 {carouselImages.map((model, index) => (
                   <div
                     key={`${model.id}-${index}`}

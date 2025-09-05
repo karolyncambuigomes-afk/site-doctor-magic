@@ -86,11 +86,11 @@ const LocationDetail = () => {
             <div className="max-w-6xl mx-auto px-4">
               <div className="text-center mb-16">
                 <h1 className="font-sans text-3xl md:text-5xl font-extralight tracking-wide text-black mb-6">
-                  Elite Escorts in {location.name}
+                  Luxury Escorts in {location.name}
                 </h1>
                 <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
                 <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                  {location.description}. Discover sophisticated companions in one of London's most prestigious areas.
+                  Exclusive Five London offers high-class companions in the heart of {location.name}. Known for elegance, sophistication, and discretion, our {location.name} escorts are available for private dinners, events, and unforgettable moments in London's most exclusive district.
                 </p>
               </div>
             </div>
@@ -179,29 +179,23 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* Other Locations */}
+          {/* Internal Links */}
           <section className="py-16 bg-white">
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="text-center mb-12">
-                <h3 className="font-sans text-xl md:text-2xl font-extralight tracking-wide text-black mb-4">
-                  Explore Other Premium Locations
-                </h3>
-                <div className="w-12 h-px bg-black/20 mx-auto"></div>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {otherLocations.map((loc) => (
-                  <Link 
-                    key={loc.id} 
-                    to={`/${loc.slug}`}
-                    className="text-center p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors group"
-                  >
-                    <h4 className="text-sm font-medium text-black group-hover:text-gray-700 transition-colors">
-                      {loc.name}
-                    </h4>
-                  </Link>
+            <div className="max-w-4xl mx-auto px-4 text-center">
+              <p className="text-lg text-gray-700 mb-4">
+                Explore also{" "}
+                {otherLocations.slice(0, 3).map((loc, index) => (
+                  <span key={loc.id}>
+                    <Link 
+                      to={`/${loc.slug}`}
+                      className="text-black hover:text-gray-700 underline transition-colors"
+                    >
+                      {loc.name} Escorts
+                    </Link>
+                    {index < 2 && " · "}
+                  </span>
                 ))}
-              </div>
+              </p>
             </div>
           </section>
 

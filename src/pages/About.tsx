@@ -107,9 +107,9 @@ const About = () => {
         </section>
 
         {/* Story Section */}
-        <section className="py-16 md:py-24 lg:py-32 bg-muted/20">
+        <section className="py-20 md:py-24 lg:py-32 bg-muted/20">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
               <div className="w-full max-w-sm md:max-w-md mx-auto lg:mx-0 h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden px-4 md:px-0">
                 <img 
                   src={aboutLuxury2} 
@@ -118,7 +118,7 @@ const About = () => {
                 />
               </div>
               
-              <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0">
+              <div className="space-y-6 md:space-y-6 text-center lg:text-left px-4 md:px-0 mt-8 lg:mt-0">
                 <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                   Our <span className="text-primary">Philosophy</span>
                 </h2>
@@ -157,10 +157,10 @@ const About = () => {
         </section>
 
         {/* Experience Section */}
-        <section className="py-16 md:py-24 lg:py-32 bg-muted/20">
+        <section className="py-20 md:py-24 lg:py-32 bg-muted/20">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-20 items-center">
-              <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
+              <div className="space-y-6 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1 mt-8 lg:mt-0">
                 <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                   Your <span className="text-primary">Experience</span>
                 </h2>

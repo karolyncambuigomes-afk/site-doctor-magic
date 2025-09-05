@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Trash2, Eye, EyeOff, Image as ImageIcon } from 'lucide-react';
+import { Image as ImageIcon, Star, Eye } from 'lucide-react';
 
 interface Model {
   id: string;
@@ -12,27 +13,21 @@ interface Model {
   image: string | null;
 }
 
-interface AvailableImage {
+interface ModelImage {
   id: string;
   image_url: string;
   model_id: string;
   model_name: string;
   source: 'profile' | 'gallery';
   caption?: string;
-}
-
-interface PublicGalleryItem {
-  id: string;
-  image_url: string;
-  model_id: string;
-  model_name: string;
+  is_in_public_gallery: boolean;
   is_featured: boolean;
+  public_gallery_id?: string;
 }
 
 export const GalleryManager: React.FC = () => {
   const { toast } = useToast();
-  const [availableImages, setAvailableImages] = useState<AvailableImage[]>([]);
-  const [publicGallery, setPublicGallery] = useState<PublicGalleryItem[]>([]);
+  const [modelImages, setModelImages] = useState<ModelImage[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,18 +44,15 @@ export const GalleryManager: React.FC = () => {
 
       if (modelsError) throw modelsError;
 
-      // Load available images from models and their galleries
-      await loadAvailableImages(models || []);
-
-      // Load public gallery
-      const { data: publicGalleryData, error: galleryError } = await supabase
+      // Load public gallery for checking which images are already public
+      const { data: publicGallery, error: publicError } = await supabase
         .from('public_gallery')
-        .select('*')
-        .order('order_index');
+        .select('*');
 
-      if (galleryError) throw galleryError;
+      if (publicError) throw publicError;
 
-      setPublicGallery(publicGalleryData || []);
+      // Build comprehensive image list
+      await buildImageList(models || [], publicGallery || []);
     } catch (error) {
       console.error('Error loading gallery data:', error);
       toast({
@@ -73,18 +65,22 @@ export const GalleryManager: React.FC = () => {
     }
   };
 
-  const loadAvailableImages = async (models: Model[]) => {
-    const images: AvailableImage[] = [];
+  const buildImageList = async (models: Model[], publicGallery: any[]) => {
+    const images: ModelImage[] = [];
     
     for (const model of models) {
       // Add main profile image
       if (model.image) {
+        const publicItem = publicGallery.find(pg => pg.image_url === model.image);
         images.push({
           id: `profile-${model.id}`,
           image_url: model.image,
           model_id: model.id,
           model_name: model.name,
-          source: 'profile'
+          source: 'profile',
+          is_in_public_gallery: !!publicItem,
+          is_featured: publicItem?.is_featured || false,
+          public_gallery_id: publicItem?.id
         });
       }
       
@@ -98,13 +94,17 @@ export const GalleryManager: React.FC = () => {
         
         if (!error && galleryData) {
           galleryData.forEach(img => {
+            const publicItem = publicGallery.find(pg => pg.image_url === img.image_url);
             images.push({
               id: `gallery-${img.id}`,
               image_url: img.image_url,
               model_id: model.id,
               model_name: model.name,
               source: 'gallery',
-              caption: img.caption
+              caption: img.caption,
+              is_in_public_gallery: !!publicItem,
+              is_featured: publicItem?.is_featured || false,
+              public_gallery_id: publicItem?.id
             });
           });
         }
@@ -113,82 +113,91 @@ export const GalleryManager: React.FC = () => {
       }
     }
     
-    setAvailableImages(images);
+    setModelImages(images);
   };
 
-  const addToPublicGallery = async (image: AvailableImage) => {
+  const togglePublicGallery = async (image: ModelImage) => {
     try {
-      const { data, error } = await supabase
-        .from('public_gallery')
-        .insert([{
-          image_url: image.image_url,
-          model_id: image.model_id,
-          model_name: image.model_name,
-          caption: image.caption || '',
-          order_index: publicGallery.length
-        }])
-        .select()
-        .single();
+      if (image.is_in_public_gallery) {
+        // Remove from public gallery
+        if (image.public_gallery_id) {
+          const { error } = await supabase
+            .from('public_gallery')
+            .delete()
+            .eq('id', image.public_gallery_id);
 
-      if (error) throw error;
+          if (error) throw error;
+        }
 
-      setPublicGallery([...publicGallery, data]);
+        // Update local state
+        setModelImages(modelImages.map(img => 
+          img.id === image.id 
+            ? { ...img, is_in_public_gallery: false, is_featured: false, public_gallery_id: undefined }
+            : img
+        ));
 
-      toast({
-        title: "Sucesso",
-        description: "Imagem adicionada à galeria pública"
-      });
+        toast({
+          title: "Sucesso",
+          description: "Imagem removida da galeria pública"
+        });
+      } else {
+        // Add to public gallery
+        const { data, error } = await supabase
+          .from('public_gallery')
+          .insert([{
+            image_url: image.image_url,
+            model_id: image.model_id,
+            model_name: image.model_name,
+            caption: image.caption || '',
+            order_index: modelImages.filter(img => img.is_in_public_gallery).length
+          }])
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        // Update local state
+        setModelImages(modelImages.map(img => 
+          img.id === image.id 
+            ? { ...img, is_in_public_gallery: true, public_gallery_id: data.id }
+            : img
+        ));
+
+        toast({
+          title: "Sucesso",
+          description: "Imagem adicionada à galeria pública"
+        });
+      }
     } catch (error) {
-      console.error('Error adding to public gallery:', error);
+      console.error('Error toggling public gallery:', error);
       toast({
         title: "Erro",
-        description: "Erro ao adicionar imagem à galeria",
+        description: "Erro ao atualizar galeria pública",
         variant: "destructive"
       });
     }
   };
 
-  const removeFromPublicGallery = async (id: string) => {
+  const toggleFeatured = async (image: ModelImage) => {
+    if (!image.is_in_public_gallery || !image.public_gallery_id) return;
+
     try {
       const { error } = await supabase
         .from('public_gallery')
-        .delete()
-        .eq('id', id);
+        .update({ is_featured: !image.is_featured })
+        .eq('id', image.public_gallery_id);
 
       if (error) throw error;
 
-      setPublicGallery(publicGallery.filter(img => img.id !== id));
-
-      toast({
-        title: "Sucesso",
-        description: "Imagem removida da galeria pública"
-      });
-    } catch (error) {
-      console.error('Error removing from public gallery:', error);
-      toast({
-        title: "Erro",
-        description: "Erro ao remover imagem da galeria",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const toggleFeatured = async (id: string, currentStatus: boolean) => {
-    try {
-      const { error } = await supabase
-        .from('public_gallery')
-        .update({ is_featured: !currentStatus })
-        .eq('id', id);
-
-      if (error) throw error;
-
-      setPublicGallery(publicGallery.map(img => 
-        img.id === id ? { ...img, is_featured: !currentStatus } : img
+      setModelImages(modelImages.map(img => 
+        img.id === image.id 
+          ? { ...img, is_featured: !img.is_featured }
+          : img
       ));
 
       toast({
         title: "Sucesso",
-        description: `Imagem ${!currentStatus ? 'marcada como destaque' : 'removida dos destaques'}`
+        description: `Imagem ${!image.is_featured ? 'marcada como destaque' : 'removida dos destaques'}`
       });
     } catch (error) {
       console.error('Error toggling featured:', error);
@@ -209,161 +218,146 @@ export const GalleryManager: React.FC = () => {
       <div className="space-y-6">
         <div className="animate-pulse">
           <div className="h-6 bg-muted rounded w-1/4 mb-4"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="h-96 bg-muted rounded"></div>
-            <div className="h-96 bg-muted rounded"></div>
-          </div>
+          <div className="h-96 bg-muted rounded"></div>
         </div>
       </div>
     );
   }
 
+  const publicImages = modelImages.filter(img => img.is_in_public_gallery);
+  const featuredImages = publicImages.filter(img => img.is_featured);
+
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Gerenciar Galeria Pública</h2>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Available Images */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Fotos Disponíveis</CardTitle>
-            <CardDescription>
-              Todas as fotos das modelos ({availableImages.length} fotos)
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="max-h-96 overflow-y-auto">
-            {availableImages.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4">
-                {availableImages.map((image) => {
-                  const isInPublicGallery = publicGallery.some(pg => pg.image_url === image.image_url);
-                  
-                  return (
-                    <div key={image.id} className="border rounded-lg p-4 space-y-3">
-                      <div className="flex items-start gap-3">
-                        <img 
-                          src={image.image_url} 
-                          alt={image.model_name}
-                          className="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity"
-                          onClick={() => handleImageClick(image.model_id)}
-                          title="Clique para ver a página da modelo"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-sm">{image.model_name}</h4>
-                          <p className="text-xs text-muted-foreground">
-                            {image.source === 'profile' ? 'Foto de perfil' : 'Galeria'}
-                          </p>
-                          {image.caption && (
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {image.caption}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-2">
-                        {!isInPublicGallery ? (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="w-full"
-                            onClick={() => addToPublicGallery(image)}
-                          >
-                            <Plus className="w-4 h-4 mr-2" />
-                            Adicionar à Galeria
-                          </Button>
-                        ) : (
-                          <div className="w-full text-center text-sm text-muted-foreground py-2">
-                            ✓ Já está na galeria pública
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                <p className="text-muted-foreground">
-                  Nenhuma foto encontrada. Adicione modelos com fotos primeiro.
-                </p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Public Gallery */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Galeria Pública</CardTitle>
-            <CardDescription>
-              Imagens que aparecem na galeria do site ({publicGallery.length} fotos)
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="max-h-96 overflow-y-auto">
-            {publicGallery.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4">
-                {publicGallery.map((item) => (
-                  <div key={item.id} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <img 
-                        src={item.image_url} 
-                        alt={item.model_name}
-                        className="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity"
-                        onClick={() => handleImageClick(item.model_id)}
-                        title="Clique para ver a página da modelo"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm">{item.model_name}</h4>
-                        {item.is_featured && (
-                          <Badge variant="secondary" className="text-xs mt-1">
-                            Destaque
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => toggleFeatured(item.id, item.is_featured)}
-                      >
-                        {item.is_featured ? (
-                          <>
-                            <EyeOff className="w-4 h-4 mr-2" />
-                            Remover Destaque
-                          </>
-                        ) : (
-                          <>
-                            <Eye className="w-4 h-4 mr-2" />
-                            Destacar
-                          </>
-                        )}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => removeFromPublicGallery(item.id)}
-                      >
-                        <Trash2 className="w-4 h-4 mr-2" />
-                        Remover
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8">
-                <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
-                <p className="text-muted-foreground">
-                  Nenhuma imagem na galeria pública. Adicione fotos da lista ao lado.
-                </p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">Gerenciar Galeria Pública</h2>
+          <p className="text-muted-foreground">
+            Gerencie quais fotos das modelos aparecem na galeria pública do site
+          </p>
+        </div>
+        <div className="text-right text-sm text-muted-foreground">
+          <div>{publicImages.length} fotos na galeria pública</div>
+          <div>{featuredImages.length} fotos em destaque</div>
+        </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Todas as Fotos das Modelos</CardTitle>
+          <CardDescription>
+            Use os controles para gerenciar quais fotos aparecem na galeria pública
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {modelImages.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {modelImages.map((image) => (
+                <div key={image.id} className="border rounded-lg p-4 space-y-4">
+                  {/* Image */}
+                  <div className="relative">
+                    <img 
+                      src={image.image_url} 
+                      alt={image.model_name}
+                      className="w-full aspect-square object-cover rounded-lg cursor-pointer hover:opacity-75 transition-opacity"
+                      onClick={() => handleImageClick(image.model_id)}
+                      title="Clique para ver a página da modelo"
+                    />
+                    {image.is_featured && (
+                      <Badge className="absolute top-2 right-2" variant="default">
+                        <Star className="w-3 h-3 mr-1" />
+                        Destaque
+                      </Badge>
+                    )}
+                  </div>
+
+                  {/* Model Info */}
+                  <div>
+                    <h4 className="font-medium text-sm">{image.model_name}</h4>
+                    <p className="text-xs text-muted-foreground">
+                      {image.source === 'profile' ? 'Foto de perfil' : 'Galeria'}
+                    </p>
+                    {image.caption && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {image.caption}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Controls */}
+                  <div className="space-y-3">
+                    {/* Public Gallery Toggle */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">
+                        Galeria Pública
+                      </span>
+                      <Switch
+                        checked={image.is_in_public_gallery}
+                        onCheckedChange={() => togglePublicGallery(image)}
+                      />
+                    </div>
+
+                    {/* Featured Toggle (only if in public gallery) */}
+                    {image.is_in_public_gallery && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">
+                          Destaque
+                        </span>
+                        <Switch
+                          checked={image.is_featured}
+                          onCheckedChange={() => toggleFeatured(image)}
+                        />
+                      </div>
+                    )}
+
+                    {/* View Profile Button */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => handleImageClick(image.model_id)}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      Ver Perfil da Modelo
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <ImageIcon className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+              <h3 className="font-medium mb-2">Nenhuma foto encontrada</h3>
+              <p className="text-muted-foreground mb-4">
+                Adicione modelos com fotos para começar a gerenciar a galeria pública.
+              </p>
+              <Button variant="outline" onClick={() => window.location.href = '/admin'}>
+                Ir para Modelos
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Instructions */}
+      <Card>
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <ImageIcon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h4 className="font-medium mb-1">Como funciona</h4>
+              <ul className="text-sm text-muted-foreground space-y-1">
+                <li>• <strong>Galeria Pública:</strong> Liga/desliga se a foto aparece na galeria do site</li>
+                <li>• <strong>Destaque:</strong> Fotos em destaque aparecem primeiro na galeria</li>
+                <li>• <strong>Clique na imagem:</strong> Visitantes são redirecionados para o perfil da modelo</li>
+                <li>• <strong>Sem duplicação:</strong> Use as mesmas fotos que você já adicionou nos perfis das modelos</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

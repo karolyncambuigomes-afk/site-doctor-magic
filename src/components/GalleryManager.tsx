@@ -251,7 +251,7 @@ export const GalleryManager: React.FC = () => {
             </div>
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
-                <Button>
+                <Button className="bg-black text-white hover:bg-gray-800">
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Modelo
                 </Button>
@@ -280,10 +280,10 @@ export const GalleryManager: React.FC = () => {
                     </Select>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => setShowAddDialog(false)}>
+                    <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-gray-300 text-black hover:bg-gray-50">
                       Cancelar
                     </Button>
-                    <Button onClick={addToCarousel} disabled={!selectedModel}>
+                    <Button onClick={addToCarousel} disabled={!selectedModel} className="bg-black text-white hover:bg-gray-800">
                       Adicionar
                     </Button>
                   </div>
@@ -301,7 +301,7 @@ export const GalleryManager: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Adicione modelos ao carrossel para exibi-las na página principal
                 </p>
-                <Button onClick={() => setShowAddDialog(true)}>
+                <Button onClick={() => setShowAddDialog(true)} className="bg-black text-white hover:bg-gray-800">
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Primeira Modelo
                 </Button>
@@ -324,7 +324,7 @@ export const GalleryManager: React.FC = () => {
                         size="sm"
                         onClick={() => moveItem(item.id, 'up')}
                         disabled={index === 0}
-                        className="h-8 w-8 p-0"
+                        className="h-8 w-8 p-0 border-gray-300 text-black hover:bg-gray-50"
                         title="Mover para cima"
                       >
                         <ArrowUp className="w-4 h-4" />
@@ -334,7 +334,7 @@ export const GalleryManager: React.FC = () => {
                         size="sm"
                         onClick={() => moveItem(item.id, 'down')}
                         disabled={index === carouselItems.length - 1}
-                        className="h-8 w-8 p-0"
+                        className="h-8 w-8 p-0 border-gray-300 text-black hover:bg-gray-50"
                         title="Mover para baixo"
                       >
                         <ArrowDown className="w-4 h-4" />
@@ -368,7 +368,7 @@ export const GalleryManager: React.FC = () => {
                       variant="outline"
                       size="sm"
                       onClick={() => removeFromCarousel(item.id)}
-                      className="text-destructive hover:text-destructive"
+                      className="text-destructive hover:text-destructive border-gray-300"
                       title="Remover do carrossel"
                     >
                       <Trash2 className="w-4 h-4" />

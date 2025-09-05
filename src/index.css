@@ -298,5 +298,33 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container-width {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .heading-xl {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .heading-lg {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  
+  /* Improve touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
   }
 }

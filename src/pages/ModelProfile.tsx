@@ -257,29 +257,6 @@ export const ModelProfile: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Info Cards - Only show if data is available */}
-          {(model.height || model.hair || model.eyes) && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              {model.height && (
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Height</div>
-                  <div className="text-lg font-semibold text-foreground">{model.height}</div>
-                </div>
-              )}
-              {model.hair && (
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Hair</div>
-                  <div className="text-lg font-semibold text-foreground">{model.hair}</div>
-                </div>
-              )}
-              {model.eyes && (
-                <div className="bg-card border border-border rounded-lg p-4 text-center">
-                  <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wide">Eyes</div>
-                  <div className="text-lg font-semibold text-foreground">{model.eyes}</div>
-                </div>
-              )}
-            </div>
-          )}
 
 
           {/* Characteristics Section - Only show if data exists */}

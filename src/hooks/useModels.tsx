@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/AuthProvider';
+import { getImageUrl } from '@/utils/imageMapper';
 
 export interface Model {
   id: string;
@@ -61,7 +62,7 @@ export const useModels = () => {
           location: model.location,
           price: model.price,
           pricing: null, // Limited data for public
-          image: model.image,
+          image: getImageUrl(model.image),
           gallery: [], // Limited data for public
           services: model.services || [],
           characteristics: model.characteristics || [],
@@ -105,7 +106,7 @@ export const useModels = () => {
             threeHours: '£1,300',
             additionalHour: '£400'
           },
-          image: model.image,
+          image: getImageUrl(model.image),
           gallery: [model.image], // For now, use main image
           services: model.services || [],
           characteristics: model.characteristics || [],
@@ -141,7 +142,7 @@ export const useModels = () => {
           location: model.location,
           price: model.price,
           pricing: null,
-          image: model.image,
+          image: getImageUrl(model.image),
           gallery: [],
           services: model.services || [],
           characteristics: model.characteristics || [],

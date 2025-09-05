@@ -99,12 +99,12 @@ const Index = () => {
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
-            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-              {models && models.length > 0 ? models.slice(0, 8).map((model, index) => (
+            <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-4">
+              {models && models.length > 0 ? models.slice(0, 12).map((model, index) => (
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
-                  className="group block relative overflow-hidden aspect-[3/4] bg-muted"
+                  className="group block relative overflow-hidden aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4] xl:aspect-[4/5] bg-muted"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <img
@@ -137,7 +137,7 @@ const Index = () => {
                   </div>
                 </Link>
               )) : (
-                <div className="col-span-2 text-center py-12">
+                <div className="col-span-2 xl:col-span-3 2xl:col-span-4 text-center py-12">
                   <p className="text-muted-foreground">No models available</p>
                 </div>
               )}
@@ -167,7 +167,7 @@ const Index = () => {
             {/* Carousel Container - Uma foto por vez */}
             <div className="relative max-w-4xl mx-auto px-4">
               {/* Main Carousel */}
-              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[16/10] overflow-hidden">
+              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[5/3] xl:aspect-[16/9] overflow-hidden">
                 {carouselImages.map((model, index) => (
                   <div
                     key={`${model.id}-${index}`}

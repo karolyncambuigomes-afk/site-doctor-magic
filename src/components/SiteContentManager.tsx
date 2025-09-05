@@ -131,7 +131,7 @@ export const SiteContentManager: React.FC = () => {
   return (
     <div className="space-y-6">
       <Accordion type="single" collapsible className="w-full space-y-4">
-        {contentSections.filter(section => section.section !== 'hero').map((section) => (
+        {contentSections.map((section) => (
           <AccordionItem key={section.id} value={section.id} className="border rounded-lg">
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2">

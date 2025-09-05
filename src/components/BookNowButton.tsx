@@ -62,114 +62,19 @@ export const BookNowButton = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger asChild>
-          <Button
-            size="sm"
-            className="shadow-elegant hover:shadow-luxury transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90 caption px-6 py-3"
-          >
-            <MessageCircle className="w-4 h-4 mr-2" />
-            Book Now
-          </Button>
-        </DialogTrigger>
-        
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="heading-md text-center">
-              Make an Inquiry
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            {/* Quick Contact Options */}
-            <div className="grid grid-cols-2 gap-3">
-              <a
-                href="tel:+447436190679"
-                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury body-sm"
-              >
-                <Phone className="w-4 h-4" />
-                <span>Call Now</span>
-              </a>
-              <a
-                href="mailto:info@fivelondon.com"
-                className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury body-sm"
-              >
-                <Mail className="w-4 h-4" />
-                <span>Email Us</span>
-              </a>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
-              </div>
-              <div className="relative flex justify-center caption">
-                <span className="bg-background px-2 text-muted-foreground">Or fill the form</span>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="body-sm">Name *</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  placeholder="Your name"
-                  className="border-border focus:border-primary transition-luxury"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email" className="body-sm">Email *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  placeholder="your@email.com"
-                  className="border-border focus:border-primary transition-luxury"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="body-sm">Phone</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="+44 7436 190679"
-                  className="border-border focus:border-primary transition-luxury"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message" className="body-sm">Message *</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => handleInputChange('message', e.target.value)}
-                  placeholder="Tell us about your requirements..."
-                  className="border-border focus:border-primary transition-luxury min-h-[100px]"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full five-london-button"
-              >
-                Send Inquiry
-              </Button>
-            </form>
-
-            <p className="caption text-center leading-relaxed">
-              All inquiries are handled with complete discretion and confidentiality.
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <a 
+        href="https://wa.me/447436190679"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Button
+          size="sm"
+          className="shadow-elegant hover:shadow-luxury transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90 caption px-6 py-3"
+        >
+          <MessageCircle className="w-4 h-4 mr-2" />
+          Book Now
+        </Button>
+      </a>
     </div>
   );
 };

@@ -99,7 +99,18 @@ const Contact = () => {
                   <h3 className="text-xl font-heading font-bold mb-2">{method.title}</h3>
                   <p className="text-lg font-medium text-primary mb-2">{method.details}</p>
                   <p className="text-muted-foreground mb-4">{method.description}</p>
-                  <Button className="luxury-button w-full">
+                  <Button 
+                    className="luxury-button w-full"
+                    onClick={() => {
+                      if (method.title === 'WhatsApp') {
+                        window.open('https://wa.me/447436190679', '_blank');
+                      } else if (method.title === 'Phone') {
+                        window.location.href = 'tel:+447436190679';
+                      } else if (method.title === 'Email') {
+                        window.location.href = 'mailto:info@fivelondon.com';
+                      }
+                    }}
+                  >
                     {method.action}
                   </Button>
                 </Card>

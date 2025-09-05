@@ -98,7 +98,9 @@ export const Reviews: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a 
-                href="tel:+447436190679"
+                href="https://wa.me/447436190679"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="minimal-button bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Book Now: +44 7436 190679

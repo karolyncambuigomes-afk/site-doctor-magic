@@ -214,10 +214,7 @@ export const ModelProfile: React.FC = () => {
                 variant="outline" 
                 size="sm"
                 className="text-sm px-6 py-2 hover:bg-accent hover:text-accent-foreground transition-luxury"
-                onClick={() => {
-                  const bookSection = document.querySelector('#book-section');
-                  bookSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Book Now
               </Button>
@@ -325,7 +322,11 @@ export const ModelProfile: React.FC = () => {
                 <Phone className="mr-2 h-4 w-4" />
                 Call Now
               </Button>
-              <Button variant="outline" className="flex-1 py-3">
+              <Button 
+                variant="outline" 
+                className="flex-1 py-3"
+                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+              >
                 <MessageCircle className="mr-2 h-4 w-4" />
                 WhatsApp
               </Button>

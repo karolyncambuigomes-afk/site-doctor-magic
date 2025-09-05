@@ -1,22 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
-import { MessageCircle, Phone, Mail } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export const BookNowButton = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-  const { toast } = useToast();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,34 +16,6 @@ export const BookNowButton = () => {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Please fill in all required fields",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // Here you would typically send the data to your backend
-    console.log('Booking inquiry:', formData);
-    
-    toast({
-      title: "Inquiry sent successfully",
-      description: "We'll get back to you within 24 hours."
-    });
-
-    setIsOpen(false);
-    setFormData({ name: '', email: '', phone: '', message: '' });
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
 
   if (!isVisible) return null;
 

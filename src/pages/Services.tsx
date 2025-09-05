@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ChevronRight, Clock } from 'lucide-react';
+import { useBlogLinks } from '@/hooks/useBlogLinks';
 
 const Services = () => {
+  const { getBlogLinkForKeyword, getBlogTitleForKeyword } = useBlogLinks();
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -232,14 +234,29 @@ const Services = () => {
                                 <div key={i} className="flex items-center text-sm text-muted-foreground">
                                   <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
                                   {linkConfig ? (
-                                    <Link 
-                                      to={service.blogLink}
-                                      className="text-primary hover:text-primary/80 transition-colors underline"
-                                      title={linkConfig.title}
-                                      aria-label={linkConfig.title}
-                                    >
-                                      {linkConfig.text}
-                                    </Link>
+                                    (() => {
+                                      const dynamicLink = getBlogLinkForKeyword(feature);
+                                      const dynamicTitle = getBlogTitleForKeyword(feature);
+                                      return dynamicLink ? (
+                                        <Link 
+                                          to={dynamicLink}
+                                          className="text-primary hover:text-primary/80 transition-colors underline"
+                                          title={dynamicTitle || linkConfig.title}
+                                          aria-label={dynamicTitle || linkConfig.title}
+                                        >
+                                          {linkConfig.text}
+                                        </Link>
+                                      ) : (
+                                        <Link 
+                                          to={service.blogLink}
+                                          className="text-primary hover:text-primary/80 transition-colors underline"
+                                          title={linkConfig.title}
+                                          aria-label={linkConfig.title}
+                                        >
+                                          {linkConfig.text}
+                                        </Link>
+                                      );
+                                    })()
                                   ) : (
                                     feature
                                   )}

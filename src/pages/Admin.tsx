@@ -63,6 +63,7 @@ interface BlogPost {
   image: string | null;
   meta_description: string | null;
   seo_keywords: string | null;
+  service_keywords: string[] | null;
   is_published: boolean;
   published_at: string | null;
   read_time: number | null;
@@ -115,9 +116,22 @@ export const Admin: React.FC = () => {
     image: '',
     meta_description: '',
     seo_keywords: '',
+    service_keywords: [],
     is_published: false,
     read_time: null
   });
+
+  // Available service keywords that can be linked
+  const availableServiceKeywords = [
+    "Michelin-starred restaurants",
+    "Corporate event experience", 
+    "International experience",
+    "Theatre knowledge",
+    "Event experience",
+    "Wine knowledge",
+    "Music appreciation",
+    "Customized experiences"
+  ];
 
   // Check if user is admin
   useEffect(() => {
@@ -427,6 +441,7 @@ export const Admin: React.FC = () => {
         image: '',
         meta_description: '',
         seo_keywords: '',
+        service_keywords: [],
         is_published: false,
         read_time: null
       });
@@ -1073,6 +1088,42 @@ export const Admin: React.FC = () => {
                           onChange={(e) => setBlogFormData({...blogFormData, seo_keywords: e.target.value})}
                           placeholder="palavra1, palavra2, palavra3"
                         />
+                      </div>
+
+                      <div className="space-y-4">
+                        <Label>Palavras-chave de Serviços (para vincular aos links da página Services)</Label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                          {availableServiceKeywords.map((keyword) => (
+                            <label
+                              key={keyword}
+                              className="flex items-center space-x-2 cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={(blogFormData.service_keywords || []).includes(keyword)}
+                                onChange={(e) => {
+                                  const currentKeywords = blogFormData.service_keywords || [];
+                                  if (e.target.checked) {
+                                    setBlogFormData({
+                                      ...blogFormData,
+                                      service_keywords: [...currentKeywords, keyword]
+                                    });
+                                  } else {
+                                    setBlogFormData({
+                                      ...blogFormData,
+                                      service_keywords: currentKeywords.filter(k => k !== keyword)
+                                    });
+                                  }
+                                }}
+                                className="rounded border-gray-300"
+                              />
+                              <span className="text-sm">{keyword}</span>
+                            </label>
+                          ))}
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Selecione as palavras-chave que devem linkar para este post na página de serviços
+                        </p>
                       </div>
 
                       <div className="flex items-center space-x-2">

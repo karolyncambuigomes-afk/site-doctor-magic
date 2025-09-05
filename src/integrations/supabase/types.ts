@@ -58,6 +58,7 @@ export type Database = {
           published_at: string | null
           read_time: number | null
           seo_keywords: string | null
+          service_keywords: string[] | null
           slug: string
           title: string
           updated_at: string
@@ -75,6 +76,7 @@ export type Database = {
           published_at?: string | null
           read_time?: number | null
           seo_keywords?: string | null
+          service_keywords?: string[] | null
           slug: string
           title: string
           updated_at?: string
@@ -92,6 +94,7 @@ export type Database = {
           published_at?: string | null
           read_time?: number | null
           seo_keywords?: string | null
+          service_keywords?: string[] | null
           slug?: string
           title?: string
           updated_at?: string

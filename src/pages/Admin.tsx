@@ -138,52 +138,52 @@ export const Admin: React.FC = () => {
       
       <Navigation />
       
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100 pt-20 pb-16">
+      <div className="min-h-screen bg-white pt-20 pb-16">
         <div className="container-width">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
+            <h1 className="text-4xl font-bold text-black mb-2">
               Painel Administrativo
             </h1>
-            <p className="text-muted-foreground">Gerencie modelos, blog posts e usuários</p>
+            <p className="text-gray-600">Gerencie modelos, blog posts e usuários</p>
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-white/50 backdrop-blur-sm">
-              <TabsTrigger value="models" className="data-[state=active]:bg-white data-[state=active]:text-purple-600">
+            <TabsList className="grid w-full grid-cols-5 bg-black">
+              <TabsTrigger value="models" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
                 <Users className="w-4 h-4 mr-2" />
                 Modelos
               </TabsTrigger>
-              <TabsTrigger value="blog" className="data-[state=active]:bg-white data-[state=active]:text-purple-600">
+              <TabsTrigger value="blog" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
                 <FileText className="w-4 h-4 mr-2" />
                 Blog
               </TabsTrigger>
-              <TabsTrigger value="users" className="data-[state=active]:bg-white data-[state=active]:text-purple-600">
+              <TabsTrigger value="users" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
                 <Users className="w-4 h-4 mr-2" />
                 Usuários
               </TabsTrigger>
-              <TabsTrigger value="gallery" className="data-[state=active]:bg-white data-[state=active]:text-purple-600">
+              <TabsTrigger value="gallery" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
                 <Image className="w-4 h-4 mr-2" />
                 Galeria
               </TabsTrigger>
-              <TabsTrigger value="content" className="data-[state=active]:bg-white data-[state=active]:text-purple-600">
+              <TabsTrigger value="content" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
                 <Settings className="w-4 h-4 mr-2" />
                 Conteúdo
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="models" className="space-y-6">
-              <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+              <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-purple-700">Gerenciar Modelos</CardTitle>
-                  <CardDescription>Visualize e gerencie todos os modelos cadastrados</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Modelos</CardTitle>
+                  <CardDescription className="text-gray-600">Visualize e gerencie todos os modelos cadastrados</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {loadingData ? (
-                    <div className="text-center py-8">Carregando modelos...</div>
+                    <div className="text-center py-8 text-gray-600">Carregando modelos...</div>
                   ) : models.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-muted-foreground mb-4">Nenhum modelo encontrado</p>
-                      <Button>
+                      <p className="text-gray-600 mb-4">Nenhum modelo encontrado</p>
+                      <Button className="bg-black text-white hover:bg-gray-800">
                         <Plus className="w-4 h-4 mr-2" />
                         Adicionar Primeiro Modelo
                       </Button>
@@ -191,21 +191,21 @@ export const Admin: React.FC = () => {
                   ) : (
                     <div className="space-y-4">
                       {models.map((model) => (
-                        <div key={model.id} className="flex items-center justify-between p-4 border rounded-lg bg-white">
+                        <div key={model.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
                           <div className="flex items-center space-x-4">
                             {model.image && (
                               <img src={model.image} alt={model.name} className="w-12 h-12 rounded-full object-cover" />
                             )}
                             <div>
-                              <h3 className="font-medium">{model.name}</h3>
-                              <p className="text-sm text-muted-foreground">{model.location}</p>
+                              <h3 className="font-medium text-black">{model.name}</h3>
+                              <p className="text-sm text-gray-600">{model.location}</p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -218,18 +218,18 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="blog" className="space-y-6">
-              <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+              <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-purple-700">Gerenciar Blog</CardTitle>
-                  <CardDescription>Gerencie posts do blog e conteúdo editorial</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Blog</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie posts do blog e conteúdo editorial</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {loadingData ? (
-                    <div className="text-center py-8">Carregando posts...</div>
+                    <div className="text-center py-8 text-gray-600">Carregando posts...</div>
                   ) : blogPosts.length === 0 ? (
                     <div className="text-center py-8">
-                      <p className="text-muted-foreground mb-4">Nenhum post encontrado</p>
-                      <Button>
+                      <p className="text-gray-600 mb-4">Nenhum post encontrado</p>
+                      <Button className="bg-black text-white hover:bg-gray-800">
                         <Plus className="w-4 h-4 mr-2" />
                         Criar Primeiro Post
                       </Button>
@@ -237,26 +237,26 @@ export const Admin: React.FC = () => {
                   ) : (
                     <div className="space-y-4">
                       {blogPosts.map((post) => (
-                        <div key={post.id} className="flex items-center justify-between p-4 border rounded-lg bg-white">
+                        <div key={post.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
-                              <h3 className="font-medium">{post.title}</h3>
-                              <Badge variant={post.is_published ? "default" : "secondary"}>
+                              <h3 className="font-medium text-black">{post.title}</h3>
+                              <Badge variant={post.is_published ? "default" : "secondary"} className={post.is_published ? "bg-black text-white" : "bg-gray-200 text-gray-800"}>
                                 {post.is_published ? "Publicado" : "Rascunho"}
                               </Badge>
                             </div>
-                            <p className="text-sm text-muted-foreground">{post.excerpt}</p>
-                            <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
+                            <p className="text-sm text-gray-600">{post.excerpt}</p>
+                            <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
                               <span>{post.category}</span>
                               <span>{post.read_time} min de leitura</span>
                               <span>{new Date(post.created_at).toLocaleDateString()}</span>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button variant="outline" size="sm">
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
@@ -269,30 +269,31 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="users" className="space-y-6">
-              <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+              <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-purple-700">Gerenciar Usuários</CardTitle>
-                  <CardDescription>Gerencie registros e permissões de usuários</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Usuários</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie registros e permissões de usuários</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {loadingData ? (
-                    <div className="text-center py-8">Carregando usuários...</div>
+                    <div className="text-center py-8 text-gray-600">Carregando usuários...</div>
                   ) : (
                     <div className="space-y-4">
                       {profiles.map((profile) => (
-                        <div key={profile.id} className="flex items-center justify-between p-4 border rounded-lg bg-white">
+                        <div key={profile.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
                           <div>
-                            <h3 className="font-medium">{profile.email}</h3>
+                            <h3 className="font-medium text-black">{profile.email}</h3>
                             <div className="flex items-center space-x-2 mt-1">
-                              <Badge variant={profile.status === 'approved' ? 'default' : profile.status === 'rejected' ? 'destructive' : 'secondary'}>
+                              <Badge variant={profile.status === 'approved' ? 'default' : profile.status === 'rejected' ? 'destructive' : 'secondary'} 
+                                     className={profile.status === 'approved' ? 'bg-black text-white' : ''}>
                                 {profile.status}
                               </Badge>
-                              <Badge variant="outline">{profile.role}</Badge>
+                              <Badge variant="outline" className="border-gray-300 text-gray-700">{profile.role}</Badge>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm">Aprovar</Button>
-                            <Button variant="outline" size="sm">Rejeitar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">Aprovar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 text-black hover:bg-gray-50">Rejeitar</Button>
                           </div>
                         </div>
                       ))}
@@ -303,10 +304,10 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="gallery" className="space-y-6">
-              <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+              <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-purple-700">Gerenciar Galeria</CardTitle>
-                  <CardDescription>Gerencie imagens e carrosséis da galeria</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Galeria</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie imagens e carrosséis da galeria</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <GalleryManager />
@@ -315,10 +316,10 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="content" className="space-y-6">
-              <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
+              <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-purple-700">Gerenciar Conteúdo</CardTitle>
-                  <CardDescription>Gerencie conteúdo das páginas do site</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Conteúdo</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie conteúdo das páginas do site</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <SiteContentManager />

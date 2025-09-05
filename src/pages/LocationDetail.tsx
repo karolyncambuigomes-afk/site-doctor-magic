@@ -149,7 +149,7 @@ const LocationDetail = () => {
             <div className="max-w-6xl mx-auto px-4">
               <div className="text-center mb-16">
                 <h2 className="font-sans text-2xl md:text-4xl font-extralight tracking-wide text-black mb-6">
-                  Available Companions in {location.name}
+                  {location.name} Escorts Gallery
                 </h2>
                 <div className="w-16 h-px bg-black/20 mx-auto"></div>
               </div>

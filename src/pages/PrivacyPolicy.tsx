@@ -88,7 +88,7 @@ const PrivacyPolicy = () => {
               </p>
               <p className="text-stone-600">
                 Email: privacy@fivelondon.com<br />
-                Phone: +44 20 7123 4567
+                Phone: +44 7436 190679
               </p>
             </section>
           </div>

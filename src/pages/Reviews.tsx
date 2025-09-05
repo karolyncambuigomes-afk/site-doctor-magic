@@ -98,10 +98,10 @@ export const Reviews: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a 
-                href="tel:+442045678901"
+                href="tel:+447436190679"
                 className="minimal-button bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                Book Now: +44 20 4567 8901
+                Book Now: +44 7436 190679
               </a>
             </div>
           </div>

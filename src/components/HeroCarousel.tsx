@@ -94,7 +94,7 @@ export const HeroCarousel = () => {
                   </button>
                 </Link>
                 
-                <a href="tel:+442045678901">
+                <a href="tel:+447436190679">
                   <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
                     Contact Us
                   </button>

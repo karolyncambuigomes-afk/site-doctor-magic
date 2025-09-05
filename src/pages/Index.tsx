@@ -117,10 +117,10 @@ const Index = () => {
               </Link>
               
               <a 
-                href="tel:+442045678901"
+                href="tel:+447436190679"
                 className="text-lg tracking-wide text-white/80 hover:text-white transition-colors"
               >
-                +44 20 4567 8901
+                +44 7436 190679
               </a>
             </div>
           </div>

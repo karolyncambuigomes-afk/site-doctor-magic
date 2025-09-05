@@ -38,7 +38,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "+44 20 4567 8901",
+      details: "+44 7436 190679",
       description: "Available 24/7 for immediate assistance",
       action: "Call Now"
     },
@@ -52,7 +52,7 @@ const Contact = () => {
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      details: "+44 20 4567 8901",
+      details: "+44 7436 190679",
       description: "Secure messaging for quick inquiries",
       action: "Start Chat"
     }
@@ -238,7 +238,7 @@ const Contact = () => {
                     For urgent bookings or immediate assistance, call our 24/7 hotline
                   </p>
                   <Button variant="outline" className="w-full bg-white/20 border-white/30 text-white hover:bg-white/30">
-                    Call +44 20 4567 8901
+                    Call +44 7436 190679
                   </Button>
                 </Card>
               </div>

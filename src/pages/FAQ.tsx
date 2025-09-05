@@ -41,7 +41,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "How do I book an escort?",
-      answer: "Booking is simple and can be done through multiple channels. You can call us directly at +44 20 4567 8901, send an email to info@fivelondon.com, or use our online booking form. We recommend booking in advance to ensure availability of your preferred companion. Our concierge team is available 24/7 to assist with your booking and answer any questions."
+      answer: "Booking is simple and can be done through multiple channels. You can call us directly at +44 7436 190679, send an email to info@fivelondon.com, or use our online booking form. We recommend booking in advance to ensure availability of your preferred companion. Our concierge team is available 24/7 to assist with your booking and answer any questions."
     },
     {
       question: "Is discretion guaranteed?",
@@ -157,7 +157,7 @@ const FAQ = () => {
                   <h3 className="text-xl font-semibold mb-2">Call Us</h3>
                   <p className="text-muted-foreground mb-4">Speak directly with our team</p>
                   <Button className="luxury-button w-full">
-                    +44 20 4567 8901
+                    +44 7436 190679
                   </Button>
                 </Card>
 

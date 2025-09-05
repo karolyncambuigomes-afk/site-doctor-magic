@@ -41,11 +41,11 @@ export const Footer = () => {
             <h4 className="caption text-foreground/60">Connect</h4>
             <div className="space-y-3">
               <a 
-                href="tel:+442045678901"
+                href="tel:+447436190679"
                 className="flex items-center space-x-2 caption text-foreground/40 hover:text-foreground/60 transition-luxury"
               >
                 <Phone className="w-3 h-3" />
-                <span>+44 20 4567 8901</span>
+                <span>+44 7436 190679</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"

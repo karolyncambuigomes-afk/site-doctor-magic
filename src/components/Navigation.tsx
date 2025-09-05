@@ -88,10 +88,10 @@ export const Navigation = () => {
           {/* Contact & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
             <a 
-              href="tel:+442045678901"
+              href="tel:+447436190679"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              +44 20 4567 8901
+              +44 7436 190679
             </a>
             
             {user ? (
@@ -160,10 +160,10 @@ export const Navigation = () => {
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
                   <a 
-                    href="tel:+442045678901" 
+                    href="tel:+447436190679" 
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    +44 20 4567 8901
+                    +44 7436 190679
                   </a>
                   
                   {user ? (

@@ -84,7 +84,7 @@ export const BookNowButton = () => {
             {/* Quick Contact Options */}
             <div className="grid grid-cols-2 gap-3">
               <a
-                href="tel:+442045678901"
+                href="tel:+447436190679"
                 className="flex items-center justify-center space-x-2 px-4 py-3 border border-border hover:bg-muted transition-luxury body-sm"
               >
                 <Phone className="w-4 h-4" />
@@ -140,7 +140,7 @@ export const BookNowButton = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  placeholder="+44 20 xxxx xxxx"
+                  placeholder="+44 7436 190679"
                   className="border-border focus:border-primary transition-luxury"
                 />
               </div>

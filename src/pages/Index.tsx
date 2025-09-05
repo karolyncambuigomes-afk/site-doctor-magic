@@ -104,7 +104,7 @@ const Index = () => {
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
-                  className="group block relative overflow-hidden aspect-[3/4] bg-muted"
+                  className="group block relative overflow-hidden aspect-[4/5] bg-muted"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <img

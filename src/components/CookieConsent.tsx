@@ -15,8 +15,9 @@ export const CookieConsent = () => {
     }
   }, []);
 
-  const acceptCookies = () => {
+  const acceptAll = () => {
     localStorage.setItem('cookieConsent', 'accepted');
+    localStorage.setItem('privacyConsent', 'accepted');
     setShowConsent(false);
     // Initialize analytics here
     if (window.gtag) {
@@ -27,8 +28,9 @@ export const CookieConsent = () => {
     }
   };
 
-  const declineCookies = () => {
+  const declineAll = () => {
     localStorage.setItem('cookieConsent', 'declined');
+    localStorage.setItem('privacyConsent', 'declined');
     setShowConsent(false);
   };
 
@@ -37,12 +39,15 @@ export const CookieConsent = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 shadow-lg z-50">
       <div className="max-w-6xl mx-auto p-4">
-        {/* Privacy Info Section - Only for non-authenticated users */}
-        {!user && (
-          <div className="mb-4 pb-4 border-b border-stone-200">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10">
+        
+        {/* Combined Privacy + Cookie Info */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <div className="flex-1 space-y-3">
+            
+            {/* Privacy Section - Only for non-authenticated users */}
+            {!user && (
+              <div className="flex items-start gap-3">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 shrink-0">
                   <Shield className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1">
@@ -54,65 +59,58 @@ export const CookieConsent = () => {
                   </p>
                 </div>
               </div>
-              
-              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Eye className="w-3 h-3" />
-                  <span>Limited Info</span>
-                </div>
-                <div className="w-px h-3 bg-border"></div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Lock className="w-3 h-3" />
-                  <span>Full Access</span>
-                </div>
-                <Link to="/auth">
-                  <Button size="sm" variant="outline" className="text-xs px-3 py-1.5 h-7">
-                    Register
-                  </Button>
-                </Link>
+            )}
+
+            {/* Cookie Section */}
+            <div className="flex items-start gap-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 shrink-0">
+                <Cookie className="w-4 h-4 text-amber-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-sm text-foreground mb-1">
+                  Cookie & Analytics
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  We use cookies to enhance your experience and analyze our traffic. 
+                  {' '}
+                  <Link to="/privacy-policy" className="text-stone-900 underline hover:no-underline">
+                    Privacy Policy
+                  </Link>
+                </p>
               </div>
             </div>
           </div>
-        )}
-
-        {/* Cookie Consent Section */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-3 flex-1">
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-100">
-              <Cookie className="w-4 h-4 text-amber-600" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-sm text-foreground mb-1">
-                Cookie Settings
-              </h3>
-              <p className="text-xs text-stone-600 leading-relaxed">
-                We use cookies to enhance your experience and analyze our traffic. 
-                By continuing to use our site, you consent to our use of cookies.{' '}
-                <Link to="/privacy-policy" className="text-stone-900 underline hover:no-underline">
-                  Privacy Policy
-                </Link>
-              </p>
-            </div>
-          </div>
           
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Single Accept/Decline Section */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full lg:w-auto">
             <Button
               variant="outline"
               size="sm"
-              onClick={declineCookies}
-              className="text-stone-600 border-stone-300 text-xs h-8"
+              onClick={declineAll}
+              className="text-stone-600 border-stone-300 text-sm h-9 px-6"
             >
-              Decline
+              Não Aceitar
             </Button>
             <Button
               size="sm"
-              onClick={acceptCookies}
-              className="bg-stone-900 text-white hover:bg-stone-800 text-xs h-8"
+              onClick={acceptAll}
+              className="bg-stone-900 text-white hover:bg-stone-800 text-sm h-9 px-6"
             >
-              Accept All
+              Aceitar Tudo
             </Button>
           </div>
         </div>
+        
+        {/* Register button for non-authenticated users */}
+        {!user && (
+          <div className="mt-3 pt-3 border-t border-stone-200 flex items-center justify-center">
+            <Link to="/auth">
+              <Button size="sm" variant="outline" className="text-xs px-4 py-2 h-8">
+                Registrar para Ver Perfis Completos
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

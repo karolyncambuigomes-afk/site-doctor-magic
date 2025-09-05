@@ -2,20 +2,13 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { Footer } from '@/components/Footer';
-import { PrivacyBanner } from '@/components/PrivacyBanner';
-import { CookieConsent } from '@/components/CookieConsent';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Shield, Clock, Heart, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModelCard } from '@/components/ModelCard';
 import { models } from '@/data/models';
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { anonymizeModelsArray } from '@/utils/dataAnonymizer';
 
 const Index = () => {
-  const { user } = useAuth();
-  const isAuthenticated = !!user;
-  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -36,16 +29,35 @@ const Index = () => {
     }
   };
 
+  const features = [
+    {
+      icon: Shield,
+      title: "Discreet",
+      description: "Complete confidentiality and privacy guaranteed"
+    },
+    {
+      icon: Clock,
+      title: "Available",
+      description: "24/7 service with immediate confirmation"
+    },
+    {
+      icon: Heart,
+      title: "Curated",
+      description: "Each companion personally vetted for sophistication"
+    },
+    {
+      icon: Star,
+      title: "Premium",
+      description: "Luxury experiences tailored to exceed expectations"
+    }
+  ];
 
   // Debug - verificar se models está carregando
   console.log('Models array:', models, 'Length:', models?.length);
 
-  // Use anonymized data for non-authenticated users
-  const displayModels = anonymizeModelsArray(models, isAuthenticated);
-  
   // Carrossel state
   const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselImages = displayModels.slice(0, 12); // Pegar 12 modelos para o carrossel
+  const carouselImages = models.slice(0, 12); // Pegar 12 modelos para o carrossel
 
   // Auto-play do carrossel
   useEffect(() => {
@@ -75,13 +87,12 @@ const Index = () => {
       />
       
       <Navigation />
-      {/* <PrivacyBanner /> */}
       
       <main>
         <HeroSection />
         
         {/* Introduction Section - About the Agency */}
-        <section className="py-8 md:py-12 lg:py-16 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">
             <div className="max-w-4xl mx-auto text-center space-y-8">
               <div className="space-y-4">
@@ -95,23 +106,40 @@ const Index = () => {
                   elegant and dedicated to providing exceptional experiences.
                 </p>
                 
-                <p className="text-sm md:text-base lg:text-base leading-relaxed">
+                <p className="text-xs md:text-sm lg:text-base leading-relaxed">
                   With absolute discretion and personalized service, we cater to discerning clients 
                   seeking refined companionship for social events, business dinners or special moments. 
                   Available 24 hours a day, 7 days a week.
                 </p>
               </div>
 
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+                {features.map((feature, index) => (
+                  <div key={feature.title} className="text-center space-y-3">
+                    <div className="w-12 h-12 mx-auto flex items-center justify-center rounded-full bg-muted/50">
+                      <feature.icon className="w-6 h-6 text-foreground/70" />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="text-sm font-medium tracking-[0.1em] uppercase text-foreground">
+                        {feature.title}
+                      </h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
         
         {/* Loro Piana Style - Models Gallery */}
-        <section className="py-8 md:py-12 lg:py-16 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8">
-              {displayModels && displayModels.length > 0 ? displayModels.slice(0, 8).map((model, index) => (
+              {models && models.length > 0 ? models.slice(0, 8).map((model, index) => (
                 <Link 
                   key={model.id}
                   to={`/models/${model.id}`} 
@@ -142,7 +170,7 @@ const Index = () => {
                         {model.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-white/80">
-                        {model.age ? `${model.age} • ` : ''}{model.location}
+                        {model.location}
                       </p>
                     </div>
                   </div>
@@ -178,7 +206,7 @@ const Index = () => {
             {/* Carousel Container - Uma foto por vez */}
             <div className="relative max-w-4xl mx-auto px-4">
               {/* Main Carousel */}
-              <div className="relative aspect-[4/3] md:aspect-[3/2] lg:aspect-[2/1] overflow-hidden">
+              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[16/10] overflow-hidden">
                 {carouselImages.map((model, index) => (
                   <div
                     key={`${model.id}-${index}`}
@@ -249,11 +277,11 @@ const Index = () => {
         <section className="py-16 md:py-20 bg-muted/10">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto space-y-8">
-              <h2 className="text-lg md:text-xl lg:text-xl font-light tracking-[0.2em] uppercase text-foreground">
+              <h2 className="text-lg md:text-xl font-light tracking-[0.2em] uppercase text-foreground">
                 Begin Your Experience
               </h2>
               
-              <p className="text-sm md:text-base lg:text-base text-muted-foreground leading-relaxed">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                 Contact us to arrange your perfect companion. Available 24/7 for immediate bookings.
               </p>
               
@@ -278,7 +306,6 @@ const Index = () => {
       </main>
 
       <Footer />
-      <CookieConsent />
     </>
   );
 };

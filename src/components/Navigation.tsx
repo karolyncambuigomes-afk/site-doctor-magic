@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogOut } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
+import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { href: '/about', label: 'About Us' },
@@ -15,7 +14,6 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { user, isAdmin, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,16 +41,14 @@ export const Navigation = () => {
       <div className="container-width">
         <div className="flex items-center justify-between py-3 md:py-4">{/* Loro Piana style - clean spacing */}
           {/* Five London Logo - Always Dark for Loro Piana Style */}
-          <div className="flex-1 pl-8 lg:pl-16">
-            <Link 
-              to="/" 
-              className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
-                isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
-              }`}
-            >
-              Five London
-            </Link>
-          </div>
+          <Link 
+            to="/" 
+            className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
+              isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
+            }`}
+          >
+            Five London
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-16">
@@ -69,38 +65,19 @@ export const Navigation = () => {
             ))}
           </div>
 
-          {/* Contact & Auth */}
-          <div className="hidden lg:flex flex-col items-center space-y-2 flex-1 justify-center pr-8 lg:pr-16">
-            <div className="flex items-center gap-2">
-              {user && isAdmin && (
-                <>
-                  <Link to="/admin">
-                    <button className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1">
-                      <User className="h-3 w-3" />
-                      Admin
-                    </button>
-                  </Link>
-                  <button 
-                    onClick={signOut}
-                    className="five-london-button-outline text-xs px-3 py-1.5 flex items-center gap-1"
-                  >
-                    <LogOut className="h-3 w-3" />
-                    Sair
-                  </button>
-                </>
-              )}
-              <Link to="/contact">
-                <button className="five-london-button-outline text-xs px-4 py-1.5">
-                  Enquire
-                </button>
-              </Link>
-            </div>
+          {/* Contact */}
+          <div className="hidden lg:flex items-center space-x-12">
             <a 
               href="tel:+442045678901" 
-              className="caption hover:text-foreground transition-luxury text-xs"
+              className="caption hover:text-foreground transition-luxury"
             >
               +44 20 4567 8901
             </a>
+            <Link to="/contact">
+              <button className="five-london-button-outline">
+                Enquire
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -130,23 +107,6 @@ export const Navigation = () => {
                   </Link>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
-                  {user && isAdmin && (
-                    <>
-                      <Link to="/admin">
-                        <button className="five-london-button w-full flex items-center justify-center gap-2">
-                          <User className="h-4 w-4" />
-                          Admin
-                        </button>
-                      </Link>
-                      <button 
-                        onClick={signOut}
-                        className="five-london-button-outline w-full flex items-center justify-center gap-2"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        Sair
-                      </button>
-                    </>
-                  )}
                   <a 
                     href="tel:+442045678901" 
                     className="block caption hover:text-foreground transition-luxury"

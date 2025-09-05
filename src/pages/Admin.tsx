@@ -309,8 +309,8 @@ export const Admin: React.FC = () => {
                   <CardTitle className="text-black">Gerenciar Galeria</CardTitle>
                   <CardDescription className="text-gray-600">Gerencie imagens e carrosséis da galeria</CardDescription>
                 </CardHeader>
-                <CardContent className="text-black">
-                  <div className="text-black [&_*]:text-black">
+                <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black">
+                  <div className="bg-white [&_*]:bg-white [&_*]:text-black">
                     <GalleryManager />
                   </div>
                 </CardContent>

@@ -292,8 +292,8 @@ export const GalleryManager: React.FC = () => {
             </Dialog>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className="bg-white">
+          <div className="space-y-4 bg-white">
             {carouselItems.length === 0 ? (
               <div className="text-center py-12">
                 <Images className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
@@ -310,8 +310,8 @@ export const GalleryManager: React.FC = () => {
               carouselItems.map((item, index) => (
                 <div 
                   key={item.id} 
-                  className={`flex items-center gap-4 p-4 border rounded-lg ${
-                    !item.is_active ? 'opacity-50 bg-muted/20' : ''
+                  className={`flex items-center gap-4 p-4 border rounded-lg bg-white ${
+                    !item.is_active ? 'opacity-50' : ''
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2">

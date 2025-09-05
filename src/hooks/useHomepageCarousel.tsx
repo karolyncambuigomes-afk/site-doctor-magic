@@ -36,21 +36,12 @@ export const useHomepageCarousel = () => {
         return;
       }
 
-      // Get model details for each carousel item
-      const modelIds = carouselData?.map(item => item.model_id) || [];
-      
-      let modelsData = [];
-      if (modelIds.length > 0) {
-        const { data, error: modelsError } = await supabase
-          .from('models')
-          .select('id, location, price, age, characteristics')
-          .in('id', modelIds);
+      // Get all public models data
+      const { data: modelsData, error: modelsError } = await supabase
+        .rpc('get_public_models');
 
-        if (modelsError) {
-          console.error('Error fetching model details:', modelsError);
-        } else {
-          modelsData = data || [];
-        }
+      if (modelsError) {
+        console.error('Error fetching model details:', modelsError);
       }
 
       // Transform data to match our interface

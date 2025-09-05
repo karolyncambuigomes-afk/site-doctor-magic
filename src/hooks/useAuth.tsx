@@ -45,15 +45,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         
         if (session?.user) {
           // Check if user is admin
-          setTimeout(async () => {
-            const { data: profile } = await supabase
-              .from('profiles')
-              .select('role')
-              .eq('id', session.user.id)
-              .single();
-            
-            setIsAdmin(profile?.role === 'admin');
-          }, 0);
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+          
+          setIsAdmin(profile?.role === 'admin');
         } else {
           setIsAdmin(false);
         }
@@ -63,9 +61,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', session.user.id)
+          .single();
+        
+        setIsAdmin(profile?.role === 'admin');
+      } else {
+        setIsAdmin(false);
+      }
+      
       setLoading(false);
     });
 

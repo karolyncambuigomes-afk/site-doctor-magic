@@ -170,6 +170,39 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_carousel: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          is_active: boolean
+          model_id: string
+          model_name: string
+          order_index: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          is_active?: boolean
+          model_id: string
+          model_name: string
+          order_index?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          model_id?: string
+          model_name?: string
+          order_index?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       model_gallery: {
         Row: {
           caption: string | null

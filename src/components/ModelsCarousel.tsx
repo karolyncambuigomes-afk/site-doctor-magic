@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useModels } from '@/hooks/useModels';
+import { useHomepageCarousel } from '@/hooks/useHomepageCarousel';
 import {
   Carousel,
   CarouselContent,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/carousel";
 
 export const ModelsCarousel = () => {
-  const { models, loading } = useModels();
+  const { models, loading } = useHomepageCarousel();
   const [isMobile, setIsMobile] = useState(false);
   
   useEffect(() => {
@@ -72,18 +72,8 @@ export const ModelsCarousel = () => {
                       <img
                         src={model.image}
                         alt={model.name}
-                        className={`w-full aspect-[3/4] object-cover transition-all duration-700 ${
-                          model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
-                        }`}
+                        className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:scale-105"
                       />
-                      {/* Second Image (from gallery) - only if available */}
-                      {model.gallery && model.gallery.length > 1 && (
-                        <img
-                          src={model.gallery[0]}
-                          alt={`${model.name} - alternate view`}
-                          className="w-full aspect-[3/4] object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
-                        />
-                      )}
                       {/* Price overlay */}
                       {model.price && (
                         <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm text-white px-3 py-1 text-sm font-light tracking-wide z-10">

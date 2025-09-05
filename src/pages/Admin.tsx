@@ -22,6 +22,7 @@ import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Model {
   id: string;
@@ -1208,18 +1209,34 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="content" className="space-y-6">
-              <div className="space-y-6">
-                <SiteContentManager />
-                
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Gerenciar Serviços</CardTitle>
-                    <CardDescription>
-                      Configure quais posts do blog devem ser linkados nas palavras-chave da página de serviços
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
+              <h2 className="text-xl font-semibold mb-6">Gerenciar Conteúdo</h2>
+              
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                <AccordionItem value="site-content" className="border rounded-lg">
+                  <AccordionTrigger className="px-4 py-3 hover:no-underline">
+                    <div className="flex items-center gap-2">
+                      <Settings className="w-4 h-4" />
+                      <span className="font-medium">Conteúdo do Site</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4">
+                    <SiteContentManager />
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="services" className="border rounded-lg">
+                  <AccordionTrigger className="px-4 py-3 hover:no-underline">
+                    <div className="flex items-center gap-2">
+                      <FileText className="w-4 h-4" />
+                      <span className="font-medium">Gerenciar Serviços</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4">
                     <div className="space-y-6">
+                      <p className="text-sm text-muted-foreground">
+                        Configure quais posts do blog devem ser linkados nas palavras-chave da página de serviços
+                      </p>
+                      
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {availableServiceKeywords.map((keyword) => {
                           const linkedBlog = blogPosts.find(post => 
@@ -1254,7 +1271,7 @@ export const Admin: React.FC = () => {
                         })}
                       </div>
                       
-                      <div className="mt-8 p-4 bg-muted/50 rounded-lg">
+                      <div className="p-4 bg-muted/50 rounded-lg">
                         <h3 className="font-medium mb-2">Como linkar palavras-chave:</h3>
                         <ul className="text-sm text-muted-foreground space-y-1">
                           <li>• Vá para a aba "Blog" e edite ou crie um novo post</li>
@@ -1264,9 +1281,9 @@ export const Admin: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </TabsContent>
 
           </Tabs>

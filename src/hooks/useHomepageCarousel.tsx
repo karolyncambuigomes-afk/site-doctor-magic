@@ -1,3 +1,4 @@
+// UPDATED 2025: Homepage carousel with age and characteristics
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageMapper';

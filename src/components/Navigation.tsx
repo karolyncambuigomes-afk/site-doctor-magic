@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogOut, Settings } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { 
@@ -10,13 +10,61 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
 
 const navItems = [
-  { href: '/about', label: 'About Us' },
-  { href: '/models', label: 'Our Models' },
-  { href: '/services', label: 'Services' },
-  { href: '/locations', label: 'Location' },
-  { href: '/blog', label: 'Blog' },
+  { 
+    href: '/about', 
+    label: 'About Us',
+    dropdownItems: [
+      { href: '/about', label: 'Our Story' },
+      { href: '/about#team', label: 'Our Team' },
+      { href: '/about#values', label: 'Our Values' }
+    ]
+  },
+  { 
+    href: '/models', 
+    label: 'Our Models',
+    dropdownItems: [
+      { href: '/models', label: 'View All' },
+      { href: '/characteristics', label: 'Characteristics' },
+      { href: '/models?filter=featured', label: 'Featured Models' }
+    ]
+  },
+  { 
+    href: '/services', 
+    label: 'Services',
+    dropdownItems: [
+      { href: '/services', label: 'Our Services' },
+      { href: '/services#premium', label: 'Premium Experiences' },
+      { href: '/services#events', label: 'Events & Occasions' }
+    ]
+  },
+  { 
+    href: '/locations', 
+    label: 'Locations',
+    dropdownItems: [
+      { href: '/locations', label: 'All Locations' },
+      { href: '/locations/london', label: 'London' },
+      { href: '/locations/international', label: 'International' }
+    ]
+  },
+  { 
+    href: '/blog', 
+    label: 'Blog',
+    dropdownItems: [
+      { href: '/blog', label: 'Latest Articles' },
+      { href: '/blog?category=lifestyle', label: 'Lifestyle' },
+      { href: '/blog?category=fashion', label: 'Fashion' }
+    ]
+  },
 ];
 
 export const Navigation = () => {
@@ -61,20 +109,41 @@ export const Navigation = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-12">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={`font-medium text-sm transition-colors ${
-                  location.pathname === item.href 
-                    ? 'text-primary' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="hidden lg:flex items-center">
+            <NavigationMenu>
+              <NavigationMenuList className="space-x-8">
+                {navItems.map((item) => (
+                  <NavigationMenuItem key={item.href}>
+                    <NavigationMenuTrigger className="h-auto p-0 bg-transparent hover:bg-transparent focus:bg-transparent data-[active]:bg-transparent data-[state=open]:bg-transparent">
+                      <span className={`font-medium text-sm transition-colors ${
+                        location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+                          ? 'text-primary' 
+                          : 'text-muted-foreground hover:text-foreground'
+                      }`}>
+                        {item.label}
+                      </span>
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-48 p-2">
+                        {item.dropdownItems.map((dropdownItem) => (
+                          <NavigationMenuLink
+                            key={dropdownItem.href}
+                            asChild
+                          >
+                            <Link
+                              to={dropdownItem.href}
+                              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+                            >
+                              {dropdownItem.label}
+                            </Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
 
           {/* Contact & Auth */}

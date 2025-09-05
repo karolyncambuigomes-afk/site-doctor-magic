@@ -171,10 +171,11 @@ export const Admin: React.FC = () => {
       console.log('Fetching admin data...');
 
       try {
-        const [modelsResponse, profilesResponse, blogResponse] = await Promise.all([
+        const [modelsResponse, profilesResponse, blogResponse, galleryResponse] = await Promise.all([
           supabase.from('models').select('*').order('created_at', { ascending: false }),
           supabase.from('profiles').select('*').order('created_at', { ascending: false }),
-          supabase.from('blog_posts').select('*').order('created_at', { ascending: false })
+          supabase.from('blog_posts').select('*').order('created_at', { ascending: false }),
+          supabase.from('public_gallery').select('*').order('order_index')
         ]);
 
         if (modelsResponse.error) {
@@ -186,6 +187,7 @@ export const Admin: React.FC = () => {
           });
         } else {
           setModels(modelsResponse.data || []);
+          await loadAvailableImages(modelsResponse.data || []);
         }
 
         if (profilesResponse.error) {
@@ -198,6 +200,12 @@ export const Admin: React.FC = () => {
           console.error('Error fetching blog posts:', blogResponse.error);
         } else {
           setBlogPosts(blogResponse.data || []);
+        }
+
+        if (galleryResponse.error) {
+          console.error('Error fetching public gallery:', galleryResponse.error);
+        } else {
+          setPublicGallery(galleryResponse.data || []);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -536,6 +544,105 @@ export const Admin: React.FC = () => {
     setGalleryImages(
       newImages.map((img, i) => ({ ...img, order_index: i }))
     );
+  };
+
+  // Load available images from models for gallery selection
+  const loadAvailableImages = async (modelsData: Model[]) => {
+    try {
+      const images: Array<{id: string, image_url: string, model_id: string, model_name: string, source: 'profile' | 'gallery', caption?: string}> = [];
+      
+      // Add profile images
+      modelsData.forEach(model => {
+        if (model.image) {
+          images.push({
+            id: `profile-${model.id}`,
+            image_url: model.image,
+            model_id: model.id,
+            model_name: model.name,
+            source: 'profile'
+          });
+        }
+      });
+      
+      // Add gallery images
+      const { data: galleryData, error } = await supabase
+        .from('model_gallery')
+        .select('*, models!inner(name)')
+        .order('order_index');
+        
+      if (!error && galleryData) {
+        galleryData.forEach(gallery => {
+          images.push({
+            id: `gallery-${gallery.id}`,
+            image_url: gallery.image_url,
+            model_id: gallery.model_id,
+            model_name: gallery.models.name,
+            source: 'gallery',
+            caption: gallery.caption
+          });
+        });
+      }
+      
+      setAvailableImages(images);
+    } catch (error) {
+      console.error('Error loading available images:', error);
+    }
+  };
+
+  // Public gallery management functions
+  const addToPublicGallery = async (imageData: {image_url: string, model_id: string, model_name: string, caption?: string}) => {
+    try {
+      const { data, error } = await supabase
+        .from('public_gallery')
+        .insert([{
+          image_url: imageData.image_url,
+          model_id: imageData.model_id,
+          model_name: imageData.model_name,
+          caption: imageData.caption || '',
+          order_index: publicGallery.length
+        }])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setPublicGallery([...publicGallery, data]);
+      toast({
+        title: "Sucesso",
+        description: "Imagem adicionada à galeria pública"
+      });
+    } catch (error) {
+      console.error('Error adding to public gallery:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao adicionar imagem à galeria",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const removeFromPublicGallery = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('public_gallery')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
+      setPublicGallery(publicGallery.filter(item => item.id !== id));
+      toast({
+        title: "Sucesso",
+        description: "Imagem removida da galeria pública"
+      });
+    } catch (error) {
+      console.error('Error removing from public gallery:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao remover imagem da galeria",
+        variant: "destructive"
+      });
+    }
   };
 
   if (loading) {
@@ -1215,19 +1322,171 @@ export const Admin: React.FC = () => {
             </TabsContent>
 
             <TabsContent value="gallery">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Galeria de Imagens</CardTitle>
-                  <CardDescription>
-                    Gerencie as imagens dos modelos
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Funcionalidade de galeria em desenvolvimento...
-                  </p>
-                </CardContent>
-              </Card>
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Available Images Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Imagens Disponíveis</CardTitle>
+                      <CardDescription>
+                        Fotos das modelos (perfil e galeria)
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="max-h-96 overflow-y-auto">
+                      {availableImages.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-4">
+                          {availableImages.map((image) => {
+                            const isInPublicGallery = publicGallery.some(pg => pg.image_url === image.image_url);
+                            
+                            return (
+                              <div key={image.id} className="group relative">
+                                <div className="aspect-square overflow-hidden rounded-lg border">
+                                  <img
+                                    src={image.image_url}
+                                    alt={image.model_name}
+                                    className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                                  />
+                                </div>
+                                
+                                <div className="mt-2 space-y-1">
+                                  <p className="text-sm font-medium truncate">{image.model_name}</p>
+                                  <div className="flex items-center gap-2">
+                                    <Badge variant="outline" className="text-xs">
+                                      {image.source === 'profile' ? 'Perfil' : 'Galeria'}
+                                    </Badge>
+                                    {image.caption && (
+                                      <span className="text-xs text-muted-foreground truncate">
+                                        {image.caption}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                                
+                                <div className="mt-2">
+                                  {!isInPublicGallery ? (
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      className="w-full"
+                                      onClick={() => addToPublicGallery({
+                                        image_url: image.image_url,
+                                        model_id: image.model_id,
+                                        model_name: image.model_name,
+                                        caption: image.caption
+                                      })}
+                                    >
+                                      <Plus className="w-4 h-4 mr-2" />
+                                      Adicionar à Galeria
+                                    </Button>
+                                  ) : (
+                                    <Button size="sm" variant="secondary" className="w-full" disabled>
+                                      ✓ Na Galeria Pública
+                                    </Button>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="text-center py-8">
+                          <Image className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
+                          <p className="text-muted-foreground">
+                            Nenhuma imagem disponível. Adicione modelos primeiro.
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+
+                  {/* Public Gallery Section */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Galeria Pública</CardTitle>
+                      <CardDescription>
+                        Imagens que aparecem na galeria do site ({publicGallery.length} fotos)
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="max-h-96 overflow-y-auto">
+                      {publicGallery.length > 0 ? (
+                        <div className="grid grid-cols-2 gap-4">
+                          {publicGallery.map((item) => (
+                            <div key={item.id} className="group relative">
+                              <div className="aspect-square overflow-hidden rounded-lg border">
+                                <img
+                                  src={item.image_url}
+                                  alt={item.model_name}
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              
+                              <div className="mt-2 space-y-1">
+                                <p className="text-sm font-medium truncate">{item.model_name}</p>
+                                <div className="flex items-center justify-between">
+                                  <Badge variant="default" className="text-xs">
+                                    Público
+                                  </Badge>
+                                  <Button
+                                    size="sm"
+                                    variant="destructive"
+                                    onClick={() => removeFromPublicGallery(item.id)}
+                                  >
+                                    <Trash2 className="w-3 h-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                              
+                              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Button
+                                  size="sm"
+                                  variant="secondary"
+                                  className="bg-black/50 text-white border-none hover:bg-black/70"
+                                  onClick={() => {
+                                    // Navigate to model profile
+                                    window.open(`/models/${item.model_id}`, '_blank');
+                                  }}
+                                >
+                                  <Eye className="w-3 h-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-center py-8">
+                          <Image className="w-12 h-12 mx-auto text-muted-foreground mb-2" />
+                          <p className="text-muted-foreground">
+                            Nenhuma imagem na galeria pública.
+                          </p>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Selecione imagens da seção "Imagens Disponíveis" para adicionar.
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Instructions */}
+                <Card>
+                  <CardContent className="p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-primary/10 rounded-lg">
+                        <Settings className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium mb-1">Como funciona a Galeria</h4>
+                        <ul className="text-sm text-muted-foreground space-y-1">
+                          <li>• <strong>Imagens Disponíveis:</strong> Todas as fotos das modelos (perfil + galeria individual)</li>
+                          <li>• <strong>Galeria Pública:</strong> Fotos que aparecem na página de galeria do site</li>
+                          <li>• <strong>Clique na imagem:</strong> Quando visitantes clicarem numa foto da galeria pública, serão redirecionados para o perfil da modelo</li>
+                          <li>• <strong>Gestão:</strong> Adicione/remova fotos da galeria pública conforme necessário</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           </Tabs>
         </div>

@@ -202,6 +202,42 @@ export type Database = {
         }
         Relationships: []
       }
+      public_gallery: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          image_url: string
+          is_featured: boolean | null
+          model_id: string
+          model_name: string
+          order_index: number | null
+          updated_at: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          is_featured?: boolean | null
+          model_id: string
+          model_name: string
+          order_index?: number | null
+          updated_at?: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_featured?: boolean | null
+          model_id?: string
+          model_name?: string
+          order_index?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           button_text: string | null

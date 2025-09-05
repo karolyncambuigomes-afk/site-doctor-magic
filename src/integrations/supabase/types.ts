@@ -503,6 +503,7 @@ export type Database = {
       get_public_models: {
         Args: Record<PropertyKey, never>
         Returns: {
+          age: number
           availability: string
           characteristics: string[]
           created_at: string

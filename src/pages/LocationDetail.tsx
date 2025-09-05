@@ -82,7 +82,7 @@ const LocationDetail = () => {
         
         <main className="pt-16">
           {/* Hero Section with rich content */}
-          <section className="py-16 md:py-24 bg-background">
+          <section className="py-16 md:py-24 bg-white">
             <div className="max-w-6xl mx-auto px-4">
               <div className="text-center mb-16">
                 <h1 className="font-sans text-3xl md:text-5xl font-extralight tracking-wide text-black mb-6">

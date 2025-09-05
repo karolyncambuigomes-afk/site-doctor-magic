@@ -17,11 +17,12 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown, Edit3, X, Check } from 'lucide-react';
+import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown, Edit3, X, Check, HelpCircle } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
+import { FAQManager } from '@/components/FAQManager';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Model {
@@ -148,7 +149,7 @@ export const Admin: React.FC = () => {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-white border border-gray-300">
+            <TabsList className="grid w-full grid-cols-6 bg-white border border-gray-300">
               <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Users className="w-4 h-4 mr-2" />
                 Modelos
@@ -168,6 +169,10 @@ export const Admin: React.FC = () => {
               <TabsTrigger value="content" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Settings className="w-4 h-4 mr-2" />
                 Conteúdo
+              </TabsTrigger>
+              <TabsTrigger value="faq" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
+                <HelpCircle className="w-4 h-4 mr-2" />
+                FAQ
               </TabsTrigger>
             </TabsList>
 
@@ -326,6 +331,20 @@ export const Admin: React.FC = () => {
                 <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
                   <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
                     <SiteContentManager />
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="faq" className="space-y-6">
+              <Card className="bg-white border-gray-200 border">
+                <CardHeader>
+                  <CardTitle className="text-black">Gerenciar FAQ</CardTitle>
+                  <CardDescription className="text-gray-600">Gerencie perguntas e respostas frequentes</CardDescription>
+                </CardHeader>
+                <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
+                  <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
+                    <FAQManager />
                   </div>
                 </CardContent>
               </Card>

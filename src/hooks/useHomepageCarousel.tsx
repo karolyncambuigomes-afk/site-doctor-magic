@@ -78,6 +78,7 @@ export const useHomepageCarousel = () => {
 
   useEffect(() => {
     fetchCarouselModels();
+    // Force refresh - 2025-09-05 17:36
   }, []);
 
   return {

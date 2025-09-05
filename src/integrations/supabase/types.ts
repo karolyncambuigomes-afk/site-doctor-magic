@@ -101,6 +101,75 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_settings: {
+        Row: {
+          auto_play: boolean | null
+          id: string
+          overlay_opacity: number | null
+          show_dots: boolean | null
+          show_scroll_indicator: boolean | null
+          slide_duration: number | null
+          updated_at: string
+        }
+        Insert: {
+          auto_play?: boolean | null
+          id?: string
+          overlay_opacity?: number | null
+          show_dots?: boolean | null
+          show_scroll_indicator?: boolean | null
+          slide_duration?: number | null
+          updated_at?: string
+        }
+        Update: {
+          auto_play?: boolean | null
+          id?: string
+          overlay_opacity?: number | null
+          show_dots?: boolean | null
+          show_scroll_indicator?: boolean | null
+          slide_duration?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      hero_slides: {
+        Row: {
+          active: boolean | null
+          button_link: string | null
+          button_text: string | null
+          created_at: string
+          id: string
+          image_url: string
+          order_index: number
+          subtitle: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          order_index?: number
+          subtitle?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          order_index?: number
+          subtitle?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       model_gallery: {
         Row: {
           caption: string | null

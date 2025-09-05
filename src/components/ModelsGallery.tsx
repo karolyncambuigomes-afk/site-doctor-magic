@@ -50,7 +50,7 @@ export const ModelsGallery: React.FC = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <PrivacyBanner />
+      {/* <PrivacyBanner /> */}
       
       <main className="pt-20">
         {/* Elegant Header */}

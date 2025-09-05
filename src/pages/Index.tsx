@@ -74,7 +74,7 @@ const Index = () => {
       />
       
       <Navigation />
-      <PrivacyBanner />
+      {/* <PrivacyBanner /> */}
       
       <main>
         <HeroSection />

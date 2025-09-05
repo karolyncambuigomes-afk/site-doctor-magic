@@ -20,7 +20,7 @@ export const Footer = () => {
               onClick={() => setExploreOpen(!exploreOpen)}
               className="flex items-center justify-between w-full lg:cursor-default"
             >
-              <h4 className="caption text-foreground/60">Explore</h4>
+              <h3 className="caption text-foreground/60">Explore</h3>
               <div className="lg:hidden">
                 {exploreOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
               </div>
@@ -53,7 +53,7 @@ export const Footer = () => {
               onClick={() => setConnectOpen(!connectOpen)}
               className="flex items-center justify-between w-full lg:cursor-default"
             >
-              <h4 className="caption text-foreground/60">Connect</h4>
+              <h3 className="caption text-foreground/60">Connect</h3>
               <div className="lg:hidden">
                 {connectOpen ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
               </div>

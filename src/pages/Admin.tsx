@@ -33,7 +33,6 @@ export const Admin: React.FC = () => {
       <div className="min-h-screen bg-background pt-20 pb-16">
         <div className="container-width">
           <h1 className="text-4xl font-bold mb-8">Administração</h1>
-          <p className="text-muted-foreground">Painel administrativo em desenvolvimento.</p>
         </div>
       </div>
       

@@ -192,25 +192,53 @@ const Services = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
-                                "Michelin-starred restaurants": true,
-                                "Corporate event experience": true,
-                                "International experience": true,
-                                "Theatre knowledge": true,
-                                "Event experience": true,
-                                "Wine knowledge": true,
-                                "Music appreciation": true,
-                                "Customized experiences": true
+                                "Michelin-starred restaurants": {
+                                  text: "Michelin-starred restaurants",
+                                  title: "Discover London's finest Michelin-starred restaurants for elegant dinner dates"
+                                },
+                                "Corporate event experience": {
+                                  text: "Corporate event experience", 
+                                  title: "Professional companions for exclusive London business events"
+                                },
+                                "International experience": {
+                                  text: "International experience",
+                                  title: "Sophisticated travel companions for luxury getaways"
+                                },
+                                "Theatre knowledge": {
+                                  text: "Theatre knowledge",
+                                  title: "London's exclusive annual events and cultural experiences"
+                                },
+                                "Event experience": {
+                                  text: "Event experience",
+                                  title: "Expert companions for London's premier social events"
+                                },
+                                "Wine knowledge": {
+                                  text: "Wine knowledge", 
+                                  title: "Fine dining and wine experiences in London"
+                                },
+                                "Music appreciation": {
+                                  text: "Music appreciation",
+                                  title: "London's entertainment calendar and concert experiences"
+                                },
+                                "Customized experiences": {
+                                  text: "Customized experiences",
+                                  title: "Exclusive luxury experiences in London"
+                                }
                               };
+                              
+                              const linkConfig = linkableFeatures[feature];
                               
                               return (
                                 <div key={i} className="flex items-center text-sm text-muted-foreground">
                                   <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
-                                  {linkableFeatures[feature] ? (
+                                  {linkConfig ? (
                                     <Link 
                                       to={service.blogLink}
                                       className="text-primary hover:text-primary/80 transition-colors underline"
+                                      title={linkConfig.title}
+                                      aria-label={linkConfig.title}
                                     >
-                                      {feature}
+                                      {linkConfig.text}
                                     </Link>
                                   ) : (
                                     feature
@@ -233,8 +261,10 @@ const Services = () => {
                           <Link 
                             to={service.blogLink}
                             className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors"
+                            title={`Read more about ${service.title.toLowerCase()} - ${service.blogTitle}`}
+                            aria-label={`Learn more about ${service.title.toLowerCase()} experiences in London`}
                           >
-                            <span>Related article</span>
+                            <span>Read related article: {service.blogTitle}</span>
                             <ChevronRight className="ml-1 w-4 h-4" />
                           </Link>
                         </div>

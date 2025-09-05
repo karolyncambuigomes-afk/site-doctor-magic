@@ -9,9 +9,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { Plus, Edit, Trash2, Upload, Users, FileText } from 'lucide-react';
+import { Plus, Edit, Trash2, Upload, Users, FileText, Settings } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import BlogManager from '@/components/BlogManager';
+import ContentManager from '@/components/ContentManager';
 
 interface Model {
   id: string;
@@ -210,7 +211,7 @@ export default function Admin() {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="models" className="flex items-center gap-2">
                 <Users className="h-4 w-4" />
                 Modelos
@@ -218,6 +219,10 @@ export default function Admin() {
               <TabsTrigger value="blog" className="flex items-center gap-2">
                 <FileText className="h-4 w-4" />
                 Blog
+              </TabsTrigger>
+              <TabsTrigger value="content" className="flex items-center gap-2">
+                <Settings className="h-4 w-4" />
+                Conteúdo
               </TabsTrigger>
             </TabsList>
 
@@ -418,6 +423,10 @@ export default function Admin() {
 
             <TabsContent value="blog">
               <BlogManager />
+            </TabsContent>
+
+            <TabsContent value="content">
+              <ContentManager />
             </TabsContent>
           </Tabs>
         </div>

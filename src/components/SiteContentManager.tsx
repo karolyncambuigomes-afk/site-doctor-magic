@@ -98,11 +98,12 @@ export const SiteContentManager: React.FC = () => {
 
   const getSectionDisplayName = (sectionKey: string): string => {
     const sectionNames: Record<string, string> = {
+      'hero': 'Seção Principal (Hero)',
       'about_intro': 'About Us - Introdução',
       'about_mission': 'About Us - Nossa Missão',
       'about_values': 'About Us - Nossos Valores'
     };
-    return sectionNames[sectionKey] || sectionKey;
+    return sectionNames[sectionKey] || sectionKey.replace('_', ' ').toUpperCase();
   };
 
   const getSectionIcon = (sectionKey: string) => {

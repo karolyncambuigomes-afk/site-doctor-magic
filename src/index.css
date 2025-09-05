@@ -1,113 +1,327 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Five London - Ultra Minimal Luxury Design System */
+/* Five London - Ultra Luxurious Design System */
 
 @layer base {
   :root {
-    /* Five London Minimal Palette - Pure Luxury */
+    /* Five London Premium Palette */
     --background: 0 0% 99%;
-    --foreground: 0 0% 5%;
+    --foreground: 0 0% 2%;
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
+    --popover-foreground: 0 0% 2%;
 
-    /* Primary: Deep Charcoal */
-    --primary: 0 0% 5%;
+    /* Primary: Midnight Black */
+    --primary: 0 0% 2%;
     --primary-foreground: 0 0% 98%;
-    --primary-glow: 40 100% 85%;
+    --primary-glow: 45 100% 88%;
 
-    /* Secondary: Off-White */
+    /* Secondary: Pure Pearl */
     --secondary: 0 0% 98%;
-    --secondary-foreground: 0 0% 5%;
+    --secondary-foreground: 0 0% 2%;
 
     /* Accent: Champagne Gold */
-    --accent: 40 100% 85%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 45 100% 88%;
+    --accent-foreground: 0 0% 2%;
+    --accent-muted: 45 50% 92%;
 
-    --muted: 0 0% 97%;
-    --muted-foreground: 0 0% 40%;
+    /* Muted: Sophisticated Gray */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 93%;
-    --input: 0 0% 97%;
-    --ring: 40 100% 85%;
+    --border: 0 0% 92%;
+    --input: 0 0% 96%;
+    --ring: 45 100% 88%;
 
-    --radius: 0rem;
+    --radius: 0.5rem;
 
+    /* Luxury Color Variations */
+    --luxury-dark: 0 0% 8%;
+    --luxury-warm: 28 15% 95%;
+    --luxury-cool: 220 15% 96%;
+    
     /* Five London Luxury Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 96%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
-    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 96%) 50%, hsl(var(--luxury-warm)) 100%);
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(0 0% 15%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 100% 88%) 0%, hsl(45 100% 92%) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.8) 100%);
     --gradient-text: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(0 0% 20%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
 
-    /* Ultra Minimal Shadows - Almost Invisible */
-    --shadow-minimal: 0 1px 2px 0 rgba(0,0,0,0.03);
-    --shadow-elegant: 0 4px 16px 0 rgba(0,0,0,0.06);
-    --shadow-luxury: 0 8px 40px 0 rgba(0,0,0,0.08);
+    /* Premium Shadows */
+    --shadow-minimal: 0 1px 3px 0 rgba(0,0,0,0.04), 0 1px 2px 0 rgba(0,0,0,0.06);
+    --shadow-elegant: 0 4px 16px 0 rgba(0,0,0,0.08), 0 2px 8px 0 rgba(0,0,0,0.06);
+    --shadow-luxury: 0 20px 60px 0 rgba(0,0,0,0.12), 0 8px 24px 0 rgba(0,0,0,0.08);
+    --shadow-glow: 0 0 0 1px rgba(255,255,255,0.08), 0 4px 16px 0 rgba(0,0,0,0.12);
 
-    /* Smooth Luxury Transitions */
-    --transition-luxury: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    --transition-instant: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    /* Luxury Transitions */
+    --transition-luxury: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-quick: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .dark {
-    --background: 0 0% 4%;
+    --background: 0 0% 2%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 4%;
+    --card: 0 0% 3%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 4%;
+    --popover: 0 0% 3%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 4%;
+    --primary-foreground: 0 0% 2%;
 
     --secondary: 0 0% 8%;
     --secondary-foreground: 0 0% 98%;
 
-    --accent: 40 100% 85%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 45 100% 88%;
+    --accent-foreground: 0 0% 2%;
 
-    --muted: 0 0% 8%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 6%;
+    --muted-foreground: 0 0% 65%;
 
     --border: 0 0% 12%;
     --input: 0 0% 8%;
-    --ring: 40 100% 85%;
+    --ring: 45 100% 88%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(0 0% 4%) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-body antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1;
-    letter-spacing: 0.01em;
-    line-height: 1.7;
+    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
+    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1, "liga" 1;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1, "kern" 1, "liga" 1;
+    letter-spacing: -0.02em;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Typography Refinements */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    font-feature-settings: "ss01" 1, "ss02" 1;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.8;
+    letter-spacing: -0.01em;
+  }
+
+  /* Selection Styling */
+  ::selection {
+    background-color: hsl(var(--accent) / 0.3);
+    color: hsl(var(--foreground));
+  }
+
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--accent));
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--accent) / 0.8);
+  }
+}
+
+@layer components {
+  /* Container System */
+  .container-width {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply w-full max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Button Enhancements */
+  .btn-luxury {
+    @apply relative overflow-hidden bg-primary text-primary-foreground;
+    @apply px-8 py-4 rounded-lg font-medium tracking-wide;
+    @apply shadow-elegant hover:shadow-luxury;
+    @apply transition-all duration-500 ease-out;
+    @apply before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent;
+    @apply before:translate-x-[-100%] hover:before:translate-x-[100%];
+    @apply before:transition-transform before:duration-700;
+  }
+
+  .btn-outline-luxury {
+    @apply relative border-2 border-accent text-accent bg-transparent;
+    @apply px-8 py-4 rounded-lg font-medium tracking-wide;
+    @apply hover:bg-accent hover:text-accent-foreground;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:shadow-glow;
+  }
+
+  /* Card Enhancements */
+  .card-luxury {
+    @apply bg-gradient-to-br from-card to-muted/30;
+    @apply border border-border/50 rounded-lg shadow-elegant;
+    @apply backdrop-blur-sm;
+    @apply hover:shadow-luxury hover:border-accent/20;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .card-glass {
+    @apply bg-white/80 dark:bg-black/20;
+    @apply backdrop-blur-md border border-white/20;
+    @apply shadow-elegant rounded-lg;
+  }
+
+  /* Text Effects */
+  .text-gradient {
+    @apply bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent;
+  }
+
+  .text-gold {
+    @apply bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent;
+  }
+
+  /* Layout Utilities */
+  .section-padding {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .section-padding-sm {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out hover:-translate-y-2;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 ease-out hover:shadow-glow;
+  }
+
+  /* Image Effects */
+  .image-luxury {
+    @apply rounded-lg shadow-elegant overflow-hidden;
+    @apply hover:shadow-luxury transition-all duration-500;
+  }
+
+  /* Navigation Enhancements */
+  .nav-glass {
+    @apply bg-white/95 dark:bg-black/90 backdrop-blur-md;
+    @apply border-b border-border/50 shadow-minimal;
+  }
+
+  /* Focus States */
+  .focus-luxury {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent;
+    @apply focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
 }
 
 @layer utilities {
-  /* Five London Luxury Transitions */
+  /* Animation Utilities */
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Spacing Utilities */
+  .space-y-luxury > * + * {
+    margin-top: 2rem;
+  }
+
+  .space-y-luxury-lg > * + * {
+    margin-top: 3rem;
+  }
+
+  /* Background Utilities */
+  .bg-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-luxury {
+    background-image: var(--gradient-luxury);
+  }
+
+  .bg-gold {
+    background-image: var(--gradient-gold);
+  }
+
+  /* Text Utilities */
+  .font-display {
+    font-family: 'Playfair Display', serif;
+    font-feature-settings: "ss01" 1, "ss02" 1;
+  }
+
+  .font-heading {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Custom Properties */
   .transition-luxury {
     transition: var(--transition-luxury);
   }
@@ -116,187 +330,15 @@
     transition: var(--transition-smooth);
   }
 
-  .transition-instant {
-    transition: var(--transition-instant);
-  }
-
-  /* Five London Luxury Gradients */
-  .bg-gradient-hero {
-    background-image: var(--gradient-hero);
-  }
-
-  .bg-gradient-subtle {
-    background-image: var(--gradient-subtle);
-  }
-
-  .bg-gradient-overlay {
-    background-image: var(--gradient-overlay);
-  }
-
-  .bg-gradient-text {
-    background-image: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .bg-gradient-accent {
-    background-image: var(--gradient-accent);
-  }
-
-  /* Five London Minimal Shadows */
-  .shadow-minimal {
-    box-shadow: var(--shadow-minimal);
+  .shadow-luxury {
+    box-shadow: var(--shadow-luxury);
   }
 
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
 
-  .shadow-luxury {
-    box-shadow: var(--shadow-luxury);
-  }
-
-  /* Dark accent elements */
-  .accent-divider {
-    @apply w-px h-24 bg-primary/20;
-  }
-
-  .accent-dot {
-    @apply w-2 h-2 bg-primary rounded-full;
-  }
-}
-
-@layer components {
-  /* Five London Component Classes */
-  .five-london-text {
-    @apply text-foreground font-light tracking-wide leading-relaxed;
-  }
-
-  .five-london-button {
-    @apply bg-primary text-primary-foreground font-light px-16 py-5 border-0 transition-luxury hover:opacity-90 uppercase tracking-[0.3em] text-xs;
-  }
-
-  .five-london-button-outline {
-    @apply border border-primary text-primary bg-transparent font-light px-16 py-5 transition-luxury hover:bg-primary hover:text-primary-foreground uppercase tracking-[0.3em] text-xs;
-  }
-
-  .five-london-card {
-    @apply bg-card border-0 shadow-minimal transition-luxury hover:shadow-elegant overflow-hidden;
-  }
-
-  .five-london-hero-overlay {
-    @apply absolute inset-0 bg-gradient-overlay;
-  }
-
-  /* Layout & Spacing */
-  .section-padding {
-    @apply px-8 lg:px-12 py-32 lg:py-40;
-  }
-
-  .section-padding-sm {
-    @apply px-8 lg:px-12 py-20 lg:py-28;
-  }
-
-  .container-width {
-    @apply max-w-6xl mx-auto;
-  }
-
-  .container-width-lg {
-    @apply max-w-7xl mx-auto;
-  }
-
-  /* Five London Typography - Ultra Luxury */
-  .heading-hero {
-    @apply text-5xl lg:text-7xl xl:text-8xl font-heading font-light tracking-[0.4em] leading-[0.9] text-foreground;
-    letter-spacing: 0.15em;
-  }
-
-  .heading-xl {
-    @apply text-4xl lg:text-5xl xl:text-6xl font-heading font-light tracking-[0.2em] leading-tight text-foreground;
-  }
-
-  .heading-lg {
-    @apply text-3xl lg:text-4xl font-heading font-light tracking-[0.15em] leading-tight text-foreground;
-  }
-
-  .heading-md {
-    @apply text-2xl lg:text-3xl font-heading font-light tracking-[0.1em] text-foreground;
-  }
-
-  .heading-sm {
-    @apply text-xl lg:text-2xl font-heading font-light tracking-[0.05em] text-foreground;
-  }
-
-  .body-luxury {
-    @apply text-lg lg:text-xl leading-relaxed font-body font-light tracking-wide text-muted-foreground;
-  }
-
-  .body-minimal {
-    @apply text-base lg:text-lg leading-relaxed font-body font-light text-muted-foreground;
-  }
-
-  .body-sm {
-    @apply text-sm lg:text-base leading-relaxed text-muted-foreground font-light;
-  }
-
-  .caption {
-    @apply text-xs lg:text-sm text-muted-foreground font-light tracking-widest uppercase;
-  }
-
-  /* Special Effects */
-  .text-shadow-luxury {
-    text-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-
-  .backdrop-blur-luxury {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
-  /* Model Cards - Ultra Minimal & Mobile Optimized */
-  .model-card {
-    @apply relative overflow-hidden transition-luxury cursor-pointer;
-  }
-
-  .model-card-image {
-    @apply w-full h-full object-cover object-center transition-transform duration-300;
-  }
-
-  .model-card:hover .model-card-image {
-    @apply scale-105;
-  }
-
-  .model-card-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 transition-all duration-300;
-  }
-
-  .model-card:hover .model-card-overlay {
-    @apply opacity-100;
-  }
-
-  .model-card-content {
-    @apply absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white transform translate-y-full transition-all duration-300;
-  }
-
-  .model-card:hover .model-card-content {
-    @apply translate-y-0;
-  }
-
-  /* Navigation - Ultra Clean */
-  .nav-link {
-    @apply text-muted-foreground hover:text-foreground transition-luxury font-light tracking-wide text-sm;
-  }
-
-  .nav-link-active {
-    @apply text-foreground border-b border-foreground;
-  }
-
-  /* Utility Classes */
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
   }
 }

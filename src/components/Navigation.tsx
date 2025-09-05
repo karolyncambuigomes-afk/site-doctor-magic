@@ -45,29 +45,33 @@ export const Navigation = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled || location.pathname === '/'
-        ? 'bg-white/95 backdrop-blur-luxury border-b border-border/10' 
+        ? 'nav-glass shadow-elegant' 
         : 'bg-transparent'
     }`}>
       <div className="container-width">
-        <div className="flex items-center justify-between py-3 md:py-4">{/* Loro Piana style - clean spacing */}
-          {/* Five London Logo - Always Dark for Loro Piana Style */}
+        <div className="flex items-center justify-between py-4 md:py-6">
+          {/* Five London Logo - Ultra Luxurious */}
           <Link 
             to="/" 
-            className={`font-heading font-light tracking-[0.2em] text-foreground transition-luxury hover:text-foreground/80 uppercase ${
-              isScrolled || location.pathname === '/' ? 'text-sm lg:text-base' : 'text-lg lg:text-xl'
+            className={`font-display font-medium tracking-[0.15em] text-foreground transition-luxury hover:text-gold uppercase ${
+              isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
             Five London
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-16">
+          <div className="hidden lg:flex items-center space-x-12">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className={`nav-link ${
-                  location.pathname === item.href ? 'nav-link-active' : ''
+                className={`relative font-body font-medium text-sm tracking-wide uppercase transition-luxury hover:text-accent ${
+                  location.pathname === item.href 
+                    ? 'text-accent' 
+                    : 'text-muted-foreground hover:text-foreground'
+                } after:absolute after:bottom-[-6px] after:left-0 after:w-full after:h-[1px] after:bg-accent after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                  location.pathname === item.href ? 'after:scale-x-100' : ''
                 }`}
               >
                 {item.label}
@@ -76,10 +80,10 @@ export const Navigation = () => {
           </div>
 
           {/* Contact & Auth */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-8">
             <a 
               href="tel:+442045678901" 
-              className="caption hover:text-foreground transition-luxury"
+              className="font-body text-sm text-muted-foreground hover:text-foreground transition-luxury tracking-wide"
             >
               +44 20 4567 8901
             </a>

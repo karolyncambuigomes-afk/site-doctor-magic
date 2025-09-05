@@ -100,43 +100,15 @@ const Index = () => {
           <div className="container-width-lg">
             {/* Gallery Grid - Loro Piana Style */}
             <div className="grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-4">
-              {models && models.length > 0 ? models.slice(0, 12).map((model, index) => (
-                <Link 
-                  key={model.id}
-                  to={`/models/${model.id}`} 
-                  className="group block relative overflow-hidden aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4] xl:aspect-[4/5] bg-muted"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <img
-                    src={model.image}
-                    alt={`${model.name} - Luxury Companion`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+              {models && models.length > 0 ? models.slice(0, 12).map((model, index) => {
+                return (
+                  <ModelCard 
+                    key={model.id}
+                    model={model}
+                    index={index}
                   />
-                  
-                  {/* Price - Top Left - Discreet */}
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                    <div className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white text-xs font-light">
-                      {model.price}
-                    </div>
-                  </div>
-                  
-                  {/* Subtle Overlay - Only on Hover */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
-                  
-                  {/* Minimal Info - Bottom Left */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6">
-                    <div className="text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                      <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
-                        {model.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-white/80">
-                        {model.location}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              )) : (
+                );
+              }) : (
                 <div className="col-span-2 xl:col-span-3 2xl:col-span-4 text-center py-12">
                   <p className="text-muted-foreground">No models available</p>
                 </div>

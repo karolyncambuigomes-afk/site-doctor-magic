@@ -315,7 +315,7 @@ export const GalleryManager: React.FC = () => {
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2">
-                    <div className="w-10 h-10 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 bg-white border border-black text-black rounded-full flex items-center justify-center font-bold text-lg">
                       {index + 1}
                     </div>
                     <div className="flex flex-col gap-1">

@@ -71,42 +71,42 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
-                {/* Minimal Info - Bottom Left - Animates on Scroll */}
+                {/* Info Card - Bottom - Unified */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 z-10">
-                  <div className={`bg-black/60 backdrop-blur-sm rounded-lg p-4 text-white transform transition-transform duration-700 ${
+                  <div className={`bg-black/70 backdrop-blur-sm rounded-lg p-4 text-white transform transition-transform duration-700 ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
-                    {/* Nome e Localização */}
-                    <div className="mb-3">
-                      <h3 className="text-sm sm:text-base md:text-lg font-light mb-1">
-                        {model.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-white/80">
-                        {model.location}
-                      </p>
+                    
+                    {/* Header: Nome e Localização */}
+                    <div className="flex justify-between items-start mb-3 pb-2 border-b border-white/20">
+                      <div>
+                        <h3 className="text-sm sm:text-base md:text-lg font-light">
+                          {model.name}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-white/80">
+                          {model.location}
+                        </p>
+                      </div>
                     </div>
                     
-                    {/* Pricing Details */}
+                    {/* Pricing Grid */}
                     {model.pricing && (
-                      <div className="space-y-1">
-                        <div className="text-xs text-white/90 font-medium mb-2">Preços</div>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                          <div className="flex justify-between">
-                            <span className="text-white/70">1 hora:</span>
-                            <span className="text-white font-medium">{model.pricing.oneHour}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-white/70">2 horas:</span>
-                            <span className="text-white font-medium">{model.pricing.twoHours}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-white/70">3 horas:</span>
-                            <span className="text-white font-medium">{model.pricing.threeHours}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-white/70">+horas:</span>
-                            <span className="text-white font-medium">{model.pricing.additionalHour}</span>
-                          </div>
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-white/70">1 hora</span>
+                          <span className="text-white font-medium">{model.pricing.oneHour}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/70">2 horas</span>
+                          <span className="text-white font-medium">{model.pricing.twoHours}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/70">3 horas</span>
+                          <span className="text-white font-medium">{model.pricing.threeHours}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-white/70">Hora adicional</span>
+                          <span className="text-white font-medium">{model.pricing.additionalHour}</span>
                         </div>
                       </div>
                     )}

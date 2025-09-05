@@ -251,7 +251,7 @@ export const GalleryManager: React.FC = () => {
             </div>
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
-                <Button className="bg-black text-white hover:bg-gray-800">
+                <Button className="bg-white text-black border border-gray-300 hover:bg-gray-50">
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Modelo
                 </Button>
@@ -283,7 +283,7 @@ export const GalleryManager: React.FC = () => {
                     <Button variant="outline" onClick={() => setShowAddDialog(false)} className="border-gray-300 text-black hover:bg-gray-50">
                       Cancelar
                     </Button>
-                    <Button onClick={addToCarousel} disabled={!selectedModel} className="bg-black text-white hover:bg-gray-800">
+                    <Button onClick={addToCarousel} disabled={!selectedModel} className="bg-white text-black border border-gray-300 hover:bg-gray-50">
                       Adicionar
                     </Button>
                   </div>
@@ -301,7 +301,7 @@ export const GalleryManager: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Adicione modelos ao carrossel para exibi-las na página principal
                 </p>
-                <Button onClick={() => setShowAddDialog(true)} className="bg-black text-white hover:bg-gray-800">
+                <Button onClick={() => setShowAddDialog(true)} className="bg-white text-black border border-gray-300 hover:bg-gray-50">
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Primeira Modelo
                 </Button>

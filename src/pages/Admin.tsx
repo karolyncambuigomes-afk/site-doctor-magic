@@ -148,24 +148,24 @@ export const Admin: React.FC = () => {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-5 bg-black">
-              <TabsTrigger value="models" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
+            <TabsList className="grid w-full grid-cols-5 bg-white border border-gray-300">
+              <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Users className="w-4 h-4 mr-2" />
                 Modelos
               </TabsTrigger>
-              <TabsTrigger value="blog" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
+              <TabsTrigger value="blog" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <FileText className="w-4 h-4 mr-2" />
                 Blog
               </TabsTrigger>
-              <TabsTrigger value="users" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
+              <TabsTrigger value="users" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Users className="w-4 h-4 mr-2" />
                 Usuários
               </TabsTrigger>
-              <TabsTrigger value="gallery" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
+              <TabsTrigger value="gallery" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Image className="w-4 h-4 mr-2" />
                 Galeria
               </TabsTrigger>
-              <TabsTrigger value="content" className="data-[state=active]:bg-white data-[state=active]:text-black text-white">
+              <TabsTrigger value="content" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Settings className="w-4 h-4 mr-2" />
                 Conteúdo
               </TabsTrigger>
@@ -183,7 +183,7 @@ export const Admin: React.FC = () => {
                   ) : models.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-gray-600 mb-4">Nenhum modelo encontrado</p>
-                      <Button className="bg-black text-white hover:bg-gray-800">
+                      <Button className="bg-white text-black border border-gray-300 hover:bg-gray-50">
                         <Plus className="w-4 h-4 mr-2" />
                         Adicionar Primeiro Modelo
                       </Button>
@@ -229,7 +229,7 @@ export const Admin: React.FC = () => {
                   ) : blogPosts.length === 0 ? (
                     <div className="text-center py-8">
                       <p className="text-gray-600 mb-4">Nenhum post encontrado</p>
-                      <Button className="bg-black text-white hover:bg-gray-800">
+                      <Button className="bg-white text-black border border-gray-300 hover:bg-gray-50">
                         <Plus className="w-4 h-4 mr-2" />
                         Criar Primeiro Post
                       </Button>
@@ -241,7 +241,7 @@ export const Admin: React.FC = () => {
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
                               <h3 className="font-medium text-black">{post.title}</h3>
-                              <Badge variant={post.is_published ? "default" : "secondary"} className={post.is_published ? "bg-black text-white" : "bg-gray-200 text-gray-800"}>
+                              <Badge variant={post.is_published ? "default" : "secondary"} className={post.is_published ? "bg-gray-200 text-black" : "bg-gray-100 text-gray-800"}>
                                 {post.is_published ? "Publicado" : "Rascunho"}
                               </Badge>
                             </div>
@@ -292,8 +292,8 @@ export const Admin: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="border-gray-300 bg-black text-white hover:bg-gray-800">Aprovar</Button>
-                            <Button variant="outline" size="sm" className="border-gray-300 bg-black text-white hover:bg-gray-800">Rejeitar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 bg-white text-black hover:bg-gray-50">Aprovar</Button>
+                            <Button variant="outline" size="sm" className="border-gray-300 bg-white text-black hover:bg-gray-50">Rejeitar</Button>
                           </div>
                         </div>
                       ))}

@@ -193,7 +193,16 @@ const Services = () => {
                             {service.features.map((feature, i) => (
                               <div key={i} className="flex items-center text-sm text-muted-foreground">
                                 <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
-                                {feature}
+                                {feature === "Michelin-starred restaurants" ? (
+                                  <Link 
+                                    to={service.blogLink}
+                                    className="text-primary hover:text-primary/80 transition-colors underline"
+                                  >
+                                    {feature}
+                                  </Link>
+                                ) : (
+                                  feature
+                                )}
                               </div>
                             ))}
                           </div>

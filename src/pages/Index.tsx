@@ -57,182 +57,156 @@ const Index = () => {
   return (
     <>
       <SEO 
-        title="Premium Luxury Escort Services in London"
-        description="Five London offers sophisticated, discreet luxury escort services in London. Book elite companions for dinner dates, business events, and social occasions. Available 24/7."
-        keywords="luxury escort london, premium escort services, high-class companions london, elite escort agency, sophisticated escorts, VIP companion services"
+        title="Five London - Premium Luxury Companions"
+        description="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London."
+        keywords="luxury companions london, premium escort services, high-class companions, elite companion agency"
         canonicalUrl="/"
         structuredData={structuredData}
       />
       
       <Navigation />
       
-      <main>
-        <HeroSection />
-        
-        {/* Introduction Section - About the Agency */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
-          <div className="container-width-lg">
-            <div className="max-w-4xl mx-auto text-center space-y-8">
-              <div className="space-y-4">
-                <div className="w-24 h-px bg-foreground/20 mx-auto"></div>
-              </div>
-              
-              <div className="space-y-4 md:space-y-6 text-muted-foreground">
-                <p className="body-minimal leading-relaxed">
-                  We are an elite agency specializing in luxury companions in London. 
-                  Our careful selection ensures that each of our companions is sophisticated, 
-                  elegant and dedicated to providing exceptional experiences.
-                </p>
-                
-                <p className="body-sm leading-relaxed">
-                  With absolute discretion and personalized service, we cater to discerning clients 
-                  seeking refined companionship for social events, business dinners or special moments. 
-                  Available 24 hours a day, 7 days a week.
-                </p>
-              </div>
-
-            </div>
+      <main className="min-h-screen">
+        {/* YSL Style Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="/images/model1.jpg"
+              alt="Elegant companion"
+              className="w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-black/40"></div>
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight mb-8">
+              Five London
+            </h1>
+            <p className="text-lg md:text-xl lg:text-2xl font-light tracking-wide text-white/90 mb-12 max-w-2xl mx-auto">
+              Premier luxury companion services in London
+            </p>
+            
+            {/* CTA Button */}
+            <Link 
+              to="/models" 
+              className="inline-block border border-white/30 hover:border-white/60 px-8 py-3 md:px-12 md:py-4 transition-all duration-300"
+            >
+              <span className="text-sm md:text-base tracking-[0.3em] uppercase font-light">
+                Discover
+              </span>
+            </Link>
+          </div>
+          
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-px h-16 bg-white/40"></div>
           </div>
         </section>
-        
-        {/* Loro Piana Style - Models Gallery */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
-          <div className="container-width-lg">
-            {/* Gallery Grid - Loro Piana Style */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 md:gap-6 lg:gap-8 xl:grid-cols-3 2xl:grid-cols-4">
-              {models && models.length > 0 ? models.slice(0, 12).map((model, index) => {
-                return (
-                  <ModelCard 
-                    key={model.id}
-                    model={model}
-                    index={index}
-                  />
-                );
-              }) : (
-                <div className="col-span-1 sm:col-span-2 xl:col-span-3 2xl:col-span-4 text-center py-12">
-                  <p className="text-muted-foreground">No models available</p>
+
+        {/* Featured Models Section - YSL Style */}
+        <section className="py-20 md:py-32 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            {/* Section Header */}
+            <div className="text-center mb-16 md:mb-24">
+              <h2 className="font-display text-2xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-4">
+                Our Models
+              </h2>
+              <div className="w-16 h-px bg-black/20 mx-auto"></div>
+            </div>
+            
+            {/* Models Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+              {models && models.length > 0 ? models.slice(0, 6).map((model, index) => (
+                <div key={model.id} className="group">
+                  <Link to={`/models/${model.id}`} className="block">
+                    <div className="relative overflow-hidden mb-4">
+                      <img
+                        src={model.image}
+                        alt={model.name}
+                        className="w-full aspect-[3/4] object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="text-center">
+                      <h3 className="font-sans text-lg font-normal text-black mb-1">
+                        {model.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 tracking-wide">
+                        {model.location}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              )) : (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-gray-600">Loading models...</p>
                 </div>
               )}
             </div>
-
-            {/* View All Button - Loro Piana Style */}
-            <div className="text-center mt-12 md:mt-16">
-              <Link to="/models" className="group inline-block">
-                <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-8 py-3">
-                  <span className="text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
-                    View All
-                  </span>
-                </div>
+            
+            {/* View All Link */}
+            <div className="text-center mt-16 md:mt-24">
+              <Link 
+                to="/models" 
+                className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+              >
+                <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+                  View All Models
+                </span>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Loro Piana Style - Photo Carousel */}
-        <section className="py-16 md:py-20 bg-muted/10 overflow-hidden">
-          <div className="max-w-full">
-            {/* Header */}
-            <div className="text-center mb-12 md:mb-16 px-4">
-              <div className="w-16 h-px bg-foreground/20 mx-auto"></div>
-            </div>
-
-            {/* Carousel Container - Uma foto por vez */}
-            <div className="relative max-w-4xl mx-auto px-4">
-              {/* Main Carousel */}
-              <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[5/3] xl:aspect-[16/9] overflow-hidden">
-                {carouselImages.map((model, index) => (
-                  <div
-                    key={`${model.id}-${index}`}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                      index === currentIndex 
-                        ? 'opacity-100 transform translate-x-0' 
-                        : index < currentIndex
-                        ? 'opacity-0 transform -translate-x-full'
-                        : 'opacity-0 transform translate-x-full'
-                    }`}
-                  >
-                    <Link 
-                      to={`/models/${model.id}`}
-                      className="block relative w-full h-full group"
-                    >
-                      <img
-                        src={model.image}
-                        alt={`${model.name} - Gallery`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      
-                      {/* Overlay Info */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                        <div className="text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                          <h3 className="text-lg md:text-xl font-light mb-2">{model.name}</h3>
-                          <p className="text-white/80 text-sm md:text-base">{model.location}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10 shadow-lg"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              
-              <button
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white text-black rounded-full flex items-center justify-center transition-all duration-300 z-10 shadow-lg"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-
-              {/* Dots Indicator */}
-              <div className="flex justify-center mt-8 space-x-2">
-                {carouselImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentIndex ? 'bg-foreground' : 'bg-foreground/30'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+        {/* Services Section - Minimal */}
+        <section className="py-20 md:py-32 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
+              Exceptional Experiences
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-12 max-w-2xl mx-auto">
+              We specialize in providing sophisticated companionship for discerning clients. 
+              From intimate dinners to exclusive events, our companions ensure every moment is extraordinary.
+            </p>
+            
+            <Link 
+              to="/services" 
+              className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+            >
+              <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+                Our Services
+              </span>
+            </Link>
           </div>
         </section>
 
-        {/* Minimal Contact Section - Loro Piana Style */}
-        <section className="py-8 md:py-16 lg:py-20 bg-muted/10">
-          <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto space-y-4 md:space-y-8">
-              <h2 className="text-base md:text-lg lg:text-xl font-light tracking-[0.2em] uppercase text-foreground">
-                Begin Your Experience
-              </h2>
+        {/* Contact Section - YSL Style */}
+        <section className="py-20 md:py-32 bg-black text-white">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight mb-8">
+              Begin Your Journey
+            </h2>
+            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-12 max-w-2xl mx-auto">
+              Contact us for a discreet consultation. Available 24/7 for exclusive bookings.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+              <Link 
+                to="/contact" 
+                className="inline-block border border-white/30 hover:border-white/60 px-8 py-3 transition-all duration-300"
+              >
+                <span className="text-sm tracking-[0.3em] uppercase font-light">
+                  Contact Us
+                </span>
+              </Link>
               
-              <p className="text-xs md:text-sm lg:text-base text-muted-foreground leading-relaxed px-4">
-                Contact us to arrange your perfect companion. Available 24/7 for immediate bookings.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-8 px-4">
-                <Link to="/contact" className="group">
-                  <div className="border border-foreground/20 group-hover:border-foreground/40 transition-all duration-300 px-6 py-2 md:px-8 md:py-3">
-                    <span className="text-xs md:text-sm tracking-[0.2em] uppercase font-light text-foreground group-hover:text-foreground/80 transition-colors">
-                      Enquire Now
-                    </span>
-                  </div>
-                </Link>
-                <a 
-                  href="tel:+442045678901"
-                  className="text-xs md:text-sm tracking-[0.1em] text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  +44 20 4567 8901
-                </a>
-              </div>
+              <a 
+                href="tel:+442045678901"
+                className="text-lg tracking-wide text-white/80 hover:text-white transition-colors"
+              >
+                +44 20 4567 8901
+              </a>
             </div>
           </div>
         </section>

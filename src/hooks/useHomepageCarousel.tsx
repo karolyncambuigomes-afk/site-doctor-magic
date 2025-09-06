@@ -46,18 +46,20 @@ export const useHomepageCarousel = () => {
 
       // Transform data to match our interface
       const transformedModels = carouselData?.map((item: any) => {
-        const modelDetails = modelsData.find(m => m.id === item.model_id);
-          return {
-            id: item.model_id,
-            name: item.model_name,
-            image: getImageUrl(item.image_url),
-            location: modelDetails?.location || '',
-            price: modelDetails?.price || '',
-            age: modelDetails?.age || null,
-            characteristics: modelDetails?.characteristics || []
-          };
+        const modelDetails = modelsData?.find(m => m.id === item.model_id);
+        console.log('Homepage Carousel - Model details for', item.model_name, ':', modelDetails);
+        return {
+          id: item.model_id,
+          name: item.model_name,
+          image: getImageUrl(item.image_url),
+          location: modelDetails?.location || '',
+          price: modelDetails?.price || '',
+          age: modelDetails?.age || null,
+          characteristics: modelDetails?.characteristics || []
+        };
       }) || [];
 
+      console.log('Homepage Carousel - Transformed models:', transformedModels);
       setModels(transformedModels);
     } catch (err) {
       console.error('Unexpected error fetching carousel:', err);

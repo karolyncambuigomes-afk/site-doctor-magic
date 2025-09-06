@@ -74,20 +74,20 @@ export const ModelsCarousel = () => {
                         alt={model.name}
                         className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:scale-105"
                       />
-                      {/* UPDATED 2025: Price overlay - Top right corner */}
+                      {/* Price overlay - Mobile responsive */}
                       {model.price && (
-                        <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm text-white px-3 py-1 text-sm font-medium tracking-wide z-10 rounded-lg">
+                        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/80 backdrop-blur-sm text-white px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium tracking-wide z-10 rounded-lg">
                           {model.price}
                         </div>
                       )}
                     </div>
-                    {/* UPDATED 2025: Model info with age and characteristic */}
-                    <div className="text-center">
-                      <h3 className="font-sans text-lg font-normal text-black mb-1">
+                    {/* Model info - Mobile responsive */}
+                    <div className="text-center px-2">
+                      <h3 className="font-sans text-base sm:text-lg font-normal text-black mb-1">
                         {model.name}
                       </h3>
                       <div className="space-y-1">
-                        <p className="text-sm text-gray-600 tracking-wide">
+                        <p className="text-xs sm:text-sm text-gray-600 tracking-wide">
                           {model.age ? `${model.age} anos` : ''} {model.age && model.characteristics?.[0] ? '•' : ''} {model.characteristics?.[0] || ''}
                         </p>
                       </div>

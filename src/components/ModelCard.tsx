@@ -61,9 +61,9 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   />
                 )}
                 
-                {/* Price - Top Left - Discreet */}
-                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
-                  <div className="bg-black/40 backdrop-blur-sm px-2 py-1 rounded text-white text-xs font-light">
+                {/* Price - Top Left - Mobile responsive */}
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
+                  <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
                     {model.price}
                   </div>
                 </div>
@@ -71,41 +71,41 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
-                {/* Info Card - Bottom - Unified */}
-                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-6 z-10">
-                  <div className={`bg-black/70 backdrop-blur-sm rounded-lg p-4 text-white transform transition-transform duration-700 ${
+                {/* Info Card - Bottom - Mobile responsive */}
+                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 lg:p-6 z-10">
+                  <div className={`bg-black/75 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-white transform transition-transform duration-700 ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
                     
                     {/* Header: Nome e Localização */}
-                    <div className="flex justify-between items-start mb-3 pb-2 border-b border-white/20">
-                      <div>
-                        <h3 className="text-sm sm:text-base md:text-lg font-light">
+                    <div className="flex justify-between items-start mb-2 sm:mb-3 pb-2 border-b border-white/20">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm sm:text-base md:text-lg font-light truncate">
                           {model.name}
                         </h3>
-                        <p className="text-xs sm:text-sm text-white/80">
+                        <p className="text-xs sm:text-sm text-white/80 truncate">
                           {model.location}
                         </p>
                       </div>
                     </div>
                     
-                    {/* Pricing Grid */}
+                    {/* Pricing Grid - Mobile optimized */}
                     {model.pricing && (
-                      <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs">
-                        <div className="flex justify-between">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between py-1">
                           <span className="text-white/70">1 hora</span>
                           <span className="text-white font-medium">{model.pricing.oneHour}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between py-1">
                           <span className="text-white/70">2 horas</span>
                           <span className="text-white font-medium">{model.pricing.twoHours}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between py-1">
                           <span className="text-white/70">3 horas</span>
                           <span className="text-white font-medium">{model.pricing.threeHours}</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-white/70">Hora adicional</span>
+                        <div className="flex justify-between py-1">
+                          <span className="text-white/70">+ 1 hora</span>
                           <span className="text-white font-medium">{model.pricing.additionalHour}</span>
                         </div>
                       </div>

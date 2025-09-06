@@ -67,10 +67,17 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
+        {/* Price overlay - Mobile responsive */}
+        {model.price && (
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
+            {model.price}
+          </div>
+        )}
+        
         {/* Minimal Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <h3 className="heading-sm mb-1">{model.name}</h3>
-          <p className="body-sm text-white/80 mb-2">{model.location}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+          <h3 className="text-sm sm:text-base md:text-lg font-medium mb-1">{model.name}</h3>
+          <p className="text-xs sm:text-sm text-white/80 mb-2">{model.location}</p>
           <div className="w-12 h-[1px] bg-white/40"></div>
         </div>
       </div>
@@ -88,15 +95,22 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         
+        {/* Price overlay - Mobile responsive */}
+        {model.price && (
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
+            {model.price}
+          </div>
+        )}
+        
         {/* Elegant Info */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-6 text-white">
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-xs">
               {model.availability === 'available' ? 'Available' : 'Busy'}
             </Badge>
           </div>
-          <h3 className="heading-sm mb-1">{model.name}</h3>
-          <div className="flex items-center gap-4 body-sm text-white/80 mb-2">
+          <h3 className="text-sm sm:text-base md:text-lg font-medium mb-1">{model.name}</h3>
+          <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-white/80 mb-2">
             <span className="flex items-center gap-1">
               <MapPin className="w-3 h-3" />
               {model.location}
@@ -106,7 +120,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
               {model.rating}
             </span>
           </div>
-          <p className="text-white/70 body-sm line-clamp-2">{model.description}</p>
+          <p className="text-white/70 text-xs sm:text-sm line-clamp-2">{model.description}</p>
         </div>
       </div>
     </Link>
@@ -123,20 +137,27 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
             className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          {/* Price overlay - Mobile responsive */}
+          {model.price && (
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded-lg">
+              {model.price}
+            </div>
+          )}
         </div>
         
-        {/* Modern Info Card */}
-        <div className="absolute -bottom-4 left-4 right-4 bg-background/95 backdrop-blur-sm rounded-xl p-4 border border-border/50 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        {/* Modern Info Card - Mobile responsive */}
+        <div className="absolute -bottom-3 sm:-bottom-4 left-2 right-2 sm:left-4 sm:right-4 bg-background/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-border/50 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <div className="flex items-start justify-between mb-2">
-            <div>
-              <h3 className="font-medium text-foreground">{model.name}</h3>
-              <p className="body-sm text-muted-foreground">{model.location}</p>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-medium text-foreground text-sm sm:text-base truncate">{model.name}</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">{model.location}</p>
             </div>
-            <Badge variant={model.availability === 'available' ? 'default' : 'secondary'} className="text-xs">
+            <Badge variant={model.availability === 'available' ? 'default' : 'secondary'} className="text-xs ml-2">
               {model.availability}
             </Badge>
           </div>
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-xs sm:text-sm">
             <span className="flex items-center gap-1 text-muted-foreground">
               <Star className="w-3 h-3 fill-current text-primary" />
               {model.rating}

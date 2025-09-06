@@ -95,10 +95,10 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                Como Funciona o Agendamento
+                How Booking Works
               </h2>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                Um processo simples e discreto para garantir sua experiência perfeita
+                A simple and discreet process to ensure your perfect experience
               </p>
             </div>
 
@@ -111,10 +111,10 @@ const Index = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Contato Inicial
+                  Initial Contact
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Entre em contato conosco por telefone ou formulário. Nossa equipe responde rapidamente e de forma discreta para entender suas preferências.
+                  Reach out to us by phone or contact form. Our team responds quickly and discreetly to understand your preferences.
                 </p>
               </div>
 
@@ -126,10 +126,10 @@ const Index = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Seleção Personalizada
+                  Personalized Selection
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Baseado em suas preferências, apresentamos as companheiras mais adequadas. Você escolhe com base em perfis detalhados e fotos.
+                  Based on your preferences, we present the most suitable companions. You choose from detailed profiles and photos.
                 </p>
               </div>
 
@@ -141,10 +141,10 @@ const Index = () => {
                   </div>
                 </div>
                 <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Confirmação Segura
+                  Secure Confirmation
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Confirmamos todos os detalhes - data, horário, localização e duração. O pagamento é processado de forma segura e discreta.
+                  We confirm all details - date, time, location and duration. Payment is processed securely and discreetly.
                 </p>
               </div>
             </div>
@@ -153,31 +153,31 @@ const Index = () => {
             <div className="mt-16 max-w-4xl mx-auto">
               <div className="bg-gray-50 p-8 md:p-12 text-center">
                 <h3 className="text-xl md:text-2xl font-normal text-black mb-6 tracking-tight">
-                  Informações Importantes
+                  Important Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                   <div>
-                    <h4 className="font-medium text-black mb-3">⏰ Horários</h4>
+                    <h4 className="font-medium text-black mb-3">⏰ Schedule</h4>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Disponível 24/7. Recomendamos agendar com pelo menos 2 horas de antecedência para melhor disponibilidade.
+                      Available 24/7. We recommend booking at least 2 hours in advance for better availability.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-black mb-3">🔒 Discrição</h4>
+                    <h4 className="font-medium text-black mb-3">🔒 Discretion</h4>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Total confidencialidade garantida. Todos os dados são protegidos e nunca compartilhados.
+                      Complete confidentiality guaranteed. All data is protected and never shared.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-black mb-3">💳 Pagamento</h4>
+                    <h4 className="font-medium text-black mb-3">💳 Payment</h4>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Aceitamos cartão de crédito, transferência bancária e dinheiro. Pagamento sempre discreto e seguro.
+                      We accept credit cards, bank transfers and cash. Payment is always discreet and secure.
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-black mb-3">📍 Localização</h4>
+                    <h4 className="font-medium text-black mb-3">📍 Location</h4>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Atendemos em toda Londres. Hotéis, residências particulares ou locais de sua preferência.
+                      We serve all of London. Hotels, private residences or venues of your choice.
                     </p>
                   </div>
                 </div>
@@ -191,7 +191,7 @@ const Index = () => {
                 className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300 hover-scale"
               >
                 <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                  Fazer Agendamento
+                  Make Booking
                 </span>
               </Link>
             </div>

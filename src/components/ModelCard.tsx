@@ -61,9 +61,18 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   />
                 )}
                 
-                {/* Status/Age - Top Left - Mobile responsive */}
-                {model.age && (
+                {/* Price - Top Left - Mobile responsive */}
+                {model.price && (
                   <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
+                    <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
+                      {model.price}
+                    </div>
+                  </div>
+                )}
+
+                {/* Age - Top Right - Mobile responsive */}
+                {model.age && (
+                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 z-10">
                     <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
                       {model.age} years
                     </div>
@@ -84,11 +93,6 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                       <h3 className="text-base sm:text-lg md:text-xl font-light">
                         {model.name}
                       </h3>
-                      {model.age && (
-                        <p className="text-sm sm:text-base text-white/80 mt-1">
-                          {model.age} years old
-                        </p>
-                      )}
                     </div>
                   </div>
                 </div>

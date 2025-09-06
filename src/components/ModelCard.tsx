@@ -83,7 +83,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                      {/* Header: Nome e idade */}
                      <div className="text-center">
                        <h3 className="text-base sm:text-lg md:text-xl font-light">
-                         {model.name}{model.age && `, ${model.age} anos`}
+                         {model.name}
+                         {model.age ? `, ${model.age} anos` : ''}
                        </h3>
                      </div>
                   </div>

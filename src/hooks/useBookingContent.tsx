@@ -2,69 +2,32 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface BookingContent {
-  main: {
-    title: string;
-    subtitle: string;
-  };
-  steps: {
-    title: string;
-    content: string;
-  }[];
-  info: {
-    title: string;
-    content: string;
-  }[];
+  section: string;
+  title: string | null;
+  subtitle: string | null;
+  content: string | null;
 }
 
-export const useBookingContent = () => {
-  const [content, setContent] = useState<BookingContent>({
-    main: {
-      title: 'How Booking Works',
-      subtitle: 'A simple and discreet process to ensure your perfect experience'
-    },
-    steps: [
-      {
-        title: 'Initial Contact',
-        content: 'Reach out to us by phone or contact form. Our team responds quickly and discreetly to understand your preferences.'
-      },
-      {
-        title: 'Personalized Selection',
-        content: 'Based on your preferences, we present the most suitable companions. You choose from detailed profiles and photos.'
-      },
-      {
-        title: 'Secure Confirmation',
-        content: 'We confirm all details - date, time, location and duration. Payment is processed securely and discreetly.'
-      }
-    ],
-    info: [
-      {
-        title: '⏰ Schedule',
-        content: 'Available 24/7. We recommend booking at least 2 hours in advance for better availability.'
-      },
-      {
-        title: '🔒 Discretion',
-        content: 'Complete confidentiality guaranteed. All data is protected and never shared.'
-      },
-      {
-        title: '💳 Payment',
-        content: 'We accept credit cards, bank transfers and cash. Payment is always discreet and secure.'
-      },
-      {
-        title: '📍 Location',
-        content: 'We serve all of London. Hotels, private residences or venues of your choice.'
-      }
-    ]
+interface BookingData {
+  main: BookingContent | null;
+  steps: BookingContent[];
+  info: BookingContent[];
+  loading: boolean;
+  error: string | null;
+}
+
+export const useBookingContent = (): BookingData => {
+  const [data, setData] = useState<BookingData>({
+    main: null,
+    steps: [],
+    info: [],
+    loading: true,
+    error: null
   });
-  
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadBookingContent();
-  }, []);
-
-  const loadBookingContent = async () => {
+  const fetchBookingContent = async () => {
     try {
-      const { data, error } = await supabase
+      const { data: content, error } = await supabase
         .from('site_content')
         .select('section, title, subtitle, content')
         .in('section', [
@@ -81,50 +44,34 @@ export const useBookingContent = () => {
 
       if (error) throw error;
 
-      if (data && data.length > 0) {
-        const newContent: BookingContent = {
-          main: {
-            title: 'How Booking Works',
-            subtitle: 'A simple and discreet process to ensure your perfect experience'
-          },
-          steps: [],
-          info: []
-        };
+      const main = content?.find(item => item.section === 'how_booking_works') || null;
+      const steps = content?.filter(item => item.section.startsWith('booking_step_')) || [];
+      const info = content?.filter(item => item.section.startsWith('booking_info_')) || [];
 
-        data.forEach(item => {
-          if (item.section === 'how_booking_works') {
-            newContent.main = {
-              title: item.title || 'How Booking Works',
-              subtitle: item.subtitle || 'A simple and discreet process to ensure your perfect experience'
-            };
-          } else if (item.section.startsWith('booking_step_')) {
-            newContent.steps.push({
-              title: item.title || '',
-              content: item.content || ''
-            });
-          } else if (item.section.startsWith('booking_info_')) {
-            newContent.info.push({
-              title: item.title || '',
-              content: item.content || ''
-            });
-          }
-        });
+      // Sort steps by section name to ensure correct order
+      steps.sort((a, b) => a.section.localeCompare(b.section));
 
-        // Sort steps by order
-        newContent.steps.sort((a, b) => {
-          const orderA = data.find(d => d.title === a.title)?.section.split('_').pop();
-          const orderB = data.find(d => d.title === b.title)?.section.split('_').pop();
-          return (orderA || '').localeCompare(orderB || '');
-        });
+      setData({
+        main,
+        steps,
+        info,
+        loading: false,
+        error: null
+      });
 
-        setContent(newContent);
-      }
     } catch (error) {
-      console.error('Error loading booking content:', error);
-    } finally {
-      setLoading(false);
+      console.error('Error fetching booking content:', error);
+      setData(prev => ({
+        ...prev,
+        loading: false,
+        error: 'Failed to load booking content'
+      }));
     }
   };
 
-  return { content, loading, refetch: loadBookingContent };
+  useEffect(() => {
+    fetchBookingContent();
+  }, []);
+
+  return data;
 };

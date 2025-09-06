@@ -9,7 +9,7 @@ import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchem
 import { useBookingContent } from '@/hooks/useBookingContent';
 
 const Index = () => {
-  const { content: bookingContent, loading: bookingLoading } = useBookingContent();
+  const { main: bookingMain, steps: bookingSteps, info: bookingInfo, loading: bookingLoading } = useBookingContent();
   
   // Generate comprehensive structured data for homepage
   const structuredData = [
@@ -138,15 +138,15 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                {bookingContent.main.title}
+                {bookingMain?.title || "How Booking Works"}
               </h2>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                {bookingContent.main.subtitle}
+                {bookingMain?.subtitle || "A simple and discreet process to ensure your perfect experience"}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-              {bookingContent.steps.map((step, index) => (
+              {bookingSteps.map((step, index) => (
                 <div key={index} className="text-center group">
                   <div className="mb-6 relative">
                     <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -170,7 +170,7 @@ const Index = () => {
                   Important Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                  {bookingContent.info.map((info, index) => (
+                  {bookingInfo.map((info, index) => (
                     <div key={index}>
                       <h4 className="font-medium text-black mb-3">{info.title}</h4>
                       <p className="text-gray-600 text-sm leading-relaxed">

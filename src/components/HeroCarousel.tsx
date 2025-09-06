@@ -30,28 +30,38 @@ export const HeroCarousel = () => {
 
   const loadHeroData = async () => {
     try {
+      console.log('HeroCarousel: Loading hero data...');
+      
       // Load slides
-      const { data: slidesData } = await supabase
+      const { data: slidesData, error: slidesError } = await supabase
         .from('hero_slides')
         .select('*')
         .eq('active', true)
         .order('order_index');
 
+      console.log('HeroCarousel: Slides data:', slidesData);
+      console.log('HeroCarousel: Slides error:', slidesError);
+
       // Load settings
-      const { data: settingsData } = await supabase
+      const { data: settingsData, error: settingsError } = await supabase
         .from('hero_settings')
         .select('*')
         .limit(1);
 
+      console.log('HeroCarousel: Settings data:', settingsData);
+      console.log('HeroCarousel: Settings error:', settingsError);
+
       if (slidesData) {
         setHeroSlides(slidesData);
+        console.log('HeroCarousel: Set slides:', slidesData.length, 'slides');
       }
 
       if (settingsData && settingsData[0]) {
         setSettings(settingsData[0]);
+        console.log('HeroCarousel: Set settings:', settingsData[0]);
       }
     } catch (error) {
-      console.error('Error loading hero data:', error);
+      console.error('HeroCarousel: Error loading hero data:', error);
       // Fallback to default slides if database fails
       setHeroSlides([
         {
@@ -63,6 +73,7 @@ export const HeroCarousel = () => {
           button_link: '/models'
         }
       ]);
+      console.log('HeroCarousel: Using fallback data');
     }
   };
 
@@ -93,7 +104,10 @@ export const HeroCarousel = () => {
     }
   };
 
+  console.log('HeroCarousel: Rendering with', heroSlides.length, 'slides');
+
   if (heroSlides.length === 0) {
+    console.log('HeroCarousel: No slides to show, returning null');
     return null;
   }
 

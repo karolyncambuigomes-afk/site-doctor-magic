@@ -24,6 +24,11 @@ export const ModelProfile: React.FC = () => {
   const model = id ? getModelById(id) : null;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Debug logging
+  if (model) {
+    console.log('ModelProfile - Model data:', {name: model.name, price: model.price, pricing: model.pricing});
+  }
+
   // Scroll to top when model changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -230,9 +235,17 @@ export const ModelProfile: React.FC = () => {
           </div>
 
           {/* Pricing Section */}
-          {model.pricing && (
-            <div className="mb-6">
-              <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
+          <div className="mb-6">
+            <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
+            {model.price && !model.pricing && (
+              <div className="bg-card border border-border rounded-lg p-4">
+                <div className="text-center">
+                  <span className="text-lg font-semibold text-accent">{model.price}</span>
+                  <p className="text-sm text-muted-foreground mt-1">Base rate</p>
+                </div>
+              </div>
+            )}
+            {model.pricing && (
               <div className="bg-card border border-border rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
@@ -253,8 +266,13 @@ export const ModelProfile: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+            {!model.price && !model.pricing && (
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
+                <p className="text-muted-foreground">Pricing available upon request</p>
+              </div>
+            )}
+          </div>
 
 
 

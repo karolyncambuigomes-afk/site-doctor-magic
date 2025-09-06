@@ -10,9 +10,9 @@ const Characteristics = () => {
   return (
     <>
       <SEO 
-        title="Find Escorts by Characteristics | Five London"
-        description="Browse our stunning escorts by their unique characteristics. Find high-class, bi-sexual, open-minded, sophisticated companions in London."
-        keywords="escort characteristics, high class escorts, bi sexual escorts, open minded escorts, sophisticated escorts london"
+        title="Find Girls by Characteristics | Five London"
+        description="Browse our stunning girls by their unique characteristics. Find high-class, bi-sexual, open-minded, sophisticated companions in London."
+        keywords="girl characteristics, high class girls, bi sexual girls, open minded girls, sophisticated companions london"
         canonicalUrl="/characteristics"
       />
       
@@ -29,7 +29,7 @@ const Characteristics = () => {
                 </h1>
                 <p className="body-lg text-muted-foreground mb-4">
                   Discover companions with specific traits that match your preferences. 
-                  Browse our beautiful escorts by their unique characteristics and personality types.
+                  Browse our beautiful girls by their unique characteristics and personality types.
                 </p>
               </div>
             </div>

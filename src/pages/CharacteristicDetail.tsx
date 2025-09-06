@@ -52,7 +52,7 @@ const CharacteristicDetail = () => {
             <div className="container-width">
               <div className="text-center">
                 <h1 className="heading-xl mb-2">
-                  {characteristic.name} Escorts
+                  {characteristic.name}
                 </h1>
                 <div className="w-24 h-px bg-primary mx-auto"></div>
               </div>

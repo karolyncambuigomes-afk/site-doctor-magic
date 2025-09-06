@@ -59,13 +59,23 @@ export const useModels = () => {
         // Transform the public data to match our Model interface
         const transformedModels = data?.map((model: any) => {
           console.log('Models Hook - Processing model:', model.name, 'price:', model.price);
+          
+          // Create pricing structure from base price
+          const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
+          const pricing = {
+            oneHour: `£${basePrice}`,
+            twoHours: `£${Math.round(basePrice * 1.8)}`,
+            threeHours: `£${Math.round(basePrice * 2.5)}`,
+            additionalHour: `£${Math.round(basePrice * 0.8)}`
+          };
+
           return {
             id: model.id,
             name: model.name,
             age: null, // Limited data for public
             location: model.location,
             price: model.price,
-            pricing: null, // Limited data for public
+            pricing: pricing, // Always provide pricing structure
             image: getImageUrl(model.image),
             gallery: [], // Limited data for public
             services: model.services || [],
@@ -141,29 +151,40 @@ export const useModels = () => {
           return;
         }
 
-        const transformedModels = data?.map((model: any) => ({
-          id: model.id,
-          name: model.name,
-          age: null,
-          location: model.location,
-          price: model.price,
-          pricing: null,
-          image: getImageUrl(model.image),
-          gallery: [],
-          services: model.services || [],
-          characteristics: model.characteristics || [],
-          availability: model.availability,
-          rating: model.rating,
-          reviews: model.reviews,
-          description: model.description,
-          height: null,
-          measurements: null,
-          hair: null,
-          eyes: null,
-          nationality: null,
-          education: null,
-          interests: []
-        })) || [];
+        const transformedModels = data?.map((model: any) => {
+          // Create pricing structure from base price
+          const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
+          const pricing = {
+            oneHour: `£${basePrice}`,
+            twoHours: `£${Math.round(basePrice * 1.8)}`,
+            threeHours: `£${Math.round(basePrice * 2.5)}`,
+            additionalHour: `£${Math.round(basePrice * 0.8)}`
+          };
+
+          return {
+            id: model.id,
+            name: model.name,
+            age: null,
+            location: model.location,
+            price: model.price,
+            pricing: pricing, // Always provide pricing structure
+            image: getImageUrl(model.image),
+            gallery: [],
+            services: model.services || [],
+            characteristics: model.characteristics || [],
+            availability: model.availability,
+            rating: model.rating,
+            reviews: model.reviews,
+            description: model.description,
+            height: null,
+            measurements: null,
+            hair: null,
+            eyes: null,
+            nationality: null,
+            education: null,
+            interests: []
+          };
+        }) || [];
 
         setModels(transformedModels);
       }

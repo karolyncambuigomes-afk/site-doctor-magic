@@ -24,10 +24,11 @@ import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
 import { HeroCarouselManager } from '@/components/HeroCarouselManager';
+import { ModelForm } from '@/components/ModelForm';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface Model {
-  id: string;
+  id?: string;
   name: string;
   age: number | null;
   location: string | null;
@@ -202,40 +203,164 @@ export const Admin: React.FC = () => {
                   <CardDescription className="text-gray-600">Visualize e gerencie todos os modelos cadastrados</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {loadingData ? (
-                    <div className="text-center py-8 text-gray-600">Carregando modelos...</div>
-                  ) : models.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-gray-600 mb-4">Nenhum modelo encontrado</p>
-                      <Button className="bg-black text-white hover:bg-gray-800">
-                        <Plus className="w-4 h-4 mr-2" />
-                        Adicionar Primeiro Modelo
-                      </Button>
-                    </div>
+                  {editingModel !== null ? (
+                    <ModelForm
+                      model={editingModel}
+                      onSave={() => {
+                        setEditingModel(null);
+                        loadData();
+                      }}
+                      onCancel={() => setEditingModel(null)}
+                    />
                   ) : (
-                    <div className="space-y-4">
-                      {models.map((model) => (
-                        <div key={model.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
-                          <div className="flex items-center space-x-4">
-                            {model.image && (
-                              <img src={model.image} alt={model.name} className="w-12 h-12 rounded-full object-cover" />
-                            )}
-                            <div>
-                              <h3 className="font-medium text-black">{model.name}</h3>
-                              <p className="text-sm text-gray-600">{model.location}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
+                    <>
+                      <div className="flex justify-end mb-4">
+                        <Button 
+                          onClick={() => setEditingModel({
+                            name: '',
+                            age: null,
+                            location: '',
+                            price: '',
+                            image: '',
+                            characteristics: [],
+                            services: [],
+                            availability: 'available',
+                            description: '',
+                            height: '',
+                            measurements: '',
+                            hair: '',
+                            eyes: '',
+                            nationality: '',
+                            interests: [],
+                            education: '',
+                            pricing: {
+                              oneHour: '',
+                              twoHours: '',
+                              threeHours: '',
+                              additionalHour: ''
+                            },
+                            rating: null,
+                            reviews: null
+                          })}
+                          className="bg-black text-white hover:bg-gray-800"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Adicionar Modelo
+                        </Button>
+                      </div>
+
+                      {loadingData ? (
+                        <div className="text-center py-8 text-gray-600">Carregando modelos...</div>
+                      ) : models.length === 0 ? (
+                        <div className="text-center py-8">
+                          <p className="text-gray-600 mb-4">Nenhum modelo encontrado</p>
+                          <Button 
+                            onClick={() => setEditingModel({
+                              name: '',
+                              age: null,
+                              location: '',
+                              price: '',
+                              image: '',
+                              characteristics: [],
+                              services: [],
+                              availability: 'available',
+                              description: '',
+                              height: '',
+                              measurements: '',
+                              hair: '',
+                              eyes: '',
+                              nationality: '',
+                              interests: [],
+                              education: '',
+                              pricing: {
+                                oneHour: '',
+                                twoHours: '',
+                                threeHours: '',
+                                additionalHour: ''
+                              },
+                              rating: null,
+                              reviews: null
+                            })}
+                            className="bg-black text-white hover:bg-gray-800"
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Adicionar Primeiro Modelo
+                          </Button>
                         </div>
-                      ))}
-                    </div>
+                      ) : (
+                        <div className="space-y-4">
+                          {models.map((model) => (
+                            <div key={model.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
+                              <div className="flex items-center space-x-4">
+                                {model.image && (
+                                  <img src={model.image} alt={model.name} className="w-12 h-12 rounded-full object-cover" />
+                                )}
+                                <div>
+                                  <h3 className="font-medium text-black">{model.name}</h3>
+                                  <p className="text-sm text-gray-600">{model.location}</p>
+                                  <p className="text-sm text-gray-600">{model.price}</p>
+                                  {model.characteristics && model.characteristics.length > 0 && (
+                                    <div className="flex flex-wrap gap-1 mt-1">
+                                      {model.characteristics.slice(0, 3).map((char, idx) => (
+                                        <Badge key={idx} variant="secondary" className="text-xs">
+                                          {char}
+                                        </Badge>
+                                      ))}
+                                      {model.characteristics.length > 3 && (
+                                        <Badge variant="secondary" className="text-xs">
+                                          +{model.characteristics.length - 3}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="bg-black text-white border-black hover:bg-gray-800"
+                                  onClick={() => setEditingModel(model)}
+                                >
+                                  <Edit className="w-4 h-4" />
+                                </Button>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="bg-red-600 text-white border-red-600 hover:bg-red-700"
+                                  onClick={async () => {
+                                    if (confirm('Tem certeza que deseja excluir este modelo?')) {
+                                      try {
+                                        const { error } = await supabase
+                                          .from('models')
+                                          .delete()
+                                          .eq('id', model.id);
+
+                                        if (error) throw error;
+
+                                        toast({
+                                          title: "Sucesso",
+                                          description: "Modelo excluído com sucesso",
+                                        });
+                                        loadData();
+                                      } catch (error) {
+                                        toast({
+                                          title: "Erro",
+                                          description: "Erro ao excluir modelo",
+                                          variant: "destructive",
+                                        });
+                                      }
+                                    }
+                                  }}
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
                   )}
                 </CardContent>
               </Card>

@@ -42,7 +42,7 @@ const Characteristics = () => {
                 {characteristics.map((characteristic) => (
                   <Link 
                     key={characteristic.id} 
-                    to={`/${characteristic.slug}`}
+                    to={`/characteristics/${characteristic.slug}`}
                     className="group"
                   >
                     <Button 

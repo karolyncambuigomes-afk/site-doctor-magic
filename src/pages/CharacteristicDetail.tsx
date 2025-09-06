@@ -6,6 +6,7 @@ import { characteristics } from '@/data/characteristics';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
+import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
   const { characteristicSlug } = useParams();
@@ -23,13 +24,23 @@ const CharacteristicDetail = () => {
     model.characteristics && model.characteristics.some(char => char.toLowerCase() === characteristic.name.toLowerCase())
   );
 
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "Characteristics", url: "https://fivelondon.com/characteristics" },
+      { name: characteristic.name, url: `https://fivelondon.com/characteristics/${characteristic.slug}` }
+    ])
+  ];
+
   return (
     <>
       <SEO 
         title={characteristic.seoTitle}
         description={characteristic.seoDescription}
         keywords={characteristic.keywords.join(', ')}
-        canonicalUrl={`/${characteristic.slug}`}
+        canonicalUrl={`/characteristics/${characteristic.slug}`}
+        structuredData={structuredData}
       />
       
       <div className="min-h-screen bg-background">
@@ -102,7 +113,7 @@ const CharacteristicDetail = () => {
                   .filter(char => char.id !== characteristic.id)
                   .slice(0, 4)
                   .map((char) => (
-                    <Link key={char.id} to={`/${char.slug}`}>
+                    <Link key={char.id} to={`/characteristics/${char.slug}`}>
                       <Button variant="outline" className="w-full p-4 h-auto">
                          <div className="text-center">
                            <div className="font-medium">{char.name}</div>

@@ -50,7 +50,7 @@ const Locations = () => {
                 {locations.map((location) => (
                   <Link 
                     key={location.id} 
-                    to={`/${location.slug}`}
+                    to={`/locations/${location.slug}`}
                     className="group"
                   >
                      <Button 

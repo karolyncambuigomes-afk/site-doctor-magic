@@ -34,7 +34,7 @@ const LocationDetail = () => {
     generateBreadcrumbSchema([
       { name: "Home", url: "https://fivelondon.com/" },
       { name: "Locations", url: "https://fivelondon.com/locations" },
-      { name: location.name, url: `https://fivelondon.com/${location.slug}` }
+      { name: location.name, url: `https://fivelondon.com/locations/${location.slug}` }
     ]),
     generateLocationSchema({
       name: location.name,
@@ -61,7 +61,7 @@ const LocationDetail = () => {
         }
       },
       "telephone": "+447436190679",
-      "url": `https://fivelondon.com/${location.slug}`,
+      "url": `https://fivelondon.com/locations/${location.slug}`,
       "priceRange": "£500-£1000",
       "serviceType": "Luxury Companion Services"
     }
@@ -73,7 +73,7 @@ const LocationDetail = () => {
         title={location.seoTitle}
         description={location.seoDescription}
         keywords={location.keywords.join(", ")}
-        canonicalUrl={`/${location.slug}`}
+        canonicalUrl={`/locations/${location.slug}`}
         structuredData={structuredData}
       />
       
@@ -134,7 +134,7 @@ const LocationDetail = () => {
                 {otherLocations.slice(0, 3).map((loc, index) => (
                   <span key={loc.id}>
                     <Link 
-                      to={`/${loc.slug}`}
+                      to={`/locations/${loc.slug}`}
                       className="text-black hover:text-gray-700 underline transition-colors"
                     >
                       {loc.name} Escorts

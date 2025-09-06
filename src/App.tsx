@@ -54,9 +54,9 @@ const App = () => (
               <Route path="/models" element={<Models />} />
               <Route path="/models/:id" element={<ModelProfile />} />
               <Route path="/locations" element={<Locations />} />
+              <Route path="/locations/:locationSlug" element={<LocationDetail />} />
               <Route path="/characteristics" element={<Characteristics />} />
-              <Route path="/:locationSlug" element={<LocationDetail />} />
-              <Route path="/:characteristicSlug" element={<CharacteristicDetail />} />
+              <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />

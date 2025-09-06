@@ -61,15 +61,14 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   />
                 )}
                 
-                {/* Price - Top Left - Mobile responsive */}
-                {model.price && (
+                {/* Status/Age - Top Left - Mobile responsive */}
+                {model.age && (
                   <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
                     <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
-                      {model.price}
+                      {model.age} years
                     </div>
                   </div>
                 )}
-                {!model.price && console.log('ModelCard - No price for model:', model.name)}
 
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
@@ -80,39 +79,17 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
                     
-                    {/* Header: Nome e Localização */}
-                    <div className="flex justify-between items-start mb-2 sm:mb-3 pb-2 border-b border-white/20">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-sm sm:text-base md:text-lg font-light truncate">
-                          {model.name}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-white/80 truncate">
-                          {model.location}
+                    {/* Header: Nome apenas */}
+                    <div className="text-center">
+                      <h3 className="text-base sm:text-lg md:text-xl font-light">
+                        {model.name}
+                      </h3>
+                      {model.age && (
+                        <p className="text-sm sm:text-base text-white/80 mt-1">
+                          {model.age} years old
                         </p>
-                      </div>
+                      )}
                     </div>
-                    
-                    {/* Pricing Grid - Mobile optimized */}
-                    {model.pricing && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-1 sm:gap-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between py-1">
-                          <span className="text-white/70">1 hora</span>
-                          <span className="text-white font-medium">{model.pricing.oneHour}</span>
-                        </div>
-                        <div className="flex justify-between py-1">
-                          <span className="text-white/70">2 horas</span>
-                          <span className="text-white font-medium">{model.pricing.twoHours}</span>
-                        </div>
-                        <div className="flex justify-between py-1">
-                          <span className="text-white/70">3 horas</span>
-                          <span className="text-white font-medium">{model.pricing.threeHours}</span>
-                        </div>
-                        <div className="flex justify-between py-1">
-                          <span className="text-white/70">+ 1 hora</span>
-                          <span className="text-white font-medium">{model.pricing.additionalHour}</span>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               </>

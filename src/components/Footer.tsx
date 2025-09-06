@@ -33,10 +33,11 @@ export const Footer = () => {
                 { href: '/blog', label: 'Blog' },
                 { href: '/models', label: 'Companions' },
                 { href: '/locations', label: 'Locations' },
+                { href: '/characteristics', label: 'Characteristics' },
                 { href: '/reviews', label: 'Reviews' },
                 { href: '/faq', label: 'FAQ' },
                 { href: '/contact', label: 'Contact' },
-              ].slice(0, 9).map((link) => (
+              ].slice(0, 10).map((link) => (
                 <Link 
                   key={link.href}
                   to={link.href}

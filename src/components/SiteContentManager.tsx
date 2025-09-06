@@ -100,7 +100,15 @@ export const SiteContentManager: React.FC = () => {
     const sectionNames: Record<string, string> = {
       'about_intro': 'About Us - Introdução',
       'about_mission': 'About Us - Nossa Missão',
-      'about_values': 'About Us - Nossos Valores'
+      'about_values': 'About Us - Nossos Valores',
+      'how_booking_works': 'Como Funciona - Título Principal',
+      'booking_step_1': 'Como Funciona - Passo 1',
+      'booking_step_2': 'Como Funciona - Passo 2', 
+      'booking_step_3': 'Como Funciona - Passo 3',
+      'booking_info_schedule': 'Como Funciona - Info: Horários',
+      'booking_info_discretion': 'Como Funciona - Info: Discrição',
+      'booking_info_payment': 'Como Funciona - Info: Pagamento',
+      'booking_info_location': 'Como Funciona - Info: Localização'
     };
     return sectionNames[sectionKey] || sectionKey.replace('_', ' ').toUpperCase();
   };

@@ -6,8 +6,10 @@ import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
+import { useBookingContent } from '@/hooks/useBookingContent';
 
 const Index = () => {
+  const { content: bookingContent, loading: bookingLoading } = useBookingContent();
   
   // Generate comprehensive structured data for homepage
   const structuredData = [
@@ -136,58 +138,29 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                How Booking Works
+                {bookingContent.main.title}
               </h2>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                A simple and discreet process to ensure your perfect experience
+                {bookingContent.main.subtitle}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-              {/* Step 1 */}
-              <div className="text-center group">
-                <div className="mb-6 relative">
-                  <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-light text-xl">1</span>
+              {bookingContent.steps.map((step, index) => (
+                <div key={index} className="text-center group">
+                  <div className="mb-6 relative">
+                    <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-white font-light text-xl">{index + 1}</span>
+                    </div>
                   </div>
+                  <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {step.content}
+                  </p>
                 </div>
-                <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Initial Contact
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Reach out to us by phone or contact form. Our team responds quickly and discreetly to understand your preferences.
-                </p>
-              </div>
-
-              {/* Step 2 */}
-              <div className="text-center group">
-                <div className="mb-6 relative">
-                  <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-light text-xl">2</span>
-                  </div>
-                </div>
-                <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Personalized Selection
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  Based on your preferences, we present the most suitable companions. You choose from detailed profiles and photos.
-                </p>
-              </div>
-
-              {/* Step 3 */}
-              <div className="text-center group">
-                <div className="mb-6 relative">
-                  <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-white font-light text-xl">3</span>
-                  </div>
-                </div>
-                <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                  Secure Confirmation
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  We confirm all details - date, time, location and duration. Payment is processed securely and discreetly.
-                </p>
-              </div>
+              ))}
             </div>
 
             {/* Additional Info */}
@@ -197,30 +170,14 @@ const Index = () => {
                   Important Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                  <div>
-                    <h4 className="font-medium text-black mb-3">⏰ Schedule</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Available 24/7. We recommend booking at least 2 hours in advance for better availability.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-black mb-3">🔒 Discretion</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      Complete confidentiality guaranteed. All data is protected and never shared.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-black mb-3">💳 Payment</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      We accept credit cards, bank transfers and cash. Payment is always discreet and secure.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-black mb-3">📍 Location</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      We serve all of London. Hotels, private residences or venues of your choice.
-                    </p>
-                  </div>
+                  {bookingContent.info.map((info, index) => (
+                    <div key={index}>
+                      <h4 className="font-medium text-black mb-3">{info.title}</h4>
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {info.content}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

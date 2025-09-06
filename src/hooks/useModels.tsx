@@ -54,31 +54,37 @@ export const useModels = () => {
           return;
         }
 
-        // Transform the public data to match our Model interface
-        const transformedModels = data?.map((model: any) => ({
-          id: model.id,
-          name: model.name,
-          age: null, // Limited data for public
-          location: model.location,
-          price: model.price,
-          pricing: null, // Limited data for public
-          image: getImageUrl(model.image),
-          gallery: [], // Limited data for public
-          services: model.services || [],
-          characteristics: model.characteristics || [],
-          availability: model.availability,
-          rating: model.rating,
-          reviews: model.reviews,
-          description: model.description, // Public description
-          height: null, // Limited data for public
-          measurements: null, // Limited data for public
-          hair: null, // Limited data for public
-          eyes: null, // Limited data for public
-          nationality: null, // Limited data for public
-          education: null, // Limited data for public
-          interests: []
-        })) || [];
+        console.log('Models Hook - Raw public models data:', data);
 
+        // Transform the public data to match our Model interface
+        const transformedModels = data?.map((model: any) => {
+          console.log('Models Hook - Processing model:', model.name, 'price:', model.price);
+          return {
+            id: model.id,
+            name: model.name,
+            age: null, // Limited data for public
+            location: model.location,
+            price: model.price,
+            pricing: null, // Limited data for public
+            image: getImageUrl(model.image),
+            gallery: [], // Limited data for public
+            services: model.services || [],
+            characteristics: model.characteristics || [],
+            availability: model.availability,
+            rating: model.rating,
+            reviews: model.reviews,
+            description: model.description, // Public description
+            height: null, // Limited data for public
+            measurements: null, // Limited data for public
+            hair: null, // Limited data for public
+            eyes: null, // Limited data for public
+            nationality: null, // Limited data for public
+            education: null, // Limited data for public
+            interests: []
+          };
+        }) || [];
+
+        console.log('Models Hook - Transformed models:', transformedModels);
         setModels(transformedModels);
       } else if (hasAccess) {
         // For premium users, get full data

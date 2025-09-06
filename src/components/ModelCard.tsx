@@ -62,11 +62,14 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 )}
                 
                 {/* Price - Top Left - Mobile responsive */}
-                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
-                  <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
-                    {model.price}
+                {model.price && (
+                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
+                    <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
+                      {model.price}
+                    </div>
                   </div>
-                </div>
+                )}
+                {!model.price && console.log('ModelCard - No price for model:', model.name)}
 
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>

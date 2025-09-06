@@ -4,6 +4,7 @@ import { HeroCarousel } from '@/components/HeroCarousel';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
+import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 
 const Index = () => {
@@ -70,21 +71,61 @@ const Index = () => {
               Contact us for a discreet consultation. Available 24/7 for exclusive bookings.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8 px-4 sm:px-0">
-              <Link 
-                to="/contact"
-                className="inline-block border border-white/30 hover:border-white/60 px-6 sm:px-8 py-3 transition-all duration-300 w-full sm:w-auto text-center"
+            <div className="flex items-center justify-center space-x-8 px-4">
+              {/* WhatsApp */}
+              <a 
+                href="https://wa.me/447436190679"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
               >
-                <span className="text-sm tracking-[0.3em] uppercase font-light">
-                  Contact Us
+                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
+                  WhatsApp
                 </span>
-              </Link>
-              
+              </a>
+
+              {/* Call */}
               <a 
                 href="tel:+447436190679"
-                className="text-base sm:text-lg tracking-wide text-white/80 hover:text-white transition-colors"
+                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
               >
-                +44 7436 190679
+                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <Phone className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
+                  Call
+                </span>
+              </a>
+
+              {/* SMS */}
+              <a 
+                href="sms:+447436190679"
+                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+              >
+                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <MessageSquare className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
+                  SMS
+                </span>
+              </a>
+
+              {/* Telegram */}
+              <a 
+                href="https://t.me/FiveLondon"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+              >
+                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <Send className="w-6 h-6 text-white" />
+                </div>
+                <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
+                  Telegram
+                </span>
               </a>
             </div>
           </div>

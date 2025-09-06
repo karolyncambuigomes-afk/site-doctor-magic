@@ -70,14 +70,6 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   </div>
                 )}
 
-                {/* Age - Top Right - Mobile responsive */}
-                {model.age && (
-                  <div className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 z-10">
-                    <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
-                      {model.age} years
-                    </div>
-                  </div>
-                )}
 
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
@@ -88,12 +80,12 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
                     
-                    {/* Header: Nome apenas */}
-                    <div className="text-center">
-                      <h3 className="text-base sm:text-lg md:text-xl font-light">
-                        {model.name}
-                      </h3>
-                    </div>
+                     {/* Header: Nome e idade */}
+                     <div className="text-center">
+                       <h3 className="text-base sm:text-lg md:text-xl font-light">
+                         {model.name}{model.age && `, ${model.age} anos`}
+                       </h3>
+                     </div>
                   </div>
                 </div>
               </>

@@ -80,7 +80,7 @@ const Index = () => {
 
 
         {/* Services Section - Hidden SEO heading only */}
-        <section className="py-12 md:py-20 lg:py-32 bg-gray-50">
+        <section className="py-4 md:py-6 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             {/* Hidden SEO heading */}
             <h2 className="sr-only">London's Finest High-Class Escorts - Premium Escort Services</h2>

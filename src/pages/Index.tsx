@@ -54,7 +54,7 @@ const Index = () => {
       
       <Navigation />
       
-      <main className="relative overflow-x-hidden">{" "}
+      <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
         {/* Hero Video temporariamente removido para testes */}
         {/* <SimpleHeroVideo /> */}
 

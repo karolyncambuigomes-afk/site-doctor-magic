@@ -10,6 +10,11 @@ export const Footer = () => {
 
   // Debug footer rendering
   console.log('Footer component rendered');
+  
+  // Detectar se é mobile
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  console.log('Footer - Device type:', isMobile ? 'mobile' : 'desktop');
+  console.log('Footer - Window dimensions:', typeof window !== 'undefined' ? { width: window.innerWidth, height: window.innerHeight } : 'SSR');
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +24,15 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-background border-t border-border relative z-40">
+    <footer 
+      className="bg-red-500 border-t border-border relative z-50 block w-full"
+      style={{ 
+        minHeight: '300px',
+        backgroundColor: 'red',
+        padding: '20px',
+        display: 'block'
+      }}
+    >
       <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">

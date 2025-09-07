@@ -38,7 +38,7 @@ export const ModelsCarousel = () => {
   }
 
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-20 md:pt-32 md:pb-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* Models Carousel */}

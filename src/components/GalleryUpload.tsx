@@ -62,6 +62,15 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       return;
     }
 
+    if (!modelId) {
+      toast({
+        title: "Erro",
+        description: "ID do modelo não encontrado",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
@@ -75,7 +84,10 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           order_index: nextOrderIndex
         }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast({
         title: "Sucesso",
@@ -90,7 +102,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       console.error('Error adding image:', error);
       toast({
         title: "Erro",
-        description: "Erro ao adicionar imagem",
+        description: error instanceof Error ? error.message : "Erro ao adicionar imagem",
         variant: "destructive",
       });
     } finally {

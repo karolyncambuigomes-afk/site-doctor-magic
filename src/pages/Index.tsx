@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 import { useBookingContent } from '@/hooks/useBookingContent';
-import heroSecondBanner from '@/assets/hero-second-banner.jpg';
+import heroSecondBanner from '@/assets/hero-second-banner-new.jpg';
 
 
 import { CategoryFilters } from '@/components/CategoryFilters';

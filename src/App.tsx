@@ -75,6 +75,24 @@ const App = () => (
           <Route path="/escorts-in-notting-hill" element={<LocationDetail />} />
               <Route path="/characteristics" element={<Characteristics />} />
           <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
+          {/* Specific characteristic routes for SEO */}
+          <Route path="/blonde-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/brunette-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/busty-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/petite-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/curvy-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/slim-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/english-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/international-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/young-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/mature-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/vip-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/gfe-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/redhead-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/asian-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/european-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/ebony-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/tall-escorts-london" element={<CharacteristicDetail />} />
           <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />

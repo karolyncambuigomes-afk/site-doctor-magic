@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
@@ -6,14 +7,45 @@ import { characteristics } from '@/data/characteristics';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
   const { characteristicSlug } = useParams();
   const { models, loading, error } = useModels();
+  const [isContentOpen, setIsContentOpen] = useState(false);
+  const currentPath = window.location.pathname;
   
-  // Find the characteristic by matching the complete slug
-  const characteristic = characteristics.find(char => char.slug === characteristicSlug);
+  // Path mapping for SEO routes
+  const pathMap: { [key: string]: string } = {
+    '/blonde-escorts-london': 'blonde-escorts',
+    '/brunette-escorts-london': 'brunette-escorts',
+    '/busty-escorts-london': 'busty-escorts',
+    '/petite-escorts-london': 'petite-escorts',
+    '/curvy-escorts-london': 'curvy-escorts',
+    '/slim-escorts-london': 'slim-escorts',
+    '/english-escorts-london': 'english-escorts',
+    '/international-escorts-london': 'international-escorts',
+    '/young-escorts-london': 'young-escorts',
+    '/mature-escorts-london': 'mature-escorts',
+    '/vip-escorts-london': 'vip-escorts',
+    '/gfe-escorts-london': 'gfe-escorts',
+    '/redhead-escorts-london': 'redhead-escorts',
+    '/asian-escorts-london': 'asian-escorts',
+    '/european-escorts-london': 'european-escorts',
+    '/ebony-escorts-london': 'ebony-escorts',
+    '/tall-escorts-london': 'tall-escorts',
+  };
+  
+  // Find characteristic by slug or by matching the URL path
+  const characteristic = characteristics.find(char => {
+    // Direct slug match (e.g., /characteristics/blonde-escorts)
+    if (char.slug === characteristicSlug) return true;
+    
+    // URL-based matching for SEO routes
+    return pathMap[currentPath] === char.slug;
+  });
   
   if (!characteristic) {
     return <Navigate to="/404" replace />;
@@ -84,15 +116,33 @@ const CharacteristicDetail = () => {
             </div>
           </section>
 
-          {/* Content Section */}
+          {/* SEO Content Section - Collapsible */}
           {characteristic.content && (
-            <section className="py-8 bg-muted/30">
-              <div className="container-width">
-                <div className="max-w-4xl mx-auto">
-                  <div 
-                    className="prose prose-lg max-w-none text-muted-foreground text-center"
-                    dangerouslySetInnerHTML={{ __html: characteristic.content }}
-                  />
+            <section className="py-16 md:py-20 bg-white">
+              <div className="container-width mx-auto px-6">
+                <div className="text-center mb-8">
+                  <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
+                    <CollapsibleTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="lg"
+                        className="mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors border-primary/20 hover:border-primary/40"
+                      >
+                        Saiba mais sobre {characteristic.name} Escorts
+                        {isContentOpen ? (
+                          <ChevronUp className="w-4 h-4" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4" />
+                        )}
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="mt-12 animate-accordion-down">
+                      <div 
+                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:heading-lg [&>h3]:heading-md [&>p]:body-base [&>p]:leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: characteristic.content }}
+                      />
+                    </CollapsibleContent>
+                  </Collapsible>
                 </div>
               </div>
             </section>

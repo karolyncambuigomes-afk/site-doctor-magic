@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const categories = [
-  { name: 'Blonde', path: '/models?hair=blonde', image: '/images/model1.jpg' },
-  { name: 'Brunette', path: '/models?hair=brunette', image: '/images/model2.jpg' },
-  { name: 'English', path: '/models?nationality=english', image: '/images/model3.jpg' },
-  { name: 'International', path: '/models?type=international', image: '/images/model4.jpg' },
-  { name: 'VIP', path: '/models?service=vip', image: '/images/kate1.jpg' },
-  { name: 'Petite', path: '/models?body=petite', image: '/images/luisa1.jpg' },
+  { name: 'Blonde', path: '/characteristics/blonde-escorts', image: '/images/model1.jpg' },
+  { name: 'Brunette', path: '/characteristics/brunette-escorts', image: '/images/model2.jpg' },
+  { name: 'English', path: '/characteristics/english-escorts', image: '/images/model3.jpg' },
+  { name: 'International', path: '/characteristics/international-escorts', image: '/images/model4.jpg' },
+  { name: 'VIP', path: '/characteristics/vip-escorts', image: '/images/kate1.jpg' },
+  { name: 'Petite', path: '/characteristics/petite-escorts', image: '/images/luisa1.jpg' },
 ];
 
 export const CategoryFilters: React.FC = () => {

@@ -36,11 +36,11 @@ const FAQ = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="font-sans text-3xl md:text-5xl font-extralight tracking-wide text-black mb-6">
+            <h1 className="heading-display text-black mb-6">
               Frequently Asked Questions
             </h1>
             <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="body-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
               Find answers to the most common questions about our luxury companion services. 
               Our team is here to help ensure your complete satisfaction and peace of mind.
             </p>
@@ -87,14 +87,14 @@ const FAQ = () => {
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gray-50 p-8 rounded-lg">
-              <h2 className="text-2xl md:text-3xl font-normal text-black mb-8 text-center tracking-tight">
+              <h2 className="heading-lg text-black mb-8 text-center">
                 Important Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {bookingInfo.map((info, index) => (
                   <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <h3 className="font-medium text-black mb-3 text-base">{info.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <h3 className="heading-sm text-black mb-3">{info.title}</h3>
+                    <p className="body-sm text-gray-600 leading-relaxed">
                       {info.content}
                     </p>
                   </div>
@@ -112,32 +112,32 @@ const FAQ = () => {
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Shield className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="font-medium text-black mb-2">100% Discrete</h3>
-                <p className="text-sm text-gray-600">Complete confidentiality guaranteed</p>
+                <h3 className="heading-sm text-black mb-2">100% Discrete</h3>
+                <p className="body-xs text-gray-600">Complete confidentiality guaranteed</p>
               </div>
               
               <div className="flex flex-col items-center">
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Clock className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="font-medium text-black mb-2">24/7 Available</h3>
-                <p className="text-sm text-gray-600">Round-the-clock service</p>
+                <h3 className="heading-sm text-black mb-2">24/7 Available</h3>
+                <p className="body-xs text-gray-600">Round-the-clock service</p>
               </div>
               
               <div className="flex flex-col items-center">
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Users className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="font-medium text-black mb-2">Elite Companions</h3>
-                <p className="text-sm text-gray-600">Carefully selected professionals</p>
+                <h3 className="heading-sm text-black mb-2">Elite Companions</h3>
+                <p className="body-xs text-gray-600">Carefully selected professionals</p>
               </div>
               
               <div className="flex flex-col items-center">
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Star className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="font-medium text-black mb-2">Premium Service</h3>
-                <p className="text-sm text-gray-600">Exceptional experiences delivered</p>
+                <h3 className="heading-sm text-black mb-2">Premium Service</h3>
+                <p className="body-xs text-gray-600">Exceptional experiences delivered</p>
               </div>
             </div>
           </div>
@@ -146,10 +146,10 @@ const FAQ = () => {
         {/* Contact CTA */}
         <section className="py-16 md:py-24 bg-black text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-sans text-2xl md:text-4xl font-extralight tracking-wide mb-6">
+            <h2 className="heading-xl mb-6">
               Still Have Questions?
             </h2>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="body-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
               Our experienced concierge team is available 24/7 to answer any additional questions 
               and assist with your booking.
             </p>

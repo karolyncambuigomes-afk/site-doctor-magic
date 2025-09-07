@@ -92,11 +92,11 @@ const BlogPost = () => {
                     {article.category}
                   </Badge>
                   
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 text-foreground leading-tight">
+                  <h1 className="heading-display mb-6 text-foreground leading-tight">
                     {article.title}
                   </h1>
                   
-                  <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                  <p className="body-lg text-muted-foreground leading-relaxed mb-8">
                     {article.excerpt}
                   </p>
                   
@@ -160,9 +160,9 @@ const BlogPost = () => {
             <section className="py-20 bg-muted/20">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
-                  <h2 className="text-3xl md:text-4xl font-light mb-12 text-center text-foreground">
-                    Related Articles
-                  </h2>
+                   <h2 className="heading-xl mb-12 text-center text-foreground">
+                     Related Articles
+                   </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {relatedArticles.map((relatedArticle) => (
@@ -181,15 +181,15 @@ const BlogPost = () => {
                         </div>
                         
                         <CardHeader className="pb-4">
-                          <h3 className="text-lg font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
-                            {relatedArticle.title}
-                          </h3>
+                           <h3 className="heading-sm font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
+                             {relatedArticle.title}
+                           </h3>
                         </CardHeader>
                         
                         <CardContent className="pt-0">
-                          <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
-                            {relatedArticle.excerpt.substring(0, 120)}...
-                          </p>
+                           <p className="body-sm text-muted-foreground leading-relaxed mb-6">
+                             {relatedArticle.excerpt.substring(0, 120)}...
+                           </p>
                           
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80">
@@ -210,10 +210,10 @@ const BlogPost = () => {
           <section className="py-20">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-light mb-6 text-foreground">
+                <h2 className="heading-xl mb-6 text-foreground">
                   Ready for Your London Experience?
                 </h2>
-                <p className="text-lg text-muted-foreground mb-8">
+                <p className="body-lg text-muted-foreground mb-8">
                   Contact us to plan your exclusive experience 
                   in London with our luxury companion services.
                 </p>

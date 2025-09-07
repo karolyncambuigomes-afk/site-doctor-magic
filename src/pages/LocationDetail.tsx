@@ -104,7 +104,7 @@ const LocationDetail = () => {
           <section className="py-20 md:py-32 bg-gradient-to-br from-white via-neutral-50 to-gray-100">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-20">
-                <h1 className="heading-display text-4xl md:text-6xl text-primary mb-8">
+                <h1 className="heading-display text-primary mb-8">
                   Luxury Escorts in {location.name}
                 </h1>
                 <div className="w-24 h-0.5 bg-gradient-primary mx-auto mb-12"></div>
@@ -119,7 +119,7 @@ const LocationDetail = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="heading-large text-3xl md:text-4xl text-primary mb-6">
+                <h2 className="heading-lg text-primary mb-6">
                   Our Exclusive {location.name} Collection
                 </h2>
                 <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
@@ -150,7 +150,7 @@ const LocationDetail = () => {
             <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
               <div className="container-width mx-auto px-6">
                 <div className="text-center mb-16">
-                  <h2 className="heading-display text-3xl md:text-4xl text-primary mb-6">
+                  <h2 className="heading-lg text-primary mb-6">
                     Available Companions in {location.name}
                   </h2>
                   <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
@@ -209,7 +209,7 @@ const LocationDetail = () => {
           <section className="py-16 md:py-20 bg-background">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                <h2 className="heading-lg text-foreground mb-4">
                   Explore Other Locations
                 </h2>
                 <p className="text-muted-foreground mb-8">
@@ -241,7 +241,7 @@ const LocationDetail = () => {
           {/* Contact CTA */}
           <section className="py-20 md:py-28 bg-gradient-to-br from-primary via-primary-dark to-black text-white">
             <div className="container-width mx-auto px-6 text-center">
-              <h2 className="heading-display text-3xl md:text-5xl mb-8">
+              <h2 className="heading-xl mb-8">
                 Book Your {location.name} Experience
               </h2>
               <p className="body-lg text-white/90 leading-relaxed mb-12 max-w-3xl mx-auto">

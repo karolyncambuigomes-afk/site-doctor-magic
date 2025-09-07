@@ -24,10 +24,10 @@ const Characteristics = () => {
           <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal mb-3 sm:mb-4">
+                <h1 className="heading-lg mb-3 sm:mb-4">
                   Find Escorts by Characteristics
                 </h1>
-                <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-3 sm:mb-4">
+                <p className="body-base text-muted-foreground mb-3 sm:mb-4">
                   Discover companions with specific traits that match your preferences. 
                   Browse our beautiful escorts by their unique characteristics and personality types.
                 </p>
@@ -51,10 +51,10 @@ const Characteristics = () => {
                     >
                       <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary group-hover:scale-110 transition-transform" />
                       <div className="text-center">
-                        <h3 className="text-sm sm:text-base font-medium mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="heading-sm font-medium mb-1 group-hover:text-primary transition-colors">
                           {characteristic.name}
                         </h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
+                        <p className="body-xs text-muted-foreground">
                           {characteristic.description}
                         </p>
                       </div>
@@ -70,10 +70,10 @@ const Characteristics = () => {
           <section className="py-8 sm:py-12 md:py-16 bg-muted/50">
             <div className="container-width">
               <div className="text-center max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="text-lg sm:text-xl md:text-2xl font-medium mb-3 sm:mb-4">
+                <h2 className="heading-lg mb-3 sm:mb-4">
                   Looking for Something Specific?
                 </h2>
-                <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6">
+                <p className="body-base text-muted-foreground mb-4 sm:mb-6">
                   Can't find the exact characteristics you're looking for? Our diverse collection of companions 
                   offers a wide range of personalities and traits. Contact us to find your perfect match.
                 </p>

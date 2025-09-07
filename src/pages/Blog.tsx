@@ -70,10 +70,10 @@ const Blog = () => {
           <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light mb-4 sm:mb-6 text-foreground">
+                <h1 className="heading-display mb-4 sm:mb-6 text-foreground">
                   Discover London
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
+                <p className="body-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">
                   Your exclusive guide to sophisticated experiences, exquisite restaurants, 
                   prestigious events and London's best-kept secrets.
                 </p>
@@ -144,13 +144,13 @@ const Blog = () => {
                         </div>
                       </div>
                       
-                      <h2 className="text-base sm:text-lg md:text-xl font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
+                      <h2 className="heading-sm font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
                         {article.title}
                       </h2>
                     </CardHeader>
                     
                     <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+                      <p className="body-xs text-muted-foreground leading-relaxed mb-4 sm:mb-6">
                         {article.excerpt}
                       </p>
                       
@@ -171,10 +171,10 @@ const Blog = () => {
           <section className="py-12 md:py-16 lg:py-20 bg-muted/20">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto px-4 sm:px-6">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-6 text-foreground">
+                <h2 className="heading-xl mb-4 sm:mb-6 text-foreground">
                   Stay Updated
                 </h2>
-                <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8">
+                <p className="body-base text-muted-foreground mb-6 sm:mb-8">
                   Receive our exclusive articles about the best experiences in London 
                   directly in your email.
                 </p>

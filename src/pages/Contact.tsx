@@ -121,7 +121,7 @@ const Contact = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
               <Card className="luxury-card p-8">
-                <h2 className="text-2xl font-heading font-bold mb-6">Send Us a Message</h2>
+                <h2 className="heading-lg mb-6">Send Us a Message</h2>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -198,7 +198,7 @@ const Contact = () => {
                       <Clock className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-heading font-bold mb-2">Business Hours</h3>
+                      <h3 className="heading-md mb-2">Business Hours</h3>
                       <div className="space-y-1 text-muted-foreground">
                         <p>Monday - Sunday: 24/7</p>
                         <p>Phone Support: Always Available</p>
@@ -215,7 +215,7 @@ const Contact = () => {
                       <MapPin className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-heading font-bold mb-2">Service Areas</h3>
+                      <h3 className="heading-md mb-2">Service Areas</h3>
                       <div className="space-y-1 text-muted-foreground">
                         <p>Central London (Primary)</p>
                         <p>Greater London Area</p>
@@ -233,7 +233,7 @@ const Contact = () => {
                       <Shield className="w-6 h-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-heading font-bold mb-2">Privacy & Discretion</h3>
+                      <h3 className="heading-md mb-2">Privacy & Discretion</h3>
                       <p className="text-muted-foreground">
                         All communications are handled with complete confidentiality. Your privacy 
                         and discretion are our top priorities.
@@ -244,7 +244,7 @@ const Contact = () => {
 
                 {/* Quick Booking */}
                 <Card className="luxury-card p-6 bg-gradient-luxury text-white">
-                  <h3 className="text-xl font-heading font-bold mb-2">Need Immediate Assistance?</h3>
+                  <h3 className="heading-md mb-2">Need Immediate Assistance?</h3>
                   <p className="mb-4 opacity-90">
                     For urgent bookings or immediate assistance, call our 24/7 hotline
                   </p>
@@ -260,10 +260,10 @@ const Contact = () => {
         {/* FAQ Quick Links */}
         <section className="section-padding bg-muted/50">
           <div className="container-width text-center">
-            <h2 className="text-3xl font-heading font-bold mb-4">
+            <h2 className="heading-xl mb-4">
               Have <span className="luxury-text-gradient">Questions</span>?
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               Check our frequently asked questions for quick answers
             </p>
             <Button className="luxury-button text-lg px-8 py-4">

@@ -145,45 +145,63 @@ const LocationDetail = () => {
           </section>
 
 
-          {/* Available Models */}
-          <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="heading-display text-3xl md:text-4xl text-primary mb-6">
-                  Available Companions in {location.name}
-                </h2>
-                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
-                <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
-                  Meet our exclusive selection of sophisticated companions available in {location.name}
-                </p>
-              </div>
-              
-              {loading ? (
-                <div className="text-center py-16">
-                  <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-muted-foreground">Loading companions...</p>
-                </div>
-              ) : locationModels.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                  {locationModels.map((model) => (
-                    <ModelCard key={model.id} model={model} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-20">
-                  <Clock className="w-12 h-12 text-muted-foreground mx-auto mb-6" />
-                  <h3 className="text-xl font-semibold mb-4">Available Throughout London</h3>
-                  <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                    Our companions are available throughout London and can meet you in {location.name}.
+          {/* Available Models - Only show if there are models for this location */}
+          {locationModels.length > 0 && (
+            <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+              <div className="container-width mx-auto px-6">
+                <div className="text-center mb-16">
+                  <h2 className="heading-display text-3xl md:text-4xl text-primary mb-6">
+                    Available Companions in {location.name}
+                  </h2>
+                  <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                  <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+                    Meet our exclusive selection of sophisticated companions available in {location.name}
                   </p>
-                  <Link to="/models">
-                    <Button variant="luxury" size="lg">
-                      View All Companions
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                  </Link>
                 </div>
-              )}
+                
+                {loading ? (
+                  <div className="text-center py-16">
+                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">Loading companions...</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {locationModels.map((model) => (
+                      <ModelCard key={model.id} model={model} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          {/* SEO Content Section - Collapsible */}
+          <section className="py-16 md:py-20 bg-white">
+            <div className="container-width mx-auto px-6">
+              <div className="text-center mb-8">
+                <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors border-primary/20 hover:border-primary/40"
+                    >
+                      Saiba mais sobre {location.name}
+                      {isContentOpen ? (
+                        <ChevronUp className="w-4 h-4" />
+                      ) : (
+                        <ChevronDown className="w-4 h-4" />
+                      )}
+                    </Button>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="mt-12 animate-accordion-down">
+                    <div 
+                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:text-2xl [&>h3]:text-xl [&>p]:text-base [&>p]:leading-relaxed"
+                      dangerouslySetInnerHTML={{ __html: location.content }}
+                    />
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
             </div>
           </section>
 
@@ -271,33 +289,6 @@ const LocationDetail = () => {
                   <span>Premium Service</span>
                 </div>
               </div>
-            </div>
-          </section>
-
-          {/* Collapsible SEO Content */}
-          <section className="py-12 bg-gray-50">
-            <div className="container-width mx-auto px-6">
-              <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                <CollapsibleTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    className="mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    Saiba mais sobre {location.name}
-                    {isContentOpen ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-8 animate-accordion-down">
-                  <div 
-                    className="prose prose-lg max-w-4xl mx-auto text-foreground"
-                    dangerouslySetInnerHTML={{ __html: location.content }}
-                  />
-                </CollapsibleContent>
-              </Collapsible>
             </div>
           </section>
         </main>

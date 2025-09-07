@@ -65,20 +65,35 @@ export const SimpleHeroVideo = () => {
 
   return (
     <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
-      {/* Background Image */}
+      {/* Background Media */}
       <div className="absolute inset-0">
-        <img
-          src="/images/model1.jpg"
-          alt="Five London"
+        {/* Video with poster image fallback */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/images/model1.jpg"
+          preload="auto"
           className="w-full h-full object-cover"
-          onError={(e) => {
-            console.error('Image failed to load:', e);
-            // Fallback to a different image
-            e.currentTarget.src = '/images/model2.jpg';
+          onLoadedData={() => {
+            console.log('Video loaded successfully');
+            setIsLoaded(true);
           }}
-        />
+          onError={(e) => {
+            console.error('Video failed to load:', e);
+          }}
+        >
+          <source src="/video/woman-walking-preview.mp4" type="video/mp4" />
+          {/* Fallback image if video fails */}
+          <img
+            src="/images/model1.jpg"
+            alt="Five London"
+            className="w-full h-full object-cover"
+          />
+        </video>
         
-        {/* Dark overlay - reduced opacity */}
+        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
 

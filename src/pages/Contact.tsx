@@ -39,22 +39,22 @@ const Contact = () => {
       icon: Phone,
       title: "Phone",
       details: "+44 7436 190679",
-      description: "Available 24/7 for immediate assistance",
-      action: "Call Now"
+      description: "Available 24/7 for immediate booking",
+      action: "Call Now for Same Day"
     },
     {
       icon: Mail,
       title: "Email",
       details: "info@fivelondon.com",
-      description: "Response within 2 hours during business hours",
-      action: "Send Email"
+      description: "Get pricing and availability within 1 hour",
+      action: "Email for Prices"
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
       details: "+44 7436 190679",
-      description: "Secure messaging for quick inquiries",
-      action: "Start Chat"
+      description: "Instant replies - same day booking available",
+      action: "WhatsApp Now"
     }
   ];
 
@@ -75,10 +75,10 @@ const Contact = () => {
         <section className="section-padding bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 animate-fade-in-up">
-              Contact <span className="luxury-text-gradient">Five London</span>
+              Call Now for <span className="luxury-text-gradient">Same Day Booking</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in">
-              Our concierge team is available 24/7 to assist with bookings and answer your questions
+              Most companions available today. Call now for instant confirmation and same-day appointments.
             </p>
           </div>
         </section>

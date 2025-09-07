@@ -37,7 +37,7 @@ export const HeroSection = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Link to="/models">
                 <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                  Browse Elite Companions
+                  View Available Companions Now
                 </button>
               </Link>
               
@@ -48,7 +48,7 @@ export const HeroSection = () => {
               >
                 <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
                   <Phone className="w-4 h-4 inline mr-2" />
-                  Book Now - Available 24/7
+                  Call Now - Available 24/7
                 </button>
               </a>
             </div>

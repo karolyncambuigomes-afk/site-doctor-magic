@@ -105,7 +105,7 @@ const About = () => {
                   className="px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                 >
-                  Book Your Elite Companion
+                  Call Now - Same Day Booking
                 </Button>
               </div>
               
@@ -363,7 +363,7 @@ const About = () => {
                   className="bg-primary hover:bg-primary/90 text-white px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                 >
-                  Book Now - Available 24/7
+                  Call Now - Same Day Available
                 </Button>
                 <Button 
                   variant="outline" 

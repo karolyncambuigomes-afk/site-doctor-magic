@@ -52,7 +52,7 @@ const Index = () => {
               London's Finest Elite Companions
             </h3>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-12 max-w-2xl mx-auto">
-              Handpicked selection of elite London companions. Beautiful, intelligent, and sophisticated ladies for dinner dates, business events, travel, and intimate encounters. Professional, discreet, available 24/7.
+              Handpicked selection of elite London companions. Beautiful, intelligent, and sophisticated ladies for dinner dates, business events, travel, and intimate encounters. Same-day booking available.
             </p>
             
             <Link 
@@ -60,7 +60,7 @@ const Index = () => {
               className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
             >
               <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                View All Services
+                See All Services & Prices
               </span>
             </Link>
           </div>
@@ -70,10 +70,10 @@ const Index = () => {
         <section className="py-16 md:py-32 bg-black text-white">
           <div className="max-w-4xl mx-auto px-6 md:px-4 text-center">
             <h2 className="font-display text-xl sm:text-2xl md:text-4xl font-normal tracking-tight mb-6 md:mb-8">
-              Book Your Elite Companion Now
+              Book Your Elite Companion in 3 Simple Steps
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
-              Ready for an unforgettable experience? Contact us now for instant booking. Our elite London companions are available 24/7 across all premium locations.
+              Ready for an unforgettable experience? Don't wait - our elite London companions are booking fast. Contact us now for same-day availability.
             </p>
             
             <div className="flex items-center justify-center space-x-8 px-4">
@@ -148,7 +148,7 @@ const Index = () => {
                 {bookingMain?.title || "How to Book Your Elite Companion"}
               </h3>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                {bookingMain?.subtitle || "Simple, discreet, and instant. Book your perfect companion in 3 easy steps"}
+                {bookingMain?.subtitle || "Simple, discreet, and instant. Start your booking now - most companions available same day"}
               </p>
             </div>
 
@@ -196,7 +196,7 @@ const Index = () => {
                 className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300 hover-scale"
               >
               <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                Book Now - Available 24/7
+                Start Booking Now - Same Day Available
               </span>
               </Link>
             </div>

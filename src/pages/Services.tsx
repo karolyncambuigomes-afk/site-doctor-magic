@@ -170,10 +170,10 @@ const Services = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto">
               <h1 className="text-5xl lg:text-6xl font-extralight mb-6 tracking-tight">
-                Elite Escort Services
+                Elite Companion Services
               </h1>
               <p className="text-lg text-muted-foreground font-light">
-                London's finest high-class companions for every occasion. Available 24/7.
+                Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
           </div>
@@ -318,16 +318,16 @@ const Services = () => {
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl font-extralight mb-4">
-                Book Your Elite Escort Now
+                Ready to Book? Call Now
               </h2>
               <p className="text-muted-foreground mb-8">
-                Available 24/7 across London. Instant booking via WhatsApp.
+                Most companions available same day. Call now for instant booking confirmation.
               </p>
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
-                Book Now - Available 24/7
+                Call Now - Same Day Available
               </Button>
             </div>
           </div>

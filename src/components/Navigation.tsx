@@ -125,7 +125,7 @@ export const Navigation = () => {
               <div className="flex items-center space-x-3">
                 <a href="https://wa.me/447436190679">
                   <Button variant="outline">
-                    Book Now
+                    Call Now
                   </Button>
                 </a>
               </div>
@@ -191,7 +191,7 @@ export const Navigation = () => {
                     <div className="space-y-4">
                       <a href="https://wa.me/447436190679">
                         <Button className="w-full">
-                          Book Now
+                          Call Now
                         </Button>
                       </a>
                     </div>

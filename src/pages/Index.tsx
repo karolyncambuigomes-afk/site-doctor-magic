@@ -59,41 +59,15 @@ const Index = () => {
       <HeroSection />
       
 
-      {/* Introductory Text About Agency */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center space-y-8">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-xl md:text-2xl font-light text-gray-800 mb-6">
-                Exquisite. Exclusive. Elite.
-              </h2>
-              <p className="text-lg md:text-xl leading-relaxed text-gray-800 font-light">
-                Established luxury companion agency representing a handpicked selection of sophisticated London companions. 
-                Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
-        {/* Featured Models Section - YSL Style Carousel */}
-        <ModelsCarousel />
-
-
-        {/* Services Section - Hidden SEO heading only */}
-        <section className="py-4 md:py-6 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            {/* Hidden SEO heading */}
-            <h2 className="sr-only">London's Finest High-Class Escorts - Premium Escort Services</h2>
-          </div>
-        </section>
-
+      <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Category Filters */}
         <CategoryFilters />
 
+        {/* Featured Models Section - YSL Style Carousel */}
+        <ModelsCarousel />
+
         {/* Contact Section - YSL Style */}
-        <section className="relative py-20 md:py-32 lg:py-40 bg-black text-white overflow-hidden">
+        <section className="relative py-16 md:py-24 bg-black text-white overflow-hidden">
           {/* Background Image */}
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"

@@ -102,7 +102,7 @@ export const ModelsGallery: React.FC = () => {
                   onChange={(e) => setSelectedCharacteristic(e.target.value)}
                   className="w-44 pl-9 pr-10 py-2 body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer"
                 >
-                  <option value="all">All Types</option>
+                  <option value="all">All Characteristics</option>
                   {uniqueCharacteristics.map(characteristic => (
                     <option key={characteristic} value={characteristic}>{characteristic}</option>
                   ))}

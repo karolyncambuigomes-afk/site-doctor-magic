@@ -52,32 +52,54 @@ export const ModelsCarousel = () => {
           <CarouselContent className="-ml-2 md:-ml-4">
             {models.map((model) => (
               <CarouselItem key={model.id} className="pl-2 md:pl-4 basis-full md:basis-1/2">
-                <div className="group">
+                <div className="group relative">
                   <Link to={`/models/${model.id}`} className="block">
-                    <div className="relative overflow-hidden mb-4">
+                    <div className="relative overflow-hidden mb-4 rounded-lg shadow-lg">
                       {/* Main Image */}
                       <img
                         src={model.image}
                         alt={model.name}
                         className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:scale-105"
                       />
-                      {/* Price overlay - Mobile responsive */}
+                      
+                      {/* Elegant overlay that appears on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 z-[1]"></div>
+                      
+                      {/* Price overlay - refined styling */}
                       {model.price && (
-                        <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/80 backdrop-blur-sm text-white px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium tracking-wide z-10 rounded-lg">
+                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/75 backdrop-blur-md text-white px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-light tracking-wider z-10 rounded-full">
                           {model.price}
                         </div>
                       )}
+                      
+                      {/* Info overlay that appears on hover */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
+                        <div className="space-y-2">
+                          <h3 className="font-light text-lg sm:text-xl tracking-wide">
+                            {model.name}
+                          </h3>
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm text-white/90 tracking-wide">
+                              {model.age ? `${model.age} anos` : ''}
+                            </p>
+                            {model.characteristics?.[0] && (
+                              <span className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                                {model.characteristics[0]}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    {/* Model info - Mobile responsive */}
+                    
+                    {/* Static info below - minimal and elegant */}
                     <div className="text-center px-2">
-                      <h3 className="font-sans text-base sm:text-lg font-normal text-black mb-1">
+                      <h3 className="font-light text-base sm:text-lg text-gray-900 mb-1 tracking-wide group-hover:text-gray-600 transition-colors duration-300">
                         {model.name}
                       </h3>
-                      <div className="space-y-1">
-                        <p className="text-xs sm:text-sm text-gray-600 tracking-wide">
-                          {model.age ? `${model.age} anos` : ''} {model.age && model.characteristics?.[0] ? '•' : ''} {model.characteristics?.[0] || ''}
-                        </p>
-                      </div>
+                      <p className="text-xs sm:text-sm text-gray-500 tracking-wide">
+                        {model.location || 'London'}
+                      </p>
                     </div>
                   </Link>
                 </div>

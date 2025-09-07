@@ -44,24 +44,6 @@ const Index = () => {
   return (
     // Updated mobile optimizations applied - v2.1
     <>
-      {/* DEBUG CRÍTICO: Este deve aparecer SEMPRE */}
-      <div style={{ 
-        position: 'fixed', 
-        top: '0', 
-        left: '0', 
-        width: '100%', 
-        height: '100px', 
-        backgroundColor: 'red', 
-        color: 'white', 
-        fontSize: '20px', 
-        zIndex: '9999',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        DEBUG MOBILE: Se você vê isso, a página está carregando
-      </div>
-      
       <SEO 
         title="Elite London Escorts | Premium High-Class Companions SW1 W1 | Five London"
         description="London's premier luxury escort agency serving Mayfair W1, Knightsbridge SW1, Chelsea SW3. Sophisticated, intelligent companions available 24/7. Discreet, professional service. Book now."
@@ -74,14 +56,6 @@ const Index = () => {
       
       
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
-        {/* Debug: Verificar se o HeroVideo está aparecendo no mobile */}
-        <div style={{ background: 'green', color: 'white', padding: '10px', fontSize: '16px' }}>
-          DEBUG: Esta seção deve aparecer tanto no mobile quanto no desktop
-        </div>
-        
-        {/* Hero Video temporariamente removido para testes */}
-        {/* <SimpleHeroVideo /> */}
-
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />
 

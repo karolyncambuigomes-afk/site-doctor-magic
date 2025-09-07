@@ -120,21 +120,21 @@ export const SimpleHeroVideo = () => {
         ></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-center">
-        <div className="text-center px-4 max-w-4xl mx-auto">
-          <div className="space-y-6">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-2xl">
+      {/* Content - Prada Style */}
+      <div className="relative z-20 h-full flex items-end justify-center pb-24 md:pb-32">
+        <div className="text-center px-4 max-w-2xl mx-auto">
+          <div className="space-y-3 md:space-y-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-white tracking-wide">
               {heroContent.title}
             </h1>
             
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
+            <p className="text-sm md:text-base lg:text-lg text-white/80 font-light tracking-wide">
               {heroContent.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6">
               <Link to={heroContent.button_link}>
-                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors transform hover:scale-105">
+                <button className="px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
                   {heroContent.button_text}
                 </button>
               </Link>
@@ -144,8 +144,8 @@ export const SimpleHeroVideo = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors transform hover:scale-105">
-                  Contact Us
+                <button className="px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
+                  Contact
                 </button>
               </a>
             </div>

@@ -447,13 +447,20 @@ export const HeroCarouselManager: React.FC = () => {
                       </div>
                     </div>
 
+                    {(() => {
+                      console.log('Rendering media type section for slide:', slide.id, 'media_type:', slide.media_type);
+                      return null;
+                    })()}
+                    
                     {slide.media_type === 'image' && (
-                      <ImageUpload
-                        value={slide.image_url}
-                        onChange={(url) => updateSlideField(slide.id, 'image_url', url)}
-                        label="Imagem"
-                        placeholder="URL da imagem ou faça upload"
-                      />
+                      <div>
+                        <ImageUpload
+                          value={slide.image_url}
+                          onChange={(url) => updateSlideField(slide.id, 'image_url', url)}
+                          label="Imagem"
+                          placeholder="URL da imagem ou faça upload"
+                        />
+                      </div>
                     )}
 
                     {slide.media_type === 'video' && (

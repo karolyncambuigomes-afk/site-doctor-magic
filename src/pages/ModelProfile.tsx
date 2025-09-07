@@ -17,12 +17,12 @@ import {
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ModelGallery } from '@/components/ModelGallery';
 
 export const ModelProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { getModelById, models, loading, error } = useModels();
   const model = id ? getModelById(id) : null;
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Debug logging
   if (model) {
@@ -88,16 +88,7 @@ export const ModelProfile: React.FC = () => {
     );
   }
 
-  // Create gallery with all available images
-  const galleryImages = [model.image, ...(model.gallery || [])];
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
-  };
+  // Gallery is now handled by ModelGallery component
 
   const getAvailabilityColor = (availability: typeof model.availability) => {
     switch (availability) {
@@ -137,68 +128,13 @@ export const ModelProfile: React.FC = () => {
 
       {/* Main Gallery Section */}
       <section className="min-h-screen bg-background pt-16 md:pt-20">
-        {/* Hero Image Gallery */}
-        <div className="relative h-[60vh] md:h-[70vh] lg:h-[80vh] w-full md:w-auto md:max-w-md lg:max-w-lg mx-auto md:rounded-lg overflow-hidden md:aspect-[3/4]">
-          <img
-            src={galleryImages[currentImageIndex]}
-            alt={`${model.name} - Photo ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover md:rounded-lg"
+        <div className="max-w-md mx-auto p-4">
+          <ModelGallery 
+            modelId={model.id}
+            mainImage={model.image}
+            modelName={model.name}
           />
-          
-          {/* Navigation Arrows */}
-          {galleryImages.length > 1 && (
-            <>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full hover:bg-white/30 transition-all"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="h-6 w-6 text-white" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm p-3 rounded-full hover:bg-white/30 transition-all"
-                aria-label="Next image"
-              >
-                <ChevronRight className="h-6 w-6 text-white" />
-              </button>
-            </>
-          )}
-
-          {/* Image Counter */}
-          {galleryImages.length > 1 && (
-            <div className="absolute bottom-4 right-4 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">
-              <span className="text-white text-sm">
-                {currentImageIndex + 1} / {galleryImages.length}
-              </span>
-            </div>
-          )}
         </div>
-
-        {/* Thumbnail Gallery */}
-        {galleryImages.length > 1 && (
-          <div className="bg-background border-t border-border">
-            <div className="max-w-4xl mx-auto p-4">
-              <div className="flex gap-2 overflow-x-auto">
-                {galleryImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 transition-all ${
-                      index === currentImageIndex ? 'border-accent' : 'border-transparent'
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Model Details */}
         <div className="max-w-4xl mx-auto p-4 md:p-6">

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ImageUpload } from '@/components/ImageUpload';
+import { GalleryUpload } from '@/components/GalleryUpload';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
@@ -384,6 +385,18 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           />
         </CardContent>
       </Card>
+
+      {/* Gallery Management */}
+      {model?.id && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Galeria de Fotos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <GalleryUpload modelId={model.id} />
+          </CardContent>
+        </Card>
+      )}
 
       {/* Pricing */}
       <Card>

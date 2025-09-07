@@ -121,10 +121,10 @@ export const HeroCarousel = () => {
       }, 15000);
     });
 
-    // Fallback: mark as loaded after 3 seconds
+    // Fallback: mark as loaded after 1 second for faster loading
     const fallbackTimer = setTimeout(() => {
       setVideoLoaded(true);
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(fallbackTimer);
   }, [heroSlides]);
@@ -160,8 +160,8 @@ export const HeroCarousel = () => {
     }
   };
 
-  // Show loading state while data is being fetched or videos are loading
-  if (isLoading || !videoLoaded) {
+  // Show loading only for initial data fetch, not video loading
+  if (isLoading) {
     return (
       <section className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 to-black">
         <div className="absolute inset-0 flex items-center justify-center">
@@ -191,55 +191,65 @@ export const HeroCarousel = () => {
           {/* Background Media */}
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
-              <video
-                key={`video-${slide.id}-${index}`}
-                src={slide.video_url}
-                autoPlay={false}
-                loop
-                muted
-                playsInline
-                preload="auto"
-                webkit-playsinline="true"
-                className="w-full h-full object-cover"
-                style={{
-                  willChange: 'transform',
-                  transform: 'translateZ(0)',
-                }}
-                ref={(video) => {
-                  if (video) {
-                    // Immediate setup for current slide
-                    if (index === currentSlide) {
-                      // Reset and play immediately
-                      video.currentTime = 0;
-                      const playPromise = video.play();
-                      if (playPromise !== undefined) {
-                        playPromise.catch(() => {
-                          // Fallback: try again after a small delay
-                          setTimeout(() => {
-                            video.play().catch(() => {});
-                          }, 100);
-                        });
+              <>
+                {/* Poster image while video loads */}
+                <img
+                  src={slide.image_url}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                  style={{
+                    opacity: videoLoaded ? 0 : 1,
+                    transition: 'opacity 0.3s ease-in-out'
+                  }}
+                />
+                <video
+                  key={`video-${slide.id}-${index}`}
+                  src={slide.video_url}
+                  poster={slide.image_url}
+                  autoPlay={false}
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  webkit-playsinline="true"
+                  className="w-full h-full object-cover"
+                  style={{
+                    willChange: 'transform',
+                    transform: 'translateZ(0)',
+                    opacity: videoLoaded ? 1 : 0,
+                    transition: 'opacity 0.3s ease-in-out'
+                  }}
+                  ref={(video) => {
+                    if (video) {
+                      if (index === currentSlide) {
+                        video.currentTime = 0;
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                          playPromise.catch(() => {
+                            setTimeout(() => {
+                              video.play().catch(() => {});
+                            }, 100);
+                          });
+                        }
+                      } else {
+                        video.pause();
                       }
-                    } else {
-                      video.pause();
                     }
-                  }
-                }}
-                onLoadedData={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  if (index === currentSlide) {
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
-                  }
-                }}
-                onCanPlayThrough={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  if (index === currentSlide && video.paused) {
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
-                  }
-                }}
-              />
+                  }}
+                  onLoadedData={(e) => {
+                    const video = e.target as HTMLVideoElement;
+                    if (index === currentSlide) {
+                      video.currentTime = 0;
+                      video.play().catch(() => {});
+                    }
+                  }}
+                  onCanPlayThrough={() => {
+                    if (index === currentSlide) {
+                      setVideoLoaded(true);
+                    }
+                  }}
+                />
+              </>
             ) : (
               <img
                 src={slide.image_url}

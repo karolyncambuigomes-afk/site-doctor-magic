@@ -19,8 +19,8 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="container mx-auto px-4 py-16">
+    <footer className="bg-background border-t border-border relative z-40">
+      <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           

@@ -54,7 +54,7 @@ const Index = () => {
       
       <Navigation />
       
-      <main className="min-h-screen">
+      <main className="relative overflow-x-hidden">{" "}
         {/* YSL Style Hero Carousel */}
         <SimpleHeroVideo />
 

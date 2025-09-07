@@ -62,7 +62,11 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/reviews" element={<Reviews />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin" element={
+                <ProtectedRoute requiresAccess={true}>
+                  <Admin />
+                </ProtectedRoute>
+              } />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

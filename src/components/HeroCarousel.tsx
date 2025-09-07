@@ -113,6 +113,7 @@ export const HeroCarousel = () => {
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
               <video
+                key={`${slide.id}-${index === currentSlide ? 'active' : 'inactive'}`}
                 src={slide.video_url}
                 autoPlay
                 loop
@@ -123,14 +124,27 @@ export const HeroCarousel = () => {
                 poster={slide.image_url}
                 onLoadedData={(e) => {
                   const video = e.target as HTMLVideoElement;
-                  video.play().catch(console.error);
-                }}
-                onCanPlay={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  if (video.paused) {
+                  if (index === currentSlide) {
+                    video.currentTime = 0;
                     video.play().catch(console.error);
                   }
                 }}
+                onCanPlay={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide && video.paused) {
+                    video.play().catch(console.error);
+                  }
+                }}
+                onLoadStart={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  video.muted = true;
+                  if (index === currentSlide) {
+                    setTimeout(() => {
+                      video.play().catch(console.error);
+                    }, 100);
+                  }
+                }}
+                style={{ display: index === currentSlide ? 'block' : 'none' }}
               />
             ) : (
               <img

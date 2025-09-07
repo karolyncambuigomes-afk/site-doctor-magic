@@ -385,21 +385,28 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       </div>
 
       {/* Image Upload */}
-      <Card className="border-2 border-blue-200 bg-blue-50/30">
-        <CardHeader className="bg-blue-100/50">
+      <Card className="border-4 border-blue-500 bg-gradient-to-br from-blue-50 to-cyan-50">
+        <CardHeader className="bg-gradient-to-r from-blue-100 to-cyan-100">
           <CardTitle className="flex items-center gap-2 text-blue-900">
-            <ImageIcon className="w-5 h-5" />
-            1. Foto Principal (Obrigatória)
+            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+              <ImageIcon className="w-5 h-5 text-white" />
+            </div>
+            1. 📸 FOTO PRINCIPAL (Obrigatória)
           </CardTitle>
-          <p className="text-sm text-blue-700">Esta será a foto de perfil que aparece na lista de modelos</p>
+          <div className="bg-blue-200 p-3 rounded-lg mt-2">
+            <p className="text-sm text-blue-900 font-bold">🎯 Esta é a FOTO PRINCIPAL que aparece na lista</p>
+            <p className="text-xs text-blue-800">• Diferente da galeria extra • Apenas UMA foto principal</p>
+          </div>
         </CardHeader>
         <CardContent className="pt-6">
-          <ImageUpload
-            value={formData.image || ''}
-            onChange={(url) => handleInputChange('image', url)}
-            label="📸 Foto de Perfil Principal"
-            placeholder="URL da foto principal ou faça upload"
-          />
+          <div className="bg-white p-4 rounded-lg border-2 border-blue-200">
+            <ImageUpload
+              value={formData.image || ''}
+              onChange={(url) => handleInputChange('image', url)}
+              label="📸 FOTO PRINCIPAL (não é galeria extra)"
+              placeholder="🎯 URL da FOTO PRINCIPAL ou faça upload"
+            />
+          </div>
         </CardContent>
       </Card>
 

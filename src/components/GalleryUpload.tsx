@@ -173,35 +173,52 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
         <Button
           type="button"
           onClick={() => setIsAdding(!isAdding)}
-          className="bg-black text-white hover:bg-gray-800"
+          className="bg-purple-600 text-white hover:bg-purple-700 border-2 border-purple-400"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Adicionar Foto
+          🎭 Adicionar Foto EXTRA à Galeria
         </Button>
       </div>
 
       {isAdding && (
-        <div className="border-2 border-green-400 rounded-lg p-4 space-y-4 bg-green-50">
-          <div className="flex items-center gap-2 mb-2">
-            <Plus className="w-5 h-5 text-green-600" />
-            <h4 className="font-medium text-green-800">🖼️ Adicionar à Galeria (NÃO é foto principal)</h4>
+        <div className="border-4 border-purple-500 rounded-lg p-6 space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50">
+          <div className="flex items-center justify-center gap-3 mb-4 bg-purple-100 p-3 rounded-lg">
+            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+              <Plus className="w-5 h-5 text-white" />
+            </div>
+            <h4 className="font-bold text-purple-900 text-lg">🎭 GALERIA EXTRA - NÃO É FOTO PRINCIPAL</h4>
           </div>
-          <div className="bg-green-100 p-3 rounded-lg border border-green-200">
-            <p className="text-sm text-green-800 font-medium mb-1">
-              ✅ Esta é a seção GALERIA
-            </p>
-            <p className="text-xs text-green-700">
-              As fotos adicionadas aqui vão para a galeria extra, não substituem a foto principal
-            </p>
+          
+          <div className="bg-gradient-to-r from-purple-100 to-indigo-100 p-4 rounded-lg border-2 border-purple-300">
+            <div className="text-center mb-3">
+              <div className="text-2xl mb-2">🚨</div>
+              <p className="text-sm text-purple-900 font-bold mb-2">
+                ATENÇÃO: Esta seção é APENAS para fotos EXTRAS da galeria
+              </p>
+              <p className="text-xs text-purple-800">
+                • Estas fotos NÃO substituem a foto principal<br/>
+                • São fotos adicionais que aparecem na página de detalhes<br/>
+                • A foto principal fica na seção azul acima
+              </p>
+            </div>
           </div>
-          <div>
-            <Label className="text-green-800 font-medium">🎯 Nova Imagem para GALERIA</Label>
-            <ImageUpload
-              value={newImageUrl}
-              onChange={setNewImageUrl}
-              label="🖼️ Foto Extra da Galeria"
-              placeholder="URL da imagem para GALERIA ou faça upload"
-            />
+          
+          <div className="bg-white p-4 rounded-lg border-2 border-purple-200">
+            <Label className="text-purple-900 font-bold text-lg flex items-center gap-2 mb-3">
+              🎯 NOVA FOTO PARA GALERIA EXTRA
+              <span className="text-xs bg-purple-200 px-2 py-1 rounded">NÃO é principal</span>
+            </Label>
+            <div className="space-y-3">
+              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+                <p className="text-xs text-purple-700 font-medium mb-2">📍 Upload para GALERIA EXTRA:</p>
+                <ImageUpload
+                  value={newImageUrl}
+                  onChange={setNewImageUrl}
+                  label="🖼️ Foto EXTRA da Galeria (não é principal)"
+                  placeholder="🎭 URL da imagem EXTRA ou faça upload para GALERIA"
+                />
+              </div>
+            </div>
           </div>
           
           <div>

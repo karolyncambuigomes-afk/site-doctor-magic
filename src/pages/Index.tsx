@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 import { useBookingContent } from '@/hooks/useBookingContent';
+import heroElegantWoman from '@/assets/hero-elegant-woman.jpg';
 
 import { CategoryFilters } from '@/components/CategoryFilters';
 
@@ -91,8 +92,18 @@ const Index = () => {
         <CategoryFilters />
 
         {/* Contact Section - YSL Style */}
-        <section className="py-20 md:py-32 lg:py-40 bg-black text-white">
-          <div className="max-w-lg mx-auto px-4 text-center">
+        <section className="relative py-20 md:py-32 lg:py-40 bg-black text-white overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url(${heroElegantWoman})`,
+            }}
+          ></div>
+          {/* Dark Overlay */}
+          <div className="absolute inset-0 bg-black/70"></div>
+          
+          <div className="relative z-10 max-w-lg mx-auto px-4 text-center">
             <h2 className="font-display text-lg md:text-xl font-normal tracking-[0.2em] uppercase mb-8 md:mb-12">
               Book Your Elite Companion
             </h2>

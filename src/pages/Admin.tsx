@@ -77,6 +77,7 @@ interface BlogPost {
 
 export const Admin: React.FC = () => {
   const { user, loading, hasAccess } = useAuth();
+  console.log('Admin - User:', user?.email, 'Loading:', loading, 'HasAccess:', hasAccess);
   const { toast } = useToast();
   const [models, setModels] = useState<Model[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -120,14 +121,17 @@ export const Admin: React.FC = () => {
   };
 
   if (loading) {
+    console.log('Admin - Still loading auth...');
     return <div>Carregando...</div>;
   }
 
   if (!user) {
+    console.log('Admin - No user, redirecting to auth...');
     return <Navigate to="/auth" replace />;
   }
 
   if (!hasAccess) {
+    console.log('Admin - No access, redirecting to home...');
     return <Navigate to="/" replace />;
   }
 

@@ -119,8 +119,10 @@ export const SimpleHeroVideo = () => {
     };
   }, []);
 
+  console.log('SimpleHeroVideo rendering:', { heroContent, isLoaded });
+  
   return (
-    <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black touch-pan-y">{" "}
+    <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-red-500 touch-pan-y">{" "}
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
         {heroContent.media_type === 'video' && heroContent.video_url ? (

@@ -66,18 +66,9 @@ const Index = () => {
           <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto px-2">
             <span className="font-medium">Established luxury companion agency</span> representing a handpicked selection of sophisticated London companions. Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
           </p>
-          <p className="text-sm md:text-base text-gray-500 mb-8 md:mb-12">
+          <p className="text-sm md:text-base text-gray-500">
             <span className="bg-black text-white px-2 sm:px-3 py-1 text-xs uppercase tracking-wider">Premium Service Since 2020</span>
           </p>
-          
-          <Link 
-            to="/services" 
-            className="inline-block border border-black/20 hover:border-black/40 px-4 sm:px-6 md:px-8 py-2 sm:py-3 transition-all duration-300 text-center"
-          >
-            <span className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase font-light text-black">
-              See All Services & Prices
-            </span>
-          </Link>
         </div>
       </section>
       

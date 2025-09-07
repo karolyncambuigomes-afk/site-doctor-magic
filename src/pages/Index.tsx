@@ -58,48 +58,17 @@ const Index = () => {
       
       <HeroSection />
       
-      {/* Introductory Text About Agency */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center space-y-8">
-            <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-8">
-              Exquisite. Exclusive. Elite.
-            </h2>
-            <p className="text-lg md:text-xl leading-loose text-muted-foreground font-light max-w-2xl mx-auto">
-              Established luxury companion agency representing a handpicked selection of sophisticated London companions. 
-              Beautiful, intelligent, and cultured ladies for discerning gentlemen.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Featured Models Section */}
-        <section className="py-20 md:py-32 bg-background">
+        <section className="py-12 md:py-16 bg-background">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16 md:mb-24">
-              <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
-                Featured Companions
-              </h2>
-              <p className="text-muted-foreground font-light max-w-lg mx-auto">
-                Meet our handpicked selection of sophisticated and elegant companions
-              </p>
-            </div>
             <ModelsCarousel />
           </div>
         </section>
 
         {/* Category Filters */}
-        <section className="py-20 md:py-32 bg-muted/30">
+        <section className="py-12 md:py-16 bg-muted/30">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-16 md:mb-24">
-              <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
-                Browse Collection
-              </h2>
-              <p className="text-muted-foreground font-light max-w-lg mx-auto">
-                Explore our categories to discover your ideal companion
-              </p>
-            </div>
             <CategoryFilters />
           </div>
         </section>

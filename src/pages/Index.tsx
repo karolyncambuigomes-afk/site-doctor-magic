@@ -91,14 +91,11 @@ const Index = () => {
         <CategoryFilters />
 
         {/* Contact Section - YSL Style */}
-        <section className="py-12 md:py-20 lg:py-32 bg-black text-white">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="font-display text-sm sm:text-base md:text-lg font-normal tracking-[0.3em] uppercase mb-4 sm:mb-6 md:mb-8">
-              Book Your Elite Companion in 3 Simple Steps
+        <section className="py-20 md:py-32 lg:py-40 bg-black text-white">
+          <div className="max-w-lg mx-auto px-4 text-center">
+            <h2 className="font-display text-lg md:text-xl font-normal tracking-[0.2em] uppercase mb-8 md:mb-12">
+              Book Your Elite Companion
             </h2>
-            <p className="text-xs sm:text-sm md:text-base text-white/70 leading-relaxed mb-6 sm:mb-8 md:mb-12 max-w-lg mx-auto font-light">
-              Ready for an unforgettable experience? Don't wait - our elite London companions are booking fast. Contact us now for same-day availability.
-            </p>
             
             <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4">
               {/* WhatsApp */}

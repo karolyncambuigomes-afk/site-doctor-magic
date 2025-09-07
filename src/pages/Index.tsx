@@ -56,14 +56,6 @@ const Index = () => {
       
       <SimpleHeroVideo />
       
-      {/* Minimal tagline - Prada style */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="font-display text-lg sm:text-xl md:text-2xl font-normal tracking-wider text-black">
-            FIVE LONDON
-          </h2>
-        </div>
-      </section>
 
       {/* Introductory Text About Agency */}
       <section className="py-16 md:py-24 bg-gray-50">

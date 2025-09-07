@@ -65,19 +65,21 @@ export const SimpleHeroVideo = () => {
 
   return (
     <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
-      {/* Background Media - Always show image as fallback */}
+      {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={heroContent.image_url}
+          src="/images/model1.jpg"
           alt="Five London"
           className="w-full h-full object-cover"
+          onError={(e) => {
+            console.error('Image failed to load:', e);
+            // Fallback to a different image
+            e.currentTarget.src = '/images/model2.jpg';
+          }}
         />
         
-        {/* Dark overlay */}
-        <div 
-          className="absolute inset-0 z-10" 
-          style={{backgroundColor: `rgba(0, 0, 0, ${heroContent.overlay_opacity / 100})`}}
-        />
+        {/* Dark overlay - reduced opacity */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
 
       {/* Content */}

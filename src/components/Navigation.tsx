@@ -66,6 +66,7 @@ export const Navigation = () => {
             }`}
           >
             Five London
+            <span className="text-xs text-muted-foreground ml-2 font-normal">EST. 2020</span>
           </Link>
 
           {/* Desktop Navigation */}

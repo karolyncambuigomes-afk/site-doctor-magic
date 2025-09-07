@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 import { useBookingContent } from '@/hooks/useBookingContent';
+import { TrustSignals } from '@/components/TrustSignals';
+import { CategoryFilters } from '@/components/CategoryFilters';
 
 const Index = () => {
   const { main: bookingMain, steps: bookingSteps, info: bookingInfo, loading: bookingLoading } = useBookingContent();
@@ -41,6 +43,9 @@ const Index = () => {
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />
 
+        {/* Trust Signals */}
+        <TrustSignals />
+
         {/* Services Section - Minimal */}
         <section className="py-20 md:py-32 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 text-center">
@@ -49,10 +54,13 @@ const Index = () => {
             
             {/* Visible elegant heading */}
             <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-              London's Finest Elite Companions
+              Exquisite. Exclusive. Elite.
             </h3>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-12 max-w-2xl mx-auto">
-              Handpicked selection of elite London companions. Beautiful, intelligent, and sophisticated ladies for dinner dates, business events, travel, and intimate encounters. Same-day booking available.
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6 max-w-2xl mx-auto">
+              <span className="font-medium">Established luxury companion agency</span> representing a handpicked selection of sophisticated London companions. Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
+            </p>
+            <p className="text-base text-gray-500 mb-12">
+              <span className="bg-black text-white px-3 py-1 text-xs uppercase tracking-wider">Premium Service Since 2020</span>
             </p>
             
             <Link 
@@ -65,6 +73,9 @@ const Index = () => {
             </Link>
           </div>
         </section>
+
+        {/* Category Filters */}
+        <CategoryFilters />
 
         {/* Contact Section - YSL Style */}
         <section className="py-16 md:py-32 bg-black text-white">
@@ -145,10 +156,13 @@ const Index = () => {
               
               {/* Visible elegant heading */}
               <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                {bookingMain?.title || "How to Book Your Elite Companion"}
+                {bookingMain?.title || "Exclusive Booking Process"}
               </h3>
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                {bookingMain?.subtitle || "Simple, discreet, and instant. Start your booking now - most companions available same day"}
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-4">
+                {bookingMain?.subtitle || "Discretion guaranteed. Excellence assured. Live life to the full - book your elite companion today."}
+              </p>
+              <p className="text-sm text-gray-500 font-medium">
+                ⭐ Verified profiles ⭐ 24/7 availability ⭐ Same-day booking ⭐ International travel
               </p>
             </div>
 

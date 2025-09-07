@@ -50,8 +50,8 @@ export const SimpleHeroVideo = () => {
       });
     };
 
-    // Listen for any user interaction
-    const events = ['click', 'scroll', 'touchstart', 'keydown'];
+    // Listen for any user interaction to force video play
+    const events = ['click', 'scroll', 'touchstart', 'keydown', 'mousemove'];
     events.forEach(event => {
       document.addEventListener(event, forceVideoPlay, { once: true });
     });

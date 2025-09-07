@@ -22,6 +22,7 @@ import {
 const navItems = [
   { href: '/about', label: 'About Us' },
   { href: '/models', label: 'Our Models' },
+  { href: '/membership', label: 'Membership' },
   { href: '/services', label: 'Services' },
   { href: '/locations', label: 'Locations' },
   { href: '/blog', label: 'Blog' },

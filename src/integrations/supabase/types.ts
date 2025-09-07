@@ -391,6 +391,7 @@ export type Database = {
           description: string | null
           education: string | null
           eyes: string | null
+          face_visible: boolean | null
           hair: string | null
           height: string | null
           id: string
@@ -398,6 +399,7 @@ export type Database = {
           interests: string[] | null
           location: string | null
           measurements: string | null
+          members_only: boolean | null
           name: string
           nationality: string | null
           price: string | null
@@ -415,6 +417,7 @@ export type Database = {
           description?: string | null
           education?: string | null
           eyes?: string | null
+          face_visible?: boolean | null
           hair?: string | null
           height?: string | null
           id?: string
@@ -422,6 +425,7 @@ export type Database = {
           interests?: string[] | null
           location?: string | null
           measurements?: string | null
+          members_only?: boolean | null
           name: string
           nationality?: string | null
           price?: string | null
@@ -439,6 +443,7 @@ export type Database = {
           description?: string | null
           education?: string | null
           eyes?: string | null
+          face_visible?: boolean | null
           hair?: string | null
           height?: string | null
           id?: string
@@ -446,6 +451,7 @@ export type Database = {
           interests?: string[] | null
           location?: string | null
           measurements?: string | null
+          members_only?: boolean | null
           name?: string
           nationality?: string | null
           price?: string | null

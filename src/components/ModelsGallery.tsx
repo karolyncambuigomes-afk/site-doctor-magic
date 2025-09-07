@@ -1,18 +1,26 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ModelCard } from '@/components/ModelCard';
 import { useModels } from '@/hooks/useModels';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle } from 'lucide-react';
+import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle, Crown } from 'lucide-react';
 
-export const ModelsGallery: React.FC = () => {
+interface ModelsGalleryProps {
+  isPremium?: boolean;
+}
+
+export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
   const [selectedServiceType, setSelectedServiceType] = useState('all');
   
   // Use secure hook instead of hardcoded data
-  const { models, loading, error } = useModels();
+  const { models, loading, error, refetch } = useModels();
+
+  useEffect(() => {
+    refetch(isPremium);
+  }, [refetch, isPremium]);
 
   // Get unique values for filters
   const uniqueLocations = [...new Set(models.map(model => model.location).filter(Boolean))];
@@ -52,11 +60,24 @@ export const ModelsGallery: React.FC = () => {
         {/* Elegant Header */}
         <section className="py-12 md:py-16 bg-gradient-to-b from-muted/20 to-background">
           <div className="container-width text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal mb-3 sm:mb-4 tracking-tight px-4">
-              Our Companions
-            </h1>
+            {isPremium ? (
+              <div className="flex items-center justify-center mb-4">
+                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 mr-2 sm:mr-3" />
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight px-4">
+                  Premium Members
+                </h1>
+                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 ml-2 sm:ml-3" />
+              </div>
+            ) : (
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal mb-3 sm:mb-4 tracking-tight px-4">
+                Our Companions
+              </h1>
+            )}
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6">
-              Discover our carefully selected companions, each offering unique charm and sophistication
+              {isPremium 
+                ? "Exclusive access to our most sophisticated companions with full galleries"
+                : "Discover our carefully selected companions, each offering unique charm and sophistication"
+              }
             </p>
           </div>
         </section>

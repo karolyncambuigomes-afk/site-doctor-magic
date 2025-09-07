@@ -30,6 +30,8 @@ export interface Model {
   nationality: string;
   education: string;
   interests: string[];
+  members_only?: boolean;
+  face_visible?: boolean;
 }
 
 export const useModels = () => {
@@ -38,7 +40,7 @@ export const useModels = () => {
   const [error, setError] = useState<string | null>(null);
   const { user, hasAccess } = useAuth();
 
-  const fetchModels = async () => {
+  const fetchModels = async (membersOnly = false) => {
     try {
       setLoading(true);
       setError(null);
@@ -98,13 +100,18 @@ export const useModels = () => {
         setModels(transformedModels);
       } else if (hasAccess) {
         // For premium users, get full data including gallery
-        const { data, error: queryError } = await supabase
+        let query = supabase
           .from('models')
           .select(`
             *,
             model_gallery(image_url, order_index)
-          `)
-          .order('created_at', { ascending: false });
+          `);
+        
+        if (membersOnly) {
+          query = query.eq('members_only', true);
+        }
+        
+        const { data, error: queryError } = await query.order('created_at', { ascending: false });
 
         if (queryError) {
           console.error('Error fetching premium models:', queryError);
@@ -148,7 +155,9 @@ export const useModels = () => {
             eyes: model.eyes || '',
             nationality: model.nationality || '',
             education: model.education || '',
-            interests: model.interests || []
+            interests: model.interests || [],
+            members_only: model.members_only || false,
+            face_visible: model.face_visible !== false
           };
         }) || [];
 
@@ -217,11 +226,15 @@ export const useModels = () => {
     return models.find(model => model.id === id) || null;
   };
 
+  const refetch = (membersOnly = false) => {
+    fetchModels(membersOnly);
+  };
+
   return {
     models,
     loading,
     error,
-    refetch: fetchModels,
+    refetch,
     getModelById
   };
 };

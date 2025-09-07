@@ -45,6 +45,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                     imageLoaded ? 'opacity-100' : 'opacity-0'
                   } ${
                     model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
+                  } ${
+                    model.face_visible === false ? 'object-[center_20%]' : 'object-center'
                   }`}
                   onLoad={() => setImageLoaded(true)}
                   onError={() => setImageError(true)}

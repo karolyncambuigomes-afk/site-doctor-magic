@@ -20,6 +20,9 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import { Models } from "./pages/Models";
 import { ModelProfile } from "./pages/ModelProfile";
+import { Membership } from "./pages/Membership";
+import { Members } from "./pages/Members";
+import { PaymentSuccess } from "./pages/PaymentSuccess";
 import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
 import Characteristics from "./pages/Characteristics";
@@ -55,6 +58,9 @@ const App = () => (
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/models" element={<Models />} />
               <Route path="/models/:id" element={<ModelProfile />} />
+              <Route path="/membership" element={<Membership />} />
+              <Route path="/members" element={<Members />} />
+              <Route path="/payment-success" element={<PaymentSuccess />} />
               <Route path="/locations" element={<Locations />} />
           <Route path="/locations/:locationSlug" element={<LocationDetail />} />
           {/* Specific location routes for SEO */}

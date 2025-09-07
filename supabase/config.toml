@@ -1,4 +1,40 @@
 project_id = "jiegopvbwpyfohhfvmwo"
 
+[api]
+port = 54321
+schemas = ["public", "storage"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+
+[studio]
+port = 54323
+
+[inbucket]
+port = 54324
+
+[storage]
+port = 54325
+
+[auth]
+port = 54326
+
+[edge_runtime]
+port = 54327
+
+[realtime]
+port = 54328
+
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.check-subscription]
+verify_jwt = true
+
+[functions.customer-portal]
+verify_jwt = true
+
 [functions.send-confirmation-email]
 verify_jwt = true

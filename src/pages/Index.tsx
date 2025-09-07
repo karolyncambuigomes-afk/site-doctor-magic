@@ -54,8 +54,57 @@ const Index = () => {
       
       <Navigation />
       
+      <SimpleHeroVideo />
       
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
+        {/* About Agency Section */}
+        <section className="py-16 md:py-24 lg:py-32 bg-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-black mb-6 md:mb-8">
+                Five London Elite Escorts
+              </h1>
+              <div className="w-16 h-0.5 bg-black mx-auto mb-8 md:mb-12"></div>
+              
+              <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-light">
+                  Established as London's premier luxury companion agency, Five London represents an exclusive collection of sophisticated, intelligent, and captivating women who embody elegance and refinement.
+                </p>
+                
+                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                  Our carefully selected companions are available for discerning gentlemen seeking exceptional experiences - from intimate dinner dates and cultural events to international travel and private encounters. Each companion combines natural beauty with intellectual sophistication, ensuring every moment is memorable.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-black">✓</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Discretion Assured</h3>
+                    <p className="text-sm text-gray-600">Complete confidentiality and professional service guaranteed</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-black">★</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Elite Selection</h3>
+                    <p className="text-sm text-gray-600">Handpicked companions meeting the highest standards</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-black/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-black">◆</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">24/7 Available</h3>
+                    <p className="text-sm text-gray-600">Round-the-clock booking service for your convenience</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />
 

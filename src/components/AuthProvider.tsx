@@ -34,6 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [hasAccess, setHasAccess] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
   const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | null>(null);
+  const [checkingAccess, setCheckingAccess] = useState(false);
 
   const checkUserStatus = async (userId: string) => {
     try {
@@ -58,10 +59,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const checkUserAccess = async (userId: string) => {
+    if (checkingAccess) {
+      console.log('AuthProvider - Already checking access, skipping...');
+      return hasAccess;
+    }
+    
+    setCheckingAccess(true);
+    console.log('AuthProvider - Checking user access for:', userId);
+    
     try {
       // First check if user is approved
       const { approved } = await checkUserStatus(userId);
       if (!approved) {
+        console.log('AuthProvider - User not approved');
         setHasAccess(false);
         return false;
       }
@@ -73,6 +83,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (roleError) {
         console.error('Error checking user role:', roleError);
       } else if (userRole === 'admin') {
+        console.log('AuthProvider - User is admin, granting access');
         setHasAccess(true);
         return true;
       }
@@ -91,11 +102,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       const hasSubscription = !!data;
+      console.log('AuthProvider - User subscription status:', hasSubscription);
       setHasAccess(hasSubscription);
       return hasSubscription;
     } catch (error) {
       console.error('Error checking user access:', error);
       return false;
+    } finally {
+      setCheckingAccess(false);
     }
   };
 
@@ -116,9 +130,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (session?.user) {
           // Defer Supabase calls to prevent deadlock using setTimeout
           setTimeout(() => {
+            console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
             checkUserAccess(session.user.id);
-          }, 0);
+          }, 100);
         } else {
+          console.log('AuthProvider - No session, clearing access');
           setHasAccess(false);
           setIsApproved(false);
           setUserStatus(null);
@@ -135,8 +151,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (session?.user) {
         // Defer Supabase calls to prevent deadlock using setTimeout
         setTimeout(() => {
+          console.log('AuthProvider - Initial session found, checking access for:', session.user.email);
           checkUserAccess(session.user.id);
-        }, 0);
+        }, 200);
       }
     });
 

@@ -38,9 +38,12 @@ export const useModels = () => {
   const [models, setModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   const { user, hasAccess } = useAuth();
 
   const fetchModels = async (membersOnly = false) => {
+    if (loading && isInitialized) return; // Prevent concurrent calls
+    
     try {
       setLoading(true);
       setError(null);
@@ -210,17 +213,22 @@ export const useModels = () => {
 
         setModels(transformedModels);
       }
+      
+      setIsInitialized(true);
     } catch (err) {
       console.error('Unexpected error fetching models:', err);
       setError('An unexpected error occurred');
+      setIsInitialized(true);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchModels();
-  }, [user, hasAccess]);
+    if (!isInitialized) {
+      fetchModels();
+    }
+  }, [user?.id, hasAccess]); // Use stable IDs instead of object references
 
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;

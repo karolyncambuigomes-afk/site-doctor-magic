@@ -27,10 +27,10 @@ export const ModelsCarousel = () => {
   if (loading) {
     console.log('ModelsCarousel: Loading models...');
     return (
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center py-12">
-            <p className="text-gray-600">Loading models...</p>
+            <p className="text-muted-foreground">Loading models...</p>
           </div>
         </div>
       </section>
@@ -38,7 +38,7 @@ export const ModelsCarousel = () => {
   }
 
   return (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="py-12 md:py-16">
       <div className="max-w-7xl mx-auto px-4">
         
         {/* Models Carousel */}

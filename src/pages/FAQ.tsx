@@ -5,9 +5,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { MessageCircle, Phone, Mail, Shield, Clock, Users, Star } from 'lucide-react';
 import { generateFAQSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 import { useFAQs } from '@/hooks/useFAQs';
+import { useBookingContent } from '@/hooks/useBookingContent';
 
 const FAQ = () => {
   const { faqs, loading, error } = useFAQs();
+  const { info: bookingInfo } = useBookingContent();
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -81,8 +83,29 @@ const FAQ = () => {
           </div>
         </section>
 
-        {/* Trust Indicators */}
+        {/* Important Information Section */}
         <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <h2 className="text-2xl md:text-3xl font-normal text-black mb-8 text-center tracking-tight">
+                Important Information
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {bookingInfo.map((info, index) => (
+                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 className="font-medium text-black mb-3 text-base">{info.title}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {info.content}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trust Indicators */}
+        <section className="py-16 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div className="flex flex-col items-center">

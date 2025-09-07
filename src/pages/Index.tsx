@@ -169,26 +169,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Important Information Section */}
-        <section className="py-12 md:py-20 lg:py-32 bg-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-gray-50 p-4 sm:p-6 md:p-8 lg:p-12 text-center">
-              <h3 className="text-lg sm:text-xl md:text-2xl font-normal text-black mb-4 sm:mb-6 tracking-tight">
-                Important Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-left">
-                {bookingInfo.map((info, index) => (
-                  <div key={index}>
-                    <h4 className="font-medium text-black mb-2 sm:mb-3 text-sm sm:text-base">{info.title}</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                      {info.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
 
       </main>
 

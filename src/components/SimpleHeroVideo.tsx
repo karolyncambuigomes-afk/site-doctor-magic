@@ -59,11 +59,21 @@ export const SimpleHeroVideo = () => {
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             controls={false}
+            disablePictureInPicture
+            controlsList="nodownload nofullscreen noremoteplayback"
             className="w-full h-full object-cover"
+            style={{ 
+              pointerEvents: 'none',
+              objectFit: 'cover'
+            }}
             onLoadedData={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false)}
+            onCanPlay={(e) => {
+              const video = e.currentTarget;
+              video.play().catch(console.error);
+            }}
           >
             <source src={heroContent.video_url} type="video/mp4" />
           </video>

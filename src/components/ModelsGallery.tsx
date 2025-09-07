@@ -3,6 +3,8 @@ import { ModelCard } from '@/components/ModelCard';
 import { useModels } from '@/hooks/useModels';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle, Crown } from 'lucide-react';
 
 interface ModelsGalleryProps {
@@ -56,7 +58,18 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <main className="pt-16 sm:pt-20">
+      <main id="main-content" className="pt-16 sm:pt-20">
+        {/* Breadcrumbs */}
+        <section className="py-4 border-b border-border/30">
+          <div className="container-width">
+            <Breadcrumbs 
+              items={[
+                { label: isPremium ? 'Premium Members' : 'Our Models' }
+              ]} 
+            />
+          </div>
+        </section>
+
         {/* Elegant Header */}
         <section className="py-12 md:py-16 bg-gradient-to-b from-muted/20 to-background">
           <div className="container-width text-center">
@@ -168,7 +181,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
           <div className="container-width-lg">
             {loading ? (
               <div className="text-center py-24">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+                <LoadingSpinner size="lg" className="mx-auto mb-4" />
                 <p className="text-muted-foreground">Loading companions...</p>
               </div>
             ) : error ? (

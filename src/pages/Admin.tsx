@@ -340,7 +340,12 @@ export const Admin: React.FC = () => {
                             <div key={model.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white">
                               <div className="flex items-center space-x-4">
                                 {model.image && (
-                                  <img src={model.image} alt={model.name} className="w-12 h-12 rounded-full object-cover" />
+                                   <img 
+                                     src={model.image} 
+                                     alt={`${model.name} - Elite companion profile photo`} 
+                                     className="w-12 h-12 rounded-full object-cover"
+                                     loading="lazy"
+                                   />
                                 )}
                                  <div>
                                    <div className="flex items-center gap-2">

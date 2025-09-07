@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import heroMain from '@/assets/hero-main.jpg';
 
 export const HeroSection = () => {
@@ -27,17 +28,21 @@ export const HeroSection = () => {
             </p>
 
             <div className="flex flex-col items-center justify-center gap-3 pt-6">
-              <a href="/models" className="inline-block">
-                <button className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
+              <Link to="/models" className="inline-block">
+                <button 
+                  className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
+                  aria-label="Browse our elite companion models"
+                >
                   View Our Models
                 </button>
-              </a>
+              </Link>
               
               <a 
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block"
+                aria-label="Contact us via WhatsApp"
               >
                 <button className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
                   Contact

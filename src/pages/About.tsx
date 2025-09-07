@@ -1,6 +1,7 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -83,7 +84,18 @@ const About = () => {
       
       <Navigation />
       
-      <main className="pt-12 sm:pt-16">
+      <main id="main-content" className="pt-12 sm:pt-16">
+        {/* Breadcrumbs */}
+        <section className="py-4 border-b border-border/30">
+          <div className="container-width">
+            <Breadcrumbs 
+              items={[
+                { label: 'About Us' }
+              ]} 
+            />
+          </div>
+        </section>
+
         {/* Hero Section */}
         <section className="py-20 md:py-32 bg-gradient-to-br from-background via-background/95 to-muted">
           <div className="container-width mx-auto px-6">

@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { BookNowButton } from "@/components/BookNowButton";
+import { SkipToContent } from "@/components/SkipToContent";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
@@ -48,6 +49,7 @@ const App = () => (
           <CookieConsent />
           <BookNowButton />
           <BrowserRouter>
+            <SkipToContent />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />

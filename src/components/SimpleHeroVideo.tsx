@@ -123,34 +123,8 @@ export const SimpleHeroVideo = () => {
     <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black touch-pan-y">{" "}
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
-        {heroContent.media_type === 'video' && heroContent.video_url ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            controls={false}
-            disablePictureInPicture
-            webkit-playsinline="true"
-            x5-playsinline="true"
-            className="w-full h-full object-cover"
-            style={{ pointerEvents: 'none' }}
-            onLoadedData={() => setIsLoaded(true)}
-            onError={(e) => {
-              console.error('Video failed to load:', e);
-            }}
-          >
-            <source src={heroContent.video_url} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={heroContent.image_url}
-            alt={heroContent.title}
-            className="w-full h-full object-cover"
-            onLoad={() => setIsLoaded(true)}
-          />
-        )}
+        {/* Gradient background instead of image/video */}
+        <div className="w-full h-full bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
         
         {/* Dynamic overlay */}
         <div 

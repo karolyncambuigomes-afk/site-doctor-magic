@@ -13,7 +13,7 @@ export const characteristics: Characteristic[] = [
   // Physical Appearance - Hair & Body
   {
     id: "blonde",
-    name: "Blonde Escorts",
+    name: "Blonde",
     slug: "blonde-escorts",
     description: "Stunning blonde companions with golden beauty",
     content: `
@@ -37,7 +37,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "brunette",
-    name: "Brunette Escorts",
+    name: "Brunette",
     slug: "brunette-escorts",
     description: "Sophisticated brunette companions with exotic allure",
     content: `
@@ -61,7 +61,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "busty",
-    name: "Busty Escorts",
+    name: "Busty",
     slug: "busty-escorts",
     description: "Curvaceous companions with stunning figures",
     content: `
@@ -85,7 +85,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "petite",
-    name: "Petite Escorts",
+    name: "Petite",
     slug: "petite-escorts",
     description: "Delicate and charming petite companions",
     content: `
@@ -109,7 +109,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "curvy",
-    name: "Curvy Escorts",
+    name: "Curvy",
     slug: "curvy-escorts",
     description: "Beautiful curvy companions with natural figures",
     content: `
@@ -133,9 +133,9 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "slim",
-    name: "Slim Escorts",
+    name: "Slim",
     slug: "slim-escorts",
-    description: "Elegant slim escorts with graceful figures",
+    description: "Elegant slim companions with graceful figures",
     content: `
       <p>Discover our collection of slim escorts who possess elegant, graceful figures and natural poise. These stunning companions maintain their beautiful physiques through healthy lifestyles and active living.</p>
       
@@ -157,7 +157,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "tall",
-    name: "Tall Escorts",
+    name: "Tall",
     slug: "tall-escorts",
     description: "Statuesque tall companions with commanding presence",
     content: `
@@ -181,7 +181,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "mature",
-    name: "Mature Escorts",
+    name: "Mature",
     slug: "mature-escorts",
     description: "Sophisticated mature companions with experience",
     content: `
@@ -205,7 +205,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "natural",
-    name: "Natural Escorts",
+    name: "Natural",
     slug: "natural-escorts",
     description: "Naturally beautiful companions with authentic charm",
     content: `
@@ -231,7 +231,7 @@ export const characteristics: Characteristic[] = [
   // Ethnicity & Nationality
   {
     id: "english",
-    name: "English Escorts",
+    name: "English",
     slug: "english-escorts",
     description: "Beautiful English companions with local charm",
     content: `
@@ -255,7 +255,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "brazilian",
-    name: "Brazilian Escorts",
+    name: "Brazilian",
     slug: "brazilian-escorts",
     description: "Exotic Brazilian companions with passionate nature",
     content: `
@@ -279,7 +279,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "russian",
-    name: "Russian Escorts",
+    name: "Russian",
     slug: "russian-escorts",
     description: "Stunning Russian companions with elegant beauty",
     content: `
@@ -303,7 +303,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "european",
-    name: "European Escorts",
+    name: "European",
     slug: "european-escorts",
     description: "Sophisticated European companions with continental charm",
     content: `
@@ -327,7 +327,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "middle-eastern",
-    name: "Middle Eastern Escorts",
+    name: "Middle Eastern",
     slug: "middle-eastern-escorts",
     description: "Exotic Middle Eastern companions with mysterious beauty",
     content: `
@@ -351,7 +351,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "asian",
-    name: "Asian Escorts",
+    name: "Asian",
     slug: "asian-escorts",
     description: "Beautiful Asian companions with oriental charm",
     content: `
@@ -399,7 +399,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "latina",
-    name: "Latina Escorts",
+    name: "Latina",
     slug: "latina-escorts",
     description: "Passionate Latina companions with fiery charm",
     content: `
@@ -423,7 +423,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "iranian",
-    name: "Iranian Escorts",
+    name: "Iranian",
     slug: "iranian-escorts",
     description: "Elegant Iranian companions with Persian beauty",
     content: `
@@ -447,7 +447,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "international",
-    name: "International Escorts",
+    name: "International",
     slug: "international-escorts",
     description: "Worldly international companions from diverse backgrounds",
     content: `
@@ -473,7 +473,7 @@ export const characteristics: Characteristic[] = [
   // Service Types & Experience Levels
   {
     id: "vip-elite",
-    name: "VIP / Elite Escorts",
+    name: "VIP / Elite",
     slug: "vip-elite-escorts",
     description: "Exclusive VIP companions for elite clientele",
     content: `
@@ -497,7 +497,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "party",
-    name: "Party Escorts",
+    name: "Party",
     slug: "party-escorts",
     description: "Fun-loving party companions for social events",
     content: `
@@ -521,7 +521,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "adventurous",
-    name: "Adventurous Escorts",
+    name: "Adventurous",
     slug: "adventurous-escorts",
     description: "Exciting adventurous companions for unique experiences",
     content: `
@@ -545,7 +545,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "open-minded",
-    name: "Open-Minded Escorts",
+    name: "Open-Minded",
     slug: "open-minded-escorts",
     description: "Non-judgmental open-minded companions",
     content: `
@@ -569,7 +569,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "exclusive",
-    name: "Exclusive Escorts",
+    name: "Exclusive",
     slug: "exclusive-escorts",
     description: "Premium exclusive companions for selective clientele",
     content: `
@@ -593,9 +593,9 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "high-class",
-    name: "High-Class Escorts",
+    name: "High-Class",
     slug: "high-class-escorts",
-    description: "Elite high-class escorts offering luxury companionship",
+    description: "Elite high-class companions offering luxury companionship",
     content: `
       <p>Discover our exclusive collection of high-class escorts who embody sophistication, elegance, and refinement. These exceptional companions are carefully selected for their intelligence, poise, and ability to excel in the most prestigious social settings.</p>
       
@@ -617,7 +617,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "dinner-date",
-    name: "Dinner Date Escorts",
+    name: "Dinner Date",
     slug: "dinner-date-escorts",
     description: "Elegant companions for fine dining experiences",
     content: `
@@ -641,7 +641,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "gfe",
-    name: "GFE (Girlfriend Experience) Escorts",
+    name: "GFE (Girlfriend Experience)",
     slug: "gfe-girlfriend-experience-escorts",
     description: "Intimate girlfriend experience companions",
     content: `
@@ -665,7 +665,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "domination-fetish",
-    name: "Domination / Fetish Escorts",
+    name: "Domination / Fetish",
     slug: "domination-fetish-escorts",
     description: "Specialized companions for alternative preferences",
     content: `
@@ -689,9 +689,9 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "bisexual",
-    name: "Bisexual Escorts",
+    name: "Bisexual",
     slug: "bisexual-escorts",
-    description: "Open-minded bisexual escorts for diverse experiences",
+    description: "Open-minded bisexual companions for diverse experiences",
     content: `
       <p>Meet our stunning collection of bisexual escorts who offer open-minded companionship and diverse experiences. These beautiful companions are comfortable with all types of clients and situations, bringing warmth and acceptance to every encounter.</p>
       
@@ -713,7 +713,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "couples",
-    name: "Couples Escorts",
+    name: "Couples",
     slug: "couples-escorts",
     description: "Specialized companions for couples experiences",
     content: `
@@ -737,7 +737,7 @@ export const characteristics: Characteristic[] = [
   },
   {
     id: "outcalls",
-    name: "Outcalls Escorts",
+    name: "Outcalls",
     slug: "outcalls-escorts",
     description: "Mobile companions for hotel and private visits",
     content: `

@@ -21,29 +21,37 @@ export const SimpleHeroVideo = () => {
   useEffect(() => {
     const loadContent = () => {
       try {
+        // Limpa localStorage antigo que pode estar causando conflito
         const saved = localStorage.getItem('simple-hero-content');
+        console.log('=== HERO DEBUG ===');
+        console.log('Device width:', window.innerWidth);
+        console.log('Raw localStorage:', saved);
         
         if (saved) {
           const savedContent = JSON.parse(saved);
-          console.log('Loading saved content:', savedContent.image_url);
+          console.log('Loaded image_url:', savedContent.image_url);
+          console.log('Media type:', savedContent.media_type);
           setContent(savedContent);
         } else {
-          // Usar valores padrão se não houver dados salvos
+          // Usar valores padrão limpos
           const defaultContent = {
             id: 'main-hero',
             title: 'Five London',
-            subtitle: 'Premier luxury companion services',
+            subtitle: 'Premier luxury companion services', 
             button_text: 'View Our Models',
             button_link: '/models',
-            image_url: heroElegantWoman,
+            image_url: '/images/model1.jpg', // Use a mesma imagem padrão em todos os casos
             video_url: null,
             media_type: 'image' as const,
             overlay_opacity: 70,
             show_scroll_indicator: true
           };
-          console.log('Using default content:', defaultContent.image_url);
+          console.log('Using default image_url:', defaultContent.image_url);
           setContent(defaultContent);
+          // Salva o padrão para sincronizar entre dispositivos
+          localStorage.setItem('simple-hero-content', JSON.stringify(defaultContent));
         }
+        console.log('=== END DEBUG ===');
         setIsLoaded(true);
       } catch (error) {
         console.error('Error loading hero content:', error);

@@ -28,21 +28,58 @@ export const SimpleHeroVideo = () => {
   });
 
   useEffect(() => {
-    // Carregar configurações do localStorage
-    const loadHeroContent = async () => {
-      try {
-        const saved = localStorage.getItem('simple-hero-content');
-        
-        if (saved) {
+    // Detectar se é mobile ou desktop
+    const isMobile = window.innerWidth < 768;
+    console.log(`SimpleHeroVideo: Loading on ${isMobile ? 'mobile' : 'desktop'} device`);
+    
+    // Garantir sincronização entre mobile e desktop
+    const syncHeroContent = () => {
+      const saved = localStorage.getItem('simple-hero-content');
+      console.log('Hero content from localStorage:', saved);
+      
+      if (saved) {
+        try {
           const parsedContent = JSON.parse(saved);
+          console.log('Applying hero content:', parsedContent);
           setHeroContent(parsedContent);
+        } catch (error) {
+          console.error('Error parsing hero content:', error);
+          // Se houver erro, salvar configuração padrão
+          const defaultContent = heroContent;
+          localStorage.setItem('simple-hero-content', JSON.stringify(defaultContent));
+          console.log('Saved default hero content to localStorage');
         }
-      } catch (error) {
-        console.error('Error loading hero content:', error);
+      } else {
+        // Se não existir configuração salva, salvar a configuração padrão
+        const defaultContent = heroContent;
+        localStorage.setItem('simple-hero-content', JSON.stringify(defaultContent));
+        console.log('No saved hero content found, saved defaults to localStorage');
       }
     };
 
-    loadHeroContent();
+    // Executar sincronização
+    syncHeroContent();
+
+    // Adicionar listener para mudanças na tela (mobile/desktop)
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      if (newIsMobile !== isMobile) {
+        console.log(`Device changed from ${isMobile ? 'mobile' : 'desktop'} to ${newIsMobile ? 'mobile' : 'desktop'}`);
+        syncHeroContent();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    
+    // Listener para mudanças no localStorage (sincronização entre abas)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'simple-hero-content') {
+        console.log('Hero content changed in another tab, syncing...');
+        syncHeroContent();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
 
     // Enhanced video play functionality for both mobile and desktop
     const forceVideoPlay = () => {
@@ -77,6 +114,8 @@ export const SimpleHeroVideo = () => {
       [...events, ...desktopEvents].forEach(event => {
         document.removeEventListener(event, forceVideoPlay);
       });
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 
@@ -120,21 +159,21 @@ export const SimpleHeroVideo = () => {
         ></div>
       </div>
 
-      {/* Content - Prada Style */}
-      <div className="relative z-20 h-full flex items-end justify-center pb-24 md:pb-32">
-        <div className="text-center px-4 max-w-2xl mx-auto">
-          <div className="space-y-3 md:space-y-4">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-light text-white tracking-wide">
+      {/* Content - Prada Style - Responsivo */}
+      <div className="relative z-20 h-full flex items-end justify-center pb-16 sm:pb-20 md:pb-24 lg:pb-32">
+        <div className="text-center px-4 sm:px-6 max-w-xl md:max-w-2xl mx-auto">
+          <div className="space-y-2 sm:space-y-3 md:space-y-4">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-white tracking-wide leading-tight">
               {heroContent.title}
             </h1>
             
-            <p className="text-sm md:text-base lg:text-lg text-white/80 font-light tracking-wide">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/80 font-light tracking-wide leading-relaxed">
               {heroContent.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 pt-4 sm:pt-6">
               <Link to={heroContent.button_link}>
-                <button className="px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
+                <button className="w-full sm:w-auto px-4 sm:px-5 md:px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
                   {heroContent.button_text}
                 </button>
               </Link>
@@ -144,7 +183,7 @@ export const SimpleHeroVideo = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
+                <button className="w-full sm:w-auto px-4 sm:px-5 md:px-6 py-2 text-xs md:text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
                   Contact
                 </button>
               </a>

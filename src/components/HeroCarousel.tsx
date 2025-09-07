@@ -70,24 +70,17 @@ export const HeroCarousel = () => {
     }
   };
 
-  // Preload videos after page load
+  // Immediate video loading for desktop
   useEffect(() => {
     if (heroSlides.length === 0) return;
     
-    // Start loading videos in background after a small delay
-    const timer = setTimeout(() => {
-      heroSlides.forEach((slide, index) => {
-        if (slide.media_type === 'video' && slide.video_url && !videoLoaded[slide.id]) {
-          // For current slide, show video immediately
-          if (index === currentSlide) {
-            setShowVideo(prev => ({ ...prev, [slide.id]: true }));
-          }
-        }
-      });
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [heroSlides, currentSlide, videoLoaded]);
+    heroSlides.forEach((slide, index) => {
+      if (slide.media_type === 'video' && slide.video_url) {
+        // Show video immediately, especially for current slide
+        setShowVideo(prev => ({ ...prev, [slide.id]: true }));
+      }
+    });
+  }, [heroSlides]);
 
   // Auto-play functionality
   useEffect(() => {
@@ -152,7 +145,7 @@ export const HeroCarousel = () => {
                     loop
                     muted
                     playsInline
-                    preload="metadata"
+                    preload="auto"
                     controls={false}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                       videoLoaded[slide.id] ? 'opacity-100' : 'opacity-0'

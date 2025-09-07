@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -13,12 +13,10 @@ interface HeroSlide {
   button_link?: string;
 }
 
-export const HeroCarousel = () => {
+export const OptimizedHeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const [settings, setSettings] = useState({
     auto_play: true,
     slide_duration: 5000,
@@ -26,16 +24,14 @@ export const HeroCarousel = () => {
     show_scroll_indicator: true,
     overlay_opacity: 30
   });
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  // Load slides and settings from database
   useEffect(() => {
     loadHeroData();
   }, []);
 
   const loadHeroData = async () => {
-    setIsLoading(true);
     try {
-      // Load slides and settings in parallel
       const [slidesResponse, settingsResponse] = await Promise.all([
         supabase
           .from('hero_slides')
@@ -50,14 +46,14 @@ export const HeroCarousel = () => {
 
       if (slidesResponse.data) {
         setHeroSlides(slidesResponse.data);
+        videoRefs.current = new Array(slidesResponse.data.length).fill(null);
       }
 
       if (settingsResponse.data && settingsResponse.data[0]) {
         setSettings(settingsResponse.data[0]);
       }
     } catch (error) {
-      console.error('HeroCarousel: Error loading hero data:', error);
-      // Fallback to default slides if database fails
+      console.error('Error loading hero data:', error);
       setHeroSlides([
         {
           id: '1',
@@ -73,61 +69,40 @@ export const HeroCarousel = () => {
     }
   };
 
-
-  // Simple video preloading
+  // Manage video playback
   useEffect(() => {
-    heroSlides.forEach((slide) => {
-      if (slide.media_type === 'video' && slide.video_url) {
-        const video = document.createElement('video');
-        video.src = slide.video_url;
-        video.preload = 'metadata';
-        video.muted = true;
-        video.load();
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentSlide) {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
       }
     });
-    setVideoLoaded(true);
-  }, [heroSlides]);
+  }, [currentSlide]);
 
   // Auto-play functionality
   useEffect(() => {
-    if (!settings.auto_play || heroSlides.length === 0) return;
+    if (!settings.auto_play || heroSlides.length <= 1) return;
     
     const interval = setInterval(() => {
-      handleSlideChange((currentSlide + 1) % heroSlides.length);
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, settings.slide_duration);
 
     return () => clearInterval(interval);
-  }, [currentSlide, settings.auto_play, settings.slide_duration, heroSlides.length]);
-
-  const handleSlideChange = (slideIndex: number) => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    
-    // Use requestAnimationFrame for smoother transitions
-    requestAnimationFrame(() => {
-      setCurrentSlide(slideIndex);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 100);
-    });
-  };
+  }, [settings.auto_play, settings.slide_duration, heroSlides.length, currentSlide]);
 
   const handleDotClick = (index: number) => {
-    if (index !== currentSlide) {
-      handleSlideChange(index);
-    }
+    setCurrentSlide(index);
   };
 
-  // Show loading only for initial data fetch, not video loading
   if (isLoading) {
     return (
       <section className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 to-black">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center space-y-4">
-            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto"></div>
-            <p className="text-white/80 text-lg">Loading...</p>
-          </div>
+          <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
         </div>
       </section>
     );
@@ -139,7 +114,6 @@ export const HeroCarousel = () => {
 
   return (
     <section className="relative h-screen overflow-hidden">
-      {/* Slides */}
       {heroSlides.map((slide, index) => (
         <div
           key={slide.id}
@@ -147,27 +121,23 @@ export const HeroCarousel = () => {
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Background Media */}
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
               <video
-                key={`video-${slide.id}-${index}`}
+                ref={(el) => { videoRefs.current[index] = el; }}
                 src={slide.video_url}
-                autoPlay={index === currentSlide}
                 loop
                 muted
                 playsInline
-                preload="auto"
-                webkit-playsinline="true"
+                preload="none"
                 className="w-full h-full object-cover"
                 style={{
-                  willChange: 'transform',
                   transform: 'translateZ(0)',
+                  willChange: 'transform'
                 }}
-                onLoadedData={(e) => {
-                  const video = e.target as HTMLVideoElement;
+                onCanPlay={(e) => {
                   if (index === currentSlide) {
-                    video.play().catch(() => {});
+                    e.currentTarget.play().catch(() => {});
                   }
                 }}
               />
@@ -176,12 +146,15 @@ export const HeroCarousel = () => {
                 src={slide.image_url}
                 alt={slide.title}
                 className="w-full h-full object-cover"
+                loading={index === 0 ? "eager" : "lazy"}
               />
             )}
-            <div className="absolute inset-0" style={{backgroundColor: `rgba(0, 0, 0, ${settings.overlay_opacity / 100})`}}></div>
+            <div 
+              className="absolute inset-0" 
+              style={{backgroundColor: `rgba(0, 0, 0, ${settings.overlay_opacity / 100})`}}
+            />
           </div>
 
-          {/* Content */}
           <div className="relative z-20 h-full flex items-center justify-center">
             <div className="text-center px-4 max-w-4xl mx-auto">
               <div className="space-y-6">
@@ -220,8 +193,6 @@ export const HeroCarousel = () => {
         </div>
       ))}
 
-
-      {/* Navigation Dots - Bottom Center */}
       {settings.show_dots && heroSlides.length > 1 && (
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
           <div className="flex space-x-3">
@@ -241,7 +212,6 @@ export const HeroCarousel = () => {
         </div>
       )}
 
-      {/* Scroll Indicator */}
       {settings.show_scroll_indicator && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
           <div className="w-px h-8 bg-white/40"></div>

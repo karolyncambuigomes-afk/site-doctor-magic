@@ -29,14 +29,19 @@ export const SimpleHeroVideo = () => {
 
   useEffect(() => {
     // Carregar configurações do localStorage
-    const saved = localStorage.getItem('simple-hero-content');
-    if (saved) {
+    const loadHeroContent = async () => {
       try {
-        setHeroContent(JSON.parse(saved));
+        const saved = localStorage.getItem('simple-hero-content');
+        if (saved) {
+          const parsedContent = JSON.parse(saved);
+          setHeroContent(parsedContent);
+        }
       } catch (error) {
         console.error('Error loading hero content:', error);
       }
-    }
+    };
+
+    loadHeroContent();
 
     // Force video play on any user interaction
     const forceVideoPlay = () => {
@@ -65,28 +70,40 @@ export const SimpleHeroVideo = () => {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
+      {/* Background Media */}
       <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover"
-          onLoadedData={() => {
-            console.log('Video loaded successfully');
-            setIsLoaded(true);
-          }}
-          onError={(e) => {
-            console.error('Video failed to load:', e);
-          }}
-        >
-          <source src="/video/woman-walking-preview.mp4" type="video/mp4" />
-        </video>
+        {heroContent.media_type === 'video' && heroContent.video_url ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+            onLoadedData={() => {
+              console.log('Video loaded successfully');
+              setIsLoaded(true);
+            }}
+            onError={(e) => {
+              console.error('Video failed to load:', e);
+            }}
+          >
+            <source src={heroContent.video_url} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={heroContent.image_url}
+            alt={heroContent.title}
+            className="w-full h-full object-cover"
+            onLoad={() => setIsLoaded(true)}
+          />
+        )}
         
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30 z-10"></div>
+        {/* Dynamic overlay */}
+        <div 
+          className="absolute inset-0 bg-black z-10"
+          style={{ opacity: heroContent.overlay_opacity / 100 }}
+        ></div>
       </div>
 
       {/* Content */}
@@ -94,17 +111,17 @@ export const SimpleHeroVideo = () => {
         <div className="text-center px-4 max-w-4xl mx-auto">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-2xl">
-              Five London
+              {heroContent.title}
             </h1>
             
             <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
-              Premier luxury companion services
+              {heroContent.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <Link to="/models">
+              <Link to={heroContent.button_link}>
                 <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors transform hover:scale-105">
-                  View Our Models
+                  {heroContent.button_text}
                 </button>
               </Link>
               
@@ -123,9 +140,11 @@ export const SimpleHeroVideo = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-        <div className="w-px h-8 bg-white/50"></div>
-      </div>
+      {heroContent.show_scroll_indicator && (
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+          <div className="w-px h-8 bg-white/50"></div>
+        </div>
+      )}
     </section>
   );
 };

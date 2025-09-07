@@ -92,11 +92,11 @@ const Index = () => {
 
         {/* Contact Section - YSL Style */}
         <section className="py-12 md:py-20 lg:py-32 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="font-display text-lg sm:text-xl md:text-2xl lg:text-4xl font-normal tracking-tight mb-4 sm:mb-6 md:mb-8">
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+            <h2 className="font-display text-sm sm:text-base md:text-lg font-normal tracking-[0.3em] uppercase mb-4 sm:mb-6 md:mb-8">
               Book Your Elite Companion in 3 Simple Steps
             </h2>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 leading-relaxed mb-6 sm:mb-8 md:mb-12 max-w-2xl mx-auto px-2">
+            <p className="text-xs sm:text-sm md:text-base text-white/70 leading-relaxed mb-6 sm:mb-8 md:mb-12 max-w-lg mx-auto font-light">
               Ready for an unforgettable experience? Don't wait - our elite London companions are booking fast. Contact us now for same-day availability.
             </p>
             

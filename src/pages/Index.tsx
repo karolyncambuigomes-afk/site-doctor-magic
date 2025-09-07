@@ -21,15 +21,32 @@ const Index = () => {
       "Premium Luxury Escort Services",
       "Exclusive companion services in London offering sophisticated, professional companionship for discerning clients seeking luxury experiences.",
       "500-1000"
-    )
+    ),
+    // Add location-specific schema for better geo-targeting
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Five London Elite Escorts",
+      "areaServed": {
+        "@type": "City",
+        "name": "London",
+        "addressCountry": "GB"
+      },
+      "hasMap": "https://www.google.com/maps/place/London,+UK",
+      "geo": {
+        "@type": "GeoCoordinates", 
+        "latitude": "51.5074",
+        "longitude": "-0.1278"
+      }
+    }
   ];
 
   return (
     <>
       <SEO 
-        title="Elite London Escorts | Premium High-Class Companions | Five London"
-        description="London's premier luxury escort agency. Sophisticated, intelligent, and beautiful high-class companions available 24/7. Discreet, professional service across Mayfair, Knightsbridge, Chelsea. Book now."
-        keywords="luxury escort London, premium companion services, elite escorts London, sophisticated companions, VIP escort service, high-class escort agency, exclusive escort London, professional companions, luxury lifestyle services, Mayfair escorts, Knightsbridge escorts, Chelsea escorts"
+        title="Elite London Escorts | Premium High-Class Companions SW1 W1 | Five London"
+        description="London's premier luxury escort agency serving Mayfair W1, Knightsbridge SW1, Chelsea SW3. Sophisticated, intelligent companions available 24/7. Discreet, professional service. Book now."
+        keywords="luxury escort London, premium companion services, elite escorts London, sophisticated companions, VIP escort service, high-class escort agency, exclusive escort London, professional companions, Mayfair escorts W1, Knightsbridge escorts SW1, Chelsea escorts SW3"
         canonicalUrl="/"
         structuredData={structuredData}
       />

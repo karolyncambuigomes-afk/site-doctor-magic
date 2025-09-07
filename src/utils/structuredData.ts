@@ -12,7 +12,8 @@ export const generateOrganizationSchema = () => ({
     "@type": "PostalAddress",
     "addressCountry": "GB",
     "addressLocality": "London",
-    "addressRegion": "England"
+    "addressRegion": "England",
+    "postalCode": "W1K 6DJ"
   },
   "geo": {
     "@type": "GeoCoordinates",
@@ -24,11 +25,18 @@ export const generateOrganizationSchema = () => ({
       "@type": "City",
       "name": "London",
       "addressCountry": "GB"
+    },
+    {
+      "@type": "AdministrativeArea", 
+      "name": "Greater London",
+      "addressCountry": "GB"
     }
   ],
   "serviceType": "Luxury Companion Services",
   "priceRange": "£500-£1000",
-  "sameAs": []
+  "sameAs": [],
+  "hasMap": "https://www.google.com/maps/place/London,+UK",
+  "openingHours": "Mo-Su 00:00-23:59"
 });
 
 export const generateWebsiteSchema = () => ({

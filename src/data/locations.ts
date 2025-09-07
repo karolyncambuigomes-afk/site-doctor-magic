@@ -7,6 +7,12 @@ export interface Location {
   seoTitle: string;
   seoDescription: string;
   keywords: string[];
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  postcodes: string[];
+  nearbyLandmarks: string[];
 }
 
 export const locations: Location[] = [
@@ -29,9 +35,15 @@ export const locations: Location[] = [
       
       <p>All our Knightsbridge escorts are sophisticated, intelligent, and well-versed in the social dynamics of this exclusive area. Whether you're visiting for business or pleasure, our companions will ensure your experience exceeds expectations.</p>
     `,
-    seoTitle: "Elite Escorts in Knightsbridge | Five London",
-    seoDescription: "Premium escort services in Knightsbridge. Sophisticated companions for discerning clients in London's most prestigious district. Discreet and professional.",
-    keywords: ["knightsbridge escorts", "luxury escorts london", "premium companionship", "knightsbridge companions"]
+    seoTitle: "Elite Knightsbridge Escorts | Premium Companions SW1 SW3 | Five London",
+    seoDescription: "Luxury escort services in Knightsbridge SW1, SW3. Elite companions near Harrods, Hyde Park Corner. Verified models available 24/7. Same-day booking.",
+    keywords: ["knightsbridge escorts", "luxury escorts london sw1", "premium companionship", "knightsbridge companions", "harrods escorts", "sw3 escorts"],
+    coordinates: {
+      lat: 51.5007,
+      lng: -0.1563
+    },
+    postcodes: ["SW1X", "SW3", "SW7"],
+    nearbyLandmarks: ["Harrods", "Hyde Park Corner", "Sloane Street", "Brompton Road"]
   },
   {
     id: "mayfair",
@@ -53,9 +65,15 @@ export const locations: Location[] = [
       
       <p>Our Mayfair escorts are selected for their intelligence, beauty, and ability to move seamlessly within the highest circles of London society. Each companion is educated, well-traveled, and possesses the social graces expected in such an exclusive environment.</p>
     `,
-    seoTitle: "Luxury Escorts in Mayfair | Five London Elite",
-    seoDescription: "Exclusive escort services in Mayfair, London's most elite district. Sophisticated companions for high-end events and private engagements.",
-    keywords: ["mayfair escorts", "luxury escorts", "elite companions london", "mayfair companionship"]
+    seoTitle: "Luxury Mayfair Escorts | Elite Companions W1K W1J W1S | Five London",
+    seoDescription: "Exclusive escort services in Mayfair W1. Sophisticated companions near Bond Street, Park Lane. Elite models for high-end events. Discreet luxury service.",
+    keywords: ["mayfair escorts", "luxury escorts w1", "elite companions london", "mayfair companionship", "bond street escorts", "park lane escorts"],
+    coordinates: {
+      lat: 51.5088,
+      lng: -0.1443
+    },
+    postcodes: ["W1K", "W1J", "W1S"],
+    nearbyLandmarks: ["Bond Street", "Park Lane", "Grosvenor Square", "Berkeley Square"]
   },
   {
     id: "chelsea",
@@ -77,9 +95,15 @@ export const locations: Location[] = [
       
       <p>Our Chelsea escorts combine beauty with intelligence, offering engaging conversation and sophisticated companionship. They understand the area's unique character and can enhance any experience in this culturally rich district.</p>
     `,
-    seoTitle: "Elegant Escorts in Chelsea | Five London",
-    seoDescription: "Sophisticated escort services in Chelsea, London. Cultured companions for the artistic and trendy district. Professional and discreet services.",
-    keywords: ["chelsea escorts", "sophisticated escorts london", "chelsea companions", "elegant escort services"]
+    seoTitle: "Chelsea Escorts | Sophisticated Companions SW3 SW10 | Five London",
+    seoDescription: "Elite escort services in Chelsea SW3, SW10. Cultured companions near King's Road, Sloane Square. Professional models for cultural events & dining.",
+    keywords: ["chelsea escorts", "sophisticated escorts london sw3", "chelsea companions", "elegant escort services", "kings road escorts", "sloane square escorts"],
+    coordinates: {
+      lat: 51.4875,
+      lng: -0.1687
+    },
+    postcodes: ["SW3", "SW10"],
+    nearbyLandmarks: ["King's Road", "Sloane Square", "Chelsea Embankment", "Saatchi Gallery"]
   },
   {
     id: "belgravia",
@@ -101,9 +125,15 @@ export const locations: Location[] = [
       
       <p>Our Belgravia escorts are selected for their refinement, education, and ability to provide exceptional companionship in this most exclusive of London districts.</p>
     `,
-    seoTitle: "Refined Escorts in Belgravia | Five London",
-    seoDescription: "Exclusive escort services in Belgravia, London's most prestigious residential district. Refined companions offering discretion and elegance.",
-    keywords: ["belgravia escorts", "exclusive escorts london", "refined companionship", "belgravia companions"]
+    seoTitle: "Belgravia Escorts | Refined Companions SW1X SW1W | Five London",
+    seoDescription: "Exclusive escort services in Belgravia SW1. Refined companions near Victoria, Eaton Square. Discreet elite models for prestigious residential area.",
+    keywords: ["belgravia escorts", "exclusive escorts london sw1", "refined companionship", "belgravia companions", "victoria escorts", "eaton square escorts"],
+    coordinates: {
+      lat: 51.4957,
+      lng: -0.1447
+    },
+    postcodes: ["SW1X", "SW1W"],
+    nearbyLandmarks: ["Eaton Square", "Victoria Station", "Buckingham Palace Gardens", "Wellington Arch"]
   },
   {
     id: "kensington",
@@ -125,9 +155,15 @@ export const locations: Location[] = [
       
       <p>Our Kensington escorts are cultured, well-educated, and passionate about the arts. They make ideal companions for anyone seeking to experience the rich cultural heritage of this remarkable district.</p>
     `,
-    seoTitle: "Cultured Escorts in Kensington | Five London",
-    seoDescription: "Premium escort services in Kensington, London. Cultured companions for museums, cultural events, and sophisticated experiences.",
-    keywords: ["kensington escorts", "cultured escorts london", "museum companions", "kensington companionship"]
+    seoTitle: "Kensington Escorts | Cultured Companions W8 SW7 | Five London", 
+    seoDescription: "Premium escort services in Kensington W8, SW7. Cultured companions near museums, galleries. Elite models for cultural events & sophisticated dining.",
+    keywords: ["kensington escorts", "cultured escorts london w8", "museum companions", "kensington companionship", "south kensington escorts", "cultural escorts"],
+    coordinates: {
+      lat: 51.5047,
+      lng: -0.1931
+    },
+    postcodes: ["W8", "SW7"],
+    nearbyLandmarks: ["Kensington Palace", "Hyde Park", "Royal Albert Hall", "Natural History Museum"]
   },
   {
     id: "canary-wharf",
@@ -149,9 +185,15 @@ export const locations: Location[] = [
       
       <p>Our Canary Wharf escorts are selected for their professionalism, intelligence, and ability to conduct themselves impeccably in high-stakes business environments.</p>
     `,
-    seoTitle: "Professional Escorts in Canary Wharf | Five London",
-    seoDescription: "Elite escort services in Canary Wharf, London's financial district. Professional companions for business events and corporate entertainment.",
-    keywords: ["canary wharf escorts", "business escorts london", "corporate companions", "professional escort services"]
+    seoTitle: "Canary Wharf Escorts | Professional Companions E14 | Five London",
+    seoDescription: "Elite escort services in Canary Wharf E14. Professional companions for business events, corporate dining. Sophisticated models available 24/7.",
+    keywords: ["canary wharf escorts", "business escorts london e14", "corporate companions", "professional escort services", "financial district escorts", "city escorts"],
+    coordinates: {
+      lat: 51.5054,
+      lng: -0.0235
+    },
+    postcodes: ["E14", "E1W"],
+    nearbyLandmarks: ["One Canada Square", "Canary Wharf Station", "West India Quay", "Greenwich Observatory"]
   },
   {
     id: "notting-hill",
@@ -173,9 +215,15 @@ export const locations: Location[] = [
       
       <p>Our Notting Hill escorts are creative, free-spirited, and embrace the area's artistic energy while maintaining the highest standards of sophistication.</p>
     `,
-    seoTitle: "Stylish Escorts in Notting Hill | Five London",
-    seoDescription: "Vibrant escort services in Notting Hill, London. Creative companions for markets, festivals, and the bohemian lifestyle of this iconic district.",
-    keywords: ["notting hill escorts", "vibrant escorts london", "creative companions", "portobello escorts"]
+    seoTitle: "Notting Hill Escorts | Stylish Companions W11 W2 | Five London",
+    seoDescription: "Vibrant escort services in Notting Hill W11, W2. Creative companions near Portobello Market. Bohemian escorts for festivals & cultural events.",
+    keywords: ["notting hill escorts", "vibrant escorts london w11", "creative companions", "portobello escorts", "carnival escorts", "bohemian companions"],
+    coordinates: {
+      lat: 51.5152,
+      lng: -0.2003
+    },
+    postcodes: ["W11", "W2"],
+    nearbyLandmarks: ["Portobello Road", "Notting Hill Gate", "Hyde Park", "Westbourne Grove"]
   },
   {
     id: "covent-garden",
@@ -197,9 +245,15 @@ export const locations: Location[] = [
       
       <p>Our Covent Garden escorts are cultured, entertaining, and well-versed in the arts, making them ideal companions for this theatrical district.</p>
     `,
-    seoTitle: "Entertaining Escorts in Covent Garden | Five London",
-    seoDescription: "Premium escort services in Covent Garden, London's entertainment district. Cultured companions for theaters, dining, and cultural experiences.",
-    keywords: ["covent garden escorts", "theater escorts london", "entertainment companions", "west end escorts"]
+    seoTitle: "Covent Garden Escorts | Entertaining Companions WC2 | Five London",
+    seoDescription: "Premium escort services in Covent Garden WC2. Cultured companions for theater, dining, shopping. West End escorts available same-day.",
+    keywords: ["covent garden escorts", "theater escorts london wc2", "entertainment companions", "west end escorts", "opera escorts", "cultural companions"],
+    coordinates: {
+      lat: 51.5118,
+      lng: -0.1226
+    },
+    postcodes: ["WC2E", "WC2H"],
+    nearbyLandmarks: ["Royal Opera House", "Covent Garden Market", "Leicester Square", "Strand"]
   },
   {
     id: "shoreditch",
@@ -221,9 +275,15 @@ export const locations: Location[] = [
       
       <p>Our Shoreditch escorts are artistic, contemporary, and embrace the district's creative energy while providing sophisticated companionship.</p>
     `,
-    seoTitle: "Creative Escorts in Shoreditch | Five London",
-    seoDescription: "Contemporary escort services in Shoreditch, London's artistic quarter. Creative companions for galleries, street art, and innovative experiences.",
-    keywords: ["shoreditch escorts", "creative escorts london", "artistic companions", "contemporary escort services"]
+    seoTitle: "Shoreditch Escorts | Creative Companions E1 E2 | Five London",
+    seoDescription: "Contemporary escort services in Shoreditch E1, E2. Artistic companions for galleries, street art tours. Creative escorts for innovative experiences.",
+    keywords: ["shoreditch escorts", "creative escorts london e1", "artistic companions", "contemporary escort services", "street art escorts", "gallery companions"],
+    coordinates: {
+      lat: 51.5257,
+      lng: -0.0781
+    },
+    postcodes: ["E1", "E2"],
+    nearbyLandmarks: ["Brick Lane", "Old Street", "Hoxton Square", "Boxpark Shoreditch"]
   },
   {
     id: "marylebone",
@@ -245,9 +305,15 @@ export const locations: Location[] = [
       
       <p>Our Marylebone escorts are sophisticated yet approachable, perfectly matching the district's blend of elegance and warmth.</p>
     `,
-    seoTitle: "Refined Escorts in Marylebone | Five London",
-    seoDescription: "Sophisticated escort services in Marylebone, London. Refined companions for boutique shopping, dining, and cultural experiences.",
-    keywords: ["marylebone escorts", "sophisticated escorts london", "boutique escorts", "marylebone companions"]
+    seoTitle: "Marylebone Escorts | Sophisticated Companions W1U NW1 | Five London",
+    seoDescription: "Refined escort services in Marylebone W1U, NW1. Sophisticated companions for boutique shopping, dining. Village atmosphere in central London.",
+    keywords: ["marylebone escorts", "sophisticated escorts london w1u", "boutique escorts", "marylebone companions", "fitzrovia escorts", "village london escorts"],
+    coordinates: {
+      lat: 51.5186,
+      lng: -0.1492
+    },
+    postcodes: ["W1U", "NW1"],
+    nearbyLandmarks: ["Marylebone High Street", "Baker Street", "Regent's Park", "Madame Tussauds"]
   },
   {
     id: "fitzrovia",
@@ -269,9 +335,15 @@ export const locations: Location[] = [
       
       <p>Our Fitzrovia escorts are well-read, culturally aware, and appreciate the district's intellectual heritage and contemporary relevance.</p>
     `,
-    seoTitle: "Cultured Escorts in Fitzrovia | Five London",
-    seoDescription: "Intellectual escort services in Fitzrovia, London's literary district. Cultured companions for cultural experiences and intellectual pursuits.",
-    keywords: ["fitzrovia escorts", "intellectual escorts london", "literary companions", "cultured escort services"]
+    seoTitle: "Fitzrovia Escorts | Intellectual Companions W1T W1W | Five London",
+    seoDescription: "Cultural escort services in Fitzrovia W1T, W1W. Intellectual companions for literary walks, media events. Cultured escorts near BBC & galleries.",
+    keywords: ["fitzrovia escorts", "intellectual escorts london w1t", "literary companions", "cultured escort services", "bbc escorts", "media escorts"],
+    coordinates: {
+      lat: 51.5189,
+      lng: -0.1363
+    },
+    postcodes: ["W1T", "W1W"],
+    nearbyLandmarks: ["Charlotte Street", "Fitzroy Square", "BBC Broadcasting House", "University College London"]
   },
   {
     id: "south-kensington",
@@ -293,8 +365,14 @@ export const locations: Location[] = [
       
       <p>Our South Kensington escorts are educated, culturally sophisticated, and passionate about learning, making them ideal companions for this intellectually rich district.</p>
     `,
-    seoTitle: "Educational Escorts in South Kensington | Five London",
-    seoDescription: "Premium escort services in South Kensington, London's museum quarter. Knowledgeable companions for cultural and educational experiences.",
-    keywords: ["south kensington escorts", "museum escorts london", "educational companions", "cultural escort services"]
+    seoTitle: "South Kensington Escorts | Educational Companions SW7 | Five London",
+    seoDescription: "Premium escort services in South Kensington SW7. Knowledgeable companions for museums, exhibitions. Cultural escorts near Imperial College & V&A.",
+    keywords: ["south kensington escorts", "museum escorts london sw7", "educational companions", "cultural escort services", "exhibition escorts", "academic escorts"],
+    coordinates: {
+      lat: 51.4946,
+      lng: -0.1663
+    },
+    postcodes: ["SW7"],
+    nearbyLandmarks: ["Victoria & Albert Museum", "Natural History Museum", "Science Museum", "Imperial College London"]
   }
 ];

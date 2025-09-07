@@ -172,10 +172,10 @@ const Services = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-background">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extralight mb-4 sm:mb-6 tracking-tight">
+              <h1 className="heading-display mb-4 sm:mb-6">
                 Elite Companion Services
               </h1>
-              <p className="text-base sm:text-lg text-muted-foreground font-light">
+              <p className="body-lg text-muted-foreground">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
@@ -199,8 +199,8 @@ const Services = () => {
                           <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
                         </div>
                         <div className="flex-1 text-left">
-                          <h3 className="text-base sm:text-lg md:text-xl font-light mb-1">{service.title}</h3>
-                          <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">{service.description}</p>
+                          <h3 className="heading-sm mb-1">{service.title}</h3>
+                          <p className="body-xs text-muted-foreground hidden sm:block">{service.description}</p>
                         </div>
                         <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-muted-foreground">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -213,7 +213,7 @@ const Services = () => {
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                         {/* Mobile description */}
                         <div className="sm:hidden">
-                          <p className="text-sm text-muted-foreground">{service.description}</p>
+                          <p className="body-xs text-muted-foreground">{service.description}</p>
                         </div>
                         
                         {/* Extended Content (Hidden SEO) */}

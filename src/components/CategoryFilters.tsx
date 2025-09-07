@@ -15,10 +15,10 @@ export const CategoryFilters: React.FC = () => {
     <section className="py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="font-display text-2xl md:text-3xl font-normal tracking-tight text-black mb-4">
+          <h2 className="heading-xl text-black mb-4">
             Browse by Preference
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="body-base text-gray-600 max-w-2xl mx-auto">
             Discover your perfect companion from our carefully curated selection of elite London models
           </p>
         </div>

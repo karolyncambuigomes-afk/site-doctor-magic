@@ -198,10 +198,10 @@ const JoinUs = () => {
       <main className="min-h-screen bg-background py-24">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <h1 className="heading-display text-foreground mb-6">
               Join Our Agency
             </h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="body-lg text-muted-foreground">
               Be part of a prestigious agency and build a successful career
             </p>
           </div>

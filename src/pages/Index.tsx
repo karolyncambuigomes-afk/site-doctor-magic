@@ -76,10 +76,10 @@ const Index = () => {
         {/* Contact Section */}
         <section className="py-24 md:py-40 bg-card">
           <div className="max-w-md mx-auto px-4 text-center">
-            <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
+            <h2 className="heading-xl text-foreground mb-6">
               Elite Companion
             </h2>
-            <p className="text-muted-foreground font-light mb-16 md:mb-20">
+            <p className="body-base text-muted-foreground mb-16 md:mb-20">
               Contact us through your preferred method for a discreet consultation
             </p>
             

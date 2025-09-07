@@ -26,10 +26,10 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="text-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h3 className="body-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
-              <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+              <p className="body-xs text-gray-300 mb-4 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -55,7 +55,7 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h4 className="body-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
               <div className="flex space-x-4">
@@ -93,7 +93,7 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="body-sm font-medium text-white tracking-wider uppercase">
               Our Services
             </h4>
             <div className="space-y-3">
@@ -117,7 +117,7 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="body-sm font-medium text-white tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">

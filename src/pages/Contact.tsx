@@ -74,10 +74,10 @@ const Contact = () => {
         {/* Hero Section */}
         <section className="py-12 md:py-16 lg:py-20 bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 sm:mb-4 animate-fade-in-up px-4">
+            <h1 className="heading-display mb-3 sm:mb-4 animate-fade-in-up px-4">
               Call Now for <span className="luxury-text-gradient">Same Day Booking</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in px-4 sm:px-6">
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in px-4 sm:px-6">
               Most companions available today. Call now for instant confirmation and same-day appointments.
             </p>
           </div>
@@ -96,9 +96,9 @@ const Contact = () => {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
                     <method.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-xl font-heading font-bold mb-2">{method.title}</h3>
-                  <p className="text-lg font-medium text-primary mb-2">{method.details}</p>
-                  <p className="text-muted-foreground mb-4">{method.description}</p>
+                   <h3 className="heading-sm mb-2">{method.title}</h3>
+                   <p className="body-base font-medium text-primary mb-2">{method.details}</p>
+                   <p className="body-sm text-muted-foreground mb-4">{method.description}</p>
                   <Button 
                     className="luxury-button w-full"
                     onClick={() => {

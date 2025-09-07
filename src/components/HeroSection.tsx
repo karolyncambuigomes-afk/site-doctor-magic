@@ -19,11 +19,11 @@ export const HeroSection = () => {
       <div className="relative z-20 h-full flex items-end justify-center pb-20 md:pb-24">
         <div className="text-center px-4 sm:px-6 max-w-md mx-auto">
           <div className="space-y-2 md:space-y-3">
-            <h1 className="text-lg sm:text-xl md:text-2xl font-light text-white tracking-[0.3em] uppercase leading-tight">
+            <h1 className="heading-md text-white tracking-[0.3em] uppercase leading-tight">
               Five London
             </h1>
             
-            <p className="text-xs sm:text-sm text-white/70 font-light tracking-[0.2em] uppercase leading-relaxed">
+            <p className="body-xs text-white/70 tracking-[0.2em] uppercase leading-relaxed">
               Premier luxury companion services
             </p>
 

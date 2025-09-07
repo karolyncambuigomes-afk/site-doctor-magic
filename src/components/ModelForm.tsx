@@ -319,24 +319,29 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 </SelectContent>
               </Select>
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="space-y-3">
-              <Label className="text-sm font-medium">Configurações de Acesso</Label>
-              <div className="flex items-center justify-between p-3 border rounded-lg bg-muted/30">
-                <div className="space-y-0.5">
-                  <Label htmlFor="members-only" className="text-sm font-medium">
-                    Apenas Membros Premium
-                  </Label>
-                  <p className="text-xs text-muted-foreground">
-                    Modelo disponível apenas para usuários com assinatura ativa
-                  </p>
-                </div>
-                <Switch
-                  id="members-only"
-                  checked={formData.members_only || false}
-                  onCheckedChange={(checked) => handleInputChange('members_only', checked)}
-                />
+        {/* Access Configuration Card */}
+        <Card className="border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-primary">⭐ Configurações de Acesso</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
+              <div className="space-y-1">
+                <Label htmlFor="members-only" className="text-sm font-medium">
+                  Apenas Membros Premium
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Modelo disponível apenas para usuários com assinatura ativa
+                </p>
               </div>
+              <Switch
+                id="members-only"
+                checked={formData.members_only || false}
+                onCheckedChange={(checked) => handleInputChange('members_only', checked)}
+              />
             </div>
           </CardContent>
         </Card>

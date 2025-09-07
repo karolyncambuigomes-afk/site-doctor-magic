@@ -124,5 +124,30 @@
   .body-xs {
     @apply font-sans text-xs md:text-sm leading-relaxed;
   }
-}
+  
+  .caption {
+    @apply font-sans text-xs uppercase tracking-wider font-medium;
+  }
+  
+  /* Shadow utilities */
+  .shadow-minimal {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+  
+  .shadow-elegant {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  .shadow-luxury {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  
+  /* Transition utilities */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-luxury {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
 

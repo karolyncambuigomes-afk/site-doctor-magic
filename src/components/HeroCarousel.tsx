@@ -17,6 +17,8 @@ export const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [settings, setSettings] = useState({
     auto_play: true,
     slide_duration: 5000,
@@ -31,26 +33,27 @@ export const HeroCarousel = () => {
   }, []);
 
   const loadHeroData = async () => {
+    setIsLoading(true);
     try {
-      // Load slides
-      const { data: slidesData, error: slidesError } = await supabase
-        .from('hero_slides')
-        .select('*')
-        .eq('active', true)
-        .order('order_index');
+      // Load slides and settings in parallel
+      const [slidesResponse, settingsResponse] = await Promise.all([
+        supabase
+          .from('hero_slides')
+          .select('*')
+          .eq('active', true)
+          .order('order_index'),
+        supabase
+          .from('hero_settings')
+          .select('*')
+          .limit(1)
+      ]);
 
-      // Load settings
-      const { data: settingsData, error: settingsError } = await supabase
-        .from('hero_settings')
-        .select('*')
-        .limit(1);
-
-      if (slidesData) {
-        setHeroSlides(slidesData);
+      if (slidesResponse.data) {
+        setHeroSlides(slidesResponse.data);
       }
 
-      if (settingsData && settingsData[0]) {
-        setSettings(settingsData[0]);
+      if (settingsResponse.data && settingsResponse.data[0]) {
+        setSettings(settingsResponse.data[0]);
       }
     } catch (error) {
       console.error('HeroCarousel: Error loading hero data:', error);
@@ -65,40 +68,65 @@ export const HeroCarousel = () => {
           button_link: '/models'
         }
       ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
 
-  // Preload videos with aggressive optimization
+  // Optimized video preloading with loading state
   useEffect(() => {
-    heroSlides.forEach((slide, index) => {
-      if (slide.media_type === 'video' && slide.video_url) {
-        const video = document.createElement('video');
-        video.src = slide.video_url;
-        video.preload = 'auto';
-        video.muted = true;
-        video.playsInline = true;
-        video.setAttribute('webkit-playsinline', 'true');
-        video.style.display = 'none';
-        
-        // Force immediate loading
-        video.load();
-        
-        // Try to preload a small portion
-        video.addEventListener('loadedmetadata', () => {
-          video.currentTime = 0.1;
-        }, { once: true });
-        
-        document.body.appendChild(video);
-        
-        // Cleanup after 10 seconds
-        setTimeout(() => {
-          if (video.parentNode) {
-            video.parentNode.removeChild(video);
-          }
-        }, 10000);
-      }
+    if (heroSlides.length === 0) return;
+    
+    const videoSlides = heroSlides.filter(slide => slide.media_type === 'video' && slide.video_url);
+    if (videoSlides.length === 0) {
+      setVideoLoaded(true);
+      return;
+    }
+
+    let loadedCount = 0;
+    const totalVideos = videoSlides.length;
+
+    videoSlides.forEach((slide, index) => {
+      const video = document.createElement('video');
+      video.src = slide.video_url!;
+      video.preload = 'auto';
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute('webkit-playsinline', 'true');
+      video.style.display = 'none';
+      
+      video.addEventListener('canplaythrough', () => {
+        loadedCount++;
+        if (loadedCount >= totalVideos) {
+          setVideoLoaded(true);
+        }
+      }, { once: true });
+
+      video.addEventListener('error', () => {
+        loadedCount++;
+        if (loadedCount >= totalVideos) {
+          setVideoLoaded(true);
+        }
+      }, { once: true });
+      
+      video.load();
+      document.body.appendChild(video);
+      
+      // Cleanup after 15 seconds
+      setTimeout(() => {
+        if (video.parentNode) {
+          video.parentNode.removeChild(video);
+        }
+      }, 15000);
     });
+
+    // Fallback: mark as loaded after 3 seconds
+    const fallbackTimer = setTimeout(() => {
+      setVideoLoaded(true);
+    }, 3000);
+
+    return () => clearTimeout(fallbackTimer);
   }, [heroSlides]);
 
   // Auto-play functionality
@@ -116,10 +144,14 @@ export const HeroCarousel = () => {
     if (isTransitioning) return;
     
     setIsTransitioning(true);
-    setTimeout(() => {
+    
+    // Use requestAnimationFrame for smoother transitions
+    requestAnimationFrame(() => {
       setCurrentSlide(slideIndex);
-      setIsTransitioning(false);
-    }, 150);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 100);
+    });
   };
 
   const handleDotClick = (index: number) => {
@@ -127,6 +159,20 @@ export const HeroCarousel = () => {
       handleSlideChange(index);
     }
   };
+
+  // Show loading state while data is being fetched or videos are loading
+  if (isLoading || !videoLoaded) {
+    return (
+      <section className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 to-black">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin mx-auto"></div>
+            <p className="text-white/80 text-lg">Loading...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (heroSlides.length === 0) {
     return null;

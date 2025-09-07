@@ -6,10 +6,12 @@ import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
+import { useBookingContent } from '@/hooks/useBookingContent';
 import { TrustSignals } from '@/components/TrustSignals';
 import { CategoryFilters } from '@/components/CategoryFilters';
 
 const Index = () => {
+  const { info: bookingInfo } = useBookingContent();
   
   // Generate comprehensive structured data for homepage
   const structuredData = [
@@ -158,6 +160,27 @@ const Index = () => {
                   Telegram
                 </span>
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Important Information Section */}
+        <section className="py-20 md:py-32 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-gray-50 p-8 md:p-12 text-center">
+              <h3 className="text-xl md:text-2xl font-normal text-black mb-6 tracking-tight">
+                Important Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                {bookingInfo.map((info, index) => (
+                  <div key={index}>
+                    <h4 className="font-medium text-black mb-3">{info.title}</h4>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {info.content}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

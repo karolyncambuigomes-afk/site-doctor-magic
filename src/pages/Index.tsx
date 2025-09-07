@@ -65,38 +65,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Introductory Text About Agency */}
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="text-center space-y-8">
-            <div className="max-w-3xl mx-auto">
-              <p className="text-lg md:text-xl leading-relaxed text-gray-800 font-light">
-                Exquisite beauty, intelligence, and sophistication define our carefully selected London companions. 
-                As the city's most prestigious escort agency, we provide an unparalleled service that caters to the 
-                refined tastes of discerning gentlemen who expect nothing less than perfection.
-              </p>
-            </div>
-            
-            <div className="max-w-3xl mx-auto">
-              <p className="text-base md:text-lg leading-relaxed text-gray-700">
-                Our elite companions embody grace, charm, and intellectual prowess, making them the perfect accompaniment 
-                for any occasion - from intimate dinners and cultural events to business functions and international travel. 
-                Each encounter is crafted to exceed expectations, ensuring memories that will last a lifetime.
-              </p>
-            </div>
-
-            <div className="pt-8">
-              <Link 
-                to="/services" 
-                className="inline-block px-8 py-3 text-sm uppercase tracking-widest font-light border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-all duration-300"
-              >
-                View All Services
-              </Link>
-            </div>
-          </div>
+      {/* Exclusive Premium Service Text */}
+      <section className="py-8 md:py-12 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <p className="text-sm md:text-base text-gray-600 uppercase tracking-widest font-light">
+            Exclusive Premium Service Since 2020
+          </p>
         </div>
       </section>
-      
+
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />

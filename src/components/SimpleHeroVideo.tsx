@@ -65,60 +65,13 @@ export const SimpleHeroVideo = () => {
 
   return (
     <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
-      {/* Background Media */}
+      {/* Background Media - Always show image as fallback */}
       <div className="absolute inset-0">
-        {/* Static background image - only shows for image type */}
-        {heroContent.media_type === 'image' && (
-          <img
-            src={heroContent.image_url}
-            alt="Five London"
-            className="w-full h-full object-cover"
-          />
-        )}
-        
-        {/* Video overlay with poster image */}
-        {heroContent.media_type === 'video' && heroContent.video_url && (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={heroContent.image_url}
-            preload="metadata"
-            controls={false}
-            disablePictureInPicture
-            controlsList="nodownload nofullscreen noremoteplayback"
-            className="w-full h-full object-cover transition-opacity duration-300"
-            style={{ 
-              pointerEvents: 'none',
-              objectFit: 'cover',
-              opacity: isLoaded ? 1 : 0
-            }}
-            onLoadedData={() => {
-              console.log('Video loaded successfully');
-              setIsLoaded(true);
-              const video = document.querySelector('video');
-              if (video) {
-                video.play().catch(() => {
-                  console.log('Could not autoplay video after load');
-                });
-              }
-            }}
-            onCanPlay={(e) => {
-              console.log('Video can play');
-              const video = e.currentTarget;
-              video.play().catch(() => {
-                console.log('Could not autoplay video on canplay');
-              });
-            }}
-            onError={(e) => {
-              console.error('Video error:', e);
-            }}
-          >
-            <source src={heroContent.video_url} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
+        <img
+          src={heroContent.image_url}
+          alt="Five London"
+          className="w-full h-full object-cover"
+        />
         
         {/* Dark overlay */}
         <div 

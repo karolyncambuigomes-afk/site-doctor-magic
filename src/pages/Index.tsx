@@ -65,12 +65,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Exclusive Premium Service Text */}
-      <section className="py-8 md:py-12 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-sm md:text-base text-gray-600 uppercase tracking-widest font-light">
-            Exclusive Premium Service Since 2020
-          </p>
+      {/* Introductory Text About Agency */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-8">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-xl md:text-2xl font-light text-gray-800 mb-6">
+                Exquisite. Exclusive. Elite.
+              </h2>
+              <p className="text-lg md:text-xl leading-relaxed text-gray-800 font-light">
+                Established luxury companion agency representing a handpicked selection of sophisticated London companions. 
+                Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

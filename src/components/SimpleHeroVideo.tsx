@@ -30,15 +30,37 @@ export const SimpleHeroVideo = () => {
 
   useEffect(() => {
     // Carregar configurações salvas do admin
-    const saved = localStorage.getItem('simple-hero-content');
-    if (saved) {
-      try {
-        const savedContent = JSON.parse(saved);
-        setContent(savedContent);
-      } catch (error) {
-        console.error('Error loading hero content:', error);
+    const loadContent = () => {
+      const saved = localStorage.getItem('simple-hero-content');
+      if (saved) {
+        try {
+          const savedContent = JSON.parse(saved);
+          setContent(savedContent);
+        } catch (error) {
+          console.error('Error loading hero content:', error);
+        }
       }
-    }
+    };
+
+    loadContent();
+
+    // Escutar mudanças no localStorage para atualizar em tempo real
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'simple-hero-content' && e.newValue) {
+        try {
+          const savedContent = JSON.parse(e.newValue);
+          setContent(savedContent);
+        } catch (error) {
+          console.error('Error loading hero content from storage event:', error);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (

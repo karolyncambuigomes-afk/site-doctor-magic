@@ -58,6 +58,20 @@ const Index = () => {
       
       <HeroSection />
       
+      {/* Introductory Text About Agency */}
+      <section className="py-12 md:py-16 bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-6">
+            <h2 className="font-display text-2xl md:text-3xl font-normal tracking-wide text-foreground mb-6">
+              Exquisite. Exclusive. Elite.
+            </h2>
+            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground font-light max-w-3xl mx-auto">
+              Established luxury companion agency representing a handpicked selection of sophisticated London companions. 
+              Beautiful, intelligent, and cultured ladies for discerning gentlemen.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Category Filters */}

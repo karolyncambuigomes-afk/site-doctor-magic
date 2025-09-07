@@ -88,26 +88,31 @@ export const SimpleHeroVideo = () => {
             controls={false}
             disablePictureInPicture
             controlsList="nodownload nofullscreen noremoteplayback"
-            className="w-full h-full object-cover opacity-0 transition-opacity duration-300"
+            className="w-full h-full object-cover transition-opacity duration-300"
             style={{ 
               pointerEvents: 'none',
               objectFit: 'cover',
               opacity: isLoaded ? 1 : 0
             }}
             onLoadedData={() => {
+              console.log('Video loaded successfully');
               setIsLoaded(true);
               const video = document.querySelector('video');
               if (video) {
                 video.play().catch(() => {
-                  // Silent fail for autoplay restrictions
+                  console.log('Could not autoplay video after load');
                 });
               }
             }}
             onCanPlay={(e) => {
+              console.log('Video can play');
               const video = e.currentTarget;
               video.play().catch(() => {
-                // Silent fail for autoplay restrictions
+                console.log('Could not autoplay video on canplay');
               });
+            }}
+            onError={(e) => {
+              console.error('Video error:', e);
             }}
           >
             <source src={heroContent.video_url} type="video/mp4" />

@@ -21,8 +21,8 @@ export const SimpleHeroVideo = () => {
     button_text: 'View Our Models',
     button_link: '/models',
     image_url: '/images/model1.jpg',
-    video_url: '/video/woman-walking-preview.mp4',
-    media_type: 'video',
+    video_url: null, // Desabilitando vídeo temporariamente
+    media_type: 'image',
     overlay_opacity: 30,
     show_scroll_indicator: true
   });
@@ -119,10 +119,8 @@ export const SimpleHeroVideo = () => {
     };
   }, []);
 
-  console.log('SimpleHeroVideo rendering:', { heroContent, isLoaded });
-  
   return (
-    <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-red-500 touch-pan-y">{" "}
+    <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black touch-pan-y">{" "}
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
         {heroContent.media_type === 'video' && heroContent.video_url ? (

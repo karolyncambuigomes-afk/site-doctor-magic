@@ -57,13 +57,13 @@ const Index = () => {
       <SimpleHeroVideo />
       
       {/* Elegant tagline and services section */}
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-black mb-8 md:mb-12">
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-black mb-12 md:mb-16">
             Exquisite. Exclusive. Elite.
           </h2>
           
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto px-2">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-6 md:mb-8 max-w-2xl mx-auto px-2">
             <span className="font-medium">Established luxury companion agency</span> representing a handpicked selection of sophisticated London companions. Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
           </p>
           <p className="text-sm md:text-base text-gray-500">

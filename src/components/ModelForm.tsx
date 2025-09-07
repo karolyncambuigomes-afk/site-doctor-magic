@@ -11,6 +11,7 @@ import { GalleryUpload } from '@/components/GalleryUpload';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
+import { locations } from '@/data/locations';
 import { X, Plus } from 'lucide-react';
 
 interface Model {
@@ -278,11 +279,21 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
             <div>
               <Label htmlFor="location">Localização</Label>
-              <Input
-                id="location"
-                value={formData.location || ''}
-                onChange={(e) => handleInputChange('location', e.target.value)}
-              />
+              <Select 
+                value={formData.location || ''} 
+                onValueChange={(value) => handleInputChange('location', value)}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione uma localização" />
+                </SelectTrigger>
+                <SelectContent>
+                  {locations.map((location) => (
+                    <SelectItem key={location.id} value={location.name}>
+                      {location.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>

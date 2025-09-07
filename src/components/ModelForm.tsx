@@ -387,16 +387,21 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       </Card>
 
       {/* Gallery Management */}
-      {model?.id && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Galeria de Fotos</CardTitle>
-          </CardHeader>
-          <CardContent>
+      <Card>
+        <CardHeader>
+          <CardTitle>Galeria de Fotos</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {model?.id ? (
             <GalleryUpload modelId={model.id} />
-          </CardContent>
-        </Card>
-      )}
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              <p className="mb-2">A galeria de fotos estará disponível após salvar o modelo.</p>
+              <p className="text-sm">Primeiro salve as informações básicas e depois você poderá adicionar mais fotos.</p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Pricing */}
       <Card>

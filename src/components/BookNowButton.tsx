@@ -31,7 +31,7 @@ export const BookNowButton = () => {
           className="shadow-elegant hover:shadow-luxury transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90 caption px-6 py-3"
         >
           <MessageCircle className="w-4 h-4 mr-2" />
-          Book Now
+          Book Now - 24/7
         </Button>
       </a>
     </div>

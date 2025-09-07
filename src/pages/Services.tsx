@@ -72,18 +72,18 @@ const Services = () => {
   const services = [
     {
       icon: Utensils,
-      title: "Dinner Dates",
-      description: "Elegant companions for fine dining experiences at London's most prestigious restaurants",
+      title: "Dinner Date Escorts",
+      description: "Beautiful, intelligent companions for romantic dinner dates at London's finest restaurants",
       features: ["Michelin-starred restaurants", "Wine knowledge", "Sophisticated conversation", "Impeccable etiquette"],
       duration: "2-4 hours",
-      ideal: "Perfect for romantic evenings or business dinners",
+      ideal: "Perfect for romantic evenings, business dinners, or social events",
       blogLink: "/blog/best-restaurants-london-dinner-dates",
       blogTitle: "Best Restaurants in London for Special Dinner Dates"
     },
     {
       icon: Briefcase,
-      title: "Business Events",
-      description: "Professional and sophisticated companions for corporate functions and networking events",
+      title: "Corporate Event Escorts",
+      description: "Elite professional companions for business events, conferences, and corporate functions",
       features: ["Corporate event experience", "Professional attire", "Business acumen", "Networking skills"],
       duration: "3-8 hours",
       ideal: "Ideal for conferences, galas, and corporate functions",
@@ -92,8 +92,8 @@ const Services = () => {
     },
     {
       icon: Plane,
-      title: "Travel Companion",
-      description: "Cultured and well-traveled companions for business trips and luxury vacations",
+      title: "Travel Escort Companions",
+      description: "Sophisticated travel companions for business trips, luxury holidays, and international travel",
       features: ["International experience", "Cultural knowledge", "Passport ready", "Flexible schedules"],
       duration: "1-7 days",
       ideal: "Perfect for business trips or luxury getaways",
@@ -102,8 +102,8 @@ const Services = () => {
     },
     {
       icon: Theater,
-      title: "Theatre & Opera",
-      description: "Culturally sophisticated companions for London's finest entertainment venues",
+      title: "Cultural Event Escorts",
+      description: "Cultured companions for theatre, opera, concerts, and London's cultural events",
       features: ["Arts appreciation", "Theatre knowledge", "Elegant evening wear", "Cultural conversations"],
       duration: "3-5 hours",
       ideal: "Wonderful for West End shows and cultural events",
@@ -112,8 +112,8 @@ const Services = () => {
     },
     {
       icon: Users,
-      title: "Social Events",
-      description: "Charming companions for parties, weddings, and exclusive social gatherings",
+      title: "Social Event Escorts", 
+      description: "Charming elite companions for parties, weddings, galas, and exclusive social events",
       features: ["Social grace", "Adaptability", "Engaging personality", "Event experience"],
       duration: "4-8 hours",
       ideal: "Great for weddings, parties, and social occasions",
@@ -142,8 +142,8 @@ const Services = () => {
     },
     {
       icon: Calendar,
-      title: "Extended Companionship",
-      description: "Longer arrangements for special occasions or extended social needs",
+      title: "Overnight & Extended Escort Services",
+      description: "Exclusive overnight and extended companionship for special occasions and intimate experiences",
       features: ["Flexible scheduling", "Personal attention", "Customized experiences", "Dedicated service"],
       duration: "8+ hours",
       ideal: "For special occasions and extended engagements",
@@ -155,8 +155,8 @@ const Services = () => {
   return (
     <>
       <SEO 
-        title="Luxury Escort Services in London - Premium Companion Services | Five London"
-        description="Explore Five London's comprehensive range of luxury escort services including dinner dates, business events, travel companions, cultural experiences, and social events. Professional, discreet, and sophisticated companions available 24/7 across London."
+        title="Elite London Escort Services | High-Class Companions | Dinner Dates & Travel"
+        description="Premium escort services in London. Elite companions for dinner dates, business events, travel, intimate encounters. Beautiful, intelligent, sophisticated. Available 24/7 across Mayfair, Knightsbridge, Chelsea."
         keywords="luxury escort services London, premium companion services, dinner date escorts, business event companions, travel companion services, cultural event escorts, professional escort services, VIP companion services London, elite escort agency services"
         canonicalUrl="/services"
         structuredData={structuredData}
@@ -170,10 +170,10 @@ const Services = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto">
               <h1 className="text-5xl lg:text-6xl font-extralight mb-6 tracking-tight">
-                Services
+                Elite Escort Services
               </h1>
               <p className="text-lg text-muted-foreground font-light">
-                Sophisticated companionship for every occasion
+                London's finest high-class companions for every occasion. Available 24/7.
               </p>
             </div>
           </div>
@@ -318,16 +318,16 @@ const Services = () => {
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto">
               <h2 className="text-3xl font-extralight mb-4">
-                Ready to begin?
+                Book Your Elite Escort Now
               </h2>
               <p className="text-muted-foreground mb-8">
-                Contact our team for a consultation
+                Available 24/7 across London. Instant booking via WhatsApp.
               </p>
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
-                Get in touch
+                Book Now - Available 24/7
               </Button>
             </div>
           </div>

@@ -25,8 +25,8 @@ const Index = () => {
   return (
     <>
       <SEO 
-        title="Five London - Premium Luxury Escort Services & Elite Companions in London"
-        description="Discover London's most sophisticated escort agency. Elite companions for discerning clients seeking luxury experiences. Professional, discreet, and exclusive services across London's finest locations."
+        title="Elite London Escorts | Premium High-Class Companions | Five London"
+        description="London's premier luxury escort agency. Sophisticated, intelligent, and beautiful high-class companions available 24/7. Discreet, professional service across Mayfair, Knightsbridge, Chelsea. Book now."
         keywords="luxury escort London, premium companion services, elite escorts London, sophisticated companions, VIP escort service, high-class escort agency, exclusive escort London, professional companions, luxury lifestyle services, Mayfair escorts, Knightsbridge escorts, Chelsea escorts"
         canonicalUrl="/"
         structuredData={structuredData}
@@ -45,11 +45,10 @@ const Index = () => {
         <section className="py-20 md:py-32 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-              Exceptional Experiences
+              London's Finest High-Class Escorts
             </h2>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-12 max-w-2xl mx-auto">
-              We specialize in providing sophisticated companionship for discerning clients. 
-              From intimate dinners to exclusive events, our companions ensure every moment is extraordinary.
+              Handpicked selection of elite London escorts. Beautiful, intelligent, and sophisticated companions for dinner dates, business events, travel, and intimate encounters. Professional, discreet, available 24/7.
             </p>
             
             <Link 
@@ -57,7 +56,7 @@ const Index = () => {
               className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
             >
               <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                Our Services
+                View All Services
               </span>
             </Link>
           </div>
@@ -67,10 +66,10 @@ const Index = () => {
         <section className="py-16 md:py-32 bg-black text-white">
           <div className="max-w-4xl mx-auto px-6 md:px-4 text-center">
             <h2 className="font-display text-xl sm:text-2xl md:text-4xl font-normal tracking-tight mb-6 md:mb-8">
-              Begin Your Journey
+              Book Your Elite Companion Now
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
-              Contact us for a discreet consultation. Available 24/7 for exclusive bookings.
+              Ready for an unforgettable experience? Contact us now for instant booking. Our elite London escorts are available 24/7 across all premium locations.
             </p>
             
             <div className="flex items-center justify-center space-x-8 px-4">
@@ -138,10 +137,10 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                {bookingMain?.title || "How Booking Works"}
+                {bookingMain?.title || "How to Book Your Elite Escort"}
               </h2>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                {bookingMain?.subtitle || "A simple and discreet process to ensure your perfect experience"}
+                {bookingMain?.subtitle || "Simple, discreet, and instant. Book your perfect companion in 3 easy steps"}
               </p>
             </div>
 
@@ -188,9 +187,9 @@ const Index = () => {
                 to="/contact" 
                 className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300 hover-scale"
               >
-                <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                  Make Booking
-                </span>
+              <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+                Book Now - Available 24/7
+              </span>
               </Link>
             </div>
           </div>

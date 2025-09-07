@@ -19,17 +19,21 @@ export const HeroSection = () => {
         <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
-              Five London
+              Elite London Escorts
             </h1>
             
             <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
-              Sophisticated Companions in London
+              Exquisite. Exclusive. Unforgettable.
+            </p>
+            
+            <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
+              London's premier luxury escort agency offering sophisticated high-class companions for discerning gentlemen. Experience exceptional beauty, intelligence, and genuine connection.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Link to="/models">
                 <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors">
-                  View Our Models
+                  Browse Elite Companions
                 </button>
               </Link>
               
@@ -40,7 +44,7 @@ export const HeroSection = () => {
               >
                 <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors">
                   <Phone className="w-4 h-4 inline mr-2" />
-                  Contact Us
+                  Book Now - Available 24/7
                 </button>
               </a>
             </div>

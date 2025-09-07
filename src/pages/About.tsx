@@ -74,8 +74,8 @@ const About = () => {
   return (
     <>
       <SEO 
-        title="About Five London - London's Premier Luxury Escort Agency"
-        description="Discover Five London, London's most trusted luxury escort agency since 2020. Exceptional standards, absolute discretion, and sophisticated companion services for discerning clients across London's finest locations."
+        title="About Five London | Elite London Escort Agency Since 2018 | Premium Companions"
+        description="London's most trusted high-class escort agency since 2018. Elite companions offering exceptional beauty, intelligence, and sophistication. Discreet, professional service across Mayfair, Knightsbridge, Chelsea."
         keywords="about Five London, luxury escort agency London, premium companion services, elite escort agency, sophisticated companions London, high-class escort services, VIP escort agency, professional companion services, exclusive escort London"
         canonicalUrl="/about"
         structuredData={structuredData}
@@ -90,10 +90,10 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
                 <h1 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight">
-                  About <span className="text-primary">Five London</span>
+                  Elite London <span className="text-primary">Escort Agency</span>
                 </h1>
                 <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  London's most trusted luxury escort agency. Exceptional standards, absolute discretion since 2018.
+                  Established 2018. London's premier luxury escort agency offering the finest high-class companions. Beautiful, intelligent, sophisticated. Available 24/7.
                 </p>
                 <Button 
                   size="lg"
@@ -101,7 +101,7 @@ const About = () => {
                   className="px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                 >
-                  Contact Us
+                  Book Your Elite Companion
                 </Button>
               </div>
               
@@ -139,13 +139,13 @@ const About = () => {
               
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-1 lg:order-2">
                 <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
-                  Our <span className="text-primary">Philosophy</span>
+                  Why Choose <span className="text-primary">Five London</span>
                 </h2>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  We understand that true luxury isn't just about beauty—it's about intelligence, sophistication, and genuine connection.
+                  London's most exclusive escort agency. Our elite companions combine exceptional beauty with intelligence, sophistication, and genuine warmth.
                 </p>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                  Every companion is carefully selected for their grace, education, and ability to create authentic moments.
+                  Handpicked for their education, elegance, and conversational skills. Every encounter is crafted for complete satisfaction and absolute discretion.
                 </p>
               </div>
             </div>
@@ -349,9 +349,9 @@ const About = () => {
               <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
                 Experience <span className="text-primary">Five London</span>
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Join London's most discerning gentlemen who trust Five London for exceptional companionship.
-              </p>
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Ready to experience London's finest high-class escorts? Join hundreds of satisfied clients who choose Five London for unforgettable encounters.
+                </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
                 <Button 
@@ -359,7 +359,7 @@ const About = () => {
                   className="bg-primary hover:bg-primary/90 text-white px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                 >
-                  Contact Us
+                  Book Now - Available 24/7
                 </Button>
                 <Button 
                   variant="outline" 
@@ -367,7 +367,7 @@ const About = () => {
                   className="px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.location.href = '/models'}
                 >
-                  View Collection
+                  Browse Elite Escorts
                 </Button>
               </div>
             </div>

@@ -64,27 +64,27 @@ const Index = () => {
         <TrustSignals />
 
         {/* Services Section - Minimal */}
-        <section className="py-20 md:py-32 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 text-center">
+        <section className="py-12 md:py-20 lg:py-32 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             {/* Hidden SEO heading */}
             <h2 className="sr-only">London's Finest High-Class Escorts - Premium Escort Services</h2>
             
             {/* Visible elegant heading */}
-            <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
+            <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-black mb-6 md:mb-8">
               Exquisite. Exclusive. Elite.
             </h3>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-6 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto px-2">
               <span className="font-medium">Established luxury companion agency</span> representing a handpicked selection of sophisticated London companions. Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
             </p>
-            <p className="text-base text-gray-500 mb-12">
-              <span className="bg-black text-white px-3 py-1 text-xs uppercase tracking-wider">Premium Service Since 2020</span>
+            <p className="text-sm md:text-base text-gray-500 mb-8 md:mb-12">
+              <span className="bg-black text-white px-2 sm:px-3 py-1 text-xs uppercase tracking-wider">Premium Service Since 2020</span>
             </p>
             
             <Link 
               to="/services" 
-              className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+              className="inline-block border border-black/20 hover:border-black/40 px-4 sm:px-6 md:px-8 py-2 sm:py-3 transition-all duration-300 text-center"
             >
-              <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+              <span className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] uppercase font-light text-black">
                 See All Services & Prices
               </span>
             </Link>
@@ -95,25 +95,25 @@ const Index = () => {
         <CategoryFilters />
 
         {/* Contact Section - YSL Style */}
-        <section className="py-16 md:py-32 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-6 md:px-4 text-center">
-            <h2 className="font-display text-xl sm:text-2xl md:text-4xl font-normal tracking-tight mb-6 md:mb-8">
+        <section className="py-12 md:py-20 lg:py-32 bg-black text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <h2 className="font-display text-lg sm:text-xl md:text-2xl lg:text-4xl font-normal tracking-tight mb-4 sm:mb-6 md:mb-8">
               Book Your Elite Companion in 3 Simple Steps
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 leading-relaxed mb-6 sm:mb-8 md:mb-12 max-w-2xl mx-auto px-2">
               Ready for an unforgettable experience? Don't wait - our elite London companions are booking fast. Contact us now for same-day availability.
             </p>
             
-            <div className="flex items-center justify-center space-x-8 px-4">
+            <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4">
               {/* WhatsApp */}
               <a 
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+                className="group flex flex-col items-center gap-1 sm:gap-2 transition-all duration-300 hover:scale-110"
               >
-                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                  <MessageCircle className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
                   WhatsApp
@@ -123,10 +123,10 @@ const Index = () => {
               {/* Call */}
               <a 
                 href="tel:+447436190679"
-                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+                className="group flex flex-col items-center gap-1 sm:gap-2 transition-all duration-300 hover:scale-110"
               >
-                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                  <Phone className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
                   Call
@@ -136,10 +136,10 @@ const Index = () => {
               {/* SMS */}
               <a 
                 href="sms:+447436190679"
-                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+                className="group flex flex-col items-center gap-1 sm:gap-2 transition-all duration-300 hover:scale-110"
               >
-                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                  <MessageSquare className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
                   SMS
@@ -151,10 +151,10 @@ const Index = () => {
                 href="https://t.me/FiveLondon"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center space-y-2 transition-all duration-300 hover:scale-110"
+                className="group flex flex-col items-center gap-1 sm:gap-2 transition-all duration-300 hover:scale-110"
               >
-                <div className="w-14 h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                  <Send className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
+                  <Send className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
                 </div>
                 <span className="text-xs text-white/70 group-hover:text-white transition-colors uppercase tracking-wider">
                   Telegram
@@ -165,17 +165,17 @@ const Index = () => {
         </section>
 
         {/* Important Information Section */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-gray-50 p-8 md:p-12 text-center">
-              <h3 className="text-xl md:text-2xl font-normal text-black mb-6 tracking-tight">
+        <section className="py-12 md:py-20 lg:py-32 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="bg-gray-50 p-4 sm:p-6 md:p-8 lg:p-12 text-center">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-normal text-black mb-4 sm:mb-6 tracking-tight">
                 Important Information
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 text-left">
                 {bookingInfo.map((info, index) => (
                   <div key={index}>
-                    <h4 className="font-medium text-black mb-3">{info.title}</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <h4 className="font-medium text-black mb-2 sm:mb-3 text-sm sm:text-base">{info.title}</h4>
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                       {info.content}
                     </p>
                   </div>

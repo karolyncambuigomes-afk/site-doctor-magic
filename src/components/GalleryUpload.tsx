@@ -209,21 +209,21 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
         <Button
           type="button"
           onClick={() => setIsAdding(!isAdding)}
-          className="bg-purple-600 text-white hover:bg-purple-700"
+          className="bg-black text-white hover:bg-gray-800"
         >
           <Plus className="w-4 h-4 mr-2" />
           Adicionar Foto
         </Button>
       </div>
 
-      <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-4">
+      <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-4">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
+          <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
             <span className="text-white text-sm font-bold">!</span>
           </div>
-          <h4 className="font-bold text-amber-900">Sistema de Ordenação</h4>
+          <h4 className="font-bold text-gray-900">Sistema de Ordenação</h4>
         </div>
-        <p className="text-sm text-amber-800">
+        <p className="text-sm text-gray-800">
           • A foto na posição 1 será a PRINCIPAL (aparece na lista)<br/>
           • Use os seletores de ordem para reorganizar as fotos<br/>
           • Adicione pelo menos 1 foto para que o modelo apareça no site
@@ -231,20 +231,20 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       </div>
 
       {isAdding && (
-        <div className="border-2 border-purple-500 rounded-lg p-6 space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50">
-          <div className="flex items-center justify-center gap-3 mb-4 bg-purple-100 p-3 rounded-lg">
-            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+        <div className="border-2 border-gray-300 rounded-lg p-6 space-y-4 bg-gray-50">
+          <div className="flex items-center justify-center gap-3 mb-4 bg-gray-100 p-3 rounded-lg">
+            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-white" />
             </div>
-            <h4 className="font-bold text-purple-900 text-lg">Adicionar Nova Foto</h4>
+            <h4 className="font-bold text-gray-900 text-lg">Adicionar Nova Foto</h4>
           </div>
           
-          <div className="bg-white p-4 rounded-lg border-2 border-purple-200">
-            <Label className="text-purple-900 font-bold text-lg flex items-center gap-2 mb-3">
+          <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
+            <Label className="text-gray-900 font-bold text-lg flex items-center gap-2 mb-3">
               📸 Upload da Foto
             </Label>
             <div className="space-y-3">
-              <div className="p-3 bg-purple-50 rounded border border-purple-200">
+              <div className="p-3 bg-gray-50 rounded border border-gray-200">
                 <ImageUpload
                   value={newImageUrl}
                   onChange={(url) => {

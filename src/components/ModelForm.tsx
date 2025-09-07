@@ -386,13 +386,13 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
 
       {/* Gallery Management */}
-      <Card className={`border-2 ${model?.id ? 'border-purple-500 bg-purple-50/30' : 'border-gray-200 bg-gray-50/30'}`}>
-        <CardHeader className={`${model?.id ? 'bg-purple-100/50' : 'bg-gray-100/50'}`}>
-          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-purple-900' : 'text-gray-600'}`}>
+      <Card className={`border-2 ${model?.id ? 'border-gray-300 bg-gray-50/30' : 'border-gray-200 bg-gray-50/30'}`}>
+        <CardHeader className={`${model?.id ? 'bg-gray-100/50' : 'bg-gray-100/50'}`}>
+          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-gray-900' : 'text-gray-600'}`}>
             <ImageIcon className="w-5 h-5" />
             Galeria de Fotos (Sistema Único)
           </CardTitle>
-          <p className={`text-sm ${model?.id ? 'text-purple-700' : 'text-gray-600'}`}>
+          <p className={`text-sm ${model?.id ? 'text-gray-700' : 'text-gray-600'}`}>
             {model?.id 
               ? "📸 Adicione todas as fotos aqui. A primeira foto (posição 1) será a principal que aparece nos cards" 
               : "⚠️ Salve primeiro as informações básicas para poder adicionar fotos"

@@ -355,7 +355,7 @@ export const HeroCarouselManager: React.FC = () => {
                 {slide.media_type === 'video' ? <Video className="w-5 h-5" /> : <ImageIcon className="w-5 h-5" />}
                 <span className="font-medium">Slide {index + 1}: {slide.title}</span>
                 {!slide.active && <span className="text-xs bg-muted px-2 py-1 rounded">Inativo</span>}
-                <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded capitalize">{slide.media_type}</span>
+                <span className="text-xs bg-gray-100 text-black px-2 py-1 rounded capitalize">{slide.media_type}</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4">

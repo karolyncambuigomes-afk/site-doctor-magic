@@ -40,7 +40,7 @@ export const SimpleHeroVideo = () => {
   }, []);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
       {/* Background Media */}
       <div className="absolute inset-0">
         {/* Static background image - only shows for image type */}

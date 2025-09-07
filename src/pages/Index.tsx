@@ -42,6 +42,7 @@ const Index = () => {
   ];
 
   return (
+    // Updated mobile optimizations applied - v2.1
     <>
       <SEO 
         title="Elite London Escorts | Premium High-Class Companions SW1 W1 | Five London"

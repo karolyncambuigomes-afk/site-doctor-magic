@@ -8,16 +8,6 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
 
-  // Debug footer rendering
-  console.log('=== FOOTER DEBUG ===');
-  console.log('Footer component rendered');
-  
-  // Detectar se é mobile
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  console.log('Footer - Device type:', isMobile ? 'mobile' : 'desktop');
-  console.log('Footer - Window dimensions:', typeof window !== 'undefined' ? { width: window.innerWidth, height: window.innerHeight } : 'SSR');
-  console.log('Footer - Document height:', typeof document !== 'undefined' ? document.body.scrollHeight : 'N/A');
-  console.log('Footer - Viewport height:', typeof window !== 'undefined' ? window.innerHeight : 'N/A');
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,14 +17,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer 
-      className="bg-red-500 border-t border-border relative z-50 block w-full"
-      style={{ 
-        minHeight: '300px',
-        backgroundColor: 'red',
-        padding: '20px',
-        display: 'block'
-      }}
+    <footer className="bg-background border-t border-border relative z-50 w-full"
     >
       <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}

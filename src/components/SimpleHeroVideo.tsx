@@ -64,54 +64,66 @@ export const SimpleHeroVideo = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
+    <section className="relative w-full min-h-screen h-screen overflow-hidden flex items-center justify-center">
       {/* Background Media */}
-      <div className="absolute inset-0">
-        {/* Video with poster image fallback */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/images/model1.jpg"
-          preload="auto"
-          className="w-full h-full object-cover"
-          onLoadedData={() => {
-            console.log('Video loaded successfully');
-            setIsLoaded(true);
-          }}
-          onError={(e) => {
-            console.error('Video failed to load:', e);
-          }}
-        >
-          <source src="/video/woman-walking-preview.mp4" type="video/mp4" />
-          {/* Fallback image if video fails */}
+      <div className="absolute inset-0 z-0">
+        {heroContent.media_type === 'video' && heroContent.video_url ? (
+          <video
+            key={heroContent.video_url}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={heroContent.image_url}
+            preload="auto"
+            className="w-full h-full object-cover"
+            onLoadedData={() => {
+              console.log('Video loaded successfully');
+              setIsLoaded(true);
+            }}
+            onError={(e) => {
+              console.error('Video failed to load:', e);
+            }}
+          >
+            <source src={heroContent.video_url} type="video/mp4" />
+            {/* Fallback image if video fails */}
+            <img
+              src={heroContent.image_url}
+              alt="Five London"
+              className="w-full h-full object-cover"
+            />
+          </video>
+        ) : (
           <img
-            src="/images/model1.jpg"
+            src={heroContent.image_url}
             alt="Five London"
             className="w-full h-full object-cover"
+            onLoad={() => setIsLoaded(true)}
           />
-        </video>
+        )}
         
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40 z-10" />
+        <div 
+          className="absolute inset-0 bg-black z-10" 
+          style={{ opacity: heroContent.overlay_opacity / 100 }}
+        />
       </div>
 
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-center">
+      <div className="relative z-20 w-full h-full flex items-center justify-center">
         <div className="text-center px-4 max-w-4xl mx-auto">
           <div className="space-y-6 animate-fade-in">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg">
               {heroContent.title}
             </h1>
             
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
               {heroContent.subtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <Link to={heroContent.button_link}>
-                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors hover-scale">
+                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors hover-scale shadow-lg">
                   {heroContent.button_text}
                 </button>
               </Link>
@@ -121,7 +133,7 @@ export const SimpleHeroVideo = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors hover-scale">
+                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors hover-scale shadow-lg">
                   Contact Us
                 </button>
               </a>

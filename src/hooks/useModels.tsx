@@ -41,6 +41,20 @@ export const useModels = () => {
   const [isInitialized, setIsInitialized] = useState(false);
   const { user, hasAccess } = useAuth();
 
+  // Safety timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading && !models.length) {
+        console.log('useModels - Safety timeout triggered, stopping loading');
+        setLoading(false);
+        setError('Loading timeout - please refresh the page');
+        setIsInitialized(true);
+      }
+    }, 15000);
+
+    return () => clearTimeout(timeout);
+  }, [loading, models.length]);
+
   const fetchModels = async (membersOnly = false) => {
     if (loading && isInitialized) return; // Prevent concurrent calls
     
@@ -226,6 +240,7 @@ export const useModels = () => {
 
   useEffect(() => {
     if (!isInitialized) {
+      console.log('useModels - Initializing fetch, user:', user?.id, 'hasAccess:', hasAccess);
       fetchModels();
     }
   }, [user?.id, hasAccess]); // Use stable IDs instead of object references

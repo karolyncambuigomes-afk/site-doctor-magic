@@ -20,9 +20,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
   // Use secure hook instead of hardcoded data
   const { models, loading, error, refetch } = useModels();
 
-  useEffect(() => {
-    refetch(isPremium);
-  }, [refetch, isPremium]);
+  console.log('ModelsGallery - Loading:', loading, 'Models count:', models.length, 'Error:', error);
 
   // Get unique values for filters
   const uniqueLocations = [...new Set(models.map(model => model.location).filter(Boolean))];

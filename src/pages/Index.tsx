@@ -6,12 +6,10 @@ import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
-import { useBookingContent } from '@/hooks/useBookingContent';
 import { TrustSignals } from '@/components/TrustSignals';
 import { CategoryFilters } from '@/components/CategoryFilters';
 
 const Index = () => {
-  const { main: bookingMain, steps: bookingSteps, info: bookingInfo, loading: bookingLoading } = useBookingContent();
   
   // Generate comprehensive structured data for homepage
   const structuredData = [
@@ -164,75 +162,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-16">
-              {/* Hidden SEO heading */}
-              <h2 className="sr-only">How to Book Your Elite Escort - Booking Process</h2>
-              
-              {/* Visible elegant heading */}
-              <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                {bookingMain?.title || "Exclusive Booking Process"}
-              </h3>
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-4">
-                {bookingMain?.subtitle || "Discretion guaranteed. Excellence assured. Live life to the full - book your elite companion today."}
-              </p>
-              <p className="text-sm text-gray-500 font-medium">
-                ⭐ Verified profiles ⭐ 24/7 availability ⭐ Same-day booking ⭐ International travel
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-              {bookingSteps.map((step, index) => (
-                <div key={index} className="text-center group">
-                  <div className="mb-6 relative">
-                    <div className="w-16 h-16 mx-auto bg-black rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-light text-xl">{index + 1}</span>
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-normal text-black mb-4 tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {step.content}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Additional Info */}
-            <div className="mt-16 max-w-4xl mx-auto">
-              <div className="bg-gray-50 p-8 md:p-12 text-center">
-                <h3 className="text-xl md:text-2xl font-normal text-black mb-6 tracking-tight">
-                  Important Information
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                  {bookingInfo.map((info, index) => (
-                    <div key={index}>
-                      <h4 className="font-medium text-black mb-3">{info.title}</h4>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {info.content}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center mt-12">
-              <Link 
-                to="/contact" 
-                className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300 hover-scale"
-              >
-              <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-                Start Booking Now - Same Day Available
-              </span>
-              </Link>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

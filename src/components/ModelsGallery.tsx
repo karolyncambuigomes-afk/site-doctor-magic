@@ -48,14 +48,14 @@ export const ModelsGallery: React.FC = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {/* Elegant Header */}
-        <section className="py-16 bg-gradient-to-b from-muted/20 to-background">
+        <section className="py-12 md:py-16 bg-gradient-to-b from-muted/20 to-background">
           <div className="container-width text-center">
-            <h1 className="heading-xl mb-4 tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal mb-3 sm:mb-4 tracking-tight px-4">
               Our Companions
             </h1>
-            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6">
               Discover our carefully selected companions, each offering unique charm and sophistication
             </p>
           </div>

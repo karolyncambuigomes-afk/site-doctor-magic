@@ -83,20 +83,20 @@ const About = () => {
       
       <Navigation />
       
-      <main className="pt-16">
+      <main className="pt-12 sm:pt-16">
         {/* Hero Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-              <div className="space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
+              <div className="space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
                 {/* Hidden SEO H1 */}
                 <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
                 
                 {/* Visible elegant heading */}
-                <h2 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-tight">
                   Elite London <span className="text-primary">Companion Agency</span>
                 </h2>
-                <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto lg:mx-0">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto lg:mx-0">
                   Established 2018. London's premier luxury companion agency offering the finest elite companions. Beautiful, intelligent, sophisticated. Available 24/7.
                 </p>
                 <Button 

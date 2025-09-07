@@ -166,13 +166,13 @@ const Services = () => {
       
       <main className="pt-16">
         {/* Minimal Hero */}
-        <section className="py-24 bg-background">
+        <section className="py-12 md:py-20 lg:py-24 bg-background">
           <div className="container-width text-center">
-            <div className="max-w-3xl mx-auto">
-              <h1 className="text-5xl lg:text-6xl font-extralight mb-6 tracking-tight">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extralight mb-4 sm:mb-6 tracking-tight">
                 Elite Companion Services
               </h1>
-              <p className="text-lg text-muted-foreground font-light">
+              <p className="text-base sm:text-lg text-muted-foreground font-light">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
@@ -180,37 +180,43 @@ const Services = () => {
         </section>
 
         {/* Minimal Services Accordion */}
-        <section className="py-16 bg-background">
+        <section className="py-12 md:py-16 bg-background">
           <div className="container-width">
-            <div className="max-w-4xl mx-auto">
-              <Accordion type="single" collapsible className="space-y-4">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
                 {services.map((service, index) => (
                   <AccordionItem 
                     key={service.title} 
                     value={`item-${index}`}
-                    className="border border-border/30 rounded-2xl px-6 py-2 hover:border-primary/30 transition-all duration-300 data-[state=open]:border-primary/50"
+                    className="border border-border/30 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-1 sm:py-2 hover:border-primary/30 transition-all duration-300 data-[state=open]:border-primary/50"
                   >
-                    <AccordionTrigger className="hover:no-underline py-6 text-left">
-                      <div className="flex items-center space-x-4 w-full">
-                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <service.icon className="w-6 h-6 text-primary" />
+                    <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
+                      <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
                         </div>
                         <div className="flex-1 text-left">
-                          <h3 className="text-xl font-light mb-1">{service.title}</h3>
-                          <p className="text-sm text-muted-foreground">{service.description}</p>
+                          <h3 className="text-base sm:text-lg md:text-xl font-light mb-1">{service.title}</h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">{service.description}</p>
                         </div>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <Clock className="w-4 h-4" />
-                          <span>{service.duration}</span>
+                        <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-muted-foreground">
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="hidden sm:inline">{service.duration}</span>
+                          <span className="sm:hidden">{service.duration.split('-')[0]}</span>
                         </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-6">
-                      <div className="ml-16 space-y-6">
+                    <AccordionContent className="pb-4 sm:pb-6">
+                      <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
+                        {/* Mobile description */}
+                        <div className="sm:hidden">
+                          <p className="text-sm text-muted-foreground">{service.description}</p>
+                        </div>
+                        
                         {/* Features */}
                         <div>
-                          <h4 className="text-sm font-medium text-primary mb-3">What's Included</h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <h4 className="text-xs sm:text-sm font-medium text-primary mb-2 sm:mb-3">What's Included</h4>
+                          <div className="grid grid-cols-1 gap-1 sm:gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
                                 "Michelin-starred restaurants": {
@@ -250,8 +256,8 @@ const Services = () => {
                               const linkConfig = linkableFeatures[feature];
                               
                               return (
-                                <div key={i} className="flex items-center text-sm text-muted-foreground">
-                                  <div className="w-1 h-1 bg-primary rounded-full mr-3"></div>
+                                <div key={i} className="flex items-center text-xs sm:text-sm text-muted-foreground">
+                                  <div className="w-1 h-1 bg-primary rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {
                                       const dynamicLink = getBlogLinkForKeyword(feature);
@@ -287,21 +293,22 @@ const Services = () => {
 
                         {/* Ideal for */}
                         <div>
-                          <p className="text-sm text-muted-foreground italic">
+                          <p className="text-xs sm:text-sm text-muted-foreground italic">
                             {service.ideal}
                           </p>
                         </div>
 
                         {/* Blog link */}
-                        <div className="pt-4 border-t border-border/30">
+                        <div className="pt-3 sm:pt-4 border-t border-border/30">
                           <Link 
                             to={service.blogLink}
-                            className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors"
+                            className="inline-flex items-center text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors"
                             title={`Read more about ${service.title.toLowerCase()} - ${service.blogTitle}`}
                             aria-label={`Learn more about ${service.title.toLowerCase()} experiences in London`}
                           >
-                            <span>Read related article: {service.blogTitle}</span>
-                            <ChevronRight className="ml-1 w-4 h-4" />
+                            <span className="hidden sm:inline">Read related article: {service.blogTitle}</span>
+                            <span className="sm:hidden">Read more</span>
+                            <ChevronRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4" />
                           </Link>
                         </div>
                       </div>
@@ -314,17 +321,17 @@ const Services = () => {
         </section>
 
         {/* Minimal Contact Section */}
-        <section className="py-24 bg-muted/20">
+        <section className="py-12 md:py-20 lg:py-24 bg-muted/20">
           <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl font-extralight mb-4">
+            <div className="max-w-2xl mx-auto px-4 sm:px-6">
+              <h2 className="text-2xl sm:text-3xl font-extralight mb-3 sm:mb-4">
                 Ready to Book? Call Now
               </h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
                 Most companions available same day. Call now for instant booking confirmation.
               </p>
               <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Call Now - Same Day Available

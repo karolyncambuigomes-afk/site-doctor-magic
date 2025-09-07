@@ -65,15 +65,15 @@ const Blog = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-32">
+        <main className="pt-20 sm:pt-24 md:pt-32">
           {/* Hero Section */}
-          <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+          <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
             <div className="container-width">
-              <div className="text-center max-w-4xl mx-auto">
-                <h1 className="text-5xl md:text-6xl font-light mb-6 text-foreground">
+              <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light mb-4 sm:mb-6 text-foreground">
                   Discover London
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed mb-6 sm:mb-8">
                   Your exclusive guide to sophisticated experiences, exquisite restaurants, 
                   prestigious events and London's best-kept secrets.
                 </p>
@@ -82,17 +82,17 @@ const Blog = () => {
           </section>
 
           {/* Categories */}
-          <section className="py-8 border-b border-border">
+          <section className="py-6 sm:py-8 border-b border-border">
             <div className="container-width">
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center px-4">
                 <Link to="/blog">
-                  <Badge variant="secondary" className="px-6 py-2 text-sm">
+                  <Badge variant="secondary" className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm">
                     All Articles
                   </Badge>
                 </Link>
                 {categories.map((category) => (
                   <Link key={category} to={`/blog?category=${category.toLowerCase()}`}>
-                    <Badge variant="outline" className="px-6 py-2 text-sm hover:bg-muted transition-colors">
+                    <Badge variant="outline" className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm hover:bg-muted transition-colors">
                       {category}
                     </Badge>
                   </Link>
@@ -102,9 +102,9 @@ const Blog = () => {
           </section>
 
           {/* Articles Grid */}
-          <section className="py-20">
+          <section className="py-12 md:py-16 lg:py-20">
             <div className="container-width">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
                 {blogArticles.map((article) => (
                   <Card key={article.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
@@ -113,45 +113,51 @@ const Blog = () => {
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute top-4 left-4">
-                        <Badge variant="secondary" className="bg-background/90 text-foreground">
+                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+                        <Badge variant="secondary" className="bg-background/90 text-foreground text-xs">
                           {article.category}
                         </Badge>
                       </div>
                     </div>
                     
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6">
+                      <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
                         <div className="flex items-center gap-1">
-                          <Calendar className="w-4 h-4" />
-                           <time dateTime={article.publishedAt}>
+                          <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                           <time dateTime={article.publishedAt} className="hidden sm:inline">
                              {new Date(article.publishedAt).toLocaleDateString('en-GB', {
                                day: 'numeric',
                                month: 'long',
                                year: 'numeric'
                              })}
                            </time>
+                           <time dateTime={article.publishedAt} className="sm:hidden">
+                             {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                               day: 'numeric',
+                               month: 'short'
+                             })}
+                           </time>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span>{article.readTime} min</span>
                         </div>
                       </div>
                       
-                      <h2 className="text-xl font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
+                      <h2 className="text-base sm:text-lg md:text-xl font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
                         {article.title}
                       </h2>
                     </CardHeader>
                     
-                    <CardContent className="pt-0">
-                      <p className="text-muted-foreground leading-relaxed mb-6">
+                    <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 sm:mb-6">
                         {article.excerpt}
                       </p>
                       
                       <Link to={`/blog/${article.slug}`}>
-                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80">
+                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80 text-xs sm:text-sm">
                           Read full article
-                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                     </CardContent>
@@ -162,20 +168,20 @@ const Blog = () => {
           </section>
 
           {/* Newsletter CTA */}
-          <section className="py-20 bg-muted/20">
+          <section className="py-12 md:py-16 lg:py-20 bg-muted/20">
             <div className="container-width">
-              <div className="text-center max-w-2xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-light mb-6 text-foreground">
+              <div className="text-center max-w-2xl mx-auto px-4 sm:px-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-6 text-foreground">
                   Stay Updated
                 </h2>
-                <p className="text-lg text-muted-foreground mb-8">
+                <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-6 sm:mb-8">
                   Receive our exclusive articles about the best experiences in London 
                   directly in your email.
                 </p>
                 <Link to="/contact">
                   <Button 
                     size="lg" 
-                    className="five-london-button"
+                    className="five-london-button text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
                     onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                   >
                     Contact Us

@@ -70,14 +70,14 @@ const Contact = () => {
       
       <Navigation />
       
-      <main className="pt-20">
+      <main className="pt-16 sm:pt-20">
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-dark text-secondary-foreground">
+        <section className="py-12 md:py-16 lg:py-20 bg-gradient-dark text-secondary-foreground">
           <div className="container-width text-center">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold mb-4 animate-fade-in-up">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 sm:mb-4 animate-fade-in-up px-4">
               Call Now for <span className="luxury-text-gradient">Same Day Booking</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in px-4 sm:px-6">
               Most companions available today. Call now for instant confirmation and same-day appointments.
             </p>
           </div>

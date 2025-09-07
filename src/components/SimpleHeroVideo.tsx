@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import heroElegantWoman from '@/assets/hero-elegant-woman.jpg';
 
 interface HeroContent {
   id: string;

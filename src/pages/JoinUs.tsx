@@ -26,18 +26,14 @@ interface ApplicationData {
   date_of_birth: Date | null;
   nationality: string;
   languages: string[];
+  other_language: string;
   height: string;
   measurements: string;
   dress_size: string;
-  shoe_size: string;
   hair_color: string;
   eye_color: string;
   tattoos: string;
   piercings: string;
-  modeling_experience: string;
-  escort_experience: string;
-  education: string;
-  profession: string;
   interests: string[];
   instagram_handle: string;
   motivation: string;
@@ -59,18 +55,14 @@ const JoinUs = () => {
     date_of_birth: null,
     nationality: "",
     languages: [],
+    other_language: "",
     height: "",
     measurements: "",
     dress_size: "",
-    shoe_size: "",
     hair_color: "",
     eye_color: "",
     tattoos: "",
     piercings: "",
-    modeling_experience: "",
-    escort_experience: "",
-    education: "",
-    profession: "",
     interests: [],
     instagram_handle: "",
     motivation: "",
@@ -191,7 +183,7 @@ const JoinUs = () => {
     }
   };
 
-  const languages = ["Português", "English", "Español", "Français", "Italiano", "Deutsch"];
+  const languages = ["Português", "English", "Español", "Français", "Italiano", "Deutsch", "Русский", "Outro idioma"];
   const interests = ["Arte", "Música", "Literatura", "Viagens", "Gastronomia", "Fitness", "Moda", "Fotografia"];
 
   return (
@@ -309,6 +301,17 @@ const JoinUs = () => {
                       </div>
                     ))}
                   </div>
+                  {formData.languages.includes("Outro idioma") && (
+                    <div className="mt-3">
+                      <Label htmlFor="other_language">Especifique o idioma</Label>
+                      <Input
+                        id="other_language"
+                        placeholder="Digite o idioma..."
+                        value={formData.other_language}
+                        onChange={(e) => handleInputChange('other_language', e.target.value)}
+                      />
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -354,15 +357,6 @@ const JoinUs = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="shoe_size">Tamanho do Sapato</Label>
-                    <Input
-                      id="shoe_size"
-                      placeholder="Ex: 37"
-                      value={formData.shoe_size}
-                      onChange={(e) => handleInputChange('shoe_size', e.target.value)}
-                    />
-                  </div>
-                  <div>
                     <Label htmlFor="hair_color">Cor do Cabelo</Label>
                     <Input
                       id="hair_color"
@@ -400,77 +394,6 @@ const JoinUs = () => {
               </CardContent>
             </Card>
 
-            {/* Experience & Background */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Experiência e Background</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <Label htmlFor="modeling_experience">Experiência em Modelagem</Label>
-                  <Textarea
-                    id="modeling_experience"
-                    placeholder="Descreva sua experiência anterior..."
-                    value={formData.modeling_experience}
-                    onChange={(e) => handleInputChange('modeling_experience', e.target.value)}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="escort_experience">Experiência como Acompanhante</Label>
-                  <Textarea
-                    id="escort_experience"
-                    placeholder="Descreva sua experiência anterior..."
-                    value={formData.escort_experience}
-                    onChange={(e) => handleInputChange('escort_experience', e.target.value)}
-                  />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="education">Educação</Label>
-                    <Input
-                      id="education"
-                      placeholder="Nível de escolaridade"
-                      value={formData.education}
-                      onChange={(e) => handleInputChange('education', e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="profession">Profissão Atual</Label>
-                    <Input
-                      id="profession"
-                      value={formData.profession}
-                      onChange={(e) => handleInputChange('profession', e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label>Interesses</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-                    {interests.map((interest) => (
-                      <div key={interest} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={interest}
-                          checked={formData.interests.includes(interest)}
-                          onCheckedChange={(checked) => handleInterestChange(interest, checked as boolean)}
-                        />
-                        <Label htmlFor={interest} className="text-sm">{interest}</Label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="instagram_handle">Instagram</Label>
-                  <Input
-                    id="instagram_handle"
-                    placeholder="@seu_instagram"
-                    value={formData.instagram_handle}
-                    onChange={(e) => handleInputChange('instagram_handle', e.target.value)}
-                  />
-                </div>
-              </CardContent>
-            </Card>
 
             {/* Media Upload */}
             <Card>

@@ -23,18 +23,14 @@ interface ModelApplication {
   date_of_birth: string;
   nationality: string;
   languages: string[];
+  other_language?: string;
   height: string;
   measurements: string;
   dress_size: string;
-  shoe_size: string;
   hair_color: string;
   eye_color: string;
   tattoos: string;
   piercings: string;
-  modeling_experience: string;
-  escort_experience: string;
-  education: string;
-  profession: string;
   interests: string[];
   instagram_handle: string;
   photos: string[];
@@ -138,7 +134,6 @@ const ModelApplicationManager = () => {
         hair: application.hair_color,
         eyes: application.eye_color,
         nationality: application.nationality,
-        education: application.education,
         interests: application.interests,
         description: application.motivation,
         image: application.photos[0] || null, // Use first photo as main image
@@ -280,7 +275,7 @@ const ModelApplicationManager = () => {
                             <TabsList className="grid w-full grid-cols-5">
                               <TabsTrigger value="personal">Pessoal</TabsTrigger>
                               <TabsTrigger value="physical">Físico</TabsTrigger>
-                              <TabsTrigger value="experience">Experiência</TabsTrigger>
+                              <TabsTrigger value="experience">Interesses</TabsTrigger>
                               <TabsTrigger value="media">Mídia</TabsTrigger>
                               <TabsTrigger value="admin">Admin</TabsTrigger>
                             </TabsList>
@@ -314,6 +309,11 @@ const ModelApplicationManager = () => {
                                 <div className="col-span-2">
                                   <Label>Idiomas</Label>
                                   <p>{selectedApplication.languages.join(", ") || "Não informado"}</p>
+                                  {selectedApplication.other_language && (
+                                    <p className="text-sm text-muted-foreground mt-1">
+                                      <strong>Outro idioma:</strong> {selectedApplication.other_language}
+                                    </p>
+                                  )}
                                 </div>
                               </div>
                             </TabsContent>
@@ -331,10 +331,6 @@ const ModelApplicationManager = () => {
                                 <div>
                                   <Label>Tamanho do Vestido</Label>
                                   <p>{selectedApplication.dress_size || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Tamanho do Sapato</Label>
-                                  <p>{selectedApplication.shoe_size || "Não informado"}</p>
                                 </div>
                                 <div>
                                   <Label>Cor do Cabelo</Label>
@@ -357,24 +353,6 @@ const ModelApplicationManager = () => {
                             
                             <TabsContent value="experience" className="space-y-4">
                               <div className="space-y-4">
-                                <div>
-                                  <Label>Experiência em Modelagem</Label>
-                                  <p className="whitespace-pre-wrap">{selectedApplication.modeling_experience || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Experiência como Acompanhante</Label>
-                                  <p className="whitespace-pre-wrap">{selectedApplication.escort_experience || "Não informado"}</p>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                  <div>
-                                    <Label>Educação</Label>
-                                    <p>{selectedApplication.education || "Não informado"}</p>
-                                  </div>
-                                  <div>
-                                    <Label>Profissão</Label>
-                                    <p>{selectedApplication.profession || "Não informado"}</p>
-                                  </div>
-                                </div>
                                 <div>
                                   <Label>Interesses</Label>
                                   <p>{selectedApplication.interests.join(", ") || "Não informado"}</p>

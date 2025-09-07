@@ -119,6 +119,9 @@ export const useModels = () => {
             ?.sort((a: any, b: any) => a.order_index - b.order_index)
             ?.map((img: any) => img.image_url) || [];
           
+          // Use first gallery image as main image, or keep existing image field as fallback
+          const mainImage = galleryImages[0] || model.image;
+          
           return {
             id: model.id,
             name: model.name,
@@ -131,8 +134,8 @@ export const useModels = () => {
               threeHours: '£1,300',
               additionalHour: '£400'
             },
-            image: getImageUrl(model.image),
-            gallery: galleryImages, // Use actual gallery images
+            image: mainImage, // Use first gallery image as main
+            gallery: galleryImages.slice(1), // Rest of gallery images
             services: model.services || [],
             characteristics: model.characteristics || [],
             availability: model.availability || 'available',

@@ -177,59 +177,82 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
     }
   };
 
+  const updateOrder = async (imageId: string, newOrder: number) => {
+    try {
+      const { error } = await supabase
+        .from('model_gallery')
+        .update({ order_index: newOrder })
+        .eq('id', imageId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Sucesso",
+        description: "Ordem atualizada",
+      });
+
+      loadGalleryImages();
+    } catch (error) {
+      console.error('Error updating order:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao atualizar ordem",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium">Galeria ({galleryImages.length} fotos)</h3>
+        <h3 className="text-lg font-medium">Galeria de Fotos ({galleryImages.length} fotos)</h3>
         <Button
           type="button"
           onClick={() => setIsAdding(!isAdding)}
-          className="bg-purple-600 text-white hover:bg-purple-700 border-2 border-purple-400"
+          className="bg-purple-600 text-white hover:bg-purple-700"
         >
           <Plus className="w-4 h-4 mr-2" />
-          🎭 Adicionar Foto EXTRA à Galeria
+          Adicionar Foto
         </Button>
       </div>
 
+      <div className="bg-amber-50 border-2 border-amber-200 rounded-lg p-4">
+        <div className="flex items-center gap-2 mb-2">
+          <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
+            <span className="text-white text-sm font-bold">!</span>
+          </div>
+          <h4 className="font-bold text-amber-900">Sistema de Ordenação</h4>
+        </div>
+        <p className="text-sm text-amber-800">
+          • A foto na posição 1 será a PRINCIPAL (aparece na lista)<br/>
+          • Use os seletores de ordem para reorganizar as fotos<br/>
+          • Adicione pelo menos 1 foto para que o modelo apareça no site
+        </p>
+      </div>
+
       {isAdding && (
-        <div className="border-4 border-purple-500 rounded-lg p-6 space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50">
+        <div className="border-2 border-purple-500 rounded-lg p-6 space-y-4 bg-gradient-to-br from-purple-50 to-indigo-50">
           <div className="flex items-center justify-center gap-3 mb-4 bg-purple-100 p-3 rounded-lg">
             <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-white" />
             </div>
-            <h4 className="font-bold text-purple-900 text-lg">🎭 GALERIA EXTRA - NÃO É FOTO PRINCIPAL</h4>
-          </div>
-          
-          <div className="bg-gradient-to-r from-purple-100 to-indigo-100 p-4 rounded-lg border-2 border-purple-300">
-            <div className="text-center mb-3">
-              <div className="text-2xl mb-2">🚨</div>
-              <p className="text-sm text-purple-900 font-bold mb-2">
-                ATENÇÃO: Esta seção é APENAS para fotos EXTRAS da galeria
-              </p>
-              <p className="text-xs text-purple-800">
-                • Estas fotos NÃO substituem a foto principal<br/>
-                • São fotos adicionais que aparecem na página de detalhes<br/>
-                • A foto principal fica na seção azul acima
-              </p>
-            </div>
+            <h4 className="font-bold text-purple-900 text-lg">Adicionar Nova Foto</h4>
           </div>
           
           <div className="bg-white p-4 rounded-lg border-2 border-purple-200">
             <Label className="text-purple-900 font-bold text-lg flex items-center gap-2 mb-3">
-              🎯 NOVA FOTO PARA GALERIA EXTRA
-              <span className="text-xs bg-purple-200 px-2 py-1 rounded">NÃO é principal</span>
+              📸 Upload da Foto
             </Label>
             <div className="space-y-3">
               <div className="p-3 bg-purple-50 rounded border border-purple-200">
-                <p className="text-xs text-purple-700 font-medium mb-2">📍 Upload para GALERIA EXTRA:</p>
                 <ImageUpload
                   value={newImageUrl}
                   onChange={(url) => {
                     console.log('🎭 GALERIA: ImageUpload onChange chamado com URL:', url);
                     setNewImageUrl(url);
                   }}
-                  label="🖼️ Foto EXTRA da Galeria (não é principal)"
-                  placeholder="🎭 URL da imagem EXTRA ou faça upload para GALERIA"
+                  label="Selecionar foto ou fazer upload"
+                  placeholder="URL da imagem ou faça upload"
                 />
               </div>
             </div>
@@ -270,41 +293,84 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       )}
 
       {galleryImages.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {galleryImages.map((image) => (
-            <div key={image.id} className="border border-gray-200 rounded-lg overflow-hidden">
-              <div className="aspect-square">
-                <img
-                  src={image.image_url}
-                  alt={image.caption || 'Gallery image'}
-                  className="w-full h-full object-cover"
-                />
+        <div className="space-y-4">
+          <div className="text-sm text-muted-foreground bg-blue-50 p-3 rounded-lg border border-blue-200">
+            <strong>💡 Dica:</strong> A foto na posição 1 será usada como foto principal nos cards de modelos
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {galleryImages.map((image, index) => (
+              <div 
+                key={image.id} 
+                className={`border-2 rounded-lg overflow-hidden ${
+                  index === 0 ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                }`}
+              >
+                {index === 0 && (
+                  <div className="bg-blue-500 text-white text-center py-2 text-sm font-bold">
+                    📸 FOTO PRINCIPAL (Posição 1)
+                  </div>
+                )}
+                
+                <div className="aspect-square">
+                  <img
+                    src={image.image_url}
+                    alt={image.caption || 'Gallery image'}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                <div className="p-4 space-y-3">
+                  {/* Order selector */}
+                  <div className="flex items-center gap-2">
+                    <Label className="text-sm font-medium">Posição:</Label>
+                    <select
+                      value={image.order_index}
+                      onChange={(e) => updateOrder(image.id, parseInt(e.target.value))}
+                      className="px-2 py-1 border border-gray-300 rounded text-sm"
+                    >
+                      {Array.from({ length: Math.max(5, galleryImages.length + 1) }, (_, i) => (
+                        <option key={i} value={i}>{i + 1}</option>
+                      ))}
+                    </select>
+                    {index === 0 && (
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                        Principal
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Caption */}
+                  <Input
+                    value={image.caption || ''}
+                    onChange={(e) => updateCaption(image.id, e.target.value)}
+                    placeholder="Adicionar legenda..."
+                    className="text-sm"
+                  />
+                  
+                  {/* Remove button */}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => removeImage(image.id)}
+                    className="w-full text-red-600 border-red-200 hover:bg-red-50"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Remover
+                  </Button>
+                </div>
               </div>
-              <div className="p-3 space-y-2">
-                <Input
-                  value={image.caption || ''}
-                  onChange={(e) => updateCaption(image.id, e.target.value)}
-                  placeholder="Adicionar legenda..."
-                  className="text-sm"
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={() => removeImage(image.id)}
-                  className="w-full text-red-600 border-red-200 hover:bg-red-50"
-                >
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Remover
-                </Button>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-500">
-          <p>Nenhuma imagem na galeria</p>
-          <p className="text-sm">Use o botão "Adicionar Foto" para começar</p>
+        <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Plus className="w-8 h-8 text-gray-400" />
+          </div>
+          <p className="font-medium">Nenhuma foto adicionada</p>
+          <p className="text-sm">Adicione pelo menos uma foto para que o modelo apareça no site</p>
         </div>
       )}
     </div>

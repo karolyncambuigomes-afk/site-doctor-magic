@@ -53,15 +53,14 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     }
   };
 
-  // Combine main image with gallery images
-  const allImages = [
+  // Use only gallery images, first one is the main image
+  const allImages = galleryImages.length > 0 ? galleryImages : [
     { 
-      id: 'main', 
+      id: 'fallback', 
       image_url: mainImage, 
-      caption: `${modelName} - Principal`,
-      order_index: -1 
-    },
-    ...galleryImages
+      caption: `${modelName} - Foto Principal`,
+      order_index: 0 
+    }
   ];
 
   const nextImage = () => {

@@ -56,16 +56,12 @@ const Index = () => {
       
       <SimpleHeroVideo />
       
-      {/* Elegant tagline section - Prada style minimal */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight text-black mb-8 md:mb-12">
-            Exquisite. Exclusive. Elite.
+      {/* Minimal tagline - Prada style */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <h2 className="font-display text-lg sm:text-xl md:text-2xl font-normal tracking-wider text-black">
+            FIVE LONDON
           </h2>
-          
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed max-w-xl mx-auto">
-            Sophisticated London companions for discerning clients.
-          </p>
         </div>
       </section>
       

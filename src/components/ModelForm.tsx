@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryUpload } from '@/components/GalleryUpload';
 import { supabase } from '@/integrations/supabase/client';
@@ -35,6 +36,7 @@ interface Model {
   pricing: any;
   rating: number | null;
   reviews: number | null;
+  members_only: boolean | null;
 }
 
 interface ModelFormProps {
@@ -90,7 +92,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       additionalHour: ''
     },
     rating: null,
-    reviews: null
+    reviews: null,
+    members_only: false
   });
 
   const [newService, setNewService] = useState('');
@@ -109,7 +112,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           twoHours: '',
           threeHours: '',
           additionalHour: ''
-        }
+        },
+        members_only: model.members_only || false
       });
     }
   }, [model]);
@@ -205,7 +209,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         education: formData.education,
         pricing: formData.pricing,
         rating: formData.rating,
-        reviews: formData.reviews
+        reviews: formData.reviews,
+        members_only: formData.members_only
       };
 
       if (model?.id) {
@@ -313,6 +318,25 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="space-y-3">
+              <Label className="text-sm font-medium">Configurações de Acesso</Label>
+              <div className="flex items-center justify-between p-3 border rounded-lg bg-muted/30">
+                <div className="space-y-0.5">
+                  <Label htmlFor="members-only" className="text-sm font-medium">
+                    Apenas Membros Premium
+                  </Label>
+                  <p className="text-xs text-muted-foreground">
+                    Modelo disponível apenas para usuários com assinatura ativa
+                  </p>
+                </div>
+                <Switch
+                  id="members-only"
+                  checked={formData.members_only || false}
+                  onCheckedChange={(checked) => handleInputChange('members_only', checked)}
+                />
+              </div>
             </div>
           </CardContent>
         </Card>

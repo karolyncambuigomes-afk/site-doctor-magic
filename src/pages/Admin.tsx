@@ -55,6 +55,7 @@ interface Model {
   pricing: any;
   rating: number | null;
   reviews: number | null;
+  members_only: boolean | null;
 }
 
 interface Profile {
@@ -284,7 +285,8 @@ export const Admin: React.FC = () => {
                               additionalHour: ''
                             },
                             rating: null,
-                            reviews: null
+                            reviews: null,
+                            members_only: false
                           })}
                           className="bg-black text-white hover:bg-gray-800"
                         >
@@ -323,7 +325,8 @@ export const Admin: React.FC = () => {
                                 additionalHour: ''
                               },
                               rating: null,
-                              reviews: null
+                              reviews: null,
+                              members_only: false
                             })}
                             className="bg-black text-white hover:bg-gray-800"
                           >
@@ -339,25 +342,32 @@ export const Admin: React.FC = () => {
                                 {model.image && (
                                   <img src={model.image} alt={model.name} className="w-12 h-12 rounded-full object-cover" />
                                 )}
-                                <div>
-                                  <h3 className="font-medium text-black">{model.name}</h3>
-                                  <p className="text-sm text-gray-600">{model.location}</p>
-                                  <p className="text-sm text-gray-600">{model.price}</p>
-                                  {model.characteristics && model.characteristics.length > 0 && (
-                                    <div className="flex flex-wrap gap-1 mt-1">
-                                      {model.characteristics.slice(0, 3).map((char, idx) => (
-                                        <Badge key={idx} variant="secondary" className="text-xs">
-                                          {char}
-                                        </Badge>
-                                      ))}
-                                      {model.characteristics.length > 3 && (
-                                        <Badge variant="secondary" className="text-xs">
-                                          +{model.characteristics.length - 3}
-                                        </Badge>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
+                                 <div>
+                                   <div className="flex items-center gap-2">
+                                     <h3 className="font-medium text-black">{model.name}</h3>
+                                     {model.members_only && (
+                                       <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary">
+                                         ⭐ Premium
+                                       </Badge>
+                                     )}
+                                   </div>
+                                   <p className="text-sm text-gray-600">{model.location}</p>
+                                   <p className="text-sm text-gray-600">{model.price}</p>
+                                   {model.characteristics && model.characteristics.length > 0 && (
+                                     <div className="flex flex-wrap gap-1 mt-1">
+                                       {model.characteristics.slice(0, 3).map((char, idx) => (
+                                         <Badge key={idx} variant="secondary" className="text-xs">
+                                           {char}
+                                         </Badge>
+                                       ))}
+                                       {model.characteristics.length > 3 && (
+                                         <Badge variant="secondary" className="text-xs">
+                                           +{model.characteristics.length - 3}
+                                         </Badge>
+                                       )}
+                                     </div>
+                                   )}
+                                 </div>
                               </div>
                               <div className="flex items-center space-x-2">
                                 <Button 

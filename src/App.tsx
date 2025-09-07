@@ -24,6 +24,7 @@ import Locations from "./pages/Locations";
 import LocationDetail from "./pages/LocationDetail";
 import Characteristics from "./pages/Characteristics";
 import CharacteristicDetail from "./pages/CharacteristicDetail";
+import LondonEscortGuide from "./pages/LondonEscortGuide";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
@@ -56,9 +57,10 @@ const App = () => (
               <Route path="/locations" element={<Locations />} />
               <Route path="/locations/:locationSlug" element={<LocationDetail />} />
               <Route path="/characteristics" element={<Characteristics />} />
-              <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/contact" element={<Contact />} />
+          <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
+          <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/reviews" element={<Reviews />} />

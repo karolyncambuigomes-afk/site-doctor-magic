@@ -395,6 +395,24 @@ const About = () => {
           </div>
         </div>
 
+        {/* Hidden SEO Content - Our Heritage & Story */}
+        <div className="sr-only">
+          <h2>Our Heritage & Story - Elite London Escort Agency Since 2018</h2>
+          <p>Five London was established in 2018 with a revolutionary vision to redefine the standards of luxury companionship in London. Our founders, seasoned professionals with decades of experience in hospitality and personal services, recognized the need for a truly elite escort agency that would combine discretion, sophistication, and uncompromising quality.</p>
+          <p>Since our inception, we have built an impeccable reputation as London's most trusted premium escort agency. Our journey began with a simple yet ambitious mission: to create an exclusive platform where discerning gentlemen could connect with the most sophisticated, intelligent, and beautiful women in London. What started as a boutique agency has evolved into London's premier destination for elite companionship.</p>
+          <p>Our heritage is built on four fundamental pillars: absolute discretion, uncompromising quality, authentic connections, and professional excellence. These values have guided every decision we've made, from our rigorous selection process to our comprehensive training programs and our commitment to complete client confidentiality.</p>
+          <p>Over the years, we have served hundreds of distinguished clients, including business executives, diplomats, celebrities, and successful entrepreneurs from around the world. Our reputation extends far beyond London, with clients traveling specifically to experience the exceptional service and companionship that Five London provides.</p>
+          <p>Today, Five London represents the pinnacle of luxury escort services in the UK capital. We continue to evolve and innovate while maintaining the traditional values of discretion, elegance, and excellence that have made us London's most trusted elite escort agency.</p>
+          
+          <h2>Our Exquisite Selection Process - Elite Escort Verification London</h2>
+          <p>Five London maintains the most rigorous and comprehensive selection process in the luxury escort industry. Our multi-stage verification system ensures that every companion meets our exceptionally high standards for beauty, intelligence, sophistication, and professionalism.</p>
+          <p>Education and Intelligence Assessment: Every potential companion undergoes thorough interviews to assess their educational background, cultural knowledge, and conversational abilities. We seek women who are not only beautiful but also intellectually stimulating, with university degrees, international experience, and genuine passion for learning and growth.</p>
+          <p>Professional Background Verification: We conduct comprehensive background checks, including identity verification, reference checks, and professional history review. This process ensures the safety and security of both our companions and clients while maintaining the highest standards of professionalism.</p>
+          <p>Etiquette and Social Skills Training: Selected companions receive specialized training in social etiquette, fine dining protocols, business communication, and cultural awareness. This ensures they can seamlessly adapt to any social setting, from intimate dinners to corporate events and international travel.</p>
+          <p>Continuous Quality Assurance: Our commitment to excellence doesn't end with selection. We provide ongoing support, training, and evaluation to ensure our companions continue to meet and exceed client expectations throughout their association with Five London.</p>
+          <p>Health and Wellness Standards: All companions undergo regular health screenings and maintain comprehensive wellness programs. We believe that physical and mental well-being are essential for providing exceptional companionship experiences.</p>
+        </div>
+
         {/* CTA Section */}
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width text-center">

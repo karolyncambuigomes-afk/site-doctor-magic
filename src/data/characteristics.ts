@@ -19,27 +19,40 @@ export const characteristics: Characteristic[] = [
     content: `
       <p>Meet our absolutely gorgeous blonde escorts who embody the timeless allure of classic golden beauty with their stunning, lustrous locks and radiant, captivating personalities. These exceptional companions showcase the eternal appeal and sophisticated charm of blonde beauty that has captivated admirers throughout history.</p>
       
+      <h3>Platinum Blonde Perfection and Luxury Companionship</h3>
+      <p>Our platinum blonde escorts represent the pinnacle of sophisticated blonde beauty, with their ice-blonde locks creating an striking contrast that commands attention in London's most exclusive venues. These companions excel at high-end events in Mayfair's private clubs, sophisticated dinners at Michelin-starred restaurants like The Ledbury, and exclusive cultural events at the Royal Opera House. Their platinum perfection paired with intellectual sophistication makes them ideal for discerning clients who appreciate both classic beauty and engaging conversation about art, literature, and international affairs.</p>
+      
+      <h3>Honey Blonde Warmth and Natural Elegance</h3>
+      <p>Our honey blonde companions possess warm, golden tones that radiate natural elegance and approachable sophistication. Perfect for business dinners in Canary Wharf, cultural experiences in Kensington's museum district, or romantic evenings along the Thames, these companions combine their warm blonde beauty with genuine personalities that create authentic connections. Their natural honey tones complement both formal business attire for corporate events and elegant evening wear for West End theatre experiences.</p>
+      
+      <h3>Strawberry Blonde Uniqueness and Sophisticated Charm</h3>
+      <p>Our rare strawberry blonde escorts offer a unique blend of blonde and red tones that creates truly distinctive beauty. These companions are particularly sought after for their uncommon hair color combined with personalities that match their distinctive appearance. They excel at creative industry events in Shoreditch, artistic gatherings in Chelsea, and sophisticated wine tastings in Notting Hill, where their unique beauty and cultured conversation create memorable experiences.</p>
+      
+      <h3>Ash Blonde Sophistication and Modern Appeal</h3>
+      <p>Our ash blonde companions embody contemporary sophistication with their cool, silvery tones that reflect modern luxury trends. These companions are perfectly suited for tech industry events in the City, contemporary art exhibitions at the Tate Modern, and sophisticated cocktail events at London's most exclusive rooftop bars. Their modern blonde aesthetic paired with knowledge of current trends, technology, and contemporary culture appeals to progressive clients who appreciate both beauty and intellectual currency.</p>
+      
       <p>Blonde hair represents classic femininity, elegance, and sophisticated appeal that transcends cultural boundaries and time periods. Our carefully selected blonde companions possess not only stunning golden hair in various beautiful shades - from platinum and honey blonde to strawberry and ash tones - but also the magnetic personalities and refined sophistication that complement their natural beauty.</p>
       
       <p>Our distinguished blonde escorts provide comprehensive companionship including:</p>
       
       <ul>
-        <li>Classic blonde beauty and timeless elegance with various stunning hair tones</li>
-        <li>Radiant and captivating presence that commands attention in any setting</li>
-        <li>Versatile styling and presentation for formal events, casual outings, and intimate occasions</li>
-        <li>Bright, engaging personalities with intelligence and sophisticated conversation skills</li>
-        <li>Timeless appeal and natural sophistication that enhances any social situation</li>
-        <li>Professional grooming standards and impeccable presentation at all times</li>
-        <li>Cultural awareness and refined social skills for high-end events and gatherings</li>
+        <li>Classic blonde beauty and timeless elegance with various stunning hair tones including platinum, honey, strawberry, and ash</li>
+        <li>Radiant and captivating presence that commands attention in any setting from corporate boardrooms to intimate dinner venues</li>
+        <li>Versatile styling and presentation for formal events, casual outings, and intimate occasions across all London districts</li>
+        <li>Bright, engaging personalities with intelligence and sophisticated conversation skills about current events, arts, and culture</li>
+        <li>Timeless appeal and natural sophistication that enhances any social situation whether business networking or romantic encounters</li>
+        <li>Professional grooming standards and impeccable presentation at all times with hair styling by London's top salons</li>
+        <li>Cultural awareness and refined social skills for high-end events and gatherings including charity galas and private members' clubs</li>
+        <li>Location-specific expertise for each London district from Mayfair's exclusive venues to Canary Wharf's business establishments</li>
       </ul>
       
       <p>These exceptional companions are perfect for discerning clients who genuinely appreciate the classic, eternal beauty of blonde hair, radiant personalities filled with warmth and intelligence, and the timeless elegance and sophisticated charm that blonde companions naturally bring to any occasion, whether business, social, or intimate.</p>
       
-      <p>Available across all London areas for both incall and outcall services, our blonde escorts combine stunning natural beauty with intellectual sophistication and refined social graces.</p>
+      <p>Available across all London areas for both incall and outcall services, our blonde escorts combine stunning natural beauty with intellectual sophistication and refined social graces. From Mayfair's exclusive private clubs to Knightsbridge luxury hotels, from Chelsea's artistic venues to Belgravia's diplomatic residences, our blonde companions adapt seamlessly to any environment while maintaining their distinctive blonde allure and sophisticated presence.</p>
     `,
-    seoTitle: "Blonde Escorts London | Golden Beauty Companions | Five London",
-    seoDescription: "Blonde escorts in London with stunning golden beauty. Classic blonde companions with radiant personalities and elegant presence.",
-    keywords: ["blonde escorts", "blonde escorts london", "golden hair companions", "fair hair escorts", "classic blonde beauty"]
+    seoTitle: "Blonde Escorts London | Platinum Honey Strawberry Ash Blonde Companions | Five London",
+    seoDescription: "Blonde escorts in London with stunning golden beauty. Platinum, honey, strawberry & ash blonde companions with radiant personalities and elegant presence across Mayfair, Knightsbridge, Chelsea.",
+    keywords: ["blonde escorts", "blonde escorts london", "platinum blonde escorts", "honey blonde companions", "strawberry blonde escorts", "ash blonde escorts", "golden hair companions", "fair hair escorts", "classic blonde beauty"]
   },
   {
     id: "brunette",

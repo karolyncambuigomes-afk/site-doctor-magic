@@ -73,32 +73,35 @@ const Services = () => {
     {
       icon: Utensils,
       title: "Dinner Date Escorts",
-      description: "Beautiful, intelligent companions for romantic dinner dates at London's finest restaurants",
-      features: ["Michelin-starred restaurants", "Wine knowledge", "Sophisticated conversation", "Impeccable etiquette"],
+      description: "Beautiful, intelligent companions for romantic dinner dates at London's finest restaurants, offering sophisticated conversation, wine expertise, and impeccable social grace for memorable culinary experiences across London's elite dining establishments.",
+      features: ["Michelin-starred restaurants", "Wine knowledge", "Sophisticated conversation", "Impeccable etiquette", "Fine dining experience", "Restaurant recommendations", "Cultural awareness", "Private dining arrangements"],
       duration: "2-4 hours",
       ideal: "Perfect for romantic evenings, business dinners, or social events",
       blogLink: "/blog/best-restaurants-london-dinner-dates",
-      blogTitle: "Best Restaurants in London for Special Dinner Dates"
+      blogTitle: "Best Restaurants in London for Special Dinner Dates",
+      extendedContent: "Our dinner date escorts are connoisseurs of London's culinary scene, with intimate knowledge of establishments from Rules (London's oldest restaurant) to contemporary Michelin-starred venues like Core by Clare Smyth. They excel at creating memorable dining experiences whether at Sketch's quirky pink room, the sophisticated atmosphere of Dinner by Heston Blumenthal, or intimate wine bars in Covent Garden. Each companion possesses extensive knowledge of wine pairings, international cuisine, and dining etiquette, ensuring seamless experiences at any venue from casual gastropubs to exclusive private dining rooms. Their cultural sophistication extends to understanding seasonal menus, chef specialties, and the perfect balance of engaging conversation that enhances rather than overshadows the culinary experience."
     },
     {
       icon: Briefcase,
       title: "Corporate Event Escorts",
-      description: "Elite professional companions for business events, conferences, and corporate functions",
-      features: ["Corporate event experience", "Professional attire", "Business acumen", "Networking skills"],
+      description: "Elite professional companions for business events, conferences, and corporate functions, providing sophisticated representation, networking expertise, and professional grace for high-level business occasions across London's corporate landscape.",
+      features: ["Corporate event experience", "Professional attire", "Business acumen", "Networking skills", "Industry knowledge", "Executive presence", "International protocols", "Client entertainment"],
       duration: "3-8 hours",
       ideal: "Ideal for conferences, galas, and corporate functions",
       blogLink: "/blog/exclusive-experiences-london-luxury",
-      blogTitle: "Exclusive Business Experiences in London"
+      blogTitle: "Exclusive Business Experiences in London",
+      extendedContent: "Our corporate event escorts possess MBA-level business understanding and extensive experience in London's financial districts including Canary Wharf, the City, and Mayfair's corporate venues. They excel at representing clients at high-profile events such as the London Business Awards, financial sector conferences, product launches at venues like the Guildhall, and exclusive networking events at private members' clubs. With backgrounds in finance, consulting, and international business, they engage intelligently in discussions about market trends, industry developments, and global business practices. Their professional wardrobe and executive presence ensure perfect representation at any corporate function, from intimate boardroom dinners to large-scale industry conferences at ExCeL London or the Barbican Centre."
     },
     {
       icon: Plane,
       title: "Travel Escort Companions",
-      description: "Sophisticated travel companions for business trips, luxury holidays, and international travel",
-      features: ["International experience", "Cultural knowledge", "Passport ready", "Flexible schedules"],
+      description: "Sophisticated travel companions for business trips, luxury holidays, and international travel, providing cultured conversation, local expertise, and elegant companionship for destinations worldwide including Paris, Monaco, Dubai, and New York.",
+      features: ["International experience", "Cultural knowledge", "Passport ready", "Flexible schedules", "Multilingual abilities", "Luxury travel expertise", "Time zone adaptability", "Global networking"],
       duration: "1-7 days",
       ideal: "Perfect for business trips or luxury getaways",
       blogLink: "/blog/luxury-hotels-london-sophisticated-stays",
-      blogTitle: "Sophisticated Hotels in London"
+      blogTitle: "Sophisticated Hotels in London",
+      extendedContent: "Our travel companions are seasoned international travelers with passports ready for immediate departure to destinations like Paris, Monaco, Dubai, New York, or the Swiss Alps. They possess extensive knowledge of luxury hotels including the George V in Paris, Hotel Hermitage in Monaco, Burj Al Arab in Dubai, and The Plaza in New York. With cultural fluency in multiple languages and deep understanding of international business etiquette, they seamlessly adapt to different time zones, currencies, and social customs. Their travel wardrobes are equipped for any climate or occasion, from business meetings in Hong Kong to yacht parties in the Mediterranean, ensuring perfect presentation at every destination."
     },
     {
       icon: Theater,
@@ -206,12 +209,20 @@ const Services = () => {
                         </div>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-4 sm:pb-6">
+                     <AccordionContent className="pb-4 sm:pb-6">
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                         {/* Mobile description */}
                         <div className="sm:hidden">
                           <p className="text-sm text-muted-foreground">{service.description}</p>
                         </div>
+                        
+                        {/* Extended Content (Hidden SEO) */}
+                        {service.extendedContent && (
+                          <div className="sr-only">
+                            <h4>Detailed {service.title} Information</h4>
+                            <p>{service.extendedContent}</p>
+                          </div>
+                        )}
                         
                         {/* Features */}
                         <div>

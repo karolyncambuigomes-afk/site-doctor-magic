@@ -56,6 +56,15 @@ const Index = () => {
       
       <SimpleHeroVideo />
       
+      {/* Elegant tagline section */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-black">
+            Exquisite. Exclusive. Elite.
+          </h2>
+        </div>
+      </section>
+      
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />
@@ -67,10 +76,6 @@ const Index = () => {
             {/* Hidden SEO heading */}
             <h2 className="sr-only">London's Finest High-Class Escorts - Premium Escort Services</h2>
             
-            {/* Visible elegant heading */}
-            <h3 className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-tight text-black mb-6 md:mb-8">
-              Exquisite. Exclusive. Elite.
-            </h3>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed mb-4 md:mb-6 max-w-2xl mx-auto px-2">
               <span className="font-medium">Established luxury companion agency</span> representing a handpicked selection of sophisticated London companions. Beautiful, intelligent, and cultured ladies for dinner dates, business events, international travel, and intimate encounters.
             </p>

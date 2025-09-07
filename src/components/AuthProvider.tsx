@@ -76,13 +76,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return false;
       }
 
-      // Check if user is admin - admins always have access
-      const { data: userRole, error: roleError } = await supabase
-        .rpc('get_current_user_role');
+      // Check if user is admin directly from profiles table
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', userId)
+        .single();
 
-      if (roleError) {
-        console.error('Error checking user role:', roleError);
-      } else if (userRole === 'admin') {
+      if (profileError) {
+        console.error('Error checking user profile:', profileError);
+      } else if (profile?.role === 'admin') {
         console.log('AuthProvider - User is admin, granting access');
         setHasAccess(true);
         return true;

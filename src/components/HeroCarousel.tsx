@@ -69,14 +69,34 @@ export const HeroCarousel = () => {
   };
 
 
-  // Preload all videos
+  // Preload videos with aggressive optimization
   useEffect(() => {
     heroSlides.forEach((slide, index) => {
       if (slide.media_type === 'video' && slide.video_url) {
         const video = document.createElement('video');
         video.src = slide.video_url;
-        video.preload = 'metadata';
+        video.preload = 'auto';
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute('webkit-playsinline', 'true');
+        video.style.display = 'none';
+        
+        // Force immediate loading
         video.load();
+        
+        // Try to preload a small portion
+        video.addEventListener('loadedmetadata', () => {
+          video.currentTime = 0.1;
+        }, { once: true });
+        
+        document.body.appendChild(video);
+        
+        // Cleanup after 10 seconds
+        setTimeout(() => {
+          if (video.parentNode) {
+            video.parentNode.removeChild(video);
+          }
+        }, 10000);
       }
     });
   }, [heroSlides]);
@@ -132,21 +152,43 @@ export const HeroCarousel = () => {
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="auto"
+                webkit-playsinline="true"
                 className="w-full h-full object-cover"
+                style={{
+                  willChange: 'transform',
+                  transform: 'translateZ(0)',
+                }}
                 ref={(video) => {
                   if (video) {
+                    // Immediate setup for current slide
                     if (index === currentSlide) {
+                      // Reset and play immediately
                       video.currentTime = 0;
-                      video.play().catch(() => {});
+                      const playPromise = video.play();
+                      if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                          // Fallback: try again after a small delay
+                          setTimeout(() => {
+                            video.play().catch(() => {});
+                          }, 100);
+                        });
+                      }
                     } else {
                       video.pause();
                     }
                   }
                 }}
-                onLoadedMetadata={(e) => {
+                onLoadedData={(e) => {
                   const video = e.target as HTMLVideoElement;
                   if (index === currentSlide) {
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
+                  }
+                }}
+                onCanPlayThrough={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide && video.paused) {
                     video.currentTime = 0;
                     video.play().catch(() => {});
                   }

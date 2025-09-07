@@ -8,13 +8,9 @@ export const SimpleHeroVideo = () => {
       <div className="relative z-20 h-full flex items-center justify-center">
         <div className="text-center px-4 sm:px-6 max-w-xl md:max-w-2xl mx-auto">
           <div className="space-y-4 md:space-y-6">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-wide leading-tight">
-              Five London
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-wider leading-tight">
+              FIVE LONDON
             </h1>
-            
-            <p className="text-lg md:text-xl text-white/80 font-light tracking-wide leading-relaxed">
-              Premier luxury companion services
-            </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
               <a href="/models" className="inline-block">

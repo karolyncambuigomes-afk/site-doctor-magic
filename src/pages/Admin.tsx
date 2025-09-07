@@ -23,6 +23,12 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
+import { HomepageManager } from '@/components/HomepageManager';
+import { ServicesManager } from '@/components/ServicesManager';
+import { LocationsManager } from '@/components/LocationsManager';
+import { CharacteristicsManager } from '@/components/CharacteristicsManager';
+import { GuideManager } from '@/components/GuideManager';
+import { LegalPagesManager } from '@/components/LegalPagesManager';
 
 import { ModelForm } from '@/components/ModelForm';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -154,34 +160,80 @@ export const Admin: React.FC = () => {
             <p className="text-gray-600">Gerencie modelos, blog posts e usuários</p>
           </div>
 
-          <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-6 bg-white border border-gray-300">
-              <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <Users className="w-4 h-4 mr-2" />
-                Modelos
-              </TabsTrigger>
-              <TabsTrigger value="blog" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <FileText className="w-4 h-4 mr-2" />
-                Blog
-              </TabsTrigger>
-              <TabsTrigger value="users" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <Users className="w-4 h-4 mr-2" />
-                Usuários
-              </TabsTrigger>
-              <TabsTrigger value="gallery" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <Image className="w-4 h-4 mr-2" />
-                Galeria
-              </TabsTrigger>
-              <TabsTrigger value="content" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <Settings className="w-4 h-4 mr-2" />
-                Conteúdo
-              </TabsTrigger>
-              <TabsTrigger value="faq" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <HelpCircle className="w-4 h-4 mr-2" />
-                FAQ
-              </TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="homepage" className="space-y-6">
+            <div className="overflow-x-auto">
+              <TabsList className="grid w-full grid-cols-4 lg:grid-cols-6 xl:grid-cols-12 bg-white border border-gray-300 min-w-max">
+                <TabsTrigger value="homepage" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Homepage
+                </TabsTrigger>
+                <TabsTrigger value="services" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Serviços
+                </TabsTrigger>
+                <TabsTrigger value="locations" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Localizações
+                </TabsTrigger>
+                <TabsTrigger value="characteristics" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Características
+                </TabsTrigger>
+                <TabsTrigger value="guide" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Guia
+                </TabsTrigger>
+                <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Users className="w-4 h-4 mr-2" />
+                  Modelos
+                </TabsTrigger>
+                <TabsTrigger value="blog" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Blog
+                </TabsTrigger>
+                <TabsTrigger value="users" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Users className="w-4 h-4 mr-2" />
+                  Usuários
+                </TabsTrigger>
+                <TabsTrigger value="gallery" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Image className="w-4 h-4 mr-2" />
+                  Galeria
+                </TabsTrigger>
+                <TabsTrigger value="legal" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Páginas Legais
+                </TabsTrigger>
+                <TabsTrigger value="content" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Site Content
+                </TabsTrigger>
+                <TabsTrigger value="faq" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <HelpCircle className="w-4 h-4 mr-2" />
+                  FAQ
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
+
+            <TabsContent value="homepage">
+              <HomepageManager />
+            </TabsContent>
+
+            <TabsContent value="services">
+              <ServicesManager />
+            </TabsContent>
+
+            <TabsContent value="locations">
+              <LocationsManager />
+            </TabsContent>
+
+            <TabsContent value="characteristics">
+              <CharacteristicsManager />
+            </TabsContent>
+
+            <TabsContent value="guide">
+              <GuideManager />
+            </TabsContent>
 
             <TabsContent value="models" className="space-y-6">
               <Card className="bg-white border-gray-200 border">
@@ -451,6 +503,10 @@ export const Admin: React.FC = () => {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="legal">
+              <LegalPagesManager />
             </TabsContent>
 
             <TabsContent value="content" className="space-y-6">

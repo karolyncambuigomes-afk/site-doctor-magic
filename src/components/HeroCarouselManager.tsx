@@ -48,13 +48,20 @@ export const HeroCarouselManager: React.FC = () => {
 
   const loadHeroData = async () => {
     try {
+      console.log('Loading hero data...');
+      
       // Load slides
       const { data: slidesData, error: slidesError } = await supabase
         .from('hero_slides')
         .select('*')
         .order('order_index');
 
-      if (slidesError) throw slidesError;
+      if (slidesError) {
+        console.error('Slides error:', slidesError);
+        throw slidesError;
+      }
+
+      console.log('Raw slides data:', slidesData);
 
       // Load settings
       const { data: settingsData, error: settingsError } = await supabase
@@ -62,13 +69,20 @@ export const HeroCarouselManager: React.FC = () => {
         .select('*')
         .limit(1);
 
-      if (settingsError) throw settingsError;
+      if (settingsError) {
+        console.error('Settings error:', settingsError);
+        throw settingsError;
+      }
 
-      setSlides(slidesData?.map(slide => ({
+      const processedSlides = slidesData?.map(slide => ({
         ...slide,
         media_type: slide.media_type || 'image',
         video_url: slide.video_url || null
-      })) || []);
+      })) || [];
+
+      console.log('Processed slides:', processedSlides);
+      
+      setSlides(processedSlides);
       setSettings(settingsData?.[0] || null);
     } catch (error) {
       console.error('Error loading hero data:', error);
@@ -405,7 +419,10 @@ export const HeroCarouselManager: React.FC = () => {
                       <Label htmlFor={`media_type-${slide.id}`}>Tipo de Mídia</Label>
                       <Select 
                         value={slide.media_type || 'image'} 
-                        onValueChange={(value: 'image' | 'video') => updateSlideField(slide.id, 'media_type', value)}
+                        onValueChange={(value: 'image' | 'video') => {
+                          console.log(`Changing media type for slide ${slide.id} to:`, value);
+                          updateSlideField(slide.id, 'media_type', value);
+                        }}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Selecione o tipo" />
@@ -425,6 +442,9 @@ export const HeroCarouselManager: React.FC = () => {
                           </SelectItem>
                         </SelectContent>
                       </Select>
+                      <div className="text-xs text-muted-foreground">
+                        Tipo atual: {slide.media_type || 'image'}
+                      </div>
                     </div>
 
                     {slide.media_type === 'image' && (

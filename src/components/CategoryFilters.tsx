@@ -46,14 +46,16 @@ export const CategoryFilters: React.FC = () => {
         </div>
         
         <div className="text-center mt-8">
-          <Link 
-            to="/models" 
+          <a 
+            href="https://wa.me/447436190679"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
           >
             <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
-              View All Models
+              Book Now
             </span>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

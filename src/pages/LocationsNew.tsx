@@ -30,14 +30,14 @@ export const Locations: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4">
           {/* Hero Section */}
           <section className="text-center mb-16">
-            <h1 className="font-display text-3xl md:text-5xl font-normal tracking-tight text-black mb-6">
+            <h1 className="heading-display text-foreground mb-6">
               Elite Escorts Across London
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8">
+            <p className="body-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
               Premium companion services available in all prestigious London areas. From Mayfair to Canary Wharf, 
               our sophisticated escorts provide exceptional experiences across the capital.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+            <div className="flex flex-wrap justify-center gap-4 body-base text-muted-foreground">
               <span className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
                 All London Postcodes
@@ -63,13 +63,13 @@ export const Locations: React.FC = () => {
               <Link
                 key={location.id}
                 to={`/locations/${location.slug}`}
-                className="group bg-white border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg"
+                className="group bg-card border border-border hover:border-muted-foreground transition-all duration-300 hover:shadow-elegant"
               >
                 <div className="p-6">
-                  <h2 className="text-xl font-medium text-black mb-3 group-hover:text-gray-700 transition-colors">
+                  <h2 className="heading-lg text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                     {location.name}
                   </h2>
-                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                  <p className="body-base text-muted-foreground mb-4 leading-relaxed">
                     {location.description}
                   </p>
                   
@@ -78,7 +78,7 @@ export const Locations: React.FC = () => {
                     {location.postcodes?.map((postcode) => (
                       <span 
                         key={postcode}
-                        className="bg-gray-100 text-gray-700 px-2 py-1 text-xs font-medium"
+                        className="bg-muted text-muted-foreground px-2 py-1 body-xs font-medium"
                       >
                         {postcode}
                       </span>
@@ -86,7 +86,7 @@ export const Locations: React.FC = () => {
                   </div>
 
                   {/* Landmarks */}
-                  <div className="text-xs text-gray-500">
+                  <div className="body-xs text-muted-foreground">
                     <span className="font-medium">Near:</span> {location.nearbyLandmarks?.join(", ")}
                   </div>
                 </div>
@@ -95,19 +95,19 @@ export const Locations: React.FC = () => {
           </section>
 
           {/* Coverage Area */}
-          <section className="mt-20 bg-gray-50 p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl font-normal text-black mb-6">
+          <section className="mt-20 bg-muted/30 p-8 md:p-12 text-center">
+            <h2 className="heading-xl text-foreground mb-6">
               Complete London Coverage
             </h2>
-            <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
+            <p className="body-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
               Our elite escort service covers all London areas with verified companions available for 
               outcalls across Central London, West London, East London, and beyond.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 body-base">
               <div>
-                <h3 className="font-medium text-black mb-2">Central London</h3>
-                <ul className="text-gray-600 space-y-1">
+                <h3 className="heading-sm text-foreground mb-2">Central London</h3>
+                <ul className="text-muted-foreground space-y-1">
                   <li>W1 - Mayfair, Marylebone</li>
                   <li>WC1 - Bloomsbury</li>
                   <li>WC2 - Covent Garden</li>
@@ -116,8 +116,8 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-black mb-2">West London</h3>
-                <ul className="text-gray-600 space-y-1">
+                <h3 className="heading-sm text-foreground mb-2">West London</h3>
+                <ul className="text-muted-foreground space-y-1">
                   <li>SW1 - Belgravia</li>
                   <li>SW3 - Chelsea</li>
                   <li>SW7 - South Kensington</li>
@@ -126,8 +126,8 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-black mb-2">East London</h3>
-                <ul className="text-gray-600 space-y-1">
+                <h3 className="heading-sm text-foreground mb-2">East London</h3>
+                <ul className="text-muted-foreground space-y-1">
                   <li>E1 - Shoreditch</li>
                   <li>E14 - Canary Wharf</li>
                   <li>E2 - Bethnal Green</li>
@@ -136,8 +136,8 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="font-medium text-black mb-2">North London</h3>
-                <ul className="text-gray-600 space-y-1">
+                <h3 className="heading-sm text-foreground mb-2">North London</h3>
+                <ul className="text-muted-foreground space-y-1">
                   <li>NW1 - Camden</li>
                   <li>NW3 - Hampstead</li>
                   <li>NW8 - St John's Wood</li>
@@ -149,17 +149,17 @@ export const Locations: React.FC = () => {
 
           {/* CTA Section */}
           <section className="mt-16 text-center">
-            <h2 className="text-2xl font-normal text-black mb-4">
+            <h2 className="heading-xl text-foreground mb-4">
               Book Your Elite Companion Today
             </h2>
-            <p className="text-gray-600 mb-8">
+            <p className="body-lg text-muted-foreground mb-8">
               Available across all London locations. Same-day booking available.
             </p>
             <a 
               href="tel:+447436190679"
-              className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+              className="inline-block border border-border hover:border-foreground px-8 py-3 transition-all duration-300"
             >
-              <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+              <span className="body-base tracking-[0.3em] uppercase font-light text-foreground">
                 Call Now: +44 7436 190679
               </span>
             </a>

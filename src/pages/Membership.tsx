@@ -56,15 +56,15 @@ export const Membership: React.FC = () => {
       <section className="relative pt-20 py-20 md:py-32">
         <div className="container-width mx-auto px-6">
           <div className="text-center">
-            <h1 className="heading-display text-4xl md:text-6xl font-light tracking-tight text-primary mb-6">
+            <h1 className="heading-display text-primary mb-6">
               Five London
             </h1>
             <div className="w-16 h-0.5 bg-foreground mx-auto mb-8"></div>
-            <p className="text-lg md:text-xl text-muted-foreground font-light tracking-widest">
+            <p className="body-lg text-muted-foreground tracking-widest">
               Exclusive Membership
             </p>
             <div className="max-w-2xl mx-auto mt-8">
-              <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed">
+              <p className="body-lg text-muted-foreground leading-relaxed">
                 Access our exclusive collection of sophisticated companions in London. 
                 Complete privacy and discretion guaranteed with premium features and priority support.
               </p>
@@ -118,19 +118,19 @@ export const Membership: React.FC = () => {
           <div className="max-w-md mx-auto">
             <Card className="border border-border shadow-elegant relative overflow-hidden">
               <CardHeader className="text-center pb-6 pt-8">
-                <CardTitle className="text-4xl md:text-5xl font-light text-primary mb-2">£149</CardTitle>
-                <CardDescription className="text-lg text-muted-foreground font-light">per month</CardDescription>
+                <CardTitle className="heading-xl text-primary mb-2">£149</CardTitle>
+                <CardDescription className="body-lg text-muted-foreground">per month</CardDescription>
               </CardHeader>
               
               <CardContent className="space-y-6 px-8 pb-8">
                 <div className="space-y-4 text-center">
-                  <div className="text-sm font-light text-muted-foreground">
+                  <div className="body-base font-light text-muted-foreground">
                     Complete Access
                   </div>
-                  <div className="text-sm font-light text-muted-foreground">
+                  <div className="body-base font-light text-muted-foreground">
                     Premium Collection
                   </div>
-                  <div className="text-sm font-light text-muted-foreground">
+                  <div className="body-base font-light text-muted-foreground">
                     Priority Support
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export const Membership: React.FC = () => {
                 </Button>
 
                 <div className="text-center">
-                  <p className="text-xs text-muted-foreground font-light">
+                  <p className="body-xs text-muted-foreground font-light">
                     Secure & Confidential
                   </p>
                 </div>
@@ -173,7 +173,7 @@ export const Membership: React.FC = () => {
         {/* Questions Section */}
         <section className="py-20 md:py-32 bg-background">
           <div className="text-center">
-            <p className="text-lg md:text-xl font-light text-muted-foreground mb-8 tracking-widest">
+            <p className="body-lg text-muted-foreground mb-8 tracking-widest">
               Questions about membership?
             </p>
             <Button 
@@ -196,10 +196,10 @@ export const Membership: React.FC = () => {
         {/* Billing Discretion Section */}
         <section className="py-16 md:py-20 bg-muted/10">
           <div className="text-center max-w-md mx-auto">
-            <p className="text-sm text-muted-foreground font-light mb-2">
+            <p className="body-base text-muted-foreground font-light mb-2">
               Complete Discretion
             </p>
-            <p className="text-xs text-muted-foreground font-light leading-relaxed">
+            <p className="body-xs text-muted-foreground font-light leading-relaxed">
               Your credit card statement will show "London Department Store" for complete privacy and discretion.
             </p>
           </div>

@@ -55,8 +55,8 @@ const Index = () => {
       <Navigation />
       
       <main className="relative overflow-x-hidden">{" "}
-        {/* YSL Style Hero Carousel */}
-        <SimpleHeroVideo />
+        {/* Hero Video temporariamente removido para testes */}
+        {/* <SimpleHeroVideo /> */}
 
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />

@@ -67,6 +67,11 @@ export const SimpleHeroVideo = () => {
 
   return (
     <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black">
+      {/* Debug Info */}
+      <div className="absolute top-4 left-4 z-50 text-white text-xs bg-black/50 p-2 rounded">
+        Device: {window.innerWidth}px | Image: {content.image_url.split('/').pop()}
+      </div>
+      
       {/* Background Media */}
       {content.media_type === 'video' && content.video_url ? (
         <video
@@ -76,6 +81,7 @@ export const SimpleHeroVideo = () => {
           muted
           playsInline
           poster={content.image_url}
+          key={content.video_url} // Force re-render on URL change
         >
           <source src={content.video_url} type="video/mp4" />
         </video>
@@ -85,6 +91,7 @@ export const SimpleHeroVideo = () => {
           style={{
             backgroundImage: `url(${content.image_url})`,
           }}
+          key={content.image_url} // Force re-render on image change
         ></div>
       )}
       

@@ -181,18 +181,26 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       </div>
 
       {isAdding && (
-        <div className="border-2 border-primary/20 rounded-lg p-4 space-y-4 bg-primary/5">
+        <div className="border-2 border-green-400 rounded-lg p-4 space-y-4 bg-green-50">
           <div className="flex items-center gap-2 mb-2">
-            <Plus className="w-5 h-5 text-primary" />
-            <h4 className="font-medium text-primary">Adicionar à Galeria</h4>
+            <Plus className="w-5 h-5 text-green-600" />
+            <h4 className="font-medium text-green-800">🖼️ Adicionar à Galeria (NÃO é foto principal)</h4>
+          </div>
+          <div className="bg-green-100 p-3 rounded-lg border border-green-200">
+            <p className="text-sm text-green-800 font-medium mb-1">
+              ✅ Esta é a seção GALERIA
+            </p>
+            <p className="text-xs text-green-700">
+              As fotos adicionadas aqui vão para a galeria extra, não substituem a foto principal
+            </p>
           </div>
           <div>
-            <Label>Nova Imagem para Galeria</Label>
+            <Label className="text-green-800 font-medium">🎯 Nova Imagem para GALERIA</Label>
             <ImageUpload
               value={newImageUrl}
               onChange={setNewImageUrl}
-              label="Foto da Galeria"
-              placeholder="URL da imagem para galeria ou faça upload"
+              label="🖼️ Foto Extra da Galeria"
+              placeholder="URL da imagem para GALERIA ou faça upload"
             />
           </div>
           

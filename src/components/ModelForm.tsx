@@ -12,7 +12,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
 import { locations } from '@/data/locations';
-import { X, Plus } from 'lucide-react';
+import { X, Plus, Image as ImageIcon } from 'lucide-react';
 
 interface Model {
   id?: string;
@@ -385,48 +385,55 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       </div>
 
       {/* Image Upload */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Foto Principal</CardTitle>
-          <p className="text-sm text-muted-foreground">Esta será a foto de perfil que aparece na lista de modelos</p>
+      <Card className="border-2 border-blue-200 bg-blue-50/30">
+        <CardHeader className="bg-blue-100/50">
+          <CardTitle className="flex items-center gap-2 text-blue-900">
+            <ImageIcon className="w-5 h-5" />
+            1. Foto Principal (Obrigatória)
+          </CardTitle>
+          <p className="text-sm text-blue-700">Esta será a foto de perfil que aparece na lista de modelos</p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <ImageUpload
             value={formData.image || ''}
             onChange={(url) => handleInputChange('image', url)}
-            label="Foto de Perfil"
+            label="📸 Foto de Perfil Principal"
             placeholder="URL da foto principal ou faça upload"
           />
         </CardContent>
       </Card>
 
       {/* Gallery Management */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Galeria de Fotos</CardTitle>
-          <p className="text-sm text-muted-foreground">
+      <Card className={`border-2 ${model?.id ? 'border-green-200 bg-green-50/30' : 'border-gray-200 bg-gray-50/30'}`}>
+        <CardHeader className={`${model?.id ? 'bg-green-100/50' : 'bg-gray-100/50'}`}>
+          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-green-900' : 'text-gray-600'}`}>
+            <ImageIcon className="w-5 h-5" />
+            2. Galeria de Fotos (Opcional)
+          </CardTitle>
+          <p className={`text-sm ${model?.id ? 'text-green-700' : 'text-gray-600'}`}>
             {model?.id 
-              ? "Adicione fotos extras que aparecerão na página de detalhes da modelo" 
-              : "Salve primeiro as informações básicas para poder adicionar fotos à galeria"
+              ? "✅ Adicione fotos extras que aparecerão na página de detalhes da modelo" 
+              : "⚠️ Salve primeiro as informações básicas para poder adicionar fotos à galeria"
             }
           </p>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           {model?.id ? (
             <GalleryUpload modelId={model.id} />
           ) : (
-            <div className="text-center py-8 border-2 border-dashed border-muted rounded-lg">
-              <p className="mb-2 font-medium">Galeria indisponível</p>
-              <p className="text-sm text-muted-foreground">
+            <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg bg-gray-100">
+              <div className="mb-4 text-4xl">🔒</div>
+              <p className="mb-2 font-medium text-gray-700">Galeria Bloqueada</p>
+              <p className="text-sm text-gray-600 mb-4">
                 Primeiro salve as informações básicas e depois você poderá adicionar fotos à galeria
               </p>
               <Button 
                 type="submit" 
-                variant="outline" 
-                className="mt-4"
+                variant="default" 
+                className="mt-2"
                 disabled={!formData.name}
               >
-                {loading ? 'Salvando...' : 'Salvar para Habilitar Galeria'}
+                {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
               </Button>
             </div>
           )}

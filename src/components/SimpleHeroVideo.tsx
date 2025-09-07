@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getImageUrl } from '@/utils/imageMapper';
 
 interface HeroContent {
   id: string;
@@ -96,7 +97,7 @@ export const SimpleHeroVideo = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url(${content.image_url})`,
+            backgroundImage: `url(${getImageUrl(content.image_url)})`,
           }}
           key={content.image_url} // Force re-render on image change
         ></div>

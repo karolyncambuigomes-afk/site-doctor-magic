@@ -80,7 +80,7 @@ export const SimpleHeroVideo = () => {
   console.log('Image URL:', heroContent.image_url);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-gray-900">
+    <section className="relative w-full h-screen overflow-hidden bg-black">
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
         {heroContent.media_type === 'video' && heroContent.video_url ? (

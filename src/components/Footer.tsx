@@ -8,6 +8,9 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
 
+  // Debug footer rendering
+  console.log('Footer component rendered');
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle newsletter subscription

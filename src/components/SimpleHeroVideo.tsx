@@ -27,28 +27,15 @@ export const SimpleHeroVideo = () => {
     show_scroll_indicator: true
   });
 
-  console.log('=== HERO VIDEO COMPONENT RENDERED ===');
-  console.log('Device info:', {
-    isMobile: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-    userAgent: navigator.userAgent,
-    screen: { width: window.screen.width, height: window.screen.height },
-    viewport: { width: window.innerWidth, height: window.innerHeight }
-  });
-
   useEffect(() => {
     // Carregar configurações do localStorage
     const loadHeroContent = async () => {
       try {
         const saved = localStorage.getItem('simple-hero-content');
-        console.log('Saved hero content from localStorage:', saved);
         
         if (saved) {
           const parsedContent = JSON.parse(saved);
-          console.log('Parsed hero content:', parsedContent);
           setHeroContent(parsedContent);
-        } else {
-          console.log('No saved content found, using default values');
-          console.log('Default hero content:', heroContent);
         }
       } catch (error) {
         console.error('Error loading hero content:', error);
@@ -62,14 +49,8 @@ export const SimpleHeroVideo = () => {
       const videos = document.querySelectorAll('video');
       videos.forEach(video => {
         if (video.paused) {
-          video.play().then(() => {
-            console.log('Video playing successfully');
-          }).catch((error) => {
-            console.log('Could not autoplay video:', error);
-            // Fallback: try again after a short delay
-            setTimeout(() => {
-              video.play().catch(() => console.log('Fallback video play failed'));
-            }, 1000);
+          video.play().catch(() => {
+            // Silent fail if autoplay is blocked
           });
         }
       });
@@ -99,64 +80,38 @@ export const SimpleHeroVideo = () => {
     };
   }, []);
 
-  console.log('Current hero content state:', heroContent);
-  console.log('Media type:', heroContent.media_type);
-  console.log('Video URL:', heroContent.video_url);
-  console.log('Image URL:', heroContent.image_url);
-
-  console.log('=== RENDERING SECTION ===');
-  console.log('About to render section with heroContent:', heroContent);
-  console.log('Condition check - media_type === video:', heroContent.media_type === 'video');
-  console.log('Condition check - video_url exists:', !!heroContent.video_url);
-  console.log('Will render video?', heroContent.media_type === 'video' && heroContent.video_url);
-
   return (
     <section className="relative w-full h-screen overflow-hidden bg-black">
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
-        {(() => {
-          console.log('=== MEDIA RENDER DECISION ===');
-          if (heroContent.media_type === 'video' && heroContent.video_url) {
-            console.log('Rendering VIDEO element');
-            return (
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                controls={false}
-                disablePictureInPicture
-                webkit-playsinline="true"
-                x5-playsinline="true"
-                className="w-full h-full object-cover"
-                style={{ pointerEvents: 'none' }}
-                onLoadedData={() => {
-                  console.log('Video loaded successfully');
-                  setIsLoaded(true);
-                }}
-                onError={(e) => {
-                  console.error('Video failed to load:', e);
-                }}
-                onCanPlay={() => {
-                  console.log('Video can play');
-                }}
-              >
-                <source src={heroContent.video_url} type="video/mp4" />
-              </video>
-            );
-          } else {
-            console.log('Rendering IMAGE element');
-            return (
-              <img
-                src={heroContent.image_url}
-                alt={heroContent.title}
-                className="w-full h-full object-cover"
-                onLoad={() => setIsLoaded(true)}
-              />
-            );
-          }
-        })()}
+        {heroContent.media_type === 'video' && heroContent.video_url ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            controls={false}
+            disablePictureInPicture
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            className="w-full h-full object-cover"
+            style={{ pointerEvents: 'none' }}
+            onLoadedData={() => setIsLoaded(true)}
+            onError={(e) => {
+              console.error('Video failed to load:', e);
+            }}
+          >
+            <source src={heroContent.video_url} type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src={heroContent.image_url}
+            alt={heroContent.title}
+            className="w-full h-full object-cover"
+            onLoad={() => setIsLoaded(true)}
+          />
+        )}
         
         {/* Dynamic overlay */}
         <div 

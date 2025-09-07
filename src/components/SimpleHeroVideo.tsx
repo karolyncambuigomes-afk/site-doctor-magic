@@ -64,67 +64,48 @@ export const SimpleHeroVideo = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-screen h-screen overflow-hidden flex items-center justify-center">
-      {/* Background Media */}
-      <div className="absolute inset-0 z-0">
-        {heroContent.media_type === 'video' && heroContent.video_url ? (
-          <video
-            key={heroContent.video_url}
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={heroContent.image_url}
-            preload="auto"
-            className="w-full h-full object-cover"
-            onLoadedData={() => {
-              console.log('Video loaded successfully');
-              setIsLoaded(true);
-            }}
-            onError={(e) => {
-              console.error('Video failed to load:', e);
-            }}
-          >
-            <source src={heroContent.video_url} type="video/mp4" />
-            {/* Fallback image if video fails */}
-            <img
-              src={heroContent.image_url}
-              alt="Five London"
-              className="w-full h-full object-cover"
-            />
-          </video>
-        ) : (
-          <img
-            src={heroContent.image_url}
-            alt="Five London"
-            className="w-full h-full object-cover"
-            onLoad={() => setIsLoaded(true)}
-          />
-        )}
+    <section className="fixed inset-0 w-screen h-screen overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+          style={{ width: '100vw', height: '100vh' }}
+          onLoadedData={() => {
+            console.log('Video loaded successfully');
+            setIsLoaded(true);
+          }}
+          onError={(e) => {
+            console.error('Video failed to load:', e);
+          }}
+        >
+          <source src="/video/woman-walking-preview.mp4" type="video/mp4" />
+        </video>
         
         {/* Dark overlay */}
-        <div 
-          className="absolute inset-0 bg-black z-10" 
-          style={{ opacity: heroContent.overlay_opacity / 100 }}
-        />
+        <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
       {/* Content */}
-      <div className="relative z-20 w-full h-full flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center px-4 max-w-4xl mx-auto">
-          <div className="space-y-6 animate-fade-in">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg">
-              {heroContent.title}
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-2xl">
+              Five London
             </h1>
             
             <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto drop-shadow-lg">
-              {heroContent.subtitle}
+              Premier luxury companion services
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <Link to={heroContent.button_link}>
-                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors hover-scale shadow-lg">
-                  {heroContent.button_text}
+              <Link to="/models">
+                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors transform hover:scale-105">
+                  View Our Models
                 </button>
               </Link>
               
@@ -133,7 +114,7 @@ export const SimpleHeroVideo = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors hover-scale shadow-lg">
+                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors transform hover:scale-105">
                   Contact Us
                 </button>
               </a>
@@ -143,11 +124,9 @@ export const SimpleHeroVideo = () => {
       </div>
 
       {/* Scroll Indicator */}
-      {heroContent.show_scroll_indicator && (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-          <div className="w-px h-8 bg-white/40"></div>
-        </div>
-      )}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-px h-8 bg-white/50"></div>
+      </div>
     </section>
   );
 };

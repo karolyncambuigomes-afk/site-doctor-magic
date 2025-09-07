@@ -15,56 +15,55 @@ interface HeroContent {
 }
 
 export const SimpleHeroVideo = () => {
-  const [content, setContent] = useState<HeroContent>({
-    id: 'main-hero',
-    title: 'Five London',
-    subtitle: 'Premier luxury companion services',
-    button_text: 'View Our Models',
-    button_link: '/models',
-    image_url: heroElegantWoman,
-    video_url: null,
-    media_type: 'image',
-    overlay_opacity: 70,
-    show_scroll_indicator: true
-  });
+  const [content, setContent] = useState<HeroContent | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Carregar configurações salvas do admin com cache bust
     const loadContent = () => {
       try {
-        // Força uma nova leitura do localStorage
         const saved = localStorage.getItem('simple-hero-content');
-        console.log('Raw localStorage data:', saved);
         
         if (saved) {
           const savedContent = JSON.parse(saved);
-          console.log('Parsed hero content:', savedContent);
-          console.log('Setting image_url to:', savedContent.image_url);
+          console.log('Loading saved content:', savedContent.image_url);
           setContent(savedContent);
         } else {
-          console.log('No saved hero content found, using defaults');
-          console.log('Default image_url:', content.image_url);
+          // Usar valores padrão se não houver dados salvos
+          const defaultContent = {
+            id: 'main-hero',
+            title: 'Five London',
+            subtitle: 'Premier luxury companion services',
+            button_text: 'View Our Models',
+            button_link: '/models',
+            image_url: heroElegantWoman,
+            video_url: null,
+            media_type: 'image' as const,
+            overlay_opacity: 70,
+            show_scroll_indicator: true
+          };
+          console.log('Using default content:', defaultContent.image_url);
+          setContent(defaultContent);
         }
+        setIsLoaded(true);
       } catch (error) {
         console.error('Error loading hero content:', error);
+        setIsLoaded(true);
       }
     };
 
-    // Carrega imediatamente
     loadContent();
-
-    // Força reload a cada 2 segundos por alguns ciclos para debug
-    const intervalId = setInterval(loadContent, 2000);
-    
-    // Limpa o interval após 10 segundos
-    setTimeout(() => {
-      clearInterval(intervalId);
-    }, 10000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
   }, []);
+
+  // Não renderizar até ter carregado o conteúdo
+  if (!isLoaded || !content) {
+    return (
+      <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-white">Loading...</div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden bg-black">

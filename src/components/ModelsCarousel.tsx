@@ -54,7 +54,7 @@ export const ModelsCarousel = () => {
               <CarouselItem key={model.id} className="pl-2 md:pl-4 basis-full md:basis-1/2">
                 <div className="group relative">
                   <Link to={`/models/${model.id}`} className="block">
-                    <div className="relative overflow-hidden mb-4 rounded-lg shadow-lg">
+                    <div className="relative overflow-hidden mb-3 rounded-lg shadow-lg">
                       {/* Main Image */}
                       <img
                         src={model.image}
@@ -67,19 +67,19 @@ export const ModelsCarousel = () => {
                       
                       {/* Price overlay - refined styling */}
                       {model.price && (
-                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/75 backdrop-blur-md text-white px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-light tracking-wider z-10 rounded-full">
+                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/75 backdrop-blur-md text-white px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-light tracking-normal z-10 rounded-full">
                           {model.price}
                         </div>
                       )}
                       
                       {/* Info overlay that appears on hover */}
-                      <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
-                        <div className="space-y-2">
-                          <h3 className="font-light text-lg sm:text-xl tracking-wide">
+                      <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
+                        <div className="space-y-1.5">
+                          <h3 className="font-light text-base sm:text-lg tracking-normal">
                             {model.name}
                           </h3>
                           <div className="flex items-center justify-between">
-                            <p className="text-sm text-white/90 tracking-wide">
+                            <p className="text-sm text-white/90 tracking-normal">
                               {model.age ? `${model.age} anos` : ''}
                             </p>
                             {model.characteristics?.[0] && (
@@ -93,11 +93,11 @@ export const ModelsCarousel = () => {
                     </div>
                     
                     {/* Static info below - minimal and elegant */}
-                    <div className="text-center px-2">
-                      <h3 className="font-light text-base sm:text-lg text-gray-900 mb-1 tracking-wide group-hover:text-gray-600 transition-colors duration-300">
+                    <div className="text-center px-1">
+                      <h3 className="font-light text-sm sm:text-base text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
                         {model.name}
                       </h3>
-                      <p className="text-xs sm:text-sm text-gray-500 tracking-wide">
+                      <p className="text-xs sm:text-sm text-gray-500 tracking-normal">
                         {model.location || 'London'}
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export const ModelsCarousel = () => {
         </Carousel>
         
         {/* View All Models Button */}
-        <div className="text-center mt-16 md:mt-24">
+        <div className="text-center mt-12 md:mt-16">
           <Link 
             to="/models" 
             className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"

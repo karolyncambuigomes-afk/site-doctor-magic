@@ -87,18 +87,53 @@ const About = () => {
         {/* Hero Section */}
         <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-background">
           <div className="container-width">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
-              <div className="space-y-4 sm:space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
-                {/* Hidden SEO H1 */}
-                <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
-                
-                {/* Visible elegant heading */}
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-tight">
-                  Elite London <span className="text-primary">Companion Agency</span>
-                </h2>
-                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  Established 2018. London's premier luxury companion agency offering the finest elite companions. Beautiful, intelligent, sophisticated. Available 24/7.
+            <div className="text-center mb-16 px-4 md:px-0">
+              {/* Hidden SEO H1 */}
+              <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
+              
+              {/* Main heading */}
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-6 md:mb-8">
+                Five London Elite Escorts
+              </h2>
+              <div className="w-16 h-0.5 bg-foreground mx-auto mb-8 md:mb-12"></div>
+              
+              <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
+                  Established as London's premier luxury companion agency, Five London represents an exclusive collection of sophisticated, intelligent, and captivating women who embody elegance and refinement.
                 </p>
+                
+                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                  Our carefully selected companions are available for discerning gentlemen seeking exceptional experiences - from intimate dinner dates and cultural events to international travel and private encounters. Each companion combines natural beauty with intellectual sophistication, ensuring every moment is memorable.
+                </p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-foreground">✓</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-foreground mb-2 uppercase tracking-wider">Discretion Assured</h3>
+                    <p className="text-sm text-muted-foreground">Complete confidentiality and professional service guaranteed</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-foreground">★</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-foreground mb-2 uppercase tracking-wider">Elite Selection</h3>
+                    <p className="text-sm text-muted-foreground">Handpicked companions meeting the highest standards</p>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-light text-foreground">◆</span>
+                    </div>
+                    <h3 className="text-sm font-medium text-foreground mb-2 uppercase tracking-wider">24/7 Available</h3>
+                    <p className="text-sm text-muted-foreground">Round-the-clock booking service for your convenience</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-12">
                 <Button 
                   size="lg"
                   variant="outline"
@@ -108,15 +143,29 @@ const About = () => {
                   Call Now - Same Day Booking
                 </Button>
               </div>
-              
-              <div className="flex justify-center lg:justify-end px-4 md:px-0">
-                <div className="w-full max-w-sm md:max-w-md h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden">
-                  <img 
-                    src={aboutLuxury1} 
-                    alt="Five London"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-0">
+              <div className="w-full h-80 md:h-96 rounded-lg overflow-hidden">
+                <img 
+                  src={aboutLuxury1} 
+                  alt="Five London luxury companion"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-full h-80 md:h-96 rounded-lg overflow-hidden">
+                <img 
+                  src={aboutLuxury2} 
+                  alt="Elegant dining experience"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="w-full h-80 md:h-96 rounded-lg overflow-hidden">
+                <img 
+                  src={aboutLuxury3} 
+                  alt="Sophisticated companion services"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>

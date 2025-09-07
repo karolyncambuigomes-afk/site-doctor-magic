@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 import { useBookingContent } from '@/hooks/useBookingContent';
+import heroSecondBanner from '@/assets/hero-second-banner.jpg';
 
 
 import { CategoryFilters } from '@/components/CategoryFilters';
@@ -97,7 +98,7 @@ const Index = () => {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url(/images/model1.jpg)`,
+              backgroundImage: `url(${heroSecondBanner})`,
             }}
           ></div>
           {/* Dark Overlay */}

@@ -120,10 +120,16 @@ export const HeroCarousel = () => {
                 muted
                 playsInline
                 preload="auto"
+                controls={false}
                 className="w-full h-full object-cover"
                 poster={slide.image_url}
-                onLoadedData={(e) => {
+                style={{ 
+                  display: index === currentSlide ? 'block' : 'none',
+                  pointerEvents: 'none'
+                }}
+                onLoadedMetadata={(e) => {
                   const video = e.target as HTMLVideoElement;
+                  video.muted = true;
                   if (index === currentSlide) {
                     video.currentTime = 0;
                     video.play().catch(console.error);
@@ -131,20 +137,16 @@ export const HeroCarousel = () => {
                 }}
                 onCanPlay={(e) => {
                   const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide) {
+                    video.play().catch(console.error);
+                  }
+                }}
+                onSuspend={(e) => {
+                  const video = e.target as HTMLVideoElement;
                   if (index === currentSlide && video.paused) {
                     video.play().catch(console.error);
                   }
                 }}
-                onLoadStart={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  video.muted = true;
-                  if (index === currentSlide) {
-                    setTimeout(() => {
-                      video.play().catch(console.error);
-                    }, 100);
-                  }
-                }}
-                style={{ display: index === currentSlide ? 'block' : 'none' }}
               />
             ) : (
               <img

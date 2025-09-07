@@ -43,31 +43,29 @@ export const SimpleHeroVideo = () => {
     <section className="relative h-screen overflow-hidden">
       {/* Background Media */}
       <div className="absolute inset-0">
-        {/* Static background image - loads immediately */}
-        <img
-          src={heroContent.image_url}
-          alt="Five London"
-          className="w-full h-full object-cover"
-          style={{
-            opacity: isLoaded && heroContent.media_type === 'video' ? 0 : 1,
-            transition: 'opacity 0.5s ease-in-out'
-          }}
-        />
+        {/* Static background image - only shows for image type */}
+        {heroContent.media_type === 'image' && (
+          <img
+            src={heroContent.image_url}
+            alt="Five London"
+            className="w-full h-full object-cover"
+          />
+        )}
         
-        {/* Video overlay - loads progressively if video type */}
+        {/* Video overlay - loads instantly */}
         {heroContent.media_type === 'video' && heroContent.video_url && (
           <video
             autoPlay
             loop
             muted
             playsInline
-            preload="metadata"
+            preload="auto"
             className="w-full h-full object-cover absolute inset-0"
             style={{
-              opacity: isLoaded ? 1 : 0,
-              transition: 'opacity 0.5s ease-in-out'
+              opacity: 1,
+              transition: 'none'
             }}
-            onCanPlay={() => setIsLoaded(true)}
+            onLoadedData={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false)}
           >
             <source src={heroContent.video_url} type="video/mp4" />

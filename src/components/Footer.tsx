@@ -8,6 +8,13 @@ export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
 
+  // Debug para mobile real
+  console.log('=== FOOTER MOBILE DEBUG ===');
+  console.log('User agent:', typeof navigator !== 'undefined' ? navigator.userAgent : 'N/A');
+  console.log('Screen size:', typeof screen !== 'undefined' ? { width: screen.width, height: screen.height } : 'N/A');
+  console.log('Window size:', typeof window !== 'undefined' ? { width: window.innerWidth, height: window.innerHeight } : 'N/A');
+  console.log('Footer rendering at:', new Date().toISOString());
+
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();

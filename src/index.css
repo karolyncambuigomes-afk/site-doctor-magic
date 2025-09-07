@@ -161,5 +161,28 @@
   .transition-luxury {
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   }
+  
+  /* Footer mobile fix */
+  footer {
+    display: block !important;
+    position: relative !important;
+    z-index: 50 !important;
+    width: 100% !important;
+    min-height: 300px !important;
+  }
+  
+  @media (max-width: 767px) {
+    footer {
+      display: block !important;
+      position: relative !important;
+      clear: both !important;
+      float: none !important;
+      width: 100% !important;
+      min-height: 300px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+    }
+  }
 }
 

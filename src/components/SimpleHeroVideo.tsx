@@ -60,20 +60,12 @@ export const SimpleHeroVideo = () => {
             muted
             playsInline
             preload="auto"
-            controls={false}
             className="w-full h-full object-cover absolute inset-0"
             style={{
               opacity: 1,
               transition: 'none'
             }}
-            onLoadedData={() => {
-              setIsLoaded(true);
-              // Force play if not already playing
-              const video = document.querySelector('video');
-              if (video && video.paused) {
-                video.play().catch(console.error);
-              }
-            }}
+            onLoadedData={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false)}
           >
             <source src={heroContent.video_url} type="video/mp4" />

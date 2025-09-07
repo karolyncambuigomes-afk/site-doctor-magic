@@ -1,0 +1,93 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+export const SimpleHeroVideo = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Simple fallback content
+  const heroContent = {
+    title: 'Five London',
+    subtitle: 'Premier luxury companion services',
+    buttonText: 'View Our Models',
+    buttonLink: '/models',
+    videoUrl: '/video/woman-walking-preview.mp4', // Update this to your video path
+    imageUrl: '/images/model1.jpg' // Fallback image
+  };
+
+  return (
+    <section className="relative h-screen overflow-hidden">
+      {/* Background Media */}
+      <div className="absolute inset-0">
+        {/* Static background image - loads immediately */}
+        <img
+          src={heroContent.imageUrl}
+          alt="Five London"
+          className="w-full h-full object-cover"
+          style={{
+            opacity: isLoaded ? 0 : 1,
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+        />
+        
+        {/* Video overlay - loads progressively */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover absolute inset-0"
+          style={{
+            opacity: isLoaded ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+          onCanPlay={() => setIsLoaded(true)}
+          onError={() => setIsLoaded(false)}
+        >
+          <source src={heroContent.videoUrl} type="video/mp4" />
+        </video>
+        
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-20 h-full flex items-center justify-center">
+        <div className="text-center px-4 max-w-4xl mx-auto">
+          <div className="space-y-6 animate-fade-in">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
+              {heroContent.title}
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
+              {heroContent.subtitle}
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+              <Link to={heroContent.buttonLink}>
+                <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors hover-scale">
+                  {heroContent.buttonText}
+                </button>
+              </Link>
+              
+              <a 
+                href="https://wa.me/447436190679"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-black transition-colors hover-scale">
+                  Contact Us
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+        <div className="w-px h-8 bg-white/40"></div>
+      </div>
+    </section>
+  );
+};

@@ -1,6 +1,6 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { OptimizedHeroCarousel } from '@/components/OptimizedHeroCarousel';
+import { SimpleHeroVideo } from '@/components/SimpleHeroVideo';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
@@ -56,7 +56,7 @@ const Index = () => {
       
       <main className="min-h-screen">
         {/* YSL Style Hero Carousel */}
-        <OptimizedHeroCarousel />
+        <SimpleHeroVideo />
 
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />

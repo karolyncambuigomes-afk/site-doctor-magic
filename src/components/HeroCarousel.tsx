@@ -69,6 +69,18 @@ export const HeroCarousel = () => {
   };
 
 
+  // Preload all videos
+  useEffect(() => {
+    heroSlides.forEach((slide, index) => {
+      if (slide.media_type === 'video' && slide.video_url) {
+        const video = document.createElement('video');
+        video.src = slide.video_url;
+        video.preload = 'metadata';
+        video.load();
+      }
+    });
+  }, [heroSlides]);
+
   // Auto-play functionality
   useEffect(() => {
     if (!settings.auto_play || heroSlides.length === 0) return;
@@ -116,13 +128,23 @@ export const HeroCarousel = () => {
               <video
                 key={`video-${slide.id}-${index}`}
                 src={slide.video_url}
-                autoPlay={index === currentSlide}
+                autoPlay={false}
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="w-full h-full object-cover"
-                onLoadedData={(e) => {
+                ref={(video) => {
+                  if (video) {
+                    if (index === currentSlide) {
+                      video.currentTime = 0;
+                      video.play().catch(() => {});
+                    } else {
+                      video.pause();
+                    }
+                  }
+                }}
+                onLoadedMetadata={(e) => {
                   const video = e.target as HTMLVideoElement;
                   if (index === currentSlide) {
                     video.currentTime = 0;

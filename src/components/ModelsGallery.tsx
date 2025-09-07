@@ -76,13 +76,13 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
             {isPremium ? (
               <div className="flex items-center justify-center mb-4">
                 <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 mr-2 sm:mr-3" />
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal tracking-tight px-4">
+                <h1 className="heading-display px-4">
                   Premium Members
                 </h1>
                 <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 ml-2 sm:ml-3" />
               </div>
             ) : (
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal mb-3 sm:mb-4 tracking-tight px-4">
+              <h1 className="heading-display mb-3 sm:mb-4 px-4">
                 Our Companions
               </h1>
             )}

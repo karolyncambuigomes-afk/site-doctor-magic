@@ -118,8 +118,19 @@ export const HeroCarousel = () => {
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className="w-full h-full object-cover"
                 poster={slide.image_url}
+                onLoadedData={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  video.play().catch(console.error);
+                }}
+                onCanPlay={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (video.paused) {
+                    video.play().catch(console.error);
+                  }
+                }}
               />
             ) : (
               <img

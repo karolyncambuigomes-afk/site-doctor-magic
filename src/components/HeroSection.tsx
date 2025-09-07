@@ -5,7 +5,7 @@ export const HeroSection = () => {
     <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat"
         style={{
           backgroundImage: `url(${heroMain})`,
         }}

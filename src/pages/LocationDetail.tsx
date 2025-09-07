@@ -1,4 +1,5 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
+import { useState } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -6,13 +7,14 @@ import { locations } from '@/data/locations';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, ArrowRight, Phone, MessageCircle, Users, Star, Clock, Shield } from 'lucide-react';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star, ChevronDown, ChevronUp } from 'lucide-react';
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const LocationDetail = () => {
   const { locationSlug } = useParams();
   const { models, loading, error } = useModels();
+  const [isContentOpen, setIsContentOpen] = useState(false);
   
   // Get current path to determine the slug format
   const currentPath = window.location.pathname;
@@ -37,6 +39,14 @@ const LocationDetail = () => {
 
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
+
+  // Gallery images (using existing model images for demonstration)
+  const galleryImages = [
+    '/images/model1.jpg',
+    '/images/model2.jpg', 
+    '/images/model3.jpg',
+    '/images/model4.jpg'
+  ];
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -101,36 +111,36 @@ const LocationDetail = () => {
                 <p className="body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-8">
                   Exclusive Five London offers high-class companions in the heart of {location.name}. Known for elegance, sophistication, and discretion, our {location.name} escorts are available for private dinners, events, and unforgettable moments in London's most exclusive district.
                 </p>
-                
-                {/* Location features */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
-                  <div className="text-center p-6">
-                    <Users className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">Elite Companions</h3>
-                    <p className="text-sm text-muted-foreground">Carefully selected models</p>
-                  </div>
-                  <div className="text-center p-6">
-                    <Star className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">Premium Service</h3>
-                    <p className="text-sm text-muted-foreground">Exceptional experiences</p>
-                  </div>
-                  <div className="text-center p-6">
-                    <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold mb-2">Total Discretion</h3>
-                    <p className="text-sm text-muted-foreground">Complete confidentiality</p>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
 
-          {/* Location Content Section */}
-          <section className="py-16 md:py-24 bg-white">
+          {/* Gallery Section */}
+          <section className="py-16 md:py-20 bg-white">
             <div className="container-width mx-auto px-6">
-              <div 
-                className="prose prose-lg max-w-4xl mx-auto text-foreground"
-                dangerouslySetInnerHTML={{ __html: location.content }}
-              />
+              <div className="text-center mb-12">
+                <h2 className="heading-large text-3xl md:text-4xl text-primary mb-6">
+                  Our Exclusive {location.name} Collection
+                </h2>
+                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                <p className="body-base text-muted-foreground max-w-2xl mx-auto">
+                  Meet our sophisticated companions available in {location.name}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+                {galleryImages.map((image, index) => (
+                  <div key={index} className="group relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
+                    <img 
+                      src={image} 
+                      alt={`Exclusive companion ${index + 1} in ${location.name}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -261,6 +271,33 @@ const LocationDetail = () => {
                   <span>Premium Service</span>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Collapsible SEO Content */}
+          <section className="py-12 bg-gray-50">
+            <div className="container-width mx-auto px-6">
+              <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
+                <CollapsibleTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className="mx-auto flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Saiba mais sobre {location.name}
+                    {isContentOpen ? (
+                      <ChevronUp className="w-4 h-4" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4" />
+                    )}
+                  </Button>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-8 animate-accordion-down">
+                  <div 
+                    className="prose prose-lg max-w-4xl mx-auto text-foreground"
+                    dangerouslySetInnerHTML={{ __html: location.content }}
+                  />
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </section>
         </main>

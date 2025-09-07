@@ -64,9 +64,9 @@ export const SimpleHeroVideo = () => {
   }, []);
 
   return (
-    <section className="fixed inset-0 w-screen h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden">
       {/* Background Video */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
@@ -74,7 +74,6 @@ export const SimpleHeroVideo = () => {
           playsInline
           preload="auto"
           className="w-full h-full object-cover"
-          style={{ width: '100vw', height: '100vh' }}
           onLoadedData={() => {
             console.log('Video loaded successfully');
             setIsLoaded(true);
@@ -87,11 +86,11 @@ export const SimpleHeroVideo = () => {
         </video>
         
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/30 z-10"></div>
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="relative z-20 h-full flex items-center justify-center">
         <div className="text-center px-4 max-w-4xl mx-auto">
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-2xl">
@@ -124,7 +123,7 @@ export const SimpleHeroVideo = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
         <div className="w-px h-8 bg-white/50"></div>
       </div>
     </section>

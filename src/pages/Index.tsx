@@ -1,6 +1,6 @@
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
-import { SimpleHeroVideo } from '@/components/SimpleHeroVideo';
+import { HeroSection } from '@/components/HeroSection';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
@@ -55,7 +55,7 @@ const Index = () => {
       
       <Navigation />
       
-      <SimpleHeroVideo />
+      <HeroSection />
       
 
       {/* Introductory Text About Agency */}

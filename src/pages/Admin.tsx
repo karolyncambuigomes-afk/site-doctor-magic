@@ -23,7 +23,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
-import { SimpleHeroManager } from '@/components/SimpleHeroManager';
+
 import { ModelForm } from '@/components/ModelForm';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -155,11 +155,7 @@ export const Admin: React.FC = () => {
           </div>
 
           <Tabs defaultValue="models" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-7 bg-white border border-gray-300">
-              <TabsTrigger value="hero" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
-                <Image className="w-4 h-4 mr-2" />
-                Hero
-              </TabsTrigger>
+            <TabsList className="grid w-full grid-cols-6 bg-white border border-gray-300">
               <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black">
                 <Users className="w-4 h-4 mr-2" />
                 Modelos
@@ -186,19 +182,6 @@ export const Admin: React.FC = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="hero" className="space-y-6">
-              <Card className="bg-white border-gray-200 border">
-                <CardHeader>
-                  <CardTitle className="text-black">Gerenciar Hero Principal</CardTitle>
-                  <CardDescription className="text-gray-600">Configure o conteúdo da seção hero da homepage</CardDescription>
-                </CardHeader>
-                <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
-                  <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
-                    <SimpleHeroManager />
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
 
             <TabsContent value="models" className="space-y-6">
               <Card className="bg-white border-gray-200 border">

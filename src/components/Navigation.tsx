@@ -54,7 +54,7 @@ export const Navigation = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled || location.pathname === '/'
-        ? 'bg-background/95 backdrop-blur-sm border-b border-border/50' 
+        ? 'bg-gray-50/95 backdrop-blur-sm border-b border-gray-100' 
         : 'bg-transparent'
     }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

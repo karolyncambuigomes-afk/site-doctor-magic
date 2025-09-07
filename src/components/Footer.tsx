@@ -17,7 +17,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-background border-t border-border relative z-50 w-full"
+    <footer className="bg-gray-900 text-gray-100 relative z-50 w-full"
     >
       <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}
@@ -26,10 +26,10 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="text-sm font-medium text-foreground mb-4 tracking-wider uppercase">
+              <h3 className="text-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+              <p className="text-sm text-gray-300 mb-4 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -38,16 +38,16 @@ export const Footer = () => {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1"
+                  className="flex-1 bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-amber-400"
                   required
                 />
-                <Button type="submit" variant="default" className="px-6">
+                <Button type="submit" className="px-6 bg-white text-gray-900 hover:bg-amber-50">
                   Subscribe
                 </Button>
               </form>
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className="text-xs text-gray-400 mt-2">
                 By subscribing, you agree to our{' '}
-                <Link to="/privacy-policy" className="underline hover:text-foreground">
+                <Link to="/privacy-policy" className="underline hover:text-amber-400">
                   Privacy Policy
                 </Link>
               </p>
@@ -55,34 +55,34 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="text-sm font-medium text-foreground mb-4 tracking-wider uppercase">
+              <h4 className="text-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
               <div className="flex space-x-4">
                 <a
                   href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+                  className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-amber-400 transition-colors text-gray-300 hover:text-amber-400"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+                  className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-amber-400 transition-colors text-gray-300 hover:text-amber-400"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+                  className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-amber-400 transition-colors text-gray-300 hover:text-amber-400"
                   aria-label="Twitter"
                 >
                   <Twitter className="w-4 h-4" />
                 </a>
                 <a
                   href="https://wa.me/447436190679"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+                  className="w-10 h-10 border border-gray-700 rounded-full flex items-center justify-center hover:bg-gray-800 hover:border-amber-400 transition-colors text-gray-300 hover:text-amber-400"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -93,23 +93,23 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-foreground tracking-wider uppercase">
+            <h4 className="text-sm font-medium text-white tracking-wider uppercase">
               Our Services
             </h4>
             <div className="space-y-3">
-              <Link to="/models" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/models" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 Elite Companions
               </Link>
-              <Link to="/services" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/services" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 Premium Services
               </Link>
-              <Link to="/locations" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/locations" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 London Locations
               </Link>
-              <Link to="/characteristics" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/characteristics" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 Companion Types
               </Link>
-              <Link to="/blog" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/blog" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 Lifestyle Blog
               </Link>
             </div>
@@ -117,35 +117,35 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-foreground tracking-wider uppercase">
+            <h4 className="text-sm font-medium text-white tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">
               <a 
                 href="tel:+447436190679"
-                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center space-x-2 text-sm text-gray-300 hover:text-amber-400 transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center space-x-2 text-sm text-gray-300 hover:text-amber-400 transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
               </a>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <MapPin className="w-4 h-4" />
                 <span>Central London</span>
               </div>
-              <Link to="/faq" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/faq" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 FAQ
               </Link>
-              <Link to="/about" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/about" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 About Us
               </Link>
-              <Link to="/reviews" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/reviews" className="block text-sm text-gray-300 hover:text-amber-400 transition-colors">
                 Reviews
               </Link>
             </div>
@@ -153,13 +153,13 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 pt-8 border-t border-border">
+        <div className="mt-16 pt-8 border-t border-gray-800">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-300">
                 © {currentYear} Five London. All rights reserved.
               </p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-gray-400">
                 Premium companion services in London since 2020
               </p>
             </div>
@@ -167,17 +167,17 @@ export const Footer = () => {
             <div className="flex flex-wrap gap-6 text-sm">
               <Link 
                 to="/privacy-policy" 
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-gray-300 hover:text-amber-400 transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link 
                 to="/terms" 
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                className="text-gray-300 hover:text-amber-400 transition-colors"
               >
                 Terms of Service
               </Link>
-              <span className="text-muted-foreground">
+              <span className="text-gray-400">
                 Discretion Guaranteed
               </span>
             </div>

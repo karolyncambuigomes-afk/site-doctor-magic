@@ -59,7 +59,7 @@ const Index = () => {
       <HeroSection />
       
       {/* Introductory Text About Agency */}
-      <section className="py-20 md:py-32 bg-background">
+      <section className="py-20 md:py-32 bg-muted/30">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center space-y-8">
             <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-8">
@@ -75,7 +75,7 @@ const Index = () => {
 
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Featured Models Section */}
-        <section className="py-20 md:py-32 bg-background border-t border-border/30">
+        <section className="py-20 md:py-32 bg-background">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16 md:mb-24">
               <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
@@ -90,7 +90,7 @@ const Index = () => {
         </section>
 
         {/* Category Filters */}
-        <section className="py-20 md:py-32 bg-background border-t border-border/30">
+        <section className="py-20 md:py-32 bg-muted/30">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16 md:mb-24">
               <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
@@ -105,7 +105,7 @@ const Index = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-24 md:py-40 bg-background border-t border-border/30">
+        <section className="py-24 md:py-40 bg-background">
           <div className="max-w-md mx-auto px-4 text-center">
             <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
               Elite Companion

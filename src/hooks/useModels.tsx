@@ -97,10 +97,13 @@ export const useModels = () => {
         console.log('Models Hook - Transformed models:', transformedModels);
         setModels(transformedModels);
       } else if (hasAccess) {
-        // For premium users, get full data
+        // For premium users, get full data including gallery
         const { data, error: queryError } = await supabase
           .from('models')
-          .select('*')
+          .select(`
+            *,
+            model_gallery(image_url, order_index)
+          `)
           .order('created_at', { ascending: false });
 
         if (queryError) {
@@ -110,34 +113,41 @@ export const useModels = () => {
         }
 
         // Transform database data to match our Model interface
-        const transformedModels = data?.map((model: any) => ({
-          id: model.id,
-          name: model.name,
-          age: model.age,
-          location: model.location,
-          price: model.price,
-          pricing: model.pricing || {
-            oneHour: model.price || '£500',
-            twoHours: '£900',
-            threeHours: '£1,300',
-            additionalHour: '£400'
-          },
-          image: getImageUrl(model.image),
-          gallery: [model.image], // For now, use main image
-          services: model.services || [],
-          characteristics: model.characteristics || [],
-          availability: model.availability || 'available',
-          rating: model.rating || 0,
-          reviews: model.reviews || 0,
-          description: model.description || '',
-          height: model.height || '',
-          measurements: model.measurements || '',
-          hair: model.hair || '',
-          eyes: model.eyes || '',
-          nationality: model.nationality || '',
-          education: model.education || '',
-          interests: model.interests || []
-        })) || [];
+        const transformedModels = data?.map((model: any) => {
+          // Sort gallery images by order_index and extract URLs
+          const galleryImages = model.model_gallery
+            ?.sort((a: any, b: any) => a.order_index - b.order_index)
+            ?.map((img: any) => img.image_url) || [];
+          
+          return {
+            id: model.id,
+            name: model.name,
+            age: model.age,
+            location: model.location,
+            price: model.price,
+            pricing: model.pricing || {
+              oneHour: model.price || '£500',
+              twoHours: '£900',
+              threeHours: '£1,300',
+              additionalHour: '£400'
+            },
+            image: getImageUrl(model.image),
+            gallery: galleryImages, // Use actual gallery images
+            services: model.services || [],
+            characteristics: model.characteristics || [],
+            availability: model.availability || 'available',
+            rating: model.rating || 0,
+            reviews: model.reviews || 0,
+            description: model.description || '',
+            height: model.height || '',
+            measurements: model.measurements || '',
+            hair: model.hair || '',
+            eyes: model.eyes || '',
+            nationality: model.nationality || '',
+            education: model.education || '',
+            interests: model.interests || []
+          };
+        }) || [];
 
         setModels(transformedModels);
       } else {

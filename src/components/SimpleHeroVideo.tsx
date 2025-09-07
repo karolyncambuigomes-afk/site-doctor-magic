@@ -49,26 +49,43 @@ export const SimpleHeroVideo = () => {
 
     loadHeroContent();
 
-    // Force video play on any user interaction
+    // Enhanced video play functionality for both mobile and desktop
     const forceVideoPlay = () => {
       const videos = document.querySelectorAll('video');
       videos.forEach(video => {
         if (video.paused) {
-          video.play().catch(() => {
-            console.log('Could not autoplay video');
+          video.play().then(() => {
+            console.log('Video playing successfully');
+          }).catch((error) => {
+            console.log('Could not autoplay video:', error);
+            // Fallback: try again after a short delay
+            setTimeout(() => {
+              video.play().catch(() => console.log('Fallback video play failed'));
+            }, 1000);
           });
         }
       });
     };
 
-    // Listen for any user interaction to force video play
-    const events = ['click', 'scroll', 'touchstart', 'keydown', 'mousemove'];
+    // More comprehensive event listeners for both mobile and desktop
+    const events = ['click', 'scroll', 'touchstart', 'touchend', 'keydown', 'mousemove', 'mouseenter', 'focus'];
     events.forEach(event => {
-      document.addEventListener(event, forceVideoPlay, { once: true });
+      document.addEventListener(event, forceVideoPlay, { once: true, passive: true });
     });
 
+    // Additional desktop-specific triggers
+    const desktopEvents = ['mousedown', 'mouseup', 'wheel'];
+    desktopEvents.forEach(event => {
+      document.addEventListener(event, forceVideoPlay, { once: true, passive: true });
+    });
+
+    // Immediate play attempt for desktop
+    setTimeout(() => {
+      forceVideoPlay();
+    }, 500);
+
     return () => {
-      events.forEach(event => {
+      [...events, ...desktopEvents].forEach(event => {
         document.removeEventListener(event, forceVideoPlay);
       });
     };
@@ -90,13 +107,21 @@ export const SimpleHeroVideo = () => {
             muted
             playsInline
             preload="auto"
+            controls={false}
+            disablePictureInPicture
+            webkit-playsinline="true"
+            x5-playsinline="true"
             className="w-full h-full object-cover"
+            style={{ pointerEvents: 'none' }}
             onLoadedData={() => {
               console.log('Video loaded successfully');
               setIsLoaded(true);
             }}
             onError={(e) => {
               console.error('Video failed to load:', e);
+            }}
+            onCanPlay={() => {
+              console.log('Video can play');
             }}
           >
             <source src={heroContent.video_url} type="video/mp4" />

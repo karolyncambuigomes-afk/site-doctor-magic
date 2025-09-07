@@ -35,31 +35,27 @@ export const SimpleHeroVideo = () => {
       if (saved) {
         try {
           const savedContent = JSON.parse(saved);
+          console.log('Hero content loaded:', savedContent);
           setContent(savedContent);
         } catch (error) {
           console.error('Error loading hero content:', error);
         }
+      } else {
+        console.log('No saved hero content found, using defaults');
       }
     };
 
     loadContent();
 
-    // Escutar mudanças no localStorage para atualizar em tempo real
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'simple-hero-content' && e.newValue) {
-        try {
-          const savedContent = JSON.parse(e.newValue);
-          setContent(savedContent);
-        } catch (error) {
-          console.error('Error loading hero content from storage event:', error);
-        }
-      }
+    // Força reload quando a página é focada (útil para mobile)
+    const handleFocus = () => {
+      loadContent();
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('focus', handleFocus);
     
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 

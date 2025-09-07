@@ -94,10 +94,10 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-16 md:mb-24">
               <h2 className="font-display text-2xl md:text-3xl font-light tracking-widest uppercase text-foreground mb-6">
-                Perfect Match
+                Browse Collection
               </h2>
               <p className="text-muted-foreground font-light max-w-lg mx-auto">
-                Browse by your preferences to discover the ideal companion
+                Explore our categories to discover your ideal companion
               </p>
             </div>
             <CategoryFilters />

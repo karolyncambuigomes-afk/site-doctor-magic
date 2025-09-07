@@ -63,6 +63,12 @@ export const Membership: React.FC = () => {
             <p className="text-lg md:text-xl text-muted-foreground font-light tracking-widest">
               Exclusive Membership
             </p>
+            <div className="max-w-2xl mx-auto mt-8">
+              <p className="text-base md:text-lg text-muted-foreground font-light leading-relaxed">
+                Access our exclusive collection of sophisticated companions in London. 
+                Complete privacy and discretion guaranteed with premium features and priority support.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -91,7 +97,7 @@ export const Membership: React.FC = () => {
                       )}
                     </div>
                     <span className="font-light text-lg">
-                      {hasAccess ? 'Premium Member' : 'Guest Access'}
+                      {hasAccess ? 'Active Access' : 'Guest Access'}
                     </span>
                   </div>
                 </CardContent>
@@ -177,6 +183,25 @@ export const Membership: React.FC = () => {
             >
               Contact us discreetly
             </Button>
+          </div>
+        </section>
+
+        {/* Divider */}
+        <div className="py-3">
+          <div className="container-width">
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
+          </div>
+        </div>
+
+        {/* Billing Discretion Section */}
+        <section className="py-16 md:py-20 bg-muted/10">
+          <div className="text-center max-w-md mx-auto">
+            <p className="text-sm text-muted-foreground font-light mb-2">
+              Complete Discretion
+            </p>
+            <p className="text-xs text-muted-foreground font-light leading-relaxed">
+              Your credit card statement will show "London Department Store" for complete privacy and discretion.
+            </p>
           </div>
         </section>
       </div>

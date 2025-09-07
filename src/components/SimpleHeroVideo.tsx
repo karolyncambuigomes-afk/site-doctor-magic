@@ -69,13 +69,30 @@ export const SimpleHeroVideo = () => {
               objectFit: 'cover'
             }}
             onLoadedData={() => setIsLoaded(true)}
-            onError={() => setIsLoaded(false)}
+            onError={(e) => {
+              console.error('Video failed to load:', e);
+              setIsLoaded(false);
+            }}
             onCanPlay={(e) => {
               const video = e.currentTarget;
-              video.play().catch(console.error);
+              console.log('Video can play, attempting autoplay...');
+              video.play().then(() => {
+                console.log('Video playing successfully');
+              }).catch((error) => {
+                console.error('Autoplay failed:', error);
+                // Fallback: Try to play after a brief delay
+                setTimeout(() => {
+                  video.play().catch(() => {
+                    console.log('Autoplay blocked by browser policy');
+                  });
+                }, 100);
+              });
             }}
+            onLoadStart={() => console.log('Video started loading')}
+            onLoadedMetadata={() => console.log('Video metadata loaded')}
           >
             <source src={heroContent.video_url} type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
         )}
         

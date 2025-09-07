@@ -73,20 +73,20 @@ export const SimpleHeroVideo = () => {
       ></div>
       
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center justify-center">
-        <div className="text-center px-4 sm:px-6 max-w-xl md:max-w-2xl mx-auto">
-          <div className="space-y-4 md:space-y-6">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-wide leading-tight">
+      <div className="relative z-20 h-full flex items-end justify-center pb-20 md:pb-24">
+        <div className="text-center px-4 sm:px-6 max-w-md mx-auto">
+          <div className="space-y-2 md:space-y-3">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-light text-white tracking-[0.3em] uppercase leading-tight">
               {content.title}
             </h1>
             
-            <p className="text-lg md:text-xl text-white/80 font-light tracking-wide leading-relaxed">
+            <p className="text-xs sm:text-sm text-white/70 font-light tracking-[0.2em] uppercase leading-relaxed">
               {content.subtitle}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            <div className="flex flex-col items-center justify-center gap-3 pt-6">
               <a href={content.button_link} className="inline-block">
-                <button className="w-full sm:w-auto px-8 py-3 text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
+                <button className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
                   {content.button_text}
                 </button>
               </a>
@@ -97,7 +97,7 @@ export const SimpleHeroVideo = () => {
                 rel="noopener noreferrer"
                 className="inline-block"
               >
-                <button className="w-full sm:w-auto px-8 py-3 text-sm uppercase tracking-widest font-light border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300">
+                <button className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
                   Contact
                 </button>
               </a>

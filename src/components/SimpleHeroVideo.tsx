@@ -76,13 +76,14 @@ export const SimpleHeroVideo = () => {
           />
         )}
         
-        {/* Video overlay - loads instantly */}
+        {/* Video overlay with poster image */}
         {heroContent.media_type === 'video' && heroContent.video_url && (
           <video
             autoPlay
             loop
             muted
             playsInline
+            poster={heroContent.image_url}
             preload="metadata"
             controls={false}
             disablePictureInPicture

@@ -29,33 +29,40 @@ export const SimpleHeroVideo = () => {
   });
 
   useEffect(() => {
-    // Carregar configurações salvas do admin
+    // Carregar configurações salvas do admin com cache bust
     const loadContent = () => {
-      const saved = localStorage.getItem('simple-hero-content');
-      if (saved) {
-        try {
+      try {
+        // Força uma nova leitura do localStorage
+        const saved = localStorage.getItem('simple-hero-content');
+        console.log('Raw localStorage data:', saved);
+        
+        if (saved) {
           const savedContent = JSON.parse(saved);
-          console.log('Hero content loaded:', savedContent);
+          console.log('Parsed hero content:', savedContent);
+          console.log('Setting image_url to:', savedContent.image_url);
           setContent(savedContent);
-        } catch (error) {
-          console.error('Error loading hero content:', error);
+        } else {
+          console.log('No saved hero content found, using defaults');
+          console.log('Default image_url:', content.image_url);
         }
-      } else {
-        console.log('No saved hero content found, using defaults');
+      } catch (error) {
+        console.error('Error loading hero content:', error);
       }
     };
 
+    // Carrega imediatamente
     loadContent();
 
-    // Força reload quando a página é focada (útil para mobile)
-    const handleFocus = () => {
-      loadContent();
-    };
-
-    window.addEventListener('focus', handleFocus);
+    // Força reload a cada 2 segundos por alguns ciclos para debug
+    const intervalId = setInterval(loadContent, 2000);
     
+    // Limpa o interval após 10 segundos
+    setTimeout(() => {
+      clearInterval(intervalId);
+    }, 10000);
+
     return () => {
-      window.removeEventListener('focus', handleFocus);
+      clearInterval(intervalId);
     };
   }, []);
 

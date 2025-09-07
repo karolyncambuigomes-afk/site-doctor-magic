@@ -17,7 +17,13 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-background border-t border-border relative z-50 w-full"
+    <footer 
+      className="bg-background border-t border-border relative z-50 w-full block"
+      style={{ 
+        display: 'block !important',
+        position: 'relative',
+        minHeight: '200px'
+      }}
     >
       <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}

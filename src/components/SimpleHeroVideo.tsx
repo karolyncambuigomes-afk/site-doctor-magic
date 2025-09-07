@@ -83,37 +83,31 @@ export const SimpleHeroVideo = () => {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             controls={false}
             disablePictureInPicture
             controlsList="nodownload nofullscreen noremoteplayback"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-0 transition-opacity duration-300"
             style={{ 
               pointerEvents: 'none',
-              objectFit: 'cover'
+              objectFit: 'cover',
+              opacity: isLoaded ? 1 : 0
             }}
-            onLoadedData={() => setIsLoaded(true)}
-            onError={(e) => {
-              console.error('Video failed to load:', e);
-              setIsLoaded(false);
+            onLoadedData={() => {
+              setIsLoaded(true);
+              const video = document.querySelector('video');
+              if (video) {
+                video.play().catch(() => {
+                  // Silent fail for autoplay restrictions
+                });
+              }
             }}
             onCanPlay={(e) => {
               const video = e.currentTarget;
-              console.log('Video can play, attempting autoplay...');
-              video.play().then(() => {
-                console.log('Video playing successfully');
-              }).catch((error) => {
-                console.error('Autoplay failed:', error);
-                // Fallback: Try to play after a brief delay
-                setTimeout(() => {
-                  video.play().catch(() => {
-                    console.log('Autoplay blocked by browser policy');
-                  });
-                }, 100);
+              video.play().catch(() => {
+                // Silent fail for autoplay restrictions
               });
             }}
-            onLoadStart={() => console.log('Video started loading')}
-            onLoadedMetadata={() => console.log('Video metadata loaded')}
           >
             <source src={heroContent.video_url} type="video/mp4" />
             Your browser does not support the video tag.

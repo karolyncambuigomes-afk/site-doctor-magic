@@ -37,6 +37,30 @@ export const SimpleHeroVideo = () => {
         console.error('Error loading hero content:', error);
       }
     }
+
+    // Force video play on any user interaction
+    const forceVideoPlay = () => {
+      const videos = document.querySelectorAll('video');
+      videos.forEach(video => {
+        if (video.paused) {
+          video.play().catch(() => {
+            console.log('Could not autoplay video');
+          });
+        }
+      });
+    };
+
+    // Listen for any user interaction
+    const events = ['click', 'scroll', 'touchstart', 'keydown'];
+    events.forEach(event => {
+      document.addEventListener(event, forceVideoPlay, { once: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, forceVideoPlay);
+      });
+    };
   }, []);
 
   return (

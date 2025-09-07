@@ -7,8 +7,9 @@ import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageUpload } from '@/components/ImageUpload';
 import { VideoUpload } from '@/components/VideoUpload';
-import { Save, Video, Image as ImageIcon } from 'lucide-react';
+import { Save, Video, Image as ImageIcon, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import heroElegantWoman from '@/assets/hero-elegant-woman.jpg';
 
 interface HeroContent {
   id: string;
@@ -31,10 +32,10 @@ export const SimpleHeroManager: React.FC = () => {
     subtitle: 'Premier luxury companion services',
     button_text: 'View Our Models',
     button_link: '/models',
-    image_url: '/images/model1.jpg',
+    image_url: heroElegantWoman,
     video_url: null,
     media_type: 'image',
-    overlay_opacity: 30,
+    overlay_opacity: 70,
     show_scroll_indicator: true
   });
   const [loading, setLoading] = useState(true);
@@ -87,6 +88,26 @@ export const SimpleHeroManager: React.FC = () => {
 
   const updateField = (field: keyof HeroContent, value: any) => {
     setContent({ ...content, [field]: value });
+  };
+
+  const resetToDefault = () => {
+    const defaultContent = {
+      id: 'main-hero',
+      title: 'Five London',
+      subtitle: 'Premier luxury companion services',
+      button_text: 'View Our Models',
+      button_link: '/models',
+      image_url: heroElegantWoman,
+      video_url: null,
+      media_type: 'image' as const,
+      overlay_opacity: 70,
+      show_scroll_indicator: true
+    };
+    setContent(defaultContent);
+    toast({
+      title: "Configurações Resetadas",
+      description: "As configurações foram restauradas para o padrão"
+    });
   };
 
   if (loading) {
@@ -283,7 +304,16 @@ export const SimpleHeroManager: React.FC = () => {
           </div>
 
           {/* Salvar */}
-          <div className="flex justify-end pt-4 border-t">
+          <div className="flex justify-between items-center pt-4 border-t">
+            <Button 
+              onClick={resetToDefault}
+              variant="outline"
+              size="lg"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Restaurar Padrão
+            </Button>
+            
             <Button 
               onClick={saveHeroContent}
               disabled={saving}

@@ -114,66 +114,21 @@ export const HeroCarousel = () => {
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
               <video
-                key={`video-${slide.id}-${currentSlide}-${index}`}
+                key={`video-${slide.id}-${currentSlide}`}
                 src={slide.video_url}
-                autoPlay={index === currentSlide}
+                autoPlay
                 loop
                 muted
                 playsInline
-                preload="metadata"
-                controls={false}
-                poster={slide.image_url}
+                preload="none"
                 className="w-full h-full object-cover"
                 style={{ 
-                  display: index === currentSlide ? 'block' : 'none',
-                  pointerEvents: 'none'
+                  display: index === currentSlide ? 'block' : 'none'
                 }}
-                onLoadStart={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  video.muted = true;
-                }}
-                onLoadedMetadata={(e) => {
+                onCanPlayThrough={(e) => {
                   const video = e.target as HTMLVideoElement;
                   if (index === currentSlide) {
-                    video.currentTime = 0;
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                      playPromise.catch((error) => {
-                        console.log('Video autoplay blocked, retrying...');
-                        setTimeout(() => {
-                          video.currentTime = 0;
-                          video.play().catch(console.error);
-                        }, 100);
-                      });
-                    }
-                  }
-                }}
-                onTimeUpdate={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  // Restart video if it gets paused unexpectedly
-                  if (video.paused && index === currentSlide) {
-                    video.play().catch(console.error);
-                  }
-                }}
-                onStalled={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  console.log('Video stalled, reloading...');
-                  video.load();
-                  if (index === currentSlide) {
-                    setTimeout(() => {
-                      video.currentTime = 0;
-                      video.play().catch(console.error);
-                    }, 200);
-                  }
-                }}
-                onWaiting={(e) => {
-                  const video = e.target as HTMLVideoElement;
-                  if (index === currentSlide) {
-                    setTimeout(() => {
-                      if (video.readyState >= 2) {
-                        video.play().catch(console.error);
-                      }
-                    }, 500);
+                    video.play().catch(() => {});
                   }
                 }}
               />

@@ -181,13 +181,18 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       </div>
 
       {isAdding && (
-        <div className="border border-gray-200 rounded-lg p-4 space-y-4 bg-gray-50">
+        <div className="border-2 border-primary/20 rounded-lg p-4 space-y-4 bg-primary/5">
+          <div className="flex items-center gap-2 mb-2">
+            <Plus className="w-5 h-5 text-primary" />
+            <h4 className="font-medium text-primary">Adicionar à Galeria</h4>
+          </div>
           <div>
-            <Label>Nova Imagem</Label>
+            <Label>Nova Imagem para Galeria</Label>
             <ImageUpload
               value={newImageUrl}
               onChange={setNewImageUrl}
-              placeholder="Selecione uma imagem para a galeria"
+              label="Foto da Galeria"
+              placeholder="URL da imagem para galeria ou faça upload"
             />
           </div>
           

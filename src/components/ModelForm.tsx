@@ -388,11 +388,14 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       <Card>
         <CardHeader>
           <CardTitle>Foto Principal</CardTitle>
+          <p className="text-sm text-muted-foreground">Esta será a foto de perfil que aparece na lista de modelos</p>
         </CardHeader>
         <CardContent>
           <ImageUpload
             value={formData.image || ''}
             onChange={(url) => handleInputChange('image', url)}
+            label="Foto de Perfil"
+            placeholder="URL da foto principal ou faça upload"
           />
         </CardContent>
       </Card>
@@ -401,14 +404,30 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       <Card>
         <CardHeader>
           <CardTitle>Galeria de Fotos</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            {model?.id 
+              ? "Adicione fotos extras que aparecerão na página de detalhes da modelo" 
+              : "Salve primeiro as informações básicas para poder adicionar fotos à galeria"
+            }
+          </p>
         </CardHeader>
         <CardContent>
           {model?.id ? (
             <GalleryUpload modelId={model.id} />
           ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              <p className="mb-2">A galeria de fotos estará disponível após salvar o modelo.</p>
-              <p className="text-sm">Primeiro salve as informações básicas e depois você poderá adicionar mais fotos.</p>
+            <div className="text-center py-8 border-2 border-dashed border-muted rounded-lg">
+              <p className="mb-2 font-medium">Galeria indisponível</p>
+              <p className="text-sm text-muted-foreground">
+                Primeiro salve as informações básicas e depois você poderá adicionar fotos à galeria
+              </p>
+              <Button 
+                type="submit" 
+                variant="outline" 
+                className="mt-4"
+                disabled={!formData.name}
+              >
+                {loading ? 'Salvando...' : 'Salvar para Habilitar Galeria'}
+              </Button>
             </div>
           )}
         </CardContent>

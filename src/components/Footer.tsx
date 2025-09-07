@@ -9,12 +9,15 @@ export const Footer = () => {
   const [email, setEmail] = useState('');
 
   // Debug footer rendering
+  console.log('=== FOOTER DEBUG ===');
   console.log('Footer component rendered');
   
   // Detectar se é mobile
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
   console.log('Footer - Device type:', isMobile ? 'mobile' : 'desktop');
   console.log('Footer - Window dimensions:', typeof window !== 'undefined' ? { width: window.innerWidth, height: window.innerHeight } : 'SSR');
+  console.log('Footer - Document height:', typeof document !== 'undefined' ? document.body.scrollHeight : 'N/A');
+  console.log('Footer - Viewport height:', typeof window !== 'undefined' ? window.innerHeight : 'N/A');
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();

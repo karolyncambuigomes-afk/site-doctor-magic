@@ -54,6 +54,11 @@ const Index = () => {
       
       <Navigation />
       
+      {/* TESTE: Footer ANTES do main para debug */}
+      <div style={{ backgroundColor: 'blue', color: 'white', padding: '20px', fontSize: '20px' }}>
+        TESTE FOOTER ANTES DO MAIN - MOBILE DEBUG
+      </div>
+      
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
         {/* Hero Video temporariamente removido para testes */}
         {/* <SimpleHeroVideo /> */}

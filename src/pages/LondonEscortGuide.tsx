@@ -44,16 +44,35 @@ const LondonEscortGuide = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-12 md:py-20 bg-background">
-          <div className="container-width">
-            <div className="text-center max-w-4xl mx-auto px-4">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-6">
+        <section className="py-20 md:py-32 bg-gradient-to-br from-background via-background/95 to-muted">
+          <div className="container-width mx-auto px-6">
+            <div className="text-center mb-20">
+              <h1 className="heading-display text-4xl md:text-6xl text-primary mb-8">
                 Complete London Escort Guide
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+              <div className="w-24 h-0.5 bg-gradient-primary mx-auto mb-12"></div>
+              <p className="body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-12">
                 Your comprehensive guide to elite companionship services in London. 
                 Everything you need to know about premium escort services, best areas, and booking etiquette.
               </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div className="text-center p-6">
+                  <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Premium Locations</h3>
+                  <p className="text-sm text-muted-foreground">London's most exclusive districts</p>
+                </div>
+                <div className="text-center p-6">
+                  <Star className="w-8 h-8 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Elite Service</h3>
+                  <p className="text-sm text-muted-foreground">Unparalleled luxury experiences</p>
+                </div>
+                <div className="text-center p-6">
+                  <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">Complete Discretion</h3>
+                  <p className="text-sm text-muted-foreground">Absolute confidentiality</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

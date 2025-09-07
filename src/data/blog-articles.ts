@@ -72,7 +72,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each of these restaurants offers a unique experience, perfect for creating special memories during your stay in London.</p>
     `,
-    image: "/api/placeholder/800/600",
+    image: "/src/assets/blog-restaurant-dining.jpg",
     publishedAt: "2024-01-15",
     author: "Five London Team",
     category: "Dining",
@@ -149,7 +149,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These events represent the best of London's social life and offer unique opportunities to experience British culture and traditions in their most refined form.</p>
     `,
-    image: "/api/placeholder/800/600",
+    image: "/src/assets/blog-london-events.jpg",
     publishedAt: "2024-01-10",
     author: "Five London Team",
     category: "Events",
@@ -247,7 +247,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These experiences represent the best London has to offer for visitors seeking something truly special and memorable, providing access to aspects of the city that few have the privilege to know.</p>
     `,
-    image: "/api/placeholder/800/600",
+    image: "/src/assets/blog-exclusive-experiences.jpg",
     publishedAt: "2024-01-05",
     author: "Five London Team",
     category: "Experiences",
@@ -386,7 +386,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each hotel offers a unique interpretation of London luxury, from centuries-old tradition to contemporary innovation. The right choice depends on personal style and desired experiences during your stay in the British capital.</p>
     `,
-    image: "/api/placeholder/800/600",
+    image: "/src/assets/blog-luxury-hotels.jpg",
     publishedAt: "2023-12-28",
     author: "Five London Team",
     category: "Accommodation",

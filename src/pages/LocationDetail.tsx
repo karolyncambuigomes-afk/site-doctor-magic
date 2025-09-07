@@ -14,8 +14,17 @@ const LocationDetail = () => {
   const { locationSlug } = useParams();
   const { models, loading, error } = useModels();
   
-  // Find the location by matching the complete slug
-  const location = locations.find(loc => loc.slug === locationSlug);
+  // Get current path to determine the slug format
+  const currentPath = window.location.pathname;
+  
+  // Find the location by matching either format: /locations/slug or /escorts-in-location
+  let location = locations.find(loc => loc.slug === locationSlug);
+  
+  // If not found and we're on a specific /escorts-in-* route, extract the location name
+  if (!location && currentPath.startsWith('/escorts-in-')) {
+    const locationName = currentPath.replace('/escorts-in-', '');
+    location = locations.find(loc => loc.slug === `escorts-in-${locationName}`);
+  }
   
   if (!location) {
     return <Navigate to="/404" replace />;
@@ -82,28 +91,67 @@ const LocationDetail = () => {
         
         <main className="pt-16">
           {/* Hero Section with rich content */}
-          <section className="py-16 md:py-24 bg-white">
-            <div className="max-w-6xl mx-auto px-4">
-              <div className="text-center mb-16">
-                <h1 className="font-sans text-3xl md:text-5xl font-extralight tracking-wide text-black mb-6">
+          <section className="py-20 md:py-32 bg-gradient-to-br from-white via-neutral-50 to-gray-100">
+            <div className="container-width mx-auto px-6">
+              <div className="text-center mb-20">
+                <h1 className="heading-display text-4xl md:text-6xl text-primary mb-8">
                   Luxury Escorts in {location.name}
                 </h1>
-                <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                <div className="w-24 h-0.5 bg-gradient-primary mx-auto mb-12"></div>
+                <p className="body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-8">
                   Exclusive Five London offers high-class companions in the heart of {location.name}. Known for elegance, sophistication, and discretion, our {location.name} escorts are available for private dinners, events, and unforgettable moments in London's most exclusive district.
                 </p>
+                
+                {/* Location features */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
+                  <div className="text-center p-6">
+                    <Users className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">Elite Companions</h3>
+                    <p className="text-sm text-muted-foreground">Carefully selected models</p>
+                  </div>
+                  <div className="text-center p-6">
+                    <Star className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">Premium Service</h3>
+                    <p className="text-sm text-muted-foreground">Exceptional experiences</p>
+                  </div>
+                  <div className="text-center p-6">
+                    <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">Total Discretion</h3>
+                    <p className="text-sm text-muted-foreground">Complete confidentiality</p>
+                  </div>
+                </div>
               </div>
+            </div>
+          </section>
+
+          {/* Location Content Section */}
+          <section className="py-16 md:py-24 bg-white">
+            <div className="container-width mx-auto px-6">
+              <div 
+                className="prose prose-lg max-w-4xl mx-auto text-foreground"
+                dangerouslySetInnerHTML={{ __html: location.content }}
+              />
             </div>
           </section>
 
 
           {/* Available Models */}
-          <section className="py-16 md:py-24 bg-gray-50">
-            <div className="max-w-6xl mx-auto px-4">
+          <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+            <div className="container-width mx-auto px-6">
+              <div className="text-center mb-16">
+                <h2 className="heading-display text-3xl md:text-4xl text-primary mb-6">
+                  Available Companions in {location.name}
+                </h2>
+                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+                  Meet our exclusive selection of sophisticated companions available in {location.name}
+                </p>
+              </div>
               
               {loading ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-600">Loading companions...</p>
+                <div className="text-center py-16">
+                  <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-muted-foreground">Loading companions...</p>
                 </div>
               ) : locationModels.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -112,13 +160,16 @@ const LocationDetail = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-16">
-                  <p className="text-gray-600 mb-6">
+                <div className="text-center py-20">
+                  <Clock className="w-12 h-12 text-muted-foreground mx-auto mb-6" />
+                  <h3 className="text-xl font-semibold mb-4">Available Throughout London</h3>
+                  <p className="text-muted-foreground mb-8 max-w-md mx-auto">
                     Our companions are available throughout London and can meet you in {location.name}.
                   </p>
                   <Link to="/models">
-                    <Button variant="outline" className="border-black/20 hover:border-black/40">
+                    <Button variant="luxury" size="lg">
                       View All Companions
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                 </div>
@@ -126,56 +177,89 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* Internal Links */}
-          <section className="py-16 bg-white">
-            <div className="max-w-4xl mx-auto px-4 text-center">
-              <p className="text-lg text-gray-700 mb-4">
-                Explore also{" "}
-                {otherLocations.slice(0, 3).map((loc, index) => (
-                  <span key={loc.id}>
-                    <Link 
-                      to={`/locations/${loc.slug}`}
-                      className="text-black hover:text-gray-700 underline transition-colors"
-                    >
+          {/* Other Locations */}
+          <section className="py-16 md:py-20 bg-background">
+            <div className="container-width mx-auto px-6">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
+                  Explore Other Locations
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  Discover our premium escort services in London's most exclusive districts
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                {otherLocations.slice(0, 6).map((loc) => (
+                  <Link 
+                    key={loc.id}
+                    to={`/${loc.slug}`}
+                    className="group p-6 bg-card hover:bg-accent rounded-lg border border-border transition-all duration-300 hover:shadow-elegant"
+                  >
+                    <MapPin className="w-5 h-5 text-primary mb-3" />
+                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
                       {loc.name} Escorts
-                    </Link>
-                    {index < 2 && " · "}
-                  </span>
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {loc.description}
+                    </p>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors mt-3" />
+                  </Link>
                 ))}
-              </p>
+              </div>
             </div>
           </section>
 
           {/* Contact CTA */}
-          <section className="py-16 md:py-24 bg-black text-white">
-            <div className="max-w-4xl mx-auto px-4 text-center">
-              <h2 className="font-sans text-2xl md:text-4xl font-extralight tracking-wide mb-6">
+          <section className="py-20 md:py-28 bg-gradient-to-br from-primary via-primary-dark to-black text-white">
+            <div className="container-width mx-auto px-6 text-center">
+              <h2 className="heading-display text-3xl md:text-5xl mb-8">
                 Book Your {location.name} Experience
               </h2>
-              <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
-                Contact our experienced concierge team to arrange your perfect companion in {location.name}.
+              <p className="body-lg text-white/90 leading-relaxed mb-12 max-w-3xl mx-auto">
+                Contact our experienced concierge team to arrange your perfect companion in {location.name}. 
+                Discretion, elegance, and exceptional service guaranteed.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
                 <a 
                   href="tel:+447436190679"
-                  className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
+                  className="group bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-luxury"
                 >
-                  <Phone className="w-8 h-8 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-medium mb-2">Call Us</h3>
-                  <p className="text-white/70 mb-3">Speak directly with our team</p>
-                  <span className="text-white font-medium">+44 7436 190679</span>
+                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                    <Phone className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Call Our Concierge</h3>
+                  <p className="text-white/80 mb-4">Speak directly with our experienced team</p>
+                  <span className="text-white font-medium text-lg">+44 7436 190679</span>
                 </a>
 
                 <a 
                   href="https://wa.me/447436190679"
-                  className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
+                  className="group bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-luxury"
                 >
-                  <MessageCircle className="w-8 h-8 text-white mx-auto mb-4" />
-                  <h3 className="text-lg font-medium mb-2">WhatsApp</h3>
-                  <p className="text-white/70 mb-3">Quick and discreet messaging</p>
-                  <span className="text-white font-medium">Send Message</span>
+                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
+                    <MessageCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">WhatsApp Message</h3>
+                  <p className="text-white/80 mb-4">Quick and discreet messaging</p>
+                  <span className="text-white font-medium text-lg">Send Message</span>
                 </a>
+              </div>
+              
+              <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4" />
+                  <span>100% Discreet</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span>Available 24/7</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4" />
+                  <span>Premium Service</span>
+                </div>
               </div>
             </div>
           </section>

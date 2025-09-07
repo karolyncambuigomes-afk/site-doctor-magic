@@ -55,7 +55,15 @@ const App = () => (
               <Route path="/models" element={<Models />} />
               <Route path="/models/:id" element={<ModelProfile />} />
               <Route path="/locations" element={<Locations />} />
-              <Route path="/locations/:locationSlug" element={<LocationDetail />} />
+          <Route path="/locations/:locationSlug" element={<LocationDetail />} />
+          {/* Specific location routes for SEO */}
+          <Route path="/escorts-in-mayfair" element={<LocationDetail />} />
+          <Route path="/escorts-in-knightsbridge" element={<LocationDetail />} />
+          <Route path="/escorts-in-chelsea" element={<LocationDetail />} />
+          <Route path="/escorts-in-belgravia" element={<LocationDetail />} />
+          <Route path="/escorts-in-kensington" element={<LocationDetail />} />
+          <Route path="/escorts-in-canary-wharf" element={<LocationDetail />} />
+          <Route path="/escorts-in-notting-hill" element={<LocationDetail />} />
               <Route path="/characteristics" element={<Characteristics />} />
           <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
           <Route path="/london-escort-guide" element={<LondonEscortGuide />} />

@@ -6,6 +6,11 @@ import model4 from '@/assets/model4.jpg';
 import kate1 from '@/assets/kate1.jpg';
 import luisa1 from '@/assets/luisa1.jpg';
 import heroMain from '@/assets/hero-main.jpg';
+import blogRestaurantDining from '@/assets/blog-restaurant-dining.jpg';
+import blogLondonEvents from '@/assets/blog-london-events.jpg';
+import blogExclusiveExperiences from '@/assets/blog-exclusive-experiences.jpg';
+import blogLuxuryHotels from '@/assets/blog-luxury-hotels.jpg';
+import blogEntertainmentCulture from '@/assets/blog-entertainment-culture.jpg';
 
 // Map database image paths to actual imports
 const imageMap: Record<string, string> = {
@@ -23,6 +28,11 @@ const imageMap: Record<string, string> = {
   '/images/luisa1.jpg': luisa1,
   '/src/assets/hero-main.jpg': heroMain,
   '/images/hero-main.jpg': heroMain,
+  '/src/assets/blog-restaurant-dining.jpg': blogRestaurantDining,
+  '/src/assets/blog-london-events.jpg': blogLondonEvents,
+  '/src/assets/blog-exclusive-experiences.jpg': blogExclusiveExperiences,
+  '/src/assets/blog-luxury-hotels.jpg': blogLuxuryHotels,
+  '/src/assets/blog-entertainment-culture.jpg': blogEntertainmentCulture,
 };
 
 export const getImageUrl = (imagePath: string): string => {

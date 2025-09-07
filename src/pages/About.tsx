@@ -85,14 +85,14 @@ const About = () => {
       
       <main className="pt-12 sm:pt-16">
         {/* Hero Section */}
-        <section className="py-12 md:py-16 lg:py-20 xl:py-24 bg-background">
-          <div className="container-width">
-            <div className="text-center mb-16 px-4 md:px-0">
+        <section className="py-20 md:py-32 bg-gradient-to-br from-background via-background/95 to-muted">
+          <div className="container-width mx-auto px-6">
+            <div className="text-center mb-20">
               {/* Hidden SEO H1 */}
               <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
               
               {/* Main heading */}
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-6 md:mb-8">
+              <h2 className="heading-display text-4xl md:text-6xl text-primary mb-8">
                 Five London Elite Escorts
               </h2>
               <div className="w-16 h-0.5 bg-foreground mx-auto mb-8 md:mb-12"></div>

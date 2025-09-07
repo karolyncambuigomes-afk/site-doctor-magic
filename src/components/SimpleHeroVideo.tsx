@@ -32,9 +32,15 @@ export const SimpleHeroVideo = () => {
     const loadHeroContent = async () => {
       try {
         const saved = localStorage.getItem('simple-hero-content');
+        console.log('Saved hero content from localStorage:', saved);
+        
         if (saved) {
           const parsedContent = JSON.parse(saved);
+          console.log('Parsed hero content:', parsedContent);
           setHeroContent(parsedContent);
+        } else {
+          console.log('No saved content found, using default values');
+          console.log('Default hero content:', heroContent);
         }
       } catch (error) {
         console.error('Error loading hero content:', error);
@@ -68,8 +74,13 @@ export const SimpleHeroVideo = () => {
     };
   }, []);
 
+  console.log('Current hero content state:', heroContent);
+  console.log('Media type:', heroContent.media_type);
+  console.log('Video URL:', heroContent.video_url);
+  console.log('Image URL:', heroContent.image_url);
+
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden bg-gray-900">
       {/* Background Media */}
       <div className="absolute inset-0 z-0">
         {heroContent.media_type === 'video' && heroContent.video_url ? (

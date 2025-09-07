@@ -89,11 +89,15 @@ const About = () => {
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-5 md:space-y-6 text-center lg:text-left px-4 md:px-0">
-                <h1 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight">
-                  Elite London <span className="text-primary">Escort Agency</span>
-                </h1>
+                {/* Hidden SEO H1 */}
+                <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
+                
+                {/* Visible elegant heading */}
+                <h2 className="text-3xl md:text-4xl lg:text-6xl font-light tracking-tight">
+                  Elite London <span className="text-primary">Companion Agency</span>
+                </h2>
                 <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  Established 2018. London's premier luxury escort agency offering the finest high-class companions. Beautiful, intelligent, sophisticated. Available 24/7.
+                  Established 2018. London's premier luxury companion agency offering the finest elite companions. Beautiful, intelligent, sophisticated. Available 24/7.
                 </p>
                 <Button 
                   size="lg"
@@ -142,7 +146,7 @@ const About = () => {
                   Why Choose <span className="text-primary">Five London</span>
                 </h2>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  London's most exclusive escort agency. Our elite companions combine exceptional beauty with intelligence, sophistication, and genuine warmth.
+                  London's most exclusive companion agency. Our elite companions combine exceptional beauty with intelligence, sophistication, and genuine warmth.
                 </p>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                   Handpicked for their education, elegance, and conversational skills. Every encounter is crafted for complete satisfaction and absolute discretion.
@@ -350,7 +354,7 @@ const About = () => {
                 Experience <span className="text-primary">Five London</span>
               </h2>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  Ready to experience London's finest high-class escorts? Join hundreds of satisfied clients who choose Five London for unforgettable encounters.
+                  Ready to experience London's finest elite companions? Join hundreds of satisfied clients who choose Five London for unforgettable encounters.
                 </p>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
@@ -367,7 +371,7 @@ const About = () => {
                   className="px-6 md:px-8 py-3 w-full sm:w-auto"
                   onClick={() => window.location.href = '/models'}
                 >
-                  Browse Elite Escorts
+                  Browse Elite Companions
                 </Button>
               </div>
             </div>

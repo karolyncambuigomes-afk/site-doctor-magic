@@ -18,16 +18,20 @@ export const HeroSection = () => {
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-6">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
-              Elite London Escorts
-            </h1>
+            {/* SEO H1 - Hidden but present for search engines */}
+            <h1 className="sr-only">Elite London Escorts - Premium High-Class Escort Agency</h1>
+            
+            {/* Visible H1 - Elegant terminology */}
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
+              Elite London Companions
+            </h2>
             
             <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
               Exquisite. Exclusive. Unforgettable.
             </p>
             
             <p className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
-              London's premier luxury escort agency offering sophisticated high-class companions for discerning gentlemen. Experience exceptional beauty, intelligence, and genuine connection.
+              London's premier luxury companion agency offering sophisticated elite companions for discerning gentlemen. Experience exceptional beauty, intelligence, and genuine connection.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">

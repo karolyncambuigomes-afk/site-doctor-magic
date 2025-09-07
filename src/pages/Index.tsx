@@ -44,11 +44,15 @@ const Index = () => {
         {/* Services Section - Minimal */}
         <section className="py-20 md:py-32 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-              London's Finest High-Class Escorts
-            </h2>
+            {/* Hidden SEO heading */}
+            <h2 className="sr-only">London's Finest High-Class Escorts - Premium Escort Services</h2>
+            
+            {/* Visible elegant heading */}
+            <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
+              London's Finest Elite Companions
+            </h3>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-12 max-w-2xl mx-auto">
-              Handpicked selection of elite London escorts. Beautiful, intelligent, and sophisticated companions for dinner dates, business events, travel, and intimate encounters. Professional, discreet, available 24/7.
+              Handpicked selection of elite London companions. Beautiful, intelligent, and sophisticated ladies for dinner dates, business events, travel, and intimate encounters. Professional, discreet, available 24/7.
             </p>
             
             <Link 
@@ -69,7 +73,7 @@ const Index = () => {
               Book Your Elite Companion Now
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/80 leading-relaxed mb-8 md:mb-12 max-w-2xl mx-auto px-4 sm:px-0">
-              Ready for an unforgettable experience? Contact us now for instant booking. Our elite London escorts are available 24/7 across all premium locations.
+              Ready for an unforgettable experience? Contact us now for instant booking. Our elite London companions are available 24/7 across all premium locations.
             </p>
             
             <div className="flex items-center justify-center space-x-8 px-4">
@@ -136,9 +140,13 @@ const Index = () => {
         <section className="py-20 md:py-32 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
-                {bookingMain?.title || "How to Book Your Elite Escort"}
-              </h2>
+              {/* Hidden SEO heading */}
+              <h2 className="sr-only">How to Book Your Elite Escort - Booking Process</h2>
+              
+              {/* Visible elegant heading */}
+              <h3 className="font-display text-2xl md:text-4xl font-normal tracking-tight text-black mb-8">
+                {bookingMain?.title || "How to Book Your Elite Companion"}
+              </h3>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
                 {bookingMain?.subtitle || "Simple, discreet, and instant. Book your perfect companion in 3 easy steps"}
               </p>

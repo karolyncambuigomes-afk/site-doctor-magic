@@ -104,17 +104,17 @@ const About = () => {
               <h1 className="sr-only">Elite London Escort Agency - Premium High-Class Escort Services Since 2018</h1>
               
               {/* Main heading */}
-              <h2 className="heading-display text-4xl md:text-6xl text-primary mb-8">
+              <h2 className="heading-display text-primary mb-8">
                 Five London Elite Escorts
               </h2>
               <div className="w-16 h-0.5 bg-foreground mx-auto mb-8 md:mb-12"></div>
               
               <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light">
+                <p className="body-lg text-muted-foreground">
                   Established as London's premier luxury companion agency, Five London represents an exclusive collection of sophisticated, intelligent, and captivating women who embody elegance and refinement.
                 </p>
                 
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="body-base text-muted-foreground">
                   Our carefully selected companions are available for discerning gentlemen seeking exceptional experiences - from intimate dinner dates and cultural events to international travel and private encounters. Each companion combines natural beauty with intellectual sophistication, ensuring every moment is memorable.
                 </p>
                 
@@ -203,13 +203,13 @@ const About = () => {
               </div>
               
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-1 lg:order-2">
-                <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
+                <h2 className="heading-lg">
                   Why Choose <span className="text-primary">Five London</span>
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="body-lg text-muted-foreground">
                   London's most exclusive companion agency. Our elite companions combine exceptional beauty with intelligence, sophistication, and genuine warmth.
                 </p>
-                <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                <p className="body-base text-muted-foreground">
                   Handpicked for their education, elegance, and conversational skills. Every encounter is crafted for complete satisfaction and absolute discretion.
                 </p>
               </div>
@@ -228,7 +228,7 @@ const About = () => {
         <section className="py-16 md:py-20 lg:py-24 bg-background">
           <div className="container-width">
             <div className="text-center mb-12 md:mb-14 px-4 md:px-0">
-              <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight mb-4">
+              <h2 className="heading-lg mb-4">
                 Our <span className="text-primary">Values</span>
               </h2>
             </div>
@@ -259,10 +259,10 @@ const About = () => {
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
-                <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">
+                <h2 className="heading-lg">
                   Your <span className="text-primary">Experience</span>
                 </h2>
-                <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                <p className="body-lg text-muted-foreground">
                   From consultation to companionship, every detail is carefully managed with complete discretion.
                 </p>
               </div>
@@ -289,10 +289,10 @@ const About = () => {
         <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
           <div className="container-width">
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight mb-4">
+              <h2 className="heading-lg mb-4">
                 Serving London's <span className="text-primary">Premier Locations</span>
               </h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
                 Our sophisticated companions are available across London's most exclusive districts, 
                 each offering unique experiences tailored to the area's distinct character.
               </p>

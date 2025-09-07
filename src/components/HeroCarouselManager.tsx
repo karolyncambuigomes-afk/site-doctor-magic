@@ -43,6 +43,7 @@ export const HeroCarouselManager: React.FC = () => {
   const [saving, setSaving] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log('HeroCarouselManager: Component mounted, loading data...');
     loadHeroData();
   }, []);
 
@@ -80,7 +81,8 @@ export const HeroCarouselManager: React.FC = () => {
         video_url: slide.video_url || null
       })) || [];
 
-      console.log('Processed slides:', processedSlides);
+      console.log('HeroCarouselManager - Processed slides:', processedSlides);
+      console.log('HeroCarouselManager - Settings data:', settingsData);
       
       setSlides(processedSlides);
       setSettings(settingsData?.[0] || null);
@@ -253,6 +255,8 @@ export const HeroCarouselManager: React.FC = () => {
     );
   }
 
+  console.log('HeroCarouselManager - Rendering with slides:', slides.length, 'settings:', !!settings);
+  
   return (
     <div className="space-y-6">
       <Accordion type="single" collapsible className="w-full space-y-4">
@@ -420,21 +424,21 @@ export const HeroCarouselManager: React.FC = () => {
                       <Select 
                         value={slide.media_type || 'image'} 
                         onValueChange={(value: 'image' | 'video') => {
-                          console.log(`Changing media type for slide ${slide.id} to:`, value);
+                          console.log(`HeroCarouselManager - Changing media type for slide ${slide.id} from ${slide.media_type} to:`, value);
                           updateSlideField(slide.id, 'media_type', value);
                         }}
                       >
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-white border border-gray-300">
                           <SelectValue placeholder="Selecione o tipo" />
                         </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="image">
+                        <SelectContent className="z-50 bg-white border border-gray-300 shadow-lg">
+                          <SelectItem value="image" className="bg-white hover:bg-gray-100">
                             <div className="flex items-center gap-2">
                               <ImageIcon className="w-4 h-4" />
                               Imagem
                             </div>
                           </SelectItem>
-                          <SelectItem value="video">
+                          <SelectItem value="video" className="bg-white hover:bg-gray-100">
                             <div className="flex items-center gap-2">
                               <Video className="w-4 h-4" />
                               Vídeo

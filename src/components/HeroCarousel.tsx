@@ -74,59 +74,18 @@ export const HeroCarousel = () => {
   };
 
 
-  // Optimized video preloading with loading state
+  // Simple video preloading
   useEffect(() => {
-    if (heroSlides.length === 0) return;
-    
-    const videoSlides = heroSlides.filter(slide => slide.media_type === 'video' && slide.video_url);
-    if (videoSlides.length === 0) {
-      setVideoLoaded(true);
-      return;
-    }
-
-    let loadedCount = 0;
-    const totalVideos = videoSlides.length;
-
-    videoSlides.forEach((slide, index) => {
-      const video = document.createElement('video');
-      video.src = slide.video_url!;
-      video.preload = 'auto';
-      video.muted = true;
-      video.playsInline = true;
-      video.setAttribute('webkit-playsinline', 'true');
-      video.style.display = 'none';
-      
-      video.addEventListener('canplaythrough', () => {
-        loadedCount++;
-        if (loadedCount >= totalVideos) {
-          setVideoLoaded(true);
-        }
-      }, { once: true });
-
-      video.addEventListener('error', () => {
-        loadedCount++;
-        if (loadedCount >= totalVideos) {
-          setVideoLoaded(true);
-        }
-      }, { once: true });
-      
-      video.load();
-      document.body.appendChild(video);
-      
-      // Cleanup after 15 seconds
-      setTimeout(() => {
-        if (video.parentNode) {
-          video.parentNode.removeChild(video);
-        }
-      }, 15000);
+    heroSlides.forEach((slide) => {
+      if (slide.media_type === 'video' && slide.video_url) {
+        const video = document.createElement('video');
+        video.src = slide.video_url;
+        video.preload = 'metadata';
+        video.muted = true;
+        video.load();
+      }
     });
-
-    // Fallback: mark as loaded after 1 second for faster loading
-    const fallbackTimer = setTimeout(() => {
-      setVideoLoaded(true);
-    }, 1000);
-
-    return () => clearTimeout(fallbackTimer);
+    setVideoLoaded(true);
   }, [heroSlides]);
 
   // Auto-play functionality
@@ -191,65 +150,53 @@ export const HeroCarousel = () => {
           {/* Background Media */}
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
-              <>
-                {/* Poster image while video loads */}
-                <img
-                  src={slide.image_url}
-                  alt={slide.title}
-                  className="w-full h-full object-cover"
-                  style={{
-                    opacity: videoLoaded ? 0 : 1,
-                    transition: 'opacity 0.3s ease-in-out'
-                  }}
-                />
-                <video
-                  key={`video-${slide.id}-${index}`}
-                  src={slide.video_url}
-                  poster={slide.image_url}
-                  autoPlay={false}
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  webkit-playsinline="true"
-                  className="w-full h-full object-cover"
-                  style={{
-                    willChange: 'transform',
-                    transform: 'translateZ(0)',
-                    opacity: videoLoaded ? 1 : 0,
-                    transition: 'opacity 0.3s ease-in-out'
-                  }}
-                  ref={(video) => {
-                    if (video) {
-                      if (index === currentSlide) {
-                        video.currentTime = 0;
-                        const playPromise = video.play();
-                        if (playPromise !== undefined) {
-                          playPromise.catch(() => {
-                            setTimeout(() => {
-                              video.play().catch(() => {});
-                            }, 100);
-                          });
-                        }
-                      } else {
-                        video.pause();
-                      }
-                    }
-                  }}
-                  onLoadedData={(e) => {
-                    const video = e.target as HTMLVideoElement;
+              <video
+                key={`video-${slide.id}-${index}`}
+                src={slide.video_url}
+                poster={slide.image_url}
+                autoPlay={false}
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                webkit-playsinline="true"
+                className="w-full h-full object-cover"
+                style={{
+                  willChange: 'transform',
+                  transform: 'translateZ(0)',
+                }}
+                ref={(video) => {
+                  if (video) {
                     if (index === currentSlide) {
                       video.currentTime = 0;
-                      video.play().catch(() => {});
+                      const playPromise = video.play();
+                      if (playPromise !== undefined) {
+                        playPromise.catch(() => {
+                          setTimeout(() => {
+                            video.play().catch(() => {});
+                          }, 100);
+                        });
+                      }
+                    } else {
+                      video.pause();
                     }
-                  }}
-                  onCanPlayThrough={() => {
-                    if (index === currentSlide) {
-                      setVideoLoaded(true);
-                    }
-                  }}
-                />
-              </>
+                  }
+                }}
+                onLoadedData={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide) {
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
+                  }
+                }}
+                onCanPlayThrough={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide && video.paused) {
+                    video.currentTime = 0;
+                    video.play().catch(() => {});
+                  }
+                }}
+              />
             ) : (
               <img
                 src={slide.image_url}

@@ -56,6 +56,11 @@ const Index = () => {
       
       
       <main className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>{" "}
+        {/* Debug: Verificar se o HeroVideo está aparecendo no mobile */}
+        <div style={{ background: 'green', color: 'white', padding: '10px', fontSize: '16px' }}>
+          DEBUG: Esta seção deve aparecer tanto no mobile quanto no desktop
+        </div>
+        
         {/* Hero Video temporariamente removido para testes */}
         {/* <SimpleHeroVideo /> */}
 

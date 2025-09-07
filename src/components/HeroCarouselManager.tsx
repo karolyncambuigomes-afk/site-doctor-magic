@@ -5,17 +5,21 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/ImageUpload';
-import { Save, Plus, Trash2, Image as ImageIcon, Settings, ArrowUp, ArrowDown } from 'lucide-react';
+import { VideoUpload } from '@/components/VideoUpload';
+import { Save, Plus, Trash2, Image as ImageIcon, Settings, Video, ArrowUp, ArrowDown } from 'lucide-react';
 
 interface HeroSlide {
   id: string;
   title: string;
   subtitle: string | null;
   image_url: string;
+  video_url: string | null;
+  media_type: 'image' | 'video';
   button_text: string | null;
   button_link: string | null;
   order_index: number;
@@ -60,7 +64,11 @@ export const HeroCarouselManager: React.FC = () => {
 
       if (settingsError) throw settingsError;
 
-      setSlides(slidesData || []);
+      setSlides(slidesData?.map(slide => ({
+        ...slide,
+        media_type: slide.media_type || 'image',
+        video_url: slide.video_url || null
+      })) || []);
       setSettings(settingsData?.[0] || null);
     } catch (error) {
       console.error('Error loading hero data:', error);
@@ -83,6 +91,8 @@ export const HeroCarouselManager: React.FC = () => {
           title: slide.title,
           subtitle: slide.subtitle,
           image_url: slide.image_url,
+          video_url: slide.video_url,
+          media_type: slide.media_type,
           button_text: slide.button_text,
           button_link: slide.button_link,
           active: slide.active,
@@ -163,6 +173,8 @@ export const HeroCarouselManager: React.FC = () => {
           title: 'Novo Slide',
           subtitle: 'Subtítulo do slide',
           image_url: '',
+          video_url: null,
+          media_type: 'image',
           button_text: 'View Our Models',
           button_link: '/models',
           order_index: maxOrder + 1,
@@ -322,9 +334,10 @@ export const HeroCarouselManager: React.FC = () => {
           <AccordionItem key={slide.id} value={slide.id} className="border rounded-lg">
             <AccordionTrigger className="px-4 py-3 hover:no-underline">
               <div className="flex items-center gap-2">
-                <ImageIcon className="w-5 h-5" />
+                {slide.media_type === 'video' ? <Video className="w-5 h-5" /> : <ImageIcon className="w-5 h-5" />}
                 <span className="font-medium">Slide {index + 1}: {slide.title}</span>
                 {!slide.active && <span className="text-xs bg-muted px-2 py-1 rounded">Inativo</span>}
+                <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded capitalize">{slide.media_type}</span>
               </div>
             </AccordionTrigger>
             <AccordionContent className="px-4 pb-4">
@@ -384,28 +397,86 @@ export const HeroCarouselManager: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Imagem do Slide */}
+                  {/* Mídia do Slide */}
                   <div className="space-y-4">
-                    <h4 className="font-medium text-sm">Imagem do Slide</h4>
+                    <h4 className="font-medium text-sm">Mídia do Slide</h4>
 
-                    <ImageUpload
-                      value={slide.image_url}
-                      onChange={(url) => updateSlideField(slide.id, 'image_url', url)}
-                      label="Imagem"
-                      placeholder="URL da imagem ou faça upload"
-                    />
+                    <div className="space-y-2">
+                      <Label htmlFor={`media_type-${slide.id}`}>Tipo de Mídia</Label>
+                      <Select 
+                        value={slide.media_type || 'image'} 
+                        onValueChange={(value: 'image' | 'video') => updateSlideField(slide.id, 'media_type', value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o tipo" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="image">
+                            <div className="flex items-center gap-2">
+                              <ImageIcon className="w-4 h-4" />
+                              Imagem
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="video">
+                            <div className="flex items-center gap-2">
+                              <Video className="w-4 h-4" />
+                              Vídeo
+                            </div>
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {slide.media_type === 'image' && (
+                      <ImageUpload
+                        value={slide.image_url}
+                        onChange={(url) => updateSlideField(slide.id, 'image_url', url)}
+                        label="Imagem"
+                        placeholder="URL da imagem ou faça upload"
+                      />
+                    )}
+
+                    {slide.media_type === 'video' && (
+                      <div className="space-y-4">
+                        <VideoUpload
+                          value={slide.video_url || ''}
+                          onChange={(url) => updateSlideField(slide.id, 'video_url', url)}
+                          label="Vídeo"
+                          placeholder="URL do vídeo ou faça upload"
+                        />
+                        
+                        <div className="space-y-2">
+                          <Label htmlFor={`poster-${slide.id}`}>Imagem de Poster (opcional)</Label>
+                          <ImageUpload
+                            value={slide.image_url}
+                            onChange={(url) => updateSlideField(slide.id, 'image_url', url)}
+                            label="Poster"
+                            placeholder="Imagem mostrada antes do vídeo carregar"
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Preview da Imagem */}
-                {slide.image_url && (
+                {/* Preview da Mídia */}
+                {(slide.image_url || slide.video_url) && (
                   <div className="border rounded-lg p-4 bg-muted/20">
                     <h5 className="font-medium mb-2">Preview do Slide</h5>
-                    <img 
-                      src={slide.image_url} 
-                      alt={slide.title}
-                      className="max-w-full h-40 object-cover rounded-lg"
-                    />
+                    {slide.media_type === 'video' && slide.video_url ? (
+                      <video 
+                        src={slide.video_url}
+                        poster={slide.image_url}
+                        controls
+                        className="max-w-full h-40 object-cover rounded-lg"
+                      />
+                    ) : slide.image_url ? (
+                      <img 
+                        src={slide.image_url} 
+                        alt={slide.title}
+                        className="max-w-full h-40 object-cover rounded-lg"
+                      />
+                    ) : null}
                   </div>
                 )}
 

@@ -169,10 +169,12 @@ export type Database = {
           created_at: string
           id: string
           image_url: string
+          media_type: string | null
           order_index: number
           subtitle: string | null
           title: string
           updated_at: string
+          video_url: string | null
         }
         Insert: {
           active?: boolean | null
@@ -181,10 +183,12 @@ export type Database = {
           created_at?: string
           id?: string
           image_url: string
+          media_type?: string | null
           order_index?: number
           subtitle?: string | null
           title: string
           updated_at?: string
+          video_url?: string | null
         }
         Update: {
           active?: boolean | null
@@ -193,10 +197,12 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string
+          media_type?: string | null
           order_index?: number
           subtitle?: string | null
           title?: string
           updated_at?: string
+          video_url?: string | null
         }
         Relationships: []
       }

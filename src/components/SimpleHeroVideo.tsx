@@ -15,7 +15,6 @@ interface HeroContent {
 
 export const SimpleHeroVideo = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
   const [heroContent, setHeroContent] = useState<HeroContent>({
     title: 'Five London',
     subtitle: 'Premier luxury companion services',
@@ -40,22 +39,6 @@ export const SimpleHeroVideo = () => {
     }
   }, []);
 
-  // Force video to play when loaded
-  useEffect(() => {
-    if (videoRef && heroContent.media_type === 'video') {
-      const playVideo = async () => {
-        try {
-          await videoRef.play();
-          setIsLoaded(true);
-        } catch (error) {
-          console.error('Error playing video:', error);
-          setIsLoaded(false);
-        }
-      };
-      playVideo();
-    }
-  }, [videoRef, heroContent.media_type]);
-
   return (
     <section className="relative min-h-screen h-screen overflow-hidden flex items-center justify-center">
       {/* Background Media */}
@@ -72,30 +55,15 @@ export const SimpleHeroVideo = () => {
         {/* Video overlay - loads instantly */}
         {heroContent.media_type === 'video' && heroContent.video_url && (
           <video
-            ref={setVideoRef}
             autoPlay
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             controls={false}
-            className="w-full h-full object-cover absolute inset-0"
-            style={{
-              opacity: 1,
-              transition: 'none'
-            }}
-            onLoadedData={() => {
-              setIsLoaded(true);
-              if (videoRef) {
-                videoRef.play().catch(console.error);
-              }
-            }}
+            className="w-full h-full object-cover"
+            onLoadedData={() => setIsLoaded(true)}
             onError={() => setIsLoaded(false)}
-            onCanPlay={() => {
-              if (videoRef) {
-                videoRef.play().catch(console.error);
-              }
-            }}
           >
             <source src={heroContent.video_url} type="video/mp4" />
           </video>
@@ -103,7 +71,7 @@ export const SimpleHeroVideo = () => {
         
         {/* Dark overlay */}
         <div 
-          className="absolute inset-0" 
+          className="absolute inset-0 z-10" 
           style={{backgroundColor: `rgba(0, 0, 0, ${heroContent.overlay_opacity / 100})`}}
         />
       </div>

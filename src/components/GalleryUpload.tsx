@@ -53,7 +53,12 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
   };
 
   const addImage = async () => {
+    console.log('🎭 GALERIA: Tentando adicionar imagem à GALERIA');
+    console.log('🎭 GALERIA: newImageUrl =', newImageUrl);
+    console.log('🎭 GALERIA: modelId =', modelId);
+    
     if (!newImageUrl) {
+      console.log('🎭 GALERIA: Erro - sem URL de imagem');
       toast({
         title: "Erro",
         description: "Por favor, selecione uma imagem",
@@ -63,6 +68,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
     }
 
     if (!modelId) {
+      console.log('🎭 GALERIA: Erro - sem modelId');
       toast({
         title: "Erro",
         description: "ID do modelo não encontrado",
@@ -74,21 +80,26 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
     setLoading(true);
     try {
       const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
+      console.log('🎭 GALERIA: nextOrderIndex =', nextOrderIndex);
+
+      const insertData = {
+        model_id: modelId,
+        image_url: newImageUrl,
+        caption: newImageCaption || null,
+        order_index: nextOrderIndex
+      };
+      console.log('🎭 GALERIA: Inserindo na tabela model_gallery:', insertData);
 
       const { error } = await supabase
         .from('model_gallery')
-        .insert([{
-          model_id: modelId,
-          image_url: newImageUrl,
-          caption: newImageCaption || null,
-          order_index: nextOrderIndex
-        }]);
+        .insert([insertData]);
 
       if (error) {
-        console.error('Supabase error:', error);
+        console.error('🎭 GALERIA: Erro do Supabase:', error);
         throw error;
       }
 
+      console.log('🎭 GALERIA: Sucesso! Imagem adicionada à model_gallery');
       toast({
         title: "Sucesso",
         description: "Imagem adicionada à galeria",
@@ -213,7 +224,10 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
                 <p className="text-xs text-purple-700 font-medium mb-2">📍 Upload para GALERIA EXTRA:</p>
                 <ImageUpload
                   value={newImageUrl}
-                  onChange={setNewImageUrl}
+                  onChange={(url) => {
+                    console.log('🎭 GALERIA: ImageUpload onChange chamado com URL:', url);
+                    setNewImageUrl(url);
+                  }}
                   label="🖼️ Foto EXTRA da Galeria (não é principal)"
                   placeholder="🎭 URL da imagem EXTRA ou faça upload para GALERIA"
                 />

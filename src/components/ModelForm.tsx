@@ -402,7 +402,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <div className="bg-white p-4 rounded-lg border-2 border-blue-200">
             <ImageUpload
               value={formData.image || ''}
-              onChange={(url) => handleInputChange('image', url)}
+              onChange={(url) => {
+                console.log('📸 FOTO PRINCIPAL: URL alterada para:', url);
+                handleInputChange('image', url);
+              }}
               label="📸 FOTO PRINCIPAL (não é galeria extra)"
               placeholder="🎯 URL da FOTO PRINCIPAL ou faça upload"
             />

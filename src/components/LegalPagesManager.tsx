@@ -139,16 +139,16 @@ export const LegalPagesManager: React.FC = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Gerenciar Páginas Legais</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Manage Legal Pages</h2>
         <p className="text-muted-foreground">
-          Edite o conteúdo das páginas de Política de Privacidade e Termos de Serviço
+          Edit the content of Privacy Policy and Terms of Service pages
         </p>
       </div>
 
       <Tabs defaultValue="privacy" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="privacy">Política de Privacidade</TabsTrigger>
-          <TabsTrigger value="terms">Termos de Serviço</TabsTrigger>
+          <TabsTrigger value="privacy">Privacy Policy</TabsTrigger>
+          <TabsTrigger value="terms">Terms of Service</TabsTrigger>
         </TabsList>
 
         <TabsContent value="privacy">

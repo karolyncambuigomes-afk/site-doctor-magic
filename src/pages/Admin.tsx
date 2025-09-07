@@ -145,9 +145,9 @@ export const Admin: React.FC = () => {
   return (
     <>
       <SEO 
-        title="Administração - Five London"
-        description="Painel administrativo"
-        keywords="admin, administração, painel"
+        title="Administration - Five London"
+        description="Administrative panel"
+        keywords="admin, administration, panel"
       />
       
       <Navigation />
@@ -156,9 +156,9 @@ export const Admin: React.FC = () => {
         <div className="container-width">
           <div className="mb-8">
             <h1 className="text-4xl font-bold text-black mb-2">
-              Painel Administrativo
+              Administrative Panel
             </h1>
-            <p className="text-gray-600">Gerencie modelos, blog posts e usuários</p>
+            <p className="text-gray-600">Manage models, blog posts and users</p>
           </div>
 
           <Tabs defaultValue="homepage" className="space-y-6">
@@ -170,27 +170,27 @@ export const Admin: React.FC = () => {
                 </TabsTrigger>
                 <TabsTrigger value="services" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Settings className="w-4 h-4 mr-2" />
-                  Serviços
+                  Services
                 </TabsTrigger>
                 <TabsTrigger value="locations" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Settings className="w-4 h-4 mr-2" />
-                  Localizações
+                  Locations
                 </TabsTrigger>
                 <TabsTrigger value="characteristics" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Settings className="w-4 h-4 mr-2" />
-                  Características
+                  Characteristics
                 </TabsTrigger>
                 <TabsTrigger value="guide" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <FileText className="w-4 h-4 mr-2" />
-                  Guia
+                  Guide
                 </TabsTrigger>
                 <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Users className="w-4 h-4 mr-2" />
-                  Modelos
+                  Models
                 </TabsTrigger>
                 <TabsTrigger value="applications" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Users className="w-4 h-4 mr-2" />
-                  Candidaturas
+                  Applications
                 </TabsTrigger>
                 <TabsTrigger value="blog" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <FileText className="w-4 h-4 mr-2" />
@@ -198,15 +198,15 @@ export const Admin: React.FC = () => {
                 </TabsTrigger>
                 <TabsTrigger value="users" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Users className="w-4 h-4 mr-2" />
-                  Usuários
+                  Users
                 </TabsTrigger>
                 <TabsTrigger value="gallery" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Image className="w-4 h-4 mr-2" />
-                  Galeria
+                  Gallery
                 </TabsTrigger>
                 <TabsTrigger value="legal" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <FileText className="w-4 h-4 mr-2" />
-                  Páginas Legais
+                  Legal Pages
                 </TabsTrigger>
                 <TabsTrigger value="content" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Settings className="w-4 h-4 mr-2" />

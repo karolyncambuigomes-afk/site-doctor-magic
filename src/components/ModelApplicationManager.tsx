@@ -75,7 +75,7 @@ const ModelApplicationManager = () => {
       setApplications(data || []);
     } catch (error: any) {
       toast({
-        title: "Erro ao carregar candidaturas",
+        title: "Error loading applications",
         description: error.message,
         variant: "destructive"
       });
@@ -107,15 +107,15 @@ const ModelApplicationManager = () => {
       if (error) throw error;
 
       toast({
-        title: "Status atualizado",
-        description: `Candidatura ${status === 'approved' ? 'aprovada' : status === 'rejected' ? 'rejeitada' : 'atualizada'} com sucesso.`
+        title: "Status updated",
+        description: `Application ${status === 'approved' ? 'approved' : status === 'rejected' ? 'rejected' : 'updated'} successfully.`
       });
 
       loadApplications();
       setSelectedApplication(null);
     } catch (error: any) {
       toast({
-        title: "Erro ao atualizar status",
+        title: "Error updating status",
         description: error.message,
         variant: "destructive"
       });
@@ -128,7 +128,7 @@ const ModelApplicationManager = () => {
       const modelData = {
         name: application.full_name,
         age: application.age,
-        location: application.location_preference || "Londres",
+        location: application.location_preference || "London",
         height: application.height,
         measurements: application.measurements,
         hair: application.hair_color,
@@ -159,7 +159,7 @@ const ModelApplicationManager = () => {
           model_id: model.id,
           image_url: photo,
           order_index: index,
-          caption: `Foto ${index + 1}`
+          caption: `Photo ${index + 1}`
         }));
 
         const { error: galleryError } = await supabase
@@ -170,16 +170,16 @@ const ModelApplicationManager = () => {
       }
 
       // Update application status to approved
-      await updateApplicationStatus(application.id, 'approved', 'Candidatura aprovada e convertida em perfil de modelo.');
+      await updateApplicationStatus(application.id, 'approved', 'Application approved and converted to model profile.');
 
       toast({
-        title: "Modelo criado com sucesso!",
-        description: `${application.full_name} foi convertida em modelo ativo.`
+        title: "Model created successfully!",
+        description: `${application.full_name} has been converted to an active model.`
       });
 
     } catch (error: any) {
       toast({
-        title: "Erro ao criar modelo",
+        title: "Error creating model",
         description: error.message,
         variant: "destructive"
       });
@@ -188,10 +188,10 @@ const ModelApplicationManager = () => {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      pending: { label: "Pendente", variant: "secondary" as const },
-      reviewing: { label: "Em Análise", variant: "default" as const },
-      approved: { label: "Aprovada", variant: "default" as const },
-      rejected: { label: "Rejeitada", variant: "destructive" as const }
+      pending: { label: "Pending", variant: "secondary" as const },
+      reviewing: { label: "Under Review", variant: "default" as const },
+      approved: { label: "Approved", variant: "default" as const },
+      rejected: { label: "Rejected", variant: "destructive" as const }
     };
 
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;
@@ -199,23 +199,23 @@ const ModelApplicationManager = () => {
   };
 
   if (loading) {
-    return <div className="p-6">Carregando candidaturas...</div>;
+    return <div className="p-6">Loading applications...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold">Candidaturas de Modelos</h3>
+        <h3 className="text-2xl font-bold">Model Applications</h3>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-48">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">Todas</SelectItem>
-            <SelectItem value="pending">Pendentes</SelectItem>
-            <SelectItem value="reviewing">Em Análise</SelectItem>
-            <SelectItem value="approved">Aprovadas</SelectItem>
-            <SelectItem value="rejected">Rejeitadas</SelectItem>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="pending">Pending</SelectItem>
+            <SelectItem value="reviewing">Under Review</SelectItem>
+            <SelectItem value="approved">Approved</SelectItem>
+            <SelectItem value="rejected">Rejected</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -224,7 +224,7 @@ const ModelApplicationManager = () => {
         {applications.length === 0 ? (
           <Card>
             <CardContent className="p-6 text-center">
-              <p className="text-muted-foreground">Nenhuma candidatura encontrada.</p>
+              <p className="text-muted-foreground">No applications found.</p>
             </CardContent>
           </Card>
         ) : (
@@ -240,7 +240,7 @@ const ModelApplicationManager = () => {
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <User className="h-4 w-4" />
-                        {application.age} anos
+                        {application.age} years old
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
@@ -262,129 +262,129 @@ const ModelApplicationManager = () => {
                       <DialogTrigger asChild>
                         <Button variant="outline" size="sm" onClick={() => setSelectedApplication(application)}>
                           <Eye className="h-4 w-4 mr-2" />
-                          Ver Detalhes
+                          View Details
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                         <DialogHeader>
-                          <DialogTitle>Candidatura - {application.full_name}</DialogTitle>
+                          <DialogTitle>Application - {application.full_name}</DialogTitle>
                         </DialogHeader>
                         
                         {selectedApplication && (
                           <Tabs defaultValue="personal" className="w-full">
                             <TabsList className="grid w-full grid-cols-5">
-                              <TabsTrigger value="personal">Pessoal</TabsTrigger>
-                              <TabsTrigger value="physical">Físico</TabsTrigger>
-                              <TabsTrigger value="experience">Interesses</TabsTrigger>
-                              <TabsTrigger value="media">Mídia</TabsTrigger>
+                              <TabsTrigger value="personal">Personal</TabsTrigger>
+                              <TabsTrigger value="physical">Physical</TabsTrigger>
+                              <TabsTrigger value="experience">Interests</TabsTrigger>
+                              <TabsTrigger value="media">Media</TabsTrigger>
                               <TabsTrigger value="admin">Admin</TabsTrigger>
                             </TabsList>
                             
                             <TabsContent value="personal" className="space-y-4">
                               <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label>Nome Completo</Label>
-                                  <p className="font-medium">{selectedApplication.full_name}</p>
-                                </div>
-                                <div>
-                                  <Label>Email</Label>
-                                  <p>{selectedApplication.email}</p>
-                                </div>
-                                <div>
-                                  <Label>Telefone</Label>
-                                  <p>{selectedApplication.phone || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Idade</Label>
-                                  <p>{selectedApplication.age}</p>
-                                </div>
-                                <div>
-                                  <Label>Data de Nascimento</Label>
-                                  <p>{selectedApplication.date_of_birth ? format(new Date(selectedApplication.date_of_birth), "dd/MM/yyyy") : "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Nacionalidade</Label>
-                                  <p>{selectedApplication.nationality}</p>
-                                </div>
-                                <div className="col-span-2">
-                                  <Label>Idiomas</Label>
-                                  <p>{selectedApplication.languages.join(", ") || "Não informado"}</p>
-                                  {selectedApplication.other_language && (
-                                    <p className="text-sm text-muted-foreground mt-1">
-                                      <strong>Outro idioma:</strong> {selectedApplication.other_language}
-                                    </p>
-                                  )}
-                                </div>
+                                 <div>
+                                   <Label>Full Name</Label>
+                                   <p className="font-medium">{selectedApplication.full_name}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Email</Label>
+                                   <p>{selectedApplication.email}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Phone</Label>
+                                   <p>{selectedApplication.phone || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Age</Label>
+                                   <p>{selectedApplication.age}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Date of Birth</Label>
+                                   <p>{selectedApplication.date_of_birth ? format(new Date(selectedApplication.date_of_birth), "dd/MM/yyyy") : "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Nationality</Label>
+                                   <p>{selectedApplication.nationality}</p>
+                                 </div>
+                                 <div className="col-span-2">
+                                   <Label>Languages</Label>
+                                   <p>{selectedApplication.languages.join(", ") || "Not provided"}</p>
+                                   {selectedApplication.other_language && (
+                                     <p className="text-sm text-muted-foreground mt-1">
+                                       <strong>Other language:</strong> {selectedApplication.other_language}
+                                     </p>
+                                   )}
+                                 </div>
                               </div>
                             </TabsContent>
                             
                             <TabsContent value="physical" className="space-y-4">
                               <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <Label>Altura</Label>
-                                  <p>{selectedApplication.height || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Medidas</Label>
-                                  <p>{selectedApplication.measurements || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Tamanho do Vestido</Label>
-                                  <p>{selectedApplication.dress_size || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Cor do Cabelo</Label>
-                                  <p>{selectedApplication.hair_color || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Cor dos Olhos</Label>
-                                  <p>{selectedApplication.eye_color || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Tatuagens</Label>
-                                  <p>{selectedApplication.tattoos || "Nenhuma"}</p>
-                                </div>
-                                <div>
-                                  <Label>Piercings</Label>
-                                  <p>{selectedApplication.piercings || "Nenhum"}</p>
-                                </div>
+                                 <div>
+                                   <Label>Height</Label>
+                                   <p>{selectedApplication.height || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Measurements</Label>
+                                   <p>{selectedApplication.measurements || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Dress Size</Label>
+                                   <p>{selectedApplication.dress_size || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Hair Color</Label>
+                                   <p>{selectedApplication.hair_color || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Eye Color</Label>
+                                   <p>{selectedApplication.eye_color || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Tattoos</Label>
+                                   <p>{selectedApplication.tattoos || "None"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Piercings</Label>
+                                   <p>{selectedApplication.piercings || "None"}</p>
+                                 </div>
                               </div>
                             </TabsContent>
                             
                             <TabsContent value="experience" className="space-y-4">
                               <div className="space-y-4">
-                                <div>
-                                  <Label>Interesses</Label>
-                                  <p>{selectedApplication.interests.join(", ") || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Instagram</Label>
-                                  <p>{selectedApplication.instagram_handle || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Motivação</Label>
-                                  <p className="whitespace-pre-wrap">{selectedApplication.motivation}</p>
-                                </div>
-                                <div>
-                                  <Label>Disponibilidade</Label>
-                                  <p className="whitespace-pre-wrap">{selectedApplication.availability || "Não informado"}</p>
-                                </div>
-                                <div>
-                                  <Label>Preferência de Localização</Label>
-                                  <p>{selectedApplication.location_preference || "Não informado"}</p>
-                                </div>
+                                 <div>
+                                   <Label>Interests</Label>
+                                   <p>{selectedApplication.interests.join(", ") || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Instagram</Label>
+                                   <p>{selectedApplication.instagram_handle || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Motivation</Label>
+                                   <p className="whitespace-pre-wrap">{selectedApplication.motivation}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Availability</Label>
+                                   <p className="whitespace-pre-wrap">{selectedApplication.availability || "Not provided"}</p>
+                                 </div>
+                                 <div>
+                                   <Label>Location Preference</Label>
+                                   <p>{selectedApplication.location_preference || "Not provided"}</p>
+                                 </div>
                               </div>
                             </TabsContent>
                             
                             <TabsContent value="media" className="space-y-4">
                               <div>
-                                <Label>Fotos ({selectedApplication.photos.length})</Label>
+                                <Label>Photos ({selectedApplication.photos.length})</Label>
                                 <div className="grid grid-cols-3 gap-2 mt-2">
                                   {selectedApplication.photos.map((photo, index) => (
                                     <img
                                       key={index}
                                       src={photo}
-                                      alt={`Foto ${index + 1}`}
+                                      alt={`Photo ${index + 1}`}
                                       className="w-full h-32 object-cover rounded cursor-pointer"
                                       onClick={() => window.open(photo, '_blank')}
                                     />
@@ -394,14 +394,14 @@ const ModelApplicationManager = () => {
                               
                               {selectedApplication.videos.length > 0 && (
                                 <div>
-                                  <Label>Vídeos ({selectedApplication.videos.length})</Label>
+                                  <Label>Videos ({selectedApplication.videos.length})</Label>
                                   <div className="space-y-2 mt-2">
                                     {selectedApplication.videos.map((video, index) => (
                                       <div key={index} className="flex items-center justify-between p-2 border rounded">
-                                        <span>Vídeo {index + 1}</span>
+                                        <span>Video {index + 1}</span>
                                         <Button size="sm" onClick={() => window.open(video, '_blank')}>
                                           <Download className="h-4 w-4 mr-2" />
-                                          Baixar
+                                          Download
                                         </Button>
                                       </div>
                                     ))}
@@ -413,19 +413,19 @@ const ModelApplicationManager = () => {
                             <TabsContent value="admin" className="space-y-4">
                               <div className="space-y-4">
                                 <div>
-                                  <Label>Status Atual</Label>
+                                  <Label>Current Status</Label>
                                   <div className="mt-2">
                                     {getStatusBadge(selectedApplication.status)}
                                   </div>
                                 </div>
                                 
                                 <div>
-                                  <Label htmlFor="admin-notes">Notas da Administração</Label>
+                                  <Label htmlFor="admin-notes">Admin Notes</Label>
                                   <Textarea
                                     id="admin-notes"
                                     value={adminNotes}
                                     onChange={(e) => setAdminNotes(e.target.value)}
-                                    placeholder="Adicione observações sobre esta candidatura..."
+                                    placeholder="Add observations about this application..."
                                     defaultValue={selectedApplication.admin_notes || ""}
                                   />
                                 </div>
@@ -435,26 +435,26 @@ const ModelApplicationManager = () => {
                                     onClick={() => updateApplicationStatus(selectedApplication.id, 'reviewing', adminNotes)}
                                     variant="outline"
                                   >
-                                    Marcar como Em Análise
+                                    Mark as Under Review
                                   </Button>
                                   <Button
                                     onClick={() => updateApplicationStatus(selectedApplication.id, 'approved', adminNotes)}
                                     className="bg-green-600 hover:bg-green-700"
                                   >
-                                    Aprovar
+                                    Approve
                                   </Button>
                                   <Button
                                     onClick={() => updateApplicationStatus(selectedApplication.id, 'rejected', adminNotes)}
                                     variant="destructive"
                                   >
-                                    Rejeitar
+                                    Reject
                                   </Button>
                                   {selectedApplication.status === 'approved' && (
                                     <Button
                                       onClick={() => convertToModel(selectedApplication)}
                                       className="bg-blue-600 hover:bg-blue-700"
                                     >
-                                      Converter em Modelo
+                                      Convert to Model
                                     </Button>
                                   )}
                                 </div>

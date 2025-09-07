@@ -101,8 +101,8 @@ const JoinUs = () => {
     const validFiles = fileArray.filter(file => {
       if (file.size > maxSize) {
         toast({
-          title: "Arquivo muito grande",
-          description: `${file.name} excede o tamanho máximo permitido`,
+          title: "File too large",
+          description: `${file.name} exceeds maximum allowed size`,
           variant: "destructive"
         });
         return false;
@@ -167,14 +167,14 @@ const JoinUs = () => {
       if (error) throw error;
 
       toast({
-        title: "Candidatura enviada com sucesso!",
-        description: "Entraremos em contato em breve.",
+        title: "Application submitted successfully!",
+        description: "We will contact you soon.",
       });
 
       navigate('/');
     } catch (error: any) {
       toast({
-        title: "Erro ao enviar candidatura",
+        title: "Error submitting application",
         description: error.message,
         variant: "destructive"
       });
@@ -183,15 +183,15 @@ const JoinUs = () => {
     }
   };
 
-  const languages = ["Português", "English", "Español", "Français", "Italiano", "Deutsch", "Русский", "Outro idioma"];
-  const interests = ["Arte", "Música", "Literatura", "Viagens", "Gastronomia", "Fitness", "Moda", "Fotografia"];
+  const languages = ["Portuguese", "English", "Spanish", "French", "Italian", "German", "Russian", "Other Language"];
+  const interests = ["Art", "Music", "Literature", "Travel", "Gastronomy", "Fitness", "Fashion", "Photography"];
 
   return (
     <>
       <SEO 
-        title="Junte-se à Nossa Agência - Candidatura para Modelos"
-        description="Faça parte da nossa agência de acompanhantes de luxo. Candidature-se agora e comece sua carreira como modelo de elite."
-        keywords="candidatura modelo, agência acompanhantes, trabalhar como escort, modelo elite"
+        title="Join Our Agency - Model Application"
+        description="Be part of our luxury escort agency. Apply now and start your career as an elite model."
+        keywords="model application, escort agency, work as escort, elite model"
       />
       <Navigation />
       
@@ -199,10 +199,10 @@ const JoinUs = () => {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Junte-se à Nossa Agência
+              Join Our Agency
             </h1>
             <p className="text-xl text-muted-foreground">
-              Faça parte de uma agência de prestígio e construa uma carreira de sucesso
+              Be part of a prestigious agency and build a successful career
             </p>
           </div>
 
@@ -210,12 +210,12 @@ const JoinUs = () => {
             {/* Personal Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Informações Pessoais</CardTitle>
+                <CardTitle>Personal Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="full_name">Nome Completo *</Label>
+                    <Label htmlFor="full_name">Full Name *</Label>
                     <Input
                       id="full_name"
                       required
@@ -234,7 +234,7 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Telefone</Label>
+                    <Label htmlFor="phone">Phone</Label>
                     <Input
                       id="phone"
                       value={formData.phone}
@@ -242,7 +242,7 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="age">Idade</Label>
+                    <Label htmlFor="age">Age</Label>
                     <Input
                       id="age"
                       type="number"
@@ -253,7 +253,7 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label>Data de Nascimento</Label>
+                    <Label>Date of Birth</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -264,7 +264,7 @@ const JoinUs = () => {
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.date_of_birth ? format(formData.date_of_birth, "dd/MM/yyyy") : "Selecionar data"}
+                          {formData.date_of_birth ? format(formData.date_of_birth, "dd/MM/yyyy") : "Select date"}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0">
@@ -278,7 +278,7 @@ const JoinUs = () => {
                     </Popover>
                   </div>
                   <div>
-                    <Label htmlFor="nationality">Nacionalidade</Label>
+                    <Label htmlFor="nationality">Nationality</Label>
                     <Input
                       id="nationality"
                       value={formData.nationality}
@@ -288,7 +288,7 @@ const JoinUs = () => {
                 </div>
 
                 <div>
-                  <Label>Idiomas</Label>
+                  <Label>Languages</Label>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                     {languages.map((language) => (
                       <div key={language} className="flex items-center space-x-2">
@@ -301,12 +301,12 @@ const JoinUs = () => {
                       </div>
                     ))}
                   </div>
-                  {formData.languages.includes("Outro idioma") && (
+                  {formData.languages.includes("Other Language") && (
                     <div className="mt-3">
-                      <Label htmlFor="other_language">Especifique o idioma</Label>
+                      <Label htmlFor="other_language">Specify the language</Label>
                       <Input
                         id="other_language"
-                        placeholder="Digite o idioma..."
+                        placeholder="Enter the language..."
                         value={formData.other_language}
                         onChange={(e) => handleInputChange('other_language', e.target.value)}
                       />
@@ -319,12 +319,12 @@ const JoinUs = () => {
             {/* Physical Information */}
             <Card>
               <CardHeader>
-                <CardTitle>Informações Físicas</CardTitle>
+                <CardTitle>Physical Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="height">Altura</Label>
+                    <Label htmlFor="height">Height</Label>
                     <Input
                       id="height"
                       placeholder="Ex: 1.70m"
@@ -333,7 +333,7 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="measurements">Medidas</Label>
+                    <Label htmlFor="measurements">Measurements</Label>
                     <Input
                       id="measurements"
                       placeholder="Ex: 90-60-90"
@@ -342,10 +342,10 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="dress_size">Tamanho do Vestido</Label>
+                    <Label htmlFor="dress_size">Dress Size</Label>
                     <Select value={formData.dress_size} onValueChange={(value) => handleInputChange('dress_size', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecionar" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="XS">XS</SelectItem>
@@ -357,7 +357,7 @@ const JoinUs = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="hair_color">Cor do Cabelo</Label>
+                    <Label htmlFor="hair_color">Hair Color</Label>
                     <Input
                       id="hair_color"
                       value={formData.hair_color}
@@ -365,7 +365,7 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="eye_color">Cor dos Olhos</Label>
+                    <Label htmlFor="eye_color">Eye Color</Label>
                     <Input
                       id="eye_color"
                       value={formData.eye_color}
@@ -373,10 +373,10 @@ const JoinUs = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="tattoos">Tatuagens</Label>
+                    <Label htmlFor="tattoos">Tattoos</Label>
                     <Input
                       id="tattoos"
-                      placeholder="Descreva se possui"
+                      placeholder="Describe if you have any"
                       value={formData.tattoos}
                       onChange={(e) => handleInputChange('tattoos', e.target.value)}
                     />
@@ -385,7 +385,7 @@ const JoinUs = () => {
                     <Label htmlFor="piercings">Piercings</Label>
                     <Input
                       id="piercings"
-                      placeholder="Descreva se possui"
+                      placeholder="Describe if you have any"
                       value={formData.piercings}
                       onChange={(e) => handleInputChange('piercings', e.target.value)}
                     />
@@ -398,11 +398,11 @@ const JoinUs = () => {
             {/* Media Upload */}
             <Card>
               <CardHeader>
-                <CardTitle>Fotos e Vídeos</CardTitle>
+                <CardTitle>Photos and Videos</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label>Fotos (máx. 10 - 5MB cada)</Label>
+                  <Label>Photos (max. 10 - 5MB each)</Label>
                   <div className="mt-2">
                     <Input
                       type="file"
@@ -416,7 +416,7 @@ const JoinUs = () => {
                       <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center hover:border-muted-foreground/50 transition-colors">
                         <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
                         <p className="mt-2 text-sm text-muted-foreground">
-                          Clique para selecionar fotos
+                          Click to select photos
                         </p>
                       </div>
                     </Label>
@@ -446,7 +446,7 @@ const JoinUs = () => {
                 </div>
 
                 <div>
-                  <Label>Vídeos (máx. 3 - 50MB cada)</Label>
+                  <Label>Videos (max. 3 - 50MB each)</Label>
                   <div className="mt-2">
                     <Input
                       type="file"
@@ -460,7 +460,7 @@ const JoinUs = () => {
                       <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center hover:border-muted-foreground/50 transition-colors">
                         <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
                         <p className="mt-2 text-sm text-muted-foreground">
-                          Clique para selecionar vídeos
+                          Click to select videos
                         </p>
                       </div>
                     </Label>
@@ -489,33 +489,33 @@ const JoinUs = () => {
             {/* Application Details */}
             <Card>
               <CardHeader>
-                <CardTitle>Detalhes da Candidatura</CardTitle>
+                <CardTitle>Application Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label htmlFor="motivation">Por que quer se juntar à nossa agência? *</Label>
+                  <Label htmlFor="motivation">Why do you want to join our agency? *</Label>
                   <Textarea
                     id="motivation"
                     required
-                    placeholder="Conte-nos sobre suas motivações..."
+                    placeholder="Tell us about your motivations..."
                     value={formData.motivation}
                     onChange={(e) => handleInputChange('motivation', e.target.value)}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="availability">Disponibilidade</Label>
+                  <Label htmlFor="availability">Availability</Label>
                   <Textarea
                     id="availability"
-                    placeholder="Quando está disponível para trabalhar?"
+                    placeholder="When are you available to work?"
                     value={formData.availability}
                     onChange={(e) => handleInputChange('availability', e.target.value)}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="location_preference">Preferência de Localização</Label>
+                  <Label htmlFor="location_preference">Location Preference</Label>
                   <Input
                     id="location_preference"
-                    placeholder="Ex: Londres, viagens nacionais/internacionais"
+                    placeholder="Ex: London, national/international travel"
                     value={formData.location_preference}
                     onChange={(e) => handleInputChange('location_preference', e.target.value)}
                   />
@@ -525,7 +525,7 @@ const JoinUs = () => {
 
             <div className="text-center">
               <Button type="submit" size="lg" disabled={loading}>
-                {loading ? "Enviando..." : "Enviar Candidatura"}
+                {loading ? "Submitting..." : "Submit Application"}
               </Button>
             </div>
           </form>

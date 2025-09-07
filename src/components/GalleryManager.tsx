@@ -243,17 +243,17 @@ export const GalleryManager: React.FC = () => {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Images className="w-5 h-5" />
-                Carrossel da Página Principal
+                Homepage Carousel
               </CardTitle>
               <CardDescription>
-                Gerencie a ordem das fotos das modelos que aparecem na página inicial
+                Manage the order of model photos that appear on the homepage
               </CardDescription>
             </div>
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
                 <Button className="bg-black text-white hover:bg-gray-800">
                   <Plus className="w-4 h-4 mr-2" />
-                  Adicionar Modelo
+                  Add Model
                 </Button>
               </DialogTrigger>
               <DialogContent>

@@ -17,8 +17,6 @@ export const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [heroSlides, setHeroSlides] = useState<HeroSlide[]>([]);
-  const [videoLoaded, setVideoLoaded] = useState<{[key: string]: boolean}>({});
-  const [showVideo, setShowVideo] = useState<{[key: string]: boolean}>({});
   const [settings, setSettings] = useState({
     auto_play: true,
     slide_duration: 5000,
@@ -70,17 +68,6 @@ export const HeroCarousel = () => {
     }
   };
 
-  // Immediate video loading for desktop
-  useEffect(() => {
-    if (heroSlides.length === 0) return;
-    
-    heroSlides.forEach((slide, index) => {
-      if (slide.media_type === 'video' && slide.video_url) {
-        // Show video immediately, especially for current slide
-        setShowVideo(prev => ({ ...prev, [slide.id]: true }));
-      }
-    });
-  }, [heroSlides]);
 
   // Auto-play functionality
   useEffect(() => {
@@ -126,44 +113,36 @@ export const HeroCarousel = () => {
           {/* Background Media */}
           <div className="absolute inset-0">
             {slide.media_type === 'video' && slide.video_url ? (
-              <>
-                {/* Always show poster image first */}
-                <img
-                  src={slide.image_url}
-                  alt={slide.title}
-                  className={`w-full h-full object-cover transition-opacity duration-500 ${
-                    showVideo[slide.id] && videoLoaded[slide.id] ? 'opacity-0' : 'opacity-100'
-                  }`}
-                />
-                
-                {/* Video loads progressively */}
-                {showVideo[slide.id] && (
-                  <video
-                    key={`${slide.id}-video`}
-                    src={slide.video_url}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                    controls={false}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                      videoLoaded[slide.id] ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    style={{ pointerEvents: 'none' }}
-                    onLoadedData={(e) => {
-                      const video = e.target as HTMLVideoElement;
-                      setVideoLoaded(prev => ({ ...prev, [slide.id]: true }));
-                      video.currentTime = 0;
-                      video.play().catch(console.error);
-                    }}
-                    onCanPlayThrough={(e) => {
-                      const video = e.target as HTMLVideoElement;
-                      video.play().catch(console.error);
-                    }}
-                  />
-                )}
-              </>
+              <video
+                key={`${slide.id}-${index === currentSlide ? 'active' : 'inactive'}`}
+                src={slide.video_url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                controls={false}
+                poster={slide.image_url}
+                className="w-full h-full object-cover"
+                style={{ 
+                  display: index === currentSlide ? 'block' : 'none',
+                  pointerEvents: 'none'
+                }}
+                onLoadedData={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  video.muted = true;
+                  if (index === currentSlide) {
+                    video.currentTime = 0;
+                    video.play().catch(console.error);
+                  }
+                }}
+                onCanPlay={(e) => {
+                  const video = e.target as HTMLVideoElement;
+                  if (index === currentSlide) {
+                    video.play().catch(console.error);
+                  }
+                }}
+              />
             ) : (
               <img
                 src={slide.image_url}

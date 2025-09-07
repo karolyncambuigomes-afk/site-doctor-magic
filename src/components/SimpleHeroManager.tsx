@@ -9,7 +9,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { VideoUpload } from '@/components/VideoUpload';
 import { Save, Video, Image as ImageIcon, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import heroElegantWoman from '@/assets/hero-elegant-woman.jpg';
+import heroMain from '@/assets/hero-main.jpg';
 
 interface HeroContent {
   id: string;
@@ -32,7 +32,7 @@ export const SimpleHeroManager: React.FC = () => {
     subtitle: 'Premier luxury companion services',
     button_text: 'View Our Models',
     button_link: '/models',
-    image_url: heroElegantWoman,
+    image_url: heroMain,
     video_url: null,
     media_type: 'image',
     overlay_opacity: 70,
@@ -97,7 +97,7 @@ export const SimpleHeroManager: React.FC = () => {
       subtitle: 'Premier luxury companion services',
       button_text: 'View Our Models',
       button_link: '/models',
-      image_url: heroElegantWoman,
+      image_url: heroMain,
       video_url: null,
       media_type: 'image' as const,
       overlay_opacity: 70,

@@ -5,6 +5,7 @@ import model3 from '@/assets/model3.jpg';
 import model4 from '@/assets/model4.jpg';
 import kate1 from '@/assets/kate1.jpg';
 import luisa1 from '@/assets/luisa1.jpg';
+import heroMain from '@/assets/hero-main.jpg';
 
 // Map database image paths to actual imports
 const imageMap: Record<string, string> = {
@@ -20,6 +21,8 @@ const imageMap: Record<string, string> = {
   '/images/model4.jpg': model4,
   '/images/kate1.jpg': kate1,
   '/images/luisa1.jpg': luisa1,
+  '/src/assets/hero-main.jpg': heroMain,
+  '/images/hero-main.jpg': heroMain,
 };
 
 export const getImageUrl = (imagePath: string): string => {

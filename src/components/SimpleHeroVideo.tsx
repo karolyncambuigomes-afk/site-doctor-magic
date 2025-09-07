@@ -40,7 +40,7 @@ export const SimpleHeroVideo = () => {
             subtitle: 'Premier luxury companion services', 
             button_text: 'View Our Models',
             button_link: '/models',
-            image_url: '/images/model1.jpg', // Use a mesma imagem padrão em todos os casos
+            image_url: '/src/assets/hero-main.jpg', // Use a mesma imagem padrão em todos os casos
             video_url: null,
             media_type: 'image' as const,
             overlay_opacity: 70,

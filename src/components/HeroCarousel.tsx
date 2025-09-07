@@ -5,6 +5,8 @@ import { supabase } from '@/integrations/supabase/client';
 interface HeroSlide {
   id: string;
   image_url: string;
+  video_url?: string;
+  media_type?: 'image' | 'video';
   title: string;
   subtitle?: string;
   button_text?: string;
@@ -107,13 +109,25 @@ export const HeroCarousel = () => {
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
           }`}
         >
-          {/* Background Image */}
+          {/* Background Media */}
           <div className="absolute inset-0">
-            <img
-              src={slide.image_url}
-              alt={slide.title}
-              className="w-full h-full object-cover"
-            />
+            {slide.media_type === 'video' && slide.video_url ? (
+              <video
+                src={slide.video_url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                poster={slide.image_url}
+              />
+            ) : (
+              <img
+                src={slide.image_url}
+                alt={slide.title}
+                className="w-full h-full object-cover"
+              />
+            )}
             <div className="absolute inset-0" style={{backgroundColor: `rgba(0, 0, 0, ${settings.overlay_opacity / 100})`}}></div>
           </div>
 

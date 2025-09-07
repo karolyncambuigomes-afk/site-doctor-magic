@@ -23,7 +23,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
-import { HeroCarouselManager } from '@/components/HeroCarouselManager';
+import { SimpleHeroManager } from '@/components/SimpleHeroManager';
 import { ModelForm } from '@/components/ModelForm';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -189,12 +189,12 @@ export const Admin: React.FC = () => {
             <TabsContent value="hero" className="space-y-6">
               <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-black">Gerenciar Hero Carousel</CardTitle>
-                  <CardDescription className="text-gray-600">Gerencie os slides do carousel principal da homepage</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Hero Principal</CardTitle>
+                  <CardDescription className="text-gray-600">Configure o conteúdo da seção hero da homepage</CardDescription>
                 </CardHeader>
                 <CardContent className="text-black bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
                   <div className="bg-white [&_*]:bg-white [&_*]:text-black [&_input]:bg-white [&_input]:text-black [&_textarea]:bg-white [&_textarea]:text-black">
-                    <HeroCarouselManager />
+                    <SimpleHeroManager />
                   </div>
                 </CardContent>
               </Card>

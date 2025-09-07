@@ -1,18 +1,43 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+interface HeroContent {
+  title: string;
+  subtitle: string;
+  button_text: string;
+  button_link: string;
+  image_url: string;
+  video_url: string | null;
+  media_type: 'image' | 'video';
+  overlay_opacity: number;
+  show_scroll_indicator: boolean;
+}
+
 export const SimpleHeroVideo = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // Simple fallback content
-  const heroContent = {
+  const [heroContent, setHeroContent] = useState<HeroContent>({
     title: 'Five London',
     subtitle: 'Premier luxury companion services',
-    buttonText: 'View Our Models',
-    buttonLink: '/models',
-    videoUrl: '/video/woman-walking-preview.mp4', // Update this to your video path
-    imageUrl: '/images/model1.jpg' // Fallback image
-  };
+    button_text: 'View Our Models',
+    button_link: '/models',
+    image_url: '/images/model1.jpg',
+    video_url: '/video/woman-walking-preview.mp4',
+    media_type: 'video',
+    overlay_opacity: 30,
+    show_scroll_indicator: true
+  });
+
+  useEffect(() => {
+    // Carregar configurações do localStorage
+    const saved = localStorage.getItem('simple-hero-content');
+    if (saved) {
+      try {
+        setHeroContent(JSON.parse(saved));
+      } catch (error) {
+        console.error('Error loading hero content:', error);
+      }
+    }
+  }, []);
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -20,35 +45,40 @@ export const SimpleHeroVideo = () => {
       <div className="absolute inset-0">
         {/* Static background image - loads immediately */}
         <img
-          src={heroContent.imageUrl}
+          src={heroContent.image_url}
           alt="Five London"
           className="w-full h-full object-cover"
           style={{
-            opacity: isLoaded ? 0 : 1,
+            opacity: isLoaded && heroContent.media_type === 'video' ? 0 : 1,
             transition: 'opacity 0.5s ease-in-out'
           }}
         />
         
-        {/* Video overlay - loads progressively */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover absolute inset-0"
-          style={{
-            opacity: isLoaded ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out'
-          }}
-          onCanPlay={() => setIsLoaded(true)}
-          onError={() => setIsLoaded(false)}
-        >
-          <source src={heroContent.videoUrl} type="video/mp4" />
-        </video>
+        {/* Video overlay - loads progressively if video type */}
+        {heroContent.media_type === 'video' && heroContent.video_url && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover absolute inset-0"
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out'
+            }}
+            onCanPlay={() => setIsLoaded(true)}
+            onError={() => setIsLoaded(false)}
+          >
+            <source src={heroContent.video_url} type="video/mp4" />
+          </video>
+        )}
         
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/30" />
+        <div 
+          className="absolute inset-0" 
+          style={{backgroundColor: `rgba(0, 0, 0, ${heroContent.overlay_opacity / 100})`}}
+        />
       </div>
 
       {/* Content */}
@@ -64,9 +94,9 @@ export const SimpleHeroVideo = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-              <Link to={heroContent.buttonLink}>
+              <Link to={heroContent.button_link}>
                 <button className="px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-100 transition-colors hover-scale">
-                  {heroContent.buttonText}
+                  {heroContent.button_text}
                 </button>
               </Link>
               
@@ -85,9 +115,11 @@ export const SimpleHeroVideo = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-        <div className="w-px h-8 bg-white/40"></div>
-      </div>
+      {heroContent.show_scroll_indicator && (
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+          <div className="w-px h-8 bg-white/40"></div>
+        </div>
+      )}
     </section>
   );
 };

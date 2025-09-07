@@ -24,7 +24,8 @@ const navItems = [
   { href: '/models', label: 'Our Models' },
   { href: '/services', label: 'Services' },
   { href: '/locations', label: 'Locations' },
-  { href: '/blog', label: 'Blog' }
+  { href: '/blog', label: 'Blog' },
+  { href: '/join-us', label: 'Join Us' }
 ];
 
 export const Navigation = () => {

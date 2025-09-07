@@ -23,6 +23,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
+import ModelApplicationManager from '@/components/ModelApplicationManager';
 import { HomepageManager } from '@/components/HomepageManager';
 import { ServicesManager } from '@/components/ServicesManager';
 import { LocationsManager } from '@/components/LocationsManager';
@@ -186,6 +187,10 @@ export const Admin: React.FC = () => {
                 <TabsTrigger value="models" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Users className="w-4 h-4 mr-2" />
                   Modelos
+                </TabsTrigger>
+                <TabsTrigger value="applications" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Users className="w-4 h-4 mr-2" />
+                  Candidaturas
                 </TabsTrigger>
                 <TabsTrigger value="blog" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <FileText className="w-4 h-4 mr-2" />
@@ -403,6 +408,10 @@ export const Admin: React.FC = () => {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="applications">
+              <ModelApplicationManager />
             </TabsContent>
 
             <TabsContent value="blog" className="space-y-6">

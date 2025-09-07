@@ -239,6 +239,114 @@ export type Database = {
         }
         Relationships: []
       }
+      model_applications: {
+        Row: {
+          admin_notes: string | null
+          age: number | null
+          availability: string | null
+          created_at: string
+          date_of_birth: string | null
+          dress_size: string | null
+          education: string | null
+          email: string
+          escort_experience: string | null
+          eye_color: string | null
+          full_name: string
+          hair_color: string | null
+          height: string | null
+          id: string
+          instagram_handle: string | null
+          interests: string[] | null
+          languages: string[] | null
+          location_preference: string | null
+          measurements: string | null
+          modeling_experience: string | null
+          motivation: string | null
+          nationality: string | null
+          phone: string | null
+          photos: string[] | null
+          piercings: string | null
+          profession: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          shoe_size: string | null
+          status: string
+          tattoos: string | null
+          updated_at: string
+          videos: string[] | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          age?: number | null
+          availability?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          dress_size?: string | null
+          education?: string | null
+          email: string
+          escort_experience?: string | null
+          eye_color?: string | null
+          full_name: string
+          hair_color?: string | null
+          height?: string | null
+          id?: string
+          instagram_handle?: string | null
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: string | null
+          measurements?: string | null
+          modeling_experience?: string | null
+          motivation?: string | null
+          nationality?: string | null
+          phone?: string | null
+          photos?: string[] | null
+          piercings?: string | null
+          profession?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          shoe_size?: string | null
+          status?: string
+          tattoos?: string | null
+          updated_at?: string
+          videos?: string[] | null
+        }
+        Update: {
+          admin_notes?: string | null
+          age?: number | null
+          availability?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          dress_size?: string | null
+          education?: string | null
+          email?: string
+          escort_experience?: string | null
+          eye_color?: string | null
+          full_name?: string
+          hair_color?: string | null
+          height?: string | null
+          id?: string
+          instagram_handle?: string | null
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: string | null
+          measurements?: string | null
+          modeling_experience?: string | null
+          motivation?: string | null
+          nationality?: string | null
+          phone?: string | null
+          photos?: string[] | null
+          piercings?: string | null
+          profession?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          shoe_size?: string | null
+          status?: string
+          tattoos?: string | null
+          updated_at?: string
+          videos?: string[] | null
+        }
+        Relationships: []
+      }
       model_gallery: {
         Row: {
           caption: string | null

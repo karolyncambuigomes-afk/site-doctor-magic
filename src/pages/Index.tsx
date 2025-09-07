@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
 import { useBookingContent } from '@/hooks/useBookingContent';
-import { TrustSignals } from '@/components/TrustSignals';
+
 import { CategoryFilters } from '@/components/CategoryFilters';
 
 const Index = () => {
@@ -61,8 +61,6 @@ const Index = () => {
         {/* Featured Models Section - YSL Style Carousel */}
         <ModelsCarousel />
 
-        {/* Trust Signals */}
-        <TrustSignals />
 
         {/* Services Section - Minimal */}
         <section className="py-12 md:py-20 lg:py-32 bg-gray-50">

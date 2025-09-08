@@ -18,7 +18,7 @@ export const CategoryFilters: React.FC = () => {
           <h2 className="heading-xl text-black mb-4">
             Browse by Preference
           </h2>
-          <p className="body-base text-gray-600 max-w-2xl mx-auto">
+          <p className="body-base text-muted-foreground max-w-2xl mx-auto">
             Discover your perfect companion from our carefully curated selection of elite London models
           </p>
         </div>
@@ -28,7 +28,7 @@ export const CategoryFilters: React.FC = () => {
             <Link
               key={category.name}
               to={category.path}
-              className="group relative aspect-[3/4] overflow-hidden bg-gray-200 hover:shadow-lg transition-all duration-300"
+              className="group relative aspect-[3/4] overflow-hidden bg-muted hover:shadow-lg transition-all duration-300"
             >
               <img
                 src={category.image}
@@ -50,9 +50,9 @@ export const CategoryFilters: React.FC = () => {
             href="https://wa.me/447436190679"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
+            className="inline-block border border-border hover:border-foreground px-8 py-3 transition-all duration-300"
           >
-            <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+            <span className="text-sm tracking-[0.3em] uppercase font-light text-foreground">
               Book Now
             </span>
           </a>

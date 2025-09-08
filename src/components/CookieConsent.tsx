@@ -33,13 +33,13 @@ export const CookieConsent = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 p-4 shadow-lg z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-4 shadow-lg z-50">
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex-1">
-          <p className="text-sm text-stone-600">
+          <p className="text-sm text-muted-foreground">
             We use cookies to enhance your experience and analyze our traffic. 
             By continuing to use our site, you consent to our use of cookies.{' '}
-            <Link to="/privacy-policy" className="text-stone-900 underline hover:no-underline">
+            <Link to="/privacy-policy" className="text-foreground underline hover:no-underline">
               Privacy Policy
             </Link>
           </p>
@@ -49,14 +49,14 @@ export const CookieConsent = () => {
             variant="outline"
             size="sm"
             onClick={declineCookies}
-            className="text-stone-600 border-stone-300"
+            className="text-muted-foreground border-border"
           >
             Decline
           </Button>
           <Button
             size="sm"
             onClick={acceptCookies}
-            className="bg-stone-900 text-white hover:bg-stone-800"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             Accept
           </Button>

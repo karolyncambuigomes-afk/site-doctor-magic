@@ -251,7 +251,7 @@ export const GalleryManager: React.FC = () => {
             </div>
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
-                <Button className="bg-black text-white hover:bg-gray-800">
+                <Button variant="default">
                   <Plus className="w-4 h-4 mr-2" />
                   Add Model
                 </Button>
@@ -280,10 +280,10 @@ export const GalleryManager: React.FC = () => {
                     </Select>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <Button variant="outline" onClick={() => setShowAddDialog(false)} className="bg-black text-white border-black hover:bg-gray-800">
+                    <Button variant="outline" onClick={() => setShowAddDialog(false)}>
                       Cancelar
                     </Button>
-                    <Button onClick={addToCarousel} disabled={!selectedModel} className="bg-black text-white hover:bg-gray-800">
+                    <Button onClick={addToCarousel} disabled={!selectedModel}>
                       Adicionar
                     </Button>
                   </div>
@@ -301,7 +301,7 @@ export const GalleryManager: React.FC = () => {
                 <p className="text-muted-foreground mb-4">
                   Adicione modelos ao carrossel para exibi-las na página principal
                 </p>
-                <Button onClick={() => setShowAddDialog(true)} className="bg-black text-white hover:bg-gray-800">
+                <Button onClick={() => setShowAddDialog(true)}>
                   <Plus className="w-4 h-4 mr-2" />
                   Adicionar Primeira Modelo
                 </Button>
@@ -315,7 +315,7 @@ export const GalleryManager: React.FC = () => {
                   }`}
                 >
                   <div className="flex flex-col items-center gap-2">
-                    <div className="w-10 h-10 bg-white border border-black text-black rounded-full flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 bg-background border border-foreground text-foreground rounded-full flex items-center justify-center font-bold text-lg">
                       {index + 1}
                     </div>
                     <div className="flex flex-col gap-1">
@@ -324,7 +324,7 @@ export const GalleryManager: React.FC = () => {
                         size="sm"
                         onClick={() => moveItem(item.id, 'up')}
                         disabled={index === 0}
-                        className="h-8 w-8 p-0 bg-black text-white border-black hover:bg-gray-800"
+                        className="h-8 w-8 p-0"
                         title="Mover para cima"
                       >
                         <ArrowUp className="w-4 h-4" />
@@ -334,7 +334,7 @@ export const GalleryManager: React.FC = () => {
                         size="sm"
                         onClick={() => moveItem(item.id, 'down')}
                         disabled={index === carouselItems.length - 1}
-                        className="h-8 w-8 p-0 bg-black text-white border-black hover:bg-gray-800"
+                        className="h-8 w-8 p-0"
                         title="Mover para baixo"
                       >
                         <ArrowDown className="w-4 h-4" />
@@ -365,10 +365,9 @@ export const GalleryManager: React.FC = () => {
                     </div>
                     
                     <Button
-                      variant="outline"
+                      variant="destructive"
                       size="sm"
                       onClick={() => removeFromCarousel(item.id)}
-                      className="bg-black text-white border-black hover:bg-gray-800"
                       title="Remover do carrossel"
                     >
                       <Trash2 className="w-4 h-4" />

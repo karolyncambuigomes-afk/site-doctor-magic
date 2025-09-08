@@ -101,28 +101,43 @@ export const Membership: React.FC = () => {
   };
 
   const handleSubscribe = async () => {
+    console.log('handleSubscribe clicked');
+    
     if (!user) {
+      console.log('No user, showing login error');
       toast.error('Please log in to subscribe');
       return;
     }
 
     if (hasAccess) {
+      console.log('User already has access');
       toast.info('You already have an active membership');
       return;
     }
 
+    console.log('Starting checkout process...');
     setLoading(true);
     try {
+      console.log('Invoking create-checkout function...');
       const { data, error } = await supabase.functions.invoke('create-checkout');
       
-      if (error) throw error;
+      console.log('Checkout response:', { data, error });
+      
+      if (error) {
+        console.error('Checkout error:', error);
+        throw error;
+      }
       
       if (data?.url) {
+        console.log('Redirecting to Stripe:', data.url);
         window.open(data.url, '_blank');
+      } else {
+        console.error('No URL returned from checkout');
+        throw new Error('No checkout URL returned');
       }
     } catch (error) {
       console.error('Error creating checkout:', error);
-      toast.error('Failed to create checkout session');
+      toast.error(`Failed to create checkout session: ${error.message}`);
     } finally {
       setLoading(false);
     }

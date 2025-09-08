@@ -130,6 +130,32 @@ export const Admin: React.FC = () => {
     }
   };
 
+  const updateUserStatus = async (userId: string, newStatus: string) => {
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ status: newStatus })
+        .eq('id', userId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Sucesso",
+        description: `Status do usuário atualizado para ${newStatus}`,
+      });
+
+      // Reload data to refresh the list
+      loadData();
+    } catch (error) {
+      console.error('Error updating user status:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao atualizar status do usuário",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     console.log('Admin - Still loading auth...');
     return <div>Carregando...</div>;
@@ -489,12 +515,18 @@ export const Admin: React.FC = () => {
             <TabsContent value="users" className="space-y-6">
               <Card className="bg-white border-gray-200 border">
                 <CardHeader>
-                  <CardTitle className="text-black">Gerenciar Usuários</CardTitle>
-                  <CardDescription className="text-gray-600">Gerencie registros e permissões de usuários</CardDescription>
+                  <CardTitle className="text-black">Gerenciar Memberships</CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Controle interno de memberships - Aprovar ou negar acesso manualmente
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   {loadingData ? (
                     <div className="text-center py-8 text-gray-600">Carregando usuários...</div>
+                  ) : profiles.length === 0 ? (
+                    <div className="text-center py-8">
+                      <p className="text-gray-600">Nenhum usuário encontrado</p>
+                    </div>
                   ) : (
                     <div className="space-y-4">
                       {profiles.map((profile) => (
@@ -502,16 +534,58 @@ export const Admin: React.FC = () => {
                           <div>
                             <h3 className="font-medium text-black">{profile.email}</h3>
                             <div className="flex items-center space-x-2 mt-1">
-                              <Badge variant={profile.status === 'approved' ? 'default' : profile.status === 'rejected' ? 'destructive' : 'secondary'} 
-                                     className={profile.status === 'approved' ? 'bg-black text-white' : ''}>
-                                {profile.status}
+                              <Badge 
+                                variant={profile.status === 'approved' ? 'default' : profile.status === 'rejected' ? 'destructive' : 'secondary'}
+                                className={
+                                  profile.status === 'approved' ? 'bg-green-100 text-green-800' :
+                                  profile.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                                  'bg-yellow-100 text-yellow-800'
+                                }
+                              >
+                                {profile.status === 'approved' ? '✓ Membro Ativo' : 
+                                 profile.status === 'rejected' ? '✗ Acesso Negado' : '⏳ Pendente'}
                               </Badge>
-                              <Badge variant="outline" className="border-gray-300 text-gray-700">{profile.role}</Badge>
+                              <Badge variant="outline" className="border-gray-300 text-gray-700">
+                                {profile.role === 'admin' ? 'Admin' : 'User'}
+                              </Badge>
+                              <span className="text-xs text-gray-500">
+                                {new Date(profile.requested_at).toLocaleDateString('pt-BR')}
+                              </span>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">Aprovar</Button>
-                            <Button variant="outline" size="sm" className="bg-black text-white border-black hover:bg-gray-800">Rejeitar</Button>
+                            {profile.status !== 'approved' && (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="bg-green-50 text-green-700 border-green-200 hover:bg-green-100"
+                                onClick={() => updateUserStatus(profile.id, 'approved')}
+                              >
+                                <Check className="w-4 h-4 mr-1" />
+                                Aprovar
+                              </Button>
+                            )}
+                            {profile.status === 'approved' && (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                                onClick={() => updateUserStatus(profile.id, 'pending')}
+                              >
+                                Suspender
+                              </Button>
+                            )}
+                            {profile.status !== 'rejected' && (
+                              <Button 
+                                variant="outline" 
+                                size="sm" 
+                                className="bg-red-50 text-red-700 border-red-200 hover:bg-red-100"
+                                onClick={() => updateUserStatus(profile.id, 'rejected')}
+                              >
+                                <X className="w-4 h-4 mr-1" />
+                                Negar
+                              </Button>
+                            )}
                           </div>
                         </div>
                       ))}

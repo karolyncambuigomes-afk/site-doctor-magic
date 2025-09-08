@@ -7,36 +7,20 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Check, Lock, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, Lock, Mail } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 
 export const Membership: React.FC = () => {
   const auth = useAuth();
   const { user, hasAccess } = auth || {};
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [loginLoading, setLoginLoading] = useState(false);
-  const [signupLoading, setSignupLoading] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   
   // Login form state
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
   });
-  
-  // Signup form state
-  const [signupForm, setSignupForm] = useState({
-    name: '',
-    email: '',
-    password: ''
-  });
-
-  // Emergency checkout state
-  const [emergencyCheckoutUrl, setEmergencyCheckoutUrl] = useState<string | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +35,6 @@ export const Membership: React.FC = () => {
       if (error) throw error;
       
       toast.success('Successfully logged in!');
-      // AuthProvider will automatically check subscription status
     } catch (error: any) {
       console.error('Login error:', error);
       toast.error(error.message || 'Failed to login');
@@ -60,161 +43,12 @@ export const Membership: React.FC = () => {
     }
   };
 
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setSignupLoading(true);
-    
-    try {
-      const { error } = await supabase.auth.signUp({
-        email: signupForm.email,
-        password: signupForm.password,
-        options: {
-          data: {
-            name: signupForm.name,
-          },
-        },
-      });
-      
-      if (error) throw error;
-      
-      console.log('Signup successful, waiting for authentication...');
-      toast.success('Account created! Waiting for authentication...');
-      
-      // Wait for auth state to update properly with longer timeout
-      const waitForAuth = async () => {
-        const maxAttempts = 30; // 15 seconds max
-        let attempts = 0;
-        
-        while (attempts < maxAttempts) {
-          // Get current session
-          const { data: { session } } = await supabase.auth.getSession();
-          
-          console.log(`Auth check attempt ${attempts + 1}:`, {
-            hasSession: !!session,
-            hasUser: !!session?.user,
-            userEmail: session?.user?.email,
-            hasToken: !!session?.access_token
-          });
-          
-          if (session?.user && session?.access_token) {
-            console.log('User authenticated with valid token, proceeding to checkout...');
-            toast.success('Authenticated! Redirecting to payment...');
-            
-            try {
-              console.log('Calling create-checkout...');
-              const { data, error } = await supabase.functions.invoke('create-checkout');
-              
-              console.log('Checkout response:', { data, error });
-              
-              if (error) {
-                console.error('Checkout error:', error);
-                throw error;
-              }
-              
-              if (data?.url) {
-                console.log('Redirecting to checkout directly:', data.url);
-                toast.success('Redirecting to payment page...');
-                // Use direct redirection instead of new tab
-                window.location.href = data.url;
-                return true;
-              } else {
-                console.error('No URL in checkout response');
-                throw new Error('No checkout URL returned');
-              }
-            } catch (checkoutError) {
-              console.error('Checkout failed:', checkoutError);
-              toast.error(`Payment setup failed: ${checkoutError.message}`);
-              return false;
-            }
-          }
-          
-          attempts++;
-          await new Promise(resolve => setTimeout(resolve, 500));
-        }
-        
-        console.error('Authentication timeout');
-        toast.error('Authentication timeout. Please try logging in manually.');
-        return false;
-      };
-      
-      await waitForAuth();
-      
-    } catch (error: any) {
-      console.error('Signup error:', error);
-      toast.error(error.message || 'Failed to create account');
-    } finally {
-      setSignupLoading(false);
-    }
-  };
-
-  const handleSubscribe = async (retryCount = 0) => {
-    console.log(`handleSubscribe clicked (attempt ${retryCount + 1})`);
-    
-    if (!user) {
-      console.log('No user, showing login error');
-      toast.error('Please log in to subscribe');
-      return;
-    }
-
-    if (hasAccess) {
-      console.log('User already has access');
-      toast.info('You already have an active membership');
-      return;
-    }
-
-    console.log('Starting checkout process...');
-    setLoading(true);
-    
-    try {
-      console.log('Invoking create-checkout function...');
-      toast.info('Creating payment session...');
-      
-      const { data, error } = await supabase.functions.invoke('create-checkout');
-      
-      console.log('Checkout response:', { data, error });
-      
-      if (error) {
-        console.error('Checkout error:', error);
-        throw error;
-      }
-      
-      if (data?.url) {
-        console.log('Redirecting to Stripe directly:', data.url);
-        setEmergencyCheckoutUrl(data.url); // Store for emergency use
-        toast.success('Redirecting to payment page...');
-        
-        // Use direct redirection instead of new tab to avoid pop-up blockers
-        window.location.href = data.url;
-      } else {
-        console.error('No URL returned from checkout');
-        throw new Error('No checkout URL returned');
-      }
-    } catch (error: any) {
-      console.error('Error creating checkout:', error);
-      
-      // Retry logic - up to 2 attempts
-      if (retryCount < 2) {
-        console.log(`Retrying checkout in 2 seconds... (attempt ${retryCount + 1}/2)`);
-        toast.info(`Payment setup failed, retrying... (${retryCount + 1}/2)`);
-        
-        setTimeout(() => {
-          handleSubscribe(retryCount + 1);
-        }, 2000);
-        return;
-      }
-      
-      toast.error(`Failed to create checkout session: ${error.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <>
       <SEO 
-        title="Premium Membership - Exclusive Access | Five London"
-        description="Join our exclusive premium membership for £149/month. Complete access to our sophisticated companion collection."
-        keywords="premium membership, exclusive escorts London, VIP access, luxury companions, elite escort membership, Five London premium"
+        title="Members Area - Exclusive Access | Five London"
+        description="Exclusive membership area for Five London. Access requires approval from our team."
+        keywords="members area, exclusive access, VIP membership, Five London"
         canonicalUrl="/membership"
       />
       
@@ -227,10 +61,10 @@ export const Membership: React.FC = () => {
         <div className="container-width text-center">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <h1 className="heading-display mb-4 sm:mb-6 text-black">
-              Premium Membership
+              Members Area
             </h1>
             <p className="body-lg text-black">
-              Access our exclusive collection of sophisticated companions with complete privacy and discretion.
+              Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
             </p>
           </div>
         </div>
@@ -253,7 +87,7 @@ export const Membership: React.FC = () => {
                 <CardHeader className="text-center pb-6">
                   <CardTitle className="heading-lg text-foreground">Member Login</CardTitle>
                   <CardDescription className="body-base text-muted-foreground">
-                    Access your premium membership
+                    Access your membership area
                   </CardDescription>
                 </CardHeader>
                 
@@ -301,114 +135,22 @@ export const Membership: React.FC = () => {
                 </CardContent>
               </Card>
               
-              {/* Collapsible Signup Section */}
+              {/* Access Request Information */}
               <div className="mt-8">
-                <Collapsible open={isSignupOpen} onOpenChange={setIsSignupOpen}>
-                  <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="ghost" 
-                      className="w-full p-4 text-center border border-border/50 hover:border-border transition-colors"
-                    >
-                       <div className="flex items-center justify-center space-x-2">
-                        <span className="text-lg font-light tracking-widest text-foreground">
-                          WANT TO BECOME A MEMBER?
-                        </span>
-                        {isSignupOpen ? (
-                          <ChevronUp className="w-4 h-4 text-muted-foreground" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                        )}
-                      </div>
+                <Card className="border border-border/50 bg-gray-50/50">
+                  <CardContent className="p-6 text-center">
+                    <Mail className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
+                    <h3 className="font-medium mb-2 text-foreground">Request Membership Access</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Membership is by invitation or approval only. To request access, please contact our team.
+                    </p>
+                    <Button variant="outline" className="w-full" asChild>
+                      <a href="/contact" className="inline-flex items-center justify-center">
+                        Contact for Access
+                      </a>
                     </Button>
-                  </CollapsibleTrigger>
-                  
-                  <CollapsibleContent className="mt-4">
-                    <Card className="border border-border shadow-elegant">
-                      <CardHeader className="text-center pb-6">
-                        <CardTitle className="heading-lg text-foreground">Become a Member</CardTitle>
-                        <CardDescription className="body-base text-muted-foreground">
-                          Join our exclusive premium membership for complete access
-                        </CardDescription>
-                      </CardHeader>
-                      
-                      <CardContent className="px-8 pb-8">
-                        {/* Benefits */}
-                        <div className="mb-6 space-y-3">
-                          <div className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-green-600" />
-                            <span className="body-sm text-muted-foreground">Complete Access to Premium Collection</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-green-600" />
-                            <span className="body-sm text-muted-foreground">Priority Support</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Check className="w-4 h-4 text-green-600" />
-                            <span className="body-sm text-muted-foreground">Secure & Confidential</span>
-                          </div>
-                          <div className="text-center mt-4">
-                            <span className="text-2xl font-light text-primary">£149</span>
-                            <span className="body-sm text-muted-foreground ml-1">per month</span>
-                          </div>
-                        </div>
-                        
-                        {/* Signup Form */}
-                        <form onSubmit={handleSignup} className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="signup-name" className="body-sm text-foreground">Name</Label>
-                            <Input
-                              id="signup-name"
-                              type="text"
-                              value={signupForm.name}
-                              onChange={(e) => setSignupForm({ ...signupForm, name: e.target.value })}
-                              required
-                              className="body-base"
-                            />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="signup-email" className="body-sm text-foreground">Email</Label>
-                            <Input
-                              id="signup-email"
-                              type="email"
-                              value={signupForm.email}
-                              onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
-                              required
-                              className="body-base"
-                            />
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <Label htmlFor="signup-password" className="body-sm text-foreground">Password</Label>
-                            <Input
-                              id="signup-password"
-                              type="password"
-                              value={signupForm.password}
-                              onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-                              required
-                              className="body-base"
-                            />
-                          </div>
-                          
-                          <Button 
-                            type="submit"
-                            disabled={signupLoading}
-                            className="w-full py-3 text-base font-light tracking-widest"
-                          >
-                            {signupLoading ? (
-                              <div className="flex items-center">
-                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                                Creating account...
-                              </div>
-                            ) : (
-                              "Sign Up & Pay"
-                            )}
-                          </Button>
-                        </form>
-                      </CardContent>
-                    </Card>
-                  </CollapsibleContent>
-                </Collapsible>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </section>
@@ -432,9 +174,9 @@ export const Membership: React.FC = () => {
                       {hasAccess ? 'Active Access' : 'Guest Access'}
                     </span>
                   </div>
-                  {hasAccess && (
+                   {hasAccess && (
                     <Button 
-                      onClick={() => navigate('/members')}
+                      onClick={() => window.location.href = '/members'}
                       className="mt-4 px-6 py-2 font-light tracking-widest"
                     >
                       Access Members Area
@@ -453,84 +195,26 @@ export const Membership: React.FC = () => {
           </div>
         </div>
 
-        {/* Premium Pricing Section - Only show for logged in users without access */}
+        {/* Access Status for Users Without Access */}
         {user && !hasAccess && (
-          <>
-            <section className="py-16 md:py-20 bg-white">
-              <div className="max-w-md mx-auto">
-                <Card className="border border-border shadow-elegant relative overflow-hidden">
-                  <CardHeader className="text-center pb-6 pt-8">
-                    <CardTitle className="heading-xl text-primary mb-2">£149</CardTitle>
-                    <CardDescription className="body-lg text-muted-foreground">per month</CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-6 px-8 pb-8">
-                    <div className="space-y-3 text-center">
-                      <div className="flex items-center justify-center space-x-2">
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="body-base font-light text-muted-foreground">Complete Access</span>
-                      </div>
-                      <div className="flex items-center justify-center space-x-2">
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="body-base font-light text-muted-foreground">Premium Collection</span>
-                      </div>
-                      <div className="flex items-center justify-center space-x-2">
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="body-base font-light text-muted-foreground">Priority Support</span>
-                      </div>
-                    </div>
-
-                    <Button 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleSubscribe(0);
-                      }}
-                      disabled={loading}
-                      className="w-full py-4 text-base font-light tracking-widest"
-                      variant="default"
-                    >
-                      {loading ? (
-                        <div className="flex items-center">
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Processing...
-                        </div>
-                      ) : (
-                        "Join Premium"
-                      )}
-                    </Button>
-                    
-                    {/* Emergency checkout button */}
-                    {emergencyCheckoutUrl && !loading && (
-                      <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <p className="text-sm text-yellow-800 mb-2">
-                          If the automatic redirect didn't work, click below:
-                        </p>
-                        <Button 
-                          onClick={() => window.location.href = emergencyCheckoutUrl}
-                          variant="outline"
-                          className="w-full"
-                        >
-                          Go to Payment Page
-                        </Button>
-                      </div>
-                    )}
-
-                    <div className="text-center">
-                      <p className="body-xs text-muted-foreground font-light">
-                        Secure & Confidential
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </section>
-
-            <div className="py-3">
-              <div className="container-width">
-                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
-              </div>
+          <section className="py-16 md:py-20 bg-white">
+            <div className="max-w-md mx-auto">
+              <Card className="border border-orange-200 bg-orange-50/30">
+                <CardContent className="p-6 text-center">
+                  <Lock className="w-8 h-8 mx-auto mb-3 text-orange-600" />
+                  <h3 className="font-medium mb-2 text-foreground">Access Pending</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Your membership request is being reviewed. You will be notified once approved.
+                  </p>
+                  <Button variant="outline" className="w-full" asChild>
+                    <a href="/contact" className="inline-flex items-center justify-center">
+                      Contact Support
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
-          </>
+          </section>
         )}
 
         {/* Information Section */}
@@ -552,9 +236,9 @@ export const Membership: React.FC = () => {
                   </div>
                   
                   <div>
-                    <h3 className="heading-sm mb-3 text-foreground">How does billing work?</h3>
+                    <h3 className="heading-sm mb-3 text-foreground">How do I get access?</h3>
                     <p className="body-base text-muted-foreground">
-                      Monthly billing at £149. Cancel anytime through your account settings.
+                      Membership is by invitation or approval only. Contact our team to request access.
                     </p>
                   </div>
                   
@@ -573,17 +257,14 @@ export const Membership: React.FC = () => {
                   Need Assistance?
                 </h2>
                 <p className="body-base text-muted-foreground mb-6">
-                  Our team is available to help you with any questions about membership or our services.
-                </p>
-                <p className="body-sm text-muted-foreground mb-8">
-                  Complete discretion - your statement shows "London Department Store".
+                  Our team is available to help you with any questions about membership access or our services.
                 </p>
                 <Button 
-                  onClick={() => window.open('https://wa.me/447563407874?text=Hello, I have questions about the premium membership', '_blank')}
+                  onClick={() => window.open('https://wa.me/447563407874?text=Hello, I would like to request membership access', '_blank')}
                   variant="outline"
                   className="px-8 py-3 font-light tracking-widest border-border hover:bg-muted/50 transition-smooth"
                 >
-                  Contact Us Discreetly
+                  Request Access
                 </Button>
               </div>
             </div>

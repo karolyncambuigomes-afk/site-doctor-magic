@@ -29,12 +29,15 @@ port = 54328
 
 [functions.create-checkout]
 verify_jwt = true
+# Disabled for internal membership system
 
 [functions.check-subscription]
 verify_jwt = true
+# Disabled for internal membership system  
 
 [functions.customer-portal]
 verify_jwt = true
+# Disabled for internal membership system
 
 [functions.send-confirmation-email]
 verify_jwt = true

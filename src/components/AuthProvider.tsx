@@ -153,36 +153,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
       }
 
-      // Check subscription for regular users - grant access if active subscription
-      const { data, error } = await supabase
-        .from('user_subscriptions')
-        .select('*')
-        .eq('user_id', userId)
-        .eq('active', true)
-        .maybeSingle();
-
-      if (error) {
-        console.error('Error checking subscription:', error);
-        return false;
-      }
-
-      const hasSubscription = !!data;
-      console.log('AuthProvider - User subscription status:', hasSubscription);
-      
-      // Grant access if user has active subscription (automatic approval)
-      if (hasSubscription) {
-        setHasAccess(true);
-        return true;
-      }
-
-      // For non-paying users, check approval status
+      // For regular users, check manual approval status only
       const approved = profile?.status === 'approved';
-      if (!approved) {
-        console.log('AuthProvider - User not approved and no active subscription');
-        setHasAccess(false);
-        return false;
-      }
-
+      console.log('AuthProvider - User approval status:', approved);
+      
       setHasAccess(approved);
       return approved;
     } catch (error) {

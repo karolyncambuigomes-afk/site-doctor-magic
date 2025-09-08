@@ -24,44 +24,102 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
     
-    <!-- Preload Critical Resources -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap" as="style" />
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <!-- Optional DNS prefetch - only if not blocking -->
+    <script>
+      try {
+        const test = 'test';
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        
+        // Only add DNS prefetch if localStorage works (not private mode)
+        const dns1 = document.createElement('link');
+        dns1.rel = 'dns-prefetch';
+        dns1.href = 'https://fonts.googleapis.com';
+        document.head.appendChild(dns1);
+        
+        const dns2 = document.createElement('link');
+        dns2.rel = 'dns-prefetch';
+        dns2.href = 'https://fonts.gstatic.com';
+        document.head.appendChild(dns2);
+      } catch (e) {
+        // Private mode - skip DNS prefetch
+      }
+    </script>
     
     <title>Five London - Premier Luxury Companion Services</title>
     <meta name="description" content="Five London represents the epitome of luxury companion services in the heart of London. Sophisticated, intelligent, and elegant companions for the most discerning clientele." />
     <meta name="author" content="Five London" />
 
-    <!-- Optional font loading for compatibility -->
+    <!-- Enhanced font loading for private browsers -->
     <script>
-      // Only load Google Fonts if not in private mode and connectivity is good
-      try {
-        localStorage.setItem('fontTest', 'test');
-        localStorage.removeItem('fontTest');
+      (function() {
+        let privateModeDetected = false;
         
-        // Create preconnect links only if storage works
-        const preconnect1 = document.createElement('link');
-        preconnect1.rel = 'preconnect';
-        preconnect1.href = 'https://fonts.googleapis.com';
-        document.head.appendChild(preconnect1);
+        try {
+          // Enhanced private mode detection
+          localStorage.setItem('privateModeTest', 'test');
+          localStorage.removeItem('privateModeTest');
+          
+          // Additional check - storage quota
+          if ('storage' in navigator && 'estimate' in navigator.storage) {
+            navigator.storage.estimate().then(estimate => {
+              if (estimate.quota && estimate.quota < 50000000) {
+                console.log('Low storage quota - likely private mode');
+                privateModeDetected = true;
+              }
+            });
+          }
+          
+        } catch (e) {
+          console.log('Private mode detected via localStorage test');
+          privateModeDetected = true;
+          document.documentElement.classList.add('private-mode');
+          return;
+        }
         
-        const preconnect2 = document.createElement('link');
-        preconnect2.rel = 'preconnect';
-        preconnect2.href = 'https://fonts.gstatic.com';
-        preconnect2.crossOrigin = 'anonymous';
-        document.head.appendChild(preconnect2);
-        
-        // Load fonts with timeout
-        const fontLink = document.createElement('link');
-        fontLink.rel = 'stylesheet';
-        fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap';
-        fontLink.onload = () => console.log('Fonts loaded successfully');
-        fontLink.onerror = () => console.log('Fonts failed to load, using system fonts');
-        document.head.appendChild(fontLink);
-      } catch (e) {
-        console.log('Private mode detected, using system fonts only');
-      }
+        // Only proceed if not in private mode and online
+        if (!privateModeDetected && navigator.onLine) {
+          // Quick preconnect
+          const preconnect1 = document.createElement('link');
+          preconnect1.rel = 'preconnect';
+          preconnect1.href = 'https://fonts.googleapis.com';
+          document.head.appendChild(preconnect1);
+          
+          const preconnect2 = document.createElement('link');
+          preconnect2.rel = 'preconnect';
+          preconnect2.href = 'https://fonts.gstatic.com';
+          preconnect2.crossOrigin = 'anonymous';
+          document.head.appendChild(preconnect2);
+          
+          // Load fonts with aggressive timeout
+          const fontLink = document.createElement('link');
+          fontLink.rel = 'stylesheet';
+          fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap';
+          
+          const timeout = setTimeout(() => {
+            console.log('Font timeout - using system fonts');
+            if (fontLink.parentNode) fontLink.remove();
+            document.documentElement.classList.add('fonts-timeout');
+          }, 1500);
+          
+          fontLink.onload = () => {
+            clearTimeout(timeout);
+            console.log('Fonts loaded successfully');
+            document.documentElement.classList.add('fonts-loaded');
+          };
+          
+          fontLink.onerror = () => {
+            clearTimeout(timeout);
+            console.log('Font error - using system fonts');
+            document.documentElement.classList.add('fonts-error');
+          };
+          
+          document.head.appendChild(fontLink);
+        } else {
+          console.log('Using system fonts (private mode or offline)');
+          document.documentElement.classList.add('system-fonts');
+        }
+      })();
     </script>
 
     <meta property="og:title" content="Five London - Premier Luxury Companion Services" />

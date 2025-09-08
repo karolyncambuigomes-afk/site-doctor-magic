@@ -1,6 +1,6 @@
-# Five London - Mobile Cache Optimization
+# Five London - Optimized for Private Browser Compatibility
 
-# Enable compression
+# Enable compression for supported browsers
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -14,29 +14,23 @@
     AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Simplified Cache Control for Maximum Compatibility
+# Ultra-simple cache control for maximum private browser compatibility
 <IfModule mod_headers.c>
-    # Basic caching only - compatible with private browsers
-    <FilesMatch "\.(js|css)$">
-        Header set Cache-Control "public, max-age=86400"
+    # Very basic caching - private browsers often ignore complex cache directives
+    <FilesMatch "\.(js|css|jpg|jpeg|png|gif|ico|svg|webp)$">
+        Header set Cache-Control "public, max-age=3600"
     </FilesMatch>
     
-    # Images - basic caching
-    <FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp)$">
-        Header set Cache-Control "public, max-age=86400"
-    </FilesMatch>
-    
-    # Minimal security headers for compatibility
+    # Essential security header only
     Header always set X-Content-Type-Options "nosniff"
     
-    # Basic CORS for international access
-    Header always set Access-Control-Allow-Origin "*"
-</IfModule>
-
-# Remove ETags for better mobile caching
-<IfModule mod_headers.c>
+    # Remove potentially problematic headers
+    Header unset X-Powered-By
+    Header unset Server
     Header unset ETag
 </IfModule>
+
+# Disable ETags completely for consistency
 FileETag None
 
 # SPA Routing and Optional HTTPS

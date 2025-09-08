@@ -1,87 +1,68 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { isPrivateMode, isPrivateModeSync } from '@/lib/utils';
+import { isPrivateModeSync } from '@/lib/utils';
 
 export const ServiceWorkerManager = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [isPrivate, setIsPrivate] = useState(false);
-  const [swDisabled, setSwDisabled] = useState(false);
 
   useEffect(() => {
-    // Immediate synchronous check for private mode
+    // CRITICAL: Check private mode BEFORE any service worker operations
     const privateModeSync = isPrivateModeSync();
     setIsPrivate(privateModeSync);
     
     if (privateModeSync) {
-      setSwDisabled(true);
-      console.log('Private mode detected (sync), Service Worker disabled');
-      return;
+      console.log('Private mode detected, Service Worker completely disabled');
+      return; // Exit immediately - no SW operations
     }
     
-    // Also disable SW if there are connectivity issues
-    const isOffline = !navigator.onLine;
-    if (isOffline) {
-      setSwDisabled(true);
+    // Also exit if offline to prevent issues
+    if (!navigator.onLine) {
       console.log('Offline detected, Service Worker disabled');
       return;
     }
     
-    // Enhanced async check for private mode
-    isPrivateMode().then((privateMode) => {
-      if (privateMode && !swDisabled) {
-        setIsPrivate(true);
-        setSwDisabled(true);
-        console.log('Private mode detected (async), Service Worker disabled');
-        return;
-      }
-    }).catch(() => {
-      setSwDisabled(true);
-      console.log('Private mode detection failed, Service Worker disabled');
-    });
-    
-    if ('serviceWorker' in navigator && !swDisabled && !privateModeSync) {
-      // Register service worker
-      navigator.serviceWorker.register('/sw.js')
-        .then((reg) => {
-          console.log('Service Worker registered successfully');
-          setRegistration(reg);
-
-          // Check for updates every 30 seconds
-          setInterval(() => {
-            reg.update();
-          }, 30000);
-
-          // Listen for updates
-          reg.addEventListener('updatefound', () => {
-            const newWorker = reg.installing;
-            if (newWorker) {
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  setUpdateAvailable(true);
-                  toast.info('Nova versão disponível! Clique para atualizar.', {
-                    duration: 10000,
-                    action: {
-                      label: 'Atualizar',
-                      onClick: () => handleUpdate()
-                    }
-                  });
-                }
-              });
-            }
-          });
-        })
-        .catch((error) => {
-          console.log('Service Worker registration failed:', error);
-          setSwDisabled(true);
-        });
-
-      // Listen for controller change (when new SW takes control)
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        window.location.reload();
-      });
+    // Only proceed if private mode check passed AND we have service worker support
+    if (!('serviceWorker' in navigator)) {
+      console.log('Service Worker not supported');
+      return;
     }
-  }, [swDisabled]);
+    
+    // Register service worker only after all checks pass
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => {
+        console.log('Service Worker registered successfully');
+        setRegistration(reg);
+
+        // Listen for updates
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                setUpdateAvailable(true);
+                toast.info('Nova versão disponível! Clique para atualizar.', {
+                  duration: 10000,
+                  action: {
+                    label: 'Atualizar',
+                    onClick: () => handleUpdate()
+                  }
+                });
+              }
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        console.log('Service Worker registration failed:', error);
+      });
+
+    // Listen for controller change (when new SW takes control)
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  }, []); // Remove dependency to prevent re-runs
 
   const handleUpdate = () => {
     if (registration?.waiting) {

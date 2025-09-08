@@ -174,19 +174,59 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
-    // Set up auth state listener first
+    // Simplified auth setup - avoid concurrent Supabase calls
+    let mounted = true;
+    
+    const setupAuth = async () => {
+      try {
+        // First, check existing session
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (!mounted) return;
+        
+        if (error) {
+          console.error('AuthProvider - Session error:', error);
+          setLoading(false);
+          return;
+        }
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+
+        // Only check access after session is established
+        if (session?.user) {
+          setTimeout(() => {
+            if (mounted) {
+              console.log('AuthProvider - Checking access for:', session.user.email);
+              checkUserAccess(session.user.id);
+            }
+          }, 100);
+        }
+      } catch (error) {
+        console.error('AuthProvider - Setup error:', error);
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        if (!mounted) return;
+        
         try {
           setSession(session);
           setUser(session?.user ?? null);
           setLoading(false);
 
           if (session?.user) {
-            // Defer Supabase calls to prevent deadlock using setTimeout
             setTimeout(() => {
-              console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
-              checkUserAccess(session.user.id);
+              if (mounted) {
+                console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
+                checkUserAccess(session.user.id);
+              }
             }, 100);
           } else {
             console.log('AuthProvider - No session, clearing access');
@@ -196,27 +236,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         } catch (error) {
           console.error('AuthProvider - Error in auth state change:', error);
-          setLoading(false);
+          if (mounted) setLoading(false);
         }
       }
     );
 
-    // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
+    setupAuth();
 
-      if (session?.user) {
-        // Defer Supabase calls to prevent deadlock using setTimeout
-        setTimeout(() => {
-          console.log('AuthProvider - Initial session found, checking access for:', session.user.email);
-          checkUserAccess(session.user.id);
-        }, 200);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signOut = async () => {

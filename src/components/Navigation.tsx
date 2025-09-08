@@ -213,7 +213,7 @@ export const Navigation: React.FC = () => {
                   ) : (
                     <div className="space-y-4">
                       <a href="https://wa.me/447436190679">
-                        <Button className="w-full">
+                        <Button className="w-full bg-white text-slate-600 hover:bg-gray-100">
                           Call Now
                         </Button>
                       </a>

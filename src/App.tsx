@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
+import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
+import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { AuthProvider } from "@/components/AuthProvider";
@@ -44,6 +46,8 @@ const App = () => (
       <TooltipProvider>
         <AuthProvider>
           <Analytics />
+          <ServiceWorkerManager />
+          <MobileOptimizer />
           <Toaster />
           <Sonner />
           <CookieConsent />

@@ -1,0 +1,49 @@
+{
+  "name": "Five London - Premier Luxury Companion Services",
+  "short_name": "Five London",
+  "description": "Five London represents the epitome of luxury companion services in the heart of London. Sophisticated, intelligent, and elegant companions for the most discerning clientele.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#171717",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "business"],
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "/",
+  "id": "five-london-app",
+  "shortcuts": [
+    {
+      "name": "Models",
+      "short_name": "Models",
+      "description": "View available models",
+      "url": "/models",
+      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contact us",
+      "url": "/contact",
+      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+    }
+  ]
+}

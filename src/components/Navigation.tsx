@@ -63,34 +63,38 @@ export const Navigation = () => {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
-        : isScrolled || location.pathname === '/'
+        : isScrolled
         ? 'bg-background/95 backdrop-blur-sm border-b border-border' 
-        : 'bg-background'
+        : 'bg-transparent'
     }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2 md:py-3">
           <SafeLink 
             to="/" 
-            className={`font-manrope font-medium uppercase text-black transition-colors hover:text-primary ${
+            className={`font-manrope font-medium uppercase transition-colors hover:text-primary ${
+              isScrolled ? 'text-foreground' : 'text-white'
+            } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
             Five London
-            <span className="text-xs text-muted-foreground ml-2 font-normal">EST. 2020</span>
+            <span className={`text-xs ml-2 font-normal ${
+              isScrolled ? 'text-muted-foreground' : 'text-white/70'
+            }`}>EST. 2020</span>
           </SafeLink>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
-              <SafeLink
-                key={item.href}
-                to={item.href}
-                className={`font-medium text-sm transition-colors ${
-                  location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-primary' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
+                <SafeLink
+                  key={item.href}
+                  to={item.href}
+                  className={`font-medium text-sm transition-colors ${
+                    location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+                      ? 'text-primary' 
+                      : isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
+                  }`}
+                >
                 {item.label}
               </SafeLink>
             ))}
@@ -100,7 +104,9 @@ export const Navigation = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <a 
               href="tel:+447436190679"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className={`text-sm transition-colors ${
+                isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
+              }`}
             >
               +44 7436 190679
             </a>
@@ -145,7 +151,9 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-black hover:text-muted-foreground transition-colors"
+            className={`lg:hidden p-2 transition-colors ${
+              isScrolled ? 'text-foreground hover:text-muted-foreground' : 'text-white hover:text-white/70'
+            }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >

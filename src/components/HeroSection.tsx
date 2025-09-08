@@ -28,7 +28,7 @@ export const HeroSection: React.FC = () => {
           
           <div className="flex justify-center gap-4">
             <SafeLink to="/models" className="inline-block">
-              <button className="bg-white text-black hover:bg-gray-100 px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+              <button className="bg-white text-foreground hover:bg-gray-100 px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
                 View Models
               </button>
             </SafeLink>
@@ -37,7 +37,7 @@ export const HeroSection: React.FC = () => {
               href="https://wa.me/447436190679"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block border border-white text-white hover:bg-white hover:text-black px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs"
+              className="inline-block border border-white text-white hover:bg-white hover:text-foreground px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs"
             >
               Book Now
             </a>

@@ -69,7 +69,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         
         {/* Price overlay - Mobile responsive */}
         {model.price && (
-          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-foreground px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
             {model.price}
           </div>
         )}
@@ -97,7 +97,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         
         {/* Price overlay - Mobile responsive */}
         {model.price && (
-          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-foreground px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded">
             {model.price}
           </div>
         )}
@@ -140,7 +140,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
           
           {/* Price overlay - Mobile responsive */}
           {model.price && (
-            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded-lg">
+            <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 backdrop-blur-sm text-foreground px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-medium z-10 rounded-lg">
               {model.price}
             </div>
           )}

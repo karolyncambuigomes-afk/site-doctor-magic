@@ -196,7 +196,7 @@ const Services = () => {
                     <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
                         <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
+                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-foreground" />
                         </div>
                         <div className="flex-1 text-left">
                           <h3 className="luxury-heading-sm mb-1 text-foreground">{service.title}</h3>
@@ -268,7 +268,7 @@ const Services = () => {
                               
                               return (
                                 <div key={i} className="flex items-center luxury-body-xs sm:luxury-body-sm text-foreground">
-                                  <div className="w-1 h-1 bg-black rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                                  <div className="w-1 h-1 bg-foreground rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {
                                       const dynamicLink = getBlogLinkForKeyword(feature);
@@ -276,7 +276,7 @@ const Services = () => {
                                       return dynamicLink ? (
                                         <Link 
                                           to={dynamicLink}
-                                          className="text-black hover:text-slate-800 transition-colors underline"
+                                          className="text-foreground hover:text-foreground/80 transition-colors underline"
                                           title={dynamicTitle || linkConfig.title}
                                           aria-label={dynamicTitle || linkConfig.title}
                                         >
@@ -285,7 +285,7 @@ const Services = () => {
                                       ) : (
                                         <Link 
                                           to={service.blogLink}
-                                          className="text-black hover:text-slate-800 transition-colors underline"
+                                          className="text-foreground hover:text-foreground/80 transition-colors underline"
                                           title={linkConfig.title}
                                           aria-label={linkConfig.title}
                                         >

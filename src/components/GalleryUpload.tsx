@@ -221,9 +221,9 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
             <span className="text-white text-sm font-bold">!</span>
           </div>
-          <h4 className="font-bold text-gray-900">Sistema de Ordenação</h4>
+          <h4 className="font-bold text-foreground">Sistema de Ordenação</h4>
         </div>
-        <p className="text-sm text-gray-800">
+        <p className="text-sm text-muted-foreground">
           • A foto na posição 1 será a PRINCIPAL (aparece na lista)<br/>
           • Use os seletores de ordem para reorganizar as fotos<br/>
           • Adicione pelo menos 1 foto para que o modelo apareça no site
@@ -236,11 +236,11 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
             <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-white" />
             </div>
-            <h4 className="font-bold text-gray-900 text-lg">Adicionar Nova Foto</h4>
+            <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
           </div>
           
           <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
-            <Label className="text-gray-900 font-bold text-lg flex items-center gap-2 mb-3">
+            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
               📸 Upload da Foto
             </Label>
             <div className="space-y-3">
@@ -365,9 +365,9 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
+        <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-gray-300 rounded-lg">
           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Plus className="w-8 h-8 text-gray-400" />
+            <Plus className="w-8 h-8 text-muted-foreground" />
           </div>
           <p className="font-medium">Nenhuma foto adicionada</p>
           <p className="text-sm">Adicione pelo menos uma foto para que o modelo apareça no site</p>

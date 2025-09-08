@@ -17,7 +17,9 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-luxury-navy text-white relative z-50 w-full"
+    <footer 
+      className="bg-luxury-navy text-white relative z-50 w-full"
+      style={{ backgroundColor: '#0f1419' }}
     >
       <div className="container mx-auto px-4 py-16">{" "}
         {/* Main Footer Content */}

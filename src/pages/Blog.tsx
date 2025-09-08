@@ -171,7 +171,7 @@ const Blog = () => {
             <div className="container-width text-center">
               <div className="max-w-2xl mx-auto px-4 sm:px-6">
                 <h2 className="luxury-heading-lg font-extralight mb-4">Stay Updated</h2>
-                <p className="luxury-body-lg text-muted-foreground mb-8">
+                <p className="luxury-body-base text-muted-foreground mb-8">
                   Contact us for the latest London experiences and exclusive recommendations.
                 </p>
                 <Button 

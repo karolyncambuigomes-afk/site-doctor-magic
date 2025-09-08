@@ -60,40 +60,40 @@ const Index = () => {
         {/* Contact Section */}
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
-            <h2 className="luxury-heading-xl text-foreground mb-6">
+            <h2 className="luxury-heading-xl text-black mb-6">
               Elite Companion
             </h2>
-            <p className="luxury-body-lg text-foreground mb-16 md:mb-20">
+            <p className="luxury-body-base text-black mb-16 md:mb-20">
               Contact us through your preferred method for a discreet consultation
             </p>
             
             <div className="flex items-center justify-center gap-12 md:gap-16">
               {/* WhatsApp */}
               <a href="https://wa.me/447436190679" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 transition-all duration-500">
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-foreground rounded-full flex items-center justify-center group-hover:border-foreground transition-all duration-500">
-                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-foreground group-hover:text-foreground transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
+                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
+                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   WhatsApp
                 </span>
               </a>
 
               {/* Call */}
               <a href="tel:+447436190679" className="group flex flex-col items-center gap-4 transition-all duration-500">
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-foreground rounded-full flex items-center justify-center group-hover:border-foreground transition-all duration-500">
-                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-foreground group-hover:text-foreground transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
+                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
+                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   Call
                 </span>
               </a>
 
               {/* Telegram */}
               <a href="https://t.me/FiveLondon" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 transition-all duration-500">
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-foreground rounded-full flex items-center justify-center group-hover:border-foreground transition-all duration-500">
-                  <Send className="w-7 h-7 md:w-8 md:h-8 text-foreground group-hover:text-foreground transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
+                  <Send className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
+                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   Telegram
                 </span>
               </a>

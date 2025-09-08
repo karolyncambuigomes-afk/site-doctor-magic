@@ -187,7 +187,7 @@ const CharacteristicDetail = () => {
                     </CollapsibleTrigger>
                     <CollapsibleContent className="mt-12 animate-accordion-down">
                       <div 
-                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-lg [&>p]:leading-relaxed"
+                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: characteristic.content }}
                       />
                     </CollapsibleContent>

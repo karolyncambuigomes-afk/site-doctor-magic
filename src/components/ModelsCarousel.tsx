@@ -94,12 +94,12 @@ export const ModelsCarousel = () => {
                     
                     {/* Static info below - minimal and elegant */}
                     <div className="text-center px-1">
-                       <h3 className="luxury-body-md text-foreground mb-0.5 tracking-normal group-hover:text-muted-foreground transition-colors duration-300">
-                          {model.name}
-                        </h3>
-                        <p className="luxury-body-xs text-muted-foreground tracking-normal">
-                          {model.location || 'London'}
-                        </p>
+                       <h3 className="luxury-body-md text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
+                         {model.name}
+                       </h3>
+                       <p className="luxury-body-xs text-gray-500 tracking-normal">
+                         {model.location || 'London'}
+                       </p>
                     </div>
                   </SafeLink>
                 </div>
@@ -116,7 +116,7 @@ export const ModelsCarousel = () => {
             to="/models" 
             className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
           >
-            <span className="luxury-body-sm tracking-[0.3em] uppercase font-light text-foreground">
+            <span className="luxury-body-sm tracking-[0.3em] uppercase font-light text-black">
               All Models
             </span>
           </SafeLink>

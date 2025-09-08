@@ -127,13 +127,13 @@ const About = () => {
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h1 className="luxury-heading-display mb-6 text-foreground">
+                  <h1 className="luxury-heading-display mb-6 text-black">
                     About Five London
                   </h1>
-                  <p className="luxury-body-lg text-muted-foreground mb-8 leading-relaxed">
+                  <p className="luxury-body-lg text-gray-800 mb-8 leading-relaxed">
                     Five London stands as the epitome of luxury companionship services in the heart of England's capital. Founded on principles of discretion, elegance, and uncompromising quality, we have established ourselves as the premier destination for sophisticated individuals seeking exceptional companionship experiences.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-800 leading-relaxed">
                     Our commitment to excellence has made us the trusted choice for discerning clients who demand nothing but the finest in luxury companionship services.
                   </p>
                 </div>
@@ -162,14 +162,14 @@ const About = () => {
                   />
                 </div>
                 <div className="order-1 lg:order-2">
-                  <h2 className="luxury-heading-lg mb-6 text-foreground">Our Story</h2>
-                  <p className="luxury-body-md text-muted-foreground mb-6 leading-relaxed">
+                  <h2 className="luxury-heading-lg mb-6 text-black">Our Story</h2>
+                  <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
                     Five London was born from a vision to redefine the luxury companionship industry in London. Recognizing the need for a service that truly understands the discerning tastes of sophisticated individuals, we set out to create an agency that would set new standards in elegance, discretion, and personalized service.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground mb-6 leading-relaxed">
+                  <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
                     Over the years, we have carefully curated a portfolio of exceptional companions who embody the qualities our clients value most: intelligence, elegance, sophistication, and genuine warmth. Each companion is selected not only for their beauty but for their ability to engage in meaningful conversations and adapt to any social setting.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-800 leading-relaxed">
                     Today, Five London is recognized as London's most exclusive luxury escort agency, serving clients from around the world who seek unparalleled companionship experiences in one of the world's most vibrant cities.
                   </p>
                 </div>
@@ -181,8 +181,8 @@ const About = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <h2 className="luxury-heading-lg mb-6 text-foreground">Why Choose Five London</h2>
-                <p className="luxury-body-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <h2 className="luxury-heading-lg mb-6 text-black">Why Choose Five London</h2>
+                <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
                   We distinguish ourselves through our unwavering commitment to excellence, attention to detail, and understanding of what truly matters to our discerning clientele.
                 </p>
               </div>
@@ -191,8 +191,8 @@ const About = () => {
                 {values.map((value, index) => (
                   <div key={index} className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
                     <value.icon className="w-12 h-12 text-primary mb-6" />
-                    <h3 className="luxury-heading-sm mb-4 text-foreground">{value.title}</h3>
-                    <p className="luxury-body-md text-muted-foreground leading-relaxed">{value.description}</p>
+                    <h3 className="luxury-heading-sm mb-4 text-black">{value.title}</h3>
+                    <p className="luxury-body-md text-gray-800 leading-relaxed">{value.description}</p>
                   </div>
                 ))}
               </div>
@@ -220,8 +220,8 @@ const About = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="text-center mb-16">
-                <h2 className="luxury-heading-lg mb-6 text-foreground">Our Achievements</h2>
-                <p className="luxury-body-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                <h2 className="luxury-heading-lg mb-6 text-black">Our Achievements</h2>
+                <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
                   Our track record speaks for itself. These milestones represent our commitment to excellence and the trust our clients place in us.
                 </p>
               </div>
@@ -230,8 +230,8 @@ const About = () => {
                 {achievements.map((achievement, index) => (
                   <div key={index} className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
                     <achievement.icon className="w-10 h-10 text-primary mb-4" />
-                    <h3 className="luxury-heading-sm mb-3 text-foreground">{achievement.text}</h3>
-                    <p className="luxury-body-sm text-muted-foreground leading-relaxed">{achievement.detail}</p>
+                    <h3 className="luxury-heading-sm mb-3 text-black">{achievement.text}</h3>
+                    <p className="luxury-body-sm text-gray-800 leading-relaxed">{achievement.detail}</p>
                   </div>
                 ))}
               </div>
@@ -242,15 +242,15 @@ const About = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto text-center">
-                <h2 className="luxury-heading-lg mb-8 text-foreground">Our Commitment to Excellence</h2>
+                <h2 className="luxury-heading-lg mb-8 text-black">Our Commitment to Excellence</h2>
                 <div className="space-y-8">
-                  <p className="luxury-body-lg text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-lg text-gray-800 leading-relaxed">
                     At Five London, we understand that our clients are successful, sophisticated individuals who expect nothing less than perfection. This understanding drives every aspect of our service, from the initial consultation to the final farewell.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-800 leading-relaxed">
                     We continuously invest in training our team, refining our processes, and staying ahead of industry trends to ensure that we always exceed expectations. Our commitment extends beyond just providing companionship – we create experiences that are truly unforgettable.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-800 leading-relaxed">
                     Whether you're attending a business function, exploring London's cultural offerings, or simply seeking sophisticated company for an evening out, Five London provides the perfect companion to enhance your experience and ensure every moment is extraordinary.
                   </p>
                 </div>
@@ -261,8 +261,8 @@ const About = () => {
           {/* Contact Section */}
           <section className="py-16 md:py-20 bg-white">
             <div className="container mx-auto px-4 text-center">
-              <h2 className="luxury-heading-lg mb-6 text-foreground">Ready to Experience Excellence?</h2>
-              <p className="luxury-body-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+              <h2 className="luxury-heading-lg mb-6 text-black">Ready to Experience Excellence?</h2>
+              <p className="luxury-body-lg text-gray-800 mb-8 max-w-3xl mx-auto leading-relaxed">
                 Contact us today to discover how Five London can provide you with an unforgettable luxury companionship experience. Our dedicated team is ready to assist you in creating the perfect arrangement tailored to your specific needs and preferences.
               </p>
               <a

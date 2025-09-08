@@ -75,10 +75,10 @@ const Contact = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-display mb-4 sm:mb-6 text-foreground">
+              <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                 Contact for Same Day Booking
               </h1>
-              <p className="luxury-body-lg text-foreground">
+              <p className="luxury-body-lg text-black">
                 Most companions available today. Call now for instant confirmation.
               </p>
             </div>
@@ -95,12 +95,12 @@ const Contact = () => {
                     key={method.title}
                     className="text-center space-y-4 p-6 border border-border rounded-xl hover:border-primary/30 transition-all"
                   >
-                    <div className="inline-flex items-center justify-center w-12 h-12 text-foreground">
+                    <div className="inline-flex items-center justify-center w-12 h-12 text-black">
                       <method.icon className="w-8 h-8" />
                     </div>
-                    <h3 className="text-lg font-medium text-foreground">{method.title}</h3>
-                    <p className="text-foreground">{method.details}</p>
-                    <p className="text-sm text-foreground">{method.description}</p>
+                    <h3 className="text-lg font-medium text-black">{method.title}</h3>
+                    <p className="text-black">{method.details}</p>
+                    <p className="text-sm text-black">{method.description}</p>
                     <Button 
                       className="w-full bg-black text-white hover:bg-gray-800"
                       onClick={() => {

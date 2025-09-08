@@ -77,7 +77,7 @@ export const Reviews: React.FC = () => {
                         <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <p className="luxury-body-lg italic flex-grow">"{testimonial.content}"</p>
+                    <p className="luxury-body-base italic flex-grow">"{testimonial.content}"</p>
                     <div className="space-y-1 mt-auto">
                       <p className="font-medium text-foreground">{testimonial.name}</p>
                       <p className="luxury-body-sm text-muted-foreground">{testimonial.role}</p>

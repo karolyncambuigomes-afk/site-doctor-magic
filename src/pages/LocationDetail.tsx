@@ -130,7 +130,7 @@ const LocationDetail = () => {
                   Our Exclusive {location.name} Collection
                 </h2>
                 <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
-                <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">
                   Meet our sophisticated companions available in {location.name}
                 </p>
               </div>
@@ -203,7 +203,7 @@ const LocationDetail = () => {
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-12 animate-accordion-down">
                     <div 
-                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-lg [&>p]:leading-relaxed"
+                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: location.content }}
                     />
                   </CollapsibleContent>

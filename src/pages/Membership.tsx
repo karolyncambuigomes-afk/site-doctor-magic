@@ -86,7 +86,7 @@ export const Membership: React.FC = () => {
               <Card className="border border-border shadow-elegant">
                 <CardHeader className="text-center pb-6">
                   <CardTitle className="luxury-heading-lg text-foreground">Member Login</CardTitle>
-                  <CardDescription className="luxury-body-lg text-muted-foreground">
+                  <CardDescription className="luxury-body-base text-muted-foreground">
                     Access your membership area
                   </CardDescription>
                 </CardHeader>
@@ -101,7 +101,7 @@ export const Membership: React.FC = () => {
                         value={loginForm.email}
                         onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
                         required
-                        className="luxury-body-lg"
+                        className="luxury-body-base"
                       />
                     </div>
                     
@@ -113,7 +113,7 @@ export const Membership: React.FC = () => {
                         value={loginForm.password}
                         onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                         required
-                        className="luxury-body-lg"
+                        className="luxury-body-base"
                       />
                     </div>
                     
@@ -230,21 +230,21 @@ export const Membership: React.FC = () => {
                 <div className="space-y-6">
                   <div>
                     <h3 className="luxury-heading-sm mb-3 text-foreground">What's included?</h3>
-                    <p className="luxury-body-lg text-muted-foreground">
+                    <p className="luxury-body-base text-muted-foreground">
                       Complete access to our exclusive premium collection with priority support and secure, confidential service.
                     </p>
                   </div>
                   
                   <div>
                     <h3 className="luxury-heading-sm mb-3 text-foreground">How do I get access?</h3>
-                    <p className="luxury-body-lg text-muted-foreground">
+                    <p className="luxury-body-base text-muted-foreground">
                       Membership is by invitation or approval only. Contact our team to request access.
                     </p>
                   </div>
                   
                   <div>
                     <h3 className="luxury-heading-sm mb-3 text-foreground">Is my information secure?</h3>
-                    <p className="luxury-body-lg text-muted-foreground">
+                    <p className="luxury-body-base text-muted-foreground">
                       We maintain the highest standards of privacy and security for all member information.
                     </p>
                   </div>
@@ -256,7 +256,7 @@ export const Membership: React.FC = () => {
                 <h2 className="luxury-heading-lg mb-8 text-foreground">
                   Need Assistance?
                 </h2>
-                <p className="luxury-body-lg text-muted-foreground mb-6">
+                <p className="luxury-body-base text-muted-foreground mb-6">
                   Our team is available to help you with any questions about membership access or our services.
                 </p>
                 <Button 

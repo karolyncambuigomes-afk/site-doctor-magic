@@ -133,7 +133,7 @@ export const Navigation: React.FC = () => {
                   <SafeLink
                     key={item.href}
                     to={item.href}
-                    className={`luxury-body-lg font-medium transition-colors ${
+                    className={`luxury-body-base font-medium transition-colors ${
                       location.pathname === item.href ? 'text-black' : 'text-gray-600 hover:text-black'
                     }`}
                   >

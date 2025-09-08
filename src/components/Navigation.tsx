@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
+import { useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
@@ -68,7 +69,7 @@ export const Navigation = () => {
     }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
         <div className="flex items-center justify-between py-2 md:py-3">
-          <Link 
+          <SafeLink 
             to="/" 
             className={`font-manrope font-medium uppercase text-black transition-colors hover:text-primary ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
@@ -76,12 +77,12 @@ export const Navigation = () => {
           >
             Five London
             <span className="text-xs text-muted-foreground ml-2 font-normal">EST. 2020</span>
-          </Link>
+          </SafeLink>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
+              <SafeLink
                 key={item.href}
                 to={item.href}
                 className={`font-medium text-sm transition-colors ${
@@ -91,7 +92,7 @@ export const Navigation = () => {
                 }`}
               >
                 {item.label}
-              </Link>
+              </SafeLink>
             ))}
           </div>
 
@@ -118,10 +119,10 @@ export const Navigation = () => {
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild>
-                      <Link to="/admin" className="flex items-center">
+                      <SafeLink to="/admin" className="flex items-center">
                         <Settings className="w-4 h-4 mr-2" />
                         Admin
-                      </Link>
+                      </SafeLink>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={signOut} className="text-red-600">
@@ -158,7 +159,7 @@ export const Navigation = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
-                  <Link
+                  <SafeLink
                     key={item.href}
                     to={item.href}
                     className={`text-lg font-medium transition-colors ${
@@ -166,7 +167,7 @@ export const Navigation = () => {
                     }`}
                   >
                     {item.label}
-                  </Link>
+                  </SafeLink>
                 ))}
                 <div className="pt-8 border-t border-border/30 space-y-6">
                   <a 
@@ -183,12 +184,12 @@ export const Navigation = () => {
                           {user.email}
                         </span>
                       </div>
-                      <Link to="/admin">
+                      <SafeLink to="/admin">
                         <Button variant="outline" className="w-full">
                           <Settings className="w-4 h-4 mr-2" />
                           Admin
                         </Button>
-                      </Link>
+                      </SafeLink>
                       <button 
                         onClick={signOut}
                         className="w-full text-left text-red-600 hover:text-red-700 transition-colors text-sm"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 
@@ -39,9 +39,9 @@ export const CookieConsent = () => {
           <p className="text-sm text-muted-foreground">
             We use cookies to enhance your experience and analyze our traffic. 
             By continuing to use our site, you consent to our use of cookies.{' '}
-            <Link to="/privacy-policy" className="text-foreground underline hover:no-underline">
+            <SafeLink to="/privacy-policy" className="text-foreground underline hover:no-underline">
               Privacy Policy
-            </Link>
+            </SafeLink>
           </p>
         </div>
         <div className="flex items-center gap-3">

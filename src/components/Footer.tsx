@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -49,9 +49,9 @@ export const Footer = () => {
               </form>
               <p className="text-xs text-white/60 mt-2">
                 By subscribing, you agree to our{' '}
-                <Link to="/privacy-policy" className="underline hover:text-white">
+                <SafeLink to="/privacy-policy" className="underline hover:text-white">
                   Privacy Policy
-                </Link>
+                </SafeLink>
               </p>
             </div>
 
@@ -99,21 +99,21 @@ export const Footer = () => {
               Our Services
             </h4>
             <div className="space-y-3">
-              <Link to="/models" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/models" className="block text-sm text-white/70 hover:text-white transition-colors">
                 Elite Companions
-              </Link>
-              <Link to="/services" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/services" className="block text-sm text-white/70 hover:text-white transition-colors">
                 Premium Services
-              </Link>
-              <Link to="/locations" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/locations" className="block text-sm text-white/70 hover:text-white transition-colors">
                 London Locations
-              </Link>
-              <Link to="/characteristics" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/characteristics" className="block text-sm text-white/70 hover:text-white transition-colors">
                 Companion Types
-              </Link>
-              <Link to="/blog" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/blog" className="block text-sm text-white/70 hover:text-white transition-colors">
                 Lifestyle Blog
-              </Link>
+              </SafeLink>
             </div>
           </div>
 
@@ -141,15 +141,15 @@ export const Footer = () => {
                 <MapPin className="w-4 h-4" />
                 <span>Central London</span>
               </div>
-              <Link to="/faq" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/faq" className="block text-sm text-white/70 hover:text-white transition-colors">
                 FAQ
-              </Link>
-              <Link to="/about" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/about" className="block text-sm text-white/70 hover:text-white transition-colors">
                 About Us
-              </Link>
-              <Link to="/reviews" className="block text-sm text-white/70 hover:text-white transition-colors">
+              </SafeLink>
+              <SafeLink to="/reviews" className="block text-sm text-white/70 hover:text-white transition-colors">
                 Reviews
-              </Link>
+              </SafeLink>
             </div>
           </div>
         </div>
@@ -167,18 +167,18 @@ export const Footer = () => {
             </div>
             
             <div className="flex flex-wrap gap-6 text-sm">
-              <Link 
+              <SafeLink 
                 to="/privacy-policy" 
                 className="text-white/70 hover:text-white transition-colors"
               >
                 Privacy Policy
-              </Link>
-              <Link 
+              </SafeLink>
+              <SafeLink 
                 to="/terms" 
                 className="text-white/70 hover:text-white transition-colors"
               >
                 Terms of Service
-              </Link>
+              </SafeLink>
               <span className="text-white/70">
                 Discretion Guaranteed
               </span>

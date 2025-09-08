@@ -1,61 +1,49 @@
-import { Link } from 'react-router-dom';
-import heroMain from '@/assets/hero-main.jpg';
+import React from 'react';
+import { SafeLink } from '@/components/ui/safe-link';
 
-export const HeroSection = () => {
+export const HeroSection: React.FC = () => {
   return (
-    <section className="relative w-full h-screen min-h-[100dvh] max-h-screen overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-[center_20%] bg-no-repeat"
-        style={{
-          backgroundImage: `url(${heroMain})`,
-        }}
-      />
-      
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
-      
-      {/* Content */}
-      <div className="relative z-20 h-full flex items-end justify-center pb-20 md:pb-24">
-        <div className="text-center px-4 sm:px-6 max-w-md mx-auto">
-          <div className="space-y-2 md:space-y-3">
-            <h1 className="heading-md text-white tracking-[0.3em] uppercase leading-tight">
-              Five London
-            </h1>
-            
-            <p className="body-xs text-white/70 tracking-[0.2em] uppercase leading-relaxed">
-              Premier luxury companion services
-            </p>
+    <section className="relative min-h-screen flex items-center">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/src/assets/hero-main.jpg"
+          alt="Luxury London escorts"
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-            <div className="flex flex-col items-center justify-center gap-3 pt-6">
-              <Link to="/models" className="inline-block">
-                <button 
-                  className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
-                  aria-label="Browse our elite companion models"
-                >
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-light mb-6 tracking-wide leading-tight">
+            Exclusive London Companion Services
+          </h1>
+          
+          <p className="text-xl md:text-2xl font-light mb-8 leading-relaxed text-white/90 max-w-3xl mx-auto">
+            Discover sophisticated companionship with our carefully selected elite escorts in London's most prestigious locations
+          </p>
+          
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <SafeLink to="/models" className="inline-block">
+                <button className="bg-white text-black hover:bg-gray-100 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
                   View Our Models
                 </button>
-              </Link>
+              </SafeLink>
               
-              <a 
+              <a
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block"
-                aria-label="Contact us via WhatsApp"
+                className="inline-block border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
-                <button className="px-6 py-2 text-xs uppercase tracking-[0.25em] font-light border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300">
-                  Contact
-                </button>
+                Book Now - 24/7
               </a>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-        <div className="w-px h-8 bg-white/50"></div>
       </div>
     </section>
   );

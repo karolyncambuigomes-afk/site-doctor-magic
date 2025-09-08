@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
 
 const categories = [
   { name: 'Blonde', path: '/characteristics/blonde-escorts', image: '/images/model1.jpg' },
@@ -25,7 +25,7 @@ export const CategoryFilters: React.FC = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
-            <Link
+            <SafeLink
               key={category.name}
               to={category.path}
               className="group relative aspect-[3/4] overflow-hidden bg-muted hover:shadow-lg transition-all duration-300"
@@ -41,7 +41,7 @@ export const CategoryFilters: React.FC = () => {
                   {category.name}
                 </h3>
               </div>
-            </Link>
+            </SafeLink>
           ))}
         </div>
         

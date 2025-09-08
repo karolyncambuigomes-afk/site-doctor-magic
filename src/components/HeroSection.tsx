@@ -18,11 +18,11 @@ export const HeroSection: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-light mb-6 tracking-wide leading-tight">
-            Exclusive London Companion Services
+            Five London Elite Companions
           </h1>
           
           <p className="text-xl md:text-2xl font-light mb-8 leading-relaxed text-white/90 max-w-3xl mx-auto">
-            Discover sophisticated companionship with our carefully selected elite escorts in London's most prestigious locations
+            Experience unparalleled sophistication with Five London's carefully curated selection of elite companions in Mayfair, Knightsbridge and Chelsea
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6">

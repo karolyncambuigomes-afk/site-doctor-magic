@@ -126,7 +126,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-white/20 bg-background">
+          <div className="lg:hidden border-t border-white/20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -134,16 +134,16 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`luxury-body-base font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                      location.pathname === item.href ? 'text-black' : 'text-gray-600 hover:text-black'
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
-                <div className="pt-8 border-t border-border space-y-6">
+                <div className="pt-8 border-t border-gray-300 space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="block luxury-body-sm text-gray-600 hover:text-black transition-colors"
                   >
                     +44 7436 190679
                   </a>
@@ -151,19 +151,19 @@ export const Navigation: React.FC = () => {
                   {user ? (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-sm text-gray-600">
                           {user.email}
                         </span>
                       </div>
                       <SafeLink to="/admin">
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full border-gray-300 text-black hover:bg-gray-50">
                           <Settings className="w-4 h-4 mr-2" />
                           Admin
                         </Button>
                       </SafeLink>
                       <button 
                         onClick={signOut}
-                        className="w-full text-left text-destructive hover:text-destructive/80 transition-colors luxury-body-sm"
+                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
                       >
                         <LogOut className="w-4 h-4 mr-2 inline" />
                         Sign Out
@@ -172,7 +172,7 @@ export const Navigation: React.FC = () => {
                   ) : (
                     <div className="space-y-4">
                       <a href="https://wa.me/447436190679">
-                        <Button className="w-full">
+                        <Button className="w-full bg-black text-white hover:bg-gray-800">
                           Call Now
                         </Button>
                       </a>

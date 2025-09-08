@@ -17,7 +17,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown, Edit3, X, Check, HelpCircle } from 'lucide-react';
+import { Plus, Edit, Trash2, Users, Image, Settings, FileText, Eye, EyeOff, ArrowUp, ArrowDown, Edit3, X, Check, HelpCircle, Palette } from 'lucide-react';
 import { characteristics } from '@/data/characteristics';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
@@ -30,6 +30,7 @@ import { LocationsManager } from '@/components/LocationsManager';
 import { CharacteristicsManager } from '@/components/CharacteristicsManager';
 import { GuideManager } from '@/components/GuideManager';
 import { LegalPagesManager } from '@/components/LegalPagesManager';
+import { ThemeManager } from '@/components/ThemeManager';
 
 import { ModelForm } from '@/components/ModelForm';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -165,7 +166,7 @@ export const Admin: React.FC = () => {
 
           <Tabs defaultValue="homepage" className="space-y-6">
             <div className="overflow-x-auto">
-              <TabsList className="grid w-full grid-cols-4 lg:grid-cols-6 xl:grid-cols-12 bg-white border border-gray-300 min-w-max">
+              <TabsList className="grid w-full grid-cols-4 lg:grid-cols-6 xl:grid-cols-13 bg-white border border-gray-300 min-w-max">
                 <TabsTrigger value="homepage" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <Settings className="w-4 h-4 mr-2" />
                   Homepage
@@ -217,6 +218,10 @@ export const Admin: React.FC = () => {
                 <TabsTrigger value="faq" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
                   <HelpCircle className="w-4 h-4 mr-2" />
                   FAQ
+                </TabsTrigger>
+                <TabsTrigger value="theme" className="data-[state=active]:bg-gray-100 data-[state=active]:text-black text-black whitespace-nowrap">
+                  <Palette className="w-4 h-4 mr-2" />
+                  Tema
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -560,6 +565,10 @@ export const Admin: React.FC = () => {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="theme" className="space-y-6">
+              <ThemeManager />
             </TabsContent>
           </Tabs>
         </div>

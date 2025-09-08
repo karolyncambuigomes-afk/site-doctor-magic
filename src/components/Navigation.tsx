@@ -80,7 +80,7 @@ export const Navigation: React.FC = () => {
           <SafeLink 
             to="/" 
             className={`font-manrope font-medium uppercase transition-colors hover:text-slate-800 ${
-              isScrolled ? 'text-black' : (isWhiteBackgroundPage ? 'text-black' : 'text-white')
+              isScrolled ? 'text-black' : 'text-white'
             } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}

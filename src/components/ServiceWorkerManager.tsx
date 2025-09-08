@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
+import { isPrivateMode } from '@/lib/utils';
 
 export const ServiceWorkerManager = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
+  const [isPrivate, setIsPrivate] = useState(false);
 
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    // Check for private mode before registering service worker
+    isPrivateMode().then(setIsPrivate);
+    
+    if ('serviceWorker' in navigator && !isPrivate) {
       // Register service worker
       navigator.serviceWorker.register('/sw.js')
         .then((reg) => {
@@ -45,8 +50,10 @@ export const ServiceWorkerManager = () => {
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
       });
+    } else if (isPrivate) {
+      console.log('Private mode detected, Service Worker disabled');
     }
-  }, []);
+  }, [isPrivate]);
 
   const handleUpdate = () => {
     if (registration?.waiting) {

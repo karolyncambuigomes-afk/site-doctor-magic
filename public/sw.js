@@ -20,9 +20,27 @@ const NEVER_CACHE = [
   '.map'
 ];
 
-// Install event - cache static assets
+// Check if we're in private mode
+function isPrivateMode() {
+  try {
+    const test = 'privateModeTest';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return false;
+  } catch (e) {
+    return true;
+  }
+}
+
+// Install event - cache static assets (skip in private mode)
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing...');
+  
+  if (isPrivateMode()) {
+    console.log('Private mode detected, skipping cache');
+    return self.skipWaiting();
+  }
+  
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
@@ -61,8 +79,8 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip caching for certain URLs
-  if (NEVER_CACHE.some(pattern => url.pathname.startsWith(pattern))) {
+  // Skip caching for certain URLs or private mode
+  if (NEVER_CACHE.some(pattern => url.pathname.startsWith(pattern)) || isPrivateMode()) {
     return;
   }
 

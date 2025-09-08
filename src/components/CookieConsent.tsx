@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
+import { safeStorage } from '@/lib/utils';
 
 export const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookieConsent');
+    const consent = safeStorage.getItem('cookieConsent');
     if (!consent) {
       setShowConsent(true);
     }
   }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem('cookieConsent', 'accepted');
+    safeStorage.setItem('cookieConsent', 'accepted');
     setShowConsent(false);
     // Initialize analytics here
     if (window.gtag) {
@@ -26,7 +27,7 @@ export const CookieConsent = () => {
   };
 
   const declineCookies = () => {
-    localStorage.setItem('cookieConsent', 'declined');
+    safeStorage.setItem('cookieConsent', 'declined');
     setShowConsent(false);
   };
 

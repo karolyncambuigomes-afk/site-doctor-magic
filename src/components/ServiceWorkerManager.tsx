@@ -6,12 +6,28 @@ export const ServiceWorkerManager = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
   const [isPrivate, setIsPrivate] = useState(false);
+  const [swDisabled, setSwDisabled] = useState(false);
 
   useEffect(() => {
-    // Check for private mode before registering service worker
-    isPrivateMode().then(setIsPrivate);
+    // Check for private mode and disable SW if needed
+    isPrivateMode().then((privateMode) => {
+      setIsPrivate(privateMode);
+      if (privateMode) {
+        setSwDisabled(true);
+        console.log('Private mode detected, Service Worker disabled');
+        return;
+      }
+    });
     
-    if ('serviceWorker' in navigator && !isPrivate) {
+    // Also disable SW if there are connectivity issues
+    const isOffline = !navigator.onLine;
+    if (isOffline) {
+      setSwDisabled(true);
+      console.log('Offline detected, Service Worker disabled');
+      return;
+    }
+    
+    if ('serviceWorker' in navigator && !swDisabled) {
       // Register service worker
       navigator.serviceWorker.register('/sw.js')
         .then((reg) => {
@@ -44,16 +60,15 @@ export const ServiceWorkerManager = () => {
         })
         .catch((error) => {
           console.log('Service Worker registration failed:', error);
+          setSwDisabled(true);
         });
 
       // Listen for controller change (when new SW takes control)
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
       });
-    } else if (isPrivate) {
-      console.log('Private mode detected, Service Worker disabled');
     }
-  }, [isPrivate]);
+  }, [swDisabled]);
 
   const handleUpdate = () => {
     if (registration?.waiting) {

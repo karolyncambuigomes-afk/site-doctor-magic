@@ -1,10 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /private/
 
 # Sitemap
-Sitemap: https://fivelondon.com/sitemap.xml
+Sitemap: https://fivelondon.co.uk/sitemap.xml
 
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
+# Allow all content for better international accessibility
+# Removed restrictive disallows to improve access from different regions

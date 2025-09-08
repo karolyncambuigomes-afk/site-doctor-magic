@@ -40,11 +40,11 @@
         Header set Cache-Control "public, max-age=86400"
     </FilesMatch>
 
-    # Security Headers - Private browser friendly
+    # Minimal Security Headers for Maximum Compatibility
     Header always set X-Content-Type-Options nosniff
     Header always set X-Frame-Options SAMEORIGIN
-    Header always set X-XSS-Protection "1; mode=block"
-    Header always set Strict-Transport-Security "max-age=86400; includeSubDomains; preload"
+    # Header always set X-XSS-Protection "1; mode=block"
+    # Header always set Strict-Transport-Security "max-age=86400; includeSubDomains; preload"
 
     # CORS Headers
     Header always set Access-Control-Allow-Origin "*"
@@ -58,17 +58,21 @@
 </IfModule>
 FileETag None
 
-# Force HTTPS and SPA Routing
+# SPA Routing and Optional HTTPS
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Conditional HTTPS redirect (skip for localhost and development)
-    RewriteCond %{HTTPS} off
-    RewriteCond %{HTTP_HOST} !^localhost
-    RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
-    RewriteCond %{HTTP_HOST} !^192\.168\.
-    RewriteCond %{HTTP_HOST} !^10\.
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Remove WWW redirect (optional)
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    
+    # Optional HTTPS redirect (disabled for better compatibility)
+    # RewriteCond %{HTTPS} off
+    # RewriteCond %{HTTP_HOST} !^localhost
+    # RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
+    # RewriteCond %{HTTP_HOST} !^192\.168\.
+    # RewriteCond %{HTTP_HOST} !^10\.
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     
     # SPA Routing - Serve index.html for all non-file requests
     RewriteCond %{REQUEST_FILENAME} !-f

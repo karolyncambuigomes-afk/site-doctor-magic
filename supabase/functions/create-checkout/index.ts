@@ -8,7 +8,10 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  console.log("=== CREATE CHECKOUT FUNCTION STARTED ===");
+  
   if (req.method === "OPTIONS") {
+    console.log("CORS preflight request");
     return new Response(null, { headers: corsHeaders });
   }
 
@@ -18,22 +21,51 @@ serve(async (req) => {
   );
 
   try {
-    const authHeader = req.headers.get("Authorization")!;
+    console.log("Checking authorization header...");
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      console.error("No authorization header found");
+      throw new Error("No authorization header provided");
+    }
+    
+    console.log("Authorization header found, extracting token...");
     const token = authHeader.replace("Bearer ", "");
-    const { data } = await supabaseClient.auth.getUser(token);
+    console.log("Token extracted, getting user...");
+    
+    const { data, error: authError } = await supabaseClient.auth.getUser(token);
+    if (authError) {
+      console.error("Auth error:", authError);
+      throw new Error(`Authentication failed: ${authError.message}`);
+    }
+    
     const user = data.user;
-    if (!user?.email) throw new Error("User not authenticated or email not available");
+    console.log("User data:", { 
+      hasUser: !!user, 
+      userId: user?.id, 
+      email: user?.email 
+    });
+    
+    if (!user?.email) {
+      console.error("User not authenticated or email not available");
+      throw new Error("User not authenticated or email not available");
+    }
 
+    console.log("Initializing Stripe...");
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", { 
       apiVersion: "2023-10-16" 
     });
 
+    console.log("Looking for existing Stripe customer with email:", user.email);
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     let customerId;
     if (customers.data.length > 0) {
       customerId = customers.data[0].id;
+      console.log("Found existing customer:", customerId);
+    } else {
+      console.log("No existing customer found, will create new one");
     }
 
+    console.log("Creating Stripe checkout session...");
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
@@ -56,13 +88,25 @@ serve(async (req) => {
       cancel_url: `${req.headers.get("origin")}/membership`,
     });
 
+    console.log("Checkout session created successfully:", {
+      sessionId: session.id,
+      url: session.url
+    });
+
     return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
     });
   } catch (error) {
-    console.error("Error creating checkout session:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("=== CREATE CHECKOUT ERROR ===");
+    console.error("Error details:", error);
+    console.error("Error message:", error.message);
+    console.error("Error stack:", error.stack);
+    
+    return new Response(JSON.stringify({ 
+      error: error.message,
+      details: error.stack 
+    }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });

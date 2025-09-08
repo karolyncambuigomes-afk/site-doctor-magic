@@ -74,23 +74,64 @@ export const Membership: React.FC = () => {
       
       if (error) throw error;
       
-      toast.success('Account created! Redirecting to payment...');
+      console.log('Signup successful, waiting for authentication...');
+      toast.success('Account created! Waiting for authentication...');
       
-      // Wait a moment for auth state to update, then redirect to payment
-      setTimeout(async () => {
-        try {
-          const { data, error } = await supabase.functions.invoke('create-checkout');
+      // Wait for auth state to update properly
+      const waitForAuth = async () => {
+        const maxAttempts = 20; // 10 seconds max
+        let attempts = 0;
+        
+        while (attempts < maxAttempts) {
+          // Get current session
+          const { data: { session } } = await supabase.auth.getSession();
           
-          if (error) throw error;
+          console.log(`Auth check attempt ${attempts + 1}:`, {
+            hasSession: !!session,
+            hasUser: !!session?.user,
+            userEmail: session?.user?.email
+          });
           
-          if (data?.url) {
-            window.open(data.url, '_blank');
+          if (session?.user) {
+            console.log('User authenticated, proceeding to checkout...');
+            toast.success('Authenticated! Redirecting to payment...');
+            
+            try {
+              console.log('Calling create-checkout...');
+              const { data, error } = await supabase.functions.invoke('create-checkout');
+              
+              console.log('Checkout response:', { data, error });
+              
+              if (error) {
+                console.error('Checkout error:', error);
+                throw error;
+              }
+              
+              if (data?.url) {
+                console.log('Redirecting to:', data.url);
+                window.open(data.url, '_blank');
+                return true;
+              } else {
+                console.error('No URL in checkout response');
+                throw new Error('No checkout URL returned');
+              }
+            } catch (checkoutError) {
+              console.error('Checkout failed:', checkoutError);
+              toast.error(`Payment setup failed: ${checkoutError.message}`);
+              return false;
+            }
           }
-        } catch (error) {
-          console.error('Error creating checkout:', error);
-          toast.error('Failed to create checkout session');
+          
+          attempts++;
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
-      }, 1000);
+        
+        console.error('Authentication timeout');
+        toast.error('Authentication timeout. Please try logging in manually.');
+        return false;
+      };
+      
+      await waitForAuth();
       
     } catch (error: any) {
       console.error('Signup error:', error);

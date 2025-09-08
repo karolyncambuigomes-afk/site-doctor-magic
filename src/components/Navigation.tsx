@@ -68,22 +68,22 @@ export const Navigation: React.FC = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled
-        ? 'bg-white/95 backdrop-blur-sm border-b border-border/20' 
+        ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2 md:py-3">
           <SafeLink 
             to="/" 
-            className={`font-manrope font-medium uppercase transition-colors hover:text-primary ${
-              isScrolled ? 'text-gray-900' : 'text-white'
+            className={`font-manrope font-medium uppercase transition-colors hover:text-slate-600 ${
+              isScrolled ? 'text-black' : 'text-white'
             } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
             Five London
             <span className={`text-xs ml-2 font-normal ${
-              isScrolled ? 'text-gray-600' : 'text-white/70'
+              isScrolled ? 'text-slate-600' : 'text-white/70'
             }`}>EST. 2020</span>
           </SafeLink>
 
@@ -95,8 +95,8 @@ export const Navigation: React.FC = () => {
                 to={item.href}
                 className={`font-medium text-sm transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-primary' 
-                    : isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/90 hover:text-white'
+                    ? 'text-slate-600' 
+                    : isScrolled ? 'text-slate-600 hover:text-black' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -109,7 +109,7 @@ export const Navigation: React.FC = () => {
             <a 
               href="tel:+447436190679"
               className={`text-sm transition-colors ${
-                isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/90 hover:text-white'
+                isScrolled ? 'text-slate-600 hover:text-black' : 'text-white/90 hover:text-white'
               }`}
             >
               +44 7436 190679
@@ -167,7 +167,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-border bg-background">
+          <div className="lg:hidden border-t border-gray-200 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -175,16 +175,16 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`text-lg font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                      location.pathname === item.href ? 'text-slate-600' : 'text-slate-600 hover:text-black'
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
-                <div className="pt-8 border-t border-border/30 space-y-6">
+                <div className="pt-8 border-t border-gray-200 space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="block text-sm text-slate-600 hover:text-black transition-colors"
                   >
                     +44 7436 190679
                   </a>

@@ -72,35 +72,34 @@ const Contact = () => {
       
       <main className="pt-16 sm:pt-20">
         {/* Hero Section */}
-        <section className="py-12 md:py-16 lg:py-20 bg-gradient-dark text-secondary-foreground">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width text-center">
-            <h1 className="heading-display mb-3 sm:mb-4 animate-fade-in-up px-4">
-              Call Now for <span className="luxury-text-gradient">Same Day Booking</span>
+            <h1 className="heading-display mb-3 sm:mb-4 px-4 text-black">
+              Call Now for <span className="text-slate-600">Same Day Booking</span>
             </h1>
-            <p className="body-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in px-4 sm:px-6">
+            <p className="body-lg text-slate-600 max-w-2xl mx-auto px-4 sm:px-6">
               Most companions available today. Call now for instant confirmation and same-day appointments.
             </p>
           </div>
         </section>
 
         {/* Contact Methods */}
-        <section className="section-padding bg-white">
+        <section className="py-16 bg-gray-100">
           <div className="container-width">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {contactMethods.map((method, index) => (
                 <Card 
                   key={method.title}
-                  className="luxury-card p-8 text-center group hover:scale-105 transition-all duration-300"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="border border-gray-200 p-8 text-center group hover:shadow-sm transition-all duration-300 bg-white"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4 group-hover:bg-primary/20 transition-colors">
-                    <method.icon className="w-8 h-8 text-primary" />
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4 group-hover:bg-gray-200 transition-colors">
+                    <method.icon className="w-8 h-8 text-slate-600" />
                   </div>
-                   <h3 className="heading-sm mb-2">{method.title}</h3>
-                   <p className="body-base font-medium text-primary mb-2">{method.details}</p>
-                   <p className="body-sm text-muted-foreground mb-4">{method.description}</p>
+                   <h3 className="heading-sm mb-2 text-black">{method.title}</h3>
+                   <p className="body-base font-medium text-slate-600 mb-2">{method.details}</p>
+                   <p className="body-sm text-slate-600 mb-4">{method.description}</p>
                   <Button 
-                    className="luxury-button w-full"
+                    className="w-full bg-black text-white hover:bg-gray-800"
                     onClick={() => {
                       if (method.title === 'WhatsApp') {
                         window.open('https://wa.me/447436190679', '_blank');
@@ -120,8 +119,8 @@ const Contact = () => {
             {/* Contact Form & Info */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
-              <Card className="luxury-card p-8">
-                <h2 className="heading-lg mb-6">Send Us a Message</h2>
+              <Card className="border border-gray-200 p-8 bg-white">
+                <h2 className="heading-lg mb-6 text-black">Send Us a Message</h2>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>

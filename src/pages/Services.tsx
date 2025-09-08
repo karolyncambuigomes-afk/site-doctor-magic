@@ -172,10 +172,10 @@ const Services = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="heading-display mb-4 sm:mb-6">
+              <h1 className="heading-display mb-4 sm:mb-6 text-black">
                 Elite Companion Services
               </h1>
-              <p className="body-lg text-muted-foreground">
+              <p className="body-lg text-slate-600">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
@@ -195,14 +195,14 @@ const Services = () => {
                   >
                     <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary" />
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-slate-600" />
                         </div>
                         <div className="flex-1 text-left">
-                          <h3 className="heading-sm mb-1">{service.title}</h3>
-                          <p className="body-xs text-muted-foreground hidden sm:block">{service.description}</p>
+                          <h3 className="heading-sm mb-1 text-black">{service.title}</h3>
+                          <p className="body-xs text-slate-600 hidden sm:block">{service.description}</p>
                         </div>
-                        <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-muted-foreground">
+                        <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-slate-600">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span className="hidden sm:inline">{service.duration}</span>
                           <span className="sm:hidden">{service.duration.split('-')[0]}</span>
@@ -213,7 +213,7 @@ const Services = () => {
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                         {/* Mobile description */}
                         <div className="sm:hidden">
-                          <p className="body-xs text-muted-foreground">{service.description}</p>
+                          <p className="body-xs text-slate-600">{service.description}</p>
                         </div>
                         
                         {/* Extended Content (Hidden SEO) */}
@@ -226,7 +226,7 @@ const Services = () => {
                         
                         {/* Features */}
                         <div>
-                          <h4 className="text-xs sm:text-sm font-medium text-primary mb-2 sm:mb-3">What's Included</h4>
+                          <h4 className="text-xs sm:text-sm font-medium text-slate-600 mb-2 sm:mb-3">What's Included</h4>
                           <div className="grid grid-cols-1 gap-1 sm:gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
@@ -267,8 +267,8 @@ const Services = () => {
                               const linkConfig = linkableFeatures[feature];
                               
                               return (
-                                <div key={i} className="flex items-center text-xs sm:text-sm text-muted-foreground">
-                                  <div className="w-1 h-1 bg-primary rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                                <div key={i} className="flex items-center text-xs sm:text-sm text-slate-600">
+                                  <div className="w-1 h-1 bg-slate-600 rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {
                                       const dynamicLink = getBlogLinkForKeyword(feature);
@@ -276,7 +276,7 @@ const Services = () => {
                                       return dynamicLink ? (
                                         <Link 
                                           to={dynamicLink}
-                                          className="text-primary hover:text-primary/80 transition-colors underline"
+                                          className="text-slate-600 hover:text-black transition-colors underline"
                                           title={dynamicTitle || linkConfig.title}
                                           aria-label={dynamicTitle || linkConfig.title}
                                         >
@@ -285,7 +285,7 @@ const Services = () => {
                                       ) : (
                                         <Link 
                                           to={service.blogLink}
-                                          className="text-primary hover:text-primary/80 transition-colors underline"
+                                          className="text-slate-600 hover:text-black transition-colors underline"
                                           title={linkConfig.title}
                                           aria-label={linkConfig.title}
                                         >

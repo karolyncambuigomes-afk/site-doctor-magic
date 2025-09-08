@@ -67,7 +67,7 @@ export const Navigation = () => {
         ? 'bg-background/95 backdrop-blur-sm border-b border-border' 
         : 'bg-transparent'
     }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2 md:py-3">
           <SafeLink 
             to="/" 
@@ -86,15 +86,15 @@ export const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
-                <SafeLink
-                  key={item.href}
-                  to={item.href}
-                  className={`font-medium text-sm transition-colors ${
-                    location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                      ? 'text-primary' 
-                      : isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
-                  }`}
-                >
+              <SafeLink
+                key={item.href}
+                to={item.href}
+                className={`font-medium text-sm transition-colors ${
+                  location.pathname === item.href || location.pathname.startsWith(item.href + '/')
+                    ? 'text-primary' 
+                    : isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
+                }`}
+              >
                 {item.label}
               </SafeLink>
             ))}

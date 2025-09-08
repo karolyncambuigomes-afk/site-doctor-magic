@@ -1,4 +1,5 @@
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
+import { useSafeParams } from '@/hooks/useSafeRouter';
 import { useState } from 'react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
@@ -12,8 +13,8 @@ import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star, ChevronD
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const LocationDetail = () => {
-  const params = useParams();
-  const { locationSlug } = params || {};
+  const params = useSafeParams();
+  const { locationSlug } = params;
   const { models, loading, error } = useModels();
   const [isContentOpen, setIsContentOpen] = useState(false);
   

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSafeNavigate } from '@/hooks/useSafeRouter';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,7 +25,7 @@ export const Auth: React.FC = () => {
     confirmPassword: ''
   });
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const navigate = useSafeNavigate();
   const { toast } = useToast();
 
   // Safety check for navigate function

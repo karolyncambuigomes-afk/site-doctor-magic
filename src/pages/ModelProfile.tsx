@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSafeParams } from '@/hooks/useSafeRouter';
 import { useModels } from '@/hooks/useModels';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
@@ -20,7 +21,7 @@ import { Footer } from '@/components/Footer';
 import { ModelGallery } from '@/components/ModelGallery';
 
 export const ModelProfile: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useSafeParams() as { id?: string };
   const { getModelById, models, loading, error } = useModels();
   const model = id ? getModelById(id) : null;
 

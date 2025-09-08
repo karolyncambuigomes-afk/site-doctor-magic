@@ -1,8 +1,9 @@
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { useEffect } from "react";
 
 const NotFound = () => {
-  const location = useLocation();
+  const location = useSafeLocation();
 
   // Safety check for router context
   if (!location) {

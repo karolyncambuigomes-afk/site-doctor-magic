@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
+import { useSafeParams } from '@/hooks/useSafeRouter';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -12,8 +13,8 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
-  const params = useParams();
-  const { characteristicSlug } = params || {};
+  const params = useSafeParams();
+  const { characteristicSlug } = params;
   const { models, loading, error } = useModels();
   const [isContentOpen, setIsContentOpen] = useState(false);
   const currentPath = window.location.pathname;

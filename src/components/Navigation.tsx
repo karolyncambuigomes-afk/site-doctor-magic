@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
-import { useLocation } from 'react-router-dom';
+import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
@@ -33,7 +33,7 @@ const navItems = [
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const location = useSafeLocation();
   const auth = useAuth();
   const { user, signOut, hasAccess } = auth || {};
   

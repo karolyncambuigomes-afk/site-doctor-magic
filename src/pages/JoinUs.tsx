@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSafeNavigate } from '@/hooks/useSafeRouter';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,7 +42,7 @@ interface ApplicationData {
 }
 
 const JoinUs = () => {
-  const navigate = useNavigate();
+  const navigate = useSafeNavigate();
   const { toast } = useToast();
   
   // Safety check for navigate function

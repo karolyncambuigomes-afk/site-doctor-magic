@@ -1,5 +1,6 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +19,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const auth = useAuth();
   const { user, loading, hasAccess } = auth || {};
-  const location = useLocation();
+  const location = useSafeLocation();
 
   // Safety check for router context
   if (!location) {

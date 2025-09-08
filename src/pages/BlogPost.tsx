@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSafeParams } from '@/hooks/useSafeRouter';
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
@@ -10,7 +11,7 @@ import { getBlogArticleBySlug, getRelatedArticles } from "@/data/blog-articles";
 import NotFound from "./NotFound";
 
 const BlogPost = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = useSafeParams() as { slug?: string };
   
   if (!slug) {
     return <NotFound />;

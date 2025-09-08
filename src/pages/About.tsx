@@ -120,7 +120,7 @@ const About = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-12 md:mt-16">
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-xl font-light text-black">✓</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Discretion Assured</h3>
@@ -128,7 +128,7 @@ const About = () => {
                   </div>
                   
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-xl font-light text-black">★</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Elite Selection</h3>
@@ -136,7 +136,7 @@ const About = () => {
                   </div>
                   
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                       <span className="text-xl font-light text-black">◆</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">24/7 Available</h3>
@@ -191,7 +191,7 @@ const About = () => {
         </div>
 
         {/* Story Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-gray-100">
+        <section className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="w-full max-w-sm md:max-w-md mx-auto lg:mx-0 h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden px-4 md:px-0 order-2 lg:order-1">
@@ -255,7 +255,7 @@ const About = () => {
         </div>
 
         {/* Experience Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-gray-100">
+        <section className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
@@ -301,7 +301,7 @@ const About = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
               <Link 
                 to="/escorts-in-mayfair" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Mayfair
@@ -313,7 +313,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-knightsbridge" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Knightsbridge
@@ -325,7 +325,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-chelsea" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Chelsea
@@ -337,7 +337,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-belgravia" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Belgravia
@@ -349,7 +349,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-kensington" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Kensington
@@ -361,7 +361,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-canary-wharf" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Canary Wharf
@@ -373,7 +373,7 @@ const About = () => {
               
               <Link 
                 to="/escorts-in-notting-hill" 
-                className="group bg-background hover:bg-muted/50 border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
+                className="group bg-white hover:bg-white border border-border rounded-lg p-4 md:p-6 transition-all duration-300 hover:shadow-sm"
               >
                 <h3 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors">
                   Notting Hill

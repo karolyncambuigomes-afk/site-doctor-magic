@@ -195,7 +195,7 @@ const Services = () => {
                   >
                     <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0">
                           <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
                         </div>
                         <div className="flex-1 text-left">

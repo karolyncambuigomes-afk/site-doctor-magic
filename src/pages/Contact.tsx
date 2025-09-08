@@ -84,7 +84,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Methods */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-white">
           <div className="container-width">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {contactMethods.map((method, index) => (
@@ -92,7 +92,7 @@ const Contact = () => {
                   key={method.title}
                   className="border border-gray-200 p-8 text-center group hover:shadow-sm transition-all duration-300 bg-white"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4 group-hover:bg-gray-200 transition-colors">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 group-hover:bg-gray-200 transition-colors">
                     <method.icon className="w-8 h-8 text-black" />
                   </div>
                    <h3 className="heading-sm mb-2 text-black">{method.title}</h3>
@@ -257,7 +257,7 @@ const Contact = () => {
         </section>
 
         {/* FAQ Quick Links */}
-        <section className="section-padding bg-gray-50">
+        <section className="section-padding bg-white">
           <div className="container-width text-center">
             <h2 className="heading-xl mb-4">
               Have <span className="luxury-text-gradient">Questions</span>?

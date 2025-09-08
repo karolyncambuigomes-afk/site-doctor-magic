@@ -17,12 +17,12 @@ const Locations = () => {
         canonicalUrl="/locations"
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-16">
           {/* Hero Section */}
-          <section className="py-12 bg-gradient-to-b from-muted/30 to-background">
+          <section className="py-12 bg-white">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto">
                 <h1 className="heading-lg mb-6">
@@ -68,7 +68,7 @@ const Locations = () => {
           </section>
 
           {/* Call to Action */}
-          <section className="py-8 bg-muted/50">
+          <section className="py-8 bg-white">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
                 <p className="body-sm text-muted-foreground mb-6">

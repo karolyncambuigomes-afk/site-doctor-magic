@@ -39,7 +39,7 @@ export const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > window.innerHeight - 100);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -65,7 +65,7 @@ export const Navigation = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled
-        ? 'bg-background/95 backdrop-blur-sm border-b border-border' 
+        ? 'bg-white/95 backdrop-blur-sm border-b border-border/20' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,14 +73,14 @@ export const Navigation = () => {
           <SafeLink 
             to="/" 
             className={`font-manrope font-medium uppercase transition-colors hover:text-primary ${
-              isScrolled ? 'text-foreground' : 'text-white'
+              isScrolled ? 'text-gray-900' : 'text-white'
             } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
             Five London
             <span className={`text-xs ml-2 font-normal ${
-              isScrolled ? 'text-muted-foreground' : 'text-white/70'
+              isScrolled ? 'text-gray-600' : 'text-white/70'
             }`}>EST. 2020</span>
           </SafeLink>
 
@@ -93,7 +93,7 @@ export const Navigation = () => {
                 className={`font-medium text-sm transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
                     ? 'text-primary' 
-                    : isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
+                    : isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -106,7 +106,7 @@ export const Navigation = () => {
             <a 
               href="tel:+447436190679"
               className={`text-sm transition-colors ${
-                isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/90 hover:text-white'
+                isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/90 hover:text-white'
               }`}
             >
               +44 7436 190679
@@ -153,7 +153,7 @@ export const Navigation = () => {
           {/* Mobile Menu Button */}
           <button
             className={`lg:hidden p-2 transition-colors ${
-              isScrolled ? 'text-foreground hover:text-muted-foreground' : 'text-white hover:text-white/70'
+              isScrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-white/70'
             }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"

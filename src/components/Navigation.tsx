@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';

@@ -18,7 +18,7 @@ export const CategoryFilters: React.FC = () => {
           <h2 className="heading-xl text-black mb-4">
             Browse by Preference
           </h2>
-          <p className="body-base text-slate-600 max-w-2xl mx-auto">
+          <p className="body-base text-black max-w-2xl mx-auto">
             Discover your perfect companion from our carefully curated selection of elite London models
           </p>
         </div>

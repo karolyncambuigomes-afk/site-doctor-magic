@@ -75,9 +75,9 @@ const Contact = () => {
         <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width text-center">
             <h1 className="heading-display mb-3 sm:mb-4 px-4 text-black">
-              Call Now for <span className="text-slate-600">Same Day Booking</span>
+              Call Now for <span className="text-slate-800">Same Day Booking</span>
             </h1>
-            <p className="body-lg text-slate-600 max-w-2xl mx-auto px-4 sm:px-6">
+            <p className="body-lg text-black max-w-2xl mx-auto px-4 sm:px-6">
               Most companions available today. Call now for instant confirmation and same-day appointments.
             </p>
           </div>
@@ -93,11 +93,11 @@ const Contact = () => {
                   className="border border-gray-200 p-8 text-center group hover:shadow-sm transition-all duration-300 bg-white"
                 >
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4 group-hover:bg-gray-200 transition-colors">
-                    <method.icon className="w-8 h-8 text-slate-600" />
+                    <method.icon className="w-8 h-8 text-black" />
                   </div>
                    <h3 className="heading-sm mb-2 text-black">{method.title}</h3>
-                   <p className="body-base font-medium text-slate-600 mb-2">{method.details}</p>
-                   <p className="body-sm text-slate-600 mb-4">{method.description}</p>
+                   <p className="body-base font-medium text-black mb-2">{method.details}</p>
+                   <p className="body-sm text-black mb-4">{method.description}</p>
                   <Button 
                     className="w-full bg-black text-white hover:bg-gray-800"
                     onClick={() => {

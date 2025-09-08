@@ -110,11 +110,11 @@ const About = () => {
               <div className="w-16 h-0.5 bg-black mx-auto mb-8 md:mb-12"></div>
               
               <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
-                <p className="body-lg text-slate-600">
+                <p className="body-lg text-black">
                   Established as London's premier luxury companion agency, Five London represents an exclusive collection of sophisticated, intelligent, and captivating women who embody elegance and refinement.
                 </p>
                 
-                <p className="body-base text-slate-600">
+                <p className="body-base text-black">
                   Our carefully selected companions are available for discerning gentlemen seeking exceptional experiences - from intimate dinner dates and cultural events to international travel and private encounters. Each companion combines natural beauty with intellectual sophistication, ensuring every moment is memorable.
                 </p>
                 
@@ -124,7 +124,7 @@ const About = () => {
                       <span className="text-xl font-light text-black">✓</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Discretion Assured</h3>
-                    <p className="text-sm text-slate-600">Complete confidentiality and professional service guaranteed</p>
+                    <p className="text-sm text-black">Complete confidentiality and professional service guaranteed</p>
                   </div>
                   
                   <div className="text-center">
@@ -132,7 +132,7 @@ const About = () => {
                       <span className="text-xl font-light text-black">★</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">Elite Selection</h3>
-                    <p className="text-sm text-slate-600">Handpicked companions meeting the highest standards</p>
+                    <p className="text-sm text-black">Handpicked companions meeting the highest standards</p>
                   </div>
                   
                   <div className="text-center">
@@ -140,7 +140,7 @@ const About = () => {
                       <span className="text-xl font-light text-black">◆</span>
                     </div>
                     <h3 className="text-sm font-medium text-black mb-2 uppercase tracking-wider">24/7 Available</h3>
-                    <p className="text-sm text-slate-600">Round-the-clock booking service for your convenience</p>
+                    <p className="text-sm text-black">Round-the-clock booking service for your convenience</p>
                   </div>
                 </div>
               </div>
@@ -204,12 +204,12 @@ const About = () => {
               
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-1 lg:order-2">
                 <h2 className="heading-lg text-black">
-                  Why Choose <span className="text-slate-600">Five London</span>
+                  Why Choose <span className="text-slate-800">Five London</span>
                 </h2>
-                <p className="body-lg text-slate-600">
+                <p className="body-lg text-black">
                   London's most exclusive companion agency. Our elite companions combine exceptional beauty with intelligence, sophistication, and genuine warmth.
                 </p>
-                <p className="body-base text-slate-600">
+                <p className="body-base text-black">
                   Handpicked for their education, elegance, and conversational skills. Every encounter is crafted for complete satisfaction and absolute discretion.
                 </p>
               </div>
@@ -229,18 +229,18 @@ const About = () => {
           <div className="container-width">
             <div className="text-center mb-12 md:mb-14 px-4 md:px-0">
               <h2 className="heading-lg mb-4 text-black">
-                Our <span className="text-slate-600">Values</span>
+                Our <span className="text-slate-800">Values</span>
               </h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-0">
               {values.map((value, index) => (
                 <div key={index} className="text-center space-y-3 md:space-y-4">
-                  <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-slate-600">
+                  <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 text-black">
                     <value.icon className="w-6 h-6 md:w-8 md:h-8" />
                   </div>
                   <h3 className="text-base md:text-lg font-medium text-black">{value.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{value.description}</p>
+                  <p className="text-black text-sm leading-relaxed">{value.description}</p>
                 </div>
               ))}
             </div>
@@ -260,9 +260,9 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
                 <h2 className="heading-lg text-black">
-                  Your <span className="text-slate-600">Experience</span>
+                  Your <span className="text-slate-800">Experience</span>
                 </h2>
-                <p className="body-lg text-slate-600">
+                <p className="body-lg text-black">
                   From consultation to companionship, every detail is carefully managed with complete discretion.
                 </p>
               </div>
@@ -290,9 +290,9 @@ const About = () => {
           <div className="container-width">
             <div className="text-center mb-12 md:mb-16">
               <h2 className="heading-lg mb-4 text-black">
-                Serving London's <span className="text-slate-600">Premier Locations</span>
+                Serving London's <span className="text-slate-800">Premier Locations</span>
               </h2>
-              <p className="body-lg text-slate-600 max-w-2xl mx-auto">
+              <p className="body-lg text-black max-w-2xl mx-auto">
                 Our sophisticated companions are available across London's most exclusive districts, 
                 each offering unique experiences tailored to the area's distinct character.
               </p>

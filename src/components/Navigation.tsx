@@ -75,7 +75,7 @@ export const Navigation: React.FC = () => {
         <div className="flex items-center justify-between py-2 md:py-3">
           <SafeLink 
             to="/" 
-            className={`font-manrope font-medium uppercase transition-colors hover:text-slate-600 ${
+            className={`font-manrope font-medium uppercase transition-colors hover:text-slate-800 ${
               isScrolled ? 'text-black' : 'text-white'
             } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
@@ -83,7 +83,7 @@ export const Navigation: React.FC = () => {
           >
             Five London
             <span className={`text-xs ml-2 font-normal ${
-              isScrolled ? 'text-slate-600' : 'text-white/70'
+              isScrolled ? 'text-slate-800' : 'text-white/70'
             }`}>EST. 2020</span>
           </SafeLink>
 
@@ -95,8 +95,8 @@ export const Navigation: React.FC = () => {
                 to={item.href}
                 className={`font-medium text-sm transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-slate-600' 
-                    : isScrolled ? 'text-slate-600 hover:text-black' : 'text-white/90 hover:text-white'
+                    ? 'text-slate-800' 
+                    : isScrolled ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white'
                 }`}
               >
                 {item.label}
@@ -109,7 +109,7 @@ export const Navigation: React.FC = () => {
             <a 
               href="tel:+447436190679"
               className={`text-sm transition-colors ${
-                isScrolled ? 'text-slate-600 hover:text-black' : 'text-white/90 hover:text-white'
+                isScrolled ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white'
               }`}
             >
               +44 7436 190679

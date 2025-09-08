@@ -167,7 +167,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-slate-800">
+          <div className="lg:hidden border-t border-gray-200 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -175,16 +175,16 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`text-lg font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-white' : 'text-slate-200 hover:text-white'
+                      location.pathname === item.href ? 'text-black' : 'text-gray-600 hover:text-black'
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
-                <div className="pt-8 border-t border-slate-500 space-y-6">
+                <div className="pt-8 border-t border-gray-300 space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block text-sm text-slate-200 hover:text-white transition-colors"
+                    className="block text-sm text-gray-600 hover:text-black transition-colors"
                   >
                     +44 7436 190679
                   </a>
@@ -192,12 +192,12 @@ export const Navigation: React.FC = () => {
                   {user ? (
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-sm text-gray-600">
                           {user.email}
                         </span>
                       </div>
                       <SafeLink to="/admin">
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full border-gray-300 text-black hover:bg-gray-50">
                           <Settings className="w-4 h-4 mr-2" />
                           Admin
                         </Button>

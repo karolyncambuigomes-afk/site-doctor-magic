@@ -1,12 +1,14 @@
+import React, { useContext } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // Safe wrapper hooks to prevent destructuring errors
 export const useSafeLocation = () => {
   try {
+    // Check if we're in a router context first
     const location = useLocation();
     return location || { pathname: '/', search: '', hash: '', state: null, key: 'default' };
   } catch (error) {
-    console.warn('useSafeLocation: Error getting location', error);
+    console.warn('useSafeLocation: Error getting location, likely outside Router context', error);
     return { pathname: '/', search: '', hash: '', state: null, key: 'default' };
   }
 };

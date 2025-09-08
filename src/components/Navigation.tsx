@@ -32,13 +32,15 @@ const navItems = [
 
 export const Navigation: React.FC = () => {
   console.log('Navigation component rendering');
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Add safety checks for all hooks
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
   const location = useSafeLocation();
   const auth = useAuth();
   const { user, signOut, hasAccess } = auth || {};
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > window.innerHeight - 100);
     };
@@ -46,7 +48,7 @@ export const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (location) {
       setIsOpen(false);
     }

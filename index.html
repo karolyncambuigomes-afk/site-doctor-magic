@@ -33,11 +33,36 @@
     <meta name="description" content="Five London represents the epitome of luxury companion services in the heart of London. Sophisticated, intelligent, and elegant companions for the most discerning clientele." />
     <meta name="author" content="Five London" />
 
-    <!-- Premium Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Optional font loading for compatibility -->
+    <script>
+      // Only load Google Fonts if not in private mode and connectivity is good
+      try {
+        localStorage.setItem('fontTest', 'test');
+        localStorage.removeItem('fontTest');
+        
+        // Create preconnect links only if storage works
+        const preconnect1 = document.createElement('link');
+        preconnect1.rel = 'preconnect';
+        preconnect1.href = 'https://fonts.googleapis.com';
+        document.head.appendChild(preconnect1);
+        
+        const preconnect2 = document.createElement('link');
+        preconnect2.rel = 'preconnect';
+        preconnect2.href = 'https://fonts.gstatic.com';
+        preconnect2.crossOrigin = 'anonymous';
+        document.head.appendChild(preconnect2);
+        
+        // Load fonts with timeout
+        const fontLink = document.createElement('link');
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap';
+        fontLink.onload = () => console.log('Fonts loaded successfully');
+        fontLink.onerror = () => console.log('Fonts failed to load, using system fonts');
+        document.head.appendChild(fontLink);
+      } catch (e) {
+        console.log('Private mode detected, using system fonts only');
+      }
+    </script>
 
     <meta property="og:title" content="Five London - Premier Luxury Companion Services" />
     <meta property="og:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />

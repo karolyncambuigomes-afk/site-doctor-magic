@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { isPrivateModeSync } from '@/lib/utils';
 
 declare global {
   interface Window {
@@ -8,7 +9,21 @@ declare global {
 }
 
 export const Analytics = () => {
+  const [shouldLoad, setShouldLoad] = useState(false);
+
   useEffect(() => {
+    // Only load analytics if not in private mode
+    const isPrivate = isPrivateModeSync();
+    if (isPrivate) {
+      console.log('Private mode detected, Analytics disabled');
+      return;
+    }
+    
+    setShouldLoad(true);
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
     // Google Analytics 4
     const script1 = document.createElement('script');
     script1.async = true;

@@ -10,6 +10,7 @@ import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
+import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
@@ -40,18 +41,30 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Component to conditionally render features based on degraded mode
+const ConditionalFeatures = () => {
+  const { isDegradedMode, isPrivateMode } = useDegradedMode();
+  
+  return (
+    <>
+      {!isPrivateMode && <Analytics />}
+      <ServiceWorkerManager />
+      {!isDegradedMode && <CookieConsent />}
+    </>
+  );
+};
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AuthProvider>
-          <Analytics />
-          <ServiceWorkerManager />
-          <MobileOptimizer />
-          <Toaster />
-          <Sonner />
-          <CookieConsent />
-          <BookNowButton />
+        <DegradedModeProvider>
+          <AuthProvider>
+            <ConditionalFeatures />
+            <MobileOptimizer />
+            <Toaster />
+            <Sonner />
+            <BookNowButton />
           <BrowserRouter>
             <SkipToContent />
             <Routes>
@@ -128,8 +141,9 @@ const App = () => (
               } />
               <Route path="*" element={<NotFound />} />
             </Routes>
-          </BrowserRouter>
-        </AuthProvider>
+            </BrowserRouter>
+          </AuthProvider>
+        </DegradedModeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>

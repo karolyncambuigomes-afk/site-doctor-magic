@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { isPrivateMode } from '@/lib/utils';
+import { isPrivateMode, isPrivateModeSync } from '@/lib/utils';
 
 export const ServiceWorkerManager = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -9,15 +9,15 @@ export const ServiceWorkerManager = () => {
   const [swDisabled, setSwDisabled] = useState(false);
 
   useEffect(() => {
-    // Check for private mode and disable SW if needed
-    isPrivateMode().then((privateMode) => {
-      setIsPrivate(privateMode);
-      if (privateMode) {
-        setSwDisabled(true);
-        console.log('Private mode detected, Service Worker disabled');
-        return;
-      }
-    });
+    // Immediate synchronous check for private mode
+    const privateModeSync = isPrivateModeSync();
+    setIsPrivate(privateModeSync);
+    
+    if (privateModeSync) {
+      setSwDisabled(true);
+      console.log('Private mode detected (sync), Service Worker disabled');
+      return;
+    }
     
     // Also disable SW if there are connectivity issues
     const isOffline = !navigator.onLine;
@@ -27,7 +27,20 @@ export const ServiceWorkerManager = () => {
       return;
     }
     
-    if ('serviceWorker' in navigator && !swDisabled) {
+    // Enhanced async check for private mode
+    isPrivateMode().then((privateMode) => {
+      if (privateMode && !swDisabled) {
+        setIsPrivate(true);
+        setSwDisabled(true);
+        console.log('Private mode detected (async), Service Worker disabled');
+        return;
+      }
+    }).catch(() => {
+      setSwDisabled(true);
+      console.log('Private mode detection failed, Service Worker disabled');
+    });
+    
+    if ('serviceWorker' in navigator && !swDisabled && !privateModeSync) {
       // Register service worker
       navigator.serviceWorker.register('/sw.js')
         .then((reg) => {

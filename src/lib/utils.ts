@@ -5,19 +5,50 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Private mode detection utility
+// Enhanced private mode detection utility
 export function isPrivateMode(): Promise<boolean> {
   return new Promise((resolve) => {
-    // Test localStorage availability
+    // Multiple detection methods for better reliability
     try {
+      // Test 1: localStorage availability
       const test = 'privateModeTest';
       localStorage.setItem(test, test);
       localStorage.removeItem(test);
-      resolve(false);
+      
+      // Test 2: indexedDB availability
+      if (!window.indexedDB) {
+        resolve(true);
+        return;
+      }
+      
+      // Test 3: storage quota
+      if ('storage' in navigator && 'estimate' in navigator.storage) {
+        navigator.storage.estimate().then(estimate => {
+          if (estimate.quota && estimate.quota < 120000000) { // Less than ~120MB indicates private mode
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        }).catch(() => resolve(true));
+      } else {
+        resolve(false);
+      }
     } catch (e) {
       resolve(true);
     }
   });
+}
+
+// Synchronous private mode detection for immediate use
+export function isPrivateModeSync(): boolean {
+  try {
+    const test = 'privateModeTest';
+    localStorage.setItem(test, test);
+    localStorage.removeItem(test);
+    return false;
+  } catch (e) {
+    return true;
+  }
 }
 
 // Safe storage utility with fallbacks

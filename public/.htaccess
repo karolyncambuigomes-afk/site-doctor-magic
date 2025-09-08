@@ -14,42 +14,23 @@
     AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Cache Control Headers for Mobile Updates
+# Simplified Cache Control for Maximum Compatibility
 <IfModule mod_headers.c>
-    # HTML files - immediate updates for mobile
-    <FilesMatch "\.(html|htm)$">
-        Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
-        Header set Pragma "no-cache"
-        Header set Expires "0"
-        Header set Last-Modified "Sun, 08 Sep 2025 00:00:00 GMT"
-        Header set ETag ""
-    </FilesMatch>
-
-    # JavaScript and CSS - short cache with validation
+    # Basic caching only - compatible with private browsers
     <FilesMatch "\.(js|css)$">
-        Header set Cache-Control "public, max-age=300, must-revalidate"
-    </FilesMatch>
-
-    # Images - moderate cache
-    <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
-        Header set Cache-Control "public, max-age=3600"
-    </FilesMatch>
-
-    # Fonts - longer cache
-    <FilesMatch "\.(woff|woff2|eot|ttf|otf)$">
         Header set Cache-Control "public, max-age=86400"
     </FilesMatch>
-
-    # Minimal Security Headers for Maximum Compatibility
-    Header always set X-Content-Type-Options nosniff
-    Header always set X-Frame-Options SAMEORIGIN
-    # Header always set X-XSS-Protection "1; mode=block"
-    # Header always set Strict-Transport-Security "max-age=86400; includeSubDomains; preload"
-
-    # CORS Headers
+    
+    # Images - basic caching
+    <FilesMatch "\.(jpg|jpeg|png|gif|ico|svg|webp)$">
+        Header set Cache-Control "public, max-age=86400"
+    </FilesMatch>
+    
+    # Minimal security headers for compatibility
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Basic CORS for international access
     Header always set Access-Control-Allow-Origin "*"
-    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS, DELETE, PUT"
-    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
 </IfModule>
 
 # Remove ETags for better mobile caching
@@ -62,17 +43,8 @@ FileETag None
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Remove WWW redirect (optional)
-    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
-    
-    # Optional HTTPS redirect (disabled for better compatibility)
-    # RewriteCond %{HTTPS} off
-    # RewriteCond %{HTTP_HOST} !^localhost
-    # RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
-    # RewriteCond %{HTTP_HOST} !^192\.168\.
-    # RewriteCond %{HTTP_HOST} !^10\.
-    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # HTTPS and WWW redirects disabled for maximum compatibility
+    # This ensures the site works in private browsers and internationally
     
     # SPA Routing - Serve index.html for all non-file requests
     RewriteCond %{REQUEST_FILENAME} !-f

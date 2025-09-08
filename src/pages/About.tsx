@@ -121,16 +121,6 @@ const About = () => {
       <Navigation />
       
       <main className="pt-16 bg-white">
-        {/* Breadcrumbs */}
-          <section className="py-6 border-b bg-white">
-            <div className="container mx-auto px-4">
-              <Breadcrumbs 
-                items={[
-                  { label: "About Us" }
-                ]}
-              />
-            </div>
-          </section>
 
           {/* Hero Section */}
           <section className="py-16 md:py-24 lg:py-32 bg-white">

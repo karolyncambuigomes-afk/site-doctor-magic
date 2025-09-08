@@ -51,10 +51,12 @@ export const Membership: React.FC = () => {
         canonicalUrl="/membership"
       />
       
-      <Navigation />
-      
-      {/* Hero Section */}
-      <section className="py-12 md:py-20 lg:py-24 bg-white">
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        
+        <main className="pt-16">
+          {/* Hero Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
         <div className="container-width text-center">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <h1 className="heading-display mb-4 sm:mb-6 text-black">
@@ -74,7 +76,7 @@ export const Membership: React.FC = () => {
         </div>
       </div>
 
-      <div className="container-width px-6">
+          <div className="container-width px-6">
 
         {/* Current Status */}
         {user && (
@@ -204,9 +206,11 @@ export const Membership: React.FC = () => {
             </div>
           </div>
         </section>
+          </div>
+        </main>
+        
+        <Footer />
       </div>
-      
-      <Footer />
     </>
   );
 };

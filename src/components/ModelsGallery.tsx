@@ -56,7 +56,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      <main id="main-content" className="pt-16 sm:pt-20">
+      <main id="main-content" className="pt-16">
         {/* Breadcrumbs */}
         <section className="py-4 border-b border-border/30">
           <div className="container-width">

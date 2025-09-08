@@ -104,7 +104,7 @@ const LocationDetail = () => {
         structuredData={structuredData}
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-16">

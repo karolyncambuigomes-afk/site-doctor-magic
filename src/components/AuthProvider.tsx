@@ -2,6 +2,55 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
+// Helper function to check if localStorage is available (for private browsing)
+const isLocalStorageAvailable = (): boolean => {
+  try {
+    const testKey = '__localStorage_test__';
+    localStorage.setItem(testKey, 'test');
+    localStorage.removeItem(testKey);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+// Safe storage wrapper that uses sessionStorage as fallback
+const safeStorage = {
+  getItem: (key: string): string | null => {
+    try {
+      if (isLocalStorageAvailable()) {
+        return localStorage.getItem(key);
+      } else {
+        return sessionStorage.getItem(key);
+      }
+    } catch {
+      return null;
+    }
+  },
+  setItem: (key: string, value: string): void => {
+    try {
+      if (isLocalStorageAvailable()) {
+        localStorage.setItem(key, value);
+      } else {
+        sessionStorage.setItem(key, value);
+      }
+    } catch {
+      // Fail silently if storage is not available
+    }
+  },
+  removeItem: (key: string): void => {
+    try {
+      if (isLocalStorageAvailable()) {
+        localStorage.removeItem(key);
+      } else {
+        sessionStorage.removeItem(key);
+      }
+    } catch {
+      // Fail silently if storage is not available
+    }
+  }
+};
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;

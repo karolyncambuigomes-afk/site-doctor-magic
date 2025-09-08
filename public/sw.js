@@ -1,12 +1,11 @@
-const CACHE_NAME = 'five-london-colors-fixed-v' + Date.now();
-const STATIC_CACHE = 'five-london-static-v1';
-const RUNTIME_CACHE = 'five-london-runtime-v1';
+const CACHE_NAME = 'five-london-v2.0.0-' + Date.now();
+const STATIC_CACHE = 'five-london-static-v2';
+const RUNTIME_CACHE = 'five-london-runtime-v2';
 
-// Assets to cache immediately
+// Assets to cache immediately (minimal for better reliability)
 const PRECACHE_ASSETS = [
   '/',
-  '/manifest.json',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=Playfair+Display:wght@300;400;500&family=Manrope:wght@300;400;500;600;700&display=swap'
+  '/manifest.json'
 ];
 
 // Assets that should never be cached
@@ -14,8 +13,11 @@ const NEVER_CACHE = [
   '/admin',
   '/auth',
   '/api/',
+  '/supabase',
+  '/_vercel',
   'chrome-extension://',
-  'moz-extension://'
+  'moz-extension://',
+  '.map'
 ];
 
 // Install event - cache static assets

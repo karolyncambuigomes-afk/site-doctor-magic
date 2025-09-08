@@ -228,9 +228,9 @@ export const Membership: React.FC = () => {
                       variant="ghost" 
                       className="w-full p-4 text-center border border-border/50 hover:border-border transition-colors"
                     >
-                      <div className="flex items-center justify-center space-x-2">
+                       <div className="flex items-center justify-center space-x-2">
                         <span className="text-lg font-light tracking-widest text-foreground">
-                          QUER SE TORNAR MEMBRO?
+                          WANT TO BECOME A MEMBER?
                         </span>
                         {isSignupOpen ? (
                           <ChevronUp className="w-4 h-4 text-muted-foreground" />
@@ -320,7 +320,7 @@ export const Membership: React.FC = () => {
                                 Creating account...
                               </div>
                             ) : (
-                              "Cadastrar e Pagar"
+                              "Sign Up & Pay"
                             )}
                           </Button>
                         </form>
@@ -372,100 +372,120 @@ export const Membership: React.FC = () => {
           </div>
         </div>
 
-        {/* Premium Pricing Section */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="max-w-md mx-auto">
-            <Card className="border border-border shadow-elegant relative overflow-hidden">
-              <CardHeader className="text-center pb-6 pt-8">
-                <CardTitle className="heading-xl text-primary mb-2">£149</CardTitle>
-                <CardDescription className="body-lg text-muted-foreground">per month</CardDescription>
-              </CardHeader>
-              
-              <CardContent className="space-y-6 px-8 pb-8">
-                <div className="space-y-4 text-center">
-                  <div className="body-base font-light text-muted-foreground">
-                    Complete Access
-                  </div>
-                  <div className="body-base font-light text-muted-foreground">
-                    Premium Collection
-                  </div>
-                  <div className="body-base font-light text-muted-foreground">
-                    Priority Support
-                  </div>
-                </div>
-
-                <Button 
-                  onClick={handleSubscribe}
-                  disabled={loading || hasAccess}
-                  className="w-full py-4 text-base font-light tracking-widest"
-                  variant="default"
-                >
-                  {loading ? (
-                    <div className="flex items-center">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Processing...
+        {/* Premium Pricing Section - Only show for logged in users without access */}
+        {user && !hasAccess && (
+          <>
+            <section className="py-16 md:py-20 bg-white">
+              <div className="max-w-md mx-auto">
+                <Card className="border border-border shadow-elegant relative overflow-hidden">
+                  <CardHeader className="text-center pb-6 pt-8">
+                    <CardTitle className="heading-xl text-primary mb-2">£149</CardTitle>
+                    <CardDescription className="body-lg text-muted-foreground">per month</CardDescription>
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-6 px-8 pb-8">
+                    <div className="space-y-3 text-center">
+                      <div className="flex items-center justify-center space-x-2">
+                        <Check className="w-4 h-4 text-green-600" />
+                        <span className="body-base font-light text-muted-foreground">Complete Access</span>
+                      </div>
+                      <div className="flex items-center justify-center space-x-2">
+                        <Check className="w-4 h-4 text-green-600" />
+                        <span className="body-base font-light text-muted-foreground">Premium Collection</span>
+                      </div>
+                      <div className="flex items-center justify-center space-x-2">
+                        <Check className="w-4 h-4 text-green-600" />
+                        <span className="body-base font-light text-muted-foreground">Priority Support</span>
+                      </div>
                     </div>
-                  ) : hasAccess ? (
-                    "Active"
-                  ) : (
-                    "Join"
-                  )}
-                </Button>
 
-                <div className="text-center">
-                  <p className="body-xs text-muted-foreground font-light">
-                    Secure & Confidential
-                  </p>
+                    <Button 
+                      onClick={handleSubscribe}
+                      disabled={loading}
+                      className="w-full py-4 text-base font-light tracking-widest"
+                      variant="default"
+                    >
+                      {loading ? (
+                        <div className="flex items-center">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Processing...
+                        </div>
+                      ) : (
+                        "Join Premium"
+                      )}
+                    </Button>
+
+                    <div className="text-center">
+                      <p className="body-xs text-muted-foreground font-light">
+                        Secure & Confidential
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            <div className="py-3">
+              <div className="container-width">
+                <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Information Section */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+              {/* FAQ */}
+              <div>
+                <h2 className="heading-lg mb-8 text-foreground">
+                  Frequently Asked Questions
+                </h2>
+                
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="heading-sm mb-3 text-foreground">What's included?</h3>
+                    <p className="body-base text-muted-foreground">
+                      Complete access to our exclusive premium collection with priority support and secure, confidential service.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="heading-sm mb-3 text-foreground">How does billing work?</h3>
+                    <p className="body-base text-muted-foreground">
+                      Monthly billing at £149. Cancel anytime through your account settings.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="heading-sm mb-3 text-foreground">Is my information secure?</h3>
+                    <p className="body-base text-muted-foreground">
+                      We maintain the highest standards of privacy and security for all member information.
+                    </p>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+              </div>
 
-        {/* Divider */}
-        <div className="py-3">
-          <div className="container-width">
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
-          </div>
-        </div>
-
-        {/* Questions Section */}
-        <section className="py-20 md:py-32 bg-white">
-          <div className="text-center">
-            <p className="body-lg text-muted-foreground mb-8 tracking-widest">
-              Questions about membership?
-            </p>
-            <Button 
-              onClick={() => window.open('https://wa.me/447563407874?text=Hello, I have questions about the premium membership', '_blank')}
-              variant="outline"
-              className="font-light tracking-widest px-8 py-4"
-            >
-              Contact us discreetly
-            </Button>
-          </div>
-        </section>
-
-        {/* Divider */}
-        <div className="py-3">
-          <div className="container-width">
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
-          </div>
-        </div>
-
-        {/* Contact Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
-          <div className="container-width text-center">
-            <div className="max-w-2xl mx-auto px-4 sm:px-6">
-              <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Ready to Join?</h2>
-              <p className="text-sm sm:text-base text-muted-foreground mb-8">
-                Complete discretion - your statement shows "London Department Store".
-              </p>
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
-                onClick={() => window.open('https://wa.me/447563407874?text=Hello, I have questions about the premium membership', '_blank')}
-              >
-                Contact Us Discreetly
-              </Button>
+              {/* Contact */}
+              <div>
+                <h2 className="heading-lg mb-8 text-foreground">
+                  Need Assistance?
+                </h2>
+                <p className="body-base text-muted-foreground mb-6">
+                  Our team is available to help you with any questions about membership or our services.
+                </p>
+                <p className="body-sm text-muted-foreground mb-8">
+                  Complete discretion - your statement shows "London Department Store".
+                </p>
+                <Button 
+                  onClick={() => window.open('https://wa.me/447563407874?text=Hello, I have questions about the premium membership', '_blank')}
+                  variant="outline"
+                  className="px-8 py-3 font-light tracking-widest border-border hover:bg-muted/50 transition-smooth"
+                >
+                  Contact Us Discreetly
+                </Button>
+              </div>
             </div>
           </div>
         </section>

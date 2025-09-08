@@ -167,7 +167,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="lg:hidden border-t border-gray-200 bg-slate-600">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -175,16 +175,16 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`text-lg font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-slate-600' : 'text-slate-600 hover:text-black'
+                      location.pathname === item.href ? 'text-white' : 'text-slate-200 hover:text-white'
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
-                <div className="pt-8 border-t border-gray-200 space-y-6">
+                <div className="pt-8 border-t border-slate-500 space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block text-sm text-slate-600 hover:text-black transition-colors"
+                    className="block text-sm text-slate-200 hover:text-white transition-colors"
                   >
                     +44 7436 190679
                   </a>

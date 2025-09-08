@@ -1,8 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { ModelCard } from '@/components/ModelCard';
 import { useModels } from '@/hooks/useModels';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle, Crown } from 'lucide-react';
@@ -54,9 +52,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
-      
-      <main id="main-content" className="pt-16">
+      <main id="main-content">
         {/* Breadcrumbs */}
         <section className="py-4 border-b border-border/30">
           <div className="container-width">
@@ -218,8 +214,6 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
           </div>
         </section>
       </main>
-      
-      <Footer />
     </div>
   );
 };

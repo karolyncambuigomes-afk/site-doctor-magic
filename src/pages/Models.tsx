@@ -1,5 +1,7 @@
 import React from 'react';
 import { ModelsGallery } from '@/components/ModelsGallery';
+import { Navigation } from '@/components/Navigation';
+import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
@@ -22,7 +24,13 @@ export const Models: React.FC = () => {
         structuredData={structuredData}
       />
       
-      <ModelsGallery />
+      <Navigation />
+      
+      <main className="pt-16">
+        <ModelsGallery />
+      </main>
+      
+      <Footer />
     </>
   );
 };

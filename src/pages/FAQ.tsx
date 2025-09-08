@@ -36,7 +36,7 @@ const FAQ = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="heading-display text-black mb-6">
+            <h1 className="luxury-heading-display text-black mb-6">
               Frequently Asked Questions
             </h1>
             <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
@@ -87,13 +87,13 @@ const FAQ = () => {
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gray-50 p-8 rounded-lg">
-              <h2 className="heading-lg text-black mb-8 text-center">
+              <h2 className="luxury-heading-lg text-black mb-8 text-center">
                 Important Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {bookingInfo.map((info, index) => (
                   <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                    <h3 className="heading-sm text-black mb-3">{info.title}</h3>
+                    <h3 className="luxury-heading-sm text-black mb-3">{info.title}</h3>
                     <p className="body-sm text-gray-600 leading-relaxed">
                       {info.content}
                     </p>
@@ -112,7 +112,7 @@ const FAQ = () => {
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Shield className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="heading-sm text-black mb-2">100% Discrete</h3>
+                <h3 className="luxury-heading-sm text-black mb-2">100% Discrete</h3>
                 <p className="body-xs text-gray-600">Complete confidentiality guaranteed</p>
               </div>
               
@@ -120,7 +120,7 @@ const FAQ = () => {
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Clock className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="heading-sm text-black mb-2">24/7 Available</h3>
+                <h3 className="luxury-heading-sm text-black mb-2">24/7 Available</h3>
                 <p className="body-xs text-gray-600">Round-the-clock service</p>
               </div>
               
@@ -128,7 +128,7 @@ const FAQ = () => {
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Users className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="heading-sm text-black mb-2">Elite Companions</h3>
+                <h3 className="luxury-heading-sm text-black mb-2">Elite Companions</h3>
                 <p className="body-xs text-gray-600">Carefully selected professionals</p>
               </div>
               
@@ -136,7 +136,7 @@ const FAQ = () => {
                 <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
                   <Star className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="heading-sm text-black mb-2">Premium Service</h3>
+                <h3 className="luxury-heading-sm text-black mb-2">Premium Service</h3>
                 <p className="body-xs text-gray-600">Exceptional experiences delivered</p>
               </div>
             </div>
@@ -146,7 +146,7 @@ const FAQ = () => {
         {/* Contact CTA */}
         <section className="py-16 md:py-24 bg-black text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="heading-xl mb-6">
+            <h2 className="luxury-heading-xl mb-6">
               Still Have Questions?
             </h2>
             <p className="body-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">

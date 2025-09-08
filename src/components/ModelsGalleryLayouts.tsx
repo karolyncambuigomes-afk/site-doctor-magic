@@ -216,7 +216,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         {/* Header */}
         <div className={getHeaderStyle()}>
           <div className="container-width">
-            <h1 className={`heading-xl mb-6 ${layoutStyle === 'minimal' ? 'text-white font-light tracking-wide' : ''}`}>
+            <h1 className={`luxury-heading-xl mb-6 ${layoutStyle === 'minimal' ? 'text-white font-light tracking-wide' : ''}`}>
               {layoutStyle === 'minimal' ? 'Our Models' : 'Our Exclusive Models'}
             </h1>
             <p className={`body-lg max-w-2xl mx-auto mb-8 ${

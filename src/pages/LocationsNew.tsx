@@ -30,7 +30,7 @@ export const Locations: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4">
           {/* Hero Section */}
           <section className="text-center mb-16">
-            <h1 className="heading-display text-foreground mb-6">
+            <h1 className="luxury-heading-display text-foreground mb-6">
               Elite Escorts Across London
             </h1>
             <p className="body-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
@@ -66,7 +66,7 @@ export const Locations: React.FC = () => {
                 className="group bg-card border border-border hover:border-muted-foreground transition-all duration-300 hover:shadow-elegant"
               >
                 <div className="p-6">
-                  <h2 className="heading-lg text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
+                  <h2 className="luxury-heading-lg text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                     {location.name}
                   </h2>
                   <p className="body-base text-muted-foreground mb-4 leading-relaxed">
@@ -96,7 +96,7 @@ export const Locations: React.FC = () => {
 
           {/* Coverage Area */}
           <section className="mt-20 bg-muted/30 p-8 md:p-12 text-center">
-            <h2 className="heading-xl text-foreground mb-6">
+            <h2 className="luxury-heading-xl text-foreground mb-6">
               Complete London Coverage
             </h2>
             <p className="body-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -106,7 +106,7 @@ export const Locations: React.FC = () => {
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 body-base">
               <div>
-                <h3 className="heading-sm text-foreground mb-2">Central London</h3>
+                <h3 className="luxury-heading-sm text-foreground mb-2">Central London</h3>
                 <ul className="text-muted-foreground space-y-1">
                   <li>W1 - Mayfair, Marylebone</li>
                   <li>WC1 - Bloomsbury</li>
@@ -116,7 +116,7 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="heading-sm text-foreground mb-2">West London</h3>
+                <h3 className="luxury-heading-sm text-foreground mb-2">West London</h3>
                 <ul className="text-muted-foreground space-y-1">
                   <li>SW1 - Belgravia</li>
                   <li>SW3 - Chelsea</li>
@@ -126,7 +126,7 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="heading-sm text-foreground mb-2">East London</h3>
+                <h3 className="luxury-heading-sm text-foreground mb-2">East London</h3>
                 <ul className="text-muted-foreground space-y-1">
                   <li>E1 - Shoreditch</li>
                   <li>E14 - Canary Wharf</li>
@@ -136,7 +136,7 @@ export const Locations: React.FC = () => {
               </div>
               
               <div>
-                <h3 className="heading-sm text-foreground mb-2">North London</h3>
+                <h3 className="luxury-heading-sm text-foreground mb-2">North London</h3>
                 <ul className="text-muted-foreground space-y-1">
                   <li>NW1 - Camden</li>
                   <li>NW3 - Hampstead</li>
@@ -149,7 +149,7 @@ export const Locations: React.FC = () => {
 
           {/* CTA Section */}
           <section className="mt-16 text-center">
-            <h2 className="heading-xl text-foreground mb-4">
+            <h2 className="luxury-heading-xl text-foreground mb-4">
               Book Your Elite Companion Today
             </h2>
             <p className="body-lg text-muted-foreground mb-8">

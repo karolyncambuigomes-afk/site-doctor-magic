@@ -108,10 +108,10 @@ const CharacteristicDetail = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   {characteristic.name} Escorts
                 </h1>
-                <p className="body-lg text-black">
+                <p className="luxury-body-lg text-black">
                   Discover sophisticated companions with {characteristic.name.toLowerCase()} characteristics.
                 </p>
               </div>
@@ -129,8 +129,8 @@ const CharacteristicDetail = () => {
                 </div>
               ) : (
                 <div className="text-center py-16 px-4 sm:px-6">
-                  <h2 className="heading-lg mb-4 text-black">No models available with this characteristic</h2>
-                  <p className="body-lg text-black mb-8">
+                  <h2 className="luxury-heading-lg mb-4 text-black">No models available with this characteristic</h2>
+                  <p className="luxury-body-lg text-black mb-8">
                     We're constantly updating our collection. Please check back soon or browse our full gallery.
                   </p>
                   <Link to="/models">
@@ -147,10 +147,10 @@ const CharacteristicDetail = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                <h2 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Find Your Perfect {characteristic.name} Companion
                 </h2>
-                <p className="body-lg text-black mb-6 sm:mb-8">
+                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
                   Contact our concierge team to arrange your exclusive experience.
                 </p>
                 <a
@@ -187,7 +187,7 @@ const CharacteristicDetail = () => {
                     </CollapsibleTrigger>
                     <CollapsibleContent className="mt-12 animate-accordion-down">
                       <div 
-                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:heading-lg [&>h3]:heading-md [&>p]:body-base [&>p]:leading-relaxed"
+                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
                         dangerouslySetInnerHTML={{ __html: characteristic.content }}
                       />
                     </CollapsibleContent>
@@ -201,8 +201,8 @@ const CharacteristicDetail = () => {
           <section className="py-8">
             <div className="container-width">
               <div className="text-center mb-8">
-                <h2 className="heading-lg mb-4">Explore Other Characteristics</h2>
-                <p className="body-lg text-muted-foreground">
+                <h2 className="luxury-heading-lg mb-4">Explore Other Characteristics</h2>
+                <p className="luxury-body-lg text-muted-foreground">
                   Discover more companions with different unique traits
                 </p>
               </div>

@@ -18,7 +18,7 @@ export const HeroSection: React.FC = () => {
       {/* Content - Minimalist and positioned at bottom */}
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
-          <h1 className="luxury-heading-lg mb-4 text-white">
+          <h1 className="luxury-heading-display mb-4 text-white">
             Five London Elite Companions
           </h1>
           

@@ -58,8 +58,8 @@ export const Reviews: React.FC = () => {
         {/* Hero Section */}
         <section className="section-padding bg-gradient-subtle">
           <div className="container-width text-center">
-            <h1 className="heading-xl mb-6">Client Reviews</h1>
-            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+            <h1 className="luxury-heading-xl mb-6">Client Reviews</h1>
+            <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
               Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
             </p>
           </div>
@@ -77,10 +77,10 @@ export const Reviews: React.FC = () => {
                         <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <p className="body-base italic flex-grow">"{testimonial.content}"</p>
+                    <p className="luxury-body-base italic flex-grow">"{testimonial.content}"</p>
                     <div className="space-y-1 mt-auto">
                       <p className="font-medium text-foreground">{testimonial.name}</p>
-                      <p className="body-sm text-muted-foreground">{testimonial.role}</p>
+                      <p className="luxury-body-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </div>
                 </Card>
@@ -92,8 +92,8 @@ export const Reviews: React.FC = () => {
         {/* CTA Section */}
         <section className="section-padding bg-muted/30">
           <div className="container-width text-center">
-            <h2 className="heading-lg mb-6">Experience Excellence</h2>
-            <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <h2 className="luxury-heading-lg mb-6">Experience Excellence</h2>
+            <p className="luxury-body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               Join our satisfied clients and discover the Five London difference.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

@@ -112,10 +112,10 @@ const LocationDetail = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Escorts in {location.name}
                 </h1>
-                <p className="body-lg text-black">
+                <p className="luxury-body-lg text-black">
                   Exclusive companions available in {location.name}. Elegant, sophisticated, and discreet.
                 </p>
               </div>
@@ -126,11 +126,11 @@ const LocationDetail = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="heading-lg text-primary mb-6">
+                <h2 className="luxury-heading-lg text-primary mb-6">
                   Our Exclusive {location.name} Collection
                 </h2>
                 <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
-                <p className="body-base text-muted-foreground max-w-2xl mx-auto">
+                <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">
                   Meet our sophisticated companions available in {location.name}
                 </p>
               </div>
@@ -157,11 +157,11 @@ const LocationDetail = () => {
             <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
               <div className="container-width mx-auto px-6">
                 <div className="text-center mb-16">
-                  <h2 className="heading-lg text-primary mb-6">
+                  <h2 className="luxury-heading-lg text-primary mb-6">
                     Available Companions in {location.name}
                   </h2>
                   <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
-                  <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+                  <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
                     Meet our exclusive selection of sophisticated companions available in {location.name}
                   </p>
                 </div>
@@ -203,7 +203,7 @@ const LocationDetail = () => {
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-12 animate-accordion-down">
                     <div 
-                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:text-2xl [&>h3]:text-xl [&>p]:text-base [&>p]:leading-relaxed"
+                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: location.content }}
                     />
                   </CollapsibleContent>
@@ -216,7 +216,7 @@ const LocationDetail = () => {
           <section className="py-16 md:py-20 bg-background">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="heading-lg text-foreground mb-4">
+                <h2 className="luxury-heading-lg text-foreground mb-4">
                   Explore Other Locations
                 </h2>
                 <p className="text-muted-foreground mb-8">
@@ -249,10 +249,10 @@ const LocationDetail = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                <h2 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Book Your {location.name} Experience
                 </h2>
-                <p className="body-lg text-black mb-6 sm:mb-8">
+                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
                   Contact our experienced concierge team to arrange your perfect companion in {location.name}.
                 </p>
                 <a

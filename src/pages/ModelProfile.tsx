@@ -74,7 +74,7 @@ export const ModelProfile: React.FC = () => {
         <Navigation />
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="text-center space-y-8">
-            <h1 className="heading-lg text-foreground">Model Not Found</h1>
+            <h1 className="luxury-heading-lg text-foreground">Model Not Found</h1>
             <p className="body-minimal text-muted-foreground">The model you're looking for doesn't exist.</p>
             <Link to="/models">
               <Button className="five-london-button-outline">

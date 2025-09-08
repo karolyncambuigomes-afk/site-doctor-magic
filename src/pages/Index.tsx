@@ -60,10 +60,10 @@ const Index = () => {
         {/* Contact Section */}
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
-            <h2 className="heading-xl text-black mb-6">
+            <h2 className="luxury-heading-xl text-black mb-6">
               Elite Companion
             </h2>
-            <p className="body-base text-black mb-16 md:mb-20">
+            <p className="luxury-body-base text-black mb-16 md:mb-20">
               Contact us through your preferred method for a discreet consultation
             </p>
             

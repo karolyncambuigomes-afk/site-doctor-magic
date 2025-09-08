@@ -24,10 +24,10 @@ const Characteristics = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Escorts by Characteristics
                 </h1>
-                <p className="body-lg text-black">
+                <p className="luxury-body-lg text-black">
                   Discover companions with specific traits that match your preferences.
                 </p>
               </div>
@@ -50,10 +50,10 @@ const Characteristics = () => {
                     >
                       <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary group-hover:scale-110 transition-transform" />
                       <div className="text-center">
-                        <h3 className="heading-sm font-medium mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="luxury-heading-sm font-medium mb-1 group-hover:text-primary transition-colors">
                           {characteristic.name}
                         </h3>
-                        <p className="body-xs text-muted-foreground">
+                        <p className="luxury-body-xs text-muted-foreground">
                           {characteristic.description}
                         </p>
                       </div>
@@ -69,10 +69,10 @@ const Characteristics = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                <h2 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Looking for Something Specific?
                 </h2>
-                <p className="body-lg text-black mb-6 sm:mb-8">
+                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
                   Can't find the exact characteristics you're looking for? Contact us to find your perfect match.
                 </p>
                 <a

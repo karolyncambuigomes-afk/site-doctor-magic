@@ -196,7 +196,7 @@ export const Auth: React.FC = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <h2 className="heading-md mb-4">Welcome back!</h2>
+          <h2 className="luxury-heading-md mb-4">Welcome back!</h2>
           <p className="text-muted-foreground mb-6">Redirecting you to your account...</p>
         </div>
       </div>
@@ -227,7 +227,7 @@ export const Auth: React.FC = () => {
 
             <Card className="border border-border/50 shadow-luxury">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="heading-md">
+                <CardTitle className="luxury-heading-md">
                   Welcome to Five London
                 </CardTitle>
                 <CardDescription className="text-muted-foreground">

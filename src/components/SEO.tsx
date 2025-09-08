@@ -112,6 +112,11 @@ export const SEO = ({
       <meta name="theme-color" content="#000000" />
       <meta name="msapplication-TileColor" content="#000000" />
 
+      {/* Cache Control for Style Updates */}
+      <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+      <meta httpEquiv="Pragma" content="no-cache" />
+      <meta httpEquiv="Expires" content="0" />
+
       {/* Performance Hints */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

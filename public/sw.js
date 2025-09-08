@@ -1,4 +1,4 @@
-const CACHE_NAME = 'five-london-v' + Date.now();
+const CACHE_NAME = 'five-london-colors-fixed-v' + Date.now();
 const STATIC_CACHE = 'five-london-static-v1';
 const RUNTIME_CACHE = 'five-london-runtime-v1';
 

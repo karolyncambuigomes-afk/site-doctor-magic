@@ -172,10 +172,10 @@ const Services = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="heading-display mb-4 sm:mb-6 text-black">
+              <h1 className="luxury-heading-display mb-4 sm:mb-6 text-foreground">
                 Elite Companion Services
               </h1>
-              <p className="body-lg text-black">
+              <p className="luxury-body-lg text-foreground">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
@@ -199,10 +199,10 @@ const Services = () => {
                           <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
                         </div>
                         <div className="flex-1 text-left">
-                          <h3 className="heading-sm mb-1 text-black">{service.title}</h3>
-                          <p className="body-xs text-black hidden sm:block">{service.description}</p>
+                          <h3 className="luxury-heading-sm mb-1 text-foreground">{service.title}</h3>
+                          <p className="luxury-body-xs text-foreground hidden sm:block">{service.description}</p>
                         </div>
-                        <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-black">
+                        <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-xs sm:luxury-body-sm text-foreground">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                           <span className="hidden sm:inline">{service.duration}</span>
                           <span className="sm:hidden">{service.duration.split('-')[0]}</span>
@@ -212,9 +212,9 @@ const Services = () => {
                      <AccordionContent className="pb-4 sm:pb-6">
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                         {/* Mobile description */}
-                        <div className="sm:hidden">
-                          <p className="body-xs text-black">{service.description}</p>
-                        </div>
+                         <div className="sm:hidden">
+                           <p className="luxury-body-xs text-foreground">{service.description}</p>
+                         </div>
                         
                         {/* Extended Content (Hidden SEO) */}
                         {service.extendedContent && (
@@ -226,7 +226,7 @@ const Services = () => {
                         
                         {/* Features */}
                         <div>
-                          <h4 className="text-xs sm:text-sm font-medium text-black mb-2 sm:mb-3">What's Included</h4>
+                          <h4 className="luxury-body-xs sm:luxury-body-sm font-medium text-foreground mb-2 sm:mb-3">What's Included</h4>
                           <div className="grid grid-cols-1 gap-1 sm:gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
@@ -267,7 +267,7 @@ const Services = () => {
                               const linkConfig = linkableFeatures[feature];
                               
                               return (
-                                <div key={i} className="flex items-center text-xs sm:text-sm text-black">
+                                <div key={i} className="flex items-center luxury-body-xs sm:luxury-body-sm text-foreground">
                                   <div className="w-1 h-1 bg-black rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {

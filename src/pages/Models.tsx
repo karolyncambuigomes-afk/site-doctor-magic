@@ -31,10 +31,10 @@ export const Models: React.FC = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="heading-display mb-4 sm:mb-6 text-black">
+              <h1 className="luxury-heading-display mb-4 sm:mb-6 text-foreground">
                 Elite Escort Models
               </h1>
-              <p className="body-lg text-black">
+              <p className="luxury-body-lg text-foreground">
                 Discover London's most sophisticated companions. Available for dinner dates, business events, and exclusive experiences.
               </p>
             </div>
@@ -50,10 +50,10 @@ export const Models: React.FC = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h2 className="heading-display mb-4 sm:mb-6 text-black">
+              <h2 className="luxury-heading-display mb-4 sm:mb-6 text-foreground">
                 Ready to Meet Your Perfect Companion?
               </h2>
-              <p className="body-lg text-black mb-6 sm:mb-8">
+              <p className="luxury-body-lg text-foreground mb-6 sm:mb-8">
                 Contact our concierge team to arrange your exclusive experience with one of our elite models.
               </p>
               <a

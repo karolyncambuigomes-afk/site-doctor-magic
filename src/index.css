@@ -154,15 +154,9 @@
     @apply luxury-body text-xs sm:text-sm leading-relaxed font-medium;
   }
 
-  /* Legacy Classes for Compatibility */
-  .heading-display { @apply luxury-heading-display; }
-  .heading-xl { @apply luxury-heading-xl; }
-  .heading-lg { @apply luxury-heading-lg; }
-  .heading-md { @apply luxury-heading-md; }
-  .heading-sm { @apply luxury-heading-sm; }
-  .body-lg { @apply luxury-body-lg; }
-  .body-md { @apply luxury-body-md; }
-  .body-sm { @apply luxury-body-sm; }
+  .luxury-body-xs {
+    @apply luxury-body text-xs leading-relaxed font-medium;
+  }
   
   .caption {
     @apply luxury-body text-xs uppercase tracking-wider font-medium;

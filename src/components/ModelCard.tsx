@@ -94,11 +94,11 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
               </>
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <div className="w-16 h-16 mx-auto mb-3 bg-background rounded-full flex items-center justify-center">
-                    <span className="text-2xl">✨</span>
-                  </div>
-                  <p className="font-body text-sm">{model.name}</p>
+                  <div className="text-center text-muted-foreground">
+                   <div className="w-16 h-16 mx-auto mb-3 bg-background rounded-full flex items-center justify-center">
+                     <span className="text-2xl">✨</span>
+                   </div>
+                   <p className="luxury-body-sm">{model.name}</p>
                 </div>
               </div>
             )}

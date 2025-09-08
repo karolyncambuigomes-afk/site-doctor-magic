@@ -94,7 +94,7 @@ export const ModelsCarousel = () => {
                     
                     {/* Static info below - minimal and elegant */}
                     <div className="text-center px-1">
-                       <h3 className="luxury-body-base text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
+                       <h3 className="luxury-body-md text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
                          {model.name}
                        </h3>
                        <p className="luxury-body-xs text-gray-500 tracking-normal">

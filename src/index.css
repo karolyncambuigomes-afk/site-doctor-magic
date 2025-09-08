@@ -32,6 +32,8 @@
     --input: 229 229 229;
     --ring: 10 10 10;
 
+    --luxury-navy: 15 20 25;
+
     --radius: 0.5rem;
   }
 
@@ -63,6 +65,8 @@
     --border: 38 38 38;
     --input: 38 38 38;
     --ring: 212 212 212;
+
+    --luxury-navy: 15 20 25;
   }
 }
 

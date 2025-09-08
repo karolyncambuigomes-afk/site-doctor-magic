@@ -2,7 +2,7 @@ import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
-import { SlidingFooter } from '@/components/SlidingFooter';
+import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
@@ -102,7 +102,7 @@ const Index = () => {
         </section>
       </main>
 
-      <SlidingFooter />
+      <Footer />
     </>
   );
 };

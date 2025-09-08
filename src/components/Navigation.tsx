@@ -75,7 +75,7 @@ export const Navigation: React.FC = () => {
         ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200' 
         : 'bg-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-black">
         <div className="flex items-center justify-between py-2 md:py-3 text-white bg-black">
           <SafeLink 
             to="/" 

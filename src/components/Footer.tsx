@@ -28,10 +28,10 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="body-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h3 className="luxury-body-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
-              <p className="body-xs text-white/70 mb-4 leading-relaxed">
+              <p className="luxury-body-xs text-white/70 mb-4 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -57,7 +57,7 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="body-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h4 className="luxury-body-sm font-medium text-white mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
               <div className="flex space-x-4">
@@ -95,23 +95,23 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="body-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-white tracking-wider uppercase">
               Our Services
             </h4>
             <div className="space-y-3">
-              <SafeLink to="/models" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/models" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 Elite Companions
               </SafeLink>
-              <SafeLink to="/services" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/services" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 Premium Services
               </SafeLink>
-              <SafeLink to="/locations" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/locations" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 London Locations
               </SafeLink>
-              <SafeLink to="/characteristics" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/characteristics" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 Companion Types
               </SafeLink>
-              <SafeLink to="/blog" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/blog" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 Lifestyle Blog
               </SafeLink>
             </div>
@@ -119,35 +119,35 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="body-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-white tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">
               <a 
                 href="tel:+447436190679"
-                className="flex items-center space-x-2 text-sm text-white/70 hover:text-white transition-colors"
+                className="flex items-center space-x-2 luxury-body-sm text-white/70 hover:text-white transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-2 text-sm text-white/70 hover:text-white transition-colors"
+                className="flex items-center space-x-2 luxury-body-sm text-white/70 hover:text-white transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
               </a>
-              <div className="flex items-center space-x-2 text-sm text-white/70">
+              <div className="flex items-center space-x-2 luxury-body-sm text-white/70">
                 <MapPin className="w-4 h-4" />
                 <span>Central London</span>
               </div>
-              <SafeLink to="/faq" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/faq" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 FAQ
               </SafeLink>
-              <SafeLink to="/about" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/about" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 About Us
               </SafeLink>
-              <SafeLink to="/reviews" className="block text-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/reviews" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
                 Reviews
               </SafeLink>
             </div>
@@ -158,7 +158,7 @@ export const Footer = () => {
         <div className="mt-16 pt-8 border-t border-white/20">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
             <div className="space-y-2">
-              <p className="text-sm text-white/70">
+              <p className="luxury-body-sm text-white/70">
                 © {currentYear} Five London. All rights reserved.
               </p>
               <p className="text-xs text-white/60">
@@ -166,7 +166,7 @@ export const Footer = () => {
               </p>
             </div>
             
-            <div className="flex flex-wrap gap-6 text-sm">
+            <div className="flex flex-wrap gap-6 luxury-body-sm">
               <SafeLink 
                 to="/privacy-policy" 
                 className="text-white/70 hover:text-white transition-colors"

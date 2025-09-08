@@ -70,10 +70,10 @@ const Blog = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                   Discover London
                 </h1>
-                <p className="body-lg text-black">
+                <p className="luxury-body-lg text-black">
                   Your exclusive guide to sophisticated experiences, exquisite restaurants, and London's best-kept secrets.
                 </p>
               </div>
@@ -143,18 +143,18 @@ const Blog = () => {
                         </div>
                       </div>
                       
-                      <h2 className="heading-sm font-medium text-foreground group-hover:text-foreground/80 transition-colors leading-tight">
+                      <h2 className="luxury-heading-sm font-medium text-foreground group-hover:text-foreground/80 transition-colors leading-tight">
                         {article.title}
                       </h2>
                     </CardHeader>
                     
                     <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
-                      <p className="body-xs text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+                      <p className="luxury-body-xs text-muted-foreground leading-relaxed mb-4 sm:mb-6">
                         {article.excerpt}
                       </p>
                       
                       <Link to={`/blog/${article.slug}`}>
-                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80 text-xs sm:text-sm">
+                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80 luxury-body-sm">
                           Read full article
                           <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
@@ -170,8 +170,8 @@ const Blog = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-2xl mx-auto px-4 sm:px-6">
-                <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Stay Updated</h2>
-                <p className="text-sm sm:text-base text-muted-foreground mb-8">
+                <h2 className="luxury-heading-lg font-extralight mb-4">Stay Updated</h2>
+                <p className="luxury-body-base text-muted-foreground mb-8">
                   Contact us for the latest London experiences and exclusive recommendations.
                 </p>
                 <Button 

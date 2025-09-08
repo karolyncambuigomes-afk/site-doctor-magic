@@ -75,15 +75,15 @@ export const ModelsCarousel = () => {
                       {/* Info overlay that appears on hover */}
                       <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
                         <div className="space-y-1.5">
-                           <h3 className="heading-sm tracking-normal">
+                           <h3 className="luxury-heading-sm tracking-normal">
                              {model.name}
                            </h3>
                           <div className="flex items-center justify-between">
-                            <p className="text-sm text-white/90 tracking-normal">
+                            <p className="luxury-body-sm text-white/90 tracking-normal">
                               {model.age ? `${model.age} anos` : ''}
                             </p>
                             {model.characteristics?.[0] && (
-                              <span className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                              <span className="luxury-body-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
                                 {model.characteristics[0]}
                               </span>
                             )}
@@ -94,10 +94,10 @@ export const ModelsCarousel = () => {
                     
                     {/* Static info below - minimal and elegant */}
                     <div className="text-center px-1">
-                       <h3 className="body-base text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
+                       <h3 className="luxury-body-base text-gray-900 mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
                          {model.name}
                        </h3>
-                       <p className="body-xs text-gray-500 tracking-normal">
+                       <p className="luxury-body-xs text-gray-500 tracking-normal">
                          {model.location || 'London'}
                        </p>
                     </div>
@@ -116,7 +116,7 @@ export const ModelsCarousel = () => {
             to="/models" 
             className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
           >
-            <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
+            <span className="luxury-body-sm tracking-[0.3em] uppercase font-light text-black">
               All Models
             </span>
           </SafeLink>

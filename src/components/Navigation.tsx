@@ -48,7 +48,7 @@ export const Navigation: React.FC = () => {
         <div className="flex items-center justify-between py-2 md:py-3 text-white">
           <SafeLink 
             to="/" 
-            className="font-manrope font-medium uppercase transition-colors hover:text-gray-300 text-white text-lg lg:text-xl"
+            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-300 text-white"
           >
             Five London
             <span className="text-xs ml-2 font-normal text-white/70">EST. 2020</span>
@@ -60,7 +60,7 @@ export const Navigation: React.FC = () => {
               <SafeLink
                 key={item.href}
                 to={item.href}
-                className={`font-medium text-sm transition-colors ${
+                className={`luxury-body-sm font-medium transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
                     ? 'text-gray-300' 
                     : 'text-white/90 hover:text-gray-300'
@@ -75,7 +75,7 @@ export const Navigation: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <a 
               href="tel:+447436190679"
-              className="text-sm transition-colors text-white/90 hover:text-gray-300"
+              className="luxury-body-sm transition-colors text-white/90 hover:text-gray-300"
             >
               +44 7436 190679
             </a>
@@ -133,7 +133,7 @@ export const Navigation: React.FC = () => {
                   <SafeLink
                     key={item.href}
                     to={item.href}
-                    className={`text-lg font-medium transition-colors ${
+                    className={`luxury-body-base font-medium transition-colors ${
                       location.pathname === item.href ? 'text-black' : 'text-gray-600 hover:text-black'
                     }`}
                   >
@@ -143,7 +143,7 @@ export const Navigation: React.FC = () => {
                 <div className="pt-8 border-t border-gray-300 space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block text-sm text-gray-600 hover:text-black transition-colors"
+                    className="block luxury-body-sm text-gray-600 hover:text-black transition-colors"
                   >
                     +44 7436 190679
                   </a>
@@ -163,7 +163,7 @@ export const Navigation: React.FC = () => {
                       </SafeLink>
                       <button 
                         onClick={signOut}
-                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors text-sm"
+                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
                       >
                         <LogOut className="w-4 h-4 mr-2 inline" />
                         Sign Out

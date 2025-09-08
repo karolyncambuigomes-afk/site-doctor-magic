@@ -57,11 +57,9 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				'luxury-navy': {
-					DEFAULT: '#0f1419',
-					light: '#1a202c',
-					lighter: '#2d3748'
-				}
+				'luxury-navy': 'hsl(var(--luxury-navy))',
+				'luxury-gold': 'hsl(var(--luxury-gold))',
+				'luxury-cream': 'hsl(var(--luxury-cream))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

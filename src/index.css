@@ -4,65 +4,77 @@
 
 @layer base {
   :root {
+    /* Light mode colors - proper HSL values */
     --background: 0 0% 100%;
-    --foreground: 0 0% 8%;
+    --foreground: 222 84% 5%;
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 8%;
+    --card-foreground: 222 84% 5%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 8%;
+    --popover-foreground: 222 84% 5%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 0 0% 94%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 84% 5%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 39%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 0 0% 94%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 84% 5%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 4%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 84% 5%;
 
     --radius: 0.5rem;
+    
+    /* Luxury brand colors */
+    --luxury-navy: 220 39% 11%;
+    --luxury-gold: 45 93% 58%;
+    --luxury-cream: 60 9% 98%;
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
+    /* Dark mode colors - proper HSL values */
+    --background: 222 84% 5%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 84% 5%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 4%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 84% 5%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 64%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 63% 38%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 0% 83%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 212 95% 68%;
+    
+    /* Dark luxury colors */
+    --luxury-navy: 220 39% 11%;
+    --luxury-gold: 45 93% 58%;
+    --luxury-cream: 60 9% 98%;
   }
 }
 

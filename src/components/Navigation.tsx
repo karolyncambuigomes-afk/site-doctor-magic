@@ -63,6 +63,10 @@ export const Navigation: React.FC = () => {
   // Check if we're on a model profile page
   const isModelPage = location.pathname.startsWith('/models/');
   
+  // Check if we're on a white background page
+  const whiteBackgroundPages = ['/about', '/services', '/join-us', '/contact', '/locations', '/reviews', '/terms', '/privacy-policy'];
+  const isWhiteBackgroundPage = whiteBackgroundPages.includes(location.pathname);
+  
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled && isModelPage 
@@ -76,14 +80,14 @@ export const Navigation: React.FC = () => {
           <SafeLink 
             to="/" 
             className={`font-manrope font-medium uppercase transition-colors hover:text-slate-800 ${
-              isScrolled ? 'text-black' : 'text-white'
+              isScrolled ? 'text-black' : (isWhiteBackgroundPage ? 'text-black' : 'text-white')
             } ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >
             Five London
             <span className={`text-xs ml-2 font-normal ${
-              isScrolled ? 'text-slate-800' : 'text-white/70'
+              isScrolled ? 'text-slate-800' : (isWhiteBackgroundPage ? 'text-gray-600' : 'text-white/70')
             }`}>EST. 2020</span>
           </SafeLink>
 
@@ -96,7 +100,7 @@ export const Navigation: React.FC = () => {
                 className={`font-medium text-sm transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
                     ? 'text-slate-800' 
-                    : isScrolled ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white'
+                    : isScrolled ? 'text-black hover:text-slate-800' : (isWhiteBackgroundPage ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white')
                 }`}
               >
                 {item.label}
@@ -109,7 +113,7 @@ export const Navigation: React.FC = () => {
             <a 
               href="tel:+447436190679"
               className={`text-sm transition-colors ${
-                isScrolled ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white'
+                isScrolled ? 'text-black hover:text-slate-800' : (isWhiteBackgroundPage ? 'text-black hover:text-slate-800' : 'text-white/90 hover:text-white')
               }`}
             >
               +44 7436 190679
@@ -156,7 +160,7 @@ export const Navigation: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             className={`lg:hidden p-2 transition-colors ${
-              isScrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-white/70'
+              isScrolled ? 'text-gray-900 hover:text-gray-600' : (isWhiteBackgroundPage ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-white/70')
             }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"

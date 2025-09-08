@@ -51,11 +51,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({
       <main id="main-content" className="pt-16 sm:pt-20">
         {/* Breadcrumbs */}
         <section className="py-4 border-b border-border/30">
-          <div className="container-width">
-            <Breadcrumbs items={[{
-            label: isPremium ? 'Premium Members' : 'Our Models'
-          }]} />
-          </div>
+          
         </section>
 
         {/* Elegant Header */}

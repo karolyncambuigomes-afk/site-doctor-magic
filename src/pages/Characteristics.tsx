@@ -19,7 +19,7 @@ const Characteristics = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-12 sm:pt-16">
+        <main className="pt-16">
           {/* Hero Section */}
           <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-b from-muted/30 to-background">
             <div className="container-width">

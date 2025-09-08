@@ -70,7 +70,7 @@ const BlogPost = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-32">
+        <main className="pt-16">
           {/* Breadcrumb */}
           <section className="py-8 border-b border-border">
             <div className="container-width">

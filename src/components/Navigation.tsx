@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
-import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { 
@@ -11,14 +11,6 @@ import {
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
 
 const navItems = [
   { href: '/about', label: 'About Us' },
@@ -34,7 +26,7 @@ export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useSafeLocation();
   const auth = useAuth();
-  const { user, signOut, hasAccess } = auth || {};
+  const { user, signOut } = auth || {};
 
   React.useEffect(() => {
     if (location) {
@@ -42,9 +34,7 @@ export const Navigation: React.FC = () => {
     }
   }, [location]);
   
-  // Safety check for router context
   if (!location) {
-    console.warn('Navigation: useLocation returned undefined');
     return null;
   }
   
@@ -87,40 +77,36 @@ export const Navigation: React.FC = () => {
             </a>
             
             {user ? (
-              <div className="flex items-center space-x-4">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full">
-                      <User className="w-4 h-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                    <DropdownMenuItem className="font-medium">
-                      {user.email}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem asChild>
-                      <SafeLink to="/admin" className="flex items-center">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Admin
-                      </SafeLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={signOut} className="text-red-600">
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Sign Out
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-3">
-                <a href="https://wa.me/447436190679">
-                  <Button variant="outline">
-                    Call Now
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full text-white hover:text-gray-300">
+                    <User className="w-4 h-4" />
                   </Button>
-                </a>
-              </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem className="font-medium">
+                    {user.email}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <SafeLink to="/admin" className="flex items-center">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Admin
+                    </SafeLink>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut} className="text-red-600">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <a href="https://wa.me/447436190679">
+                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                  Call Now
+                </Button>
+              </a>
             )}
           </div>
 
@@ -136,7 +122,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="lg:hidden border-t border-white/20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -182,7 +168,7 @@ export const Navigation: React.FC = () => {
                   ) : (
                     <div className="space-y-4">
                       <a href="https://wa.me/447436190679">
-                        <Button className="w-full bg-white text-black hover:bg-gray-100">
+                        <Button className="w-full bg-black text-white hover:bg-gray-800">
                           Call Now
                         </Button>
                       </a>

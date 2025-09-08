@@ -56,8 +56,8 @@ export const Navigation = () => {
       isScrolled && isModelPage 
         ? 'opacity-0 pointer-events-none transform -translate-y-full' 
         : isScrolled || location.pathname === '/'
-        ? 'bg-gray-50/95 backdrop-blur-sm border-b border-gray-100' 
-        : 'bg-transparent'
+        ? 'bg-background/95 backdrop-blur-sm border-b border-border' 
+        : 'bg-background'
     }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2 md:py-3">

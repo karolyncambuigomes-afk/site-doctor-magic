@@ -22,15 +22,14 @@ const Locations = () => {
         
         <main className="pt-16">
           {/* Hero Section */}
-          <section className="py-12 bg-white">
-            <div className="container-width">
-              <div className="text-center max-w-4xl mx-auto">
-                <h1 className="heading-lg mb-6">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="heading-display mb-4 sm:mb-6 text-black">
                   Find Girls by Location
                 </h1>
-                <p className="body-minimal text-muted-foreground mb-8">
-                  Browse our stunning escorts by their preferred London locations. 
-                  Click on any area below to discover the beautiful girls available in that district.
+                <p className="body-lg text-black">
+                  Browse our stunning escorts by their preferred London locations.
                 </p>
               </div>
             </div>

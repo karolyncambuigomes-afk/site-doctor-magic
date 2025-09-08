@@ -67,15 +67,14 @@ const Blog = () => {
         
         <main className="pt-20 sm:pt-24 md:pt-32">
           {/* Hero Section */}
-          <section className="py-12 md:py-16 bg-white">
-            <div className="container-width">
-              <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-display mb-4 sm:mb-6 text-foreground">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="heading-display mb-4 sm:mb-6 text-black">
                   Discover London
                 </h1>
-                <p className="body-lg text-muted-foreground leading-relaxed mb-6 sm:mb-8">
-                  Your exclusive guide to sophisticated experiences, exquisite restaurants, 
-                  prestigious events and London's best-kept secrets.
+                <p className="body-lg text-black">
+                  Your exclusive guide to sophisticated experiences, exquisite restaurants, and London's best-kept secrets.
                 </p>
               </div>
             </div>
@@ -167,26 +166,20 @@ const Blog = () => {
             </div>
           </section>
 
-          {/* Newsletter CTA */}
-          <section className="py-12 md:py-16 lg:py-20 bg-white">
-            <div className="container-width">
-              <div className="text-center max-w-2xl mx-auto px-4 sm:px-6">
-                <h2 className="heading-xl mb-4 sm:mb-6 text-foreground">
-                  Stay Updated
-                </h2>
-                <p className="body-base text-muted-foreground mb-6 sm:mb-8">
-                  Receive our exclusive articles about the best experiences in London 
-                  directly in your email.
+          {/* Contact Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+            <div className="container-width text-center">
+              <div className="max-w-2xl mx-auto px-4 sm:px-6">
+                <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Stay Updated</h2>
+                <p className="text-sm sm:text-base text-muted-foreground mb-8">
+                  Contact us for the latest London experiences and exclusive recommendations.
                 </p>
-                <Link to="/contact">
-                  <Button 
-                    size="lg" 
-                    className="five-london-button text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
-                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                  >
-                    Contact Us
-                  </Button>
-                </Link>
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
+                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                >
+                  Contact Us
+                </Button>
               </div>
             </div>
           </section>

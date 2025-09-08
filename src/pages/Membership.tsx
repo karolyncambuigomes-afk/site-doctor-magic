@@ -54,22 +54,15 @@ export const Membership: React.FC = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-20 py-20 md:py-32">
-        <div className="container-width mx-auto px-6">
-          <div className="text-center">
-            <h1 className="heading-display text-primary mb-6">
-              Five London
+      <section className="py-12 md:py-20 lg:py-24 bg-white">
+        <div className="container-width text-center">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <h1 className="heading-display mb-4 sm:mb-6 text-black">
+              Premium Membership
             </h1>
-            <div className="w-16 h-0.5 bg-foreground mx-auto mb-8"></div>
-            <p className="body-lg text-muted-foreground tracking-widest">
-              Exclusive Membership
+            <p className="body-lg text-black">
+              Access our exclusive collection of sophisticated companions with complete privacy and discretion.
             </p>
-            <div className="max-w-2xl mx-auto mt-8">
-              <p className="body-lg text-muted-foreground leading-relaxed">
-                Access our exclusive collection of sophisticated companions in London. 
-                Complete privacy and discretion guaranteed with premium features and priority support.
-              </p>
-            </div>
           </div>
         </div>
       </section>
@@ -194,15 +187,21 @@ export const Membership: React.FC = () => {
           </div>
         </div>
 
-        {/* Billing Discretion Section */}
-        <section className="py-16 md:py-20 bg-white">
-          <div className="text-center max-w-md mx-auto">
-            <p className="body-base text-muted-foreground font-light mb-2">
-              Complete Discretion
-            </p>
-            <p className="body-xs text-muted-foreground font-light leading-relaxed">
-              Your credit card statement will show "London Department Store" for complete privacy and discretion.
-            </p>
+        {/* Contact Section */}
+        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <div className="container-width text-center">
+            <div className="max-w-2xl mx-auto px-4 sm:px-6">
+              <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Ready to Join?</h2>
+              <p className="text-sm sm:text-base text-muted-foreground mb-8">
+                Complete discretion - your statement shows "London Department Store".
+              </p>
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full"
+                onClick={() => window.open('https://wa.me/447563407874?text=Hello, I have questions about the premium membership', '_blank')}
+              >
+                Contact Us Discreetly
+              </Button>
+            </div>
           </div>
         </section>
       </div>

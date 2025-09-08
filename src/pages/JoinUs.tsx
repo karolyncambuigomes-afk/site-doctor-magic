@@ -200,18 +200,27 @@ const JoinUs = () => {
       />
       <Navigation />
       
-      <main className="min-h-screen bg-white py-24">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-12">
-            <h1 className="heading-display text-foreground mb-6">
-              Join Our Agency
-            </h1>
-            <p className="body-lg text-muted-foreground">
-              Be part of a prestigious agency and build a successful career
-            </p>
+      <main className="pt-16">
+        {/* Hero Section */}
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                Join Our Agency
+              </h1>
+              <p className="body-lg text-black">
+                Be part of a prestigious agency and build a successful career
+              </p>
+            </div>
           </div>
+        </section>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+        {/* Application Form */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="container-width">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+
+              <form onSubmit={handleSubmit} className="space-y-8">
             {/* Personal Information */}
             <Card>
               <CardHeader>
@@ -533,8 +542,10 @@ const JoinUs = () => {
                 {loading ? "Submitting..." : "Submit Application"}
               </Button>
             </div>
-          </form>
-        </div>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

@@ -63,7 +63,7 @@ export const Navigation = () => {
         <div className="flex items-center justify-between py-2 md:py-3">
           <Link 
             to="/" 
-            className={`font-manrope font-medium uppercase text-foreground transition-colors hover:text-primary ${
+            className={`font-manrope font-medium uppercase text-black transition-colors hover:text-primary ${
               isScrolled || location.pathname === '/' ? 'text-lg lg:text-xl' : 'text-xl lg:text-2xl'
             }`}
           >

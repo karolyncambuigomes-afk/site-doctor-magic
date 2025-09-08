@@ -137,7 +137,7 @@ export const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-foreground hover:text-muted-foreground transition-colors"
+            className="lg:hidden p-2 text-black hover:text-muted-foreground transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >

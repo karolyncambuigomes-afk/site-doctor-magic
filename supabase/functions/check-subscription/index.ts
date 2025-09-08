@@ -93,6 +93,33 @@ serve(async (req) => {
       updated_at: new Date().toISOString(),
     }, { onConflict: 'user_id' });
 
+    // Auto-approve user if they have active subscription
+    if (hasActiveSub) {
+      logStep("Checking and updating user approval status");
+      const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("status")
+        .eq("id", user.id)
+        .single();
+      
+      if (profileError) {
+        logStep("Error fetching profile", { error: profileError.message });
+      } else if (profile?.status === 'pending') {
+        logStep("Auto-approving user with active subscription");
+        await supabaseClient
+          .from("profiles")
+          .update({ 
+            status: 'approved',
+            approved_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          })
+          .eq("id", user.id);
+        logStep("User auto-approved successfully");
+      } else {
+        logStep("User already approved or different status", { currentStatus: profile.status });
+      }
+    }
+
     logStep("Updated database with subscription info", { subscribed: hasActiveSub });
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,

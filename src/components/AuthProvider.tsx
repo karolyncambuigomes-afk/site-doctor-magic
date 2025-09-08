@@ -133,31 +133,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     console.log('AuthProvider - Checking user access for:', userId);
     
     try {
-      // First check if user is approved
-      const userStatusResult = await checkUserStatus(userId);
-      const { approved } = userStatusResult || { approved: false };
-      if (!approved) {
-        console.log('AuthProvider - User not approved');
-        setHasAccess(false);
-        return false;
-      }
-
       // Check if user is admin directly from profiles table
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('role')
+        .select('role, status')
         .eq('id', userId)
         .single();
 
       if (profileError) {
         console.error('Error checking user profile:', profileError);
-      } else if (profile?.role === 'admin') {
-        console.log('AuthProvider - User is admin, granting access');
-        setHasAccess(true);
-        return true;
+      } else {
+        setUserStatus(profile?.status || null);
+        setIsApproved(profile?.status === 'approved');
+        
+        if (profile?.role === 'admin') {
+          console.log('AuthProvider - User is admin, granting access');
+          setHasAccess(true);
+          return true;
+        }
       }
 
-      // Then check subscription for regular users
+      // Check subscription for regular users - grant access if active subscription
       const { data, error } = await supabase
         .from('user_subscriptions')
         .select('*')
@@ -172,8 +168,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       const hasSubscription = !!data;
       console.log('AuthProvider - User subscription status:', hasSubscription);
-      setHasAccess(hasSubscription);
-      return hasSubscription;
+      
+      // Grant access if user has active subscription (automatic approval)
+      if (hasSubscription) {
+        setHasAccess(true);
+        return true;
+      }
+
+      // For non-paying users, check approval status
+      const approved = profile?.status === 'approved';
+      if (!approved) {
+        console.log('AuthProvider - User not approved and no active subscription');
+        setHasAccess(false);
+        return false;
+      }
+
+      setHasAccess(approved);
+      return approved;
     } catch (error) {
       console.error('Error checking user access:', error);
       return false;

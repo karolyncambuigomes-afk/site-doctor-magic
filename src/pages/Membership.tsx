@@ -35,6 +35,9 @@ export const Membership: React.FC = () => {
     password: ''
   });
 
+  // Emergency checkout state
+  const [emergencyCheckoutUrl, setEmergencyCheckoutUrl] = useState<string | null>(null);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
@@ -77,9 +80,9 @@ export const Membership: React.FC = () => {
       console.log('Signup successful, waiting for authentication...');
       toast.success('Account created! Waiting for authentication...');
       
-      // Wait for auth state to update properly
+      // Wait for auth state to update properly with longer timeout
       const waitForAuth = async () => {
-        const maxAttempts = 20; // 10 seconds max
+        const maxAttempts = 30; // 15 seconds max
         let attempts = 0;
         
         while (attempts < maxAttempts) {
@@ -89,11 +92,12 @@ export const Membership: React.FC = () => {
           console.log(`Auth check attempt ${attempts + 1}:`, {
             hasSession: !!session,
             hasUser: !!session?.user,
-            userEmail: session?.user?.email
+            userEmail: session?.user?.email,
+            hasToken: !!session?.access_token
           });
           
-          if (session?.user) {
-            console.log('User authenticated, proceeding to checkout...');
+          if (session?.user && session?.access_token) {
+            console.log('User authenticated with valid token, proceeding to checkout...');
             toast.success('Authenticated! Redirecting to payment...');
             
             try {
@@ -108,8 +112,10 @@ export const Membership: React.FC = () => {
               }
               
               if (data?.url) {
-                console.log('Redirecting to:', data.url);
-                window.open(data.url, '_blank');
+                console.log('Redirecting to checkout directly:', data.url);
+                toast.success('Redirecting to payment page...');
+                // Use direct redirection instead of new tab
+                window.location.href = data.url;
                 return true;
               } else {
                 console.error('No URL in checkout response');
@@ -141,8 +147,8 @@ export const Membership: React.FC = () => {
     }
   };
 
-  const handleSubscribe = async () => {
-    console.log('handleSubscribe clicked');
+  const handleSubscribe = async (retryCount = 0) => {
+    console.log(`handleSubscribe clicked (attempt ${retryCount + 1})`);
     
     if (!user) {
       console.log('No user, showing login error');
@@ -158,8 +164,11 @@ export const Membership: React.FC = () => {
 
     console.log('Starting checkout process...');
     setLoading(true);
+    
     try {
       console.log('Invoking create-checkout function...');
+      toast.info('Creating payment session...');
+      
       const { data, error } = await supabase.functions.invoke('create-checkout');
       
       console.log('Checkout response:', { data, error });
@@ -170,14 +179,30 @@ export const Membership: React.FC = () => {
       }
       
       if (data?.url) {
-        console.log('Redirecting to Stripe:', data.url);
-        window.open(data.url, '_blank');
+        console.log('Redirecting to Stripe directly:', data.url);
+        setEmergencyCheckoutUrl(data.url); // Store for emergency use
+        toast.success('Redirecting to payment page...');
+        
+        // Use direct redirection instead of new tab to avoid pop-up blockers
+        window.location.href = data.url;
       } else {
         console.error('No URL returned from checkout');
         throw new Error('No checkout URL returned');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating checkout:', error);
+      
+      // Retry logic - up to 2 attempts
+      if (retryCount < 2) {
+        console.log(`Retrying checkout in 2 seconds... (attempt ${retryCount + 1}/2)`);
+        toast.info(`Payment setup failed, retrying... (${retryCount + 1}/2)`);
+        
+        setTimeout(() => {
+          handleSubscribe(retryCount + 1);
+        }, 2000);
+        return;
+      }
+      
       toast.error(`Failed to create checkout session: ${error.message}`);
     } finally {
       setLoading(false);
@@ -456,7 +481,10 @@ export const Membership: React.FC = () => {
                     </div>
 
                     <Button 
-                      onClick={handleSubscribe}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSubscribe(0);
+                      }}
                       disabled={loading}
                       className="w-full py-4 text-base font-light tracking-widest"
                       variant="default"
@@ -470,6 +498,22 @@ export const Membership: React.FC = () => {
                         "Join Premium"
                       )}
                     </Button>
+                    
+                    {/* Emergency checkout button */}
+                    {emergencyCheckoutUrl && !loading && (
+                      <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <p className="text-sm text-yellow-800 mb-2">
+                          If the automatic redirect didn't work, click below:
+                        </p>
+                        <Button 
+                          onClick={() => window.location.href = emergencyCheckoutUrl}
+                          variant="outline"
+                          className="w-full"
+                        >
+                          Go to Payment Page
+                        </Button>
+                      </div>
+                    )}
 
                     <div className="text-center">
                       <p className="body-xs text-muted-foreground font-light">

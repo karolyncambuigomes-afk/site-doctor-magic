@@ -14,24 +14,24 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 84% 5%;
 
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 84% 5%;
+    --secondary: 0 0% 97%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 84% 5%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 84% 5%;
+    --border: 0 0% 89%;
+    --input: 0 0% 89%;
+    --ring: 0 0% 10%;
 
     --radius: 0.5rem;
     
@@ -52,24 +52,24 @@
     --popover: 222 84% 5%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 10%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217 33% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 212 95% 68%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 0 0% 70%;
     
     /* Dark luxury colors */
     --luxury-navy: 220 39% 11%;
@@ -174,6 +174,15 @@
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
   }
   
+  /* Missing component classes */
+  .card-luxury {
+    @apply bg-card border border-border shadow-luxury rounded-lg p-6 transition-luxury hover:shadow-elegant;
+  }
+  
+  .hover-lift {
+    @apply transition-luxury hover:-translate-y-1 hover:shadow-luxury;
+  }
+
   /* Footer mobile fix */
   footer {
     display: block !important;

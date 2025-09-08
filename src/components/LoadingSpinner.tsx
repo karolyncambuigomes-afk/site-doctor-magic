@@ -16,7 +16,7 @@ export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   };
 
   return (
-    <div className={`inline-block animate-spin rounded-full border-2 border-solid border-primary border-r-transparent ${sizeClasses[size]} ${className}`} role="status" aria-label="Loading">
+    <div className={`inline-block animate-spin rounded-full border-2 border-solid border-foreground border-r-transparent ${sizeClasses[size]} ${className}`} role="status" aria-label="Loading">
       <span className="sr-only">Loading...</span>
     </div>
   );

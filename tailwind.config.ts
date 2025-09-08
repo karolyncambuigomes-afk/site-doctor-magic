@@ -56,6 +56,11 @@ export default {
 				card: {
 					DEFAULT: 'rgb(var(--card))',
 					foreground: 'rgb(var(--card-foreground))'
+				},
+				'luxury-navy': {
+					DEFAULT: '#0f1419',
+					light: '#1a202c',
+					lighter: '#2d3748'
 				}
 			},
 			borderRadius: {

@@ -1,74 +1,60 @@
-const CACHE_NAME = 'five-london-v3.0.0-' + Date.now();
-const STATIC_CACHE = 'five-london-static-v3';
-const RUNTIME_CACHE = 'five-london-runtime-v3';
+// Five London - Service Worker for Caching and Offline Support
+// Optimized for private browsing compatibility
 
-// Minimal assets to cache (for better private browser compatibility)
+const CACHE_NAME = 'five-london-v1';
+const STATIC_CACHE = 'five-london-static-v1';
+const RUNTIME_CACHE = 'five-london-runtime-v1';
+
+// Essential assets to precache
 const PRECACHE_ASSETS = [
   '/',
   '/manifest.json'
 ];
 
-// Assets that should never be cached
+// URLs to never cache
 const NEVER_CACHE = [
+  '/api/',
+  '/supabase/',
   '/admin',
   '/auth',
-  '/api/',
-  '/supabase',
-  '/_vercel',
-  'chrome-extension://',
-  'moz-extension://',
+  'chrome-extension',
   '.map'
 ];
 
-// Robust private mode detection - multiple methods
+// Ultra-simple private mode detection
 function isPrivateMode() {
   try {
-    // Method 1: localStorage test
-    const test = 'privateModeTest';
-    localStorage.setItem(test, test);
-    localStorage.removeItem(test);
-    
-    // Method 2: Check if storage is severely limited
-    if ('storage' in navigator && 'estimate' in navigator.storage) {
-      navigator.storage.estimate().then(estimate => {
-        if (estimate.quota && estimate.quota < 50000000) { // Less than 50MB = likely private
-          console.log('SW: Low storage quota detected, private mode likely');
-          return true;
-        }
-      });
-    }
-    
+    self.localStorage.setItem('swtest', 'test');
+    self.localStorage.removeItem('swtest');
     return false;
   } catch (e) {
-    console.log('SW: Private mode detected via localStorage test');
     return true;
   }
 }
 
-// Install event - minimal caching for compatibility
-self.addEventListener('install', (event) => {
-  console.log('SW: Installing...');
+// Install event - cache assets only if not in private mode
+self.addEventListener('install', event => {
+  console.log('SW: Install event');
   
-  // Skip caching entirely in private mode
+  // Quick private mode check and exit immediately if detected
   if (isPrivateMode()) {
     console.log('SW: Private mode detected, skipping all caching');
-    self.skipWaiting();
-    return;
+    return self.skipWaiting();
   }
   
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then((cache) => {
-        console.log('SW: Caching essential assets');
-        return cache.addAll(PRECACHE_ASSETS).catch(error => {
-          console.log('SW: Cache failed, continuing anyway:', error);
-        });
-      })
-      .then(() => self.skipWaiting())
-      .catch(error => {
-        console.log('SW: Install failed, continuing anyway:', error);
-        self.skipWaiting();
-      })
+    (async () => {
+      try {
+        const cache = await caches.open(STATIC_CACHE);
+        console.log('SW: Caching assets');
+        await cache.addAll(PRECACHE_ASSETS);
+        console.log('SW: Assets cached successfully');
+      } catch (error) {
+        console.log('SW: Caching failed:', error);
+      }
+      
+      return self.skipWaiting();
+    })()
   );
 });
 
@@ -88,60 +74,64 @@ self.addEventListener('activate', (event) => {
         );
       })
       .then(() => self.clients.claim())
-      .catch(error => {
-        console.log('SW: Activation error:', error);
-      })
   );
 });
 
-// Fetch event - network-first with graceful fallbacks
-self.addEventListener('fetch', (event) => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Skip caching for certain URLs or in private mode
-  if (NEVER_CACHE.some(pattern => url.pathname.startsWith(pattern)) || isPrivateMode()) {
-    return; // Let browser handle normally
+// Fetch event - handle requests with network-first strategy
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // Skip non-GET requests and never-cache patterns
+  if (event.request.method !== 'GET' || 
+      NEVER_CACHE.some(pattern => url.pathname.includes(pattern))) {
+    return;
   }
 
-  // Simple network-first strategy for all requests
-  event.respondWith(
-    fetch(request)
-      .then((response) => {
-        // Only cache successful responses and if not in private mode
-        if (response.status === 200 && !isPrivateMode()) {
-          try {
-            const responseClone = response.clone();
-            const cacheName = request.destination === 'document' ? RUNTIME_CACHE : STATIC_CACHE;
-            caches.open(cacheName)
-              .then((cache) => {
-                cache.put(request, responseClone);
-              })
-              .catch(() => {
-                // Ignore cache errors in private mode
-              });
-          } catch (error) {
-            // Ignore clone/cache errors
-          }
+  // Quick private mode check
+  if (isPrivateMode()) {
+    // Private mode - network only, no caching
+    event.respondWith(
+      fetch(event.request).catch(() => {
+        if (event.request.mode === 'navigate') {
+          return new Response('Offline - Private mode', { 
+            status: 200, 
+            headers: { 'Content-Type': 'text/plain' } 
+          });
         }
+        throw new Error('Network failed');
+      })
+    );
+    return;
+  }
+
+  // Normal mode: network-first with caching
+  event.respondWith(
+    (async () => {
+      try {
+        const response = await fetch(event.request);
+        
+        if (response.status === 200) {
+          const cache = await caches.open(STATIC_CACHE);
+          cache.put(event.request, response.clone());
+        }
+        
         return response;
-      })
-      .catch(() => {
-        // Network failed, try cache as fallback
-        return caches.match(request).then(cachedResponse => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          // If no cache, return a basic offline page for navigation requests
-          if (request.mode === 'navigate') {
-            return new Response('Offline - Please check your connection', {
-              status: 503,
-              headers: { 'Content-Type': 'text/plain' }
-            });
-          }
-          throw new Error('Network and cache failed');
-        });
-      })
+      } catch (error) {
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        
+        if (event.request.mode === 'navigate') {
+          return new Response('Offline', { 
+            status: 200, 
+            headers: { 'Content-Type': 'text/plain' } 
+          });
+        }
+        
+        throw error;
+      }
+    })()
   );
 });
 

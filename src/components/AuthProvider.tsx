@@ -58,7 +58,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   hasAccess: boolean;
   isApproved: boolean;
-  userStatus: 'pending' | 'approved' | 'rejected' | null;
+  userStatus: 'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null;
   refreshAccess: () => Promise<void>;
 }
 
@@ -93,7 +93,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
   const [isApproved, setIsApproved] = useState(false);
-  const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | null>(null);
+  const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null>(null);
   const [checkingAccess, setCheckingAccess] = useState(false);
 
   const checkUserStatus = async (userId: string) => {
@@ -194,24 +194,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setUser(session?.user ?? null);
         setLoading(false);
 
-        // Only check access after session is established
         if (session?.user) {
-          setTimeout(() => {
-            if (mounted) {
-              console.log('AuthProvider - Checking access for:', session.user.email);
-              checkUserAccess(session.user.id);
-            }
-          }, 100);
+          try {
+            await checkUserAccess(session.user.id);
+          } catch (error) {
+            console.error('AuthProvider - Access check failed:', error);
+            setHasAccess(false);
+            setIsApproved(false);
+            setUserStatus('error');
+          }
         }
       } catch (error) {
         console.error('AuthProvider - Setup error:', error);
         if (mounted) {
+          setSession(null);
+          setUser(null);
+          setHasAccess(false);
+          setIsApproved(false);
+          setUserStatus('error');
           setLoading(false);
         }
       }
     };
 
-    // Set up auth state listener
+    // Simplified auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (!mounted) return;
@@ -222,21 +228,28 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setLoading(false);
 
           if (session?.user) {
-            setTimeout(() => {
-              if (mounted) {
-                console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
-                checkUserAccess(session.user.id);
-              }
-            }, 100);
+            setCheckingAccess(true);
+            checkUserAccess(session.user.id)
+              .catch(error => {
+                console.error('AuthProvider - State change access check failed:', error);
+                setHasAccess(false);
+                setIsApproved(false);
+                setUserStatus('error');
+              })
+              .finally(() => {
+                if (mounted) setCheckingAccess(false);
+              });
           } else {
-            console.log('AuthProvider - No session, clearing access');
             setHasAccess(false);
             setIsApproved(false);
-            setUserStatus(null);
+            setUserStatus('unauthenticated');
           }
         } catch (error) {
           console.error('AuthProvider - Error in auth state change:', error);
-          if (mounted) setLoading(false);
+          if (mounted) {
+            setLoading(false);
+            setCheckingAccess(false);
+          }
         }
       }
     );

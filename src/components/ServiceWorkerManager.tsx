@@ -1,41 +1,40 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { isPrivateModeSync } from '@/lib/utils';
+
+// Ultra-simple sync private mode check
+const isPrivateMode = (): boolean => {
+  try {
+    localStorage.setItem('swtest', 'test');
+    localStorage.removeItem('swtest');
+    return false;
+  } catch {
+    return true;
+  }
+};
 
 export const ServiceWorkerManager = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
-  const [isPrivate, setIsPrivate] = useState(false);
 
   useEffect(() => {
-    // CRITICAL: Check private mode BEFORE any service worker operations
-    const privateModeSync = isPrivateModeSync();
-    setIsPrivate(privateModeSync);
-    
-    if (privateModeSync) {
+    // CRITICAL: Check private mode immediately and exit if detected
+    if (isPrivateMode()) {
       console.log('Private mode detected, Service Worker completely disabled');
-      return; // Exit immediately - no SW operations
-    }
-    
-    // Also exit if offline to prevent issues
-    if (!navigator.onLine) {
-      console.log('Offline detected, Service Worker disabled');
       return;
     }
     
-    // Only proceed if private mode check passed AND we have service worker support
-    if (!('serviceWorker' in navigator)) {
-      console.log('Service Worker not supported');
+    // Exit if offline or no SW support
+    if (!navigator.onLine || !('serviceWorker' in navigator)) {
+      console.log('ServiceWorker: Not available (offline or unsupported)');
       return;
     }
     
-    // Register service worker only after all checks pass
+    // Only register if all checks pass
     navigator.serviceWorker.register('/sw.js')
       .then((reg) => {
         console.log('Service Worker registered successfully');
         setRegistration(reg);
 
-        // Listen for updates
         reg.addEventListener('updatefound', () => {
           const newWorker = reg.installing;
           if (newWorker) {
@@ -58,11 +57,10 @@ export const ServiceWorkerManager = () => {
         console.log('Service Worker registration failed:', error);
       });
 
-    // Listen for controller change (when new SW takes control)
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       window.location.reload();
     });
-  }, []); // Remove dependency to prevent re-runs
+  }, []);
 
   const handleUpdate = () => {
     if (registration?.waiting) {

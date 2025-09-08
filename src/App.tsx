@@ -14,6 +14,7 @@ import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedMode
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Auth } from "./pages/Auth";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -55,98 +56,100 @@ const ConditionalFeatures = () => {
 };
 
 const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <DegradedModeProvider>
-          <AuthProvider>
-            <ConditionalFeatures />
-            <MobileOptimizer />
-            <Toaster />
-            <Sonner />
-            <BookNowButton />
-            <SkipToContent />
-            <BrowserRouter>
-              <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/approval-status" element={<UserApprovalStatus />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/models" element={<Models />} />
-              <Route path="/models/:id" element={<ModelProfile />} />
-              <Route path="/membership" element={<Membership />} />
-              <Route path="/members" element={<Members />} />
-              <Route path="/payment-success" element={<PaymentSuccess />} />
-              <Route path="/locations" element={<Locations />} />
-          <Route path="/locations/:locationSlug" element={<LocationDetail />} />
-          {/* Specific location routes for SEO */}
-          <Route path="/escorts-in-mayfair" element={<LocationDetail />} />
-          <Route path="/escorts-in-knightsbridge" element={<LocationDetail />} />
-          <Route path="/escorts-in-chelsea" element={<LocationDetail />} />
-          <Route path="/escorts-in-belgravia" element={<LocationDetail />} />
-          <Route path="/escorts-in-kensington" element={<LocationDetail />} />
-          <Route path="/escorts-in-canary-wharf" element={<LocationDetail />} />
-          <Route path="/escorts-in-notting-hill" element={<LocationDetail />} />
-              <Route path="/characteristics" element={<Characteristics />} />
-          <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
-          {/* Specific characteristic routes for SEO */}
-          <Route path="/blonde-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/brunette-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/busty-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/petite-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/curvy-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/slim-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/english-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/international-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/young-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/mature-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/vip-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/gfe-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/redhead-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/asian-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/european-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/ebony-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/tall-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/natural-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/brazilian-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/russian-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/middle-eastern-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/latina-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/iranian-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/vip-elite-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/party-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/adventurous-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/open-minded-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/exclusive-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/high-class-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/dinner-date-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/domination-fetish-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/bisexual-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/couples-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/outcalls-escorts-london" element={<CharacteristicDetail />} />
-          <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contact" element={<Contact />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/reviews" element={<Reviews />} />
-              <Route path="/join-us" element={<JoinUs />} />
-              <Route path="/admin" element={
-                <ProtectedRoute requiresAccess={true}>
-                  <Admin />
-                </ProtectedRoute>
-              } />
-              <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </AuthProvider>
-        </DegradedModeProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
+  <ErrorBoundary>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <DegradedModeProvider>
+            <AuthProvider>
+              <BrowserRouter>
+                <ConditionalFeatures />
+                <MobileOptimizer />
+                <Toaster />
+                <Sonner />
+                <BookNowButton />
+                <SkipToContent />
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/approval-status" element={<UserApprovalStatus />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/models" element={<Models />} />
+                  <Route path="/models/:id" element={<ModelProfile />} />
+                  <Route path="/membership" element={<Membership />} />
+                  <Route path="/members" element={<Members />} />
+                  <Route path="/payment-success" element={<PaymentSuccess />} />
+                  <Route path="/locations" element={<Locations />} />
+                  <Route path="/locations/:locationSlug" element={<LocationDetail />} />
+                  {/* Specific location routes for SEO */}
+                  <Route path="/escorts-in-mayfair" element={<LocationDetail />} />
+                  <Route path="/escorts-in-knightsbridge" element={<LocationDetail />} />
+                  <Route path="/escorts-in-chelsea" element={<LocationDetail />} />
+                  <Route path="/escorts-in-belgravia" element={<LocationDetail />} />
+                  <Route path="/escorts-in-kensington" element={<LocationDetail />} />
+                  <Route path="/escorts-in-canary-wharf" element={<LocationDetail />} />
+                  <Route path="/escorts-in-notting-hill" element={<LocationDetail />} />
+                  <Route path="/characteristics" element={<Characteristics />} />
+                  <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
+                  {/* Specific characteristic routes for SEO */}
+                  <Route path="/blonde-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/brunette-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/busty-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/petite-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/curvy-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/slim-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/english-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/international-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/young-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/mature-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/vip-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/gfe-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/redhead-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/asian-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/european-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/ebony-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/tall-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/natural-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/brazilian-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/russian-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/middle-eastern-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/latina-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/iranian-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/vip-elite-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/party-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/adventurous-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/open-minded-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/exclusive-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/high-class-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/dinner-date-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/domination-fetish-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/bisexual-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/couples-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/outcalls-escorts-london" element={<CharacteristicDetail />} />
+                  <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/reviews" element={<Reviews />} />
+                  <Route path="/join-us" element={<JoinUs />} />
+                  <Route path="/admin" element={
+                    <ProtectedRoute requiresAccess={true}>
+                      <Admin />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </AuthProvider>
+          </DegradedModeProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  </ErrorBoundary>
 );
 
 export default App;

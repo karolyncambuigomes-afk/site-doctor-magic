@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { isPrivateModeSync } from '@/lib/utils';
 
 interface DegradedModeContextType {
   isPrivateMode: boolean;
@@ -19,84 +18,88 @@ interface DegradedModeProviderProps {
   children: React.ReactNode;
 }
 
+// Ultra-simple synchronous private mode detection
+const detectPrivateMode = (): boolean => {
+  try {
+    const test = 'privateModeTest_' + Date.now();
+    localStorage.setItem(test, 'test');
+    localStorage.removeItem(test);
+    return false;
+  } catch {
+    return true;
+  }
+};
+
 export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ children }) => {
-  const [isPrivateMode, setIsPrivateMode] = useState(false);
+  const [isPrivateMode, setIsPrivateMode] = useState<boolean | null>(null);
   const [hasConnectivity, setHasConnectivity] = useState(navigator.onLine);
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Enhanced private mode detection with multiple fallbacks
-    let privateMode = false;
+    // Ultra-fast detection with timeout
+    const startTime = Date.now();
+    const maxDetectionTime = 200; // 200ms max
+    
+    let detected = false;
     
     try {
-      // Primary check - sync localStorage test
-      privateMode = isPrivateModeSync();
-      
-      // Additional checks for enhanced reliability
-      if (!privateMode) {
-        // Check storage quota (private mode usually has very limited quota)
-        if ('storage' in navigator && 'estimate' in navigator.storage) {
-          navigator.storage.estimate().then(estimate => {
-            if (estimate.quota && estimate.quota < 120000000) { // Less than ~120MB
-              setIsPrivateMode(true);
-            }
-          }).catch(() => {
-            // If storage estimate fails, likely private mode
-            setIsPrivateMode(true);
-          });
-        }
-        
-        // Check indexedDB availability
-        if (!window.indexedDB) {
-          privateMode = true;
-        }
-      }
+      // Primary sync check
+      const privateModeDetected = detectPrivateMode();
+      detected = true;
+      setIsPrivateMode(privateModeDetected);
+      console.log('DegradedModeProvider - Private mode detected (sync):', privateModeDetected);
     } catch (error) {
-      console.log('Private mode detection error, assuming private mode:', error);
-      privateMode = true;
+      console.log('DegradedModeProvider - Detection error, assuming private mode:', error);
+      detected = true;
+      setIsPrivateMode(true);
     }
     
-    setIsPrivateMode(privateMode);
-    console.log('DegradedModeProvider - Private mode detected:', privateMode);
+    // Fallback timeout
+    const timeoutId = setTimeout(() => {
+      if (!detected) {
+        console.log('DegradedModeProvider - Detection timeout, assuming private mode');
+        setIsPrivateMode(true);
+      }
+    }, maxDetectionTime);
+    
+    if (detected) {
+      clearTimeout(timeoutId);
+    }
 
-    // Monitor connectivity with enhanced checks
+    // Simple connectivity monitoring
     const updateConnectivity = () => {
-      const online = navigator.onLine;
-      setHasConnectivity(online);
-      console.log('DegradedModeProvider - Connectivity changed:', online);
+      setHasConnectivity(navigator.onLine);
     };
 
-    const handleOnline = () => updateConnectivity();
-    const handleOffline = () => updateConnectivity();
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
-    // Mark as ready after initial checks
-    setIsReady(true);
+    window.addEventListener('online', updateConnectivity);
+    window.addEventListener('offline', updateConnectivity);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      clearTimeout(timeoutId);
+      window.removeEventListener('online', updateConnectivity);
+      window.removeEventListener('offline', updateConnectivity);
     };
   }, []);
 
   const isDegradedMode = isPrivateMode || !hasConnectivity;
 
-  // Show loading state until detection is complete
-  if (!isReady) {
+  // Show simple loading only for a very short time
+  if (isPrivateMode === null) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-background">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Carregando...</p>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto mb-2"></div>
+          <p className="text-muted-foreground text-sm">Iniciando...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <DegradedModeContext.Provider value={{ isPrivateMode, hasConnectivity, isDegradedMode }}>
+    <DegradedModeContext.Provider value={{ 
+      isPrivateMode: isPrivateMode ?? false, 
+      hasConnectivity, 
+      isDegradedMode 
+    }}>
       {children}
     </DegradedModeContext.Provider>
   );

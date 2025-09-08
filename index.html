@@ -24,26 +24,41 @@
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
     
-    <!-- Optional DNS prefetch - only if not blocking -->
+    <!-- Ultra-fast font loading for all browsers -->
     <script>
-      try {
-        const test = 'test';
-        localStorage.setItem(test, test);
-        localStorage.removeItem(test);
+      (function() {
+        var isPrivate = false;
+        try {
+          localStorage.setItem('fonttest', '1');
+          localStorage.removeItem('fonttest');
+        } catch(e) {
+          isPrivate = true;
+        }
         
-        // Only add DNS prefetch if localStorage works (not private mode)
-        const dns1 = document.createElement('link');
-        dns1.rel = 'dns-prefetch';
-        dns1.href = 'https://fonts.googleapis.com';
-        document.head.appendChild(dns1);
-        
-        const dns2 = document.createElement('link');
-        dns2.rel = 'dns-prefetch';
-        dns2.href = 'https://fonts.gstatic.com';
-        document.head.appendChild(dns2);
-      } catch (e) {
-        // Private mode - skip DNS prefetch
-      }
+        if (isPrivate) {
+          // Private mode - immediate system fonts
+          document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+          console.log('Private mode: using system fonts');
+        } else {
+          // Normal mode - load fonts with aggressive timeout
+          var fontTimeout = setTimeout(function() {
+            document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+            console.log('Font timeout: switching to system fonts');
+          }, 1000); // Very aggressive 1s timeout
+          
+          var fontLink = document.createElement('link');
+          fontLink.rel = 'stylesheet';
+          fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap';
+          fontLink.onload = function() { 
+            clearTimeout(fontTimeout);
+          };
+          fontLink.onerror = function() { 
+            clearTimeout(fontTimeout);
+            document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+          };
+          document.head.appendChild(fontLink);
+        }
+      })();
     </script>
     
     <title>Five London - Premier Luxury Companion Services</title>

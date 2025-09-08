@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { useModels, Model } from '@/hooks/useModels';
@@ -58,7 +58,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
 
   // Minimal Layout Component
   const MinimalModelCard = ({ model }: { model: Model }) => (
-    <Link to={`/models/${model.id}`} className="group block">
+    <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
       <div className="relative overflow-hidden bg-black aspect-[3/4] rounded-none">
         <img 
           src={model.image} 
@@ -81,12 +81,12 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
           <div className="w-12 h-[1px] bg-white/40"></div>
         </div>
       </div>
-    </Link>
+    </SafeLink>
   );
 
   // Elegant Layout Component  
   const ElegantModelCard = ({ model }: { model: Model }) => (
-    <Link to={`/models/${model.id}`} className="group block">
+    <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
       <div className="relative overflow-hidden aspect-[3/4] rounded-lg bg-muted">
         <img 
           src={model.image} 
@@ -123,13 +123,13 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
           <p className="text-white/70 text-xs sm:text-sm line-clamp-2">{model.description}</p>
         </div>
       </div>
-    </Link>
+        </SafeLink>
   );
 
   // Modern Layout Component
   const ModernModelCard = ({ model }: { model: Model }) => (
     <div className="group relative">
-      <Link to={`/models/${model.id}`} className="block">
+      <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
         <div className="relative overflow-hidden aspect-[3/4] rounded-2xl bg-muted">
           <img 
             src={model.image} 
@@ -165,7 +165,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
             <span className="font-medium text-foreground">{model.price}</span>
           </div>
         </div>
-      </Link>
+      </SafeLink>
     </div>
   );
 

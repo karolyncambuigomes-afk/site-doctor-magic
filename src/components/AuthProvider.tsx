@@ -244,13 +244,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const value = {
-    user,
-    session,
-    loading,
+    user: user || null,
+    session: session || null,
+    loading: Boolean(loading),
     signOut,
-    hasAccess,
-    isApproved,
-    userStatus,
+    hasAccess: Boolean(hasAccess),
+    isApproved: Boolean(isApproved),
+    userStatus: userStatus || null,
     refreshAccess,
   };
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useHomepageCarousel } from '@/hooks/useHomepageCarousel';
 import {
@@ -53,7 +53,7 @@ export const ModelsCarousel = () => {
             {models.map((model) => (
               <CarouselItem key={model.id} className="pl-2 md:pl-4 basis-full md:basis-1/2">
                 <div className="group relative">
-                  <Link to={`/models/${model.id}`} className="block">
+                  <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
                     <div className="relative overflow-hidden mb-3 rounded-lg shadow-lg">
                       {/* Main Image */}
                       <img
@@ -101,7 +101,7 @@ export const ModelsCarousel = () => {
                          {model.location || 'London'}
                        </p>
                     </div>
-                  </Link>
+                  </SafeLink>
                 </div>
               </CarouselItem>
             ))}
@@ -112,14 +112,14 @@ export const ModelsCarousel = () => {
         
         {/* View All Models Button */}
         <div className="text-center mt-12 md:mt-16">
-          <Link 
+          <SafeLink 
             to="/models" 
             className="inline-block border border-black/20 hover:border-black/40 px-8 py-3 transition-all duration-300"
           >
             <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
               All Models
             </span>
-          </Link>
+          </SafeLink>
         </div>
       </div>
     </section>

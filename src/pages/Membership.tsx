@@ -5,14 +5,100 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Lock } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Check, Lock, ChevronDown, ChevronUp } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export const Membership: React.FC = () => {
   const auth = useAuth();
   const { user, hasAccess } = auth || {};
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+  
+  // Login form state
+  const [loginForm, setLoginForm] = useState({
+    email: '',
+    password: ''
+  });
+  
+  // Signup form state
+  const [signupForm, setSignupForm] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginLoading(true);
+    
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: loginForm.email,
+        password: loginForm.password,
+      });
+      
+      if (error) throw error;
+      
+      toast.success('Successfully logged in!');
+      // AuthProvider will automatically check subscription status
+    } catch (error: any) {
+      console.error('Login error:', error);
+      toast.error(error.message || 'Failed to login');
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSignupLoading(true);
+    
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: signupForm.email,
+        password: signupForm.password,
+        options: {
+          data: {
+            name: signupForm.name,
+          },
+        },
+      });
+      
+      if (error) throw error;
+      
+      toast.success('Account created! Redirecting to payment...');
+      
+      // Wait a moment for auth state to update, then redirect to payment
+      setTimeout(async () => {
+        try {
+          const { data, error } = await supabase.functions.invoke('create-checkout');
+          
+          if (error) throw error;
+          
+          if (data?.url) {
+            window.open(data.url, '_blank');
+          }
+        } catch (error) {
+          console.error('Error creating checkout:', error);
+          toast.error('Failed to create checkout session');
+        }
+      }, 1000);
+      
+    } catch (error: any) {
+      console.error('Signup error:', error);
+      toast.error(error.message || 'Failed to create account');
+    } finally {
+      setSignupLoading(false);
+    }
+  };
 
   const handleSubscribe = async () => {
     if (!user) {
@@ -78,7 +164,176 @@ export const Membership: React.FC = () => {
 
           <div className="container-width px-6">
 
-        {/* Current Status */}
+        {/* Login Section for Non-Logged In Users */}
+        {!user && (
+          <section className="py-16 md:py-20 bg-white">
+            <div className="max-w-md mx-auto">
+              <Card className="border border-border shadow-elegant">
+                <CardHeader className="text-center pb-6">
+                  <CardTitle className="heading-lg text-foreground">Member Login</CardTitle>
+                  <CardDescription className="body-base text-muted-foreground">
+                    Access your premium membership
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="px-8 pb-8">
+                  <form onSubmit={handleLogin} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="body-sm text-foreground">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={loginForm.email}
+                        onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                        required
+                        className="body-base"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="password" className="body-sm text-foreground">Password</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        value={loginForm.password}
+                        onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                        required
+                        className="body-base"
+                      />
+                    </div>
+                    
+                    <Button 
+                      type="submit"
+                      disabled={loginLoading}
+                      className="w-full py-3 text-base font-light tracking-widest"
+                    >
+                      {loginLoading ? (
+                        <div className="flex items-center">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                          Logging in...
+                        </div>
+                      ) : (
+                        "Login"
+                      )}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+              
+              {/* Collapsible Signup Section */}
+              <div className="mt-8">
+                <Collapsible open={isSignupOpen} onOpenChange={setIsSignupOpen}>
+                  <CollapsibleTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full p-4 text-center border border-border/50 hover:border-border transition-colors"
+                    >
+                      <div className="flex items-center justify-center space-x-2">
+                        <span className="text-lg font-light tracking-widest text-foreground">
+                          QUER SE TORNAR MEMBRO?
+                        </span>
+                        {isSignupOpen ? (
+                          <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                        )}
+                      </div>
+                    </Button>
+                  </CollapsibleTrigger>
+                  
+                  <CollapsibleContent className="mt-4">
+                    <Card className="border border-border shadow-elegant">
+                      <CardHeader className="text-center pb-6">
+                        <CardTitle className="heading-lg text-foreground">Become a Member</CardTitle>
+                        <CardDescription className="body-base text-muted-foreground">
+                          Join our exclusive premium membership for complete access
+                        </CardDescription>
+                      </CardHeader>
+                      
+                      <CardContent className="px-8 pb-8">
+                        {/* Benefits */}
+                        <div className="mb-6 space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <Check className="w-4 h-4 text-green-600" />
+                            <span className="body-sm text-muted-foreground">Complete Access to Premium Collection</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Check className="w-4 h-4 text-green-600" />
+                            <span className="body-sm text-muted-foreground">Priority Support</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Check className="w-4 h-4 text-green-600" />
+                            <span className="body-sm text-muted-foreground">Secure & Confidential</span>
+                          </div>
+                          <div className="text-center mt-4">
+                            <span className="text-2xl font-light text-primary">£149</span>
+                            <span className="body-sm text-muted-foreground ml-1">per month</span>
+                          </div>
+                        </div>
+                        
+                        {/* Signup Form */}
+                        <form onSubmit={handleSignup} className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="signup-name" className="body-sm text-foreground">Name</Label>
+                            <Input
+                              id="signup-name"
+                              type="text"
+                              value={signupForm.name}
+                              onChange={(e) => setSignupForm({ ...signupForm, name: e.target.value })}
+                              required
+                              className="body-base"
+                            />
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="signup-email" className="body-sm text-foreground">Email</Label>
+                            <Input
+                              id="signup-email"
+                              type="email"
+                              value={signupForm.email}
+                              onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
+                              required
+                              className="body-base"
+                            />
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <Label htmlFor="signup-password" className="body-sm text-foreground">Password</Label>
+                            <Input
+                              id="signup-password"
+                              type="password"
+                              value={signupForm.password}
+                              onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+                              required
+                              className="body-base"
+                            />
+                          </div>
+                          
+                          <Button 
+                            type="submit"
+                            disabled={signupLoading}
+                            className="w-full py-3 text-base font-light tracking-widest"
+                          >
+                            {signupLoading ? (
+                              <div className="flex items-center">
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                                Creating account...
+                              </div>
+                            ) : (
+                              "Cadastrar e Pagar"
+                            )}
+                          </Button>
+                        </form>
+                      </CardContent>
+                    </Card>
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Current Status for Logged In Users */}
         {user && (
           <section className="py-16 md:py-20 bg-white">
             <div className="max-w-md mx-auto">
@@ -96,6 +351,14 @@ export const Membership: React.FC = () => {
                       {hasAccess ? 'Active Access' : 'Guest Access'}
                     </span>
                   </div>
+                  {hasAccess && (
+                    <Button 
+                      onClick={() => navigate('/members')}
+                      className="mt-4 px-6 py-2 font-light tracking-widest"
+                    >
+                      Access Members Area
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </div>

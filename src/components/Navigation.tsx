@@ -160,7 +160,7 @@ export const Navigation: React.FC = () => {
           {/* Mobile Menu Button */}
           <button
             className={`lg:hidden p-2 transition-colors ${
-              isScrolled ? 'text-gray-900 hover:text-gray-600' : (isWhiteBackgroundPage ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-white/70')
+              isScrolled ? 'text-gray-900 hover:text-gray-600' : 'text-white hover:text-white/70'
             }`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"

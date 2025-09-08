@@ -219,7 +219,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
             <h1 className={`luxury-heading-xl mb-6 ${layoutStyle === 'minimal' ? 'text-white font-light tracking-wide' : ''}`}>
               {layoutStyle === 'minimal' ? 'Our Models' : 'Our Exclusive Models'}
             </h1>
-            <p className={`body-lg max-w-2xl mx-auto mb-8 ${
+            <p className={`luxury-body-lg max-w-2xl mx-auto mb-8 ${
               layoutStyle === 'minimal' ? 'text-white/80' : 'text-muted-foreground'
             }`}>
               Discover our carefully selected collection of sophisticated companions

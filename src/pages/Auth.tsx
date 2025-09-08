@@ -219,7 +219,7 @@ export const Auth: React.FC = () => {
             {/* Back link */}
             <Link 
               to="/" 
-              className="inline-flex items-center body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+              className="inline-flex items-center luxury-body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to home

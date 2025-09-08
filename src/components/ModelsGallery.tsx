@@ -69,7 +69,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
         </section>
 
         {/* Elegant Header */}
-        <section className="py-12 md:py-16 bg-gradient-to-b from-muted/20 to-background">
+        <section className="py-12 md:py-16 bg-slate-800">
           <div className="container-width text-center">
             {isPremium ? (
               <div className="flex items-center justify-center mb-4">

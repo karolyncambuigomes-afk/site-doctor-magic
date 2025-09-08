@@ -294,7 +294,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
 
       {galleryImages.length > 0 ? (
         <div className="space-y-4">
-          <div className="text-sm text-muted-foreground bg-blue-50 p-3 rounded-lg border border-blue-200">
+          <div className="text-sm text-muted-foreground bg-muted p-3 rounded-lg border border-border">
             <strong>💡 Dica:</strong> A foto na posição 1 será usada como foto principal nos cards de modelos
           </div>
           
@@ -303,11 +303,11 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
               <div 
                 key={image.id} 
                 className={`border-2 rounded-lg overflow-hidden ${
-                  index === 0 ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                  index === 0 ? 'border-primary bg-muted' : 'border-border'
                 }`}
               >
                 {index === 0 && (
-                  <div className="bg-blue-500 text-white text-center py-2 text-sm font-bold">
+                  <div className="bg-primary text-primary-foreground text-center py-2 text-sm font-bold">
                     📸 FOTO PRINCIPAL (Posição 1)
                   </div>
                 )}
@@ -334,7 +334,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
                       ))}
                     </select>
                     {index === 0 && (
-                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                      <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
                         Principal
                       </span>
                     )}

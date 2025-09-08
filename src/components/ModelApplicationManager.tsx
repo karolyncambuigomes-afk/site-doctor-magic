@@ -452,7 +452,7 @@ const ModelApplicationManager = () => {
                                   {selectedApplication.status === 'approved' && (
                                     <Button
                                       onClick={() => convertToModel(selectedApplication)}
-                                      className="bg-blue-600 hover:bg-blue-700"
+                                      variant="default"
                                     >
                                       Convert to Model
                                     </Button>

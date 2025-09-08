@@ -74,7 +74,7 @@ const Index = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-24 md:py-40 bg-background">
+        <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
             <h2 className="heading-xl text-foreground mb-6">
               Elite Companion

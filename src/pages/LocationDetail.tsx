@@ -12,9 +12,16 @@ import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star, ChevronD
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const LocationDetail = () => {
-  const { locationSlug } = useParams();
+  const params = useParams();
+  const { locationSlug } = params || {};
   const { models, loading, error } = useModels();
   const [isContentOpen, setIsContentOpen] = useState(false);
+  
+  // Safety check for router context
+  if (!params) {
+    console.warn('LocationDetail: useParams returned undefined');
+    return <div>Loading...</div>;
+  }
   
   // Get current path to determine the slug format
   const currentPath = window.location.pathname;

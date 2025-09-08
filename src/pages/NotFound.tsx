@@ -4,6 +4,11 @@ import { useEffect } from "react";
 const NotFound = () => {
   const location = useLocation();
 
+  // Safety check for router context
+  if (!location) {
+    return <div>Page not found</div>;
+  }
+
   useEffect(() => {
     console.error(
       "404 Error: User attempted to access non-existent route:",

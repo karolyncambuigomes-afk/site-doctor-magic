@@ -27,6 +27,11 @@ export const Auth: React.FC = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Safety check for navigate function
+  if (!navigate) {
+    console.warn('Auth: useNavigate returned undefined');
+  }
+
   useEffect(() => {
     // Set up auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(

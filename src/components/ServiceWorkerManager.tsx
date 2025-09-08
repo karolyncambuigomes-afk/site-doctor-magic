@@ -49,9 +49,11 @@ export const ServiceWorkerManager = () => {
   }, []);
 
   const handleUpdate = () => {
-    if (registration && registration.waiting) {
+    if (registration?.waiting) {
       registration.waiting.postMessage({ type: 'SKIP_WAITING' });
       setUpdateAvailable(false);
+    } else {
+      console.warn('ServiceWorker: No waiting worker available for update');
     }
   };
 

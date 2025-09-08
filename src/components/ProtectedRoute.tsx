@@ -20,6 +20,12 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { user, loading, hasAccess } = auth || {};
   const location = useLocation();
 
+  // Safety check for router context
+  if (!location) {
+    console.warn('ProtectedRoute: useLocation returned undefined');
+    return <div>Loading...</div>;
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">

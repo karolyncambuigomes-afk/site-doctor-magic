@@ -35,6 +35,12 @@ export const Navigation = () => {
   const location = useLocation();
   const auth = useAuth();
   const { user, signOut, hasAccess } = auth || {};
+  
+  // Safety check for router context
+  if (!location) {
+    console.warn('Navigation: useLocation returned undefined');
+    return null;
+  }
   console.log('Navigation - User:', user, 'HasAccess:', hasAccess);
 
   useEffect(() => {

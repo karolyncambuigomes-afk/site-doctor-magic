@@ -44,6 +44,11 @@ interface ApplicationData {
 const JoinUs = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  
+  // Safety check for navigate function
+  if (!navigate) {
+    console.warn('JoinUs: useNavigate returned undefined');
+  }
   const [loading, setLoading] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
   const [videos, setVideos] = useState<File[]>([]);

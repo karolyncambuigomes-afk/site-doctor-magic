@@ -12,10 +12,17 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
-  const { characteristicSlug } = useParams();
+  const params = useParams();
+  const { characteristicSlug } = params || {};
   const { models, loading, error } = useModels();
   const [isContentOpen, setIsContentOpen] = useState(false);
   const currentPath = window.location.pathname;
+  
+  // Safety check for router context
+  if (!params) {
+    console.warn('CharacteristicDetail: useParams returned undefined');
+    return <div>Loading...</div>;
+  }
   
   // Path mapping for SEO routes
   const pathMap: { [key: string]: string } = {

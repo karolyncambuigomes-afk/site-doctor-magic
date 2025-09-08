@@ -192,21 +192,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Set up auth state listener first
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
+        try {
+          setSession(session);
+          setUser(session?.user ?? null);
+          setLoading(false);
 
-        if (session?.user) {
-          // Defer Supabase calls to prevent deadlock using setTimeout
-          setTimeout(() => {
-            console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
-            checkUserAccess(session.user.id);
-          }, 100);
-        } else {
-          console.log('AuthProvider - No session, clearing access');
-          setHasAccess(false);
-          setIsApproved(false);
-          setUserStatus(null);
+          if (session?.user) {
+            // Defer Supabase calls to prevent deadlock using setTimeout
+            setTimeout(() => {
+              console.log('AuthProvider - Auth state changed, checking access for:', session.user.email);
+              checkUserAccess(session.user.id);
+            }, 100);
+          } else {
+            console.log('AuthProvider - No session, clearing access');
+            setHasAccess(false);
+            setIsApproved(false);
+            setUserStatus(null);
+          }
+        } catch (error) {
+          console.error('AuthProvider - Error in auth state change:', error);
+          setLoading(false);
         }
       }
     );

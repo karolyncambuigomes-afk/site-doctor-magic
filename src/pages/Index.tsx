@@ -56,7 +56,7 @@ const Index = () => {
       
       <Navigation />
       
-      <main className="pt-16">
+      <main className="pt-0">
         <HeroSection />
         
         {/* Featured Models Section */}

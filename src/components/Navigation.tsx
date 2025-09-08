@@ -64,7 +64,7 @@ export const Navigation: React.FC = () => {
   const isModelPage = location.pathname.startsWith('/models/');
   
   // Check if we're on a white background page
-  const whiteBackgroundPages = ['/about', '/services', '/join-us', '/contact', '/locations', '/reviews', '/terms', '/privacy-policy'];
+  const whiteBackgroundPages = ['/about', '/services', '/join-us', '/contact', '/locations', '/reviews', '/terms', '/privacy-policy', '/membership'];
   const isWhiteBackgroundPage = whiteBackgroundPages.includes(location.pathname);
   
   return (

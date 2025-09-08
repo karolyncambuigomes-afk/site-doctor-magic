@@ -115,7 +115,7 @@ export const Membership: React.FC = () => {
         </div>
 
         {/* Premium Pricing Section */}
-        <section className="py-20 md:py-32 bg-gray-50">
+        <section className="py-20 md:py-32 bg-white">
           <div className="max-w-md mx-auto">
             <Card className="border border-border shadow-elegant relative overflow-hidden">
               <CardHeader className="text-center pb-6 pt-8">
@@ -195,7 +195,7 @@ export const Membership: React.FC = () => {
         </div>
 
         {/* Billing Discretion Section */}
-        <section className="py-16 md:py-20 bg-gray-50">
+        <section className="py-16 md:py-20 bg-white">
           <div className="text-center max-w-md mx-auto">
             <p className="body-base text-muted-foreground font-light mb-2">
               Complete Discretion

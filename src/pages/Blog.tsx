@@ -67,7 +67,7 @@ const Blog = () => {
         
         <main className="pt-20 sm:pt-24 md:pt-32">
           {/* Hero Section */}
-          <section className="py-12 md:py-16 bg-gradient-to-b from-background to-muted/20">
+          <section className="py-12 md:py-16 bg-white">
             <div className="container-width">
               <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
                 <h1 className="heading-display mb-4 sm:mb-6 text-foreground">
@@ -168,7 +168,7 @@ const Blog = () => {
           </section>
 
           {/* Newsletter CTA */}
-          <section className="py-12 md:py-16 lg:py-20 bg-muted/20">
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto px-4 sm:px-6">
                 <h2 className="heading-xl mb-4 sm:mb-6 text-foreground">

@@ -200,7 +200,7 @@ const JoinUs = () => {
       />
       <Navigation />
       
-      <main className="min-h-screen bg-background py-24">
+      <main className="min-h-screen bg-white py-24">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <h1 className="heading-display text-foreground mb-6">

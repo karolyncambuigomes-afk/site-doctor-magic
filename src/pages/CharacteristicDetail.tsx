@@ -104,40 +104,64 @@ const CharacteristicDetail = () => {
         <Navigation />
         
         <main className="pt-16">
-          {/* Ultra Minimal Header */}
-          <section className="py-6">
-            <div className="container-width">
-              <div className="text-center">
-                <h1 className="heading-xl mb-2">
+          {/* Minimal Hero */}
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="heading-display mb-4 sm:mb-6 text-black">
                   {characteristic.name} Escorts
                 </h1>
-                <div className="w-24 h-px bg-primary mx-auto"></div>
+                <p className="body-lg text-black">
+                  Discover sophisticated companions with {characteristic.name.toLowerCase()} characteristics.
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Pure Gallery */}
-          <section className="py-4">
-            <div className="container-width-lg">
+          {/* Models Gallery */}
+          <section className="py-8 bg-white">
+            <div className="container-width">
               {characteristicModels.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4 sm:px-6">
                   {characteristicModels.map((model) => (
                     <ModelCard key={model.id} model={model} />
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-16">
-                  <h2 className="heading-lg mb-4">No models available with this characteristic</h2>
-                  <p className="body-lg text-muted-foreground mb-8">
+                <div className="text-center py-16 px-4 sm:px-6">
+                  <h2 className="heading-lg mb-4 text-black">No models available with this characteristic</h2>
+                  <p className="body-lg text-black mb-8">
                     We're constantly updating our collection. Please check back soon or browse our full gallery.
                   </p>
                   <Link to="/models">
-                    <Button className="five-london-button-outline">
+                    <button className="bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
                       View All Models
-                    </Button>
+                    </button>
                   </Link>
                 </div>
               )}
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                  Find Your Perfect {characteristic.name} Companion
+                </h2>
+                <p className="body-lg text-black mb-6 sm:mb-8">
+                  Contact our concierge team to arrange your exclusive experience.
+                </p>
+                <a
+                  href="https://wa.me/447436190679"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                >
+                  Contact Now
+                </a>
+              </div>
             </div>
           </section>
 

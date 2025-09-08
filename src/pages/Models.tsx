@@ -27,7 +27,46 @@ export const Models: React.FC = () => {
       <Navigation />
       
       <main className="pt-16">
-        <ModelsGallery />
+        {/* Minimal Hero */}
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                Elite Escort Models
+              </h1>
+              <p className="body-lg text-black">
+                Discover London's most sophisticated companions. Available for dinner dates, business events, and exclusive experiences.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Models Gallery */}
+        <section className="bg-white">
+          <ModelsGallery />
+        </section>
+
+        {/* Contact Section */}
+        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                Ready to Meet Your Perfect Companion?
+              </h2>
+              <p className="body-lg text-black mb-6 sm:mb-8">
+                Contact our concierge team to arrange your exclusive experience with one of our elite models.
+              </p>
+              <a
+                href="https://wa.me/447436190679"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+              >
+                Contact Now
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
       
       <Footer />

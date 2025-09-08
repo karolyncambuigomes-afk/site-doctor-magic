@@ -19,32 +19,25 @@ const Locations = () => {
       
       <Navigation />
       
-      <main className="pt-16">
-          {/* Hero Section */}
+        <main className="pt-16">
+          {/* Minimal Hero */}
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="heading-display mb-4 sm:mb-6 text-black">
-                  Find Girls by Location
+                  Escorts by Location
                 </h1>
                 <p className="body-lg text-black">
-                  Browse our stunning escorts by their preferred London locations.
+                  Find sophisticated companions across London's most exclusive districts.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Elegant Divider */}
-          <section className="py-0">
-            <div className="container-width">
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-            </div>
-          </section>
-
-          {/* Locations Grid - Loro Piana Style Mobile */}
+          {/* Locations Grid */}
           <section className="py-8 bg-white">
             <div className="container-width">
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 px-4 sm:px-6">
                 {locations.map((location) => (
                   <Link 
                     key={location.id} 
@@ -65,21 +58,24 @@ const Locations = () => {
             </div>
           </section>
 
-          {/* Call to Action */}
-          <section className="py-8 bg-white">
-            <div className="container-width">
-              <div className="text-center max-w-2xl mx-auto">
-                <p className="body-sm text-muted-foreground mb-6">
-                  Can't find your preferred location? Contact us to find the perfect companion for your specific area.
+          {/* Contact Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                  Looking for a Specific Location?
+                </h2>
+                <p className="body-lg text-black mb-6 sm:mb-8">
+                  Our elite companions provide services throughout Greater London. Contact us to arrange an appointment in your preferred area.
                 </p>
-                <Link to="/contact">
-                  <Button 
-                    className="minimal-button"
-                    onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                  >
-                    Contact Us
-                  </Button>
-                </Link>
+                <a
+                  href="https://wa.me/447436190679"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                >
+                  Contact WhatsApp
+                </a>
               </div>
             </div>
           </section>

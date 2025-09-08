@@ -20,16 +20,15 @@ const Characteristics = () => {
         <Navigation />
         
         <main className="pt-16">
-          {/* Hero Section */}
-          <section className="py-8 sm:py-12 md:py-16 bg-gradient-to-b from-muted/30 to-background">
-            <div className="container-width">
-              <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-lg mb-3 sm:mb-4">
-                  Find Escorts by Characteristics
+          {/* Minimal Hero */}
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                  Escorts by Characteristics
                 </h1>
-                <p className="body-base text-muted-foreground mb-3 sm:mb-4">
-                  Discover companions with specific traits that match your preferences. 
-                  Browse our beautiful escorts by their unique characteristics and personality types.
+                <p className="body-lg text-black">
+                  Discover companions with specific traits that match your preferences.
                 </p>
               </div>
             </div>
@@ -66,32 +65,24 @@ const Characteristics = () => {
             </div>
           </section>
 
-          {/* Call to Action */}
-          <section className="py-8 sm:py-12 md:py-16 bg-muted/50">
-            <div className="container-width">
-              <div className="text-center max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="heading-lg mb-3 sm:mb-4">
+          {/* Contact Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h2 className="heading-display mb-4 sm:mb-6 text-black">
                   Looking for Something Specific?
                 </h2>
-                <p className="body-base text-muted-foreground mb-4 sm:mb-6">
-                  Can't find the exact characteristics you're looking for? Our diverse collection of companions 
-                  offers a wide range of personalities and traits. Contact us to find your perfect match.
+                <p className="body-lg text-black mb-6 sm:mb-8">
+                  Can't find the exact characteristics you're looking for? Contact us to find your perfect match.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-                  <Link to="/contact">
-                    <Button 
-                      className="minimal-button text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
-                      onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-                    >
-                      Contact Us
-                    </Button>
-                  </Link>
-                  <Link to="/models">
-                    <Button variant="outline" className="text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3">
-                      Browse All Models
-                    </Button>
-                  </Link>
-                </div>
+                <a
+                  href="https://wa.me/447436190679"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                >
+                  Contact Us
+                </a>
               </div>
             </div>
           </section>

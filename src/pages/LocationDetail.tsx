@@ -108,16 +108,15 @@ const LocationDetail = () => {
         <Navigation />
         
         <main className="pt-16">
-          {/* Hero Section with rich content */}
-          <section className="py-20 md:py-32 bg-gradient-to-br from-white via-neutral-50 to-gray-100">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-20">
-                <h1 className="heading-display text-primary mb-8">
-                  Luxury Escorts in {location.name}
+          {/* Minimal Hero */}
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="heading-display mb-4 sm:mb-6 text-black">
+                  Escorts in {location.name}
                 </h1>
-                <div className="w-24 h-0.5 bg-gradient-primary mx-auto mb-12"></div>
-                <p className="body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-8">
-                  Exclusive Five London offers high-class companions in the heart of {location.name}. Known for elegance, sophistication, and discretion, our {location.name} escorts are available for private dinners, events, and unforgettable moments in London's most exclusive district.
+                <p className="body-lg text-black">
+                  Exclusive companions available in {location.name}. Elegant, sophisticated, and discreet.
                 </p>
               </div>
             </div>
@@ -246,56 +245,24 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* Contact CTA */}
-          <section className="py-20 md:py-28 bg-gradient-to-br from-primary via-primary-dark to-black text-white">
-            <div className="container-width mx-auto px-6 text-center">
-              <h2 className="heading-xl mb-8">
-                Book Your {location.name} Experience
-              </h2>
-              <p className="body-lg text-white/90 leading-relaxed mb-12 max-w-3xl mx-auto">
-                Contact our experienced concierge team to arrange your perfect companion in {location.name}. 
-                Discretion, elegance, and exceptional service guaranteed.
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
-                <a 
-                  href="tel:+447436190679"
-                  className="group bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-luxury"
-                >
-                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                    <Phone className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Call Our Concierge</h3>
-                  <p className="text-white/80 mb-4">Speak directly with our experienced team</p>
-                  <span className="text-white font-medium text-lg">+44 7436 190679</span>
-                </a>
-
-                <a 
+          {/* Contact Section */}
+          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h2 className="heading-display mb-4 sm:mb-6 text-black">
+                  Book Your {location.name} Experience
+                </h2>
+                <p className="body-lg text-black mb-6 sm:mb-8">
+                  Contact our experienced concierge team to arrange your perfect companion in {location.name}.
+                </p>
+                <a
                   href="https://wa.me/447436190679"
-                  className="group bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 hover:border-white/40 p-8 rounded-2xl transition-all duration-500 hover:scale-105 hover:shadow-luxury"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
                 >
-                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-white/30 transition-colors">
-                    <MessageCircle className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">WhatsApp Message</h3>
-                  <p className="text-white/80 mb-4">Quick and discreet messaging</p>
-                  <span className="text-white font-medium text-lg">Send Message</span>
+                  Contact Now
                 </a>
-              </div>
-              
-              <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4" />
-                  <span>100% Discreet</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>Available 24/7</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4" />
-                  <span>Premium Service</span>
-                </div>
               </div>
             </div>
           </section>

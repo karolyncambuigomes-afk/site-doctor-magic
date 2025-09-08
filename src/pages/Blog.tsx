@@ -143,7 +143,7 @@ const Blog = () => {
                         </div>
                       </div>
                       
-                      <h2 className="heading-sm font-medium text-foreground group-hover:text-primary transition-colors leading-tight">
+                      <h2 className="heading-sm font-medium text-foreground group-hover:text-foreground/80 transition-colors leading-tight">
                         {article.title}
                       </h2>
                     </CardHeader>
@@ -154,7 +154,7 @@ const Blog = () => {
                       </p>
                       
                       <Link to={`/blog/${article.slug}`}>
-                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-primary hover:text-primary/80 text-xs sm:text-sm">
+                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80 text-xs sm:text-sm">
                           Read full article
                           <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>

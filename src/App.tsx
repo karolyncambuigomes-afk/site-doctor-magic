@@ -65,9 +65,9 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BookNowButton />
-          <BrowserRouter>
             <SkipToContent />
-            <Routes>
+            <BrowserRouter>
+              <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/approval-status" element={<UserApprovalStatus />} />
@@ -140,7 +140,7 @@ const App = () => (
                 </ProtectedRoute>
               } />
               <Route path="*" element={<NotFound />} />
-            </Routes>
+              </Routes>
             </BrowserRouter>
           </AuthProvider>
         </DegradedModeProvider>

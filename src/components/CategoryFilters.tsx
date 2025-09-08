@@ -52,7 +52,7 @@ export const CategoryFilters: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-block border border-border hover:border-foreground px-8 py-3 transition-all duration-300"
           >
-            <span className="text-sm tracking-[0.3em] uppercase font-light text-white">
+            <span className="text-sm tracking-[0.3em] uppercase font-light text-black">
               Book Now
             </span>
           </a>

@@ -60,7 +60,7 @@ const Index = () => {
       
       <main id="main-content" className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Featured Models Section */}
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-12 md:py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <ModelsCarousel />
           </div>

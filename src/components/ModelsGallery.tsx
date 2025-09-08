@@ -54,23 +54,6 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({
           
         </section>
 
-        {/* Elegant Header */}
-        <section className="py-12 md:py-16 bg-gradient-to-b from-muted/20 to-background">
-          <div className="container-width text-center">
-            {isPremium ? <div className="flex items-center justify-center mb-4">
-                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 mr-2 sm:mr-3" />
-                <h1 className="heading-display px-4">
-                  Premium Members
-                </h1>
-                <Crown className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500 ml-2 sm:ml-3" />
-              </div> : <h1 className="heading-display mb-3 sm:mb-4 px-4">
-                Our Companions
-              </h1>}
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-4 sm:px-6">
-              {isPremium ? "Exclusive access to our most sophisticated companions with full galleries" : "Discover our carefully selected companions, each offering unique charm and sophistication"}
-            </p>
-          </div>
-        </section>
 
         {/* Sophisticated Filters */}
         <section className="py-8 border-b border-border/50">

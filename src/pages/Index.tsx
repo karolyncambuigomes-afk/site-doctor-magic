@@ -79,7 +79,7 @@ const Index = () => {
             <h2 className="heading-xl text-foreground mb-6">
               Elite Companion
             </h2>
-            <p className="body-base text-muted-foreground mb-16 md:mb-20">
+            <p className="body-base text-black mb-16 md:mb-20">
               Contact us through your preferred method for a discreet consultation
             </p>
             

@@ -69,7 +69,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     try {
       // First check if user is approved
-      const { approved } = await checkUserStatus(userId);
+      const userStatusResult = await checkUserStatus(userId);
+      const { approved } = userStatusResult || { approved: false };
       if (!approved) {
         console.log('AuthProvider - User not approved');
         setHasAccess(false);

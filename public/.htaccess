@@ -58,9 +58,18 @@
 </IfModule>
 FileETag None
 
-# Force HTTPS
+# Force HTTPS and SPA Routing
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    
+    # Force HTTPS
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # SPA Routing - Serve index.html for all non-file requests
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteCond %{REQUEST_URI} !^/supabase/
+    RewriteRule . /index.html [L]
 </IfModule>

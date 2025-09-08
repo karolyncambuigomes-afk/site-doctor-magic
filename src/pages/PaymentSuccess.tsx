@@ -9,7 +9,8 @@ import { CheckCircle, Crown, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const PaymentSuccess: React.FC = () => {
-  const { refreshAccess } = useAuth();
+  const auth = useAuth();
+  const { refreshAccess } = auth || {};
 
   useEffect(() => {
     // Check subscription status after successful payment

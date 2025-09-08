@@ -16,7 +16,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children, 
   requiresAccess = false 
 }) => {
-  const { user, loading, hasAccess } = useAuth();
+  const auth = useAuth();
+  const { user, loading, hasAccess } = auth || {};
   const location = useLocation();
 
   if (loading) {

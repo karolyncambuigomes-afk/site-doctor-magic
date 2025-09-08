@@ -7,7 +7,8 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 
 export const UserApprovalStatus: React.FC = () => {
-  const { user, userStatus, signOut } = useAuth();
+  const auth = useAuth();
+  const { user, userStatus, signOut } = auth || {};
 
   const getStatusIcon = () => {
     switch (userStatus) {

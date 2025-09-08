@@ -10,7 +10,8 @@ import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
 
 export const Membership: React.FC = () => {
-  const { user, hasAccess } = useAuth();
+  const auth = useAuth();
+  const { user, hasAccess } = auth || {};
   const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {

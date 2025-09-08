@@ -39,7 +39,8 @@ export const useModels = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
-  const { user, hasAccess } = useAuth();
+  const auth = useAuth();
+  const { user, hasAccess } = auth || {};
 
   // Safety timeout to prevent infinite loading
   useEffect(() => {

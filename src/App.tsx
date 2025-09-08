@@ -8,7 +8,6 @@ import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
-import { CacheManager } from "@/components/CacheManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { AuthProvider } from "@/components/AuthProvider";
@@ -47,7 +46,6 @@ const App = () => (
       <TooltipProvider>
         <AuthProvider>
           <Analytics />
-          <CacheManager />
           <ServiceWorkerManager />
           <MobileOptimizer />
           <Toaster />

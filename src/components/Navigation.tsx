@@ -33,8 +33,9 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { user, signOut, hasAccess } = useAuth();
-  console.log('Navigation - User:', user?.email, 'HasAccess:', hasAccess);
+  const auth = useAuth();
+  const { user, signOut, hasAccess } = auth || {};
+  console.log('Navigation - User:', user, 'HasAccess:', hasAccess);
 
   useEffect(() => {
     const handleScroll = () => {

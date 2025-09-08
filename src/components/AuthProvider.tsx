@@ -67,7 +67,18 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    console.warn('useAuth must be used within an AuthProvider');
+    // Return a safe default instead of throwing
+    return {
+      user: null,
+      session: null,
+      loading: true,
+      signOut: async () => {},
+      hasAccess: false,
+      isApproved: false,
+      userStatus: null,
+      refreshAccess: async () => {},
+    };
   }
   return context;
 };
@@ -86,6 +97,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [checkingAccess, setCheckingAccess] = useState(false);
 
   const checkUserStatus = async (userId: string) => {
+    if (!userId) {
+      console.log('AuthProvider - No userId provided');
+      return { approved: false, status: null };
+    }
+    
     try {
       // Use the security definer function to avoid recursion
       const { data: status, error } = await supabase

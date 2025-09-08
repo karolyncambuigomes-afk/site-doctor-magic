@@ -84,7 +84,8 @@ interface BlogPost {
 }
 
 export const Admin: React.FC = () => {
-  const { user, loading, hasAccess } = useAuth();
+  const auth = useAuth();
+  const { user, loading, hasAccess } = auth || {};
   console.log('Admin - User:', user?.email, 'Loading:', loading, 'HasAccess:', hasAccess);
   const { toast } = useToast();
   const [models, setModels] = useState<Model[]>([]);

@@ -36,13 +36,6 @@ export const Navigation = () => {
   const location = useSafeLocation();
   const auth = useAuth();
   const { user, signOut, hasAccess } = auth || {};
-  
-  // Safety check for router context
-  if (!location) {
-    console.warn('Navigation: useLocation returned undefined');
-    return null;
-  }
-  console.log('Navigation - User:', user, 'HasAccess:', hasAccess);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,8 +46,16 @@ export const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
+    if (location) {
+      setIsOpen(false);
+    }
   }, [location]);
+  
+  // Safety check for router context - moved after all hooks
+  if (!location) {
+    console.warn('Navigation: useLocation returned undefined');
+    return null;
+  }
 
   // Check if we're on a model profile page
   const isModelPage = location.pathname.startsWith('/models/');

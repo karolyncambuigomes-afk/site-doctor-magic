@@ -84,7 +84,7 @@ export const Membership: React.FC = () => {
 
         {/* Current Status */}
         {user && (
-          <section className="py-16 md:py-20 bg-background">
+          <section className="py-16 md:py-20 bg-white">
             <div className="max-w-md mx-auto">
               <Card className={`border shadow-elegant ${hasAccess ? 'border-green-500/30 bg-green-50/5 dark:bg-green-950/5' : 'border-border'}`}>
                 <CardContent className="pt-8 pb-8 text-center">
@@ -114,7 +114,7 @@ export const Membership: React.FC = () => {
         </div>
 
         {/* Premium Pricing Section */}
-        <section className="py-20 md:py-32 bg-muted/20">
+        <section className="py-20 md:py-32 bg-gray-50">
           <div className="max-w-md mx-auto">
             <Card className="border border-border shadow-elegant relative overflow-hidden">
               <CardHeader className="text-center pb-6 pt-8">
@@ -171,7 +171,7 @@ export const Membership: React.FC = () => {
         </div>
 
         {/* Questions Section */}
-        <section className="py-20 md:py-32 bg-background">
+        <section className="py-20 md:py-32 bg-white">
           <div className="text-center">
             <p className="body-lg text-muted-foreground mb-8 tracking-widest">
               Questions about membership?
@@ -194,7 +194,7 @@ export const Membership: React.FC = () => {
         </div>
 
         {/* Billing Discretion Section */}
-        <section className="py-16 md:py-20 bg-muted/10">
+        <section className="py-16 md:py-20 bg-gray-50">
           <div className="text-center max-w-md mx-auto">
             <p className="body-base text-muted-foreground font-light mb-2">
               Complete Discretion

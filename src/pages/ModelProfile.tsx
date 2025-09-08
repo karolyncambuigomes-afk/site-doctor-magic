@@ -127,7 +127,7 @@ export const ModelProfile: React.FC = () => {
       <Navigation />
 
       {/* Main Gallery Section */}
-      <section className="min-h-screen bg-background pt-16 md:pt-20">
+      <section className="min-h-screen bg-white pt-16 md:pt-20">
         <div className="max-w-md mx-auto p-4">
           <ModelGallery 
             modelId={model.id}

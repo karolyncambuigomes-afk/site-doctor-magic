@@ -84,7 +84,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Methods */}
-        <section className="section-padding bg-background">
+        <section className="section-padding bg-white">
           <div className="container-width">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {contactMethods.map((method, index) => (
@@ -258,7 +258,7 @@ const Contact = () => {
         </section>
 
         {/* FAQ Quick Links */}
-        <section className="section-padding bg-muted/50">
+        <section className="section-padding bg-gray-50">
           <div className="container-width text-center">
             <h2 className="heading-xl mb-4">
               Have <span className="luxury-text-gradient">Questions</span>?

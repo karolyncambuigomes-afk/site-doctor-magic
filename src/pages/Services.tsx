@@ -169,7 +169,7 @@ const Services = () => {
       
       <main className="pt-16">
         {/* Minimal Hero */}
-        <section className="py-12 md:py-20 lg:py-24 bg-background">
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="heading-display mb-4 sm:mb-6">
@@ -183,7 +183,7 @@ const Services = () => {
         </section>
 
         {/* Minimal Services Accordion */}
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-12 md:py-16 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
@@ -332,7 +332,7 @@ const Services = () => {
         </section>
 
         {/* Minimal Contact Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-muted/20">
+        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
               <h2 className="text-2xl sm:text-3xl font-extralight mb-3 sm:mb-4">

@@ -34,7 +34,7 @@ const FAQ = () => {
       
       <main className="pt-16">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h1 className="heading-display text-black mb-6">
               Frequently Asked Questions

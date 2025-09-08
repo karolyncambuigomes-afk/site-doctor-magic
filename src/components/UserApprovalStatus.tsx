@@ -50,7 +50,7 @@ export const UserApprovalStatus: React.FC = () => {
   return (
     <>
       <Navigation />
-      <div className="min-h-screen bg-background pt-20 pb-16">
+      <div className="min-h-screen bg-white pt-20 pb-16">
         <div className="container-width">
           <div className="max-w-md mx-auto">
             <Card className={`${status.bgColor} border-2`}>

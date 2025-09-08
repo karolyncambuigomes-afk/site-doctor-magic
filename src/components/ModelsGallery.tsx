@@ -53,7 +53,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ isPremium = false 
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navigation />
       
       <main id="main-content" className="pt-16 sm:pt-20">

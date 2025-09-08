@@ -191,7 +191,7 @@ const About = () => {
         </div>
 
         {/* Story Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-muted/20">
+        <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="w-full max-w-sm md:max-w-md mx-auto lg:mx-0 h-80 md:h-96 lg:h-[500px] rounded-lg overflow-hidden px-4 md:px-0 order-2 lg:order-1">
@@ -225,7 +225,7 @@ const About = () => {
         </div>
 
         {/* Values Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container-width">
             <div className="text-center mb-12 md:mb-14 px-4 md:px-0">
               <h2 className="heading-lg mb-4">
@@ -255,7 +255,7 @@ const About = () => {
         </div>
 
         {/* Experience Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-muted/20">
+        <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
           <div className="container-width">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <div className="space-y-4 md:space-y-6 text-center lg:text-left px-4 md:px-0 order-2 lg:order-1">
@@ -286,7 +286,7 @@ const About = () => {
         </div>
 
         {/* Premium Locations Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-muted/30">
+        <section className="py-16 md:py-20 lg:py-24 bg-gray-100">
           <div className="container-width">
             <div className="text-center mb-12 md:mb-16">
               <h2 className="heading-lg mb-4">
@@ -426,7 +426,7 @@ const About = () => {
         </div>
 
         {/* CTA Section */}
-        <section className="py-16 md:py-20 lg:py-24 bg-background">
+        <section className="py-16 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto space-y-6 md:space-y-7 px-4 md:px-0">
               <h2 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-tight">

@@ -189,9 +189,9 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
       case 'elegant':
         return 'min-h-screen bg-gradient-to-b from-muted/30 to-background';
       case 'modern':
-        return 'min-h-screen bg-background';
+        return 'min-h-screen bg-white';
       default:
-        return 'min-h-screen bg-background';
+        return 'min-h-screen bg-white';
     }
   };
 

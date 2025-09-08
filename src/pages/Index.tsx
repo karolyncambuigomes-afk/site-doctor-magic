@@ -56,9 +56,9 @@ const Index = () => {
       
       <Navigation />
       
-      <HeroSection />
-      
-      <main id="main-content" className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
+      <main className="pt-16">
+        <HeroSection />
+        
         {/* Featured Models Section */}
         <section className="py-12 md:py-16 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -129,8 +129,6 @@ const Index = () => {
             </div>
           </div>
         </section>
-
-
       </main>
 
       <Footer />

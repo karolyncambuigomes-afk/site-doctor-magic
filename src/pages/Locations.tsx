@@ -17,10 +17,9 @@ const Locations = () => {
         canonicalUrl="/locations"
       />
       
-      <div className="min-h-screen bg-white">
-        <Navigation />
-        
-        <main className="pt-16">
+      <Navigation />
+      
+      <main className="pt-16">
           {/* Hero Section */}
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
@@ -87,7 +86,6 @@ const Locations = () => {
         </main>
         
         <Footer />
-      </div>
     </>
   );
 };

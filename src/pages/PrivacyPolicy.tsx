@@ -14,8 +14,9 @@ const PrivacyPolicy = () => {
       />
       <Navigation />
       
-      <main className="min-h-screen bg-white">
-        <div className="max-w-4xl mx-auto px-4 py-16">
+      <main className="pt-16">
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-3xl md:text-4xl font-light text-black mb-8">Privacy Policy</h1>
           
           <div className="prose max-w-none">
@@ -92,7 +93,8 @@ const PrivacyPolicy = () => {
               </p>
             </section>
           </div>
-        </div>
+          </div>
+        </section>
       </main>
       
       <Footer />

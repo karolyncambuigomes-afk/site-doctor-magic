@@ -118,11 +118,10 @@ const About = () => {
         structuredData={structuredData}
       />
       
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        
-        <main className="pt-20">
-          {/* Breadcrumbs */}
+      <Navigation />
+      
+      <main className="pt-16">
+        {/* Breadcrumbs */}
           <section className="py-6 border-b">
             <div className="container mx-auto px-4">
               <Breadcrumbs 
@@ -289,7 +288,6 @@ const About = () => {
         </main>
         
         <Footer />
-      </div>
     </>
   );
 };

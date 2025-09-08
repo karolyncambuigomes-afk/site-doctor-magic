@@ -54,7 +54,7 @@ export const Reviews: React.FC = () => {
       />
       <Navigation />
       
-      <main className="min-h-screen">
+      <main className="pt-16">
         {/* Hero Section */}
         <section className="section-padding bg-gradient-subtle">
           <div className="container-width text-center">

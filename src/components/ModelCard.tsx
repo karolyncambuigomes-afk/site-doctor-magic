@@ -65,8 +65,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Price - Top Left - Mobile responsive */}
                 {model.price && (
-                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
-                    <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
+                  <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10">
+                    <div className="bg-luxury-navy/80 backdrop-blur-sm px-3 py-1.5 rounded text-luxury-cream body-xs font-light">
                       {model.price}
                     </div>
                   </div>
@@ -77,14 +77,14 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
                 {/* Info Card - Bottom - Mobile responsive */}
-                <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 lg:p-6 z-10">
-                  <div className={`bg-black/75 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-white transform transition-transform duration-700 ${
+                <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 lg:p-6 z-10">
+                  <div className={`bg-luxury-navy/90 backdrop-blur-sm rounded-lg p-4 text-luxury-cream transform transition-luxury ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
                     
                      {/* Header: Nome e idade */}
                      <div className="text-center">
-                       <h3 className="text-base sm:text-lg md:text-xl font-light">
+                       <h3 className="body-lg md:heading-sm font-light">
                          {model.name}
                          {model.age ? `, ${model.age} anos` : ''}
                        </h3>

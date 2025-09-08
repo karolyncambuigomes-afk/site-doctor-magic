@@ -116,6 +116,10 @@
     @apply font-display text-2xl md:text-3xl lg:text-4xl font-light tracking-wide uppercase;
   }
   
+  .heading-2xl {
+    @apply font-display text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light tracking-wide;
+  }
+  
   .heading-xl {
     @apply font-display text-xl md:text-2xl lg:text-3xl font-light tracking-wide uppercase;
   }
@@ -172,6 +176,15 @@
   
   .transition-luxury {
     transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  /* Button Luxury Variants */
+  .btn-luxury {
+    @apply bg-luxury-gold text-luxury-navy hover:bg-luxury-gold/90 shadow-elegant hover:shadow-luxury transition-luxury border border-luxury-gold/20 px-6 py-3 rounded-md font-medium;
+  }
+
+  .btn-outline-luxury {
+    @apply border-2 border-white bg-transparent text-white hover:bg-white hover:text-luxury-navy shadow-minimal hover:shadow-elegant transition-luxury px-6 py-3 rounded-md font-medium;
   }
   
   /* Footer mobile fix */

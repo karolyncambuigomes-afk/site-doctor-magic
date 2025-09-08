@@ -3,11 +3,12 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle, ChevronUp, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useScrollFooter } from '@/hooks/useScrollFooter';
 
 export const SlidingFooter = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
-  const [isExpanded, setIsExpanded] = useState(false);
+  const { isVisible, isExpanded, hideFooter } = useScrollFooter();
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,24 +16,30 @@ export const SlidingFooter = () => {
     setEmail('');
   };
 
+  // Don't render if not visible
+  if (!isVisible) return null;
+
   return (
     <>
       {/* Overlay backdrop when expanded */}
       {isExpanded && (
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-all duration-500"
-          onClick={() => setIsExpanded(false)}
+          onClick={hideFooter}
         />
       )}
 
       {/* Footer container */}
-      <div className="fixed bottom-0 left-0 right-0 z-50">
-        {/* Footer tab - always visible */}
+      <div className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-700 ease-out ${
+        isVisible 
+          ? 'translate-y-0 opacity-100' 
+          : 'translate-y-full opacity-0'
+      }`}>
+        {/* Footer tab - visible when not expanded */}
         <div 
-          className={`bg-slate-800 text-white cursor-pointer transition-all duration-500 ${
-            isExpanded ? 'rounded-t-xl' : 'hover:bg-slate-700'
+          className={`bg-slate-800 text-white transition-all duration-500 ${
+            isExpanded ? 'rounded-t-xl opacity-100' : 'opacity-90 hover:opacity-100'
           }`}
-          onClick={() => setIsExpanded(!isExpanded)}
         >
           <div className="flex items-center justify-between px-6 py-3">
             <div className="flex items-center space-x-4">
@@ -41,11 +48,11 @@ export const SlidingFooter = () => {
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-xs text-white/70 hidden sm:block">
-                Get in touch
+                {isExpanded ? 'Scroll to explore' : 'Luxury awaits'}
               </span>
               <ChevronUp 
-                className={`w-5 h-5 transition-transform duration-300 ${
-                  isExpanded ? 'rotate-180' : ''
+                className={`w-5 h-5 transition-transform duration-500 ${
+                  isExpanded ? 'rotate-180' : 'animate-pulse'
                 }`} 
               />
             </div>
@@ -65,7 +72,7 @@ export const SlidingFooter = () => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setIsExpanded(false);
+                hideFooter();
               }}
               className="absolute top-4 right-4 w-8 h-8 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors z-10"
               aria-label="Close footer"

@@ -860,5 +860,73 @@ export const characteristics: Characteristic[] = [
     seoTitle: "Outcalls Escorts London | Mobile Companionship Services | Five London",
     seoDescription: "Outcalls escorts in London providing mobile companionship. Professional hotel and residence visits with discreet flexible services.",
     keywords: ["outcalls escorts", "outcalls escorts london", "mobile escorts", "hotel visits", "residence visits"]
+  },
+  {
+    id: "32",
+    name: "Young",
+    slug: "young-escorts",
+    description: "Young and energetic companions",
+    content: `
+      <h2>Young Escorts in London</h2>
+      
+      <p>Our selection of young escorts in London represents the next generation of premium companionship. These vibrant, energetic companions bring a fresh perspective and youthful enthusiasm to every encounter.</p>
+      
+      <h3>Youthful Characteristics</h3>
+      <ul>
+        <li>Fresh and energetic personalities</li>
+        <li>Contemporary style and fashion sense</li>
+        <li>Modern perspectives and interests</li>
+        <li>Enthusiastic and engaging conversation</li>
+        <li>Active lifestyle and interests</li>
+      </ul>
+      
+      <h3>Experience Quality</h3>
+      <ul>
+        <li>Vibrant and dynamic companionship</li>
+        <li>Current trends and cultural awareness</li>
+        <li>Adventurous and open-minded approach</li>
+        <li>Professional service with youthful energy</li>
+        <li>Perfect for social events and activities</li>
+      </ul>
+      
+      <p>These companions combine youthful vitality with professional excellence, offering a perfect balance of energy and sophistication for discerning clients seeking dynamic companionship.</p>
+    `,
+    seoTitle: "Young Escorts London | Energetic Companions | Five London",
+    seoDescription: "Young escorts in London offering vibrant, energetic companionship. Fresh perspectives and youthful enthusiasm with professional excellence.",
+    keywords: ["young escorts", "young escorts london", "energetic companions", "vibrant escorts", "youthful companionship"]
+  },
+  {
+    id: "33",
+    name: "Redhead",
+    slug: "redhead-escorts",
+    description: "Striking redhead companions",
+    content: `
+      <h2>Redhead Escorts in London</h2>
+      
+      <p>Our exceptional collection of redhead escorts in London features companions with striking natural beauty and captivating personalities. These fiery beauties combine stunning looks with engaging charm.</p>
+      
+      <h3>Natural Beauty Features</h3>
+      <ul>
+        <li>Stunning natural red hair</li>
+        <li>Striking and unique appearance</li>
+        <li>Captivating and memorable presence</li>
+        <li>Distinctive and elegant style</li>
+        <li>Natural charisma and charm</li>
+      </ul>
+      
+      <h3>Companion Qualities</h3>
+      <ul>
+        <li>Passionate and engaging personalities</li>
+        <li>Sophisticated conversation skills</li>
+        <li>Professional and reliable service</li>
+        <li>Memorable and enchanting experiences</li>
+        <li>Perfect for discerning clients</li>
+      </ul>
+      
+      <p>These redhead companions offer a unique and unforgettable experience, combining their natural striking beauty with professional excellence and engaging personalities.</p>
+    `,
+    seoTitle: "Redhead Escorts London | Striking Companions | Five London",
+    seoDescription: "Redhead escorts in London with striking natural beauty. Captivating companions offering memorable experiences with professional excellence.",
+    keywords: ["redhead escorts", "redhead escorts london", "red hair companions", "striking escorts", "natural beauty"]
   }
 ];

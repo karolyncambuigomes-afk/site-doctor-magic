@@ -93,6 +93,23 @@ const App = () => (
           <Route path="/european-escorts-london" element={<CharacteristicDetail />} />
           <Route path="/ebony-escorts-london" element={<CharacteristicDetail />} />
           <Route path="/tall-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/natural-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/brazilian-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/russian-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/middle-eastern-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/latina-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/iranian-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/vip-elite-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/party-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/adventurous-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/open-minded-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/exclusive-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/high-class-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/dinner-date-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/domination-fetish-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/bisexual-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/couples-escorts-london" element={<CharacteristicDetail />} />
+          <Route path="/outcalls-escorts-london" element={<CharacteristicDetail />} />
           <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />

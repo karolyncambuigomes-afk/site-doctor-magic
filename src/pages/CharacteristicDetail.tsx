@@ -36,6 +36,23 @@ const CharacteristicDetail = () => {
     '/european-escorts-london': 'european-escorts',
     '/ebony-escorts-london': 'ebony-escorts',
     '/tall-escorts-london': 'tall-escorts',
+    '/natural-escorts-london': 'natural-escorts',
+    '/brazilian-escorts-london': 'brazilian-escorts',
+    '/russian-escorts-london': 'russian-escorts',
+    '/middle-eastern-escorts-london': 'middle-eastern-escorts',
+    '/latina-escorts-london': 'latina-escorts',
+    '/iranian-escorts-london': 'iranian-escorts',
+    '/vip-elite-escorts-london': 'vip-elite-escorts',
+    '/party-escorts-london': 'party-escorts',
+    '/adventurous-escorts-london': 'adventurous-escorts',
+    '/open-minded-escorts-london': 'open-minded-escorts',
+    '/exclusive-escorts-london': 'exclusive-escorts',
+    '/high-class-escorts-london': 'high-class-escorts',
+    '/dinner-date-escorts-london': 'dinner-date-escorts',
+    '/domination-fetish-escorts-london': 'domination-fetish-escorts',
+    '/bisexual-escorts-london': 'bisexual-escorts',
+    '/couples-escorts-london': 'couples-escorts',
+    '/outcalls-escorts-london': 'outcalls-escorts',
   };
   
   // Find characteristic by slug or by matching the URL path

@@ -16,18 +16,18 @@ const PrivacyPolicy = () => {
       
       <main className="min-h-screen bg-white">
         <div className="max-w-4xl mx-auto px-4 py-16">
-          <h1 className="text-3xl md:text-4xl font-light text-stone-900 mb-8">Privacy Policy</h1>
+          <h1 className="text-3xl md:text-4xl font-light text-black mb-8">Privacy Policy</h1>
           
-          <div className="prose prose-stone max-w-none">
-            <p className="text-stone-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
+          <div className="prose max-w-none">
+            <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">1. Information We Collect</h2>
-              <p className="text-stone-600 mb-4">
+              <h2 className="text-2xl font-light text-black mb-4">1. Information We Collect</h2>
+              <p className="text-gray-600 mb-4">
                 We collect information you provide directly to us, such as when you contact us, 
                 request our services, or subscribe to our communications.
               </p>
-              <ul className="list-disc list-inside text-stone-600 space-y-2">
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
                 <li>Contact information (name, email, phone number)</li>
                 <li>Service preferences and requirements</li>
                 <li>Communication records</li>
@@ -36,9 +36,9 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">2. How We Use Your Information</h2>
-              <p className="text-stone-600 mb-4">We use the information we collect to:</p>
-              <ul className="list-disc list-inside text-stone-600 space-y-2">
+              <h2 className="text-2xl font-light text-black mb-4">2. How We Use Your Information</h2>
+              <p className="text-gray-600 mb-4">We use the information we collect to:</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
                 <li>Provide and improve our services</li>
                 <li>Communicate with you about our services</li>
                 <li>Ensure the security and integrity of our platform</li>
@@ -47,33 +47,33 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">3. Information Sharing</h2>
-              <p className="text-stone-600 mb-4">
+              <h2 className="text-2xl font-light text-black mb-4">3. Information Sharing</h2>
+              <p className="text-gray-600 mb-4">
                 We do not sell, trade, or otherwise transfer your personal information to third parties 
                 without your consent, except as described in this policy.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">4. Data Security</h2>
-              <p className="text-stone-600 mb-4">
+              <h2 className="text-2xl font-light text-black mb-4">4. Data Security</h2>
+              <p className="text-gray-600 mb-4">
                 We implement appropriate security measures to protect your personal information 
                 against unauthorized access, alteration, disclosure, or destruction.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">5. Cookies</h2>
-              <p className="text-stone-600 mb-4">
+              <h2 className="text-2xl font-light text-black mb-4">5. Cookies</h2>
+              <p className="text-gray-600 mb-4">
                 We use cookies to enhance your browsing experience and analyze website traffic. 
                 You can control cookie settings through your browser preferences.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">6. Your Rights</h2>
-              <p className="text-stone-600 mb-4">You have the right to:</p>
-              <ul className="list-disc list-inside text-stone-600 space-y-2">
+              <h2 className="text-2xl font-light text-black mb-4">6. Your Rights</h2>
+              <p className="text-gray-600 mb-4">You have the right to:</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
                 <li>Access your personal information</li>
                 <li>Correct inaccurate information</li>
                 <li>Request deletion of your information</li>
@@ -82,11 +82,11 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-stone-900 mb-4">7. Contact Us</h2>
-              <p className="text-stone-600 mb-4">
+              <h2 className="text-2xl font-light text-black mb-4">7. Contact Us</h2>
+              <p className="text-gray-600 mb-4">
                 If you have any questions about this Privacy Policy, please contact us at:
               </p>
-              <p className="text-stone-600">
+              <p className="text-gray-600">
                 Email: privacy@fivelondon.com<br />
                 Phone: +44 7436 190679
               </p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
+import heroMain from '@/assets/hero-main.jpg';
 
 export const HeroSection: React.FC = () => {
   return (
@@ -7,7 +8,7 @@ export const HeroSection: React.FC = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="src/assets/hero-main.jpg"
+          src={heroMain}
           alt="Luxury London escorts"
           className="w-full h-full object-cover object-center"
         />

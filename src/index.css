@@ -98,7 +98,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply luxury-heading;
   }
 }
 
@@ -111,45 +111,61 @@
     @apply max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8;
   }
   
-  /* Typography classes */
-  .heading-display {
-    @apply font-display text-2xl md:text-3xl lg:text-4xl font-light tracking-wide uppercase;
+  /* Luxury Typography System - Inspired by YSL, Chanel, Armani */
+  .luxury-heading {
+    @apply font-luxury-heading;
   }
-  
-  .heading-xl {
-    @apply font-display text-xl md:text-2xl lg:text-3xl font-light tracking-wide uppercase;
+
+  .luxury-body {
+    @apply font-luxury-body;
   }
-  
-  .heading-lg {
-    @apply font-display text-lg md:text-xl lg:text-2xl font-light tracking-wide uppercase;
+
+  /* Main Heading Variants */
+  .luxury-heading-display {
+    @apply luxury-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-light tracking-wide;
   }
-  
-  .heading-md {
-    @apply font-display text-base md:text-lg lg:text-xl font-light tracking-wide uppercase;
+
+  .luxury-heading-xl {
+    @apply luxury-heading text-3xl sm:text-4xl lg:text-5xl font-normal tracking-wide;
   }
-  
-  .heading-sm {
-    @apply font-display text-sm md:text-base lg:text-lg font-light tracking-wide;
+
+  .luxury-heading-lg {
+    @apply luxury-heading text-2xl sm:text-3xl lg:text-4xl font-normal tracking-wide;
   }
-  
-  .body-lg {
-    @apply font-sans text-sm md:text-base lg:text-lg leading-relaxed font-light;
+
+  .luxury-heading-md {
+    @apply luxury-heading text-xl sm:text-2xl lg:text-3xl font-medium tracking-wide;
   }
-  
-  .body-base {
-    @apply font-sans text-xs md:text-sm lg:text-base leading-relaxed font-light;
+
+  .luxury-heading-sm {
+    @apply luxury-heading text-lg sm:text-xl lg:text-2xl font-medium tracking-wide;
   }
-  
-  .body-sm {
-    @apply font-sans text-xs md:text-sm leading-relaxed font-light;
+
+  /* Body Text Variants */
+  .luxury-body-lg {
+    @apply luxury-body text-base sm:text-lg leading-relaxed font-normal;
   }
-  
-  .body-xs {
-    @apply font-sans text-xs leading-relaxed font-light;
+
+  .luxury-body-md {
+    @apply luxury-body text-sm sm:text-base leading-relaxed font-normal;
   }
+
+  .luxury-body-sm {
+    @apply luxury-body text-xs sm:text-sm leading-relaxed font-medium;
+  }
+
+  /* Legacy Classes for Compatibility */
+  .heading-display { @apply luxury-heading-display; }
+  .heading-xl { @apply luxury-heading-xl; }
+  .heading-lg { @apply luxury-heading-lg; }
+  .heading-md { @apply luxury-heading-md; }
+  .heading-sm { @apply luxury-heading-sm; }
+  .body-lg { @apply luxury-body-lg; }
+  .body-md { @apply luxury-body-md; }
+  .body-sm { @apply luxury-body-sm; }
   
   .caption {
-    @apply font-sans text-xs uppercase tracking-wider font-medium;
+    @apply luxury-body text-xs uppercase tracking-wider font-medium;
   }
   
   /* Shadow utilities */

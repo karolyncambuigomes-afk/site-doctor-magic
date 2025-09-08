@@ -19,9 +19,9 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'display': ['Playfair Display', 'serif'],
-				'sans': ['Inter', 'sans-serif'],
-				'manrope': ['Manrope', 'sans-serif'],
+				'luxury-heading': ['Cormorant Garamond', 'serif'],
+				'luxury-body': ['Montserrat', 'sans-serif'],
+				'sans': ['Montserrat', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

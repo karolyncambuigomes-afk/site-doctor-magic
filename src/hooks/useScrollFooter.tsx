@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 export function useScrollFooter() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Start visible
   const [isExpanded, setIsExpanded] = useState(false);
   const [isManuallyHidden, setIsManuallyHidden] = useState(false);
 
@@ -17,18 +17,19 @@ export function useScrollFooter() {
       // Don't show if manually hidden
       if (isManuallyHidden) return;
 
-      // Show tab when 60% scrolled
-      if (progress >= 0.6) {
+      // Show tab when 30% scrolled, or always show if page is short
+      const documentHeightCheck = documentHeight < window.innerHeight * 2; // If page is less than 2 viewport heights
+      if (progress >= 0.3 || documentHeightCheck) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
         setIsExpanded(false);
       }
 
-      // Auto-expand when 80% scrolled
-      if (progress >= 0.8) {
+      // Auto-expand when 70% scrolled
+      if (progress >= 0.7) {
         setIsExpanded(true);
-      } else if (progress < 0.75) {
+      } else if (progress < 0.6) {
         // Add some hysteresis to prevent flickering
         setIsExpanded(false);
       }

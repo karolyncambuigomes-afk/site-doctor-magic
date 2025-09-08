@@ -72,7 +72,7 @@ export const Navigation: React.FC = () => {
         : 'bg-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-2 md:py-3">
+        <div className="flex items-center justify-between py-2 md:py-3 text-black">
           <SafeLink 
             to="/" 
             className={`font-manrope font-medium uppercase transition-colors hover:text-slate-800 ${

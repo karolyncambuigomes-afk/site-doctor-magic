@@ -25,7 +25,6 @@ export default defineConfig(({ mode }) => ({
       }
     },
     sourcemap: false,
-    minify: 'terser',
     assetsInlineLimit: 4096
   },
   plugins: [

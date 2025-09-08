@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
@@ -30,7 +30,8 @@ const navItems = [
   { href: '/join-us', label: 'Join Us' }
 ];
 
-export const Navigation = () => {
+export const Navigation: React.FC = () => {
+  console.log('Navigation component rendering');
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useSafeLocation();

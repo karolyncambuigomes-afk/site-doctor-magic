@@ -51,7 +51,7 @@ const LondonEscortGuide = () => {
                 Complete London Escort Guide
               </h1>
               <div className="w-24 h-0.5 bg-foreground mx-auto mb-12"></div>
-              <p className="body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-12">
+              <p className="luxury-body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-12">
                 Your comprehensive guide to elite companionship services in London. 
                 Everything you need to know about premium escort services, best areas, and booking etiquette.
               </p>
@@ -60,17 +60,17 @@ const LondonEscortGuide = () => {
                 <div className="text-center p-6">
                   <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Premium Locations</h3>
-                  <p className="body-base text-muted-foreground">London's most exclusive districts</p>
+                  <p className="luxury-body-base text-muted-foreground">London's most exclusive districts</p>
                 </div>
                 <div className="text-center p-6">
                   <Star className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Elite Service</h3>
-                  <p className="body-base text-muted-foreground">Unparalleled luxury experiences</p>
+                  <p className="luxury-body-base text-muted-foreground">Unparalleled luxury experiences</p>
                 </div>
                 <div className="text-center p-6">
                   <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Complete Discretion</h3>
-                  <p className="body-base text-muted-foreground">Absolute confidentiality</p>
+                  <p className="luxury-body-base text-muted-foreground">Absolute confidentiality</p>
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@ const LondonEscortGuide = () => {
                   <CardTitle className="luxury-heading-sm">Best Areas</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="body-base text-muted-foreground">
+                  <p className="luxury-body-base text-muted-foreground">
                     Mayfair, Knightsbridge, Chelsea, Belgravia - London's premium districts
                   </p>
                 </CardContent>
@@ -175,7 +175,7 @@ const LondonEscortGuide = () => {
                   <CardTitle className="luxury-heading-sm">Booking</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="body-base text-muted-foreground">
+                  <p className="luxury-body-base text-muted-foreground">
                     24/7 service, same-day available, advance booking recommended
                   </p>
                 </CardContent>
@@ -187,7 +187,7 @@ const LondonEscortGuide = () => {
                   <CardTitle className="luxury-heading-sm">Safety</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="body-base text-muted-foreground">
+                  <p className="luxury-body-base text-muted-foreground">
                     Complete discretion, verified companions, secure processes
                   </p>
                 </CardContent>
@@ -199,7 +199,7 @@ const LondonEscortGuide = () => {
                   <CardTitle className="luxury-heading-sm">Premium</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="body-base text-muted-foreground">
+                  <p className="luxury-body-base text-muted-foreground">
                     Elite companions, luxury experiences, exceptional service
                   </p>
                 </CardContent>

@@ -40,7 +40,7 @@ const FAQ = () => {
               Frequently Asked Questions
             </h1>
             <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
-            <p className="body-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="luxury-body-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
               Find answers to the most common questions about our luxury companion services. 
               Our team is here to help ensure your complete satisfaction and peace of mind.
             </p>
@@ -94,7 +94,7 @@ const FAQ = () => {
                 {bookingInfo.map((info, index) => (
                   <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                     <h3 className="luxury-heading-sm text-black mb-3">{info.title}</h3>
-                    <p className="body-sm text-gray-600 leading-relaxed">
+                    <p className="luxury-body-sm text-gray-600 leading-relaxed">
                       {info.content}
                     </p>
                   </div>
@@ -113,7 +113,7 @@ const FAQ = () => {
                   <Shield className="w-8 h-8 text-black" />
                 </div>
                 <h3 className="luxury-heading-sm text-black mb-2">100% Discrete</h3>
-                <p className="body-xs text-gray-600">Complete confidentiality guaranteed</p>
+                <p className="luxury-body-xs text-gray-600">Complete confidentiality guaranteed</p>
               </div>
               
               <div className="flex flex-col items-center">
@@ -121,7 +121,7 @@ const FAQ = () => {
                   <Clock className="w-8 h-8 text-black" />
                 </div>
                 <h3 className="luxury-heading-sm text-black mb-2">24/7 Available</h3>
-                <p className="body-xs text-gray-600">Round-the-clock service</p>
+                <p className="luxury-body-xs text-gray-600">Round-the-clock service</p>
               </div>
               
               <div className="flex flex-col items-center">
@@ -129,7 +129,7 @@ const FAQ = () => {
                   <Users className="w-8 h-8 text-black" />
                 </div>
                 <h3 className="luxury-heading-sm text-black mb-2">Elite Companions</h3>
-                <p className="body-xs text-gray-600">Carefully selected professionals</p>
+                <p className="luxury-body-xs text-gray-600">Carefully selected professionals</p>
               </div>
               
               <div className="flex flex-col items-center">
@@ -137,7 +137,7 @@ const FAQ = () => {
                   <Star className="w-8 h-8 text-black" />
                 </div>
                 <h3 className="luxury-heading-sm text-black mb-2">Premium Service</h3>
-                <p className="body-xs text-gray-600">Exceptional experiences delivered</p>
+                <p className="luxury-body-xs text-gray-600">Exceptional experiences delivered</p>
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@ const FAQ = () => {
             <h2 className="luxury-heading-xl mb-6">
               Still Have Questions?
             </h2>
-            <p className="body-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="luxury-body-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
               Our experienced concierge team is available 24/7 to answer any additional questions 
               and assist with your booking.
             </p>

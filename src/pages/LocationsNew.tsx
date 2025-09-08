@@ -33,11 +33,11 @@ export const Locations: React.FC = () => {
             <h1 className="luxury-heading-display text-foreground mb-6">
               Elite Escorts Across London
             </h1>
-            <p className="body-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
+            <p className="luxury-body-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-8">
               Premium companion services available in all prestigious London areas. From Mayfair to Canary Wharf, 
               our sophisticated escorts provide exceptional experiences across the capital.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 body-base text-muted-foreground">
+            <div className="flex flex-wrap justify-center gap-4 luxury-body-base text-muted-foreground">
               <span className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
                 All London Postcodes
@@ -69,7 +69,7 @@ export const Locations: React.FC = () => {
                   <h2 className="luxury-heading-lg text-foreground mb-3 group-hover:text-muted-foreground transition-colors">
                     {location.name}
                   </h2>
-                  <p className="body-base text-muted-foreground mb-4 leading-relaxed">
+                  <p className="luxury-body-base text-muted-foreground mb-4 leading-relaxed">
                     {location.description}
                   </p>
                   
@@ -78,7 +78,7 @@ export const Locations: React.FC = () => {
                     {location.postcodes?.map((postcode) => (
                       <span 
                         key={postcode}
-                        className="bg-muted text-muted-foreground px-2 py-1 body-xs font-medium"
+                        className="bg-muted text-muted-foreground px-2 py-1 luxury-body-xs font-medium"
                       >
                         {postcode}
                       </span>
@@ -86,7 +86,7 @@ export const Locations: React.FC = () => {
                   </div>
 
                   {/* Landmarks */}
-                  <div className="body-xs text-muted-foreground">
+                  <div className="luxury-body-xs text-muted-foreground">
                     <span className="font-medium">Near:</span> {location.nearbyLandmarks?.join(", ")}
                   </div>
                 </div>
@@ -99,12 +99,12 @@ export const Locations: React.FC = () => {
             <h2 className="luxury-heading-xl text-foreground mb-6">
               Complete London Coverage
             </h2>
-            <p className="body-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <p className="luxury-body-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
               Our elite escort service covers all London areas with verified companions available for 
               outcalls across Central London, West London, East London, and beyond.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 body-base">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 luxury-body-base">
               <div>
                 <h3 className="luxury-heading-sm text-foreground mb-2">Central London</h3>
                 <ul className="text-muted-foreground space-y-1">
@@ -152,14 +152,14 @@ export const Locations: React.FC = () => {
             <h2 className="luxury-heading-xl text-foreground mb-4">
               Book Your Elite Companion Today
             </h2>
-            <p className="body-lg text-muted-foreground mb-8">
+            <p className="luxury-body-lg text-muted-foreground mb-8">
               Available across all London locations. Same-day booking available.
             </p>
             <a 
               href="tel:+447436190679"
               className="inline-block border border-border hover:border-foreground px-8 py-3 transition-all duration-300"
             >
-              <span className="body-base tracking-[0.3em] uppercase font-light text-foreground">
+              <span className="luxury-body-base tracking-[0.3em] uppercase font-light text-foreground">
                 Call Now: +44 7436 190679
               </span>
             </a>

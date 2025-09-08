@@ -60,17 +60,17 @@ const LondonEscortGuide = () => {
                 <div className="text-center p-6">
                   <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Premium Locations</h3>
-                  <p className="luxury-body-base text-muted-foreground">London's most exclusive districts</p>
+                  <p className="luxury-body-lg text-muted-foreground">London's most exclusive districts</p>
                 </div>
                 <div className="text-center p-6">
                   <Star className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Elite Service</h3>
-                  <p className="luxury-body-base text-muted-foreground">Unparalleled luxury experiences</p>
+                  <p className="luxury-body-lg text-muted-foreground">Unparalleled luxury experiences</p>
                 </div>
                 <div className="text-center p-6">
                   <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
                   <h3 className="luxury-heading-sm mb-2">Complete Discretion</h3>
-                  <p className="luxury-body-base text-muted-foreground">Absolute confidentiality</p>
+                  <p className="luxury-body-lg text-muted-foreground">Absolute confidentiality</p>
                 </div>
               </div>
             </div>

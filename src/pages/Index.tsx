@@ -60,21 +60,21 @@ const Index = () => {
       
       <main id="main-content" className="relative overflow-x-hidden" style={{ minHeight: 'auto' }}>
         {/* Featured Models Section */}
-        <section className="py-12 md:py-16 bg-card">
+        <section className="py-12 md:py-16 bg-background">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <ModelsCarousel />
           </div>
         </section>
 
         {/* Category Filters */}
-        <section className="py-12 md:py-16 bg-muted">
+        <section className="py-12 md:py-16 bg-muted/20">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CategoryFilters />
           </div>
         </section>
 
         {/* Contact Section */}
-        <section className="py-24 md:py-40 bg-card">
+        <section className="py-24 md:py-40 bg-background">
           <div className="max-w-md mx-auto px-4 text-center">
             <h2 className="heading-xl text-foreground mb-6">
               Elite Companion

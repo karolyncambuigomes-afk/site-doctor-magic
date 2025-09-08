@@ -15,7 +15,7 @@ export const CategoryFilters: React.FC = () => {
     <section className="py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="heading-xl text-black mb-4">
+          <h2 className="heading-xl text-foreground mb-4">
             Browse by Preference
           </h2>
           <p className="body-base text-muted-foreground max-w-2xl mx-auto">

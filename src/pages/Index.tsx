@@ -92,7 +92,7 @@ const Index = () => {
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-border/40 rounded-full flex items-center justify-center group-hover:border-foreground/60 transition-all duration-500">
-                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-foreground/70 group-hover:text-foreground transition-colors duration-500" />
+                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
                 <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
                   WhatsApp
@@ -105,7 +105,7 @@ const Index = () => {
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-border/40 rounded-full flex items-center justify-center group-hover:border-foreground/60 transition-all duration-500">
-                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-foreground/70 group-hover:text-foreground transition-colors duration-500" />
+                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
                 <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
                   Call
@@ -120,7 +120,7 @@ const Index = () => {
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-border/40 rounded-full flex items-center justify-center group-hover:border-foreground/60 transition-all duration-500">
-                  <Send className="w-7 h-7 md:w-8 md:h-8 text-foreground/70 group-hover:text-foreground transition-colors duration-500" />
+                  <Send className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
                 <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors uppercase tracking-widest font-light">
                   Telegram

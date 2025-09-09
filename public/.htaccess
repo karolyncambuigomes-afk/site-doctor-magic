@@ -1,4 +1,5 @@
 # Five London - Optimized for External Tools & Performance Analysis
+# Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
 # Enable compression for all browsers including crawlers
 <IfModule mod_deflate.c>
@@ -17,9 +18,11 @@
 # Smart cache control with crawler-friendly settings
 <IfModule mod_headers.c>
     # Allow crawlers and performance tools unrestricted access
-    <If "%{HTTP_USER_AGENT} =~ /Googlebot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot/i">
+    <If "%{HTTP_USER_AGENT} =~ /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider|facebookexternalhit|WhatsApp|LinkedInBot|slurp|DuckDuckBot/i">
         Header set Cache-Control "public, max-age=86400"
         Header always set X-Robots-Tag "index, follow"
+        Header always set X-Debug-Tool "external-analyzer"
+        Header always set Access-Control-Allow-Origin "*"
     </If>
     
     # Mobile browsers: balanced caching for better performance
@@ -49,6 +52,10 @@
     # Remove server identification but keep ETags for better caching
     Header unset X-Powered-By
     Header unset Server
+    
+    # Debug headers for external tools
+    Header always set X-Site-Status "active"
+    Header always set X-Crawler-Friendly "true"
 </IfModule>
 
 # Enable basic ETags for better cache validation

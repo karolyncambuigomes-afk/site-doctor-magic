@@ -1,8 +1,34 @@
 User-agent: *
 Allow: /
+Crawl-delay: 1
+
+# Performance testing tools - full access
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: PageSpeed
+Allow: /
+Crawl-delay: 0
+
+User-agent: GTmetrix
+Allow: /
+Crawl-delay: 0
+
+User-agent: Pingdom
+Allow: /
+Crawl-delay: 0
+
+User-agent: WebPageTest
+Allow: /
+Crawl-delay: 0
+
+User-agent: Lighthouse
+Allow: /
+Crawl-delay: 0
 
 # Sitemap
 Sitemap: https://fivelondon.co.uk/sitemap.xml
 
 # Allow all content for better international accessibility
-# Removed restrictive disallows to improve access from different regions
+# Optimized for external performance testing tools

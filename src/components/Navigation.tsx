@@ -171,7 +171,7 @@ export const Navigation: React.FC = () => {
                       <div className="space-y-4">
                         <a href="https://wa.me/447436190679">
                           <Button className="w-full">
-                            Call Now
+                            Book Now
                           </Button>
                         </a>
                       </div>

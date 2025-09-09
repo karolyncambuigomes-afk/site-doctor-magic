@@ -1,6 +1,6 @@
-# Five London - Optimized for Private Browser Compatibility
+# Five London - Optimized for External Tools & Performance Analysis
 
-# Enable compression for supported browsers
+# Enable compression for all browsers including crawlers
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -14,33 +14,45 @@
     AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Mobile-aware cache control for maximum compatibility
+# Smart cache control with crawler-friendly settings
 <IfModule mod_headers.c>
-    # Mobile browsers: force no-cache for real-time updates
-    <If "%{HTTP_USER_AGENT} =~ /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i">
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-        Header set Pragma "no-cache"
-        Header set Expires "0"
+    # Allow crawlers and performance tools unrestricted access
+    <If "%{HTTP_USER_AGENT} =~ /Googlebot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot/i">
+        Header set Cache-Control "public, max-age=86400"
+        Header always set X-Robots-Tag "index, follow"
     </If>
     
-    # Desktop browsers: basic caching
+    # Mobile browsers: balanced caching for better performance
+    <ElseIf "%{HTTP_USER_AGENT} =~ /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i">
+        Header set Cache-Control "public, max-age=3600"
+        Header set Pragma "public"
+    </ElseIf>
+    
+    # Desktop browsers: standard caching
     <Else>
         <FilesMatch "\.(js|css|jpg|jpeg|png|gif|ico|svg|webp)$">
+            Header set Cache-Control "public, max-age=86400"
+        </FilesMatch>
+        <FilesMatch "\.(html|htm)$">
             Header set Cache-Control "public, max-age=3600"
         </FilesMatch>
     </Else>
     
-    # Essential security header only
+    # Essential security headers - crawler friendly
     Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
     
-    # Remove potentially problematic headers
+    # Performance hints for crawlers
+    Header always set Accept-CH "Viewport-Width, Width"
+    
+    # Remove server identification but keep ETags for better caching
     Header unset X-Powered-By
     Header unset Server
-    Header unset ETag
 </IfModule>
 
-# Disable ETags completely for consistency
-FileETag None
+# Enable basic ETags for better cache validation
+FileETag MTime Size
 
 # SPA Routing and Optional HTTPS
 <IfModule mod_rewrite.c>

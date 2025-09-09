@@ -180,7 +180,7 @@ const BlogPost = () => {
                            </p>
                           
                           <Link to={`/blog/${relatedArticle.slug}`}>
-                            <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80">
+                            <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-gray-400 hover:text-gray-600">
                               Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                             </Button>

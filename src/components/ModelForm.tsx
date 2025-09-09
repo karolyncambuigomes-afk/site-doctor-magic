@@ -390,38 +390,6 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
               </Select>
             </div>
 
-            {/* Main Photo Upload */}
-            <div>
-              <Label htmlFor="main-image">Foto Principal</Label>
-              <div className="space-y-3">
-                <ImageUpload
-                  value={formData.image || ''}
-                  onChange={(url) => handleInputChange('image', url)}
-                  label="Foto Principal"
-                  placeholder="URL da foto principal ou faça upload"
-                  showEditButton={!!formData.image}
-                  onEditClick={() => setEditingMainImage(true)}
-                />
-                
-                {/* Photo selector for mixed access models */}
-                {model?.id && formData.members_only === false && formData.all_photos_public === false && (
-                  <div>
-                    <Label className="text-sm font-medium text-gray-700">
-                      Selecionar fotos que aparecerão publicamente
-                    </Label>
-                    <p className="text-xs text-gray-500 mb-2">
-                      Escolha quais fotos da galeria serão visíveis para visitantes não-membros
-                    </p>
-                    <PhotoSelector
-                      modelId={model.id}
-                      modelName={formData.name}
-                      selectedPhotos={selectedPhotos}
-                      onSelectionChange={setSelectedPhotos}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
           </CardContent>
         </Card>
 

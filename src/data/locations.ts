@@ -438,5 +438,545 @@ export const locations: Location[] = [
     },
     postcodes: ["SW7"],
     nearbyLandmarks: ["Victoria & Albert Museum", "Natural History Museum", "Science Museum", "Imperial College London"]
+  },
+  {
+    id: "paddington",
+    name: "Paddington",
+    slug: "escorts-in-paddington",
+    description: "Premium escort services in Paddington's transport hub and Hyde Park vicinity",
+    content: `
+      <p>Experience premium escort services in Paddington, a dynamic district that perfectly combines international connectivity with London elegance. Our sophisticated companions are ideally suited for this vibrant area that serves as a gateway to both central London and international destinations.</p>
+      
+      <p>Paddington, anchored by its world-famous railway station and proximity to Hyde Park, offers a unique blend of cosmopolitan energy and London charm. This well-connected district attracts international business travelers, tourists, and discerning locals who appreciate convenience, luxury, and easy access to London's finest attractions.</p>
+      
+      <p>Our comprehensive Paddington escort services excel at providing sophisticated accompaniment for:</p>
+      <ul>
+        <li>Airport transfers and international travel companionship from Heathrow Express terminal</li>
+        <li>Business meetings and corporate events near Lancaster Gate commercial district</li>
+        <li>Luxury hotel experiences at prestigious establishments including The Langham and Hilton London Paddington</li>
+        <li>Scenic walks through Hyde Park and Kensington Gardens</li>
+        <li>Fine dining at award-winning restaurants and gastropubs in the area</li>
+        <li>Shopping experiences at nearby Westfield London and luxury boutiques</li>
+        <li>Cultural visits to attractions along the Thames and museum district</li>
+        <li>Evening entertainment at exclusive bars and entertainment venues</li>
+      </ul>
+      
+      <p>Our Paddington escorts are worldly, multilingual, and experienced in providing exceptional service to international clientele. They understand the fast-paced nature of this transport hub while maintaining the sophistication and discretion expected by discerning clients visiting or residing in this strategic London location.</p>
+      
+      <p>Available across W2 postcodes with comprehensive coverage of Lancaster Gate, Bayswater, and Paddington Station areas, our escorts provide seamless, professional service for both brief encounters and extended engagements.</p>
+    `,
+    seoTitle: "Paddington Escorts | Premium Companions W2 Lancaster Gate | Five London",
+    seoDescription: "Elite escort services in Paddington W2. Sophisticated companions near Paddington Station, Hyde Park North. International travel companions available 24/7.",
+    keywords: ["paddington escorts", "w2 escorts london", "lancaster gate companions", "paddington station escorts", "hyde park escorts", "international travel escorts"],
+    coordinates: {
+      lat: 51.5154,
+      lng: -0.1755
+    },
+    postcodes: ["W2"],
+    nearbyLandmarks: ["Paddington Station", "Lancaster Gate", "Hyde Park North", "Little Venice"]
+  },
+  {
+    id: "st-johns-wood",
+    name: "St John's Wood",
+    slug: "escorts-in-st-johns-wood",
+    description: "Exclusive escort services in prestigious St John's Wood residential area",
+    content: `
+      <p>Discover exclusive escort services in St John's Wood, one of London's most prestigious and historically significant residential areas. Our refined companions embody the sophistication and discretion that this elite district represents.</p>
+      
+      <p>St John's Wood, renowned for its beautiful Victorian villas, tree-lined streets, and celebrity residents, offers an atmosphere of exclusivity and tranquility unique in central London. This distinguished area is home to Lord's Cricket Ground, Abbey Road Studios, and some of London's most expensive properties, attracting discerning individuals who value privacy, prestige, and cultural heritage.</p>
+      
+      <p>Our exclusive St John's Wood escort services provide elegant accompaniment for:</p>
+      <ul>
+        <li>Private events and exclusive gatherings in luxury residential settings</li>
+        <li>Cultural experiences at Lord's Cricket Ground and sporting events</li>
+        <li>Music heritage tours including Abbey Road Studios and Beatles landmarks</li>
+        <li>Fine dining at sophisticated restaurants and private members' clubs</li>
+        <li>Art gallery visits and cultural exhibitions in nearby areas</li>
+        <li>Peaceful walks through beautiful garden squares and tree-lined avenues</li>
+        <li>Luxury shopping experiences at nearby boutique destinations</li>
+        <li>Discreet companionship for high-profile clients and celebrities</li>
+      </ul>
+      
+      <p>Our St John's Wood escorts are carefully selected for their sophistication, discretion, and ability to move seamlessly within London's most exclusive circles. They appreciate the area's rich cultural heritage, understand the importance of privacy, and provide the highest level of professional service expected in this prestigious residential district.</p>
+      
+      <p>Serving NW8 postcodes with utmost discretion and professionalism, our St John's Wood companions ensure exceptional experiences while maintaining the privacy and exclusivity that define this remarkable area.</p>
+    `,
+    seoTitle: "St John's Wood Escorts | Elite Companions NW8 Lords | Five London",
+    seoDescription: "Exclusive escort services in St John's Wood NW8. Refined companions near Lord's Cricket Ground, Abbey Road. Discreet elite models for prestigious area.",
+    keywords: ["st johns wood escorts", "nw8 escorts london", "lords cricket companions", "abbey road escorts", "celebrity area escorts", "exclusive residential escorts"],
+    coordinates: {
+      lat: 51.5347,
+      lng: -0.1728
+    },
+    postcodes: ["NW8"],
+    nearbyLandmarks: ["Lord's Cricket Ground", "Abbey Road Studios", "Regent's Park North", "Wellington Hospital"]
+  },
+  {
+    id: "westminster",
+    name: "Westminster",
+    slug: "escorts-in-westminster",
+    description: "Distinguished escort services in the heart of Westminster's political district",
+    content: `
+      <p>Experience distinguished escort services in Westminster, the political and administrative heart of the United Kingdom. Our sophisticated companions understand the gravitas and importance of this historic district where power, tradition, and modern governance converge.</p>
+      
+      <p>Westminster, home to the Houses of Parliament, Westminster Abbey, and numerous government buildings, represents the pinnacle of British political and cultural heritage. This historic district attracts world leaders, diplomats, government officials, and distinguished visitors who require companions capable of navigating the most formal and prestigious environments with absolute discretion and professionalism.</p>
+      
+      <p>Our comprehensive Westminster escort services provide distinguished accompaniment for:</p>
+      <ul>
+        <li>Government functions and official ceremonies requiring formal protocol</li>
+        <li>Cultural visits to Westminster Abbey, Houses of Parliament, and historic landmarks</li>
+        <li>Diplomatic events and international government meetings</li>
+        <li>Fine dining at prestigious restaurants near government quarter</li>
+        <li>Professional networking events and political gatherings</li>
+        <li>Theatre performances in nearby West End and cultural venues</li>
+        <li>Walking tours of historic Westminster and constitutional landmarks</li>
+        <li>Business meetings and corporate events in this prestigious location</li>
+      </ul>
+      
+      <p>Our Westminster escorts are meticulously selected for their intelligence, cultural sophistication, political awareness, and exceptional ability to conduct themselves with the highest degree of professionalism in government and diplomatic circles. Each companion understands protocol, maintains absolute discretion, and possesses the cultural knowledge expected in this most significant of British locations.</p>
+      
+      <p>Available across SW1A and SW1P postcodes, our Westminster escort service provides unparalleled professionalism and discretion for clients requiring the highest standards of service in Britain's seat of power.</p>
+    `,
+    seoTitle: "Westminster Escorts | Distinguished Companions SW1A Parliament | Five London",
+    seoDescription: "Premium escort services in Westminster SW1A, SW1P. Sophisticated companions near Parliament, Westminster Abbey. Elite models for government district.",
+    keywords: ["westminster escorts", "parliament escorts london", "government district companions", "diplomatic escorts sw1", "westminster abbey escorts", "political area escorts"],
+    coordinates: {
+      lat: 51.4994,
+      lng: -0.1269
+    },
+    postcodes: ["SW1A", "SW1P"],
+    nearbyLandmarks: ["Houses of Parliament", "Westminster Abbey", "Big Ben", "St James's Park"]
+  },
+  {
+    id: "city-of-london",
+    name: "City of London",
+    slug: "escorts-in-city-of-london",
+    description: "Professional escort services in the historic financial City of London",
+    content: `
+      <p>Professional escort services in the City of London, the historic financial heart and original core of London. Our business-savvy companions excel in this unique environment where ancient history meets cutting-edge finance, providing sophisticated support for corporate and cultural engagements.</p>
+      
+      <p>The City of London, known simply as 'The City,' is both a historic square mile of incredible heritage and Europe's leading financial center. This prestigious district houses the Bank of England, London Stock Exchange, and numerous multinational corporations, attracting financial professionals, business leaders, and international clients who require companions with business acumen and cultural sophistication.</p>
+      
+      <p>Our comprehensive City of London escort services provide professional accompaniment for:</p>
+      <ul>
+        <li>High-level business meetings and financial sector events</li>
+        <li>Corporate entertainment and client relationship management</li>
+        <li>Livery company dinners and traditional City ceremonies</li>
+        <li>Cultural visits to historic churches including St Paul's Cathedral</li>
+        <li>Fine dining at prestigious restaurants and traditional chophouses</li>
+        <li>Networking events and professional industry gatherings</li>
+        <li>Historic walking tours and architectural appreciation</li>
+        <li>After-work entertainment and exclusive venue experiences</li>
+      </ul>
+      
+      <p>Our City of London escorts combine business professionalism with cultural sophistication, understanding both the fast-paced corporate environment and the rich historical significance of this ancient district. They are well-versed in financial sector protocols, traditional City customs, and possess the intelligence and sophistication required for high-level business environments.</p>
+      
+      <p>Serving EC2, EC3, and EC4 postcodes, our City of London escort service delivers exceptional professionalism for the unique demands of London's financial and historic heart.</p>
+    `,
+    seoTitle: "City of London Escorts | Professional Companions EC2 EC3 Bank | Five London",
+    seoDescription: "Elite escort services in City of London EC2, EC3, EC4. Business companions near Bank, Liverpool Street. Professional models for financial district.",
+    keywords: ["city of london escorts", "bank escorts london", "financial district companions", "ec2 ec3 escorts", "liverpool street escorts", "business escorts city"],
+    coordinates: {
+      lat: 51.5144,
+      lng: -0.0931
+    },
+    postcodes: ["EC2", "EC3", "EC4"],
+    nearbyLandmarks: ["Bank of England", "Liverpool Street Station", "St Paul's Cathedral", "London Bridge"]
+  },
+  {
+    id: "kings-cross",
+    name: "King's Cross",
+    slug: "escorts-in-kings-cross",
+    description: "Contemporary escort services in the regenerated King's Cross area",
+    content: `
+      <p>Experience contemporary escort services in King's Cross, London's most dramatically transformed district that perfectly blends transport connectivity with cutting-edge urban development. Our modern, sophisticated companions are ideal for this dynamic area that represents London's innovative future.</p>
+      
+      <p>King's Cross, centered around the magnificent St. Pancras International station and featuring Coal Drops Yard shopping district, has evolved into a vibrant hub of culture, business, and lifestyle. This regenerated area attracts creative professionals, international travelers, students, and forward-thinking individuals who appreciate modern urban sophistication and architectural excellence.</p>
+      
+      <p>Our comprehensive King's Cross escort services provide contemporary accompaniment for:</p>
+      <ul>
+        <li>International travel companionship via Eurostar and major rail connections</li>
+        <li>Business meetings in modern office developments and co-working spaces</li>
+        <li>Shopping experiences at Coal Drops Yard and unique boutique stores</li>
+        <li>Cultural events at contemporary venues and art installations</li>
+        <li>Fine dining at innovative restaurants and trendy eateries</li>
+        <li>Academic events and university-related functions</li>
+        <li>Architectural tours and modern development appreciation</li>
+        <li>Nightlife experiences at cutting-edge bars and entertainment venues</li>
+      </ul>
+      
+      <p>Our King's Cross escorts embody contemporary sophistication, understanding both the area's innovative character and its excellent transport connections. They are well-educated, culturally aware, and perfectly suited for clients who appreciate modern urban development, architectural excellence, and the dynamic energy of this transformed district.</p>
+      
+      <p>Available across N1C postcodes, our King's Cross escort service combines modern professionalism with cultural sophistication for this exciting and rapidly evolving area of London.</p>
+    `,
+    seoTitle: "King's Cross Escorts | Contemporary Companions N1C St Pancras | Five London",
+    seoDescription: "Modern escort services in King's Cross N1C. Sophisticated companions near St Pancras, Coal Drops Yard. Elite models for regenerated area.",
+    keywords: ["kings cross escorts", "n1c escorts london", "st pancras companions", "coal drops yard escorts", "eurostar travel escorts", "regenerated area escorts"],
+    coordinates: {
+      lat: 51.5308,
+      lng: -0.1238
+    },
+    postcodes: ["N1C"],
+    nearbyLandmarks: ["St. Pancras International", "Coal Drops Yard", "British Library", "Granary Square"]
+  },
+  {
+    id: "islington",
+    name: "Islington",
+    slug: "escorts-in-islington",
+    description: "Trendy escort services in vibrant Islington's cultural quarter",
+    content: `
+      <p>Discover trendy escort services in Islington, North London's cultural and entertainment epicenter. Our stylish, culturally-aware companions perfectly complement this vibrant district known for its theatrical heritage, dining scene, and creative energy.</p>
+      
+      <p>Islington, particularly the famous Upper Street corridor and Angel area, represents London's creative spirit with its numerous theaters, independent shops, gastropubs, and cultural venues. This trendy district attracts artists, media professionals, creative individuals, and culture enthusiasts who appreciate authentic London character combined with contemporary sophistication.</p>
+      
+      <p>Our comprehensive Islington escort services provide stylish accompaniment for:</p>
+      <ul>
+        <li>Theatre performances at renowned venues including Almeida Theatre and Little Angel Theatre</li>
+        <li>Dining experiences at award-winning restaurants and innovative gastropubs</li>
+        <li>Cultural events and independent cinema screenings</li>
+        <li>Shopping at unique boutiques and vintage stores along Upper Street</li>
+        <li>Art gallery openings and creative exhibitions</li>
+        <li>Live music venues and entertainment experiences</li>
+        <li>Antique market browsing and collector events</li>
+        <li>Nightlife experiences at trendy bars and cultural venues</li>
+      </ul>
+      
+      <p>Our Islington escorts are culturally sophisticated, creative, and genuinely passionate about the arts, entertainment, and London's vibrant cultural scene. They make ideal companions for experiencing the authentic character, creative energy, and cultural richness that makes Islington one of London's most beloved and dynamic districts.</p>
+      
+      <p>Serving N1 postcodes throughout Angel, Upper Street, and surrounding areas, our Islington escort service combines cultural sophistication with trendy urban style for this creative North London destination.</p>
+    `,
+    seoTitle: "Islington Escorts | Trendy Companions N1 Angel Upper Street | Five London",
+    seoDescription: "Cultural escort services in Islington N1. Stylish companions near Angel, Upper Street. Elite models for theatre district and cultural venues.",
+    keywords: ["islington escorts", "n1 escorts london", "angel companions", "upper street escorts", "theatre district escorts", "cultural area escorts"],
+    coordinates: {
+      lat: 51.5360,
+      lng: -0.1031
+    },
+    postcodes: ["N1"],
+    nearbyLandmarks: ["Angel Station", "Upper Street", "Almeida Theatre", "Emirates Stadium"]
+  },
+  {
+    id: "hammersmith",
+    name: "Hammersmith",
+    slug: "escorts-in-hammersmith",
+    description: "Professional escort services in Hammersmith's media and riverside district",
+    content: `
+      <p>Experience professional escort services in Hammersmith, West London's thriving media hub and beautiful riverside district. Our sophisticated companions understand the professional demands of this media-centric area while appreciating its scenic Thames location and cultural offerings.</p>
+      
+      <p>Hammersmith, home to major media companies, beautiful riverside walks, and the historic Apollo venue, combines business functionality with leisure appeal. This well-connected district attracts media professionals, business executives, and entertainment industry figures who value both professional services and cultural sophistication in a picturesque Thames-side setting.</p>
+      
+      <p>Our comprehensive Hammersmith escort services provide professional accompaniment for:</p>
+      <ul>
+        <li>Media industry events and television production meetings</li>
+        <li>Corporate entertainment and business networking functions</li>
+        <li>Concerts and performances at the legendary Hammersmith Apollo</li>
+        <li>Riverside dining experiences and Thames-side venues</li>
+        <li>Business meetings at major media company headquarters</li>
+        <li>Cultural events and entertainment industry gatherings</li>
+        <li>Scenic Thames Path walks and riverside recreation</li>
+        <li>Shopping and leisure experiences at Westfield London</li>
+      </ul>
+      
+      <p>Our Hammersmith escorts are professionally astute, media-savvy, and culturally sophisticated, understanding both the business requirements of the entertainment industry and the leisure opportunities this riverside location provides. They are excellent companions for clients working in media, entertainment, and business sectors who appreciate both professional competence and cultural awareness.</p>
+      
+      <p>Available across W6 postcodes covering Hammersmith Broadway, riverside areas, and media district, our escort service provides professional sophistication and cultural appreciation for this dynamic West London area.</p>
+    `,
+    seoTitle: "Hammersmith Escorts | Professional Companions W6 Apollo | Five London",
+    seoDescription: "Elite escort services in Hammersmith W6. Media-savvy companions near Apollo, Thames riverside. Professional models for entertainment district.",
+    keywords: ["hammersmith escorts", "w6 escorts london", "apollo companions", "media district escorts", "thames riverside escorts", "entertainment industry escorts"],
+    coordinates: {
+      lat: 51.4927,
+      lng: -0.2339
+    },
+    postcodes: ["W6"],
+    nearbyLandmarks: ["Hammersmith Apollo", "Thames Path", "Westfield London", "Riverside Studios"]
+  },
+  {
+    id: "fulham",
+    name: "Fulham",
+    slug: "escorts-in-fulham",
+    description: "Elegant escort services in sophisticated Fulham residential area",
+    content: `
+      <p>Discover elegant escort services in Fulham, an affluent riverside district that perfectly balances residential sophistication with recreational appeal. Our refined companions are ideally suited for this prosperous area known for its beautiful homes, riverside location, and upscale lifestyle.</p>
+      
+      <p>Fulham, stretching along the Thames with areas like Chelsea Harbour and Fulham Palace, represents affluent London living with excellent recreational facilities, sophisticated dining, and beautiful riverside settings. This desirable district attracts successful professionals, families, and discerning individuals who appreciate quality, sophistication, and scenic beauty in their urban environment.</p>
+      
+      <p>Our comprehensive Fulham escort services provide elegant accompaniment for:</p>
+      <ul>
+        <li>Luxury dining experiences at riverside restaurants and gastropubs</li>
+        <li>Chelsea Harbour yacht club events and waterside entertainment</li>
+        <li>Football matches and sporting events at nearby Stamford Bridge</li>
+        <li>Riverside walks along the Thames Path and beautiful parks</li>
+        <li>Shopping experiences at boutique stores and lifestyle venues</li>
+        <li>Cultural visits to Fulham Palace and historic sites</li>
+        <li>Private events and exclusive residential gatherings</li>
+        <li>Business entertainment and corporate hospitality events</li>
+      </ul>
+      
+      <p>Our Fulham escorts embody the refined sophistication and relaxed elegance that characterizes this affluent district. They appreciate both the area's upscale residential character and its recreational opportunities, making them perfect companions for clients who value quality, sophistication, and the finer aspects of London riverside living.</p>
+      
+      <p>Serving SW6 postcodes throughout Fulham, Chelsea Harbour, and riverside areas, our escort service combines residential elegance with professional sophistication for this prestigious West London location.</p>
+    `,
+    seoTitle: "Fulham Escorts | Elegant Companions SW6 Chelsea Harbour | Five London",
+    seoDescription: "Premium escort services in Fulham SW6. Refined companions near Chelsea Harbour, Thames riverside. Elite models for affluent residential area.",
+    keywords: ["fulham escorts", "sw6 escorts london", "chelsea harbour companions", "thames fulham escorts", "riverside area escorts", "affluent fulham escorts"],
+    coordinates: {
+      lat: 51.4821,
+      lng: -0.2009
+    },
+    postcodes: ["SW6"],
+    nearbyLandmarks: ["Chelsea Harbour", "Fulham Palace", "Craven Cottage", "Parsons Green"]
+  },
+  {
+    id: "clapham",
+    name: "Clapham",
+    slug: "escorts-in-clapham",
+    description: "Vibrant escort services in Clapham's young professional district",
+    content: `
+      <p>Experience vibrant escort services in Clapham, South London's premier destination for young professionals and dynamic social life. Our energetic, sophisticated companions perfectly complement this lively district known for its excellent dining, nightlife, and strong community spirit.</p>
+      
+      <p>Clapham, centered around the expansive Clapham Common and bustling high streets, has become synonymous with London's young professional lifestyle. This energetic area attracts ambitious professionals, creative individuals, and social enthusiasts who appreciate quality dining, vibrant nightlife, and community-centered living in an accessible South London location.</p>
+      
+      <p>Our comprehensive Clapham escort services provide energetic accompaniment for:</p>
+      <ul>
+        <li>Dining experiences at trendy restaurants and popular gastropubs</li>
+        <li>Nightlife adventures at buzzing bars, clubs, and entertainment venues</li>
+        <li>Outdoor activities and recreation on Clapham Common</li>
+        <li>Social events and networking gatherings for young professionals</li>
+        <li>Shopping experiences at independent boutiques and local markets</li>
+        <li>Cultural events and community celebrations</li>
+        <li>Fitness activities and wellness experiences</li>
+        <li>Business networking events and professional meetups</li>
+      </ul>
+      
+      <p>Our Clapham escorts are vibrant, socially confident, and perfectly in tune with the energetic lifestyle and professional ambitions that define this popular district. They excel at both daytime sophistication and evening entertainment, making them ideal companions for clients who appreciate the dynamic energy, social opportunities, and professional networking that Clapham offers.</p>
+      
+      <p>Available across SW4 postcodes covering Clapham Common, High Street, and surrounding areas, our escort service provides energetic sophistication and social confidence for this vibrant South London destination.</p>
+    `,
+    seoTitle: "Clapham Escorts | Vibrant Companions SW4 Common | Five London",
+    seoDescription: "Dynamic escort services in Clapham SW4. Energetic companions near Clapham Common, nightlife district. Elite models for young professional area.",
+    keywords: ["clapham escorts", "sw4 escorts london", "clapham common companions", "young professional escorts", "clapham nightlife escorts", "south london escorts"],
+    coordinates: {
+      lat: 51.4618,
+      lng: -0.1372
+    },
+    postcodes: ["SW4"],
+    nearbyLandmarks: ["Clapham Common", "Clapham Junction", "Northcote Road", "Battersea Rise"]
+  },
+  {
+    id: "greenwich",
+    name: "Greenwich",
+    slug: "escorts-in-greenwich",
+    description: "Cultural escort services in historic Greenwich UNESCO World Heritage area",
+    content: `
+      <p>Discover cultural escort services in Greenwich, London's magnificent UNESCO World Heritage site where maritime history meets modern sophistication. Our intellectually curious companions are perfect for exploring this fascinating area rich in scientific heritage, cultural significance, and stunning riverside beauty.</p>
+      
+      <p>Greenwich, home to the Royal Observatory, National Maritime Museum, and the Prime Meridian, represents London's incredible contribution to global navigation, timekeeping, and scientific discovery. This historic district attracts visitors from around the world who seek cultural enrichment, historical understanding, and educational experiences in one of London's most beautiful and significant locations.</p>
+      
+      <p>Our comprehensive Greenwich escort services provide cultural accompaniment for:</p>
+      <ul>
+        <li>Educational visits to the Royal Observatory and National Maritime Museum</li>
+        <li>Historic tours of Greenwich Palace and Queen's House</li>
+        <li>Scenic walks through Greenwich Park and up to Observatory Hill</li>
+        <li>Cultural events and exhibitions at world-class museums</li>
+        <li>Thames river experiences and Cutty Sark visits</li>
+        <li>Fine dining at riverside restaurants with stunning London views</li>
+        <li>Market browsing at Greenwich Market for unique finds</li>
+        <li>Academic events and scientific conferences</li>
+      </ul>
+      
+      <p>Our Greenwich escorts are culturally sophisticated, historically informed, and genuinely passionate about learning and exploration. They make exceptional companions for clients who appreciate scientific heritage, maritime history, and cultural significance, enhancing any visit to this remarkable UNESCO World Heritage location.</p>
+      
+      <p>Serving SE10 postcodes throughout Greenwich, including the historic town center, park areas, and riverside, our escort service combines cultural sophistication with historical appreciation for this magnificent London destination.</p>
+    `,
+    seoTitle: "Greenwich Escorts | Cultural Companions SE10 Observatory | Five London",
+    seoDescription: "Educational escort services in Greenwich SE10. Cultured companions near Royal Observatory, Maritime Museum. Elite models for UNESCO heritage site.",
+    keywords: ["greenwich escorts", "se10 escorts london", "observatory companions", "maritime museum escorts", "unesco heritage escorts", "cultural greenwich escorts"],
+    coordinates: {
+      lat: 51.4816,
+      lng: -0.0076
+    },
+    postcodes: ["SE10"],
+    nearbyLandmarks: ["Royal Observatory", "National Maritime Museum", "Greenwich Park", "Cutty Sark"]
+  },
+  {
+    id: "richmond",
+    name: "Richmond",
+    slug: "escorts-in-richmond",
+    description: "Refined escort services in elegant Richmond upon Thames",
+    content: `
+      <p>Experience refined escort services in Richmond upon Thames, one of London's most elegant and naturally beautiful areas. Our sophisticated companions perfectly complement this prestigious district known for its royal connections, magnificent park, and Thames-side elegance.</p>
+      
+      <p>Richmond, featuring the vast Richmond Park, beautiful riverside settings, and historic royal connections, represents the perfect harmony between urban sophistication and natural beauty. This affluent area attracts discerning residents and visitors who appreciate outdoor recreation, cultural heritage, excellent dining, and the refined lifestyle that comes with royal borough status.</p>
+      
+      <p>Our comprehensive Richmond escort services provide refined accompaniment for:</p>
+      <ul>
+        <li>Scenic experiences in Richmond Park and deer watching</li>
+        <li>Luxury dining at riverside restaurants with stunning Thames views</li>
+        <li>Cultural visits to Ham House and other historic properties</li>
+        <li>Shopping experiences in Richmond's elegant high street boutiques</li>
+        <li>Thames boat trips and riverside recreation</li>
+        <li>Golf and country club events at prestigious venues</li>
+        <li>Theatre performances at Richmond Theatre</li>
+        <li>Outdoor activities and beautiful nature walks</li>
+      </ul>
+      
+      <p>Our Richmond escorts embody the refined elegance, natural appreciation, and sophisticated lifestyle that characterizes this remarkable area. They understand both the outdoor recreational opportunities and cultural sophistication that makes Richmond such a desirable destination for those seeking the finest aspects of London suburban living.</p>
+      
+      <p>Available across TW9 postcodes covering Richmond Park, riverside areas, and town center, our escort service provides natural elegance and cultural sophistication for this prestigious London borough.</p>
+    `,
+    seoTitle: "Richmond Escorts | Refined Companions TW9 Richmond Park | Five London",
+    seoDescription: "Premium escort services in Richmond TW9. Elegant companions near Richmond Park, Thames riverside. Elite models for royal borough area.",
+    keywords: ["richmond escorts", "tw9 escorts london", "richmond park companions", "thames richmond escorts", "royal borough escorts", "richmond upon thames escorts"],
+    coordinates: {
+      lat: 51.4613,
+      lng: -0.3037
+    },
+    postcodes: ["TW9"],
+    nearbyLandmarks: ["Richmond Park", "Richmond Theatre", "Ham House", "Kew Gardens"]
+  },
+  {
+    id: "wimbledon",
+    name: "Wimbledon",
+    slug: "escorts-in-wimbledon",
+    description: "Elite escort services in prestigious Wimbledon tennis capital",
+    content: `
+      <p>Discover elite escort services in Wimbledon, the world-renowned tennis capital and one of London's most prestigious residential areas. Our sophisticated companions understand the international prestige and sporting heritage that makes this district globally famous.</p>
+      
+      <p>Wimbledon, internationally celebrated for hosting The Championships and featuring beautiful common land, elegant village atmosphere, and excellent transport links, attracts sports enthusiasts, international visitors, and affluent residents who appreciate both sporting excellence and suburban elegance in a globally recognized location.</p>
+      
+      <p>Our comprehensive Wimbledon escort services provide elite accompaniment for:</p>
+      <ul>
+        <li>The Championships tennis tournament and sporting events</li>
+        <li>Fine dining at award-winning restaurants in Wimbledon Village</li>
+        <li>Cultural events and exhibitions at sporting venues</li>
+        <li>Shopping experiences at high-end boutiques and specialty stores</li>
+        <li>Outdoor recreation on Wimbledon Common and beautiful parks</li>
+        <li>Business entertainment and corporate hospitality events</li>
+        <li>International visitor experiences and sporting tourism</li>
+        <li>Exclusive club events and sporting functions</li>
+      </ul>
+      
+      <p>Our Wimbledon escorts embody international sophistication, sporting appreciation, and the refined elegance associated with this globally prestigious location. They are perfect companions for clients attending major sporting events, international gatherings, or seeking to experience the unique character and worldwide reputation of this remarkable district.</p>
+      
+      <p>Serving SW19 postcodes throughout Wimbledon Village, Common, and championship grounds area, our escort service provides international sophistication and sporting elegance for this world-famous London destination.</p>
+    `,
+    seoTitle: "Wimbledon Escorts | Elite Companions SW19 Tennis Championships | Five London",
+    seoDescription: "Premium escort services in Wimbledon SW19. Sophisticated companions near All England Club, championships. Elite models for tennis capital area.",
+    keywords: ["wimbledon escorts", "sw19 escorts london", "tennis championships companions", "all england club escorts", "wimbledon village escorts", "sporting events escorts"],
+    coordinates: {
+      lat: 51.4214,
+      lng: -0.2044
+    },
+    postcodes: ["SW19"],
+    nearbyLandmarks: ["All England Lawn Tennis Club", "Wimbledon Common", "Centre Court", "Wimbledon Village"]
+  },
+  {
+    id: "battersea",
+    name: "Battersea",
+    slug: "escorts-in-battersea",
+    description: "Contemporary escort services in regenerated Battersea Power Station area",
+    content: `
+      <p>Experience contemporary escort services in Battersea, South London's most dramatically transformed area featuring the iconic Power Station and cutting-edge urban development. Our sophisticated companions are perfect for this dynamic district that represents London's innovative urban regeneration at its finest.</p>
+      
+      <p>Battersea, centered around the magnificently restored Power Station and Nine Elms development, has become London's most exciting new destination for luxury living, cultural experiences, and architectural appreciation. This transformed area attracts forward-thinking professionals, luxury property enthusiasts, and individuals who appreciate bold urban design and contemporary lifestyle opportunities.</p>
+      
+      <p>Our comprehensive Battersea escort services provide contemporary accompaniment for:</p>
+      <ul>
+        <li>Luxury experiences at Battersea Power Station shopping and dining complex</li>
+        <li>Cultural events and exhibitions at innovative venues</li>
+        <li>Fine dining at cutting-edge restaurants with Thames views</li>
+        <li>Property viewings and luxury real estate events</li>
+        <li>Architectural tours and urban development appreciation</li>
+        <li>Business events in modern conference facilities</li>
+        <li>Riverside recreation and beautiful park experiences</li>
+        <li>Contemporary art galleries and cultural exhibitions</li>
+      </ul>
+      
+      <p>Our Battersea escorts embody contemporary sophistication, architectural appreciation, and the forward-thinking energy that characterizes this remarkable regeneration. They understand both the area's industrial heritage and its exciting modern transformation, making them ideal companions for clients who appreciate innovative urban development and luxury contemporary living.</p>
+      
+      <p>Available across SW11 postcodes covering Power Station, Nine Elms, and riverside areas, our escort service provides contemporary sophistication and architectural appreciation for this exciting South London destination.</p>
+    `,
+    seoTitle: "Battersea Escorts | Contemporary Companions SW11 Power Station | Five London",
+    seoDescription: "Modern escort services in Battersea SW11. Sophisticated companions near Power Station, Nine Elms. Elite models for regenerated luxury area.",
+    keywords: ["battersea escorts", "sw11 escorts london", "power station companions", "nine elms escorts", "battersea regeneration escorts", "luxury development escorts"],
+    coordinates: {
+      lat: 51.4816,
+      lng: -0.1371
+    },
+    postcodes: ["SW11"],
+    nearbyLandmarks: ["Battersea Power Station", "Nine Elms", "Battersea Park", "Chelsea Bridge"]
+  },
+  {
+    id: "bermondsey",
+    name: "Bermondsey",
+    slug: "escorts-in-bermondsey",
+    description: "Trendy escort services in converted Bermondsey cultural quarter",
+    content: `
+      <p>Discover trendy escort services in Bermondsey, South London's transformed cultural and culinary destination where industrial heritage meets contemporary sophistication. Our culturally aware companions perfectly complement this vibrant area known for its converted warehouses, artisanal food scene, and Thames-side character.</p>
+      
+      <p>Bermondsey, featuring the famous Shad Thames with its converted Victorian warehouses, Borough Market proximity, and London Bridge connections, represents authentic London transformation and cultural creativity. This trendy district attracts food enthusiasts, creative professionals, and culture seekers who appreciate authentic character, culinary excellence, and artistic heritage in a genuine London setting.</p>
+      
+      <p>Our comprehensive Bermondsey escort services provide trendy accompaniment for:</p>
+      <ul>
+        <li>Culinary experiences at renowned restaurants and gastropubs</li>
+        <li>Food market exploration and artisanal shopping</li>
+        <li>Cultural events at converted warehouse venues and galleries</li>
+        <li>Thames-side walks and riverside recreation</li>
+        <li>Art gallery openings and creative exhibitions</li>
+        <li>Historic pub tours and traditional London experiences</li>
+        <li>Business events in converted industrial spaces</li>
+        <li>Photography tours and architectural appreciation</li>
+      </ul>
+      
+      <p>Our Bermondsey escorts are culturally sophisticated, food-aware, and genuinely passionate about the authentic London character and creative energy that defines this remarkable area. They make excellent companions for clients who appreciate genuine cultural transformation, culinary excellence, and the unique charm of converted industrial London.</p>
+      
+      <p>Serving SE1 postcodes throughout Shad Thames, London Bridge, and surrounding areas, our escort service combines cultural sophistication with authentic London character for this vibrant South London destination.</p>
+    `,
+    seoTitle: "Bermondsey Escorts | Trendy Companions SE1 Shad Thames | Five London",
+    seoDescription: "Cultural escort services in Bermondsey SE1. Trendy companions near Shad Thames, London Bridge. Elite models for converted warehouse district.",
+    keywords: ["bermondsey escorts", "se1 escorts london", "shad thames companions", "london bridge escorts", "cultural bermondsey escorts", "warehouse district escorts"],
+    coordinates: {
+      lat: 51.4982,
+      lng: -0.0677
+    },
+    postcodes: ["SE1"],
+    nearbyLandmarks: ["Shad Thames", "London Bridge", "Borough Market", "Tower Bridge"]
+  },
+  {
+    id: "blackfriars",
+    name: "Blackfriars",
+    slug: "escorts-in-blackfriars",
+    description: "Sophisticated escort services in Blackfriars cultural and business district",
+    content: `
+      <p>Experience sophisticated escort services in Blackfriars, a distinguished district that perfectly balances cultural significance with business functionality. Our refined companions understand the unique character of this area where the City meets South Bank cultural attractions.</p>
+      
+      <p>Blackfriars, positioned strategically between the financial City and the South Bank cultural quarter, features excellent transport links, proximity to Tate Modern, and beautiful Thames views. This well-connected district attracts business professionals, culture enthusiasts, and discerning visitors who appreciate both corporate convenience and cultural richness in a central London location.</p>
+      
+      <p>Our comprehensive Blackfriars escort services provide sophisticated accompaniment for:</p>
+      <ul>
+        <li>Business meetings and corporate events in modern office developments</li>
+        <li>Cultural visits to Tate Modern and South Bank attractions</li>
+        <li>Fine dining at riverside restaurants with spectacular Thames views</li>
+        <li>Theatre performances and cultural entertainment on South Bank</li>
+        <li>Art gallery exhibitions and cultural events</li>
+        <li>Professional networking events and business functions</li>
+        <li>Thames river experiences and scenic walks</li>
+        <li>Historic pub visits and traditional London experiences</li>
+      </ul>
+      
+      <p>Our Blackfriars escorts combine business sophistication with cultural awareness, understanding both the professional requirements of the business district and the cultural opportunities of the South Bank. They are ideal companions for clients who appreciate the strategic location, cultural richness, and business functionality that Blackfriars uniquely provides.</p>
+      
+      <p>Available across EC4V postcodes covering Blackfriars Station, South Bank access, and Thames-side areas, our escort service provides business sophistication and cultural appreciation for this strategically located London district.</p>
+    `,
+    seoTitle: "Blackfriars Escorts | Sophisticated Companions EC4V South Bank | Five London",
+    seoDescription: "Premium escort services in Blackfriars EC4V. Refined companions near Tate Modern, South Bank. Elite models for cultural and business district.",
+    keywords: ["blackfriars escorts", "ec4v escorts london", "south bank companions", "tate modern escorts", "cultural district escorts", "thames blackfriars escorts"],
+    coordinates: {
+      lat: 51.5115,
+      lng: -0.1041
+    },
+    postcodes: ["EC4V"],
+    nearbyLandmarks: ["Tate Modern", "Blackfriars Bridge", "South Bank", "Millennium Bridge"]
   }
 ];

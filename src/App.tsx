@@ -110,6 +110,21 @@ const App = () => (
                   <Route path="/escorts-in-kensington" element={<LocationDetail />} />
                   <Route path="/escorts-in-canary-wharf" element={<LocationDetail />} />
                   <Route path="/escorts-in-notting-hill" element={<LocationDetail />} />
+                  <Route path="/escorts-in-paddington" element={<LocationDetail />} />
+                  <Route path="/escorts-in-st-johns-wood" element={<LocationDetail />} />
+                  <Route path="/escorts-in-westminster" element={<LocationDetail />} />
+                  <Route path="/escorts-in-city-of-london" element={<LocationDetail />} />
+                  <Route path="/escorts-in-kings-cross" element={<LocationDetail />} />
+                  <Route path="/escorts-in-islington" element={<LocationDetail />} />
+                  <Route path="/escorts-in-hammersmith" element={<LocationDetail />} />
+                  <Route path="/escorts-in-fulham" element={<LocationDetail />} />
+                  <Route path="/escorts-in-clapham" element={<LocationDetail />} />
+                  <Route path="/escorts-in-greenwich" element={<LocationDetail />} />
+                  <Route path="/escorts-in-richmond" element={<LocationDetail />} />
+                  <Route path="/escorts-in-wimbledon" element={<LocationDetail />} />
+                  <Route path="/escorts-in-battersea" element={<LocationDetail />} />
+                  <Route path="/escorts-in-bermondsey" element={<LocationDetail />} />
+                  <Route path="/escorts-in-blackfriars" element={<LocationDetail />} />
                   <Route path="/characteristics" element={<Characteristics />} />
                   <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
                   {/* Specific characteristic routes for SEO */}

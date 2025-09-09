@@ -51,34 +51,55 @@ export function isPrivateModeSync(): boolean {
   }
 }
 
-// Safe storage utility with fallbacks
+// Simplified and robust storage utility
 export const safeStorage = {
   getItem: (key: string): string | null => {
     try {
-      return localStorage.getItem(key);
+      const value = localStorage.getItem(key);
+      // Validate JSON if it looks like JSON
+      if (value && (value.startsWith('{') || value.startsWith('['))) {
+        try {
+          JSON.parse(value);
+          return value;
+        } catch {
+          console.warn(`Invalid JSON in storage for key: ${key}`);
+          localStorage.removeItem(key);
+          return null;
+        }
+      }
+      return value;
     } catch {
       try {
         return sessionStorage.getItem(key);
       } catch {
+        console.warn(`Storage access failed for key: ${key}`);
         return null;
       }
     }
   },
+  
   setItem: (key: string, value: string): void => {
+    // Validate JSON before storing
+    if (value && (value.startsWith('{') || value.startsWith('['))) {
+      try {
+        JSON.parse(value);
+      } catch {
+        console.error(`Attempted to store invalid JSON for key: ${key}`);
+        return;
+      }
+    }
+    
     try {
       localStorage.setItem(key, value);
     } catch {
       try {
         sessionStorage.setItem(key, value);
       } catch {
-        // Store in memory as last resort
-        if (typeof window !== 'undefined') {
-          (window as any).memoryStorage = (window as any).memoryStorage || {};
-          (window as any).memoryStorage[key] = value;
-        }
+        console.warn(`Failed to store value for key: ${key}`);
       }
     }
   },
+  
   removeItem: (key: string): void => {
     try {
       localStorage.removeItem(key);
@@ -86,9 +107,7 @@ export const safeStorage = {
       try {
         sessionStorage.removeItem(key);
       } catch {
-        if (typeof window !== 'undefined' && (window as any).memoryStorage) {
-          delete (window as any).memoryStorage[key];
-        }
+        console.warn(`Failed to remove key: ${key}`);
       }
     }
   }

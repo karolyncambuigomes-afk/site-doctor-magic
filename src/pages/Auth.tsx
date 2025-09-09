@@ -152,29 +152,37 @@ export const Auth: React.FC = () => {
     setError('');
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
+      console.log('Attempting sign in with:', { email: formData.email });
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email.trim(),
         password: formData.password,
       });
 
       if (error) {
+        console.error('Sign in error:', error);
         if (error.message.includes('Invalid login credentials')) {
-          setError('Invalid email or password. Please check your credentials.');
+          setError('Email ou senha incorretos. Verifique suas credenciais.');
         } else if (error.message.includes('Email not confirmed')) {
-          setError('Please check your email and click the confirmation link before signing in.');
+          setError('Por favor, confirme seu email antes de fazer login.');
+        } else if (error.message.includes('JSON')) {
+          setError('Erro de conectividade. Tente recarregar a página.');
         } else {
-          setError(error.message);
+          setError(`Erro: ${error.message}`);
         }
         return;
       }
 
-      toast({
-        title: "Welcome back!",
-        description: "You have successfully signed in.",
-      });
+      if (data.user) {
+        console.log('Sign in successful for user:', data.user.id);
+        toast({
+          title: "Bem-vindo de volta!",
+          description: "Login realizado com sucesso.",
+        });
+      }
     } catch (err: any) {
-      setError('An unexpected error occurred. Please try again.');
-      console.error('Sign in error:', err);
+      console.error('Unexpected sign-in error:', err);
+      setError('Erro inesperado. Tente recarregar a página.');
     } finally {
       setLoading(false);
     }
@@ -188,10 +196,12 @@ export const Auth: React.FC = () => {
     setError('');
 
     try {
+      console.log('Attempting sign up with:', { email: formData.email });
+      
       const redirectUrl = `${window.location.origin}/`;
       
-      const { error } = await supabase.auth.signUp({
-        email: formData.email,
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email.trim(),
         password: formData.password,
         options: {
           emailRedirectTo: redirectUrl
@@ -199,28 +209,34 @@ export const Auth: React.FC = () => {
       });
 
       if (error) {
+        console.error('Sign up error:', error);
         if (error.message.includes('User already registered')) {
-          setError('An account with this email already exists. Please sign in instead.');
+          setError('Este email já está registrado. Tente fazer login.');
+        } else if (error.message.includes('JSON')) {
+          setError('Erro de conectividade. Tente recarregar a página.');
         } else {
-          setError(error.message);
+          setError(`Erro: ${error.message}`);
         }
         return;
       }
 
-      toast({
-        title: "Check your email",
-        description: "We've sent you a confirmation link. Please check your email and click the link to activate your account.",
-      });
+      if (data.user) {
+        console.log('Sign up successful for user:', data.user.id);
+        toast({
+          title: "Verifique seu email",
+          description: "Enviamos um link de confirmação. Verifique seu email e clique no link para ativar sua conta.",
+        });
 
-      // Clear form
-      setFormData({
-        email: '',
-        password: '',
-        confirmPassword: ''
-      });
+        // Clear form
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: ''
+        });
+      }
     } catch (err: any) {
-      setError('An unexpected error occurred. Please try again.');
-      console.error('Sign up error:', err);
+      console.error('Unexpected sign-up error:', err);
+      setError('Erro inesperado. Tente recarregar a página.');
     } finally {
       setLoading(false);
     }

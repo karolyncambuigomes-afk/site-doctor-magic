@@ -11,6 +11,7 @@ export interface CarouselModel {
   price?: string;
   age?: number;
   characteristics?: string[];
+  members_only?: boolean;
 }
 
 export const useHomepageCarousel = () => {
@@ -26,7 +27,7 @@ export const useHomepageCarousel = () => {
       // Get models configured to show on homepage
       const { data: modelsData, error: modelsError } = await supabase
         .from('models')
-        .select('id, name, location, price, age, characteristics, image')
+        .select('id, name, location, price, age, characteristics, image, members_only')
         .eq('show_on_homepage', true)
         .order('homepage_order', { ascending: true, nullsFirst: false });
 
@@ -63,7 +64,8 @@ export const useHomepageCarousel = () => {
           location: model.location || '',
           price: model.price || '',
           age: model.age || null,
-          characteristics: model.characteristics || []
+          characteristics: model.characteristics || [],
+          members_only: model.members_only || false
         });
       }
 

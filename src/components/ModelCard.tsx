@@ -37,10 +37,17 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
           <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[1/1] xl:aspect-[4/5] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
-              <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
-                <Crown size={12} className="fill-current" />
-                <span className="hidden sm:inline">EXCLUSIVE FOR MEMBERS</span>
-                <span className="sm:hidden">EXCLUSIVE</span>
+              <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
+                <div className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg shadow-lg border border-yellow-400/30 backdrop-blur-sm">
+                  <div className="flex items-center gap-2">
+                    <Crown size={14} className="fill-current text-yellow-100" />
+                    <span className="text-xs sm:text-sm font-semibold tracking-wide">
+                      <span className="hidden sm:inline">EXCLUSIVE</span>
+                      <span className="sm:hidden">VIP</span>
+                    </span>
+                  </div>
+                  <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                </div>
               </div>
             )}
             
@@ -72,11 +79,13 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   />
                 )}
                 
-                {/* Price - Top Left - Mobile responsive */}
+                {/* Price - Bottom Left */}
                 {model.price && (
-                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 md:top-4 md:left-4 z-10">
-                    <div className="bg-black/60 backdrop-blur-sm px-2 py-1 sm:px-3 sm:py-1.5 rounded text-white text-xs sm:text-sm font-light">
-                      {model.price}
+                  <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
+                    <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
+                      <span className="text-white text-xs sm:text-sm font-medium">
+                        {model.price}
+                      </span>
                     </div>
                   </div>
                 )}

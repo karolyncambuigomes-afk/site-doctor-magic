@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Crown } from 'lucide-react';
 import { useHomepageCarousel } from '@/hooks/useHomepageCarousel';
 import {
   Carousel,
@@ -55,6 +55,22 @@ export const ModelsCarousel = () => {
                 <div className="group relative">
                   <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
                     <div className="relative overflow-hidden mb-3 rounded-lg shadow-lg">
+                      {/* Exclusive Members Badge */}
+                      {model.members_only && (
+                        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
+                          <div className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg shadow-lg border border-yellow-400/30 backdrop-blur-sm">
+                            <div className="flex items-center gap-1.5">
+                              <Crown size={12} className="fill-current text-yellow-100" />
+                              <span className="text-xs font-semibold tracking-wide">
+                                <span className="hidden sm:inline">EXCLUSIVE</span>
+                                <span className="sm:hidden">VIP</span>
+                              </span>
+                            </div>
+                            <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse"></div>
+                          </div>
+                        </div>
+                      )}
+                      
                       {/* Main Image */}
                       <img
                         src={model.image}
@@ -67,8 +83,12 @@ export const ModelsCarousel = () => {
                       
                       {/* Price overlay - refined styling */}
                       {model.price && (
-                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black/75 backdrop-blur-md text-white px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm font-light tracking-normal z-10 rounded-full">
-                          {model.price}
+                        <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
+                          <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
+                            <span className="text-white text-xs sm:text-sm font-medium">
+                              {model.price}
+                            </span>
+                          </div>
                         </div>
                       )}
                       

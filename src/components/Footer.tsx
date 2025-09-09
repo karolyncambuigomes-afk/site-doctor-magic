@@ -3,45 +3,31 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
-
-
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle newsletter subscription
     console.log('Newsletter subscription:', email);
     setEmail('');
   };
-
-  return (
-    <footer 
-      className="bg-white text-foreground relative z-50 w-full"
-    >
-      <div className="container mx-auto px-4 py-16 bg-gray-100">{" "}
+  return <footer className="bg-white text-foreground relative z-50 w-full">
+      <div className="container mx-auto px-4 py-16 bg-white">{" "}
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
+              <h3 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
               <p className="luxury-body-xs text-muted-foreground mb-4 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                <Input
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1"
-                  required
-                />
+                <Input type="email" placeholder="Enter your email address" value={email} onChange={e => setEmail(e.target.value)} className="flex-1" required />
                 <Button type="submit" className="px-6">
                   Subscribe
                 </Button>
@@ -60,32 +46,16 @@ export const Footer = () => {
                 Follow Us
               </h4>
               <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
-                  aria-label="Instagram"
-                >
+                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Instagram">
                   <Instagram className="w-4 h-4" />
                 </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
-                  aria-label="Facebook"
-                >
+                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Facebook">
                   <Facebook className="w-4 h-4" />
                 </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
-                  aria-label="Twitter"
-                >
+                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Twitter">
                   <Twitter className="w-4 h-4" />
                 </a>
-                <a
-                  href="https://wa.me/447436190679"
-                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
-                  aria-label="WhatsApp"
-                >
+                <a href="https://wa.me/447436190679" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
@@ -94,9 +64,7 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
-              Our Services
-            </h4>
+            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">OUR SCERVICES</h4>
             <div className="space-y-3">
               <SafeLink to="/models" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Elite Companions
@@ -118,21 +86,15 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">
-              <a 
-                href="tel:+447436190679"
-                className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <a href="tel:+447436190679" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
-              <a 
-                href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <a href="mailto:info@fivelondon.com" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
               </a>
@@ -166,16 +128,10 @@ export const Footer = () => {
             </div>
             
             <div className="flex flex-wrap gap-6 luxury-body-sm">
-              <SafeLink 
-                to="/privacy-policy" 
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <SafeLink to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
                 Privacy Policy
               </SafeLink>
-              <SafeLink 
-                to="/terms" 
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <SafeLink to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
                 Terms of Service
               </SafeLink>
               <span className="text-muted-foreground">
@@ -185,6 +141,5 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };

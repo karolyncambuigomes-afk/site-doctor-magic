@@ -18,20 +18,19 @@ export const Footer = () => {
 
   return (
     <footer 
-      className="bg-luxury-navy text-white relative z-50 w-full"
-      style={{ backgroundColor: '#0f1419', color: '#ffffff' }}
+      className="bg-white text-foreground relative z-50 w-full"
     >
-      <div className="container mx-auto px-4 py-16 bg-slate-800">{" "}
+      <div className="container mx-auto px-4 py-16 bg-white">{" "}
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="luxury-body-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h3 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
-              <p className="luxury-body-xs text-white/70 mb-4 leading-relaxed">
+              <p className="luxury-body-xs text-muted-foreground mb-4 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -40,16 +39,16 @@ export const Footer = () => {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-white/10 border-white/20 text-white placeholder-white/50 focus:ring-white"
+                  className="flex-1"
                   required
                 />
-                <Button type="submit" className="px-6 bg-white text-luxury-navy hover:bg-white/90">
+                <Button type="submit" className="px-6">
                   Subscribe
                 </Button>
               </form>
-              <p className="text-xs text-white/60 mt-2">
+              <p className="text-xs text-muted-foreground mt-2">
                 By subscribing, you agree to our{' '}
-                <SafeLink to="/privacy-policy" className="underline hover:text-white">
+                <SafeLink to="/privacy-policy" className="underline hover:text-foreground">
                   Privacy Policy
                 </SafeLink>
               </p>
@@ -57,34 +56,34 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="luxury-body-sm font-medium text-white mb-4 tracking-wider uppercase">
+              <h4 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
               <div className="flex space-x-4">
                 <a
                   href="#"
-                  className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 hover:border-white transition-colors text-white/60 hover:text-white"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 hover:border-white transition-colors text-white/60 hover:text-white"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
                   aria-label="Facebook"
                 >
                   <Facebook className="w-4 h-4" />
                 </a>
                 <a
                   href="#"
-                  className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 hover:border-white transition-colors text-white/60 hover:text-white"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
                   aria-label="Twitter"
                 >
                   <Twitter className="w-4 h-4" />
                 </a>
                 <a
                   href="https://wa.me/447436190679"
-                  className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center hover:bg-white/10 hover:border-white transition-colors text-white/60 hover:text-white"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -95,23 +94,23 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
               Our Services
             </h4>
             <div className="space-y-3">
-              <SafeLink to="/models" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/models" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Elite Companions
               </SafeLink>
-              <SafeLink to="/services" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/services" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Premium Services
               </SafeLink>
-              <SafeLink to="/locations" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/locations" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 London Locations
               </SafeLink>
-              <SafeLink to="/characteristics" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/characteristics" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Companion Types
               </SafeLink>
-              <SafeLink to="/blog" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Lifestyle Blog
               </SafeLink>
             </div>
@@ -119,35 +118,35 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-white tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">
               <a 
                 href="tel:+447436190679"
-                className="flex items-center space-x-2 luxury-body-sm text-white/70 hover:text-white transition-colors"
+                className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
               <a 
                 href="mailto:info@fivelondon.com"
-                className="flex items-center space-x-2 luxury-body-sm text-white/70 hover:text-white transition-colors"
+                className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
               </a>
-              <div className="flex items-center space-x-2 luxury-body-sm text-white/70">
+              <div className="flex items-center space-x-2 luxury-body-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
                 <span>Central London</span>
               </div>
-              <SafeLink to="/faq" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 FAQ
               </SafeLink>
-              <SafeLink to="/about" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/about" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 About Us
               </SafeLink>
-              <SafeLink to="/reviews" className="block luxury-body-sm text-white/70 hover:text-white transition-colors">
+              <SafeLink to="/reviews" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Reviews
               </SafeLink>
             </div>
@@ -155,13 +154,13 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="mt-16 pt-8 border-t border-white/20">
+        <div className="mt-16 pt-8 border-t border-border">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0">
             <div className="space-y-2">
-              <p className="luxury-body-sm text-white/70">
+              <p className="luxury-body-sm text-muted-foreground">
                 © {currentYear} Five London. All rights reserved.
               </p>
-              <p className="text-xs text-white/60">
+              <p className="text-xs text-muted-foreground">
                 Premium companion services in London since 2020
               </p>
             </div>
@@ -169,17 +168,17 @@ export const Footer = () => {
             <div className="flex flex-wrap gap-6 luxury-body-sm">
               <SafeLink 
                 to="/privacy-policy" 
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 Privacy Policy
               </SafeLink>
               <SafeLink 
                 to="/terms" 
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-muted-foreground hover:text-foreground transition-colors"
               >
                 Terms of Service
               </SafeLink>
-              <span className="text-white/70">
+              <span className="text-muted-foreground">
                 Discretion Guaranteed
               </span>
             </div>

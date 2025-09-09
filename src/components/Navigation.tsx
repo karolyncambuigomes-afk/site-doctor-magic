@@ -41,17 +41,15 @@ export const Navigation: React.FC = () => {
   const isHomepage = location.pathname === '/';
   
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isHomepage ? 'bg-black/20 backdrop-blur-sm' : 'bg-black'
-    }`}>
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-2 md:py-3 text-white">
+        <div className="flex items-center justify-between py-2 md:py-3 text-foreground">
           <SafeLink 
             to="/" 
-            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-300 text-white"
+            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-muted-foreground text-foreground"
           >
             Five London
-            <span className="text-xs ml-2 font-normal text-white/70">EST. 2020</span>
+            <span className="text-xs ml-2 font-normal text-muted-foreground">EST. 2020</span>
           </SafeLink>
 
           {/* Desktop Navigation */}
@@ -62,8 +60,8 @@ export const Navigation: React.FC = () => {
                 to={item.href}
                 className={`luxury-body-sm font-medium transition-colors ${
                   location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-gray-300' 
-                    : 'text-white/90 hover:text-gray-300'
+                    ? 'text-foreground' 
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {item.label}
@@ -75,7 +73,7 @@ export const Navigation: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <a 
               href="tel:+447436190679"
-              className="luxury-body-sm transition-colors text-white/90 hover:text-gray-300"
+              className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
             >
               +44 7436 190679
             </a>
@@ -83,7 +81,7 @@ export const Navigation: React.FC = () => {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full text-white hover:text-gray-300">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full text-foreground hover:text-muted-foreground">
                     <User className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -107,7 +105,7 @@ export const Navigation: React.FC = () => {
               </DropdownMenu>
             ) : (
               <a href="https://wa.me/447436190679">
-                <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+                <Button variant="outline">
                   Call Now
                 </Button>
               </a>
@@ -116,7 +114,7 @@ export const Navigation: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 transition-colors text-white hover:text-gray-300"
+            className="lg:hidden p-2 transition-colors text-foreground hover:text-muted-foreground"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -126,7 +124,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="lg:hidden border-t border-white/20 bg-white">
+          <div className="lg:hidden border-t border-border bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col space-y-8">
                 {navItems.map((item) => (
@@ -134,49 +132,49 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`luxury-body-base font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-black' : 'text-gray-600 hover:text-black'
+                      location.pathname === item.href ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
-                <div className="pt-8 border-t border-gray-300 space-y-6">
+                <div className="pt-8 border-t border-border space-y-6">
                   <a 
                     href="tel:+447436190679" 
-                    className="block luxury-body-sm text-gray-600 hover:text-black transition-colors"
+                    className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     +44 7436 190679
                   </a>
                   
                   {user ? (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">
-                          {user.email}
-                        </span>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-muted-foreground">
+                            {user.email}
+                          </span>
+                        </div>
+                        <SafeLink to="/admin">
+                          <Button variant="outline" className="w-full">
+                            <Settings className="w-4 h-4 mr-2" />
+                            Admin
+                          </Button>
+                        </SafeLink>
+                        <button 
+                          onClick={signOut}
+                          className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
+                        >
+                          <LogOut className="w-4 h-4 mr-2 inline" />
+                          Sign Out
+                        </button>
                       </div>
-                      <SafeLink to="/admin">
-                        <Button variant="outline" className="w-full border-gray-300 text-black hover:bg-gray-50">
-                          <Settings className="w-4 h-4 mr-2" />
-                          Admin
-                        </Button>
-                      </SafeLink>
-                      <button 
-                        onClick={signOut}
-                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
-                      >
-                        <LogOut className="w-4 h-4 mr-2 inline" />
-                        Sign Out
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <a href="https://wa.me/447436190679">
-                        <Button className="w-full bg-black text-white hover:bg-gray-800">
-                          Call Now
-                        </Button>
-                      </a>
-                    </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <a href="https://wa.me/447436190679">
+                          <Button className="w-full">
+                            Call Now
+                          </Button>
+                        </a>
+                      </div>
                   )}
                 </div>
               </div>

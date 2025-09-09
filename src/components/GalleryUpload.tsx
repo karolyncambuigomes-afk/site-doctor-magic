@@ -216,14 +216,14 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
         </Button>
       </div>
 
-      <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-4">
+      <div className="bg-white border-2 border-border rounded-lg p-4">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 bg-gray-500 rounded-full flex items-center justify-center">
-            <span className="text-white text-sm font-bold">!</span>
+          <div className="w-6 h-6 bg-muted rounded-full flex items-center justify-center">
+            <span className="text-foreground text-sm font-bold">!</span>
           </div>
-          <h4 className="font-bold text-gray-900">Sistema de Ordenação</h4>
+          <h4 className="font-bold text-foreground">Sistema de Ordenação</h4>
         </div>
-        <p className="text-sm text-gray-800">
+        <p className="text-sm text-foreground">
           • A foto na posição 1 será a PRINCIPAL (aparece na lista)<br/>
           • Use os seletores de ordem para reorganizar as fotos<br/>
           • Adicione pelo menos 1 foto para que o modelo apareça no site
@@ -231,20 +231,20 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       </div>
 
       {isAdding && (
-        <div className="border-2 border-gray-300 rounded-lg p-6 space-y-4 bg-gray-50">
-          <div className="flex items-center justify-center gap-3 mb-4 bg-gray-100 p-3 rounded-lg">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-              <Plus className="w-5 h-5 text-white" />
+        <div className="border-2 border-border rounded-lg p-6 space-y-4 bg-white">
+          <div className="flex items-center justify-center gap-3 mb-4 bg-muted p-3 rounded-lg">
+            <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
+              <Plus className="w-5 h-5 text-background" />
             </div>
-            <h4 className="font-bold text-gray-900 text-lg">Adicionar Nova Foto</h4>
+            <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
           </div>
           
-          <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
-            <Label className="text-gray-900 font-bold text-lg flex items-center gap-2 mb-3">
+          <div className="bg-white p-4 rounded-lg border-2 border-border">
+            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
               📸 Upload da Foto
             </Label>
             <div className="space-y-3">
-              <div className="p-3 bg-gray-50 rounded border border-gray-200">
+              <div className="p-3 bg-muted rounded border border-border">
                 <ImageUpload
                   value={newImageUrl}
                   onChange={(url) => {
@@ -365,9 +365,9 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           </div>
         </div>
       ) : (
-        <div className="text-center py-8 text-gray-500 border-2 border-dashed border-gray-300 rounded-lg">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Plus className="w-8 h-8 text-gray-400" />
+        <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-border rounded-lg">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+            <Plus className="w-8 h-8 text-muted-foreground" />
           </div>
           <p className="font-medium">Nenhuma foto adicionada</p>
           <p className="text-sm">Adicione pelo menos uma foto para que o modelo apareça no site</p>

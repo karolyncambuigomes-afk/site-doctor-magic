@@ -47,7 +47,7 @@ export const Models: React.FC = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h2 className="luxury-heading-display mb-4 sm:mb-6 text-foreground">

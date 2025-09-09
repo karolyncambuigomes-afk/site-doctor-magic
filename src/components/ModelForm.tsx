@@ -415,13 +415,13 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
 
       {/* Gallery Management */}
-      <Card className={`border-2 ${model?.id ? 'border-gray-300 bg-gray-50/30' : 'border-gray-200 bg-gray-50/30'}`}>
-        <CardHeader className={`${model?.id ? 'bg-gray-100/50' : 'bg-gray-100/50'}`}>
-          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-gray-900' : 'text-gray-600'}`}>
+      <Card className={`border-2 ${model?.id ? 'border-border bg-white' : 'border-border bg-white'}`}>
+        <CardHeader className="bg-white">
+          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
             <ImageIcon className="w-5 h-5" />
             Galeria de Fotos (Sistema Único)
           </CardTitle>
-          <p className={`text-sm ${model?.id ? 'text-gray-700' : 'text-gray-600'}`}>
+          <p className={`text-sm ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
             {model?.id 
               ? "📸 Adicione todas as fotos aqui. A primeira foto (posição 1) será a principal que aparece nos cards" 
               : "⚠️ Salve primeiro as informações básicas para poder adicionar fotos"
@@ -432,10 +432,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           {model?.id ? (
             <GalleryUpload modelId={model.id} />
           ) : (
-            <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg bg-gray-100">
+            <div className="text-center py-8 border-2 border-dashed border-border rounded-lg bg-muted">
               <div className="mb-4 text-4xl">🔒</div>
-              <p className="mb-2 font-medium text-gray-700">Galeria Bloqueada</p>
-              <p className="text-sm text-gray-600 mb-4">
+              <p className="mb-2 font-medium text-foreground">Galeria Bloqueada</p>
+              <p className="text-sm text-muted-foreground mb-4">
                 Primeiro salve as informações básicas e depois você poderá adicionar fotos à galeria
               </p>
               <Button 

@@ -59,7 +59,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   // Minimal Layout Component
   const MinimalModelCard = ({ model }: { model: Model }) => (
     <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
-      <div className="relative overflow-hidden bg-black aspect-[3/4] rounded-none">
+      <div className="relative overflow-hidden bg-white aspect-[3/4] rounded-none">
         <img 
           src={model.image} 
           alt={model.name}
@@ -185,7 +185,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   const getContainerStyle = () => {
     switch (layoutStyle) {
       case 'minimal':
-        return 'min-h-screen bg-black text-white';
+        return 'min-h-screen bg-white text-foreground';
       case 'elegant':
         return 'min-h-screen bg-gradient-to-b from-muted/30 to-background';
       case 'modern':
@@ -216,11 +216,11 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
         {/* Header */}
         <div className={getHeaderStyle()}>
           <div className="container-width">
-            <h1 className={`luxury-heading-xl mb-6 ${layoutStyle === 'minimal' ? 'text-white font-light tracking-wide' : ''}`}>
+            <h1 className={`luxury-heading-xl mb-6 ${layoutStyle === 'minimal' ? 'text-foreground font-light tracking-wide' : ''}`}>
               {layoutStyle === 'minimal' ? 'Our Models' : 'Our Exclusive Models'}
             </h1>
             <p className={`luxury-body-lg max-w-2xl mx-auto mb-8 ${
-              layoutStyle === 'minimal' ? 'text-white/80' : 'text-muted-foreground'
+              layoutStyle === 'minimal' ? 'text-muted-foreground' : 'text-muted-foreground'
             }`}>
               Discover our carefully selected collection of sophisticated companions
             </p>
@@ -245,18 +245,12 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
               <div className="flex flex-col lg:flex-row gap-4 items-center">
                 {/* Search */}
                 <div className="relative flex-1 max-w-md">
-                  <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 ${
-                    layoutStyle === 'minimal' ? 'text-white/60' : 'text-muted-foreground'
-                  }`} />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search models..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`pl-10 ${
-                      layoutStyle === 'minimal' 
-                        ? 'bg-white/10 border-white/20 text-white placeholder:text-white/60' 
-                        : ''
-                    }`}
+                    className="pl-10"
                   />
                 </div>
                 
@@ -332,9 +326,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className={`text-lg mb-4 ${
-                  layoutStyle === 'minimal' ? 'text-white/80' : 'text-muted-foreground'
-                }`}>
+                <p className="text-lg mb-4 text-muted-foreground">
                   No models found matching your criteria
                 </p>
                 <Button 

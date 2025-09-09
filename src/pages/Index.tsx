@@ -51,7 +51,7 @@ const Index = () => {
         </section>
 
         {/* Category Filters */}
-        <section className="py-12 md:py-16 text-black bg-neutral-200">
+        <section className="py-12 md:py-16 text-foreground bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CategoryFilters />
           </div>

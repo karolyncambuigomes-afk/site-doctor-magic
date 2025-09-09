@@ -66,26 +66,57 @@ serve(async (req) => {
       );
     }
 
-    // Create approved profile
-    const { error: profileError } = await supabaseServiceRole
+    // Check if profile already exists
+    const { data: existingProfile } = await supabaseServiceRole
       .from('profiles')
-      .insert({
-        id: userId,
-        email: email,
-        role: 'user',
-        status: 'approved',
-        approved_at: new Date().toISOString(),
-        approved_by: authData.user?.id // Self-approved for exclusive members
-      });
+      .select('id')
+      .eq('id', userId)
+      .single();
 
-    if (profileError) {
-      console.error('Error creating profile:', profileError);
-      // Clean up auth user if profile creation fails
-      await supabaseServiceRole.auth.admin.deleteUser(userId);
-      return new Response(
-        JSON.stringify({ error: `Erro ao criar perfil: ${profileError.message}` }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+    if (existingProfile) {
+      console.log('Profile already exists, updating instead of creating');
+      // Update existing profile to approved status
+      const { error: updateError } = await supabaseServiceRole
+        .from('profiles')
+        .update({
+          email: email,
+          role: 'user',
+          status: 'approved',
+          approved_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId);
+
+      if (updateError) {
+        console.error('Error updating profile:', updateError);
+        await supabaseServiceRole.auth.admin.deleteUser(userId);
+        return new Response(
+          JSON.stringify({ error: `Erro ao atualizar perfil: ${updateError.message}` }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+    } else {
+      // Create new approved profile
+      const { error: profileError } = await supabaseServiceRole
+        .from('profiles')
+        .insert({
+          id: userId,
+          email: email,
+          role: 'user',
+          status: 'approved',
+          approved_at: new Date().toISOString(),
+          approved_by: null // Set to null for exclusive members created by admin
+        });
+
+      if (profileError) {
+        console.error('Error creating profile:', profileError);
+        // Clean up auth user if profile creation fails
+        await supabaseServiceRole.auth.admin.deleteUser(userId);
+        return new Response(
+          JSON.stringify({ error: `Erro ao criar perfil: ${profileError.message}` }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
     }
 
     // Create premium subscription

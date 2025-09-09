@@ -17,13 +17,13 @@ const Terms = () => {
       <main className="pt-16">
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-light text-black mb-8">Terms of Service</h1>
+          <h1 className="luxury-heading-xl text-foreground mb-8">Terms of Service - Five London</h1>
           
           <div className="prose max-w-none">
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-black mb-4">1. Acceptance of Terms</h2>
+              <h2 className="luxury-heading-lg text-foreground mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-600 mb-4">
                 By accessing and using Five London services, you accept and agree to be bound by 
                 the terms and provision of this agreement.

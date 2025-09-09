@@ -17,13 +17,13 @@ const PrivacyPolicy = () => {
       <main className="pt-16">
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-light text-black mb-8">Privacy Policy</h1>
+          <h1 className="luxury-heading-xl text-foreground mb-8">Privacy Policy - Five London</h1>
           
           <div className="prose max-w-none">
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-black mb-4">1. Information We Collect</h2>
+              <h2 className="luxury-heading-lg text-foreground mb-4">1. Information We Collect</h2>
               <p className="text-gray-600 mb-4">
                 We collect information you provide directly to us, such as when you contact us, 
                 request our services, or subscribe to our communications.

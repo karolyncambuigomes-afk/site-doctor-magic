@@ -23,7 +23,20 @@ export const Members: React.FC = () => {
         structuredData={structuredData}
       />
       
-      <ModelsGallery isPremium={true} />
+      <main className="pt-16">
+        <section className="py-12 md:py-20 bg-background">
+          <div className="max-w-6xl mx-auto px-4 text-center">
+            <h1 className="luxury-heading-xl text-foreground mb-4">
+              Premium Members Gallery - Exclusive Access
+            </h1>
+            <h2 className="luxury-body-lg text-muted-foreground mb-8">
+              Elite Escort Models - Members Only
+            </h2>
+          </div>
+        </section>
+        
+        <ModelsGallery isPremium={true} />
+      </main>
     </ProtectedRoute>
   );
 };

@@ -276,7 +276,7 @@ const Services = () => {
                                       return dynamicLink ? (
                                         <Link 
                                           to={dynamicLink}
-                                          className="text-black hover:text-slate-800 transition-colors underline"
+                                          className="text-black hover:text-gray-600 transition-colors underline"
                                           title={dynamicTitle || linkConfig.title}
                                           aria-label={dynamicTitle || linkConfig.title}
                                         >
@@ -285,7 +285,7 @@ const Services = () => {
                                       ) : (
                                         <Link 
                                           to={service.blogLink}
-                                          className="text-black hover:text-slate-800 transition-colors underline"
+                                          className="text-black hover:text-gray-600 transition-colors underline"
                                           title={linkConfig.title}
                                           aria-label={linkConfig.title}
                                         >

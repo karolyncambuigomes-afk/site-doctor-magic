@@ -194,7 +194,7 @@ export const ModelProfile: React.FC = () => {
               const characteristicData = characteristics.find(char => char.name.toLowerCase() === characteristic.toLowerCase());
               if (characteristicData) {
                 return <Link key={characteristic} to={`/${characteristicData.slug}`}>
-                        <Badge variant="outline" className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
+                        <Badge variant="outline" className="text-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
                           {characteristic}
                         </Badge>
                       </Link>;

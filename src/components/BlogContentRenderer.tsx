@@ -90,10 +90,10 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
     });
 
     return (
-      <Card className="my-8 border-luxury bg-gradient-to-r from-background to-muted/20">
+      <Card className="my-8 border border-gray-200 bg-white shadow-lg">
         <CardHeader>
-          <CardTitle className="luxury-heading-md text-foreground flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-primary" />
+          <CardTitle className="luxury-heading-md text-black flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-blue-600" />
             {title}
           </CardTitle>
         </CardHeader>
@@ -107,16 +107,16 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
             </TableHeader>
             <TableBody>
               {Object.entries(venueInfo).map(([key, value]) => (
-                <TableRow key={key} className="hover:bg-muted/20 transition-colors">
-                  <TableCell className="font-medium text-foreground flex items-center gap-2">
+                <TableRow key={key} className="hover:bg-gray-50 transition-colors">
+                  <TableCell className="font-medium text-black flex items-center gap-2">
                     {key === 'Specialty' && <Star className="w-4 h-4 text-amber-500" />}
                     {key === 'Average price' && <DollarSign className="w-4 h-4 text-green-600" />}
                     {key === 'Atmosphere' && <Clock className="w-4 h-4 text-blue-500" />}
                     {key}
                   </TableCell>
-                  <TableCell className="text-muted-foreground">
+                  <TableCell className="text-gray-700">
                     {key === 'Average price' ? (
-                      <Badge variant="secondary" className="font-medium">
+                      <Badge variant="secondary" className="font-medium bg-gray-100 text-gray-800">
                         {value}
                       </Badge>
                     ) : (
@@ -133,9 +133,9 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
   };
 
   const renderImageSection = (imageSrc: string, position: 'left' | 'right', index: number) => (
-    <div className={`my-12 flex ${position === 'right' ? 'justify-end' : 'justify-start'}`}>
-      <div className="relative group max-w-md">
-        <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-lg bg-muted">
+    <div className="my-16 flex justify-center">
+      <div className="relative group max-w-2xl w-full">
+        <div className="aspect-[16/10] rounded-xl overflow-hidden shadow-xl bg-gray-100">
           <img 
             src={imageSrc}
             alt={`Luxury experience ${index + 1}`}
@@ -157,7 +157,7 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
           
           <div className="space-y-6">
             {section.title && (
-              <h2 className="luxury-heading-lg text-foreground font-light border-b border-border pb-4">
+              <h2 className="luxury-heading-lg text-black font-light border-b border-gray-200 pb-4 mb-8">
                 {section.title}
               </h2>
             )}
@@ -167,21 +167,21 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
             ) : (
               <div 
                 className="prose prose-lg max-w-none
-                  [&>h3]:luxury-heading-md [&>h3]:text-foreground [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-light
-                  [&>h4]:luxury-heading-sm [&>h4]:text-foreground [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-light
-                  [&>p]:luxury-body-base [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-6
-                  [&>li]:text-muted-foreground [&>li]:leading-relaxed [&>li]:mb-2
-                  [&>strong]:text-foreground [&>strong]:font-semibold
-                  [&>ul]:my-6 [&>ol]:my-6 [&>ul]:bg-muted/10 [&>ul]:p-6 [&>ul]:rounded-lg
-                  [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-6
-                  [&>blockquote]:italic [&>blockquote]:text-muted-foreground [&>blockquote]:bg-muted/20 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg"
+                  [&>h3]:luxury-heading-md [&>h3]:text-black [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-light
+                  [&>h4]:luxury-heading-sm [&>h4]:text-black [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-light
+                  [&>p]:luxury-body-lg [&>p]:text-gray-800 [&>p]:leading-relaxed [&>p]:mb-6
+                  [&>li]:text-gray-700 [&>li]:leading-relaxed [&>li]:mb-2
+                  [&>strong]:text-black [&>strong]:font-semibold
+                  [&>ul]:my-6 [&>ol]:my-6 [&>ul]:bg-gray-50 [&>ul]:p-6 [&>ul]:rounded-lg
+                  [&>blockquote]:border-l-4 [&>blockquote]:border-blue-500 [&>blockquote]:pl-6
+                  [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gray-50 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg"
                 dangerouslySetInnerHTML={{ __html: section.content }}
               />
             )}
           </div>
           
           {index < sections.length - 1 && (
-            <Separator className="my-12 bg-border/50" />
+            <Separator className="my-16 bg-gray-200" />
           )}
         </React.Fragment>
       ))}

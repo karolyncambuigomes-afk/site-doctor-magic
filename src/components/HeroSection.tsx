@@ -42,16 +42,14 @@ export const HeroSection: React.FC = () => {
             {heroContent.subtitle}
           </p>
           
-          {/* SEO Rich Content - Hidden by default, reveals on hover */}
-          <div className="group">
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-700 mb-8">
-              <p className="luxury-body-md text-white/80 mb-4 leading-relaxed">
-                {heroContent.content}
-              </p>
-              <p className="luxury-body-sm text-white/70 mb-6">
-                Our carefully selected international models offer exclusive companion services throughout Central London, specializing in high-class entertainment, cultural experiences, and business accompaniment for distinguished clients seeking uncompromising quality and elegance.
-              </p>
-            </div>
+          {/* SEO Rich Content - Always visible */}
+          <div className="mb-8">
+            <p className="luxury-body-md text-white/80 mb-4 leading-relaxed">
+              {heroContent.content}
+            </p>
+            <p className="luxury-body-sm text-white/70 mb-6">
+              Our carefully selected international models offer exclusive companion services throughout Central London, specializing in high-class entertainment, cultural experiences, and business accompaniment for distinguished clients seeking uncompromising quality and elegance.
+            </p>
           </div>
           
           <div className="flex justify-center gap-4">

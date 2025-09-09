@@ -213,13 +213,13 @@ const LocationDetail = () => {
           </section>
 
           {/* Other Locations */}
-          <section className="py-16 md:py-20 bg-background">
+          <section className="py-16 md:py-20 bg-white">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
                 <h2 className="luxury-heading-lg text-foreground mb-4">
                   Explore Other Locations
                 </h2>
-                <p className="text-muted-foreground mb-8">
+                <p className="text-foreground mb-8">
                   Discover our premium escort services in London's most exclusive districts
                 </p>
               </div>
@@ -229,13 +229,13 @@ const LocationDetail = () => {
                   <Link 
                     key={loc.id}
                     to={`/${loc.slug}`}
-                    className="group p-6 bg-card hover:bg-accent rounded-lg border border-border transition-all duration-300 hover:shadow-elegant"
+                    className="group p-6 bg-white hover:bg-gray-50 rounded-lg border border-black transition-all duration-300 hover:shadow-lg"
                   >
-                    <MapPin className="w-5 h-5 text-primary mb-3" />
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors mb-2">
+                    <MapPin className="w-5 h-5 text-black mb-3" />
+                    <h3 className="font-semibold text-foreground group-hover:text-black transition-colors mb-2">
                       {loc.name} Escorts
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <p className="text-sm text-foreground line-clamp-2">
                       {loc.description}
                     </p>
                     <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors mt-3" />

@@ -89,14 +89,20 @@ export const Navigation: React.FC = () => {
                     {user.email}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                   {auth?.isAdmin && (
-                     <DropdownMenuItem asChild>
-                       <SafeLink to="/admin" className="flex items-center">
-                         <Settings className="w-4 h-4 mr-2" />
-                         Admin Panel
-                       </SafeLink>
-                     </DropdownMenuItem>
-                   )}
+                  <DropdownMenuItem asChild>
+                    <SafeLink to="/models" className="flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      Browse Models
+                    </SafeLink>
+                  </DropdownMenuItem>
+                  {auth?.isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <SafeLink to="/admin" className="flex items-center">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Admin Panel
+                      </SafeLink>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={signOut} className="text-red-600">
                     <LogOut className="w-4 h-4 mr-2" />
@@ -105,11 +111,18 @@ export const Navigation: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <a href="https://wa.me/447436190679">
-                <Button variant="outline">
-                  Call Now
-                </Button>
-              </a>
+              <div className="flex items-center space-x-2">
+                <SafeLink to="/auth">
+                  <Button variant="outline" size="sm">
+                    Sign In
+                  </Button>
+                </SafeLink>
+                <a href="https://wa.me/447436190679">
+                  <Button variant="outline">
+                    Call Now
+                  </Button>
+                </a>
+              </div>
             )}
           </div>
 
@@ -153,16 +166,22 @@ export const Navigation: React.FC = () => {
                           <span className="text-sm text-muted-foreground">
                             {user.email}
                           </span>
-                        </div>
+                         </div>
+                         <SafeLink to="/models">
+                           <Button variant="outline" className="w-full mb-2">
+                             <User className="w-4 h-4 mr-2" />
+                             Browse Models
+                           </Button>
+                         </SafeLink>
                          {auth?.isAdmin && (
                            <SafeLink to="/admin">
-                             <Button variant="outline" className="w-full">
+                             <Button variant="outline" className="w-full mb-2">
                                <Settings className="w-4 h-4 mr-2" />
                                Admin Panel
                              </Button>
                            </SafeLink>
                          )}
-                        <button 
+                         <button
                           onClick={signOut}
                           className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
                         >
@@ -170,15 +189,20 @@ export const Navigation: React.FC = () => {
                           Sign Out
                         </button>
                       </div>
-                    ) : (
-                      <div className="space-y-4">
-                        <a href="https://wa.me/447436190679">
-                          <Button className="w-full">
-                            Book Now
-                          </Button>
-                        </a>
-                      </div>
-                  )}
+                     ) : (
+                       <div className="space-y-4">
+                         <SafeLink to="/auth">
+                           <Button variant="outline" className="w-full mb-2">
+                             Sign In
+                           </Button>
+                         </SafeLink>
+                         <a href="https://wa.me/447436190679">
+                           <Button className="w-full">
+                             Book Now
+                           </Button>
+                         </a>
+                       </div>
+                   )}
                 </div>
               </div>
             </div>

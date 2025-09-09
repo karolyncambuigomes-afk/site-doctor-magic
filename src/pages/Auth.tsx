@@ -42,11 +42,10 @@ export const Auth: React.FC = () => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Redirect authenticated users based on their role
-        if (session?.user && auth?.getRedirectPath) {
+        // Redirect authenticated users to models page
+        if (session?.user && navigate) {
           setTimeout(() => {
-            const redirectPath = auth.getRedirectPath();
-            navigate(redirectPath);
+            navigate('/models');
           }, 100);
         }
       }
@@ -57,9 +56,8 @@ export const Auth: React.FC = () => {
       setSession(session);
       setUser(session?.user ?? null);
       
-      if (session?.user && auth?.getRedirectPath) {
-        const redirectPath = auth.getRedirectPath();
-        navigate(redirectPath);
+      if (session?.user && navigate) {
+        navigate('/models');
       }
     });
 

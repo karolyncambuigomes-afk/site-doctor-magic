@@ -108,23 +108,29 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     
     try {
-      // Use the security definer function to avoid recursion
-      const { data: status, error } = await supabase
-        .rpc('get_current_user_status');
+      // Direct query instead of RPC to avoid JSON parsing issues
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('status, role')
+        .eq('id', userId)
+        .single();
 
       if (error) {
         console.error('Error checking user status:', error);
         return { approved: false, status: null };
       }
 
-      const approved = status === 'approved';
+      const approved = profile?.status === 'approved';
+      const isAdmin = profile?.role === 'admin';
+      
       setIsApproved(approved);
-      setUserStatus(status || null);
+      setUserStatus(profile?.status || null);
+      setIsAdmin(isAdmin);
 
-      return { approved, status };
+      return { approved, status: profile?.status, isAdmin };
     } catch (error) {
       console.error('Error checking user status:', error);
-      return { approved: false, status: null };
+      return { approved: false, status: null, isAdmin: false };
     }
   };
 
@@ -138,37 +144,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     console.log('AuthProvider - Checking user access for:', userId);
     
     try {
-      // Check if user is admin directly from profiles table
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('role, status')
-        .eq('id', userId)
-        .single();
-
-      if (profileError) {
-        console.error('Error checking user profile:', profileError);
-      } else {
-        setUserStatus(profile?.status || null);
-        setIsApproved(profile?.status === 'approved');
-        
-        if (profile?.role === 'admin') {
-          console.log('AuthProvider - User is admin, granting access');
-          setIsAdmin(true);
-          setHasAccess(true);
-          return true;
-        } else {
-          setIsAdmin(false);
-        }
+      const result = await checkUserStatus(userId);
+      
+      if (result.isAdmin) {
+        console.log('AuthProvider - User is admin, granting access');
+        setHasAccess(true);
+        return true;
       }
 
       // For regular users, check manual approval status only
-      const approved = profile?.status === 'approved';
+      const approved = result.approved;
       console.log('AuthProvider - User approval status:', approved);
       
       setHasAccess(approved);
       return approved;
     } catch (error) {
       console.error('Error checking user access:', error);
+      setHasAccess(false);
+      setIsApproved(false);
+      setUserStatus('error');
+      setIsAdmin(false);
       return false;
     } finally {
       setCheckingAccess(false);
@@ -271,20 +266,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const getRedirectPath = () => {
-    if (isAdmin) {
-      return '/admin';
-    }
+    // Always redirect to models for now, admin can navigate manually
     return '/models';
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setSession(null);
-    setHasAccess(false);
-    setIsApproved(false);
-    setUserStatus(null);
-    setIsAdmin(false);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Error signing out:', error);
+      }
+    } catch (error) {
+      console.error('Error signing out:', error);
+    } finally {
+      // Clear local state regardless of success/failure
+      setUser(null);
+      setSession(null);
+      setHasAccess(false);
+      setIsApproved(false);
+      setUserStatus(null);
+      setIsAdmin(false);
+      
+      // Redirect to home page after logout
+      window.location.href = '/';
+    }
   };
 
   const value = {

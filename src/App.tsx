@@ -54,6 +54,10 @@ import { TechnicalSEO } from "./pages/admin/seo/TechnicalSEO";
 import { PerformanceAnalytics } from "./pages/admin/seo/PerformanceAnalytics";
 import { ContentManager } from "./pages/admin/content/ContentManager";
 import { BlogManager } from "./pages/admin/content/BlogManager";
+import { HomepageManagerPage } from "./pages/admin/content/HomepageManagerPage";
+import { SiteContentManagerPage } from "./pages/admin/content/SiteContentManagerPage";
+import { FAQManagerPage } from "./pages/admin/content/FAQManagerPage";
+import { GalleryManagerPage } from "./pages/admin/content/GalleryManagerPage";
 import { ModelsManager } from "./pages/admin/models/ModelsManager";
 import { ModelsListManager } from "./pages/admin/models/ModelsListManager";
 import { ApplicationsManager } from "./pages/admin/models/ApplicationsManager";
@@ -61,7 +65,9 @@ import { CharacteristicsManagerPage } from "./pages/admin/models/Characteristics
 import { ServicesManagerPage } from "./pages/admin/models/ServicesManagerPage";
 import { ReviewsManagerPage } from "./pages/admin/models/ReviewsManagerPage";
 import { LocationsManager as LocationsManagerPage } from "./pages/admin/locations/LocationsManager";
+import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
 import { UsersManager } from "./pages/admin/users/UsersManager";
+import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
 import { SystemSettings } from "./pages/admin/system/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
@@ -237,9 +243,29 @@ const App = () => (
               <ContentManager />
             </ProtectedRoute>
           } />
+          <Route path="/admin/content/homepage" element={
+            <ProtectedRoute requiresAccess={true}>
+              <HomepageManagerPage />
+            </ProtectedRoute>
+          } />
           <Route path="/admin/content/blog" element={
             <ProtectedRoute requiresAccess={true}>
               <BlogManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/content/site" element={
+            <ProtectedRoute requiresAccess={true}>
+              <SiteContentManagerPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/content/faq" element={
+            <ProtectedRoute requiresAccess={true}>
+              <FAQManagerPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/content/gallery" element={
+            <ProtectedRoute requiresAccess={true}>
+              <GalleryManagerPage />
             </ProtectedRoute>
           } />
           
@@ -277,6 +303,11 @@ const App = () => (
               <LocationsManagerPage />
             </ProtectedRoute>
           } />
+          <Route path="/admin/locations/seo" element={
+            <ProtectedRoute requiresAccess={true}>
+              <LocalSEOManagerPage />
+            </ProtectedRoute>
+          } />
           
           {/* System Settings */}
           <Route path="/admin/settings/theme" element={
@@ -299,6 +330,11 @@ const App = () => (
           <Route path="/admin/users/list" element={
             <ProtectedRoute requiresAccess={true}>
               <UsersManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/users/permissions" element={
+            <ProtectedRoute requiresAccess={true}>
+              <PermissionsManagerPage />
             </ProtectedRoute>
           } />
           

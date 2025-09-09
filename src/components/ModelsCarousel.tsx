@@ -83,7 +83,7 @@ export const ModelsCarousel = () => {
                       
                       {/* Price overlay - refined styling */}
                       {model.price && (
-                        <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
+                        <div className="absolute bottom-6 left-2 sm:bottom-8 sm:left-3 z-10">
                           <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                             <span className="text-white text-xs sm:text-sm font-medium">
                               {model.price}

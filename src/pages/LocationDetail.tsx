@@ -193,7 +193,7 @@ const LocationDetail = () => {
                        size="lg"
                        className="mx-auto flex items-center gap-2 text-black hover:text-black transition-colors border-black/20 hover:border-black/40"
                      >
-                      Saiba mais sobre {location.name}
+                      Learn more about {location.name}
                       {isContentOpen ? (
                         <ChevronUp className="w-4 h-4" />
                       ) : (

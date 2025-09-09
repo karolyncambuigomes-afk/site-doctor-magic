@@ -177,7 +177,7 @@ const CharacteristicDetail = () => {
                         size="lg"
                         className="mx-auto flex items-center gap-2 text-foreground hover:text-primary transition-colors border-primary/20 hover:border-primary/40"
                       >
-                        Saiba mais sobre {characteristic.name} Escorts
+                        Learn more about {characteristic.name} Escorts
                         {isContentOpen ? (
                           <ChevronUp className="w-4 h-4" />
                         ) : (

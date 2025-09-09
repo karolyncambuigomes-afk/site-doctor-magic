@@ -15,6 +15,7 @@ interface SEOProps {
     section?: string;
     tags?: string[];
   };
+  additionalMeta?: Record<string, string>;
 }
 
 export const SEO = ({ 
@@ -25,7 +26,8 @@ export const SEO = ({
   ogImage = "/og-image.jpg",
   structuredData,
   noIndex = false,
-  articleData
+  articleData,
+  additionalMeta = {}
 }: SEOProps) => {
   const fullTitle = title.includes('Five London') ? title : `${title} | Five London - Premium Luxury Escort Services in London`;
   const siteUrl = "https://fivelondon.com";
@@ -121,6 +123,11 @@ export const SEO = ({
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+      {/* Additional custom meta tags */}
+      {Object.entries(additionalMeta).map(([name, content]) => (
+        <meta key={name} name={name} content={content} />
+      ))}
 
       {/* Structured Data */}
       {structuredData && (

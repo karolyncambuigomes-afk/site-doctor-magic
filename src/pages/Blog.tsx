@@ -56,10 +56,17 @@ const Blog = () => {
     <>
       <SEO
         title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
-        description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations from luxury lifestyle experts."
-        keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London, London experiences, sophisticated dining London, luxury travel London, London lifestyle guide"
+        description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations from luxury lifestyle experts covering Mayfair, Westminster, Kensington, Chelsea, and Central London."
+        keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London, London experiences, sophisticated dining London, luxury travel London, London lifestyle guide, Mayfair restaurants, Westminster events, Kensington hotels, Chelsea lifestyle, Central London experiences"
         canonicalUrl="/blog"
         structuredData={structuredData}
+        additionalMeta={{
+          "geo.region": "GB-LND",
+          "geo.placename": "London",
+          "geo.position": "51.5074;-0.1278",
+          "ICBM": "51.5074, -0.1278",
+          "robots": "index,follow,max-image-preview:large"
+        }}
       />
       
       <div className="min-h-screen bg-white">

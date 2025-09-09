@@ -17,17 +17,42 @@ const FAQ = () => {
       { name: "Home", url: "https://fivelondon.com/" },
       { name: "FAQ", url: "https://fivelondon.com/faq" }
     ]),
-    generateFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })))
+    generateFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer }))),
+    // Enhanced LocalBusiness schema for GEO targeting
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Five London - Premium Companion Services",
+      "url": "https://fivelondon.com/faq",
+      "telephone": "+447436190679",
+      "areaServed": [
+        { "@type": "City", "name": "London", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "W1", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "SW1", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "SW3", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "SW7", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "WC2", "addressCountry": "GB" },
+        { "@type": "PostalAddress", "postalCode": "E14", "addressCountry": "GB" }
+      ],
+      "openingHours": "Mo-Su 00:00-23:59",
+      "priceRange": "£500-£1000"
+    }
   ];
 
   return (
     <>
       <SEO 
         title="FAQ - Luxury Escort Services Questions Answered | Five London"
-        description="Get answers to frequently asked questions about Five London's premium escort services. Learn about booking, rates, discretion, safety, and our professional companion services in London."
-        keywords="luxury escort FAQ, escort booking questions, London escort agency FAQ, companion service questions, escort rates, booking process, discretion policy, escort safety, professional escort services FAQ"
+        description="Get answers to frequently asked questions about Five London's premium escort services. Learn about booking, rates, discretion, safety, and our professional companion services in London including Mayfair, Westminster, Kensington, and Central London areas."
+        keywords="luxury escort FAQ, escort booking questions, London escort agency FAQ, companion service questions, escort rates, booking process, discretion policy, escort safety, professional escort services FAQ, Mayfair escort services, Westminster escorts, Central London companions, Kensington escort agency, Chelsea escorts, City of London escort services"
         canonicalUrl="/faq"
         structuredData={structuredData}
+        additionalMeta={{
+          "geo.region": "GB-LND",
+          "geo.placename": "London",
+          "geo.position": "51.5074;-0.1278",
+          "ICBM": "51.5074, -0.1278"
+        }}
       />
       
       <Navigation />

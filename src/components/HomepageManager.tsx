@@ -7,8 +7,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, Save } from 'lucide-react';
+import { Loader2, Save, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useHomepageContent } from '@/hooks/useHomepageContent';
 
 interface HomepageContent {
   hero_main: any;
@@ -25,6 +26,29 @@ export const HomepageManager: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const { toast } = useToast();
+  const { heroContent, updateHeroContent, loading: heroLoading } = useHomepageContent();
+
+  // Local state for hero section editing
+  const [heroFormData, setHeroFormData] = useState({
+    title: '',
+    subtitle: '',
+    content: '',
+    button_primary_text: '',
+    button_primary_url: ''
+  });
+
+  // Update form data when hero content loads
+  useEffect(() => {
+    if (!heroLoading && heroContent) {
+      setHeroFormData({
+        title: heroContent.title || '',
+        subtitle: heroContent.subtitle || '',
+        content: heroContent.content || '',
+        button_primary_text: heroContent.button_primary_text || '',
+        button_primary_url: heroContent.button_primary_url || ''
+      });
+    }
+  }, [heroContent, heroLoading]);
 
   useEffect(() => {
     loadContent();
@@ -129,12 +153,25 @@ export const HomepageManager: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              {/* Preview Card */}
+              <div className="p-4 bg-gray-50 rounded-lg border">
+                <div className="flex items-center gap-2 mb-3">
+                  <Eye className="h-4 w-4" />
+                  <span className="text-sm font-medium">Preview Atual</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div><strong>Título:</strong> {heroContent.title}</div>
+                  <div><strong>Subtítulo:</strong> {heroContent.subtitle}</div>
+                  <div><strong>Descrição:</strong> {heroContent.content?.substring(0, 100)}...</div>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="hero-title">Título Principal</Label>
                 <Input
                   id="hero-title"
-                  value={content.hero_main?.title || ''}
-                  onChange={(e) => updateField('hero_main', 'title', e.target.value)}
+                  value={heroFormData.title}
+                  onChange={(e) => setHeroFormData(prev => ({ ...prev, title: e.target.value }))}
                   placeholder="Digite o título principal"
                 />
               </div>
@@ -143,31 +180,62 @@ export const HomepageManager: React.FC = () => {
                 <Label htmlFor="hero-subtitle">Subtítulo</Label>
                 <Input
                   id="hero-subtitle"
-                  value={content.hero_main?.subtitle || ''}
-                  onChange={(e) => updateField('hero_main', 'subtitle', e.target.value)}
+                  value={heroFormData.subtitle}
+                  onChange={(e) => setHeroFormData(prev => ({ ...prev, subtitle: e.target.value }))}
                   placeholder="Digite o subtítulo"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="hero-content">Descrição</Label>
+                <Label htmlFor="hero-content">Descrição Principal</Label>
                 <Textarea
                   id="hero-content"
-                  value={content.hero_main?.content || ''}
-                  onChange={(e) => updateField('hero_main', 'content', e.target.value)}
-                  placeholder="Digite a descrição principal"
+                  value={heroFormData.content}
+                  onChange={(e) => setHeroFormData(prev => ({ ...prev, content: e.target.value }))}
+                  placeholder="Digite a descrição principal que aparece ao passar o mouse"
                   rows={4}
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="hero-button-text">Texto do Botão Principal</Label>
+                  <Input
+                    id="hero-button-text"
+                    value={heroFormData.button_primary_text}
+                    onChange={(e) => setHeroFormData(prev => ({ ...prev, button_primary_text: e.target.value }))}
+                    placeholder="Ex: View Models"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="hero-button-url">URL do Botão Principal</Label>
+                  <Input
+                    id="hero-button-url"
+                    value={heroFormData.button_primary_url}
+                    onChange={(e) => setHeroFormData(prev => ({ ...prev, button_primary_url: e.target.value }))}
+                    placeholder="Ex: /models"
+                  />
+                </div>
+              </div>
+
               <Button
-                onClick={() => updateContent('hero_main', {
-                  title: content.hero_main?.title,
-                  subtitle: content.hero_main?.subtitle,
-                  content: content.hero_main?.content,
-                  updated_at: new Date().toISOString()
-                })}
-                disabled={saving === 'hero_main'}
+                onClick={async () => {
+                  setSaving('hero_main');
+                  const success = await updateHeroContent(heroFormData);
+                  if (success) {
+                    // Refresh the form data to match the updated content
+                    setHeroFormData({
+                      title: heroFormData.title,
+                      subtitle: heroFormData.subtitle,
+                      content: heroFormData.content,
+                      button_primary_text: heroFormData.button_primary_text,
+                      button_primary_url: heroFormData.button_primary_url
+                    });
+                  }
+                  setSaving(null);
+                }}
+                disabled={saving === 'hero_main' || heroLoading}
+                className="w-full"
               >
                 {saving === 'hero_main' ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -176,6 +244,11 @@ export const HomepageManager: React.FC = () => {
                 )}
                 Salvar Hero Section
               </Button>
+
+              <div className="text-xs text-muted-foreground p-3 bg-blue-50 rounded border">
+                <strong>💡 Dica:</strong> As alterações aqui afetam diretamente a seção principal da homepage. 
+                Vá para a página inicial para ver as mudanças em tempo real.
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

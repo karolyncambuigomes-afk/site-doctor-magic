@@ -6,6 +6,7 @@ import { BlogContentIndex } from './BlogContentIndex';
 import { BlogProgressBar } from './BlogProgressBar';
 import { BlogShareButtons } from './BlogShareButtons';
 import { getImageForContent } from '@/data/blog-images';
+import { processContentWithEntityLinks } from '@/utils/entityLinker';
 
 interface BlogSection {
   title: string;
@@ -19,10 +20,13 @@ interface BlogContentLayoutProps {
 }
 
 export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, slug }) => {
+  // Process content with entity links for SEO
+  const processedContent = processContentWithEntityLinks(content);
+  
   // Add section IDs to content for navigation
   useEffect(() => {
     const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
+    tempDiv.innerHTML = processedContent;
     
     Array.from(tempDiv.querySelectorAll('h2, h3')).forEach((heading, index) => {
       heading.id = `section-${index}`;
@@ -36,7 +40,7 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
         }
       });
     }, 100);
-  }, [content]);
+  }, [processedContent]);
 
   const parseContent = (htmlContent: string): BlogSection[] => {
     const tempDiv = document.createElement('div');
@@ -83,7 +87,7 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
     return sections;
   };
 
-  const sections = parseContent(content);
+  const sections = parseContent(processedContent);
 
   const currentUrl = `${window.location.origin}/blog/${slug}`;
   const firstSection = sections[0];
@@ -96,7 +100,7 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
         {/* Content Index - Sidebar */}
         <div className="lg:col-span-1 order-2 lg:order-1">
           <div className="lg:sticky lg:top-24">
-            <BlogContentIndex content={content} slug={slug} />
+            <BlogContentIndex content={processedContent} slug={slug} />
           </div>
         </div>
 

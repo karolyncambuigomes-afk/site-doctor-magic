@@ -463,6 +463,42 @@ export type Database = {
         }
         Relationships: []
       }
+      preference_categories: {
+        Row: {
+          created_at: string
+          id: string
+          image_alt: string | null
+          image_url: string
+          is_active: boolean
+          name: string
+          order_index: number
+          path: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_alt?: string | null
+          image_url: string
+          is_active?: boolean
+          name: string
+          order_index?: number
+          path: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_alt?: string | null
+          image_url?: string
+          is_active?: boolean
+          name?: string
+          order_index?: number
+          path?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           approved_at: string | null

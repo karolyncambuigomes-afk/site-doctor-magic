@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Loader2, Save } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { PreferenceCategoriesManager } from '@/components/PreferenceCategoriesManager';
 
 interface CharacteristicContent {
   main_title: any;
@@ -130,16 +131,32 @@ export const CharacteristicsManager: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Gerenciar Características</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Site Content Manager</h2>
         <p className="text-muted-foreground">
-          Edite o conteúdo de todas as características dos escorts
+          Manage content for different sections of the website
         </p>
       </div>
 
-      <Accordion type="single" collapsible className="w-full">
-        {characteristics.map((characteristic) => (
+      {/* Preference Categories Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Browse by Preference Categories</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <PreferenceCategoriesManager />
+        </CardContent>
+      </Card>
+
+      {/* Characteristics Content Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Characteristics Content</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Accordion type="single" collapsible className="w-full">
+            {characteristics.map((characteristic) => (
           <AccordionItem key={characteristic.key} value={characteristic.key}>
             <AccordionTrigger className="text-left">
               <div>
@@ -201,8 +218,10 @@ export const CharacteristicsManager: React.FC = () => {
               </Card>
             </AccordionContent>
           </AccordionItem>
-        ))}
-      </Accordion>
+            ))}
+          </Accordion>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -41,3 +41,6 @@ verify_jwt = true
 
 [functions.send-confirmation-email]
 verify_jwt = true
+
+[functions.create-member]
+verify_jwt = true

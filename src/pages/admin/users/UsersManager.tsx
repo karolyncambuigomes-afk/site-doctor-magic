@@ -9,9 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Users, UserCheck, UserX, Shield, Mail, Calendar, Search } from 'lucide-react';
+import { Users, UserCheck, UserX, Shield, Mail, Calendar, Search, Crown } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { CreateMemberModal } from '@/components/admin/CreateMemberModal';
 
 interface User {
   id: string;
@@ -45,6 +46,7 @@ export const UsersManager: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'approved' | 'rejected' | 'admin'>('all');
+  const [isCreateMemberModalOpen, setIsCreateMemberModalOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -269,7 +271,7 @@ export const UsersManager: React.FC = () => {
         </div>
 
         {/* Filtros e Busca */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -282,7 +284,7 @@ export const UsersManager: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button
               variant={filterStatus === 'all' ? 'default' : 'outline'}
               size="sm"
@@ -310,6 +312,14 @@ export const UsersManager: React.FC = () => {
               onClick={() => setFilterStatus('admin')}
             >
               Admins
+            </Button>
+            <Button
+              onClick={() => setIsCreateMemberModalOpen(true)}
+              className="bg-gradient-to-r from-primary to-primary-variant text-white"
+              size="sm"
+            >
+              <Crown className="mr-2 h-4 w-4" />
+              Criar Membro Exclusivo
             </Button>
           </div>
         </div>
@@ -394,6 +404,12 @@ export const UsersManager: React.FC = () => {
             </div>
           </CardContent>
         </Card>
+
+        <CreateMemberModal
+          isOpen={isCreateMemberModalOpen}
+          onClose={() => setIsCreateMemberModalOpen(false)}
+          onSuccess={() => loadUsers()}
+        />
       </div>
     </AdminLayout>
   );

@@ -232,7 +232,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           <h4 className="font-bold text-foreground">Sistema de Ordenação</h4>
         </div>
         <p className="text-sm text-foreground">
-          • A foto na posição 1 será a PRINCIPAL (aparece na lista)<br/>
+          • A primeira foto será exibida como destaque<br/>
           • Use os seletores de ordem para reorganizar as fotos<br/>
           • Adicione pelo menos 1 foto para que o modelo apareça no site
         </p>
@@ -330,8 +330,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
                       ))}
                     </select>
                     {index === 0 && (
-                      <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
-                        Principal
+                      <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
+                        Destaque
                       </span>
                     )}
                   </div>

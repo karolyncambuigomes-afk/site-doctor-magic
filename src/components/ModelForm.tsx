@@ -350,24 +350,6 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardContent>
         </Card>
 
-        {/* Main Image Upload */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              🖼️ Imagem Principal
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <ImageUpload
-                value={formData.image || ''}
-                onChange={(url) => handleInputChange('image', url)}
-                label="Imagem Principal"
-                placeholder="URL da imagem principal ou faça upload"
-              />
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Access & Privacy Configuration Card */}
         <Card className="border-primary/20 bg-primary/5">

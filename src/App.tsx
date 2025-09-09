@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -55,10 +55,17 @@ import { PerformanceAnalytics } from "./pages/admin/seo/PerformanceAnalytics";
 import { ContentManager } from "./pages/admin/content/ContentManager";
 import { BlogManager } from "./pages/admin/content/BlogManager";
 import { ModelsManager } from "./pages/admin/models/ModelsManager";
-import { ReviewsManager } from "./pages/admin/models/ReviewsManager";
+import { ModelsListManager } from "./pages/admin/models/ModelsListManager";
+import { ApplicationsManager } from "./pages/admin/models/ApplicationsManager";
+import { CharacteristicsManagerPage } from "./pages/admin/models/CharacteristicsManagerPage";
+import { ServicesManagerPage } from "./pages/admin/models/ServicesManagerPage";
+import { ReviewsManagerPage } from "./pages/admin/models/ReviewsManagerPage";
 import { LocationsManager as LocationsManagerPage } from "./pages/admin/locations/LocationsManager";
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { SystemSettings } from "./pages/admin/system/SystemSettings";
+import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
+import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
+import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
 import { GalleryAdmin } from "./pages/GalleryAdmin";
 
 const queryClient = new QueryClient();
@@ -237,26 +244,59 @@ const App = () => (
           } />
           
           {/* Models & Services */}
-          <Route path="/admin/models" element={
+          <Route path="/admin/models" element={<Navigate to="/admin/models/list" replace />} />
+          <Route path="/admin/models/list" element={
             <ProtectedRoute requiresAccess={true}>
-              <ModelsManager />
+              <ModelsListManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/models/applications" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ApplicationsManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/models/characteristics" element={
+            <ProtectedRoute requiresAccess={true}>
+              <CharacteristicsManagerPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/models/services" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ServicesManagerPage />
             </ProtectedRoute>
           } />
           <Route path="/admin/models/reviews" element={
             <ProtectedRoute requiresAccess={true}>
-              <ReviewsManager />
+              <ReviewsManagerPage />
             </ProtectedRoute>
           } />
           
           {/* Locations & Geo */}
-          <Route path="/admin/locations" element={
+          <Route path="/admin/locations/list" element={
             <ProtectedRoute requiresAccess={true}>
               <LocationsManagerPage />
             </ProtectedRoute>
           } />
           
+          {/* System Settings */}
+          <Route path="/admin/settings/theme" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ThemeManagerPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/settings/categories" element={
+            <ProtectedRoute requiresAccess={true}>
+              <CategoriesManagerPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/settings/legal" element={
+            <ProtectedRoute requiresAccess={true}>
+              <LegalPagesManagerPage />
+            </ProtectedRoute>
+          } />
+          
           {/* User Management */}
-          <Route path="/admin/users" element={
+          <Route path="/admin/users/list" element={
             <ProtectedRoute requiresAccess={true}>
               <UsersManager />
             </ProtectedRoute>

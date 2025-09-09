@@ -26,7 +26,7 @@ const Contact = () => {
         },
         {
           "@type": "ContactPoint",
-          "email": "info@fivelondon.com",
+          "email": "models@exclusivefivelondon.com",
           "contactType": "customer service",
           "availableLanguage": "English"
         }
@@ -45,7 +45,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      details: "info@fivelondon.com",
+      details: "models@exclusivefivelondon.com",
       description: "Get pricing and availability within 1 hour",
       action: "Email for Prices"
     },
@@ -109,7 +109,7 @@ const Contact = () => {
                         } else if (method.title === 'Phone') {
                           window.location.href = 'tel:+447436190679';
                         } else if (method.title === 'Email') {
-                          window.location.href = 'mailto:info@fivelondon.com';
+                          window.location.href = 'mailto:models@exclusivefivelondon.com';
                         }
                       }}
                     >

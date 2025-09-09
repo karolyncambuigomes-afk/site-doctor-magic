@@ -90,33 +90,33 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
     });
 
     return (
-      <Card className="my-8 border-gray-200 bg-white shadow-sm">
-        <CardHeader className="bg-gray-50/50">
-          <CardTitle className="luxury-heading-md text-black flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-blue-600" />
+      <Card className="my-8 border-luxury bg-gradient-to-r from-background to-muted/20">
+        <CardHeader>
+          <CardTitle className="luxury-heading-md text-foreground flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-primary" />
             {title}
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-0">
+        <CardContent>
           <Table>
             <TableHeader>
-              <TableRow className="bg-gray-100">
-                <TableHead className="luxury-body-sm font-semibold text-gray-900">Aspect</TableHead>
-                <TableHead className="luxury-body-sm font-semibold text-gray-900">Details</TableHead>
+              <TableRow className="bg-muted/30">
+                <TableHead className="luxury-body-sm font-medium">Aspect</TableHead>
+                <TableHead className="luxury-body-sm font-medium">Details</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {Object.entries(venueInfo).map(([key, value]) => (
-                <TableRow key={key} className="hover:bg-gray-50 transition-colors border-b border-gray-100">
-                  <TableCell className="font-medium text-black flex items-center gap-2">
+                <TableRow key={key} className="hover:bg-muted/20 transition-colors">
+                  <TableCell className="font-medium text-foreground flex items-center gap-2">
                     {key === 'Specialty' && <Star className="w-4 h-4 text-amber-500" />}
                     {key === 'Average price' && <DollarSign className="w-4 h-4 text-green-600" />}
                     {key === 'Atmosphere' && <Clock className="w-4 h-4 text-blue-500" />}
                     {key}
                   </TableCell>
-                  <TableCell className="text-gray-700">
+                  <TableCell className="text-muted-foreground">
                     {key === 'Average price' ? (
-                      <Badge variant="secondary" className="font-medium bg-gray-100 text-gray-800">
+                      <Badge variant="secondary" className="font-medium">
                         {value}
                       </Badge>
                     ) : (
@@ -134,15 +134,15 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
 
   const renderImageSection = (imageSrc: string, position: 'left' | 'right', index: number) => (
     <div className={`my-12 flex ${position === 'right' ? 'justify-end' : 'justify-start'}`}>
-      <div className="relative group max-w-lg">
-        <div className="aspect-[3/2] rounded-xl overflow-hidden shadow-lg bg-gray-100">
+      <div className="relative group max-w-md">
+        <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-lg bg-muted">
           <img 
             src={imageSrc}
             alt={`Luxury experience ${index + 1}`}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
     </div>
   );
@@ -150,14 +150,14 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
   const sections = parseContent(content);
 
   return (
-    <div className="space-y-10 bg-white">
+    <div className="space-y-8">
       {sections.map((section, index) => (
         <React.Fragment key={index}>
           {section.image && renderImageSection(section.image, section.position, index)}
           
-          <div className="space-y-8">
+          <div className="space-y-6">
             {section.title && (
-              <h2 className="luxury-heading-lg text-black font-light border-b border-gray-200 pb-4">
+              <h2 className="luxury-heading-lg text-foreground font-light border-b border-border pb-4">
                 {section.title}
               </h2>
             )}
@@ -166,22 +166,22 @@ export const BlogContentRenderer: React.FC<BlogContentRendererProps> = ({ conten
               renderVenueTable(section.content, section.title)
             ) : (
               <div 
-                className="prose prose-lg max-w-none bg-white
-                  [&>h3]:luxury-heading-md [&>h3]:text-black [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-medium
-                  [&>h4]:luxury-heading-sm [&>h4]:text-black [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-medium
-                  [&>p]:luxury-body-md [&>p]:text-gray-800 [&>p]:leading-relaxed [&>p]:mb-6
-                  [&>li]:text-gray-800 [&>li]:leading-relaxed [&>li]:mb-2
-                  [&>strong]:text-black [&>strong]:font-semibold
-                  [&>ul]:my-6 [&>ol]:my-6 [&>ul]:bg-gray-50 [&>ul]:p-6 [&>ul]:rounded-lg [&>ul]:border [&>ul]:border-gray-200
-                  [&>blockquote]:border-l-4 [&>blockquote]:border-blue-500 [&>blockquote]:pl-6
-                  [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gray-50 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg [&>blockquote]:border [&>blockquote]:border-gray-200"
+                className="prose prose-lg max-w-none
+                  [&>h3]:luxury-heading-md [&>h3]:text-foreground [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-light
+                  [&>h4]:luxury-heading-sm [&>h4]:text-foreground [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-light
+                  [&>p]:luxury-body-base [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-6
+                  [&>li]:text-muted-foreground [&>li]:leading-relaxed [&>li]:mb-2
+                  [&>strong]:text-foreground [&>strong]:font-semibold
+                  [&>ul]:my-6 [&>ol]:my-6 [&>ul]:bg-muted/10 [&>ul]:p-6 [&>ul]:rounded-lg
+                  [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-6
+                  [&>blockquote]:italic [&>blockquote]:text-muted-foreground [&>blockquote]:bg-muted/20 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg"
                 dangerouslySetInnerHTML={{ __html: section.content }}
               />
             )}
           </div>
           
           {index < sections.length - 1 && (
-            <Separator className="my-16 bg-gray-200" />
+            <Separator className="my-12 bg-border/50" />
           )}
         </React.Fragment>
       ))}

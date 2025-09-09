@@ -73,11 +73,11 @@ const BlogPost = () => {
         
         <main className="pt-16">
           {/* Breadcrumb */}
-          <section className="py-8 border-b border-gray-200 bg-white">
-            <div className="container mx-auto px-4">
+          <section className="py-8 border-b border-border">
+            <div className="container-width">
               <Link 
                 to="/blog" 
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Blog
@@ -87,7 +87,7 @@ const BlogPost = () => {
 
           {/* Article Header */}
           <section className="py-12 md:py-16 bg-white">
-            <div className="container mx-auto px-4">
+            <div className="container-width">
               <div className="max-w-4xl mx-auto">
                 <div className="mb-8">
                   <Badge variant="secondary" className="mb-4">
@@ -102,7 +102,7 @@ const BlogPost = () => {
                     {article.excerpt}
                   </p>
                   
-                  <div className="flex items-center gap-6 text-sm text-gray-600">
+                  <div className="flex items-center gap-6 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
                        <time dateTime={article.publishedAt}>
@@ -124,7 +124,7 @@ const BlogPost = () => {
                 </div>
 
                 {/* Featured Image */}
-                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden mb-12">
+                <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-12">
                   <img 
                     src={article.image} 
                     alt={article.title}
@@ -135,8 +135,8 @@ const BlogPost = () => {
             </div>
           </section>
 
-          <section className="pb-16 bg-white">
-            <div className="container mx-auto px-4">
+          <section className="pb-16 bg-background">
+            <div className="container-width">
               <div className="max-w-5xl mx-auto">
                 <BlogContentRenderer content={article.content} slug={article.slug} />
               </div>
@@ -145,27 +145,27 @@ const BlogPost = () => {
 
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
-            <section className="py-16 bg-white">
-              <div className="container mx-auto px-4">
+            <section className="py-16 bg-gray-50">
+              <div className="container-width">
                 <div className="max-w-6xl mx-auto">
                    <h2 className="luxury-heading-xl mb-12 text-center text-black">
                      Related Articles
                    </h2>
                   
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                     {relatedArticles.map((relatedArticle) => (
-                       <Card key={relatedArticle.id} className="group hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-gray-300 overflow-hidden bg-white">
-                         <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                    {relatedArticles.map((relatedArticle) => (
+                      <Card key={relatedArticle.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
+                        <div className="aspect-video bg-muted/50 relative overflow-hidden">
                           <img 
                             src={relatedArticle.image} 
                             alt={relatedArticle.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />
-                           <div className="absolute top-4 left-4">
-                             <Badge variant="secondary" className="bg-white/90 text-black">
-                               {relatedArticle.category}
-                             </Badge>
-                           </div>
+                          <div className="absolute top-4 left-4">
+                            <Badge variant="secondary" className="bg-background/90 text-foreground">
+                              {relatedArticle.category}
+                            </Badge>
+                          </div>
                         </div>
                         
                         <CardHeader className="pb-4">
@@ -179,12 +179,12 @@ const BlogPost = () => {
                              {relatedArticle.excerpt.substring(0, 120)}...
                            </p>
                           
-                           <Link to={`/blog/${relatedArticle.slug}`}>
-                             <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-black hover:text-gray-700">
-                               Read article
-                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                             </Button>
-                           </Link>
+                          <Link to={`/blog/${relatedArticle.slug}`}>
+                            <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80">
+                              Read article
+                              <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
                         </CardContent>
                       </Card>
                     ))}
@@ -196,7 +196,7 @@ const BlogPost = () => {
 
           {/* CTA Section */}
           <section className="py-16 bg-white">
-            <div className="container mx-auto px-4">
+            <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
                 <h2 className="luxury-heading-xl mb-6 text-black">
                   Ready for Your London Experience?

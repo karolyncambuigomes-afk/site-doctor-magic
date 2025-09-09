@@ -15,6 +15,8 @@ import heroSecondBanner from '@/assets/hero-second-banner-new.jpg';
 import { CategoryFilters } from '@/components/CategoryFilters';
 import { faqSchemaData, serviceSchemaData, londonAreasData } from '@/data/faq-schema';
 const Index = () => {
+  console.log('Index page loading...');
+  
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
   const { data: reviewData } = useReviews();
@@ -178,4 +180,5 @@ const Index = () => {
     </>
   );
 };
+console.log('Index component defined');
 export default Index;

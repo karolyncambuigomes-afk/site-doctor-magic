@@ -444,6 +444,7 @@ export type Database = {
           face_visible: boolean | null
           hair: string | null
           height: string | null
+          homepage_order: number | null
           id: string
           image: string | null
           interests: string[] | null
@@ -457,6 +458,7 @@ export type Database = {
           rating: number | null
           reviews: number | null
           services: string[] | null
+          show_on_homepage: boolean | null
           updated_at: string
         }
         Insert: {
@@ -470,6 +472,7 @@ export type Database = {
           face_visible?: boolean | null
           hair?: string | null
           height?: string | null
+          homepage_order?: number | null
           id?: string
           image?: string | null
           interests?: string[] | null
@@ -483,6 +486,7 @@ export type Database = {
           rating?: number | null
           reviews?: number | null
           services?: string[] | null
+          show_on_homepage?: boolean | null
           updated_at?: string
         }
         Update: {
@@ -496,6 +500,7 @@ export type Database = {
           face_visible?: boolean | null
           hair?: string | null
           height?: string | null
+          homepage_order?: number | null
           id?: string
           image?: string | null
           interests?: string[] | null
@@ -509,6 +514,7 @@ export type Database = {
           rating?: number | null
           reviews?: number | null
           services?: string[] | null
+          show_on_homepage?: boolean | null
           updated_at?: string
         }
         Relationships: []

@@ -23,43 +23,51 @@ export const useHomepageCarousel = () => {
       setLoading(true);
       setError(null);
 
-      // Get carousel items
-      const { data: carouselData, error: carouselError } = await supabase
-        .from('homepage_carousel')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index');
+      // Get models configured to show on homepage
+      const { data: modelsData, error: modelsError } = await supabase
+        .from('models')
+        .select('id, name, location, price, age, characteristics, image')
+        .eq('show_on_homepage', true)
+        .order('homepage_order', { ascending: true, nullsFirst: false });
 
-      if (carouselError) {
-        console.error('Error fetching carousel:', carouselError);
+      if (modelsError) {
+        console.error('Error fetching homepage models:', modelsError);
         setError('Failed to load carousel');
         return;
       }
 
-      // Get all public models data
-      const { data: modelsData, error: modelsError } = await supabase
-        .rpc('get_public_models');
-
-      if (modelsError) {
-        console.error('Error fetching model details:', modelsError);
+      // Transform data to match our interface, with gallery fallback for images
+      const transformedModels = [];
+      
+      for (const model of modelsData || []) {
+        let imageUrl = model.image;
+        
+        // If no main image, try to get from gallery
+        if (!imageUrl) {
+          const { data: galleryData } = await supabase
+            .from('model_gallery')
+            .select('image_url')
+            .eq('model_id', model.id)
+            .order('order_index')
+            .limit(1);
+          
+          if (galleryData && galleryData.length > 0) {
+            imageUrl = galleryData[0].image_url;
+          }
+        }
+        
+        transformedModels.push({
+          id: model.id,
+          name: model.name.split(' ')[0], // First name only for public display
+          image: getImageUrl(imageUrl),
+          location: model.location || '',
+          price: model.price || '',
+          age: model.age || null,
+          characteristics: model.characteristics || []
+        });
       }
 
-      // Transform data to match our interface
-      const transformedModels = carouselData?.map((item: any) => {
-        const modelDetails = modelsData?.find(m => m.id === item.model_id);
-        console.log('Homepage Carousel - Model details for', item.model_name, ':', modelDetails);
-        return {
-          id: item.model_id,
-          name: item.model_name,
-          image: getImageUrl(item.image_url),
-          location: modelDetails?.location || '',
-          price: modelDetails?.price || '',
-          age: modelDetails?.age || null,
-          characteristics: modelDetails?.characteristics || []
-        };
-      }) || [];
-
-      console.log('Homepage Carousel - Transformed models:', transformedModels);
+      console.log('Homepage Carousel - Models from database:', transformedModels);
       setModels(transformedModels);
     } catch (err) {
       console.error('Unexpected error fetching carousel:', err);

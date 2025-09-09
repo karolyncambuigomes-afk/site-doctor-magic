@@ -38,6 +38,8 @@ interface Model {
   reviews: number | null;
   members_only: boolean | null;
   face_visible: boolean | null;
+  show_on_homepage?: boolean | null;
+  homepage_order?: number | null;
 }
 
 interface ModelFormProps {
@@ -95,7 +97,9 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     rating: null,
     reviews: null,
     members_only: false,
-    face_visible: true
+    face_visible: true,
+    show_on_homepage: false,
+    homepage_order: null
   });
 
   const [newService, setNewService] = useState('');
@@ -225,7 +229,9 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         rating: formData.rating,
         reviews: formData.reviews,
         members_only: formData.members_only,
-        face_visible: formData.face_visible
+        face_visible: formData.face_visible,
+        show_on_homepage: formData.show_on_homepage,
+        homepage_order: formData.homepage_order
       };
 
       if (model?.id) {
@@ -363,6 +369,49 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 placeholder="URL da foto principal ou faça upload"
               />
             </div>
+          </CardContent>
+        </Card>
+
+        {/* Homepage Configuration Card */}
+        <Card className="border-green-200 bg-green-50/50">
+          <CardHeader>
+            <CardTitle className="text-green-700 flex items-center gap-2">
+              🏠 Homepage Carousel
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
+              <div className="space-y-1">
+                <Label htmlFor="show-homepage" className="text-sm font-medium">
+                  Mostrar na Homepage
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Esta modelo aparecerá no carousel da página inicial
+                </p>
+              </div>
+              <Switch
+                id="show-homepage"
+                checked={formData.show_on_homepage || false}
+                onCheckedChange={(checked) => handleInputChange('show_on_homepage', checked)}
+              />
+            </div>
+            
+            {formData.show_on_homepage && (
+              <div>
+                <Label htmlFor="homepage-order">Posição no Carousel</Label>
+                <Input
+                  id="homepage-order"
+                  type="number"
+                  value={formData.homepage_order || ''}
+                  onChange={(e) => handleInputChange('homepage_order', e.target.value ? parseInt(e.target.value) : null)}
+                  placeholder="1, 2, 3... (deixe vazio para adicionar no final)"
+                  className="mt-1"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Posição 1 será mostrada primeiro. Deixe vazio para adicionar no final.
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
 

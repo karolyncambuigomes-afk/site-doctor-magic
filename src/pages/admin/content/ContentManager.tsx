@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { HomepageManager } from '@/components/HomepageManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
-import { GalleryManager } from '@/components/GalleryManager';
+
 import { BlogManager } from '@/components/BlogManager';
 import { Home, FileText, HelpCircle, Image, Layout, BookOpen } from 'lucide-react';
 
@@ -61,7 +61,7 @@ export const ContentManager: React.FC = () => {
           }} 
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-6">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="homepage" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
               Homepage
@@ -73,10 +73,6 @@ export const ContentManager: React.FC = () => {
             <TabsTrigger value="faq" className="flex items-center gap-2">
               <HelpCircle className="h-4 w-4" />
               FAQ
-            </TabsTrigger>
-            <TabsTrigger value="gallery" className="flex items-center gap-2">
-              <Image className="h-4 w-4" />
-              Galeria
             </TabsTrigger>
             <TabsTrigger value="blog" className="flex items-center gap-2">
               <BookOpen className="h-4 w-4" />
@@ -130,19 +126,6 @@ export const ContentManager: React.FC = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="gallery" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Galeria de Imagens</CardTitle>
-                <CardDescription>
-                  Gerencie as imagens e galerias do site
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <GalleryManager />
-              </CardContent>
-            </Card>
-          </TabsContent>
 
           <TabsContent value="blog" className="space-y-4">
             <Card>

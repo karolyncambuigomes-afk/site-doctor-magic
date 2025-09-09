@@ -58,7 +58,7 @@ import { BlogManager } from "./pages/admin/content/BlogManager";
 import { HomepageManagerPage } from "./pages/admin/content/HomepageManagerPage";
 import { SiteContentManagerPage } from "./pages/admin/content/SiteContentManagerPage";
 import { FAQManagerPage } from "./pages/admin/content/FAQManagerPage";
-import { GalleryManagerPage } from "./pages/admin/content/GalleryManagerPage";
+
 import { ModelsManager } from "./pages/admin/models/ModelsManager";
 import { ModelsListManager } from "./pages/admin/models/ModelsListManager";
 import { ModelFormPage } from "./pages/admin/models/ModelFormPage";

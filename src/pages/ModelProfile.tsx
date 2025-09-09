@@ -132,10 +132,14 @@ export const ModelProfile: React.FC = () => {
           <div className="text-center space-y-4 pb-8 mb-8 border-b border-border">
             <h1 className="text-3xl md:text-4xl font-light tracking-wide text-black">{model.name}</h1>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-muted-foreground">
-              {model.age && <span className="font-medium">{model.age} years</span>}
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base">
+              {model.age && (
+                <span className="font-medium text-gray-900 bg-gray-100 px-3 py-1 rounded-full">
+                  {model.age} years
+                </span>
+              )}
               {model.location && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-gray-700 bg-gray-100 px-3 py-1 rounded-full">
                   <MapPin className="h-4 w-4" />
                   <span>{model.location}</span>
                 </div>

@@ -188,11 +188,11 @@ const LocationDetail = () => {
               <div className="text-center mb-8">
                 <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
                   <CollapsibleTrigger asChild>
-                    <Button 
-                      variant="outline" 
-                      size="lg"
-                      className="mx-auto flex items-center gap-2 text-foreground hover:text-primary transition-colors border-primary/20 hover:border-primary/40"
-                    >
+                     <Button 
+                       variant="outline" 
+                       size="lg"
+                       className="mx-auto flex items-center gap-2 text-black hover:text-black transition-colors border-black/20 hover:border-black/40"
+                     >
                       Saiba mais sobre {location.name}
                       {isContentOpen ? (
                         <ChevronUp className="w-4 h-4" />
@@ -202,10 +202,10 @@ const LocationDetail = () => {
                     </Button>
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-12 animate-accordion-down">
-                    <div 
-                      className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
-                      dangerouslySetInnerHTML={{ __html: location.content }}
-                    />
+                     <div 
+                       className="prose prose-lg max-w-4xl mx-auto text-black [&>h2]:luxury-heading-lg [&>h2]:text-black [&>h3]:luxury-heading-md [&>h3]:text-black [&>p]:luxury-body-base [&>p]:text-black [&>p]:leading-relaxed"
+                       dangerouslySetInnerHTML={{ __html: location.content }}
+                     />
                   </CollapsibleContent>
                 </Collapsible>
               </div>

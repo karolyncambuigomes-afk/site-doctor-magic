@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { getBlogArticleBySlug, getRelatedArticles } from "@/data/blog-articles";
+import { BlogContentRenderer } from "@/components/BlogContentRenderer";
 import NotFound from "./NotFound";
 
 const BlogPost = () => {
@@ -134,47 +135,10 @@ const BlogPost = () => {
             </div>
           </section>
 
-          <section className="pb-16 bg-white">
+          <section className="pb-16 bg-background">
             <div className="container-width">
-              <div className="max-w-4xl mx-auto">
-                {/* Inline gallery for better visual appeal */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12 rounded-lg overflow-hidden">
-                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                    <img 
-                      src="/images/model1.jpg" 
-                      alt="Luxury lifestyle in London"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-                    <img 
-                      src="/images/model2.jpg" 
-                      alt="Elegant experiences"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden md:block hidden">
-                    <img 
-                      src="/images/model3.jpg" 
-                      alt="Sophisticated lifestyle"
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-
-                <div 
-                  className="prose prose-lg max-w-none
-                    [&>h2]:luxury-heading-lg [&>h2]:text-black [&>h2]:mt-10 [&>h2]:mb-6 [&>h2]:font-light
-                    [&>h3]:luxury-heading-md [&>h3]:text-black [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-light
-                    [&>h4]:luxury-heading-sm [&>h4]:text-black [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-light
-                    [&>p]:luxury-body-base [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-6
-                    [&>li]:text-gray-700 [&>li]:leading-relaxed [&>li]:mb-2
-                    [&>strong]:text-black [&>strong]:font-semibold
-                    [&>ul]:my-6 [&>ol]:my-6
-                    [&>blockquote]:border-l-4 [&>blockquote]:border-black [&>blockquote]:pl-6
-                    [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:bg-gray-50 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg"
-                  dangerouslySetInnerHTML={{ __html: article.content }}
-                />
+              <div className="max-w-5xl mx-auto">
+                <BlogContentRenderer content={article.content} slug={article.slug} />
               </div>
             </div>
           </section>

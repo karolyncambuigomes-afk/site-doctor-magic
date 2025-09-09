@@ -355,6 +355,7 @@ export type Database = {
           image_url: string
           model_id: string
           order_index: number | null
+          visibility: string | null
         }
         Insert: {
           caption?: string | null
@@ -363,6 +364,7 @@ export type Database = {
           image_url: string
           model_id: string
           order_index?: number | null
+          visibility?: string | null
         }
         Update: {
           caption?: string | null
@@ -371,6 +373,7 @@ export type Database = {
           image_url?: string
           model_id?: string
           order_index?: number | null
+          visibility?: string | null
         }
         Relationships: [
           {

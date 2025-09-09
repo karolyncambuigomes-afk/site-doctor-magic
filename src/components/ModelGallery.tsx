@@ -44,19 +44,61 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     try {
       console.log('🖼️ SITE GALERIA: Carregando imagens para modelId:', modelId);
       
-      const { data, error } = await supabase
+      // Get current user info to determine what images they can see
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      let query = supabase
         .from('model_gallery')
         .select('*')
         .eq('model_id', modelId)
         .order('order_index', { ascending: true });
+
+      // Filter images based on user access level
+      if (!user) {
+        // Not logged in - only public images
+        query = query.eq('visibility', 'public');
+        console.log('🖼️ SITE GALERIA: Usuário não logado - apenas imagens públicas');
+      } else {
+        // Check if user is admin
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .single();
+
+        if (profile?.role === 'admin') {
+          // Admin can see all images
+          console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+        } else {
+          // Check if user has subscription (is a member)
+          const { data: subscription } = await supabase
+            .from('user_subscriptions')
+            .select('active')
+            .eq('user_id', user.id)
+            .eq('active', true)
+            .maybeSingle();
+
+          if (subscription) {
+            // Member can see public and members_only images
+            query = query.in('visibility', ['public', 'members_only']);
+            console.log('🖼️ SITE GALERIA: Membro - pode ver imagens públicas e exclusivas');
+          } else {
+            // Regular user - only public images
+            query = query.eq('visibility', 'public');
+            console.log('🖼️ SITE GALERIA: Usuário comum - apenas imagens públicas');
+          }
+        }
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         console.error('🖼️ SITE GALERIA: Erro ao carregar:', error);
         throw error;
       }
 
-      console.log('🖼️ SITE GALERIA: Imagens carregadas:', data);
-      console.log('🖼️ SITE GALERIA: Número de imagens:', data?.length || 0);
+      console.log('🖼️ SITE GALERIA: Imagens carregadas após filtro:', data);
+      console.log('🖼️ SITE GALERIA: Número de imagens visíveis:', data?.length || 0);
       setGalleryImages(data || []);
       
       // Force re-render after setting gallery images
@@ -77,6 +119,34 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       order_index: 0 
     }
   ];
+
+  // Check if there are exclusive images for members
+  const [totalImages, setTotalImages] = useState(0);
+  const [hasExclusiveImages, setHasExclusiveImages] = useState(false);
+
+  useEffect(() => {
+    const checkExclusiveImages = async () => {
+      try {
+        // Get total number of images for this model
+        const { data: allImagesData } = await supabase
+          .from('model_gallery')
+          .select('visibility')
+          .eq('model_id', modelId);
+
+        if (allImagesData) {
+          setTotalImages(allImagesData.length);
+          const exclusiveCount = allImagesData.filter(img => 
+            img.visibility === 'members_only' || img.visibility === 'admin_only'
+          ).length;
+          setHasExclusiveImages(exclusiveCount > 0);
+        }
+      } catch (error) {
+        console.error('Error checking exclusive images:', error);
+      }
+    };
+
+    checkExclusiveImages();
+  }, [modelId, galleryImages]);
 
   console.log('🖼️ SITE GALERIA: allImages após processamento:', allImages);
   console.log('🖼️ SITE GALERIA: galleryImages.length:', galleryImages.length);
@@ -168,6 +238,23 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             </div>
           )}
         </div>
+
+        {/* Exclusive Images Notification */}
+        {hasExclusiveImages && totalImages > galleryImages.length && (
+          <div className="bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-lg p-4 mb-4">
+            <div className="flex items-center gap-2 text-amber-800">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              <span className="font-semibold">
+                {totalImages - galleryImages.length} fotos exclusivas disponíveis para membros
+              </span>
+            </div>
+            <p className="text-amber-700 text-sm mt-1">
+              Torne-se um membro premium para ver todas as fotos desta modelo
+            </p>
+          </div>
+        )}
 
         {/* Thumbnail Gallery - only show if more than 1 image */}
         {allImages.length > 1 && (

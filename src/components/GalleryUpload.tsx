@@ -6,7 +6,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { ImageEditor } from '@/components/ImageEditor';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Trash2, Plus, Edit3 } from 'lucide-react';
+import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info } from 'lucide-react';
 
 interface GalleryImage {
   id: string;
@@ -14,14 +14,21 @@ interface GalleryImage {
   image_url: string;
   caption?: string;
   order_index: number;
+  visibility?: 'public' | 'members_only' | 'admin_only';
   created_at: string;
+}
+
+interface ModelForGallery {
+  id?: string;
+  members_only?: boolean;
 }
 
 interface GalleryUploadProps {
   modelId: string;
+  model?: ModelForGallery;
 }
 
-export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
+export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) => {
   const { toast } = useToast();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(false);
@@ -84,11 +91,13 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
       console.log('🎭 GALERIA: nextOrderIndex =', nextOrderIndex);
 
+      const defaultVisibility = model?.members_only ? 'members_only' : 'public';
       const insertData = {
         model_id: modelId,
         image_url: newImageUrl,
         caption: newImageCaption || null,
-        order_index: nextOrderIndex
+        order_index: nextOrderIndex,
+        visibility: defaultVisibility
       };
       console.log('🎭 GALERIA: Inserindo na tabela model_gallery:', insertData);
 
@@ -257,6 +266,40 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
     }
   };
 
+  const updateVisibility = async (imageId: string, newVisibility: 'public' | 'members_only' | 'admin_only') => {
+    try {
+      const { error } = await supabase
+        .from('model_gallery')
+        .update({ visibility: newVisibility })
+        .eq('id', imageId);
+
+      if (error) throw error;
+
+      const visibilityLabels = {
+        'public': 'Pública',
+        'members_only': 'Apenas Membros',
+        'admin_only': 'Apenas Admin'
+      };
+
+      toast({
+        title: "Sucesso",
+        description: `Visibilidade alterada para: ${visibilityLabels[newVisibility]}`,
+      });
+
+      loadGalleryImages();
+      
+      // Notify other components about the change
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
+    } catch (error) {
+      console.error('Error updating visibility:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao atualizar visibilidade",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -382,6 +425,57 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
                       </span>
                     )}
                   </div>
+                  
+                  {/* Visibility controls for mixed access models */}
+                  {!model?.members_only && (
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">Visibilidade:</Label>
+                      <div className="flex gap-1">
+                        <Button
+                          type="button"
+                          variant={image.visibility === 'public' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => updateVisibility(image.id, 'public')}
+                          className={`flex-1 text-xs ${
+                            image.visibility === 'public' 
+                              ? 'bg-green-500 hover:bg-green-600 text-white' 
+                              : 'text-green-600 border-green-200 hover:bg-green-50'
+                          }`}
+                        >
+                          <Globe className="w-3 h-3 mr-1" />
+                          Pública
+                        </Button>
+                        <Button
+                          type="button"
+                          variant={image.visibility === 'members_only' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => updateVisibility(image.id, 'members_only')}
+                          className={`flex-1 text-xs ${
+                            image.visibility === 'members_only' 
+                              ? 'bg-amber-500 hover:bg-amber-600 text-white' 
+                              : 'text-amber-600 border-amber-200 hover:bg-amber-50'
+                          }`}
+                        >
+                          <Crown className="w-3 h-3 mr-1" />
+                          Membros
+                        </Button>
+                        <Button
+                          type="button"
+                          variant={image.visibility === 'admin_only' ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => updateVisibility(image.id, 'admin_only')}
+                          className={`flex-1 text-xs ${
+                            image.visibility === 'admin_only' 
+                              ? 'bg-red-500 hover:bg-red-600 text-white' 
+                              : 'text-red-600 border-red-200 hover:bg-red-50'
+                          }`}
+                        >
+                          <Lock className="w-3 h-3 mr-1" />
+                          Admin
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                   
                   {/* Caption */}
                   <Input

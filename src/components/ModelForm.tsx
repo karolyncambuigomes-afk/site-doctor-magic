@@ -14,7 +14,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
 import { locations } from '@/data/locations';
-import { X, Plus, Image as ImageIcon, AlertCircle, ExternalLink, Eye } from 'lucide-react';
+import { X, Plus, Image as ImageIcon, AlertCircle, ExternalLink, Eye, Crown, Globe, Info } from 'lucide-react';
 
 interface Model {
   id?: string;
@@ -357,27 +357,65 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <CardHeader>
             <CardTitle className="text-primary">⭐ Configurações de Acesso e Privacidade</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
-              <div className="space-y-1">
-                <Label htmlFor="members-only" className="text-sm font-medium">
-                  Apenas Membros Premium
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Modelo disponível apenas para usuários com assinatura ativa
-                </p>
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <Label className="text-sm font-medium">Tipo de Acesso da Modelo:</Label>
+              
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="radio"
+                    id="members-exclusive"
+                    name="access-type"
+                    checked={formData.members_only || false}
+                    onChange={() => handleInputChange('members_only', true)}
+                    className="h-4 w-4 text-primary focus:ring-primary"
+                  />
+                  <Label htmlFor="members-exclusive" className="flex items-center space-x-2 cursor-pointer">
+                    <Crown className="h-4 w-4 text-amber-500" />
+                    <span>Esta modelo será <strong>EXCLUSIVA</strong> somente para membros</span>
+                  </Label>
+                </div>
+                
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="radio"
+                    id="mixed-access"
+                    name="access-type"
+                    checked={!(formData.members_only || false)}
+                    onChange={() => handleInputChange('members_only', false)}
+                    className="h-4 w-4 text-primary focus:ring-primary"
+                  />
+                  <Label htmlFor="mixed-access" className="flex items-center space-x-2 cursor-pointer">
+                    <Globe className="h-4 w-4 text-green-500" />
+                    <span>Esta modelo terá fotos <strong>PÚBLICAS e EXCLUSIVAS</strong> para membros</span>
+                  </Label>
+                </div>
               </div>
-              <Switch
-                id="members-only"
-                checked={formData.members_only || false}
-                onCheckedChange={(checked) => handleInputChange('members_only', checked)}
-              />
+              
+              {!(formData.members_only || false) && (
+                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-700">
+                    <Info className="h-4 w-4 inline mr-2" />
+                    Com esta opção, você poderá definir individualmente quais fotos são públicas e quais são exclusivas para membros na seção de galeria.
+                  </p>
+                </div>
+              )}
+              
+              {formData.members_only && (
+                <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-sm text-amber-700">
+                    <Crown className="h-4 w-4 inline mr-2" />
+                    Modelo exclusiva: todas as fotos serão visíveis apenas para membros.
+                  </p>
+                </div>
+              )}
             </div>
-
+            
             <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
               <div className="space-y-1">
                 <Label htmlFor="face-visible" className="text-sm font-medium">
-                  Rosto Visível
+                  Rosto Visível (configuração geral)
                 </Label>
                 <p className="text-xs text-muted-foreground">
                   Controla se o rosto da modelo aparece claramente nas fotos
@@ -521,7 +559,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardHeader>
           <CardContent className="pt-6">
             {model?.id ? (
-              <GalleryUpload modelId={model.id} />
+              <GalleryUpload modelId={model.id} model={formData} />
             ) : (
               <div className="text-center py-8 border-2 border-dashed border-border rounded-lg bg-muted">
                 <div className="mb-4 text-4xl">🔒</div>

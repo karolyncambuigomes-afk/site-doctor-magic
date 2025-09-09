@@ -74,7 +74,7 @@ import { SystemSettings } from "./pages/admin/system/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
 import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
-import { GalleryAdmin } from "./pages/GalleryAdmin";
+
 
 const queryClient = new QueryClient();
 
@@ -358,11 +358,6 @@ const App = () => (
             </ProtectedRoute>
           } />
           
-          <Route path="/gallery-admin" element={
-            <ProtectedRoute requiresAccess={true}>
-              <GalleryAdmin />
-            </ProtectedRoute>
-          } />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>

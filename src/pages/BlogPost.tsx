@@ -67,7 +67,7 @@ const BlogPost = () => {
         structuredData={structuredData}
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-16">
@@ -85,7 +85,7 @@ const BlogPost = () => {
           </section>
 
           {/* Article Header */}
-          <section className="py-16">
+          <section className="py-12 md:py-16 bg-white">
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
                 <div className="mb-8">
@@ -93,11 +93,11 @@ const BlogPost = () => {
                     {article.category}
                   </Badge>
                   
-                  <h1 className="luxury-heading-display mb-6 text-foreground leading-tight">
+                  <h1 className="luxury-heading-display mb-6 text-black leading-tight">
                     {article.title}
                   </h1>
                   
-                  <p className="luxury-body-lg text-muted-foreground leading-relaxed mb-8">
+                  <p className="luxury-body-lg text-gray-700 leading-relaxed mb-8">
                     {article.excerpt}
                   </p>
                   
@@ -134,22 +134,45 @@ const BlogPost = () => {
             </div>
           </section>
 
-          {/* Article Content */}
-          <section className="pb-20">
+          <section className="pb-16 bg-white">
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
+                {/* Inline gallery for better visual appeal */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12 rounded-lg overflow-hidden">
+                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                    <img 
+                      src="/images/model1.jpg" 
+                      alt="Luxury lifestyle in London"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                    <img 
+                      src="/images/model2.jpg" 
+                      alt="Elegant experiences"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden md:block hidden">
+                    <img 
+                      src="/images/model3.jpg" 
+                      alt="Sophisticated lifestyle"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+
                 <div 
-                  className="prose prose-lg prose-neutral dark:prose-invert max-w-none
-                    prose-headings:font-light prose-headings:text-foreground
-                    prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
-                    prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
-                    prose-h4:text-xl prose-h4:mt-6 prose-h4:mb-3
-                    prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-6
-                    prose-li:text-muted-foreground prose-li:leading-relaxed
-                    prose-strong:text-foreground prose-strong:font-medium
-                    prose-ul:my-6 prose-ol:my-6
-                    prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6
-                    prose-blockquote:italic prose-blockquote:text-muted-foreground"
+                  className="prose prose-lg max-w-none
+                    [&>h2]:luxury-heading-lg [&>h2]:text-black [&>h2]:mt-10 [&>h2]:mb-6 [&>h2]:font-light
+                    [&>h3]:luxury-heading-md [&>h3]:text-black [&>h3]:mt-8 [&>h3]:mb-4 [&>h3]:font-light
+                    [&>h4]:luxury-heading-sm [&>h4]:text-black [&>h4]:mt-6 [&>h4]:mb-3 [&>h4]:font-light
+                    [&>p]:luxury-body-base [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-6
+                    [&>li]:text-gray-700 [&>li]:leading-relaxed [&>li]:mb-2
+                    [&>strong]:text-black [&>strong]:font-semibold
+                    [&>ul]:my-6 [&>ol]:my-6
+                    [&>blockquote]:border-l-4 [&>blockquote]:border-black [&>blockquote]:pl-6
+                    [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:bg-gray-50 [&>blockquote]:py-4 [&>blockquote]:rounded-r-lg"
                   dangerouslySetInnerHTML={{ __html: article.content }}
                 />
               </div>
@@ -158,10 +181,10 @@ const BlogPost = () => {
 
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
-            <section className="py-20 bg-muted/20">
+            <section className="py-16 bg-gray-50">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
-                   <h2 className="luxury-heading-xl mb-12 text-center text-foreground">
+                   <h2 className="luxury-heading-xl mb-12 text-center text-black">
                      Related Articles
                    </h2>
                   
@@ -182,13 +205,13 @@ const BlogPost = () => {
                         </div>
                         
                         <CardHeader className="pb-4">
-                           <h3 className="luxury-heading-sm font-medium text-foreground group-hover:text-foreground/80 transition-colors leading-tight">
+                           <h3 className="luxury-heading-sm font-medium text-black group-hover:text-gray-700 transition-colors leading-tight">
                              {relatedArticle.title}
                            </h3>
                         </CardHeader>
                         
                         <CardContent className="pt-0">
-                           <p className="luxury-body-sm text-muted-foreground leading-relaxed mb-6">
+                           <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
                              {relatedArticle.excerpt.substring(0, 120)}...
                            </p>
                           
@@ -208,13 +231,13 @@ const BlogPost = () => {
           )}
 
           {/* CTA Section */}
-          <section className="py-20">
+          <section className="py-16 bg-white">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="luxury-heading-xl mb-6 text-foreground">
+                <h2 className="luxury-heading-xl mb-6 text-black">
                   Ready for Your London Experience?
                 </h2>
-                <p className="luxury-body-lg text-muted-foreground mb-8">
+                <p className="luxury-body-lg text-gray-700 mb-8">
                   Contact us to plan your exclusive experience 
                   in London with our luxury companion services.
                 </p>

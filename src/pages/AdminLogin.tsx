@@ -1,114 +1,102 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { SafeLink } from '@/components/ui/safe-link';
+import { useSafeLocation } from '@/hooks/useSafeRouter';
+import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, Shield } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+import { Shield, ArrowLeft } from 'lucide-react';
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import { SEO } from '@/components/SEO';
 
-// Simplified Supabase client - no custom storage
-const supabaseUrl = 'https://jiegopvbwpyfohhfvmwo.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppZWdvcHZid3B5Zm9oaGZ2bXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwMjUxNzMsImV4cCI6MjA3MjYwMTE3M30.WJQz8B9y5IEHQMtWtH_Xpmg9_1cym4xEMW_rhqCtIcs';
-
-const adminSupabase = createClient(supabaseUrl, supabaseKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  }
-});
-
 export const AdminLogin: React.FC = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const location = useSafeLocation();
+  const auth = useAuth();
+  const { toast } = useToast();
 
-  // Check if already authenticated
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { data: { session } } = await adminSupabase.auth.getSession();
-        
-        if (session?.user) {
-          console.log('Admin já autenticado, redirecionando...');
-          navigate('/admin');
-        }
-      } catch (error) {
-        console.error('Erro ao verificar autenticação:', error);
-      }
-    };
+  // Safety check for router context
+  if (!location) {
+    return <div>Loading...</div>;
+  }
 
-    checkAuth();
-  }, [navigate]);
+  // If already authenticated and is admin, redirect to admin dashboard
+  if (auth?.user && auth?.isAdmin) {
+    return <Navigate to="/admin" replace />;
+  }
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    if (error) setError('');
-  };
+  // If authenticated but not admin, show error
+  if (auth?.user && !auth?.isAdmin) {
+    return (
+      <>
+        <SEO 
+          title="Access Denied - Five London"
+          description="Admin access required"
+          noIndex={true}
+        />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+          <div className="max-w-md w-full">
+            <Card className="border border-red-200">
+              <CardHeader className="text-center">
+                <div className="mx-auto w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-red-600" />
+                </div>
+                <CardTitle className="text-red-600">Access Denied</CardTitle>
+                <CardDescription>
+                  Your account does not have administrator privileges
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-center text-muted-foreground">
+                  Contact the system administrator if you believe this is an error.
+                </p>
+                <SafeLink to="/">
+                  <Button variant="outline" className="w-full">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Return to Homepage
+                  </Button>
+                </SafeLink>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </>
+    );
+  }
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     try {
-      console.log('Tentando login admin com:', formData.email);
-
-      const { data, error: signInError } = await adminSupabase.auth.signInWithPassword({
-        email: formData.email.trim(),
-        password: formData.password
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      if (signInError) {
-        console.error('Erro de autenticação:', signInError);
-        
-        if (signInError.message.includes('Invalid login credentials')) {
-          setError('Email ou senha incorretos');
-        } else if (signInError.message.includes('JSON')) {
-          setError('Erro de comunicação com servidor. Tente novamente.');
-        } else {
-          setError(signInError.message);
-        }
+      if (error) {
+        toast({
+          title: "Login Failed",
+          description: error.message,
+          variant: "destructive"
+        });
         return;
       }
 
-      if (data.user) {
-        console.log('Login bem-sucedido:', data.user.email);
-        
-        // Verificar se é admin
-        const { data: profileData, error: profileError } = await adminSupabase
-          .from('profiles')
-          .select('role')
-          .eq('id', data.user.id)
-          .single();
-
-        if (profileError) {
-          console.error('Erro ao verificar perfil:', profileError);
-          setError('Erro ao verificar permissões de administrador');
-          await adminSupabase.auth.signOut();
-          return;
-        }
-
-        if (profileData?.role !== 'admin') {
-          setError('Acesso negado: Apenas administradores podem acessar');
-          await adminSupabase.auth.signOut();
-          return;
-        }
-
-        console.log('Admin verificado, redirecionando...');
-        navigate('/admin');
-      }
+      // Success is handled by auth state change
     } catch (error) {
-      console.error('Erro inesperado:', error);
-      setError('Erro inesperado. Tente novamente.');
+      console.error('Login error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive"
+      });
     } finally {
       setLoading(false);
     }
@@ -118,92 +106,74 @@ export const AdminLogin: React.FC = () => {
     <>
       <SEO 
         title="Admin Login - Five London"
-        description="Painel administrativo Five London"
+        description="Administrator access portal"
         noIndex={true}
       />
-      
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                <Shield className="w-6 h-6 text-primary" />
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <div className="max-w-md w-full">
+          <Card>
+            <CardHeader className="text-center">
+              <div className="mx-auto w-12 h-12 bg-gradient-to-br from-gray-800 to-black rounded-full flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-white" />
               </div>
-            </div>
-            <CardTitle className="text-2xl font-luxury-heading">
-              Admin Login
-            </CardTitle>
-            <CardDescription>
-              Acesso restrito ao painel administrativo
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent>
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@fivelondon.com"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  required
-                  disabled={loading}
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="password">Senha</Label>
-                <div className="relative">
+              <CardTitle>Admin Access</CardTitle>
+              <CardDescription>
+                Sign in to access the Five London administration panel
+              </CardDescription>
+            </CardHeader>
+            
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="admin@example.com"
+                    required
+                  />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="password">Password</Label>
                   <Input
                     id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Digite sua senha"
-                    value={formData.password}
-                    onChange={(e) => handleInputChange('password', e.target.value)}
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
                     required
-                    disabled={loading}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                    disabled={loading}
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </Button>
                 </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full"
+                  disabled={loading}
+                >
+                  {loading ? 'Signing in...' : 'Sign In'}
+                </Button>
+              </form>
+              
+              <div className="mt-6 pt-6 border-t border-border">
+                <SafeLink to="/">
+                  <Button variant="ghost" className="w-full">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Website
+                  </Button>
+                </SafeLink>
               </div>
-
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-
-              <Button 
-                type="submit" 
-                className="w-full" 
-                disabled={loading}
-              >
-                {loading ? 'Entrando...' : 'Entrar'}
-              </Button>
-            </form>
-            
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Apenas administradores autorizados
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+          
+          <div className="mt-6 text-center">
+            <p className="text-xs text-muted-foreground">
+              For security reasons, admin access is restricted to authorized personnel only
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );

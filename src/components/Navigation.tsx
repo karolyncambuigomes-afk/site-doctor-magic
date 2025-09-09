@@ -111,18 +111,11 @@ export const Navigation: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex items-center space-x-2">
-                <SafeLink to="/auth">
-                  <Button variant="outline" size="sm">
-                    Sign In
-                  </Button>
-                </SafeLink>
-                <a href="https://wa.me/447436190679">
-                  <Button variant="outline">
-                    Call Now
-                  </Button>
-                </a>
-              </div>
+              <a href="https://wa.me/447436190679">
+                <Button variant="outline">
+                  Contact Us
+                </Button>
+              </a>
             )}
           </div>
 
@@ -190,18 +183,11 @@ export const Navigation: React.FC = () => {
                         </button>
                       </div>
                      ) : (
-                       <div className="space-y-4">
-                         <SafeLink to="/auth">
-                           <Button variant="outline" className="w-full mb-2">
-                             Sign In
-                           </Button>
-                         </SafeLink>
-                         <a href="https://wa.me/447436190679">
-                           <Button className="w-full">
-                             Book Now
-                           </Button>
-                         </a>
-                       </div>
+                       <a href="https://wa.me/447436190679">
+                         <Button className="w-full">
+                           Contact Us
+                         </Button>
+                       </a>
                    )}
                 </div>
               </div>

@@ -109,14 +109,14 @@ export const GalleryManager: React.FC = () => {
       return;
     }
 
-    // Check if model is already in carousel
-    if (carouselItems.some(item => item.model_id === selectedModel)) {
+    // Check if model is already in carousel and show warning but allow duplicates
+    const isAlreadyInCarousel = carouselItems.some(item => item.model_id === selectedModel);
+    if (isAlreadyInCarousel) {
       toast({
-        title: "Erro",
-        description: "Esta modelo já está no carrossel",
-        variant: "destructive"
+        title: "Aviso",
+        description: "Esta modelo já está no carrossel. Adicionando uma segunda instância.",
+        variant: "default"
       });
-      return;
     }
 
     try {
@@ -255,9 +255,8 @@ export const GalleryManager: React.FC = () => {
     );
   }
 
-  const availableModels = models.filter(model => 
-    model.image && !carouselItems.some(item => item.model_id === model.id)
-  );
+  // Show ALL models that have images (regardless if already in carousel)
+  const availableModels = models.filter(model => model.image);
   
   console.log('GalleryManager - All models:', models);
   console.log('GalleryManager - Carousel items:', carouselItems);
@@ -294,13 +293,10 @@ export const GalleryManager: React.FC = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label>Modelo</Label>
-                    {availableModels.length === 0 ? (
+                     {availableModels.length === 0 ? (
                       <div className="p-4 border rounded-lg bg-muted text-center">
                         <p className="text-sm text-muted-foreground">
-                          {models.filter(m => !m.image).length > 0 
-                            ? `Nenhuma modelo disponível. ${models.filter(m => !m.image).length} modelo(s) sem foto precisam de imagens antes de serem adicionadas ao carousel.`
-                            : 'Todas as modelos com foto já estão no carousel.'
-                          }
+                          Nenhuma modelo disponível. ${models.filter(m => !m.image).length} modelo(s) precisam de fotos antes de serem adicionadas ao carousel.
                         </p>
                       </div>
                     ) : (
@@ -309,11 +305,14 @@ export const GalleryManager: React.FC = () => {
                           <SelectValue placeholder="Selecione uma modelo" />
                         </SelectTrigger>
                         <SelectContent className="bg-background border border-border shadow-lg z-50">
-                          {availableModels.map(model => (
-                            <SelectItem key={model.id} value={model.id} className="bg-background hover:bg-accent">
-                              {model.name}
-                            </SelectItem>
-                          ))}
+                          {availableModels.map(model => {
+                            const isInCarousel = carouselItems.some(item => item.model_id === model.id);
+                            return (
+                              <SelectItem key={model.id} value={model.id} className="bg-background hover:bg-accent">
+                                {model.name} {isInCarousel ? '(já no carrossel)' : ''}
+                              </SelectItem>
+                            );
+                          })}
                         </SelectContent>
                       </Select>
                     )}
@@ -422,17 +421,6 @@ export const GalleryManager: React.FC = () => {
         </CardContent>
       </Card>
 
-      {availableModels.length === 0 && models.length > 0 && (
-        <Card>
-          <CardContent className="pt-6">
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">
-                Todas as modelos com fotos já estão no carrossel.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 };

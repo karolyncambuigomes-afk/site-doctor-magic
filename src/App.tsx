@@ -48,8 +48,18 @@ import NotFound from "./pages/NotFound";
 // New Admin Panel Components
 import { AdminDashboard } from "./pages/admin/Dashboard";
 import { GlobalSEO } from "./pages/admin/seo/GlobalSEO";
+import { MetaTagsManager } from "./pages/admin/seo/MetaTagsManager";
+import { StructuredDataManager } from "./pages/admin/seo/StructuredDataManager";
+import { TechnicalSEO } from "./pages/admin/seo/TechnicalSEO";
+import { PerformanceAnalytics } from "./pages/admin/seo/PerformanceAnalytics";
+import { ContentManager } from "./pages/admin/content/ContentManager";
 import { BlogManager } from "./pages/admin/content/BlogManager";
 import { ModelsManager } from "./pages/admin/models/ModelsManager";
+import { ReviewsManager } from "./pages/admin/models/ReviewsManager";
+import { LocationsManager as LocationsManagerPage } from "./pages/admin/locations/LocationsManager";
+import { UsersManager } from "./pages/admin/users/UsersManager";
+import { SystemSettings } from "./pages/admin/system/SystemSettings";
+import { GalleryAdmin } from "./pages/GalleryAdmin";
 
 const queryClient = new QueryClient();
 
@@ -175,40 +185,101 @@ const App = () => (
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/reviews" element={<Reviews />} />
                   <Route path="/join-us" element={<JoinUs />} />
-                  {/* New Admin Panel Routes */}
-                  <Route path="/admin" element={
-                    <ProtectedRoute requiresAccess={true}>
-                      <AdminDashboard />
-                    </ProtectedRoute>
-                  } />
-                  
-                  {/* SEO Management */}
-                  <Route path="/admin/seo/global" element={
-                    <ProtectedRoute requiresAccess={true}>
-                      <GlobalSEO />
-                    </ProtectedRoute>
-                  } />
-                  
-                  {/* Content Management */}
-                  <Route path="/admin/content/blog" element={
-                    <ProtectedRoute requiresAccess={true}>
-                      <BlogManager />
-                    </ProtectedRoute>
-                  } />
-                  
-                  {/* Models Management */}
-                  <Route path="/admin/models/list" element={
-                    <ProtectedRoute requiresAccess={true}>
-                      <ModelsManager />
-                    </ProtectedRoute>
-                  } />
-                  
-                  {/* Legacy Admin Route */}
-                  <Route path="/admin/legacy" element={
-                    <ProtectedRoute requiresAccess={true}>
-                      <Admin />
-                    </ProtectedRoute>
-                  } />
+          {/* New Admin Panel Routes */}
+          <Route path="/admin" element={
+            <ProtectedRoute requiresAccess={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/dashboard" element={
+            <ProtectedRoute requiresAccess={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          
+          {/* SEO Management */}
+          <Route path="/admin/seo/global" element={
+            <ProtectedRoute requiresAccess={true}>
+              <GlobalSEO />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/seo/meta-tags" element={
+            <ProtectedRoute requiresAccess={true}>
+              <MetaTagsManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/seo/structured-data" element={
+            <ProtectedRoute requiresAccess={true}>
+              <StructuredDataManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/seo/technical" element={
+            <ProtectedRoute requiresAccess={true}>
+              <TechnicalSEO />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/seo/performance" element={
+            <ProtectedRoute requiresAccess={true}>
+              <PerformanceAnalytics />
+            </ProtectedRoute>
+          } />
+          
+          {/* Content Management */}
+          <Route path="/admin/content" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ContentManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/content/blog" element={
+            <ProtectedRoute requiresAccess={true}>
+              <BlogManager />
+            </ProtectedRoute>
+          } />
+          
+          {/* Models & Services */}
+          <Route path="/admin/models" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ModelsManager />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/models/reviews" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ReviewsManager />
+            </ProtectedRoute>
+          } />
+          
+          {/* Locations & Geo */}
+          <Route path="/admin/locations" element={
+            <ProtectedRoute requiresAccess={true}>
+              <LocationsManagerPage />
+            </ProtectedRoute>
+          } />
+          
+          {/* User Management */}
+          <Route path="/admin/users" element={
+            <ProtectedRoute requiresAccess={true}>
+              <UsersManager />
+            </ProtectedRoute>
+          } />
+          
+          {/* System Settings */}
+          <Route path="/admin/system" element={
+            <ProtectedRoute requiresAccess={true}>
+              <SystemSettings />
+            </ProtectedRoute>
+          } />
+          
+          {/* Legacy Admin Routes */}
+          <Route path="/admin-old" element={
+            <ProtectedRoute requiresAccess={true}>
+              <Admin />
+            </ProtectedRoute>
+          } />
+          <Route path="/gallery-admin" element={
+            <ProtectedRoute requiresAccess={true}>
+              <GalleryAdmin />
+            </ProtectedRoute>
+          } />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>

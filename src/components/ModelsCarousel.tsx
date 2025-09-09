@@ -81,9 +81,9 @@ export const ModelsCarousel = () => {
                       {/* Elegant overlay that appears on hover */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 z-[1]"></div>
                       
-                      {/* Price overlay - refined styling */}
+                      {/* Price overlay - Top Left */}
                       {model.price && (
-                        <div className="absolute bottom-6 left-2 sm:bottom-8 sm:left-3 z-10">
+                        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                           <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                             <span className="text-white text-xs sm:text-sm font-medium">
                               {model.price}

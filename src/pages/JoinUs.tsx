@@ -101,7 +101,7 @@ const JoinUs = () => {
     if (!files) return;
     
     const fileArray = Array.from(files);
-    const maxSize = type === 'photos' ? 5 * 1024 * 1024 : 50 * 1024 * 1024; // 5MB for photos, 50MB for videos
+    const maxSize = type === 'photos' ? 10 * 1024 * 1024 : 50 * 1024 * 1024; // 10MB for photos, 50MB for videos
     
     const validFiles = fileArray.filter(file => {
       if (file.size > maxSize) {

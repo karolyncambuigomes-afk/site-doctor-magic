@@ -81,11 +81,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       return;
     }
 
-    // Validate file size (5MB limit)
-    if (file.size > 5 * 1024 * 1024) {
+    // Validate file size (10MB limit)
+    if (file.size > 10 * 1024 * 1024) {
       toast({
         title: "Erro",
-        description: "Arquivo muito grande. Máximo 5MB",
+        description: "Arquivo muito grande. Máximo 10MB",
         variant: "destructive"
       });
       return;

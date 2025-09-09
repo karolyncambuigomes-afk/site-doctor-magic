@@ -191,7 +191,7 @@ const LocationDetail = () => {
                      <Button 
                        variant="outline" 
                        size="lg"
-                       className="mx-auto flex items-center gap-2 text-black hover:text-black transition-colors border-black/20 hover:border-black/40"
+                       className="mx-auto flex items-center gap-2 text-white hover:text-white transition-colors border-black/20 hover:border-black/40"
                      >
                       Learn more about {location.name}
                       {isContentOpen ? (

@@ -8,6 +8,7 @@ import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
+import { MobileForceRefresh } from "@/components/MobileForceRefresh";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
@@ -65,6 +66,7 @@ const App = () => (
               <BrowserRouter>
                 <ConditionalFeatures />
                 <MobileOptimizer />
+                <MobileForceRefresh />
                 <Toaster />
                 <Sonner />
                 <BookNowButton />

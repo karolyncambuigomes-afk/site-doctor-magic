@@ -111,6 +111,27 @@ export const usePreferenceCategories = () => {
 
   useEffect(() => {
     fetchCategories();
+
+    // Enhanced mobile refresh handling
+    const handleRefresh = () => {
+      console.log('[usePreferenceCategories] Handling mobile refresh');
+      fetchCategories();
+    };
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        setTimeout(handleRefresh, 200);
+      }
+    };
+
+    // Listen for mobile refresh events
+    window.addEventListener('mobile-force-refresh', handleRefresh);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('mobile-force-refresh', handleRefresh);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   return {
@@ -119,6 +140,7 @@ export const usePreferenceCategories = () => {
     fetchCategories,
     updateCategory,
     createCategory,
-    deleteCategory
+    deleteCategory,
+    refetch: fetchCategories
   };
 };

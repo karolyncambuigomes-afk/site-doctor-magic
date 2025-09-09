@@ -77,7 +77,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - handle requests with network-first strategy
+// Fetch event - enhanced mobile-optimized strategy
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   
@@ -104,10 +104,38 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Normal mode: network-first with caching
+  // Enhanced mobile-aware caching strategy
   event.respondWith(
     (async () => {
+      const isMobileRequest = event.request.headers.get('user-agent')?.match(/(iPhone|iPad|Android|Mobile)/i);
+      const hasRefreshParam = url.searchParams.has('mobile-refresh') || url.searchParams.has('force-refresh');
+      
       try {
+        // For mobile or refresh requests, always try network first and invalidate cache
+        if (isMobileRequest || hasRefreshParam) {
+          try {
+            const response = await fetch(event.request);
+            
+            if (response.status === 200) {
+              const cache = await caches.open(STATIC_CACHE);
+              // Remove old cached version
+              await cache.delete(event.request);
+              // Store new version
+              cache.put(event.request, response.clone());
+            }
+            
+            return response;
+          } catch (networkError) {
+            // Fallback to cache only if network fails
+            const cachedResponse = await caches.match(event.request);
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            throw networkError;
+          }
+        }
+        
+        // Regular network-first strategy for non-mobile
         const response = await fetch(event.request);
         
         if (response.status === 200) {

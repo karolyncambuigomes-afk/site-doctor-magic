@@ -294,31 +294,12 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
 
       {galleryImages.length > 0 ? (
         <div className="space-y-4">
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-            <h4 className="font-medium text-blue-800 mb-2 flex items-center gap-2">
-              📍 Como funciona a ordenação das fotos
-            </h4>
-            <ul className="text-sm text-blue-700 space-y-1">
-              <li>• <strong>Posição 1 (Primeira foto):</strong> Foto principal que aparece nos cards e listagens</li>
-              <li>• <strong>Outras posições:</strong> Aparecem na galeria do perfil da modelo</li>
-              <li>• <strong>Total de fotos:</strong> {galleryImages.length} foto{galleryImages.length !== 1 ? 's' : ''} adicionada{galleryImages.length !== 1 ? 's' : ''}</li>
-            </ul>
-          </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {galleryImages.map((image, index) => (
               <div 
                 key={image.id} 
-                className={`border-2 rounded-lg overflow-hidden ${
-                  index === 0 ? 'border-primary bg-muted' : 'border-border'
-                }`}
+                className="border-2 rounded-lg overflow-hidden border-border"
               >
-                {index === 0 && (
-                  <div className="bg-primary text-primary-foreground text-center py-2 text-sm font-bold">
-                    📸 FOTO PRINCIPAL (Posição 1)
-                  </div>
-                )}
-                
                 <div className="aspect-square">
                   <img
                     src={image.image_url}

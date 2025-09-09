@@ -58,7 +58,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     { 
       id: 'fallback', 
       image_url: mainImage, 
-      caption: `${modelName} - Foto Principal`,
+      caption: `${modelName}`,
       order_index: 0 
     }
   ];

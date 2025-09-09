@@ -351,22 +351,19 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         </Card>
 
         {/* Main Image Upload */}
-        <Card className="border-blue-200 bg-blue-50/50">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-blue-700 flex items-center gap-2">
-              🖼️ Foto Principal
+            <CardTitle className="flex items-center gap-2">
+              🖼️ Imagem Principal
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <p className="text-sm text-blue-600">
-                Esta será a foto principal que aparece nos cards e listagens
-              </p>
               <ImageUpload
                 value={formData.image || ''}
                 onChange={(url) => handleInputChange('image', url)}
-                label="Foto Principal"
-                placeholder="URL da foto principal ou faça upload"
+                label="Imagem Principal"
+                placeholder="URL da imagem principal ou faça upload"
               />
             </div>
           </CardContent>

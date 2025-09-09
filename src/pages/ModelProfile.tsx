@@ -143,7 +143,7 @@ export const ModelProfile: React.FC = () => {
 
           {/* About Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-light text-foreground mb-4">About {model.name}</h2>
+            <h2 className="text-xl font-light text-black mb-4">About {model.name}</h2>
             <p className="text-muted-foreground leading-relaxed text-base">
               {model.description}
             </p>

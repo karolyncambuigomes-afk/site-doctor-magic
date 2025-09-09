@@ -232,13 +232,13 @@ const LocationDetail = () => {
                     className="group p-6 bg-white hover:bg-gray-50 rounded-lg border border-black transition-all duration-300 hover:shadow-lg"
                   >
                     <MapPin className="w-5 h-5 text-black mb-3" />
-                    <h3 className="font-semibold text-foreground group-hover:text-black transition-colors mb-2">
+                    <h3 className="font-semibold text-black transition-colors mb-2">
                       {loc.name} Escorts
                     </h3>
-                    <p className="text-sm text-foreground line-clamp-2">
+                    <p className="text-sm text-black line-clamp-2">
                       {loc.description}
                     </p>
-                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors mt-3" />
+                    <ArrowRight className="w-4 h-4 text-black group-hover:text-black transition-colors mt-3" />
                   </Link>
                 ))}
               </div>

@@ -208,7 +208,7 @@ export const ModelProfile: React.FC = () => {
             </div>}
 
           {/* Contact Section */}
-          <div id="book-section" className="bg-muted/30 rounded-lg p-8 text-center">
+          <div id="book-section" className="bg-white rounded-lg p-8 text-center">
             <h3 className="text-2xl md:text-3xl font-light text-black mb-2">Book {model.name}</h3>
             <p className="text-muted-foreground mb-8">Get in touch to arrange your appointment</p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">

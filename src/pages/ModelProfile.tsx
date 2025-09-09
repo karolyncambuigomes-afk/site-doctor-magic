@@ -5,39 +5,40 @@ import { useModels } from '@/hooks/useModels';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ArrowLeft, 
-  MapPin, 
-  Clock, 
-  Star, 
-  MessageCircle, 
-  Phone,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, Star, MessageCircle, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ModelGallery } from '@/components/ModelGallery';
-
 export const ModelProfile: React.FC = () => {
-  const { id } = useSafeParams() as { id?: string };
-  const { getModelById, models, loading, error } = useModels();
+  const {
+    id
+  } = useSafeParams() as {
+    id?: string;
+  };
+  const {
+    getModelById,
+    models,
+    loading,
+    error
+  } = useModels();
   const model = id ? getModelById(id) : null;
 
   // Debug logging
   if (model) {
-    console.log('ModelProfile - Model data:', {name: model.name, price: model.price, pricing: model.pricing});
+    console.log('ModelProfile - Model data:', {
+      name: model.name,
+      price: model.price,
+      pricing: model.pricing
+    });
   }
 
   // Scroll to top when model changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
-
   if (loading) {
-    return (
-      <>
+    return <>
         <Navigation />
         <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
           <div className="text-center">
@@ -46,13 +47,10 @@ export const ModelProfile: React.FC = () => {
           </div>
         </div>
         <Footer />
-      </>
-    );
+      </>;
   }
-
   if (error) {
-    return (
-      <>
+    return <>
         <Navigation />
         <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
           <div className="text-center">
@@ -64,13 +62,10 @@ export const ModelProfile: React.FC = () => {
           </div>
         </div>
         <Footer />
-      </>
-    );
+      </>;
   }
-
   if (!model) {
-    return (
-      <>
+    return <>
         <Navigation />
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="text-center space-y-8">
@@ -85,8 +80,7 @@ export const ModelProfile: React.FC = () => {
           </div>
         </div>
         <Footer />
-      </>
-    );
+      </>;
   }
 
   // Gallery is now handled by ModelGallery component
@@ -103,7 +97,6 @@ export const ModelProfile: React.FC = () => {
         return 'text-muted-foreground';
     }
   };
-
   const getAvailabilityText = (availability: typeof model.availability) => {
     switch (availability) {
       case 'available':
@@ -116,25 +109,15 @@ export const ModelProfile: React.FC = () => {
         return 'Unknown';
     }
   };
-
-  return (
-    <>
-      <SEO 
-        title={`${model.name} - Luxury Escort in ${model.location}`}
-        description={`Meet ${model.name}, an elegant ${model.age}-year-old companion in ${model.location}. ${model.description}`}
-        keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`}
-      />
+  return <>
+      <SEO title={`${model.name} - Luxury Escort in ${model.location}`} description={`Meet ${model.name}, an elegant ${model.age}-year-old companion in ${model.location}. ${model.description}`} keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`} />
       
       <Navigation />
 
       {/* Main Gallery Section */}
       <section className="min-h-screen bg-white pt-16 md:pt-20">
         <div className="max-w-md mx-auto p-4">
-          <ModelGallery 
-            modelId={model.id}
-            mainImage={model.image}
-            modelName={model.name}
-          />
+          <ModelGallery modelId={model.id} mainImage={model.image} modelName={model.name} />
         </div>
 
         {/* Model Details */}
@@ -143,7 +126,7 @@ export const ModelProfile: React.FC = () => {
           <div className="text-center space-y-4 pb-8 mb-8 border-b border-border">
             <h1 className="text-3xl md:text-4xl font-light tracking-wide text-black">{model.name}</h1>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-gray-400">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-muted-foreground">
               <span className="font-medium">{model.age} years</span>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
@@ -152,12 +135,7 @@ export const ModelProfile: React.FC = () => {
             </div>
             
             <div className="flex justify-center">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="text-sm px-6 py-2 hover:bg-accent hover:text-accent-foreground transition-luxury"
-                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-              >
+              <Button variant="outline" size="sm" className="text-sm px-6 py-2 hover:bg-accent hover:text-accent-foreground transition-luxury" onClick={() => window.open('https://wa.me/447436190679', '_blank')}>
                 Book Now
               </Button>
             </div>
@@ -165,7 +143,7 @@ export const ModelProfile: React.FC = () => {
 
           {/* About Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-light text-black mb-4">About {model.name}</h2>
+            <h2 className="text-xl font-light text-foreground mb-4">About {model.name}</h2>
             <p className="text-muted-foreground leading-relaxed text-base">
               {model.description}
             </p>
@@ -174,16 +152,13 @@ export const ModelProfile: React.FC = () => {
           {/* Pricing Section */}
           <div className="mb-6">
             <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
-            {model.price && !model.pricing && (
-              <div className="bg-card border border-border rounded-lg p-4">
+            {model.price && !model.pricing && <div className="bg-card border border-border rounded-lg p-4">
                 <div className="text-center">
                   <span className="text-lg font-semibold text-accent">{model.price}</span>
                   <p className="text-sm text-muted-foreground mt-1">Base rate</p>
                 </div>
-              </div>
-            )}
-            {model.pricing && (
-              <div className="bg-card border border-border rounded-lg p-4">
+              </div>}
+            {model.pricing && <div className="bg-card border border-border rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">1 hora</span>
@@ -202,50 +177,35 @@ export const ModelProfile: React.FC = () => {
                     <span className="text-base font-semibold text-accent">{model.pricing.additionalHour}</span>
                   </div>
                 </div>
-              </div>
-            )}
-            {!model.price && !model.pricing && (
-              <div className="bg-card border border-border rounded-lg p-4 text-center">
+              </div>}
+            {!model.price && !model.pricing && <div className="bg-card border border-border rounded-lg p-4 text-center">
                 <p className="text-muted-foreground">Pricing available upon request</p>
-              </div>
-            )}
+              </div>}
           </div>
 
 
 
           {/* Characteristics Section - Only show if data exists */}
-          {model.characteristics && model.characteristics.length > 0 && (
-            <div className="mb-8">
+          {model.characteristics && model.characteristics.length > 0 && <div className="mb-8">
               <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
               <div className="flex flex-wrap gap-2">
-                {model.characteristics.map((characteristic) => {
-                  // Find the corresponding characteristic object to get the slug
-                  const characteristicData = characteristics.find(
-                    char => char.name.toLowerCase() === characteristic.toLowerCase()
-                  );
-                  
-                  if (characteristicData) {
-                    return (
-                      <Link key={characteristic} to={`/${characteristicData.slug}`}>
-                        <Badge 
-                          variant="outline" 
-                          className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer"
-                        >
+                {model.characteristics.map(characteristic => {
+              // Find the corresponding characteristic object to get the slug
+              const characteristicData = characteristics.find(char => char.name.toLowerCase() === characteristic.toLowerCase());
+              if (characteristicData) {
+                return <Link key={characteristic} to={`/${characteristicData.slug}`}>
+                        <Badge variant="outline" className="text-sm px-3 py-1 hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
                           {characteristic}
                         </Badge>
-                      </Link>
-                    );
-                  } else {
-                    return (
-                      <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
+                      </Link>;
+              } else {
+                return <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
                         {characteristic}
-                      </Badge>
-                    );
-                  }
-                })}
+                      </Badge>;
+              }
+            })}
               </div>
-            </div>
-          )}
+            </div>}
 
           {/* Contact Section */}
           <div id="book-section" className="bg-muted/30 rounded-lg p-8 text-center">
@@ -256,11 +216,7 @@ export const ModelProfile: React.FC = () => {
                 <Phone className="mr-2 h-4 w-4" />
                 Call Now
               </Button>
-              <Button 
-                variant="outline" 
-                className="flex-1 py-3"
-                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
-              >
+              <Button variant="outline" className="flex-1 py-3" onClick={() => window.open('https://wa.me/447436190679', '_blank')}>
                 <MessageCircle className="mr-2 h-4 w-4" />
                 WhatsApp
               </Button>
@@ -273,35 +229,21 @@ export const ModelProfile: React.FC = () => {
           <div className="max-w-4xl mx-auto p-4 md:p-6">
             <h3 className="text-xl font-light text-foreground mb-6 text-center">You Might Also Like</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {models
-                .filter(m => m.id !== model.id)
-                .slice(0, 6)
-                .map((suggestedModel) => (
-                  <Link 
-                    key={suggestedModel.id} 
-                    to={`/models/${suggestedModel.id}`}
-                    className="group"
-                  >
+              {models.filter(m => m.id !== model.id).slice(0, 6).map(suggestedModel => <Link key={suggestedModel.id} to={`/models/${suggestedModel.id}`} className="group">
                     <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-muted">
-                      <img
-                        src={suggestedModel.image}
-                        alt={suggestedModel.name}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
+                      <img src={suggestedModel.image} alt={suggestedModel.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                         <h4 className="font-medium text-sm">{suggestedModel.name}</h4>
                         <p className="text-xs opacity-90">{suggestedModel.age} • {suggestedModel.location}</p>
                       </div>
                     </div>
-                  </Link>
-                ))}
+                  </Link>)}
             </div>
           </div>
         </div>
       </section>
 
       <Footer />
-    </>
-  );
+    </>;
 };

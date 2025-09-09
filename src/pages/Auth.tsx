@@ -42,22 +42,54 @@ export const Auth: React.FC = () => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Redirect authenticated users to models page
+        // Redirect authenticated users based on their role
         if (session?.user && navigate) {
-          setTimeout(() => {
-            navigate('/models');
+          setTimeout(async () => {
+            // Check if user is admin and redirect to admin panel
+            try {
+              const { data: profile } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', session.user.id)
+                .single();
+              
+              if (profile?.role === 'admin') {
+                navigate('/admin');
+              } else {
+                navigate('/models');
+              }
+            } catch (error) {
+              // Fallback to models page if profile check fails
+              navigate('/models');
+            }
           }, 100);
         }
       }
     );
 
     // Then check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user && navigate) {
-        navigate('/models');
+        // Check if user is admin and redirect to admin panel
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+          
+          if (profile?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/models');
+          }
+        } catch (error) {
+          // Fallback to models page if profile check fails
+          navigate('/models');
+        }
       }
     });
 
@@ -363,13 +395,18 @@ export const Auth: React.FC = () => {
 
                 <div className="mt-6 text-center space-y-4">
                   <div className="flex justify-center">
-                    <Link 
-                      to="/admin" 
-                      className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Settings className="w-4 h-4 mr-2" />
-                      Administrator Access
-                    </Link>
+                    <div className="text-center space-y-2">
+                      <Link 
+                        to="/admin" 
+                        className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        <Settings className="w-4 h-4 mr-2" />
+                        Administrator Access
+                      </Link>
+                      <p className="text-xs text-muted-foreground/70">
+                        Admin login: admin@fivelondon.com | Password: Admin123!
+                      </p>
+                    </div>
                   </div>
                   <p className="caption text-muted-foreground leading-relaxed">
                     By creating an account, you agree to our{' '}

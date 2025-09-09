@@ -9,6 +9,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { MobileForceRefresh } from "@/components/MobileForceRefresh";
+import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
@@ -56,6 +57,12 @@ const ConditionalFeatures = () => {
   );
 };
 
+// Mobile Sync Component to initialize the sync manager
+const MobileSyncInitializer = () => {
+  useMobileSyncManager();
+  return null;
+};
+
 const App = () => (
   <ErrorBoundary>
     <HelmetProvider>
@@ -65,6 +72,7 @@ const App = () => (
             <AuthProvider>
               <BrowserRouter>
                 <ConditionalFeatures />
+                <MobileSyncInitializer />
                 <MobileOptimizer />
                 <MobileForceRefresh />
                 <Toaster />

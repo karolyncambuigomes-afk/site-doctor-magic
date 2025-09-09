@@ -104,29 +104,51 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Enhanced mobile-aware caching strategy
+  // Ultra-aggressive mobile-first caching strategy
   event.respondWith(
     (async () => {
       const isMobileRequest = event.request.headers.get('user-agent')?.match(/(iPhone|iPad|Android|Mobile)/i);
-      const hasRefreshParam = url.searchParams.has('mobile-refresh') || url.searchParams.has('force-refresh');
+      const hasRefreshParam = url.searchParams.has('mobile-refresh') || 
+                             url.searchParams.has('force-refresh') || 
+                             url.searchParams.has('sync') ||
+                             url.searchParams.has('t') ||
+                             url.searchParams.has('retry');
       
       try {
-        // For mobile or refresh requests, always try network first and invalidate cache
+        // Ultra-aggressive mobile strategy: always network-first, bypass cache completely
         if (isMobileRequest || hasRefreshParam) {
+          console.log('SW: Mobile request detected, using network-first strategy');
+          
           try {
-            const response = await fetch(event.request);
+            // Force fresh request with no-cache headers
+            const freshRequest = new Request(event.request, {
+              cache: 'no-store',
+              headers: {
+                ...event.request.headers,
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
+              }
+            });
+            
+            const response = await fetch(freshRequest);
             
             if (response.status === 200) {
-              const cache = await caches.open(STATIC_CACHE);
-              // Remove old cached version
+              const cache = await caches.open(RUNTIME_CACHE);
+              // Clear any existing cache for this request
               await cache.delete(event.request);
-              // Store new version
-              cache.put(event.request, response.clone());
+              await cache.delete(event.request.url);
+              
+              // Store fresh version with timestamp
+              const responseClone = response.clone();
+              cache.put(event.request, responseClone);
+              
+              console.log('SW: Fresh response cached for mobile request');
             }
             
             return response;
           } catch (networkError) {
-            // Fallback to cache only if network fails
+            console.log('SW: Network failed for mobile, trying cache fallback');
+            // Last resort fallback to cache
             const cachedResponse = await caches.match(event.request);
             if (cachedResponse) {
               return cachedResponse;
@@ -135,7 +157,7 @@ self.addEventListener('fetch', event => {
           }
         }
         
-        // Regular network-first strategy for non-mobile
+        // Regular network-first strategy for desktop
         const response = await fetch(event.request);
         
         if (response.status === 200) {
@@ -145,13 +167,14 @@ self.addEventListener('fetch', event => {
         
         return response;
       } catch (error) {
+        console.log('SW: All strategies failed, using cache fallback');
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
         }
         
         if (event.request.mode === 'navigate') {
-          return new Response('Offline', { 
+          return new Response('Offline - Please refresh', { 
             status: 200, 
             headers: { 'Content-Type': 'text/plain' } 
           });
@@ -165,11 +188,33 @@ self.addEventListener('fetch', event => {
 
 // Listen for messages from main thread
 self.addEventListener('message', (event) => {
+  console.log('SW: Received message:', event.data);
+  
   if (event.data && event.data.type === 'SKIP_WAITING') {
+    console.log('SW: Skipping waiting...');
     self.skipWaiting();
   }
   
   if (event.data && event.data.type === 'CLEAR_CACHE') {
+    console.log('SW: Clearing all caches...');
+    event.waitUntil(
+      caches.keys().then((cacheNames) => {
+        console.log('SW: Found caches to delete:', cacheNames);
+        return Promise.all(
+          cacheNames.map((cacheName) => {
+            console.log('SW: Deleting cache:', cacheName);
+            return caches.delete(cacheName);
+          })
+        );
+      }).then(() => {
+        console.log('SW: All caches cleared successfully');
+      })
+    );
+  }
+  
+  if (event.data && event.data.type === 'FORCE_MOBILE_REFRESH') {
+    console.log('SW: Force mobile refresh requested');
+    // Clear mobile-specific caches immediately
     event.waitUntil(
       caches.keys().then((cacheNames) => {
         return Promise.all(

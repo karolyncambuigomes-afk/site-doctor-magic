@@ -112,25 +112,50 @@ export const usePreferenceCategories = () => {
   useEffect(() => {
     fetchCategories();
 
-    // Enhanced mobile refresh handling
-    const handleRefresh = () => {
-      console.log('[usePreferenceCategories] Handling mobile refresh');
+    // Enhanced mobile refresh events with ultra-aggressive sync
+    const handleMobileRefresh = () => {
+      console.log('[usePreferenceCategories] Mobile refresh triggered');
+      fetchCategories();
+    };
+
+    const handleMobileSync = () => {
+      console.log('[usePreferenceCategories] Mobile sync triggered');
       fetchCategories();
     };
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        setTimeout(handleRefresh, 200);
+        // Force immediate refresh when returning to app
+        setTimeout(fetchCategories, 50);
       }
     };
 
-    // Listen for mobile refresh events
-    window.addEventListener('mobile-force-refresh', handleRefresh);
+    const handleNetworkChange = () => {
+      if (navigator.onLine) {
+        setTimeout(fetchCategories, 100);
+      }
+    };
+
+    const handleFocus = () => {
+      // Refresh on focus
+      setTimeout(fetchCategories, 25);
+    };
+
+    // Listen to all possible refresh events
+    window.addEventListener('mobile-force-refresh', handleMobileRefresh);
+    window.addEventListener('mobile-force-sync', handleMobileSync);
+    window.addEventListener('mobile-status-change', handleMobileRefresh);
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('online', handleNetworkChange);
 
     return () => {
-      window.removeEventListener('mobile-force-refresh', handleRefresh);
+      window.removeEventListener('mobile-force-refresh', handleMobileRefresh);
+      window.removeEventListener('mobile-force-sync', handleMobileSync);
+      window.removeEventListener('mobile-status-change', handleMobileRefresh);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('online', handleNetworkChange);
     };
   }, []);
 

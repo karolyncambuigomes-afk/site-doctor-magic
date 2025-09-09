@@ -45,19 +45,19 @@ const Characteristics = () => {
                     className="group"
                   >
                     <Button 
-                      variant="outline" 
-                      className="w-full h-auto p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-3 hover:shadow-lg transition-all duration-300 group-hover:border-primary"
+                      variant="ghost" 
+                      className="w-full h-auto p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-3 hover:shadow-lg transition-all duration-300 bg-white border border-black text-black hover:bg-gray-50"
                     >
-                      <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-primary group-hover:scale-110 transition-transform" />
+                      <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-black group-hover:scale-110 transition-transform" />
                       <div className="text-center">
-                        <h3 className="luxury-heading-sm font-medium mb-1 group-hover:text-primary transition-colors">
+                        <h3 className="luxury-heading-sm font-medium mb-1 text-black transition-colors">
                           {characteristic.name}
                         </h3>
-                        <p className="luxury-body-xs text-muted-foreground">
+                        <p className="luxury-body-xs text-black">
                           {characteristic.description}
                         </p>
                       </div>
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 mt-1 sm:mt-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 mt-1 sm:mt-2 text-black group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </Link>
                 ))}

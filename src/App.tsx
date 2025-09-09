@@ -42,7 +42,7 @@ import LondonEscortGuide from "./pages/LondonEscortGuide";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
-import { Admin } from "./pages/Admin";
+
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
 
@@ -61,6 +61,7 @@ import { FAQManagerPage } from "./pages/admin/content/FAQManagerPage";
 import { GalleryManagerPage } from "./pages/admin/content/GalleryManagerPage";
 import { ModelsManager } from "./pages/admin/models/ModelsManager";
 import { ModelsListManager } from "./pages/admin/models/ModelsListManager";
+import { ModelFormPage } from "./pages/admin/models/ModelFormPage";
 import { ApplicationsManager } from "./pages/admin/models/ApplicationsManager";
 import { CharacteristicsManagerPage } from "./pages/admin/models/CharacteristicsManagerPage";
 import { ServicesManagerPage } from "./pages/admin/models/ServicesManagerPage";
@@ -278,6 +279,16 @@ const App = () => (
               <ModelsListManager />
             </ProtectedRoute>
           } />
+          <Route path="/admin/models/new" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ModelFormPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/models/edit/:id" element={
+            <ProtectedRoute requiresAccess={true}>
+              <ModelFormPage />
+            </ProtectedRoute>
+          } />
           <Route path="/admin/models/applications" element={
             <ProtectedRoute requiresAccess={true}>
               <ApplicationsManager />
@@ -347,12 +358,6 @@ const App = () => (
             </ProtectedRoute>
           } />
           
-          {/* Legacy Admin Routes */}
-          <Route path="/admin-old" element={
-            <ProtectedRoute requiresAccess={true}>
-              <Admin />
-            </ProtectedRoute>
-          } />
           <Route path="/gallery-admin" element={
             <ProtectedRoute requiresAccess={true}>
               <GalleryAdmin />

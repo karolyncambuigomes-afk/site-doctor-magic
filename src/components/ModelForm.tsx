@@ -372,6 +372,46 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardContent>
         </Card>
 
+        {/* Access & Privacy Configuration Card */}
+        <Card className="border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-primary">⭐ Configurações de Acesso e Privacidade</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
+              <div className="space-y-1">
+                <Label htmlFor="members-only" className="text-sm font-medium">
+                  Apenas Membros Premium
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Modelo disponível apenas para usuários com assinatura ativa
+                </p>
+              </div>
+              <Switch
+                id="members-only"
+                checked={formData.members_only || false}
+                onCheckedChange={(checked) => handleInputChange('members_only', checked)}
+              />
+            </div>
+
+            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
+              <div className="space-y-1">
+                <Label htmlFor="face-visible" className="text-sm font-medium">
+                  Rosto Visível
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Controla se o rosto da modelo aparece claramente nas fotos
+                </p>
+              </div>
+              <Switch
+                id="face-visible"
+                checked={formData.face_visible !== false}
+                onCheckedChange={(checked) => handleInputChange('face_visible', checked)}
+              />
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Homepage Configuration Card */}
         <Card className="border-green-200 bg-green-50/50">
           <CardHeader>
@@ -412,46 +452,6 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 </p>
               </div>
             )}
-          </CardContent>
-        </Card>
-
-        {/* Access & Privacy Configuration Card */}
-        <Card className="border-primary/20 bg-primary/5">
-          <CardHeader>
-            <CardTitle className="text-primary">⭐ Configurações de Acesso e Privacidade</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
-              <div className="space-y-1">
-                <Label htmlFor="members-only" className="text-sm font-medium">
-                  Apenas Membros Premium
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Modelo disponível apenas para usuários com assinatura ativa
-                </p>
-              </div>
-              <Switch
-                id="members-only"
-                checked={formData.members_only || false}
-                onCheckedChange={(checked) => handleInputChange('members_only', checked)}
-              />
-            </div>
-
-            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
-              <div className="space-y-1">
-                <Label htmlFor="face-visible" className="text-sm font-medium">
-                  Rosto Visível
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Controla se o rosto da modelo aparece claramente nas fotos
-                </p>
-              </div>
-              <Switch
-                id="face-visible"
-                checked={formData.face_visible !== false}
-                onCheckedChange={(checked) => handleInputChange('face_visible', checked)}
-              />
-            </div>
           </CardContent>
         </Card>
 

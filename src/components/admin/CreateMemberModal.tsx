@@ -49,6 +49,11 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
     setIsLoading(true);
 
     try {
+      console.log('Calling create-member function with:', {
+        clientName: clientName.trim(),
+        expiresAt: expiresAt?.toISOString()
+      });
+
       const { data, error } = await supabase.functions.invoke('create-member', {
         body: {
           clientName: clientName.trim(),
@@ -56,6 +61,8 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
           expiresAt: expiresAt?.toISOString()
         }
       });
+
+      console.log('Function response:', { data, error });
 
       if (error) {
         console.error('Error creating member:', error);

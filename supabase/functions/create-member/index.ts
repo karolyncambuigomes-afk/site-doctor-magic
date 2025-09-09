@@ -20,9 +20,17 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { clientName, password, expiresAt } = await req.json();
+    const requestBody = await req.json();
+    console.log('Request received:', { 
+      method: req.method, 
+      headers: Object.fromEntries(req.headers.entries()),
+      body: { ...requestBody, password: '[HIDDEN]' }
+    });
+
+    const { clientName, password, expiresAt } = requestBody;
 
     if (!clientName || !password) {
+      console.error('Missing required fields:', { clientName: !!clientName, password: !!password });
       return new Response(
         JSON.stringify({ error: 'Nome do cliente e senha são obrigatórios' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

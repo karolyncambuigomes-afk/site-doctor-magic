@@ -85,7 +85,7 @@ const Index = () => {
         </section>
 
         {/* About Our Services - Collapsible Rich Content */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-8 md:py-12 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <details className="mb-8">
               <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-gray-600 transition-colors">

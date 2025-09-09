@@ -99,7 +99,7 @@ const Contact = () => {
                       <method.icon className="w-8 h-8" />
                     </div>
                     <h3 className="text-lg font-medium text-black">{method.title}</h3>
-                    <p className="text-black">{method.details}</p>
+                    <p className="text-black break-all text-sm px-2">{method.details}</p>
                     <p className="text-sm text-black">{method.description}</p>
                     <Button 
                       className="w-full bg-black text-white hover:bg-gray-800"

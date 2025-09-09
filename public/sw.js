@@ -85,15 +85,37 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - disable completely for mobile browsers
+// Fetch event - special handling for mobile auth endpoints
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  
-  // Check if mobile browser - if so, pass through to network completely
   const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
   
+  // Skip service worker entirely for auth endpoints to prevent request body corruption
+  if (url.pathname.includes('/auth/') || url.pathname.includes('/token') || url.pathname.includes('supabase.co/auth/')) {
+    console.log('SW: Bypassing auth endpoint:', url.pathname);
+    return;
+  }
+  
   if (isMobileBrowser) {
-    // Mobile browsers: no caching, direct network access with cache-busting
+    // For mobile POST requests with body, clone properly to avoid corruption
+    if (event.request.method === 'POST' && event.request.body) {
+      event.respondWith(
+        (async () => {
+          try {
+            // Clone the request properly to preserve body
+            const clonedRequest = event.request.clone();
+            const response = await fetch(clonedRequest);
+            return response;
+          } catch (error) {
+            console.error('SW: Mobile POST request failed:', error);
+            throw error;
+          }
+        })()
+      );
+      return;
+    }
+    
+    // For other mobile requests, use cache-busting headers
     event.respondWith(
       fetch(new Request(event.request.url, {
         method: event.request.method,
@@ -104,7 +126,8 @@ self.addEventListener('fetch', event => {
           'Expires': '0'
         }),
         mode: event.request.mode,
-        credentials: event.request.credentials
+        credentials: event.request.credentials,
+        body: event.request.body
       }))
     );
     return;

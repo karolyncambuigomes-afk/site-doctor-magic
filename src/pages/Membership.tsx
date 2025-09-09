@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { Navigation } from '@/components/Navigation';
@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Check, Lock, Mail } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
+import { MobileAuthDebugger } from '@/components/MobileAuthDebugger';
 export const Membership: React.FC = () => {
   const auth = useAuth();
   const {
@@ -17,29 +18,85 @@ export const Membership: React.FC = () => {
     hasAccess
   } = auth || {};
   const [loginLoading, setLoginLoading] = useState(false);
+  const [magicLinkLoading, setMagicLinkLoading] = useState(false);
+  const [loginMode, setLoginMode] = useState<'password' | 'magic'>('password');
+  const [isMobile, setIsMobile] = useState(false);
 
   // Login form state
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
   });
+
+  // Detect mobile for fallback auth
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      setIsMobile(mobile);
+      // Auto-suggest magic link for mobile Safari
+      if (mobile && navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+        setLoginMode('magic');
+      }
+    };
+    checkMobile();
+  }, []);
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
+    
     try {
-      const {
-        error
-      } = await supabase.auth.signInWithPassword({
+      console.log('[Auth] Starting password login for:', loginForm.email);
+      
+      const { error } = await supabase.auth.signInWithPassword({
         email: loginForm.email,
         password: loginForm.password
       });
-      if (error) throw error;
-      toast.success('Successfully logged in!');
+      
+      if (error) {
+        console.error('[Auth] Password login error:', error);
+        // Suggest magic link for mobile users if password fails
+        if (isMobile && error.message.includes('Invalid')) {
+          toast.error('Password login failed. Try Magic Link instead!');
+          setLoginMode('magic');
+        } else {
+          throw error;
+        }
+      } else {
+        toast.success('Successfully logged in!');
+      }
     } catch (error: any) {
-      console.error('Login error:', error);
+      console.error('[Auth] Login error:', error);
       toast.error(error.message || 'Failed to login');
     } finally {
       setLoginLoading(false);
+    }
+  };
+
+  const handleMagicLink = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMagicLinkLoading(true);
+    
+    try {
+      console.log('[Auth] Sending magic link to:', loginForm.email);
+      
+      const { error } = await supabase.auth.signInWithOtp({
+        email: loginForm.email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/membership`
+        }
+      });
+      
+      if (error) {
+        console.error('[Auth] Magic link error:', error);
+        throw error;
+      }
+      
+      toast.success('Magic link sent! Check your email.');
+    } catch (error: any) {
+      console.error('[Auth] Magic link error:', error);
+      toast.error(error.message || 'Failed to send magic link');
+    } finally {
+      setMagicLinkLoading(false);
     }
   };
   return <>
@@ -84,30 +141,107 @@ export const Membership: React.FC = () => {
                 </CardHeader>
                 
                 <CardContent className="px-8 pb-8 bg-black">
-                  <form onSubmit={handleLogin} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="luxury-body-sm text-foreground">Email</Label>
-                      <Input id="email" type="email" value={loginForm.email} onChange={e => setLoginForm({
-                        ...loginForm,
-                        email: e.target.value
-                      })} required className="luxury-body-base" />
+                  {/* Login Mode Toggle */}
+                  <div className="flex justify-center mb-6">
+                    <div className="flex bg-muted rounded-lg p-1">
+                      <button
+                        type="button"
+                        onClick={() => setLoginMode('password')}
+                        className={`px-4 py-2 text-sm rounded-md transition-colors ${
+                          loginMode === 'password' 
+                            ? 'bg-background text-foreground shadow-sm' 
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        Password
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setLoginMode('magic')}
+                        className={`px-4 py-2 text-sm rounded-md transition-colors ${
+                          loginMode === 'magic' 
+                            ? 'bg-background text-foreground shadow-sm' 
+                            : 'text-muted-foreground hover:text-foreground'
+                        }`}
+                      >
+                        Magic Link {isMobile && '(Recommended)'}
+                      </button>
                     </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="password" className="luxury-body-sm text-foreground">Password</Label>
-                      <Input id="password" type="password" value={loginForm.password} onChange={e => setLoginForm({
-                        ...loginForm,
-                        password: e.target.value
-                      })} required className="luxury-body-base" />
-                    </div>
-                    
-                    <Button type="submit" disabled={loginLoading} className="w-full py-3 text-base font-light tracking-widest">
-                      {loginLoading ? <div className="flex items-center">
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Logging in...
-                        </div> : "Login"}
-                    </Button>
-                  </form>
+                  </div>
+
+                  {loginMode === 'password' ? (
+                    <form onSubmit={handleLogin} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="luxury-body-sm text-foreground">Email</Label>
+                        <Input 
+                          id="email" 
+                          type="email" 
+                          value={loginForm.email} 
+                          onChange={e => setLoginForm({
+                            ...loginForm,
+                            email: e.target.value
+                          })} 
+                          required 
+                          className="luxury-body-base" 
+                        />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="password" className="luxury-body-sm text-foreground">Password</Label>
+                        <Input 
+                          id="password" 
+                          type="password" 
+                          value={loginForm.password} 
+                          onChange={e => setLoginForm({
+                            ...loginForm,
+                            password: e.target.value
+                          })} 
+                          required 
+                          className="luxury-body-base" 
+                        />
+                      </div>
+                      
+                      <Button type="submit" disabled={loginLoading} className="w-full py-3 text-base font-light tracking-widest">
+                        {loginLoading ? (
+                          <div className="flex items-center">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Logging in...
+                          </div>
+                        ) : "Login with Password"}
+                      </Button>
+                    </form>
+                  ) : (
+                    <form onSubmit={handleMagicLink} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="magic-email" className="luxury-body-sm text-foreground">Email</Label>
+                        <Input 
+                          id="magic-email" 
+                          type="email" 
+                          value={loginForm.email} 
+                          onChange={e => setLoginForm({
+                            ...loginForm,
+                            email: e.target.value
+                          })} 
+                          required 
+                          className="luxury-body-base" 
+                          placeholder="Enter your email for magic link"
+                        />
+                      </div>
+                      
+                      <div className="text-sm text-muted-foreground text-center mb-4">
+                        We'll send you a secure login link via email
+                      </div>
+                      
+                      <Button type="submit" disabled={magicLinkLoading} className="w-full py-3 text-base font-light tracking-widest">
+                        {magicLinkLoading ? (
+                          <div className="flex items-center">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Sending Magic Link...
+                          </div>
+                        ) : "Send Magic Link"}
+                      </Button>
+                    </form>
+                  )}
                 </CardContent>
               </Card>
               
@@ -242,6 +376,7 @@ export const Membership: React.FC = () => {
         </main>
         
         <Footer />
+        <MobileAuthDebugger />
       </div>
     </>;
 };

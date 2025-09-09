@@ -225,7 +225,7 @@ export const ModelProfile: React.FC = () => {
         </div>
 
         {/* You Might Also Like Section */}
-        <div className="border-t border-border/30 bg-muted/20">
+        <div className="border-t border-border/30 bg-white">
           <div className="max-w-4xl mx-auto p-4 md:p-6">
             <h3 className="text-xl font-light text-foreground mb-6 text-center">You Might Also Like</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

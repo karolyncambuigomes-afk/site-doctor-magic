@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
 import { locations } from '@/data/locations';
-import { X, Plus, Image as ImageIcon } from 'lucide-react';
+import { X, Plus, Image as ImageIcon, AlertCircle } from 'lucide-react';
 
 interface Model {
   id?: string;
@@ -37,6 +37,7 @@ interface Model {
   rating: number | null;
   reviews: number | null;
   members_only: boolean | null;
+  face_visible: boolean | null;
 }
 
 interface ModelFormProps {
@@ -93,7 +94,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     },
     rating: null,
     reviews: null,
-    members_only: false
+    members_only: false,
+    face_visible: true
   });
 
   const [newService, setNewService] = useState('');
@@ -113,7 +115,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           threeHours: '',
           additionalHour: ''
         },
-        members_only: model.members_only || false
+        members_only: model.members_only || false,
+        face_visible: model.face_visible !== null ? model.face_visible : true
       });
     }
   }, [model]);
@@ -187,6 +190,17 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (!formData.name.trim()) {
+      toast({
+        title: "Erro de Validação",
+        description: "O nome da modelo é obrigatório",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -210,7 +224,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         pricing: formData.pricing,
         rating: formData.rating,
         reviews: formData.reviews,
-        members_only: formData.members_only
+        members_only: formData.members_only,
+        face_visible: formData.face_visible
       };
 
       if (model?.id) {
@@ -263,13 +278,20 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="name">Nome *</Label>
+              <Label htmlFor="name" className="flex items-center gap-1">
+                Nome *
+                <AlertCircle className="w-3 h-3 text-red-500" />
+              </Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 required
+                className={!formData.name.trim() ? 'border-red-300 focus:border-red-500' : ''}
               />
+              {!formData.name.trim() && (
+                <p className="text-xs text-red-500 mt-1">Nome é obrigatório</p>
+              )}
             </div>
 
             <div>
@@ -322,12 +344,34 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardContent>
         </Card>
 
-        {/* Access Configuration Card */}
-        <Card className="border-primary/20 bg-primary/5">
+        {/* Main Image Upload */}
+        <Card className="border-blue-200 bg-blue-50/50">
           <CardHeader>
-            <CardTitle className="text-primary">⭐ Configurações de Acesso</CardTitle>
+            <CardTitle className="text-blue-700 flex items-center gap-2">
+              🖼️ Foto Principal
+            </CardTitle>
           </CardHeader>
           <CardContent>
+            <div className="space-y-4">
+              <p className="text-sm text-blue-600">
+                Esta será a foto principal que aparece nos cards e listagens
+              </p>
+              <ImageUpload
+                value={formData.image || ''}
+                onChange={(url) => handleInputChange('image', url)}
+                label="Foto Principal"
+                placeholder="URL da foto principal ou faça upload"
+              />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Access & Privacy Configuration Card */}
+        <Card className="border-primary/20 bg-primary/5">
+          <CardHeader>
+            <CardTitle className="text-primary">⭐ Configurações de Acesso e Privacidade</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
             <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
               <div className="space-y-1">
                 <Label htmlFor="members-only" className="text-sm font-medium">
@@ -341,6 +385,22 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 id="members-only"
                 checked={formData.members_only || false}
                 onCheckedChange={(checked) => handleInputChange('members_only', checked)}
+              />
+            </div>
+
+            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
+              <div className="space-y-1">
+                <Label htmlFor="face-visible" className="text-sm font-medium">
+                  Rosto Visível
+                </Label>
+                <p className="text-xs text-muted-foreground">
+                  Controla se o rosto da modelo aparece claramente nas fotos
+                </p>
+              </div>
+              <Switch
+                id="face-visible"
+                checked={formData.face_visible !== false}
+                onCheckedChange={(checked) => handleInputChange('face_visible', checked)}
               />
             </div>
           </CardContent>
@@ -680,13 +740,31 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       </Card>
 
       {/* Form Actions */}
-      <div className="flex justify-end space-x-4">
-        <Button type="button" variant="outline" onClick={onCancel}>
-          Cancelar
-        </Button>
-        <Button type="submit" disabled={loading}>
-          {loading ? 'Salvando...' : model?.id ? 'Atualizar' : 'Criar'} Modelo
-        </Button>
+      <div className="flex flex-col gap-4">
+        {!formData.name.trim() && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+            <div className="flex items-center gap-2 text-red-700">
+              <AlertCircle className="w-4 h-4" />
+              <span className="text-sm font-medium">Campos obrigatórios em falta</span>
+            </div>
+            <p className="text-xs text-red-600 mt-1">
+              Preencha todos os campos marcados com (*) antes de salvar
+            </p>
+          </div>
+        )}
+        
+        <div className="flex justify-end space-x-4">
+          <Button type="button" variant="outline" onClick={onCancel}>
+            Cancelar
+          </Button>
+          <Button 
+            type="submit" 
+            disabled={loading || !formData.name.trim()}
+            className={!formData.name.trim() ? 'opacity-50 cursor-not-allowed' : ''}
+          >
+            {loading ? 'Salvando...' : model?.id ? 'Atualizar' : 'Criar'} Modelo
+          </Button>
+        </div>
       </div>
     </form>
   );

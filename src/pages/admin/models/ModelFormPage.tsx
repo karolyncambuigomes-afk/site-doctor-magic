@@ -30,6 +30,7 @@ interface Model {
   rating: number | null;
   reviews: number | null;
   members_only: boolean | null;
+  face_visible: boolean | null;
 }
 
 export const ModelFormPage: React.FC = () => {

@@ -579,6 +579,45 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          area_name: string
+          author_initial: string
+          author_name: string
+          created_at: string | null
+          id: string
+          is_featured: boolean | null
+          location_postcode: string
+          rating: number
+          review_text: string
+          service_type: string | null
+        }
+        Insert: {
+          area_name: string
+          author_initial: string
+          author_name: string
+          created_at?: string | null
+          id?: string
+          is_featured?: boolean | null
+          location_postcode: string
+          rating: number
+          review_text: string
+          service_type?: string | null
+        }
+        Update: {
+          area_name?: string
+          author_initial?: string
+          author_name?: string
+          created_at?: string | null
+          id?: string
+          is_featured?: boolean | null
+          location_postcode?: string
+          rating?: number
+          review_text?: string
+          service_type?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           button_text: string | null

@@ -16,6 +16,12 @@ interface SEOProps {
     tags?: string[];
   };
   additionalMeta?: Record<string, string>;
+  locationContext?: {
+    area?: string;
+    postcode?: string;
+    coordinates?: { lat: number; lng: number };
+  };
+  hreflang?: Array<{ lang: string; href: string }>;
 }
 
 export const SEO = ({ 
@@ -27,7 +33,9 @@ export const SEO = ({
   structuredData,
   noIndex = false,
   articleData,
-  additionalMeta = {}
+  additionalMeta = {},
+  locationContext,
+  hreflang = []
 }: SEOProps) => {
   const fullTitle = title.includes('Five London') ? title : `${title} | Five London - Premium Luxury Escort Services in London`;
   const siteUrl = "https://fivelondon.com";
@@ -114,15 +122,44 @@ export const SEO = ({
       <meta name="theme-color" content="#000000" />
       <meta name="msapplication-TileColor" content="#000000" />
 
-      {/* Cache Control for Style Updates */}
-      <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-      <meta httpEquiv="Pragma" content="no-cache" />
-      <meta httpEquiv="Expires" content="0" />
+      {/* Optimized Cache Control */}
+      <meta httpEquiv="Cache-Control" content="public, max-age=31536000, immutable" />
+      <meta httpEquiv="Pragma" content="cache" />
+
+      {/* Enhanced Geographic Meta Tags */}
+      {locationContext?.area && (
+        <>
+          <meta name="geo.placename" content={`${locationContext.area}, London`} />
+          <meta name="geo.region" content="GB-LND" />
+          {locationContext.coordinates && (
+            <>
+              <meta name="geo.position" content={`${locationContext.coordinates.lat};${locationContext.coordinates.lng}`} />
+              <meta name="ICBM" content={`${locationContext.coordinates.lat}, ${locationContext.coordinates.lng}`} />
+            </>
+          )}
+          <meta name="location" content={`${locationContext.area}, London ${locationContext.postcode || ''}`} />
+        </>
+      )}
+
+      {/* Hreflang for international SEO */}
+      {hreflang.length > 0 && hreflang.map(({ lang, href }) => (
+        <link key={lang} rel="alternate" hrefLang={lang} href={href} />
+      ))}
+      
+      {/* Default hreflang for UK */}
+      <link rel="alternate" hrefLang="en-gb" href={fullCanonicalUrl} />
+      <link rel="alternate" hrefLang="x-default" href={fullCanonicalUrl} />
 
       {/* Performance Hints */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+      <link rel="dns-prefetch" href="https://supabase.co" />
+      
+      {/* Optimized Resource Loading */}
+      <link rel="preload" href="/og-image.jpg" as="image" type="image/jpeg" />
+      <link rel="prefetch" href="/models" />
+      <link rel="prefetch" href="/contact" />
 
       {/* Additional custom meta tags */}
       {Object.entries(additionalMeta).map(([name, content]) => (

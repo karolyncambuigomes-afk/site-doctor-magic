@@ -6,37 +6,61 @@ import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
+import { generateLocalBusinessSchema } from '@/utils/geoTargeting';
+import { generateLocalBusinessByPostcode, generateServiceWithPricingSchema, generateContactPointSchema } from '@/utils/advancedStructuredData';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useReviews } from '@/hooks/useReviews';
 import { useBookingContent } from '@/hooks/useBookingContent';
 import heroSecondBanner from '@/assets/hero-second-banner-new.jpg';
 import { CategoryFilters } from '@/components/CategoryFilters';
 const Index = () => {
-  const {
-    info: bookingInfo
-  } = useBookingContent();
+  const { info: bookingInfo } = useBookingContent();
+  const breadcrumbs = useBreadcrumbs();
+  const { data: reviewData } = useReviews();
 
-  // Generate comprehensive structured data for homepage
-  const structuredData = [generateOrganizationSchema(), generateWebsiteSchema(), generateServiceSchema("Premium Luxury Escort Services", "Exclusive companion services in London offering sophisticated, professional companionship for discerning clients seeking luxury experiences.", "500-1000"),
-  // Add location-specific schema for better geo-targeting
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Five London Elite Escorts",
-    "areaServed": {
-      "@type": "City",
-      "name": "London",
-      "addressCountry": "GB"
-    },
-    "hasMap": "https://www.google.com/maps/place/London,+UK",
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "51.5074",
-      "longitude": "-0.1278"
-    }
-  }];
+  // Generate comprehensive structured data for the homepage
+  const structuredData = [
+    generateOrganizationSchema(true),
+    generateWebsiteSchema(),
+    generateServiceSchema("Premium Companion Services", "Elite companions for discerning clients in London", "£300-£2000"),
+    generateServiceWithPricingSchema(
+      "Luxury Companion Services London",
+      "Premium, sophisticated companions for exclusive events, business functions, and cultural experiences throughout London",
+      "London",
+      "£££"
+    ),
+    generateLocalBusinessSchema({
+      name: "Central London",
+      postcode: "W1", 
+      description: "Premium companion services in Central London"
+    }),
+    generateContactPointSchema(),
+    // Individual area schemas for major London districts
+    generateLocalBusinessByPostcode("W1", "Mayfair", reviewData),
+    generateLocalBusinessByPostcode("SW1", "Knightsbridge", reviewData),
+    generateLocalBusinessByPostcode("SW3", "Chelsea", reviewData),
+    generateLocalBusinessByPostcode("SW1X", "Belgravia", reviewData)
+  ];
   return (
     // Updated mobile optimizations applied - v2.1
     <>
-      <SEO title="Elite London Escorts | Premium High-Class Companions SW1 W1 | Five London" description="London's premier luxury escort agency serving Mayfair W1, Knightsbridge SW1, Chelsea SW3. Sophisticated, intelligent companions available 24/7. Discreet, professional service. Book now." keywords="luxury escort London, premium companion services, elite escorts London, sophisticated companions, VIP escort service, high-class escort agency, exclusive escort London, professional companions, Mayfair escorts W1, Knightsbridge escorts SW1, Chelsea escorts SW3" canonicalUrl="/" structuredData={structuredData} />
+      <SEO 
+        title="Five London - Premium Luxury Escort Services in London"
+        description="Elite escort agency in London offering sophisticated companions for discerning clients. Premium escort services with elegant, intelligent models for exclusive experiences."
+        keywords="luxury escort London, premium escort agency, elite escorts London, high-class companions, VIP escort service London, sophisticated escorts, exclusive escort agency, professional companions London, Mayfair escorts, Knightsbridge companions, Chelsea escort services, Belgravia luxury escorts"
+        canonicalUrl="/"
+        ogImage="/og-image.jpg"
+        structuredData={structuredData}
+        locationContext={{
+          area: "Central London",
+          postcode: "W1",
+          coordinates: { lat: 51.5074, lng: -0.1278 }
+        }}
+        hreflang={[
+          { lang: "en-gb", href: "https://fivelondon.com/" },
+          { lang: "en-us", href: "https://fivelondon.com/" }
+        ]}
+      />
       
       <Navigation />
       

@@ -4,6 +4,9 @@ import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
+import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useReviews } from '@/hooks/useReviews';
 import { BookNowButton } from '@/components/BookNowButton';
 import { Star } from 'lucide-react';
 
@@ -47,12 +50,14 @@ const testimonials = [
 ];
 
 export const Reviews: React.FC = () => {
+  const breadcrumbs = useBreadcrumbs();
+  const { data: reviewData } = useReviews();
+
+  // Generate enhanced structured data for reviews
   const structuredData = [
     generateOrganizationSchema(),
-    generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "Reviews", url: "https://fivelondon.com/reviews" }
-    ]),
+    generateAdvancedBreadcrumbs(breadcrumbs),
+    ...(reviewData ? [generateReviewAggregateSchema(reviewData, "Five London")] : []),
     {
       "@context": "https://schema.org",
       "@type": "ReviewPage", 

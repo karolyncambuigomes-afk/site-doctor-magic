@@ -4,20 +4,22 @@ import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MessageCircle, Phone, Mail, Shield, Clock, Users, Star } from 'lucide-react';
 import { generateFAQSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { generateLocalBusinessSchema } from '@/utils/geoTargeting';
+import { generateLocationAwareFAQSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useFAQs } from '@/hooks/useFAQs';
 import { useBookingContent } from '@/hooks/useBookingContent';
 
 const FAQ = () => {
   const { faqs, loading, error } = useFAQs();
   const { info: bookingInfo } = useBookingContent();
+  const breadcrumbs = useBreadcrumbs();
 
+  // Generate enhanced structured data with location awareness
   const structuredData = [
     generateOrganizationSchema(),
-    generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "FAQ", url: "https://fivelondon.com/faq" }
-    ]),
-    generateFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer }))),
+    generateAdvancedBreadcrumbs(breadcrumbs),
+    ...(faqs ? [generateLocationAwareFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })), "London")] : []),
     // Enhanced LocalBusiness schema for GEO targeting
     {
       "@context": "https://schema.org",

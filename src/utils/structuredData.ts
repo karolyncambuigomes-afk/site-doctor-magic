@@ -1,5 +1,6 @@
-// SEO Structured Data Utils
-export const generateOrganizationSchema = () => ({
+// Enhanced Organization Schema with Multiple Locations
+export const generateOrganizationSchema = (includeLocations: boolean = true) => {
+  const baseSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Five London",
@@ -37,7 +38,38 @@ export const generateOrganizationSchema = () => ({
   "sameAs": [],
   "hasMap": "https://www.google.com/maps/place/London,+UK",
   "openingHours": "Mo-Su 00:00-23:59"
-});
+  };
+
+  if (includeLocations) {
+    return {
+      ...baseSchema,
+      "location": [
+        {
+          "@type": "Place",
+          "name": "Mayfair",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "London",
+            "postalCode": "W1",
+            "addressCountry": "GB"
+          }
+        },
+        {
+          "@type": "Place", 
+          "name": "Knightsbridge",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "London",
+            "postalCode": "SW1",
+            "addressCountry": "GB"
+          }
+        }
+      ]
+    };
+  }
+
+  return baseSchema;
+};
 
 export const generateWebsiteSchema = () => ({
   "@context": "https://schema.org",

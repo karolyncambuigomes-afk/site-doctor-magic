@@ -34,7 +34,7 @@ export const Models: React.FC = () => {
               <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
                 Elite Escort Models
               </h1>
-              <p className="luxury-body-lg text-foreground">
+              <p className="luxury-body-lg text-black">
                 Discover London's most sophisticated companions. Available for dinner dates, business events, and exclusive experiences.
               </p>
             </div>

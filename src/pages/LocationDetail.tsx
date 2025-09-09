@@ -219,7 +219,7 @@ const LocationDetail = () => {
                 <h2 className="luxury-heading-lg text-black mb-4">
                   Explore Other Locations
                 </h2>
-                <p className="text-black mb-6">
+                <p className="text-gray-600 mb-6">
                   Discover our premium escort services in London's most exclusive districts
                 </p>
               </div>

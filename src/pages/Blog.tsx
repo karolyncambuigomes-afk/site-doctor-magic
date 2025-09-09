@@ -113,14 +113,14 @@ const Blog = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-                        <Badge variant="secondary" className="bg-background/90 text-foreground text-xs">
+                        <Badge variant="secondary" className="bg-background/90 text-black text-xs">
                           {article.category}
                         </Badge>
                       </div>
                     </div>
                     
                     <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6">
-                      <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-3">
+                      <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                            <time dateTime={article.publishedAt} className="hidden sm:inline">
@@ -143,18 +143,18 @@ const Blog = () => {
                         </div>
                       </div>
                       
-                      <h2 className="luxury-heading-sm font-medium text-foreground group-hover:text-foreground/80 transition-colors leading-tight">
+                      <h2 className="luxury-heading-sm font-medium text-black group-hover:text-black/80 transition-colors leading-tight">
                         {article.title}
                       </h2>
                     </CardHeader>
                     
                     <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
-                      <p className="luxury-body-xs text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+                      <p className="luxury-body-xs text-black leading-relaxed mb-4 sm:mb-6">
                         {article.excerpt}
                       </p>
                       
                       <Link to={`/blog/${article.slug}`}>
-                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-foreground hover:text-foreground/80 luxury-body-sm">
+                        <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-black hover:text-black/80 luxury-body-sm">
                           Read full article
                           <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
@@ -167,11 +167,11 @@ const Blog = () => {
           </section>
 
           {/* Contact Section */}
-          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-2xl mx-auto px-4 sm:px-6">
-                <h2 className="luxury-heading-lg font-extralight mb-4">Stay Updated</h2>
-                <p className="luxury-body-base text-muted-foreground mb-8">
+                <h2 className="luxury-heading-lg font-extralight mb-4 text-black">Stay Updated</h2>
+                <p className="luxury-body-base text-black mb-8">
                   Contact us for the latest London experiences and exclusive recommendations.
                 </p>
                 <Button 

@@ -158,7 +158,7 @@ export const ModelProfile: React.FC = () => {
                   <p className="text-sm text-muted-foreground mt-1">Base rate</p>
                 </div>
               </div>}
-            {model.pricing && <div className="bg-card border border-border rounded-lg p-4">
+            {model.pricing && <div className="bg-card border border-border rounded-lg p-4 text-black">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">1 hora</span>

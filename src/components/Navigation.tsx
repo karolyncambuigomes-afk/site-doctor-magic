@@ -46,7 +46,7 @@ export const Navigation: React.FC = () => {
         <div className="flex items-center justify-between py-2 md:py-3 text-foreground">
           <SafeLink 
             to="/" 
-            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-muted-foreground text-foreground"
+            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-600 text-black"
           >
             Five London
             <span className="text-xs ml-2 font-normal text-muted-foreground">EST. 2020</span>

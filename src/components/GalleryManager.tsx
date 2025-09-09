@@ -49,6 +49,8 @@ export const GalleryManager: React.FC = () => {
         .order('name');
 
       if (modelsError) throw modelsError;
+      
+      console.log('GalleryManager - Loaded models:', modelsData);
       setModels(modelsData || []);
 
       // Load carousel items
@@ -234,6 +236,10 @@ export const GalleryManager: React.FC = () => {
   const availableModels = models.filter(model => 
     model.image && !carouselItems.some(item => item.model_id === model.id)
   );
+  
+  console.log('GalleryManager - All models:', models);
+  console.log('GalleryManager - Carousel items:', carouselItems);
+  console.log('GalleryManager - Available models for dropdown:', availableModels);
 
   return (
     <div className="space-y-8">
@@ -267,15 +273,21 @@ export const GalleryManager: React.FC = () => {
                   <div className="space-y-2">
                     <Label>Modelo</Label>
                     <Select value={selectedModel} onValueChange={setSelectedModel}>
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-background">
                         <SelectValue placeholder="Selecione uma modelo" />
                       </SelectTrigger>
-                      <SelectContent>
-                        {availableModels.map(model => (
-                          <SelectItem key={model.id} value={model.id}>
-                            {model.name}
+                      <SelectContent className="bg-background border border-border shadow-lg z-50">
+                        {availableModels.length === 0 ? (
+                          <SelectItem value="no-models" disabled>
+                            Nenhuma modelo disponível
                           </SelectItem>
-                        ))}
+                        ) : (
+                          availableModels.map(model => (
+                            <SelectItem key={model.id} value={model.id} className="bg-background hover:bg-accent">
+                              {model.name}
+                            </SelectItem>
+                          ))
+                        )}
                       </SelectContent>
                     </Select>
                   </div>

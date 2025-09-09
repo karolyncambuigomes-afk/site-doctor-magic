@@ -126,7 +126,7 @@ const LocationDetail = () => {
           <section className="py-16 md:py-20 bg-white">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-12">
-                <h2 className="luxury-heading-lg text-primary mb-6">
+                <h2 className="luxury-heading-lg text-foreground mb-6">
                   Our Exclusive {location.name} Collection
                 </h2>
                 <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>

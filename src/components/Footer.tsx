@@ -20,7 +20,7 @@ export const Footer = () => {
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h3 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
+              <h3 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
               <p className="luxury-body-xs text-muted-foreground mb-4 leading-relaxed">

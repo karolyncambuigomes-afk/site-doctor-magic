@@ -179,23 +179,44 @@ export const Membership: React.FC = () => {
             </div>
           </section>}
 
-        {/* SEO Content - Invisible */}
-        <div className="sr-only">
-          <h2>Exclusive VIP Membership Benefits - Premium Access to Elite Companions</h2>
-          <p>Experience the ultimate in luxury companionship through our exclusive VIP membership program. Members gain privileged access to London's most sophisticated escort models, personalized concierge services, priority booking for special events, and bespoke experiences tailored to the refined tastes of our distinguished clientele. Our membership program represents the pinnacle of discretion, elegance, and personalized service in London's premium escort industry.</p>
-          
-          <h3>Premium Access to Elite Companions and Exclusive Gallery</h3>
-          <p>VIP members enjoy unlimited access to our complete collection of elite companions, including exclusive models available only to premium members. Browse detailed profiles, high-quality photography, and comprehensive background information about each companion. Members receive priority booking privileges, advanced scheduling options, and access to special events featuring our most sought-after models. The exclusive members' gallery showcases the finest selection of sophisticated companions in London, carefully curated for discerning clients who demand nothing but excellence.</p>
-          
-          <h3>Members-Only Services and Personalized Experiences</h3>
-          <p>Our VIP membership extends beyond companion access to include comprehensive lifestyle services. Members benefit from personalized restaurant recommendations and reservations at London's most exclusive venues, priority access to cultural events and private viewings, bespoke travel arrangements with international companions, and 24/7 concierge support for any special requests. Each service is tailored to individual preferences, ensuring every experience exceeds expectations and maintains the highest standards of luxury and discretion.</p>
-          
-          <h4>Exclusive Events and Private Member Functions</h4>
-          <p>VIP members are invited to exclusive events throughout London, including private dinners at prestigious venues, cultural experiences at premier locations, and intimate gatherings with our elite companions. These events take place at carefully selected venues such as private dining rooms in Mayfair, exclusive galleries in Chelsea, luxury yachts on the Thames, and historic venues across London's most sophisticated neighborhoods, providing unparalleled networking opportunities within our distinguished member community.</p>
-          
-          <h4>Membership Tiers and Luxury Benefits</h4>
-          <p>Our tiered membership structure offers increasing levels of luxury and exclusivity. Platinum members receive access to the most exclusive companions, priority booking for all services, complimentary upgrades, and personalized attention from our senior concierge team. Diamond members enjoy all benefits plus access to international travel companions, exclusive event invitations, and bespoke experiences designed specifically for their preferences. Each tier represents a commitment to excellence, ensuring that our most valued members receive the extraordinary service and attention they deserve.</p>
-        </div>
+        {/* About VIP Membership Benefits - Collapsible Rich Content */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>About VIP Membership Benefits</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Premium Access to Elite Companions</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    VIP membership provides exclusive access to our most sophisticated companions and premium services. Members enjoy priority booking, extended availability, and access to our elite model gallery featuring international companions who are exclusively available to our premium clientele.
+                  </p>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Experience unparalleled discretion and personalized service with dedicated account management, flexible arrangements, and exclusive access to special events and experiences throughout London's most prestigious venues.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Members-Only Services and Privileges</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Exclusive Gallery Access</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Private viewing of our premium model portfolio with detailed profiles and extended photo galleries.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Priority Booking</h4>
+                      <p className="luxury-body-xs text-muted-foreground">24/7 concierge service with priority scheduling and same-day availability for last-minute arrangements.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Special Events</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Invitations to exclusive social events, private parties, and member-only experiences at luxury venues.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
 
         {/* Information Section */}
         

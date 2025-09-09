@@ -331,26 +331,44 @@ const Services = () => {
           </div>
         </section>
 
-        {/* SEO Content - Invisible */}
-        <div className="sr-only">
-          <h2>Premium Escort Services in London - Elite Companion Experiences for Sophisticated Clients</h2>
-          <p>Experience London's finest escort services with our comprehensive range of premium companionship options. From intimate dinner dates at Michelin-starred restaurants to sophisticated business events in Canary Wharf, from cultural experiences at the Royal Opera House to international travel companions for luxury destinations worldwide. Our services cater to the refined tastes of discerning gentlemen who appreciate intelligence, beauty, and social grace in their companions.</p>
-          
-          <h3>Dinner Date and Social Companionship Services in London's Premier Venues</h3>
-          <p>Our dinner date escorts excel in creating memorable culinary experiences throughout London's most prestigious dining establishments. Whether you're dining at Sketch's avant-garde pink room, enjoying the timeless elegance of Rules, experiencing innovative cuisine at Core by Clare Smyth, or savoring classic British fare at Simpson's in the Strand, our companions bring sophisticated conversation, wine expertise, and impeccable social grace to every occasion. Each companion possesses extensive knowledge of London's culinary scene, from exclusive private dining clubs in Mayfair to intimate gastropubs in Notting Hill, ensuring perfect recommendations and seamless dining experiences that exceed your expectations.</p>
-          
-          <h3>Business and Travel Companion Services for Executive Clients</h3>
-          <p>Our professional escorts provide exceptional representation at corporate functions throughout London's business districts. From high-profile conferences at ExCeL London to exclusive networking events in the City, from product launches at prestigious venues like the Guildhall to intimate business dinners at private members' clubs in Mayfair. Our companions understand corporate etiquette, possess business acumen, and engage intelligently in discussions about finance, technology, and international markets. For travel companions, we offer sophisticated partners for destinations including Paris, Monaco, Dubai, New York, and the Swiss Alps, with companions ready to adapt to different cultures, time zones, and business environments worldwide.</p>
-          
-          <h3>Cultural and Entertainment Experiences with Elite Companions</h3>
-          <p>Enhance your cultural experiences with companions who appreciate London's rich artistic heritage. From private viewings at the Tate Modern and National Gallery to VIP experiences at West End premieres, from exclusive concerts at the Royal Albert Hall to intimate opera performances at Covent Garden. Our companions bring cultural sophistication, artistic knowledge, and engaging conversation to every cultural event, whether attending fashion week shows, gallery openings in Shoreditch, exclusive museum galas, or seasonal events like the Chelsea Flower Show and Royal Ascot.</p>
-          
-          <h4>Exclusive Location Coverage Across London's Premium Areas</h4>
-          <p>Our escort services cover all of London's most prestigious areas, including Mayfair W1 with its luxury hotels and exclusive restaurants, Knightsbridge SW7 featuring world-class shopping and cultural attractions, Chelsea SW3 with its boutique charm and riverside elegance, Kensington SW5 encompassing the museum quarter and royal parks, Belgravia SW1 offering architectural beauty and quiet sophistication, Covent Garden WC2 with its theatrical heart and artisanal markets, the City EC2 combining historic architecture with modern business facilities, and Canary Wharf E14 representing London's contemporary financial power. Each area offers unique opportunities for sophisticated experiences tailored to our clients' preferences.</p>
-          
-          <h4>Service Standards and Client Experience Excellence</h4>
-          <p>Every escort service maintains the highest standards of professionalism, discretion, and personal attention. Our companions undergo comprehensive training in etiquette, cultural awareness, and client service, ensuring that every encounter exceeds expectations. From initial contact through our discreet booking process to the completion of each engagement, we prioritize client satisfaction, personal preference accommodation, and absolute confidentiality. Our commitment to excellence has established us as London's premier escort agency, trusted by business leaders, international visitors, and sophisticated gentlemen who demand nothing but the finest companionship experiences.</p>
-        </div>
+        {/* About Our Premium Services - Collapsible Rich Content */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>About Our Premium Services</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Dinner Date and Social Companionship</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Experience London's finest dining venues with sophisticated companions who excel in creating memorable social experiences. From intimate dinners at Michelin-starred restaurants to elegant cocktail receptions, our elite escorts provide engaging conversation and refined companionship.
+                  </p>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Perfect for business entertainment, special celebrations, or romantic evenings at prestigious venues including The Ritz, Sketch, and exclusive private dining rooms throughout Mayfair and Knightsbridge.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Business and Travel Companion Services</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Corporate Events</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Professional accompaniment for business functions, networking events, and corporate entertainment in the City and Canary Wharf.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Travel Companionship</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Sophisticated travel companions for business trips, weekend getaways, and luxury holidays worldwide.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Cultural Experiences</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Elegant companions for theatre evenings, gallery openings, and exclusive cultural events throughout London.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
 
         {/* Minimal Contact Section */}
         <section className="py-12 md:py-20 lg:py-24 bg-white">

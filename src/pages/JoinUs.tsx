@@ -567,6 +567,45 @@ const JoinUs = () => {
           <h4>London's Premium Escort Industry and Market Opportunities</h4>
           <p>London's position as a global financial and cultural capital creates exceptional opportunities in the luxury companionship industry. The city attracts sophisticated international visitors, business leaders, and cultural enthusiasts who seek exceptional companionship experiences. From exclusive events in Mayfair to business functions in the City, from cultural experiences in Kensington to social gatherings in Chelsea, London offers diverse opportunities for elite models to build successful careers while experiencing the finest aspects of the city's sophisticated lifestyle.</p>
         </div>
+        
+        {/* About Career Opportunities - Collapsible Rich Content */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>About Career Opportunities</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Professional Development and Training</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Join London's most exclusive escort agency and embark on a rewarding career with comprehensive professional development. We provide extensive training in etiquette, social skills, and client relations to ensure your success in this sophisticated industry.
+                  </p>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Our commitment to excellence extends to ongoing support, personal development opportunities, and career advancement within the luxury companionship sector. Work with prestigious clients across London's most exclusive venues.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Exclusive Client Base and Premium Benefits</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Elite Clientele</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Work with distinguished professionals, business leaders, and international clients who value sophistication and discretion.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Premium Rates</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Competitive compensation packages with opportunities for international travel and exclusive events.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Flexible Schedule</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Control your availability and work schedule while maintaining complete autonomy and professional independence.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
       </main>
 
       <Footer />

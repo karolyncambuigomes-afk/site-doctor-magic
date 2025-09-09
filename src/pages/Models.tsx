@@ -43,26 +43,47 @@ export const Models: React.FC = () => {
 
         {/* Models Gallery */}
         <section className="bg-white">
-          <ModelsGallery />
+        <ModelsGallery />
         </section>
 
-        {/* SEO Content - Invisible */}
-        <div className="sr-only">
-          <h2>Premium London Escort Models Gallery - Elite Companions for Sophisticated Clients</h2>
-          <p>Discover London's most exclusive collection of sophisticated escort models, carefully selected for their beauty, intelligence, and social grace. Our elite companions are available for dinner dates at Michelin-starred restaurants in Mayfair, business events in Canary Wharf, cultural experiences in Covent Garden, and exclusive social gatherings across London's most prestigious venues.</p>
-          
-          <h3>Sophisticated Companions for Elite Clients in London's Premier Locations</h3>
-          <p>Our luxury escort models specialize in providing exceptional companionship throughout London's most exclusive areas. From the refined elegance of Mayfair and Knightsbridge to the cultural sophistication of South Kensington and the business excellence of the City, our companions seamlessly integrate into any high-society environment. Each model possesses university-level education, speaks multiple languages, and maintains the highest standards of discretion and professionalism expected by our distinguished clientele.</p>
-          
-          <h3>Professional Escort Services in London - Dinner Dates and Business Companions</h3>
-          <p>Experience unparalleled companionship with our professional escorts who excel in various social settings. Whether accompanying you to exclusive restaurants like Sketch, The Ritz, or Rules, attending corporate functions at prestigious venues such as the Guildhall or Natural History Museum, or enjoying cultural events at the Royal Opera House or West End theatres, our models provide engaging conversation, impeccable etiquette, and sophisticated presence that enhances every occasion.</p>
-          
-          <h4>Elite Model Selection Process and Standards</h4>
-          <p>Our rigorous selection process ensures that every escort model meets the exceptional standards expected by London's elite clientele. We carefully evaluate candidates based on their educational background, social skills, physical elegance, and ability to engage in sophisticated conversation on topics ranging from art and culture to business and international affairs. This meticulous approach guarantees that our clients receive only the finest companionship experiences in London.</p>
-          
-          <h4>Exclusive Areas Served Across London</h4>
-          <p>Our escort models provide premium services throughout London's most prestigious postcodes, including Mayfair W1, Knightsbridge SW7, Chelsea SW3, Kensington SW5, Belgravia SW1, Covent Garden WC2, the City EC2, Canary Wharf E14, and Westminster SW1. Whether your engagement takes place at luxury hotels like The Savoy, Claridge's, or The Connaught, exclusive private members' clubs, or prestigious venues across the capital, our companions ensure exceptional experiences tailored to the sophisticated tastes of our discerning clientele.</p>
-        </div>
+        {/* About Our Elite Models - Collapsible Rich Content */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>About Our Elite Models</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Sophisticated Companions for Elite Clients</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Our exclusive gallery features carefully selected international models who embody sophistication, intelligence, and natural beauty. Each companion represents the highest standards of elegance and cultural refinement, providing discerning gentlemen with exceptional experiences across London's most prestigious venues.
+                  </p>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    From intimate dinner dates at Michelin-starred restaurants to prestigious social events, our elite models excel in creating memorable experiences. Each companion is multilingual, well-educated, and possesses the social grace necessary for any sophisticated occasion.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Professional Escort Services in London</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Business Companionship</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Professional accompaniment for corporate events, business dinners, and networking functions throughout the City and Canary Wharf.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Cultural Experiences</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Sophisticated companions for theatre evenings, gallery openings, and exclusive cultural events in Covent Garden and South Bank.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Luxury Hotel Services</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Discreet and professional services at London's finest hotels including The Ritz, The Savoy, and Shangri-La at The Shard.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
 
         {/* Contact Section */}
         <section className="py-12 md:py-20 lg:py-24 bg-white">

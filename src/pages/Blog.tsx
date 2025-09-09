@@ -173,26 +173,44 @@ const Blog = () => {
             </div>
           </section>
 
-          {/* SEO Content - Invisible */}
-          <div className="sr-only">
-            <h2>London Luxury Lifestyle Guide - Exclusive Experiences and Sophisticated Recommendations</h2>
-            <p>Immerse yourself in London's most exclusive lifestyle with our comprehensive guide to the capital's finest experiences. From Michelin-starred restaurants in Mayfair to private members' clubs in Belgravia, cultural events in South Kensington to luxury shopping in Knightsbridge, our insider knowledge reveals the sophisticated side of London that defines true elegance and refinement in one of the world's greatest cities.</p>
-            
-            <h3>Exclusive Restaurants and Dining Experiences in London's Premier Locations</h3>
-            <p>Discover London's culinary excellence through our curated selection of the finest dining establishments. From the innovative cuisine at Sketch in Mayfair to the timeless elegance of Rules in Covent Garden, the contemporary sophistication of Core by Clare Smyth in Notting Hill to the theatrical dining at Dinner by Heston Blumenthal in Knightsbridge. Our guide includes intimate wine bars, exclusive private dining rooms, and hidden gems known only to London's sophisticated elite, ensuring every meal becomes a memorable experience worthy of the most discerning palates.</p>
-            
-            <h3>Premium Hotels and Accommodations for Sophisticated Stays</h3>
-            <p>Experience London's hospitality at its finest with our selection of the capital's most prestigious hotels and accommodations. From the legendary service at The Ritz London and the contemporary luxury of Shangri-La at The Shard to the historic grandeur of Claridge's in Mayfair and the intimate boutique charm of The Ned in the City. Each recommendation represents the pinnacle of London hospitality, offering unparalleled service, elegant accommodations, and locations that place you at the heart of London's most exclusive neighborhoods.</p>
-            
-            <h3>Cultural Events and Entertainment for the Sophisticated Traveler</h3>
-            <p>Engage with London's rich cultural heritage through exclusive events and entertainment experiences. From private viewings at the Tate Modern and Royal Academy to VIP access at West End premieres, from exclusive concerts at the Royal Opera House to intimate gallery openings in Shoreditch. Our cultural guide connects you with London's artistic soul, providing access to events, exhibitions, and performances that showcase the city's position as a global cultural capital.</p>
-            
-            <h4>Seasonal Events and Exclusive Calendar Highlights</h4>
-            <p>Navigate London's sophisticated social calendar with our insider guide to the season's most exclusive events. From Royal Ascot and Wimbledon to the Chelsea Flower Show, from exclusive fashion week parties to private museum galas, from seasonal exhibitions at major galleries to intimate cultural salons in historic venues. Our recommendations ensure you experience London's social and cultural highlights at their most exclusive and sophisticated levels.</p>
-            
-            <h4>London Neighborhoods Guide for Luxury Lifestyle</h4>
-            <p>Explore London's most prestigious neighborhoods, each offering unique characteristics and exclusive experiences. Mayfair's luxury shopping and fine dining, Knightsbridge's high-end retail and cultural sophistication, Chelsea's boutique charm and riverside elegance, Kensington's museum quarter and royal connections, Belgravia's architectural beauty and quiet sophistication, Covent Garden's theatrical heart and artisanal markets, and the City's historic architecture and modern financial power. Each area represents a different facet of London's sophisticated lifestyle, offering endless opportunities for refined experiences and cultural enrichment.</p>
-          </div>
+          {/* About London Lifestyle Guide - Collapsible Rich Content */}
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <details className="mb-8">
+                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                  <h2>About London Luxury Lifestyle Guide</h2>
+                </summary>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Exclusive Restaurants and Dining Experiences</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Discover London's most prestigious dining venues, from Michelin-starred establishments in Mayfair to exclusive private dining rooms in Knightsbridge. Our curated guide features insider recommendations for romantic dinners, business lunches, and special celebrations.
+                    </p>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Experience world-class cuisine at venues like Sketch, Hakkasan, and The Ritz Restaurant, where exceptional service meets culinary artistry. Perfect for sophisticated dining experiences with elite companions.
+                    </p>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Premium Hotels and Cultural Events</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Luxury Accommodations</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Five-star hotels including Claridge's, The Langham, and The Ned, offering world-class amenities and impeccable service.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Cultural Attractions</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Premium experiences at Royal Opera House, Tate Modern, and exclusive gallery openings in Chelsea and Shoreditch.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Entertainment Venues</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Sophisticated nightlife at exclusive members' clubs, rooftop bars, and luxury entertainment venues across Central London.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
 
           {/* Contact Section */}
           <section className="py-12 md:py-20 lg:py-24 bg-white">

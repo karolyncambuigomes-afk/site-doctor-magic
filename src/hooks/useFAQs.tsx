@@ -235,7 +235,7 @@ export const useFAQs = () => {
   ];
 
   useEffect(() => {
-    fetchFAQs();
+    fetchAllFAQs(); // Admin needs to see all FAQs, not just active ones
   }, []);
 
   return {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { SEO } from '@/components/SEO';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -14,18 +14,26 @@ import { Home, FileText, HelpCircle, Image, Layout, BookOpen } from 'lucide-reac
 
 export const ContentManager: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('homepage');
 
-  // Set active tab based on current URL
+  // Set active tab based on current URL and handle redirects
   useEffect(() => {
     const path = location.pathname;
+    
+    // If we're exactly at /admin/content, redirect to homepage
+    if (path === '/admin/content') {
+      navigate('/admin/content/homepage', { replace: true });
+      return;
+    }
+    
     if (path.includes('/blog')) setActiveTab('blog');
     else if (path.includes('/site')) setActiveTab('site-content');
     else if (path.includes('/faq')) setActiveTab('faq');
     else if (path.includes('/gallery')) setActiveTab('gallery');
     else if (path.includes('/homepage')) setActiveTab('homepage');
     else setActiveTab('homepage'); // default
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   return (
     <AdminLayout>
@@ -44,7 +52,15 @@ export const ContentManager: React.FC = () => {
           </div>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs 
+          value={activeTab} 
+          onValueChange={(value) => {
+            setActiveTab(value);
+            // Navigate to the corresponding route when tab changes
+            navigate(`/admin/content/${value === 'site-content' ? 'site' : value}`);
+          }} 
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="homepage" className="flex items-center gap-2">
               <Home className="h-4 w-4" />

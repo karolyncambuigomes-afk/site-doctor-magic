@@ -245,27 +245,27 @@ const App = () => (
           } />
           <Route path="/admin/content/homepage" element={
             <ProtectedRoute requiresAccess={true}>
-              <HomepageManagerPage />
+              <ContentManager />
             </ProtectedRoute>
           } />
           <Route path="/admin/content/blog" element={
             <ProtectedRoute requiresAccess={true}>
-              <BlogManager />
+              <ContentManager />
             </ProtectedRoute>
           } />
           <Route path="/admin/content/site" element={
             <ProtectedRoute requiresAccess={true}>
-              <SiteContentManagerPage />
+              <ContentManager />
             </ProtectedRoute>
           } />
           <Route path="/admin/content/faq" element={
             <ProtectedRoute requiresAccess={true}>
-              <FAQManagerPage />
+              <ContentManager />
             </ProtectedRoute>
           } />
           <Route path="/admin/content/gallery" element={
             <ProtectedRoute requiresAccess={true}>
-              <GalleryManagerPage />
+              <ContentManager />
             </ProtectedRoute>
           } />
           

@@ -20,6 +20,9 @@ interface FAQFormData {
 
 export const FAQManager = () => {
   const { faqs, loading, createFAQ, updateFAQ, deleteFAQ, fetchAllFAQs } = useFAQs();
+
+  // Filter out GEO FAQs to show only database FAQs for management
+  const databaseFAQs = faqs.filter(faq => !faq.id.startsWith('geo-'));
   const [editingFAQ, setEditingFAQ] = useState<FAQ | null>(null);
   const [showNewForm, setShowNewForm] = useState(false);
   const [formData, setFormData] = useState<FAQFormData>({
@@ -45,7 +48,7 @@ export const FAQManager = () => {
     setFormData({
       question: '',
       answer: '',
-      order_index: faqs.length + 1,
+      order_index: databaseFAQs.length + 1,
       is_active: true
     });
     setShowNewForm(true);
@@ -178,16 +181,16 @@ export const FAQManager = () => {
       {/* FAQs List */}
       <Card>
         <CardHeader>
-          <CardTitle>Current FAQs ({faqs.length})</CardTitle>
+          <CardTitle>Current FAQs ({databaseFAQs.length})</CardTitle>
         </CardHeader>
         <CardContent>
-          {faqs.length === 0 ? (
+          {databaseFAQs.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               No FAQs found. Create your first FAQ to get started.
             </div>
           ) : (
             <div className="space-y-4">
-              {faqs.map((faq) => (
+              {databaseFAQs.map((faq) => (
                 <Card key={faq.id} className="border">
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between gap-4">

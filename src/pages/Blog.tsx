@@ -70,7 +70,7 @@ const Blog = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Discover London
                 </h1>
                 <p className="luxury-body-lg text-black">

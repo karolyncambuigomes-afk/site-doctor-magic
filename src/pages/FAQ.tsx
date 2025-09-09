@@ -36,7 +36,7 @@ const FAQ = () => {
         {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="luxury-heading-display text-black mb-6">
+            <h1 className="luxury-heading-xl text-black mb-6">
               Frequently Asked Questions
             </h1>
             <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>

@@ -127,7 +127,7 @@ const About = () => {
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h1 className="luxury-heading-display mb-6 text-black">
+                  <h1 className="luxury-heading-xl mb-6 text-black">
                     About Five London
                   </h1>
                   <p className="luxury-body-lg text-gray-800 mb-8 leading-relaxed">

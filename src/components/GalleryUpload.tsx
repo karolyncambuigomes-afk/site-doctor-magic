@@ -398,12 +398,21 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                 key={image.id} 
                 className="border-2 rounded-lg overflow-hidden border-border"
               >
-                <div className="aspect-square">
+                <div 
+                  className="aspect-square cursor-pointer group relative"
+                  onClick={() => setEditingImage(image.image_url)}
+                  title="Clique para editar a imagem"
+                >
                   <img
                     src={image.image_url}
                     alt={image.caption || 'Gallery image'}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <Edit3 className="w-8 h-8 text-white drop-shadow-lg" />
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="p-4 space-y-3">
@@ -486,23 +495,13 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                   />
                   
                   {/* Action buttons */}
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setEditingImage(image.image_url)}
-                      className="flex-1 text-blue-600 border-blue-200 hover:bg-blue-50"
-                    >
-                      <Edit3 className="w-4 h-4 mr-2" />
-                      Ajustar
-                    </Button>
+                  <div className="flex justify-center">
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
                       onClick={() => removeImage(image.id)}
-                      className="flex-1 text-red-600 border-red-200 hover:bg-red-50"
+                      className="text-red-600 border-red-200 hover:bg-red-50"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
                       Remover

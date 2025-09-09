@@ -4,20 +4,24 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Edit3 } from 'lucide-react';
 
 interface ImageUploadProps {
   value?: string;
   onChange: (url: string) => void;
   label?: string;
   placeholder?: string;
+  onEditClick?: () => void;
+  showEditButton?: boolean;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
   value,
   onChange,
   label = "Imagem",
-  placeholder = "URL da imagem ou faça upload"
+  placeholder = "URL da imagem ou faça upload",
+  onEditClick,
+  showEditButton = false
 }) => {
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(value || null);
@@ -181,11 +185,14 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           </div>
           
           {/* Preview Image */}
-          <div className="mt-2">
+          <div className="mt-2 relative group">
             <img
               src={previewUrl}
               alt="Preview"
-              className="max-w-full h-32 object-cover rounded-lg border"
+              className={`max-w-full h-32 object-cover rounded-lg border transition-all duration-200 ${
+                showEditButton ? 'cursor-pointer hover:brightness-75' : ''
+              }`}
+              onClick={showEditButton ? onEditClick : undefined}
               onError={() => {
                 toast({
                   title: "Erro",
@@ -194,6 +201,24 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                 });
               }}
             />
+            {showEditButton && onEditClick && (
+              <div 
+                className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center rounded-lg cursor-pointer"
+                onClick={onEditClick}
+              >
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="bg-white/90 hover:bg-white text-gray-700"
+                  >
+                    <Edit3 className="w-4 h-4 mr-2" />
+                    Editar
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

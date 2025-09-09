@@ -10,6 +10,8 @@ import { Switch } from '@/components/ui/switch';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryUpload } from '@/components/GalleryUpload';
 import { ModelGallery } from '@/components/ModelGallery';
+import { PhotoSelector } from '@/components/PhotoSelector';
+import { ImageEditor } from '@/components/ImageEditor';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
@@ -106,6 +108,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
   const [newService, setNewService] = useState('');
   const [newInterest, setNewInterest] = useState('');
   const [loading, setLoading] = useState(false);
+  const [selectedPhotos, setSelectedPhotos] = useState<string[]>([]);
+  const [editingMainImage, setEditingMainImage] = useState(false);
 
   useEffect(() => {
     if (model) {
@@ -191,6 +195,39 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       ...prev,
       interests: prev.interests?.filter(i => i !== interest) || []
     }));
+  };
+
+  const handleMainImageEdited = async (blob: Blob) => {
+    try {
+      const fileName = `main-image-${Date.now()}.jpg`;
+      const { data, error } = await supabase.storage
+        .from('model-images')
+        .upload(fileName, blob, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (error) throw error;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('model-images')
+        .getPublicUrl(fileName);
+
+      handleInputChange('image', publicUrl);
+      setEditingMainImage(false);
+      
+      toast({
+        title: "Sucesso",
+        description: "Foto principal atualizada com sucesso",
+      });
+    } catch (error) {
+      console.error('Error uploading edited image:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao salvar a imagem editada",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -347,6 +384,39 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            {/* Main Photo Upload */}
+            <div>
+              <Label htmlFor="main-image">Foto Principal</Label>
+              <div className="space-y-3">
+                <ImageUpload
+                  value={formData.image || ''}
+                  onChange={(url) => handleInputChange('image', url)}
+                  label="Foto Principal"
+                  placeholder="URL da foto principal ou faça upload"
+                  showEditButton={!!formData.image}
+                  onEditClick={() => setEditingMainImage(true)}
+                />
+                
+                {/* Photo selector for mixed access models */}
+                {model?.id && !formData.members_only && (
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700">
+                      Selecionar fotos que aparecerão publicamente
+                    </Label>
+                    <p className="text-xs text-gray-500 mb-2">
+                      Escolha quais fotos da galeria serão visíveis para visitantes não-membros
+                    </p>
+                    <PhotoSelector
+                      modelId={model.id}
+                      modelName={formData.name}
+                      selectedPhotos={selectedPhotos}
+                      onSelectionChange={setSelectedPhotos}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -885,6 +955,17 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </Button>
         </div>
       </div>
+
+      {/* Image Editor for main photo */}
+      {editingMainImage && formData.image && (
+        <ImageEditor
+          imageUrl={formData.image}
+          isOpen={true}
+          onClose={() => setEditingMainImage(false)}
+          onSave={handleMainImageEdited}
+          aspectRatio={3/4} // Portrait aspect ratio for main photos
+        />
+      )}
     </form>
   );
 };

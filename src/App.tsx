@@ -45,6 +45,12 @@ import { Admin } from "./pages/Admin";
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
 
+// New Admin Panel Components
+import { AdminDashboard } from "./pages/admin/Dashboard";
+import { GlobalSEO } from "./pages/admin/seo/GlobalSEO";
+import { BlogManager } from "./pages/admin/content/BlogManager";
+import { ModelsManager } from "./pages/admin/models/ModelsManager";
+
 const queryClient = new QueryClient();
 
 // Component to conditionally render features based on degraded mode
@@ -169,7 +175,36 @@ const App = () => (
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/reviews" element={<Reviews />} />
                   <Route path="/join-us" element={<JoinUs />} />
+                  {/* New Admin Panel Routes */}
                   <Route path="/admin" element={
+                    <ProtectedRoute requiresAccess={true}>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* SEO Management */}
+                  <Route path="/admin/seo/global" element={
+                    <ProtectedRoute requiresAccess={true}>
+                      <GlobalSEO />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Content Management */}
+                  <Route path="/admin/content/blog" element={
+                    <ProtectedRoute requiresAccess={true}>
+                      <BlogManager />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Models Management */}
+                  <Route path="/admin/models/list" element={
+                    <ProtectedRoute requiresAccess={true}>
+                      <ModelsManager />
+                    </ProtectedRoute>
+                  } />
+                  
+                  {/* Legacy Admin Route */}
+                  <Route path="/admin/legacy" element={
                     <ProtectedRoute requiresAccess={true}>
                       <Admin />
                     </ProtectedRoute>

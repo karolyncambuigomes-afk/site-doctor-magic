@@ -35,7 +35,7 @@ const Characteristics = () => {
           </section>
 
           {/* Characteristics Grid */}
-          <section className="py-8 sm:py-12 md:py-16">
+          <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
             <div className="container-width">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-6">
                 {characteristics.map((characteristic) => (

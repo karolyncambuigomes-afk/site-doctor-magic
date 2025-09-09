@@ -109,6 +109,10 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       setNewImageCaption('');
       setIsAdding(false);
       loadGalleryImages();
+      
+      // Dispatch custom event to notify ModelGallery component
+      console.log('🎭 GALERIA: Disparando evento galleryUpdated');
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
     } catch (error) {
       console.error('Error adding image:', error);
       toast({
@@ -138,6 +142,10 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
       });
 
       loadGalleryImages();
+      
+      // Dispatch custom event to notify ModelGallery component
+      console.log('🎭 GALERIA: Disparando evento galleryUpdated (remoção)');
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
     } catch (error) {
       console.error('Error removing image:', error);
       toast({

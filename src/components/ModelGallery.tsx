@@ -29,6 +29,17 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     loadGalleryImages();
   }, [modelId]);
 
+  // Listen for gallery updates using a custom event
+  useEffect(() => {
+    const handleGalleryUpdate = () => {
+      console.log('🖼️ SITE GALERIA: Recebido evento de atualização da galeria');
+      loadGalleryImages();
+    };
+
+    window.addEventListener('galleryUpdated', handleGalleryUpdate);
+    return () => window.removeEventListener('galleryUpdated', handleGalleryUpdate);
+  }, []);
+
   const loadGalleryImages = async () => {
     try {
       console.log('🖼️ SITE GALERIA: Carregando imagens para modelId:', modelId);
@@ -45,7 +56,11 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       }
 
       console.log('🖼️ SITE GALERIA: Imagens carregadas:', data);
+      console.log('🖼️ SITE GALERIA: Número de imagens:', data?.length || 0);
       setGalleryImages(data || []);
+      
+      // Force re-render after setting gallery images
+      console.log('🖼️ SITE GALERIA: Estado atualizado, forçando re-render');
     } catch (error) {
       console.error('Error loading gallery images:', error);
     } finally {
@@ -62,6 +77,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       order_index: 0 
     }
   ];
+
+  console.log('🖼️ SITE GALERIA: allImages após processamento:', allImages);
+  console.log('🖼️ SITE GALERIA: galleryImages.length:', galleryImages.length);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % allImages.length);

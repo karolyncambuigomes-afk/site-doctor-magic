@@ -21,6 +21,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Auth } from "./pages/Auth";
+import { AdminLogin } from "./pages/AdminLogin";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -119,6 +120,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/approval-status" element={<UserApprovalStatus />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />

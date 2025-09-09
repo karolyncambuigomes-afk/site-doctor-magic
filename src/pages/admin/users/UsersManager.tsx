@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Users, UserCheck, UserX, Shield, Mail, Calendar, Search, Crown } from 'lucide-react';
+import { Users, UserCheck, UserX, Shield, Mail, Calendar, Search, Crown, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { CreateMemberModal } from '@/components/admin/CreateMemberModal';
@@ -151,6 +151,52 @@ export const UsersManager: React.FC = () => {
       toast({
         title: "Erro",
         description: "Erro ao atualizar role do usuário",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const deleteUser = async (userId: string, userEmail: string) => {
+    if (!confirm(`Tem certeza que deseja deletar o usuário ${userEmail}? Esta ação não pode ser desfeita.`)) {
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('delete-user', {
+        body: { userId }
+      });
+
+      if (error) {
+        console.error('Error deleting user:', error);
+        toast({
+          title: "Erro",
+          description: "Erro ao deletar usuário: " + error.message,
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (data?.error) {
+        toast({
+          title: "Erro",
+          description: data.error,
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (data?.success) {
+        toast({
+          title: "Sucesso",
+          description: "Usuário deletado com sucesso"
+        });
+        loadUsers(); // Reload the users list
+      }
+    } catch (error) {
+      console.error('Unexpected error deleting user:', error);
+      toast({
+        title: "Erro",
+        description: "Erro inesperado ao deletar usuário",
         variant: "destructive"
       });
     }
@@ -387,11 +433,21 @@ export const UsersManager: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => updateUserRole(user.id, 'user')}
-                      >
-                        Remover Admin
-                      </Button>
-                    )}
+                         onClick={() => updateUserRole(user.id, 'user')}
+                       >
+                         Remover Admin
+                       </Button>
+                     )}
+                     
+                     <Button
+                       variant="outline"
+                       size="sm"
+                       onClick={() => deleteUser(user.id, user.email)}
+                       className="text-red-600 hover:text-red-700 hover:border-red-300"
+                     >
+                       <Trash2 className="h-4 w-4 mr-1" />
+                       Deletar
+                     </Button>
                   </div>
                 </div>
               ))}

@@ -64,7 +64,7 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">OUR SCERVICES</h4>
+            <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">OUR SERVICES</h4>
             <div className="space-y-3">
               <SafeLink to="/models" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Elite Companions

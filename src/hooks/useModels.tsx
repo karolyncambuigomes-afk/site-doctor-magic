@@ -92,7 +92,7 @@ export const useModels = () => {
           return {
             id: model.id,
             name: model.name,
-            age: null, // Limited data for public
+            age: model.age, // Show age for public models
             location: model.location,
             price: model.price,
             pricing: pricing, // Always provide pricing structure

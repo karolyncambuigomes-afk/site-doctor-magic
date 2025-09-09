@@ -382,6 +382,56 @@ export type Database = {
           },
         ]
       }
+      model_reviews: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          is_verified: boolean | null
+          model_id: string | null
+          rating: number
+          reviewer_name: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          model_id?: string | null
+          rating: number
+          reviewer_name: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          model_id?: string | null
+          rating?: number
+          reviewer_name?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "model_reviews_model_id_fkey"
+            columns: ["model_id"]
+            isOneToOne: false
+            referencedRelation: "models"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       models: {
         Row: {
           age: number | null

@@ -57,7 +57,7 @@ export const ReviewsManager: React.FC = () => {
   const loadReviews = async () => {
     try {
       const { data, error } = await supabase
-        .from('reviews')
+        .from('model_reviews')
         .select(`
           *,
           models!inner(name)
@@ -106,7 +106,7 @@ export const ReviewsManager: React.FC = () => {
         updated_at: new Date().toISOString()
       };
 
-      let query = supabase.from('reviews');
+      let query = supabase.from('model_reviews');
       
       if (selectedReview) {
         const { error } = await query
@@ -142,7 +142,7 @@ export const ReviewsManager: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       const { error } = await supabase
-        .from('reviews')
+        .from('model_reviews')
         .delete()
         .eq('id', id);
 
@@ -167,7 +167,7 @@ export const ReviewsManager: React.FC = () => {
   const togglePublished = async (id: string, currentStatus: boolean) => {
     try {
       const { error } = await supabase
-        .from('reviews')
+        .from('model_reviews')
         .update({ is_published: !currentStatus })
         .eq('id', id);
 
@@ -192,7 +192,7 @@ export const ReviewsManager: React.FC = () => {
   const toggleFeatured = async (id: string, currentStatus: boolean) => {
     try {
       const { error } = await supabase
-        .from('reviews')
+        .from('model_reviews')
         .update({ is_featured: !currentStatus })
         .eq('id', id);
 

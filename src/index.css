@@ -186,7 +186,7 @@
   
   /* Missing component classes */
   .card-luxury {
-    @apply bg-card border border-border shadow-luxury rounded-lg p-6 transition-luxury hover:shadow-elegant;
+    @apply bg-card shadow-luxury rounded-lg p-6 transition-luxury hover:shadow-elegant;
   }
   
   .hover-lift {

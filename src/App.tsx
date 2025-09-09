@@ -101,10 +101,7 @@ const DataSyncInitializer = () => {
   return null;
 };
 
-const App = () => {
-  console.log('App component starting...');
-  
-  return (
+const App = () => (
   <ErrorBoundary>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
@@ -371,7 +368,6 @@ const App = () => {
       </QueryClientProvider>
     </HelmetProvider>
   </ErrorBoundary>
-  );
-};
+);
 
 export default App;

@@ -87,37 +87,37 @@ const Index = () => {
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-foreground hover:text-foreground/80 transition-colors">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
                 <h2>About Our Premium Services</h2>
               </summary>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
-                  <h3 className="luxury-heading-md text-foreground">Elite Escort Services London</h3>
-                  <p className="luxury-body-md text-foreground leading-relaxed">
+                  <h3 className="luxury-heading-md">Elite Escort Services London</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
                   </p>
-                  <p className="luxury-body-md text-foreground leading-relaxed">
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="luxury-heading-md text-foreground">Premium London Areas</h3>
+                  <h3 className="luxury-heading-md">Premium London Areas</h3>
                   <div className="space-y-3">
                     <div>
-                      <h4 className="luxury-body-sm font-medium text-foreground">Mayfair W1</h4>
-                      <p className="luxury-body-xs text-foreground">Home to luxury shopping at Bond Street, exclusive dining, and world-class hotels including Claridge's and The Connaught.</p>
+                      <h4 className="luxury-body-sm font-medium">Mayfair W1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Home to luxury shopping at Bond Street, exclusive dining, and world-class hotels including Claridge's and The Connaught.</p>
                     </div>
                     <div>
-                      <h4 className="luxury-body-sm font-medium text-foreground">Knightsbridge SW1</h4>
-                      <p className="luxury-body-xs text-foreground">Prestigious area near Harrods, Hyde Park, and luxury hotels including The Berkeley and Mandarin Oriental.</p>
+                      <h4 className="luxury-body-sm font-medium">Knightsbridge SW1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Prestigious area near Harrods, Hyde Park, and luxury hotels including The Berkeley and Mandarin Oriental.</p>
                     </div>
                     <div>
-                      <h4 className="luxury-body-sm font-medium text-foreground">Chelsea SW3</h4>
-                      <p className="luxury-body-xs text-foreground">Sophisticated neighbourhood with world-class restaurants, galleries, and exclusive private members' clubs.</p>
+                      <h4 className="luxury-body-sm font-medium">Chelsea SW3</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Sophisticated neighbourhood with world-class restaurants, galleries, and exclusive private members' clubs.</p>
                     </div>
                     <div>
-                      <h4 className="luxury-body-sm font-medium text-foreground">Belgravia SW1</h4>
-                      <p className="luxury-body-xs text-foreground">Elite residential area with Georgian architecture, premium boutiques, and Michelin-starred dining venues.</p>
+                      <h4 className="luxury-body-sm font-medium">Belgravia SW1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Elite residential area with Georgian architecture, premium boutiques, and Michelin-starred dining venues.</p>
                     </div>
                   </div>
                 </div>

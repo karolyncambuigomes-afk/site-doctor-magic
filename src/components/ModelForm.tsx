@@ -328,17 +328,17 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
             <div>
               <Label htmlFor="name" className="flex items-center gap-1">
                 Nome *
-                <AlertCircle className="w-3 h-3 text-red-500" />
+                <AlertCircle className="w-3 h-3 text-gray-500" />
               </Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 required
-                className={!formData.name.trim() ? 'border-red-300 focus:border-red-500' : ''}
+                className={!formData.name.trim() ? 'border-gray-300 focus:border-gray-500' : ''}
               />
               {!formData.name.trim() && (
-                <p className="text-xs text-red-500 mt-1">Nome é obrigatório</p>
+                <p className="text-xs text-gray-600 mt-1">Nome é obrigatório</p>
               )}
             </div>
 
@@ -427,9 +427,9 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
 
         {/* Access & Privacy Configuration Card */}
-        <Card className="border-primary/20 bg-primary/5">
+        <Card className="border-gray-200 bg-white">
           <CardHeader>
-            <CardTitle className="text-primary">⭐ Configurações de Acesso e Privacidade</CardTitle>
+            <CardTitle className="text-gray-900">⭐ Configurações de Acesso e Privacidade</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
@@ -446,10 +446,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', true);
                       handleInputChange('all_photos_public', false);
                     }}
-                    className="h-4 w-4 text-primary focus:ring-primary"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="members-exclusive" className="flex items-center space-x-2 cursor-pointer">
-                    <Crown className="h-4 w-4 text-amber-500" />
+                    <Crown className="h-4 w-4 text-gray-600" />
                     <span>Esta modelo será <strong>EXCLUSIVA</strong> somente para membros</span>
                   </Label>
                 </div>
@@ -464,10 +464,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', false);
                       handleInputChange('all_photos_public', false);
                     }}
-                    className="h-4 w-4 text-primary focus:ring-primary"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="mixed-access" className="flex items-center space-x-2 cursor-pointer">
-                    <Globe className="h-4 w-4 text-green-500" />
+                    <Globe className="h-4 w-4 text-gray-600" />
                     <span>Esta modelo terá fotos <strong>PÚBLICAS e EXCLUSIVAS</strong> para membros</span>
                   </Label>
                 </div>
@@ -482,18 +482,18 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', false);
                       handleInputChange('all_photos_public', true);
                     }}
-                    className="h-4 w-4 text-primary focus:ring-primary"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="all-public" className="flex items-center space-x-2 cursor-pointer">
-                    <Globe className="h-4 w-4 text-blue-500" />
+                    <Globe className="h-4 w-4 text-gray-600" />
                     <span>Todas as fotos serão <strong>VISÍVEIS PARA TODOS</strong> (público e membros)</span>
                   </Label>
                 </div>
               </div>
               
               {formData.members_only === false && formData.all_photos_public === false && (
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <p className="text-sm text-blue-700">
+                <div className="mt-4 p-3 bg-white border border-gray-200 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <Info className="h-4 w-4 inline mr-2" />
                     Com esta opção, você poderá definir individualmente quais fotos são públicas e quais são exclusivas para membros na seção de galeria.
                   </p>
@@ -501,8 +501,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
               )}
               
               {formData.members_only === true && (
-                <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                  <p className="text-sm text-amber-700">
+                <div className="mt-4 p-3 bg-white border border-gray-200 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <Crown className="h-4 w-4 inline mr-2" />
                     Modelo exclusiva: todas as fotos serão visíveis apenas para membros.
                   </p>
@@ -510,8 +510,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
               )}
               
               {formData.all_photos_public === true && (
-                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-sm text-green-700">
+                <div className="mt-4 p-3 bg-white border border-gray-200 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <Globe className="h-4 w-4 inline mr-2" />
                     Todas as fotos desta modelo serão visíveis para visitantes públicos e membros.
                   </p>
@@ -538,9 +538,9 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         </Card>
 
         {/* Homepage Configuration Card */}
-        <Card className="border-green-200 bg-green-50/50">
+        <Card className="border-gray-200 bg-white">
           <CardHeader>
-            <CardTitle className="text-green-700 flex items-center gap-2">
+            <CardTitle className="text-gray-900 flex items-center gap-2">
               🏠 Homepage Carousel
             </CardTitle>
           </CardHeader>
@@ -688,14 +688,14 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         </Card>
 
         {/* Gallery Preview */}
-        <Card className={`border-2 ${model?.id ? 'border-green-200 bg-green-50/30' : 'border-gray-200 bg-gray-50'}`}>
+        <Card className={`border-2 ${model?.id ? 'border-gray-200 bg-white' : 'border-gray-200 bg-gray-50'}`}>
           <CardHeader>
-            <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-green-700' : 'text-muted-foreground'}`}>
+            <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-gray-900' : 'text-muted-foreground'}`}>
               <Eye className="w-5 h-5" />
               Prévia do Site Público
             </CardTitle>
             <div className="flex items-center justify-between">
-              <p className={`text-sm ${model?.id ? 'text-green-600' : 'text-muted-foreground'}`}>
+              <p className={`text-sm ${model?.id ? 'text-gray-700' : 'text-muted-foreground'}`}>
                 {model?.id 
                   ? "🌟 Como a galeria aparece no site para os usuários" 
                   : "⏳ Disponível após salvar e adicionar fotos"
@@ -968,12 +968,12 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Form Actions */}
       <div className="flex flex-col gap-4">
         {!formData.name.trim() && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-            <div className="flex items-center gap-2 text-red-700">
+          <div className="bg-white border border-gray-200 rounded-lg p-3">
+            <div className="flex items-center gap-2 text-gray-700">
               <AlertCircle className="w-4 h-4" />
               <span className="text-sm font-medium">Campos obrigatórios em falta</span>
             </div>
-            <p className="text-xs text-red-600 mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               Preencha todos os campos marcados com (*) antes de salvar
             </p>
           </div>

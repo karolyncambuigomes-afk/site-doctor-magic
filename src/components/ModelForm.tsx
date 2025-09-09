@@ -43,6 +43,7 @@ interface Model {
   face_visible: boolean | null;
   show_on_homepage?: boolean | null;
   homepage_order?: number | null;
+  all_photos_public?: boolean | null;
 }
 
 interface ModelFormProps {
@@ -102,7 +103,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     members_only: false,
     face_visible: true,
     show_on_homepage: false,
-    homepage_order: null
+    homepage_order: null,
+    all_photos_public: false
   });
 
   const [newService, setNewService] = useState('');
@@ -125,7 +127,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           additionalHour: ''
         },
         members_only: model.members_only || false,
-        face_visible: model.face_visible !== null ? model.face_visible : true
+        face_visible: model.face_visible !== null ? model.face_visible : true,
+        all_photos_public: model.all_photos_public || false
       });
     }
   }, [model]);
@@ -269,7 +272,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         members_only: formData.members_only,
         face_visible: formData.face_visible,
         show_on_homepage: formData.show_on_homepage,
-        homepage_order: formData.homepage_order
+        homepage_order: formData.homepage_order,
+        all_photos_public: formData.all_photos_public
       };
 
       if (model?.id) {
@@ -400,7 +404,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 />
                 
                 {/* Photo selector for mixed access models */}
-                {model?.id && !formData.members_only && (
+                {model?.id && formData.members_only === false && formData.all_photos_public === false && (
                   <div>
                     <Label className="text-sm font-medium text-gray-700">
                       Selecionar fotos que aparecerão publicamente
@@ -437,8 +441,11 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                     type="radio"
                     id="members-exclusive"
                     name="access-type"
-                    checked={formData.members_only || false}
-                    onChange={() => handleInputChange('members_only', true)}
+                    checked={formData.members_only === true}
+                    onChange={() => {
+                      handleInputChange('members_only', true);
+                      handleInputChange('all_photos_public', false);
+                    }}
                     className="h-4 w-4 text-primary focus:ring-primary"
                   />
                   <Label htmlFor="members-exclusive" className="flex items-center space-x-2 cursor-pointer">
@@ -452,8 +459,11 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                     type="radio"
                     id="mixed-access"
                     name="access-type"
-                    checked={!(formData.members_only || false)}
-                    onChange={() => handleInputChange('members_only', false)}
+                    checked={formData.members_only === false && formData.all_photos_public === false}
+                    onChange={() => {
+                      handleInputChange('members_only', false);
+                      handleInputChange('all_photos_public', false);
+                    }}
                     className="h-4 w-4 text-primary focus:ring-primary"
                   />
                   <Label htmlFor="mixed-access" className="flex items-center space-x-2 cursor-pointer">
@@ -461,9 +471,27 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                     <span>Esta modelo terá fotos <strong>PÚBLICAS e EXCLUSIVAS</strong> para membros</span>
                   </Label>
                 </div>
+                
+                <div className="flex items-center space-x-3">
+                  <input
+                    type="radio"
+                    id="all-public"
+                    name="access-type"
+                    checked={formData.all_photos_public === true}
+                    onChange={() => {
+                      handleInputChange('members_only', false);
+                      handleInputChange('all_photos_public', true);
+                    }}
+                    className="h-4 w-4 text-primary focus:ring-primary"
+                  />
+                  <Label htmlFor="all-public" className="flex items-center space-x-2 cursor-pointer">
+                    <Globe className="h-4 w-4 text-blue-500" />
+                    <span>Todas as fotos serão <strong>VISÍVEIS PARA TODOS</strong> (público e membros)</span>
+                  </Label>
+                </div>
               </div>
               
-              {!(formData.members_only || false) && (
+              {formData.members_only === false && formData.all_photos_public === false && (
                 <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                   <p className="text-sm text-blue-700">
                     <Info className="h-4 w-4 inline mr-2" />
@@ -472,11 +500,20 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 </div>
               )}
               
-              {formData.members_only && (
+              {formData.members_only === true && (
                 <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
                   <p className="text-sm text-amber-700">
                     <Crown className="h-4 w-4 inline mr-2" />
                     Modelo exclusiva: todas as fotos serão visíveis apenas para membros.
+                  </p>
+                </div>
+              )}
+              
+              {formData.all_photos_public === true && (
+                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-sm text-green-700">
+                    <Globe className="h-4 w-4 inline mr-2" />
+                    Todas as fotos desta modelo serão visíveis para visitantes públicos e membros.
                   </p>
                 </div>
               )}

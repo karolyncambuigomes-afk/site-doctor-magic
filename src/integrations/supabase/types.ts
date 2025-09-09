@@ -438,6 +438,7 @@ export type Database = {
       models: {
         Row: {
           age: number | null
+          all_photos_public: boolean | null
           availability: string | null
           characteristics: string[] | null
           created_at: string
@@ -466,6 +467,7 @@ export type Database = {
         }
         Insert: {
           age?: number | null
+          all_photos_public?: boolean | null
           availability?: string | null
           characteristics?: string[] | null
           created_at?: string
@@ -494,6 +496,7 @@ export type Database = {
         }
         Update: {
           age?: number | null
+          all_photos_public?: boolean | null
           availability?: string | null
           characteristics?: string[] | null
           created_at?: string

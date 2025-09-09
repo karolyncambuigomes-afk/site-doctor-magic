@@ -44,6 +44,15 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     try {
       console.log('🖼️ SITE GALERIA: Carregando imagens para modelId:', modelId);
       
+      // Get model info to check access configuration
+      const { data: modelData } = await supabase
+        .from('models')
+        .select('members_only, all_photos_public')
+        .eq('id', modelId)
+        .single();
+
+      console.log('🖼️ SITE GALERIA: Configuração do modelo:', modelData);
+      
       // Get current user info to determine what images they can see
       const { data: { user } } = await supabase.auth.getUser();
       console.log('🖼️ SITE GALERIA: Usuário:', user ? 'logado' : 'não logado', user?.email);
@@ -54,43 +63,90 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
         .eq('model_id', modelId)
         .order('order_index', { ascending: true });
 
-      // Filter images based on user access level
-      if (!user) {
-        // Not logged in - only public images
-        query = query.eq('visibility', 'public');
-        console.log('🖼️ SITE GALERIA: Usuário não logado - apenas imagens públicas');
-      } else {
-        // Check if user is admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', user.id)
-          .maybeSingle();
-
-        console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
-
-        if (profile?.role === 'admin') {
-          // Admin can see all images
-          console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+      // Filter images based on model configuration and user access level
+      if (modelData?.all_photos_public) {
+        // All photos are public - everyone can see all images
+        console.log('🖼️ SITE GALERIA: Todas as fotos são públicas - todos podem ver');
+        // No filter needed - show all images
+      } else if (modelData?.members_only) {
+        // Members only model
+        if (!user) {
+          // Not logged in - no images
+          query = query.eq('visibility', 'members_only'); // This will return empty for non-members
+          console.log('🖼️ SITE GALERIA: Modelo exclusivo - usuário não logado, sem imagens');
         } else {
-          // Check if user has subscription (is a member)
-          const { data: subscription } = await supabase
-            .from('user_subscriptions')
-            .select('active')
-            .eq('user_id', user.id)
-            .eq('active', true)
+          // Check if user is admin or has subscription
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
             .maybeSingle();
 
-          console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
+          console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
 
-          if (subscription) {
-            // Member can see ONLY members_only images (not public ones)
-            query = query.eq('visibility', 'members_only');
-            console.log('🖼️ SITE GALERIA: Membro - pode ver apenas imagens exclusivas para membros');
+          if (profile?.role === 'admin') {
+            // Admin can see all images
+            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
           } else {
-            // Regular user - only public images
-            query = query.eq('visibility', 'public');
-            console.log('🖼️ SITE GALERIA: Usuário comum - apenas imagens públicas');
+            // Check if user has subscription (is a member)
+            const { data: subscription } = await supabase
+              .from('user_subscriptions')
+              .select('active')
+              .eq('user_id', user.id)
+              .eq('active', true)
+              .maybeSingle();
+
+            console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
+
+            if (subscription) {
+              // Member can see all images of members-only model
+              console.log('🖼️ SITE GALERIA: Membro - pode ver todas as imagens do modelo exclusivo');
+            } else {
+              // Regular user - no images for members-only model
+              query = query.eq('visibility', 'members_only_no_access'); // This will return empty
+              console.log('🖼️ SITE GALERIA: Usuário comum - sem acesso ao modelo exclusivo');
+            }
+          }
+        }
+      } else {
+        // Mixed access model - filter by individual photo visibility
+        if (!user) {
+          // Not logged in - only public images
+          query = query.eq('visibility', 'public');
+          console.log('🖼️ SITE GALERIA: Modelo misto - usuário não logado, apenas imagens públicas');
+        } else {
+          // Check if user is admin
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .maybeSingle();
+
+          console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
+
+          if (profile?.role === 'admin') {
+            // Admin can see all images
+            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+          } else {
+            // Check if user has subscription (is a member)
+            const { data: subscription } = await supabase
+              .from('user_subscriptions')
+              .select('active')
+              .eq('user_id', user.id)
+              .eq('active', true)
+              .maybeSingle();
+
+            console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
+
+            if (subscription) {
+              // Member can see ONLY members_only images (not public ones)
+              query = query.eq('visibility', 'members_only');
+              console.log('🖼️ SITE GALERIA: Membro - pode ver apenas imagens exclusivas para membros');
+            } else {
+              // Regular user - only public images
+              query = query.eq('visibility', 'public');
+              console.log('🖼️ SITE GALERIA: Usuário comum - apenas imagens públicas');
+            }
           }
         }
       }

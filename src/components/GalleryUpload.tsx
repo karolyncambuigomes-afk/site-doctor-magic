@@ -21,6 +21,7 @@ interface GalleryImage {
 interface ModelForGallery {
   id?: string;
   members_only?: boolean;
+  all_photos_public?: boolean;
 }
 
 interface GalleryUploadProps {
@@ -436,7 +437,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                   </div>
                   
                   {/* Visibility controls for mixed access models */}
-                  {!model?.members_only && (
+                  {!model?.members_only && !model?.all_photos_public && (
                     <div className="space-y-2">
                       <Label className="text-sm font-medium">Visibilidade:</Label>
                       <div className="flex gap-1">

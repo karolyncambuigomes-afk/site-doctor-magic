@@ -677,7 +677,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 <Button 
                   type="submit" 
                   variant="default" 
-                  className="mt-2"
+                  className="mt-2 text-white"
                   disabled={!formData.name}
                 >
                   {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
@@ -859,7 +859,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 ))}
               </SelectContent>
             </Select>
-            <Button type="button" onClick={() => addService(newService)}>
+            <Button type="button" onClick={() => addService(newService)} className="text-white">
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -898,7 +898,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                 }
               }}
             />
-            <Button type="button" onClick={addInterest}>
+            <Button type="button" onClick={addInterest} className="text-white">
               <Plus className="w-4 h-4" />
             </Button>
           </div>
@@ -986,7 +986,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <Button 
             type="submit" 
             disabled={loading || !formData.name.trim()}
-            className={!formData.name.trim() ? 'opacity-50 cursor-not-allowed' : ''}
+            className={`${!formData.name.trim() ? 'opacity-50 cursor-not-allowed' : ''} text-white`}
           >
             {loading ? 'Salvando...' : model?.id ? 'Atualizar' : 'Criar'} Modelo
           </Button>

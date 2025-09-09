@@ -91,7 +91,7 @@ const Blog = () => {
                 </Link>
                 {categories.map((category) => (
                   <Link key={category} to={`/blog?category=${category.toLowerCase()}`}>
-                    <Badge variant="outline" className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm hover:bg-muted transition-colors">
+                    <Badge variant="outline" className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm bg-black text-white hover:bg-gray-800 transition-colors">
                       {category}
                     </Badge>
                   </Link>

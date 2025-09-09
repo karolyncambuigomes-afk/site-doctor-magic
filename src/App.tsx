@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
+import { VersionManager } from "@/components/VersionManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { MobileForceRefresh } from "@/components/MobileForceRefresh";
 import { MobileDebugPanel } from "@/components/MobileDebugPanel";
@@ -54,6 +55,7 @@ const ConditionalFeatures = () => {
     <>
       {!isPrivateMode && <Analytics />}
       <ServiceWorkerManager />
+      <VersionManager />
       {!isDegradedMode && <CookieConsent />}
     </>
   );

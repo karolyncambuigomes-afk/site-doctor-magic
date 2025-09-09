@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      application_rate_limit: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          ip_address: unknown
+          last_submission: string | null
+          submission_count: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          ip_address: unknown
+          last_submission?: string | null
+          submission_count?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          ip_address?: unknown
+          last_submission?: string | null
+          submission_count?: number | null
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           id: string
@@ -740,6 +767,45 @@ export type Database = {
         }
         Relationships: []
       }
+      security_audit_log: {
+        Row: {
+          action: string
+          id: string
+          ip_address: unknown | null
+          new_values: Json | null
+          old_values: Json | null
+          record_id: string | null
+          table_name: string | null
+          timestamp: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          timestamp?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          record_id?: string | null
+          table_name?: string | null
+          timestamp?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       seo_audit_log: {
         Row: {
           action: string
@@ -964,6 +1030,16 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      log_security_event: {
+        Args: {
+          p_action: string
+          p_new_values?: Json
+          p_old_values?: Json
+          p_record_id?: string
+          p_table_name?: string
+        }
+        Returns: undefined
       }
       update_user_role: {
         Args: { new_role: string; user_id: string }

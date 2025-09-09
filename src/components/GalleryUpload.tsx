@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ImageUpload } from '@/components/ImageUpload';
+import { ImageEditor } from '@/components/ImageEditor';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Trash2, Plus } from 'lucide-react';
+import { Trash2, Plus, Edit3 } from 'lucide-react';
 
 interface GalleryImage {
   id: string;
@@ -27,6 +28,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
   const [newImageUrl, setNewImageUrl] = useState('');
   const [newImageCaption, setNewImageCaption] = useState('');
   const [isAdding, setIsAdding] = useState(false);
+  const [editingImage, setEditingImage] = useState<string | null>(null);
 
   useEffect(() => {
     loadGalleryImages();
@@ -181,6 +183,51 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
         title: "Erro",
         description: "Erro ao atualizar legenda",
         variant: "destructive",
+      });
+    }
+  };
+
+  const handleImageEdited = async (imageId: string, editedBlob: Blob) => {
+    try {
+      // Upload the edited image
+      const fileExt = 'png';
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('model-images')
+        .upload(filePath, editedBlob);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('model-images')
+        .getPublicUrl(filePath);
+
+      // Update the gallery image URL
+      const { error: updateError } = await supabase
+        .from('model_gallery')
+        .update({ image_url: data.publicUrl })
+        .eq('id', imageId);
+
+      if (updateError) throw updateError;
+
+      await loadGalleryImages();
+      setEditingImage(null);
+      
+      toast({
+        title: "Sucesso",
+        description: "Imagem ajustada com sucesso"
+      });
+
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
+    } catch (error) {
+      console.error('Error updating edited image:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao salvar imagem editada",
+        variant: "destructive"
       });
     }
   };
@@ -344,17 +391,29 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
                     className="text-sm"
                   />
                   
-                  {/* Remove button */}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => removeImage(image.id)}
-                    className="w-full text-red-600 border-red-200 hover:bg-red-50"
-                  >
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Remover
-                  </Button>
+                  {/* Action buttons */}
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setEditingImage(image.image_url)}
+                      className="flex-1 text-blue-600 border-blue-200 hover:bg-blue-50"
+                    >
+                      <Edit3 className="w-4 h-4 mr-2" />
+                      Ajustar
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => removeImage(image.id)}
+                      className="flex-1 text-red-600 border-red-200 hover:bg-red-50"
+                    >
+                      <Trash2 className="w-4 h-4 mr-2" />
+                      Remover
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}
@@ -368,6 +427,22 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId }) => {
           <p className="font-medium">Nenhuma foto adicionada</p>
           <p className="text-sm">Adicione pelo menos uma foto para que o modelo apareça no site</p>
         </div>
+      )}
+
+      {/* Image Editor */}
+      {editingImage && (
+        <ImageEditor
+          imageUrl={editingImage}
+          isOpen={true}
+          onClose={() => setEditingImage(null)}
+          onSave={(blob) => {
+            const imageToEdit = galleryImages.find(img => img.image_url === editingImage);
+            if (imageToEdit) {
+              handleImageEdited(imageToEdit.id, blob);
+            }
+          }}
+          aspectRatio={1} // Square aspect ratio
+        />
       )}
     </div>
   );

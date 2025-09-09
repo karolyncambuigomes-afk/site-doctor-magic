@@ -142,11 +142,11 @@ export const Membership: React.FC = () => {
                       <Check className="w-4 h-4 text-primary" />
                     </div>
                     <span className="font-light text-lg text-foreground">
-                      Bem-vindo, Five London Membro
+                      Welcome, Five London Member
                     </span>
                   </div>
                   <p className="luxury-body-base text-muted-foreground">
-                    Você está logado com sucesso. Aproveite seus benefícios especiais por ser Five London membro.
+                    You are successfully logged in. Enjoy your special benefits as a Five London member.
                   </p>
                 </CardContent>
               </Card>

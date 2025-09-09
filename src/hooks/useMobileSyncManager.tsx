@@ -23,9 +23,9 @@ export const useMobileSyncManager = () => {
   });
 
   const forceSync = useCallback(() => {
-    console.log('[MobileSyncManager] forceSync called, isMobile:', isMobile);
+    console.log('[MobileSyncManager] FORÇANDO SYNC SEMPRE - forceSync called, isMobile:', isMobile);
     
-    // Always force sync regardless of mobile detection for debugging
+    // SEMPRE força sync independente de mobile detection
     const timestamp = Date.now();
     setSyncState(prev => ({
       lastSync: timestamp,
@@ -119,13 +119,11 @@ export const useMobileSyncManager = () => {
       }
     };
 
-    // Ultra-aggressive periodic sync for mobile
+    // ULTRA-AGGRESSIVE sync SEMPRE - ignora mobile detection
     const syncInterval = setInterval(() => {
-      console.log('[MobileSyncManager] Periodic sync check');
-      if (isMobile) {
-        forceSync();
-      }
-    }, 5000); // Every 5 seconds for ultra-aggressive sync
+      console.log('[MobileSyncManager] SYNC FORÇADO a cada 3 segundos');
+      forceSync(); // Sempre força independente de mobile
+    }, 3000); // A cada 3 segundos SEMPRE
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);

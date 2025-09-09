@@ -157,11 +157,11 @@ export const usePreferenceCategories = () => {
     window.addEventListener('focus', handleFocus);
     window.addEventListener('online', handleOnline);
 
-    // Ultra-aggressive polling for mobile
+    // Ultra-aggressive polling SEMPRE - ignora mobile detection
     const pollInterval = setInterval(() => {
-      console.log('[usePreferenceCategories] Polling refresh');
-      fetchCategories();
-    }, 10000); // Every 10 seconds
+      console.log('[usePreferenceCategories] POLLING FORÇADO a cada 5 segundos');
+      fetchCategories(); // Sempre busca dados atualizados
+    }, 5000); // A cada 5 segundos SEMPRE
 
     return () => {
       events.forEach(eventType => {

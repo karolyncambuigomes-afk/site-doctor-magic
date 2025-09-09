@@ -9,6 +9,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { MobileForceRefresh } from "@/components/MobileForceRefresh";
+import { MobileDebugPanel } from "@/components/MobileDebugPanel";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
@@ -75,6 +76,7 @@ const App = () => (
                 <MobileSyncInitializer />
                 <MobileOptimizer />
                 <MobileForceRefresh />
+                <MobileDebugPanel />
                 <Toaster />
                 <Sonner />
                 <BookNowButton />

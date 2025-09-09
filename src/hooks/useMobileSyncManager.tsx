@@ -15,9 +15,17 @@ export const useMobileSyncManager = () => {
     isStale: false
   });
 
-  const forceSync = useCallback(() => {
-    if (!isMobile) return;
+  // Enhanced logging for debugging
+  console.log('[MobileSyncManager] Current state:', {
+    isMobile,
+    syncState,
+    timestamp: new Date().toISOString()
+  });
 
+  const forceSync = useCallback(() => {
+    console.log('[MobileSyncManager] forceSync called, isMobile:', isMobile);
+    
+    // Always force sync regardless of mobile detection for debugging
     const timestamp = Date.now();
     setSyncState(prev => ({
       lastSync: timestamp,
@@ -25,27 +33,58 @@ export const useMobileSyncManager = () => {
       isStale: false
     }));
 
-    // Dispatch sync event for all components
-    window.dispatchEvent(new CustomEvent('mobile-force-sync', {
-      detail: { 
-        timestamp,
-        forced: true,
-        syncCount: syncState.syncCount + 1
-      }
-    }));
+    console.log('[MobileSyncManager] Dispatching ultra-aggressive sync events...');
 
-    // Clear all relevant caches
+    // Multiple sync events for maximum compatibility
+    const events = [
+      'mobile-force-sync',
+      'mobile-force-refresh', 
+      'mobile-cache-clear',
+      'preference-categories-refresh',
+      'models-refresh',
+      'data-refresh'
+    ];
+
+    events.forEach(eventType => {
+      window.dispatchEvent(new CustomEvent(eventType, {
+        detail: { 
+          timestamp,
+          forced: true,
+          syncCount: syncState.syncCount + 1,
+          ultra: true,
+          source: 'syncManager'
+        }
+      }));
+    });
+
+    // Ultra-aggressive cache clearing
     if ('caches' in window) {
       caches.keys().then(cacheNames => {
-        cacheNames.forEach(name => {
-          if (name.includes('runtime') || name.includes('static')) {
-            caches.delete(name);
-          }
+        console.log('[MobileSyncManager] Clearing caches:', cacheNames);
+        Promise.all(cacheNames.map(name => caches.delete(name))).then(() => {
+          console.log('[MobileSyncManager] All caches cleared');
         });
       });
     }
 
-    console.log(`[MobileSyncManager] Force sync triggered: ${timestamp}`);
+    // Clear all storage
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+      console.log('[MobileSyncManager] Storage cleared');
+    } catch (e) {
+      console.warn('[MobileSyncManager] Storage clear failed:', e);
+    }
+
+    // Send message to service worker
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({
+        type: 'FORCE_MOBILE_REFRESH',
+        timestamp
+      });
+    }
+
+    console.log(`[MobileSyncManager] Ultra force sync completed: ${timestamp}`);
   }, [isMobile, syncState.syncCount]);
 
   const checkStaleContent = useCallback(() => {
@@ -80,8 +119,13 @@ export const useMobileSyncManager = () => {
       }
     };
 
-    // Automatic periodic sync for mobile
-    const syncInterval = setInterval(checkStaleContent, 15000); // Every 15 seconds
+    // Ultra-aggressive periodic sync for mobile
+    const syncInterval = setInterval(() => {
+      console.log('[MobileSyncManager] Periodic sync check');
+      if (isMobile) {
+        forceSync();
+      }
+    }, 5000); // Every 5 seconds for ultra-aggressive sync
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);

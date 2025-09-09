@@ -104,60 +104,61 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Ultra-aggressive mobile-first caching strategy
+  // Ultra-aggressive mobile-bypassing strategy
   event.respondWith(
     (async () => {
-      const isMobileRequest = event.request.headers.get('user-agent')?.match(/(iPhone|iPad|Android|Mobile)/i);
+      const userAgent = event.request.headers.get('user-agent') || '';
+      const isMobileRequest = /iPhone|iPad|Android|Mobile|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
       const hasRefreshParam = url.searchParams.has('mobile-refresh') || 
                              url.searchParams.has('force-refresh') || 
                              url.searchParams.has('sync') ||
                              url.searchParams.has('t') ||
-                             url.searchParams.has('retry');
+                             url.searchParams.has('retry') ||
+                             url.searchParams.has('force-mobile-refresh');
+      
+      console.log('SW: Request analysis:', {
+        url: url.pathname,
+        isMobile: isMobileRequest,
+        hasRefreshParam,
+        userAgent: userAgent.substring(0, 50)
+      });
       
       try {
-        // Ultra-aggressive mobile strategy: always network-first, bypass cache completely
+        // ULTRA-AGGRESSIVE: Mobile devices get ZERO caching
         if (isMobileRequest || hasRefreshParam) {
-          console.log('SW: Mobile request detected, using network-first strategy');
+          console.log('SW: MOBILE DETECTED - BYPASSING ALL CACHE');
           
-          try {
-            // Force fresh request with no-cache headers
-            const freshRequest = new Request(event.request, {
-              cache: 'no-store',
-              headers: {
-                ...event.request.headers,
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache'
-              }
-            });
-            
-            const response = await fetch(freshRequest);
-            
-            if (response.status === 200) {
-              const cache = await caches.open(RUNTIME_CACHE);
-              // Clear any existing cache for this request
-              await cache.delete(event.request);
-              await cache.delete(event.request.url);
-              
-              // Store fresh version with timestamp
-              const responseClone = response.clone();
-              cache.put(event.request, responseClone);
-              
-              console.log('SW: Fresh response cached for mobile request');
-            }
-            
-            return response;
-          } catch (networkError) {
-            console.log('SW: Network failed for mobile, trying cache fallback');
-            // Last resort fallback to cache
-            const cachedResponse = await caches.match(event.request);
-            if (cachedResponse) {
-              return cachedResponse;
-            }
-            throw networkError;
-          }
+          // Clear any existing cache for this URL immediately
+          const allCaches = await caches.keys();
+          await Promise.all(allCaches.map(async (cacheName) => {
+            const cache = await caches.open(cacheName);
+            await cache.delete(event.request);
+            await cache.delete(event.request.url);
+          }));
+          
+          // Force completely fresh request
+          const freshRequest = new Request(event.request.url + 
+            (event.request.url.includes('?') ? '&' : '?') + 
+            `mobile-force=${Date.now()}&sw-bypass=true`, {
+            method: event.request.method,
+            headers: {
+              ...Object.fromEntries(event.request.headers.entries()),
+              'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            },
+            cache: 'no-store'
+          });
+          
+          const response = await fetch(freshRequest);
+          console.log('SW: Fresh mobile response received, status:', response.status);
+          
+          // NEVER cache mobile responses
+          return response;
         }
         
-        // Regular network-first strategy for desktop
+        // Desktop gets normal caching
+        console.log('SW: Desktop request, using normal strategy');
         const response = await fetch(event.request);
         
         if (response.status === 200) {
@@ -167,17 +168,24 @@ self.addEventListener('fetch', event => {
         
         return response;
       } catch (error) {
-        console.log('SW: All strategies failed, using cache fallback');
+        console.error('SW: Request failed completely:', error);
+        
+        // Mobile gets no fallback - force them to see the error
+        if (isMobileRequest || hasRefreshParam) {
+          return new Response(JSON.stringify({
+            error: 'Mobile network failed - please refresh',
+            timestamp: Date.now(),
+            mobile: true
+          }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        
+        // Desktop can use cache fallback
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
-        }
-        
-        if (event.request.mode === 'navigate') {
-          return new Response('Offline - Please refresh', { 
-            status: 200, 
-            headers: { 'Content-Type': 'text/plain' } 
-          });
         }
         
         throw error;

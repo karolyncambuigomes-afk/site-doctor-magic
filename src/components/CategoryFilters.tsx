@@ -10,6 +10,16 @@ export const CategoryFilters: React.FC = () => {
   const isMobile = useIsMobile();
   const { syncCount, forceSync } = useMobileSyncManager();
   const [mobileRefreshKey, setMobileRefreshKey] = useState(0);
+  
+  // Enhanced logging for debugging
+  console.log('[CategoryFilters] Render state:', {
+    isMobile,
+    categoriesCount: categories.length,
+    loading,
+    mobileRefreshKey,
+    syncCount,
+    timestamp: new Date().toISOString()
+  });
 
   // Ultra-aggressive mobile refresh handling
   useEffect(() => {

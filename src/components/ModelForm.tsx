@@ -487,21 +487,6 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
               )}
             </div>
             
-            <div className="flex items-center justify-between p-4 border rounded-lg bg-background">
-              <div className="space-y-1">
-                <Label htmlFor="face-visible" className="text-sm font-medium">
-                  Rosto Visível (configuração geral)
-                </Label>
-                <p className="text-xs text-muted-foreground">
-                  Controla se o rosto da modelo aparece claramente nas fotos
-                </p>
-              </div>
-              <Switch
-                id="face-visible"
-                checked={formData.face_visible !== false}
-                onCheckedChange={(checked) => handleInputChange('face_visible', checked)}
-              />
-            </div>
           </CardContent>
         </Card>
 

@@ -60,6 +60,8 @@ interface AuthContextType {
   isApproved: boolean;
   userStatus: 'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null;
   refreshAccess: () => Promise<void>;
+  isAdmin: boolean;
+  getRedirectPath: () => string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -78,6 +80,8 @@ export const useAuth = () => {
       isApproved: false,
       userStatus: null,
       refreshAccess: async () => {},
+      isAdmin: false,
+      getRedirectPath: () => '/models',
     };
   }
   return context;
@@ -95,6 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isApproved, setIsApproved] = useState(false);
   const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null>(null);
   const [checkingAccess, setCheckingAccess] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const checkUserStatus = async (userId: string) => {
     if (!userId) {
@@ -148,8 +153,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (profile?.role === 'admin') {
           console.log('AuthProvider - User is admin, granting access');
+          setIsAdmin(true);
           setHasAccess(true);
           return true;
+        } else {
+          setIsAdmin(false);
         }
       }
 
@@ -262,6 +270,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
   }, []);
 
+  const getRedirectPath = () => {
+    if (isAdmin) {
+      return '/admin';
+    }
+    return '/models';
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
@@ -269,6 +284,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setHasAccess(false);
     setIsApproved(false);
     setUserStatus(null);
+    setIsAdmin(false);
   };
 
   const value = {
@@ -280,6 +296,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isApproved: Boolean(isApproved),
     userStatus: userStatus || null,
     refreshAccess,
+    isAdmin: Boolean(isAdmin),
+    getRedirectPath,
   };
 
   return (

@@ -89,12 +89,14 @@ export const Navigation: React.FC = () => {
                     {user.email}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <SafeLink to="/admin" className="flex items-center">
-                      <Settings className="w-4 h-4 mr-2" />
-                      Admin
-                    </SafeLink>
-                  </DropdownMenuItem>
+                   {auth?.isAdmin && (
+                     <DropdownMenuItem asChild>
+                       <SafeLink to="/admin" className="flex items-center">
+                         <Settings className="w-4 h-4 mr-2" />
+                         Admin Panel
+                       </SafeLink>
+                     </DropdownMenuItem>
+                   )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={signOut} className="text-red-600">
                     <LogOut className="w-4 h-4 mr-2" />
@@ -152,12 +154,14 @@ export const Navigation: React.FC = () => {
                             {user.email}
                           </span>
                         </div>
-                        <SafeLink to="/admin">
-                          <Button variant="outline" className="w-full">
-                            <Settings className="w-4 h-4 mr-2" />
-                            Admin
-                          </Button>
-                        </SafeLink>
+                         {auth?.isAdmin && (
+                           <SafeLink to="/admin">
+                             <Button variant="outline" className="w-full">
+                               <Settings className="w-4 h-4 mr-2" />
+                               Admin Panel
+                             </Button>
+                           </SafeLink>
+                         )}
                         <button 
                           onClick={signOut}
                           className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"

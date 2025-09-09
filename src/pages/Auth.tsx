@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSafeNavigate } from '@/hooks/useSafeRouter';
 import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
-import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Settings } from 'lucide-react';
 
 export const Auth: React.FC = () => {
   const [user, setUser] = useState(null);
@@ -27,6 +28,7 @@ export const Auth: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useSafeNavigate();
   const { toast } = useToast();
+  const auth = useAuth();
 
   // Safety check for navigate function
   if (!navigate) {
@@ -40,10 +42,11 @@ export const Auth: React.FC = () => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Redirect authenticated users to models page
-        if (session?.user) {
+        // Redirect authenticated users based on their role
+        if (session?.user && auth?.getRedirectPath) {
           setTimeout(() => {
-            navigate('/models');
+            const redirectPath = auth.getRedirectPath();
+            navigate(redirectPath);
           }, 100);
         }
       }
@@ -54,13 +57,14 @@ export const Auth: React.FC = () => {
       setSession(session);
       setUser(session?.user ?? null);
       
-      if (session?.user) {
-        navigate('/models');
+      if (session?.user && auth?.getRedirectPath) {
+        const redirectPath = auth.getRedirectPath();
+        navigate(redirectPath);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, auth]);
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {
@@ -359,7 +363,16 @@ export const Auth: React.FC = () => {
                   </TabsContent>
                 </Tabs>
 
-                <div className="mt-6 text-center">
+                <div className="mt-6 text-center space-y-4">
+                  <div className="flex justify-center">
+                    <Link 
+                      to="/admin" 
+                      className="inline-flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Settings className="w-4 h-4 mr-2" />
+                      Administrator Access
+                    </Link>
+                  </div>
                   <p className="caption text-muted-foreground leading-relaxed">
                     By creating an account, you agree to our{' '}
                     <Link to="/terms" className="text-primary hover:underline">

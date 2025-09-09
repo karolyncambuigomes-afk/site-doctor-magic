@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '@/components/AuthProvider';
 import {
   Sidebar,
   SidebarContent,
@@ -9,8 +10,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarHeader,
+  SidebarFooter,
   useSidebar,
 } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { SafeLink } from '@/components/ui/safe-link';
 import {
   BarChart3,
   Search,
@@ -30,6 +35,9 @@ import {
   Palette,
   Database,
   Shield,
+  LogOut,
+  User,
+  ExternalLink,
 } from 'lucide-react';
 
 const menuItems = [
@@ -98,6 +106,7 @@ export const AdminSidebar: React.FC = () => {
   const collapsed = state === 'collapsed';
   const location = useLocation();
   const currentPath = location.pathname;
+  const { user, signOut } = useAuth();
 
   const isActive = (path: string) => currentPath === path;
   
@@ -106,8 +115,31 @@ export const AdminSidebar: React.FC = () => {
       ? "bg-accent text-accent-foreground font-medium" 
       : "hover:bg-accent/50 text-muted-foreground hover:text-foreground";
 
+  const handleSignOut = async () => {
+    await signOut();
+    window.location.href = '/auth';
+  };
+
   return (
     <Sidebar className={collapsed ? "w-16" : "w-64"} collapsible="icon">
+      <SidebarHeader className="p-4 border-b border-border">
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+            <User className="w-4 h-4 text-primary-foreground" />
+          </div>
+          {!collapsed && (
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-foreground truncate">
+                Admin Panel
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {user?.email}
+              </p>
+            </div>
+          )}
+        </div>
+      </SidebarHeader>
+      
       <SidebarContent className="pt-4">
         {menuItems.map((section, index) => (
           <SidebarGroup key={section.title}>
@@ -153,6 +185,33 @@ export const AdminSidebar: React.FC = () => {
           </SidebarGroup>
         ))}
       </SidebarContent>
+      
+      <SidebarFooter className="p-4 border-t border-border">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <SafeLink 
+                to="/" 
+                className="hover:bg-accent/50 text-muted-foreground hover:text-foreground"
+              >
+                <ExternalLink className="h-4 w-4" />
+                {!collapsed && <span>View Site</span>}
+              </SafeLink>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <button 
+                onClick={handleSignOut}
+                className="w-full text-left hover:bg-accent/50 text-muted-foreground hover:text-foreground"
+              >
+                <LogOut className="h-4 w-4" />
+                {!collapsed && <span>Sign Out</span>}
+              </button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 };

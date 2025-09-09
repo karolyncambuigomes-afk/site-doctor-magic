@@ -83,7 +83,7 @@ export const Membership: React.FC = () => {
                   </CardDescription>
                 </CardHeader>
                 
-                <CardContent className="px-8 pb-8">
+                <CardContent className="px-8 pb-8 bg-black">
                   <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="email" className="luxury-body-sm text-foreground">Email</Label>

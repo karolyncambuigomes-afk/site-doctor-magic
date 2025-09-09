@@ -151,7 +151,7 @@ export const Locations: React.FC = () => {
           <section className="mt-16 py-16 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <details className="mb-8">
-                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
                   <h2>Elite Escorts Across London</h2>
                 </summary>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { SEO } from '@/components/SEO';
+import { useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -8,10 +9,23 @@ import { HomepageManager } from '@/components/HomepageManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
 import { GalleryManager } from '@/components/GalleryManager';
-import { Home, FileText, HelpCircle, Image, Layout } from 'lucide-react';
+import { BlogManager } from '@/components/BlogManager';
+import { Home, FileText, HelpCircle, Image, Layout, BookOpen } from 'lucide-react';
 
 export const ContentManager: React.FC = () => {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('homepage');
+
+  // Set active tab based on current URL
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.includes('/blog')) setActiveTab('blog');
+    else if (path.includes('/site')) setActiveTab('site-content');
+    else if (path.includes('/faq')) setActiveTab('faq');
+    else if (path.includes('/gallery')) setActiveTab('gallery');
+    else if (path.includes('/homepage')) setActiveTab('homepage');
+    else setActiveTab('homepage'); // default
+  }, [location.pathname]);
 
   return (
     <AdminLayout>
@@ -31,7 +45,7 @@ export const ContentManager: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="homepage" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
               Homepage
@@ -47,6 +61,10 @@ export const ContentManager: React.FC = () => {
             <TabsTrigger value="gallery" className="flex items-center gap-2">
               <Image className="h-4 w-4" />
               Galeria
+            </TabsTrigger>
+            <TabsTrigger value="blog" className="flex items-center gap-2">
+              <BookOpen className="h-4 w-4" />
+              Blog
             </TabsTrigger>
             <TabsTrigger value="layout" className="flex items-center gap-2">
               <Layout className="h-4 w-4" />
@@ -106,6 +124,20 @@ export const ContentManager: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <GalleryManager />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="blog" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Blog Management</CardTitle>
+                <CardDescription>
+                  Gerencie posts do blog e otimização SEO
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BlogManager />
               </CardContent>
             </Card>
           </TabsContent>

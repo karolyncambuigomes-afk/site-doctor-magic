@@ -42,26 +42,37 @@ export const GalleryManager: React.FC = () => {
     try {
       setLoading(true);
 
-      // Load models with gallery images
+      // Load models
       const { data: modelsData, error: modelsError } = await supabase
         .from('models')
-        .select(`
-          id, 
-          name, 
-          image,
-          model_gallery(image_url, order_index)
-        `)
+        .select('id, name, image')
         .order('name');
 
       if (modelsError) throw modelsError;
+
+      // For each model without main image, get first gallery image
+      const modelsWithImages = await Promise.all(
+        (modelsData || []).map(async (model) => {
+          if (model.image) {
+            return model;
+          }
+          
+          // Get first gallery image for this model
+          const { data: galleryData } = await supabase
+            .from('model_gallery')
+            .select('image_url')
+            .eq('model_id', model.id)
+            .order('order_index')
+            .limit(1);
+          
+          return {
+            ...model,
+            image: galleryData?.[0]?.image_url || null
+          };
+        })
+      );
       
-      // Transform models to include first gallery image if no main image
-      const modelsWithImages = modelsData?.map(model => ({
-        ...model,
-        image: model.image || (model.model_gallery?.[0]?.image_url || null)
-      })) || [];
-      
-      console.log('GalleryManager - Loaded models with images:', modelsWithImages);
+      console.log('GalleryManager - Models with resolved images:', modelsWithImages);
       setModels(modelsWithImages);
 
       // Load carousel items

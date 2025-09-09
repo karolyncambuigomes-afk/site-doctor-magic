@@ -13,7 +13,7 @@ export const Footer = () => {
     setEmail('');
   };
   return <footer className="bg-white text-foreground relative z-50 w-full">
-      <div className="container mx-auto px-4 py-16 bg-gray-100">{" "}
+      <div className="container mx-auto px-4 py-16 bg-white">{" "}
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           

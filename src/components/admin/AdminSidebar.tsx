@@ -186,31 +186,32 @@ export const AdminSidebar: React.FC = () => {
         ))}
       </SidebarContent>
       
-      <SidebarFooter className="p-4 border-t border-border">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <SafeLink 
-                to="/" 
-                className="hover:bg-accent/50 text-muted-foreground hover:text-foreground"
-              >
-                <ExternalLink className="h-4 w-4" />
-                {!collapsed && <span>View Site</span>}
-              </SafeLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <button 
-                onClick={handleSignOut}
-                className="w-full text-left hover:bg-accent/50 text-muted-foreground hover:text-foreground"
-              >
-                <LogOut className="h-4 w-4" />
-                {!collapsed && <span>Sign Out</span>}
-              </button>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarFooter className="p-4 border-t border-border bg-background/50 backdrop-blur-sm">
+        <div className="space-y-2">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <SafeLink 
+                  to="/" 
+                  className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  {!collapsed && <span>View Site</span>}
+                </SafeLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+          
+          <div className="border-t border-border/50 pt-2">
+            <button 
+              onClick={handleSignOut}
+              className="flex items-center gap-3 w-full px-3 py-2 rounded-md bg-destructive/10 hover:bg-destructive/20 text-destructive hover:text-destructive-foreground transition-colors font-medium"
+            >
+              <LogOut className="h-4 w-4" />
+              {!collapsed && <span>Sign Out</span>}
+            </button>
+          </div>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );

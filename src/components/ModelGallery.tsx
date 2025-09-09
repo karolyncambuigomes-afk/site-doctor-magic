@@ -46,6 +46,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       
       // Get current user info to determine what images they can see
       const { data: { user } } = await supabase.auth.getUser();
+      console.log('🖼️ SITE GALERIA: Usuário:', user ? 'logado' : 'não logado', user?.email);
       
       let query = supabase
         .from('model_gallery')
@@ -64,7 +65,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           .from('profiles')
           .select('role')
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
+
+        console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
 
         if (profile?.role === 'admin') {
           // Admin can see all images
@@ -77,6 +80,8 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             .eq('user_id', user.id)
             .eq('active', true)
             .maybeSingle();
+
+          console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
 
           if (subscription) {
             // Member can see ONLY members_only images (not public ones)
@@ -99,6 +104,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
       console.log('🖼️ SITE GALERIA: Imagens carregadas após filtro:', data);
       console.log('🖼️ SITE GALERIA: Número de imagens visíveis:', data?.length || 0);
+      if (data && data.length > 0) {
+        console.log('🖼️ SITE GALERIA: Visibilidades das imagens:', data.map(img => ({ order: img.order_index, visibility: img.visibility })));
+      }
       setGalleryImages(data || []);
       
       // Force re-render after setting gallery images

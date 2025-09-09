@@ -14,12 +14,21 @@
     AddOutputFilterByType DEFLATE application/json
 </IfModule>
 
-# Ultra-simple cache control for maximum private browser compatibility
+# Mobile-aware cache control for maximum compatibility
 <IfModule mod_headers.c>
-    # Very basic caching - private browsers often ignore complex cache directives
-    <FilesMatch "\.(js|css|jpg|jpeg|png|gif|ico|svg|webp)$">
-        Header set Cache-Control "public, max-age=3600"
-    </FilesMatch>
+    # Mobile browsers: force no-cache for real-time updates
+    <If "%{HTTP_USER_AGENT} =~ /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </If>
+    
+    # Desktop browsers: basic caching
+    <Else>
+        <FilesMatch "\.(js|css|jpg|jpeg|png|gif|ico|svg|webp)$">
+            Header set Cache-Control "public, max-age=3600"
+        </FilesMatch>
+    </Else>
     
     # Essential security header only
     Header always set X-Content-Type-Options "nosniff"

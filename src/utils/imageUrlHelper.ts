@@ -4,8 +4,18 @@ import { supabase } from '@/integrations/supabase/client';
 export const generateImageUrl = async (path: string | null, tableName?: string, recordId?: string): Promise<string | null> => {
   if (!path) return null;
 
+  const isMobile = shouldBustCache();
+  
   try {
-    // For Supabase storage URLs, get the real updated timestamp
+    // For mobile browsers, always use current timestamp for aggressive cache busting
+    if (isMobile) {
+      const timestamp = Date.now();
+      const separator = path.includes('?') ? '&' : '?';
+      const randomSalt = Math.random().toString(36).substring(7);
+      return `${path}${separator}v=${timestamp}&mobile=1&r=${randomSalt}`;
+    }
+
+    // For desktop, try to get real updated timestamp first
     if (tableName && recordId) {
       const { data } = await supabase
         .from(tableName)
@@ -34,11 +44,14 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
 // Get Supabase storage URL with proper cache busting
 export const getStorageUrl = (bucket: string, path: string, forceRefresh = false): string => {
   const { data } = supabase.storage.from(bucket).getPublicUrl(path);
+  const isMobile = shouldBustCache();
   
-  if (forceRefresh) {
+  if (forceRefresh || isMobile) {
     const timestamp = Date.now();
     const separator = data.publicUrl.includes('?') ? '&' : '?';
-    return `${data.publicUrl}${separator}v=${timestamp}`;
+    const randomSalt = Math.random().toString(36).substring(7);
+    const mobileParam = isMobile ? '&mobile=1' : '';
+    return `${data.publicUrl}${separator}v=${timestamp}${mobileParam}&r=${randomSalt}`;
   }
   
   return data.publicUrl;

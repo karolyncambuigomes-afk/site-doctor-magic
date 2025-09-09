@@ -32,9 +32,17 @@ function isPrivateMode() {
   }
 }
 
-// Install event - cache assets only if not in private mode
+// Install event - cache assets only if not in private mode or mobile
 self.addEventListener('install', event => {
   console.log('SW: Install event');
+  
+  // Check for mobile browsers and disable completely
+  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+  
+  if (isMobileBrowser) {
+    console.log('SW: Mobile browser detected, disabling service worker completely');
+    return self.skipWaiting();
+  }
   
   // Quick private mode check and exit immediately if detected
   if (isPrivateMode()) {
@@ -77,9 +85,30 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - enhanced mobile-optimized strategy
+// Fetch event - disable completely for mobile browsers
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
+  
+  // Check if mobile browser - if so, pass through to network completely
+  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+  
+  if (isMobileBrowser) {
+    // Mobile browsers: no caching, direct network access with cache-busting
+    event.respondWith(
+      fetch(new Request(event.request.url, {
+        method: event.request.method,
+        headers: new Headers({
+          ...Object.fromEntries(event.request.headers.entries()),
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }),
+        mode: event.request.mode,
+        credentials: event.request.credentials
+      }))
+    );
+    return;
+  }
   
   // Skip non-GET requests and never-cache patterns
   if (event.request.method !== 'GET' || 

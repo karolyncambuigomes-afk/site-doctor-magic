@@ -10,6 +10,7 @@ import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { MobileForceRefresh } from "@/components/MobileForceRefresh";
 import { MobileDebugPanel } from "@/components/MobileDebugPanel";
+import { MobileRefreshButton } from "@/components/MobileRefreshButton";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
@@ -79,6 +80,7 @@ const App = () => (
                 <MobileOptimizer />
                 <MobileForceRefresh />
                 <MobileDebugPanel />
+                <MobileRefreshButton />
                 <Toaster />
                 <Sonner />
                 <BookNowButton />

@@ -7,7 +7,7 @@ export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
 
   if (loading) {
-    return <section className="relative h-screen md:min-h-screen flex items-end">
+    return <section className="relative h-[100vh] w-full flex items-end snap-start">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
@@ -24,7 +24,7 @@ export const HeroSection: React.FC = () => {
       </section>;
   }
 
-  return <section className="relative h-screen md:min-h-screen flex items-end">
+  return <section className="relative h-[100vh] w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />

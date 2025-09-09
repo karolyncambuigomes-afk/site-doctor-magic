@@ -94,10 +94,10 @@ export const Footer = () => {
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
-              <a href="mailto:models@exclusivefivelondon.com" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+              <SafeLink to="/contact" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
-              </a>
+              </SafeLink>
               <div className="flex items-center space-x-2 luxury-body-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
                 <span>Central London</span>

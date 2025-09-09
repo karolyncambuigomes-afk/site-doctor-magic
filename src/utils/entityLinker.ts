@@ -462,7 +462,7 @@ export function processContentWithEntityLinks(content: string): string {
           
           linkCount++;
           linkedEntities.add(entity.name);
-          return `<a href="${entity.url}" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary/80 underline decoration-1 underline-offset-2 transition-colors">${match}</a>`;
+          return `<a href="${entity.url}" target="_blank" rel="noopener noreferrer" class="text-black hover:text-gray-800 underline decoration-1 underline-offset-2 transition-colors">${match}</a>`;
         });
         break; // Move to next entity after successful linking
       }

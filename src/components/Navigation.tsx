@@ -17,7 +17,6 @@ const navItems = [
   { href: '/models', label: 'Models' },
   { href: '/membership', label: 'Membership' },
   { href: '/services', label: 'Services' },
-  { href: '/locations', label: 'Locations' },
   { href: '/blog', label: 'Blog' },
   { href: '/join-us', label: 'Join Us' }
 ];

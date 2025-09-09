@@ -82,10 +82,12 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                      <h3 className="luxury-heading-sm tracking-normal">
                        {model.name}
                      </h3>
+                     {model.age && (
+                       <p className="luxury-body-sm text-white/90 tracking-normal">
+                         {model.age} anos
+                       </p>
+                     )}
                     <div className="flex items-center justify-between">
-                      <p className="luxury-body-sm text-white/90 tracking-normal">
-                        {model.age ? `${model.age} anos` : ''}
-                      </p>
                       {model.characteristics?.[0] && (
                         <span className="luxury-body-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
                           {model.characteristics[0]}

@@ -144,8 +144,8 @@ export const Membership: React.FC = () => {
                       {hasAccess ? 'Active Access' : 'Guest Access'}
                     </span>
                   </div>
-                   {hasAccess && <Button onClick={() => window.location.href = '/members'} className="mt-4 px-6 py-2 font-light tracking-widest">
-                      Access Members Area
+                   {hasAccess && <Button onClick={() => window.location.href = '/models'} className="mt-4 px-6 py-2 font-light tracking-widest">
+                      View All Models
                     </Button>}
                 </CardContent>
               </Card>

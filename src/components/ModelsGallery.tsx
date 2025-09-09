@@ -6,12 +6,7 @@ import { Footer } from '@/components/Footer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle, Crown } from 'lucide-react';
-interface ModelsGalleryProps {
-  isPremium?: boolean;
-}
-export const ModelsGallery: React.FC<ModelsGalleryProps> = ({
-  isPremium = false
-}) => {
+export const ModelsGallery: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('all');
   const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');

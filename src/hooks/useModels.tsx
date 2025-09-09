@@ -56,7 +56,7 @@ export const useModels = () => {
     return () => clearTimeout(timeout);
   }, [loading, models.length]);
 
-  const fetchModels = async (membersOnly = false) => {
+  const fetchModels = async () => {
     if (loading && isInitialized) return; // Prevent concurrent calls
     
     try {
@@ -64,7 +64,7 @@ export const useModels = () => {
       setError(null);
 
       if (!user) {
-        // For non-authenticated users, use the public function
+        // For non-authenticated users, use the public function (only non-exclusive models)
         const { data, error: rpcError } = await supabase
           .rpc('get_public_models');
 
@@ -110,29 +110,26 @@ export const useModels = () => {
             eyes: null, // Limited data for public
             nationality: null, // Limited data for public
             education: null, // Limited data for public
-            interests: []
+            interests: [],
+            members_only: false // Public models are never exclusive
           };
         }) || [];
 
         console.log('Models Hook - Transformed models:', transformedModels);
         setModels(transformedModels);
       } else if (hasAccess) {
-        // For premium users, get full data including gallery
-        let query = supabase
+        // For premium users, get ALL models (both exclusive and non-exclusive)
+        const { data, error: queryError } = await supabase
           .from('models')
           .select(`
             *,
             model_gallery(image_url, order_index)
-          `);
-        
-        if (membersOnly) {
-          query = query.eq('members_only', true);
-        }
-        
-        const { data, error: queryError } = await query.order('created_at', { ascending: false });
+          `)
+          .order('members_only', { ascending: false }) // Show exclusive models first
+          .order('created_at', { ascending: false });
 
         if (queryError) {
-          console.error('Error fetching premium models:', queryError);
+          console.error('Error fetching all models:', queryError);
           setError('Failed to load models');
           return;
         }
@@ -250,8 +247,8 @@ export const useModels = () => {
     return models.find(model => model.id === id) || null;
   };
 
-  const refetch = (membersOnly = false) => {
-    fetchModels(membersOnly);
+  const refetch = () => {
+    fetchModels();
   };
 
   return {

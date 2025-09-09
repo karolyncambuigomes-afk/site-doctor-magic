@@ -48,9 +48,9 @@ export const PaymentSuccess: React.FC = () => {
             variant: "default"
           });
           
-          // Auto-redirect to members area after 3 seconds
+          // Auto-redirect to models page after 3 seconds
           setTimeout(() => {
-            navigate('/members');
+            navigate('/models');
           }, 3000);
         }
       } catch (error) {
@@ -117,7 +117,7 @@ export const PaymentSuccess: React.FC = () => {
                           <li>✓ Priority customer support</li>
                         </ul>
                         <p className="text-sm text-green-600 text-center font-medium">
-                          Redirecting to Members Area in 3 seconds...
+                          Redirecting to Models Gallery in 3 seconds...
                         </p>
                       </div>
                     )}
@@ -130,9 +130,9 @@ export const PaymentSuccess: React.FC = () => {
                     className="five-london-button"
                     disabled={isProcessing}
                   >
-                    <Link to="/members">
+                    <Link to="/models">
                       <Crown className="w-4 h-4 mr-2" />
-                      Enter Members Area
+                      View Exclusive Models
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Link>
                   </Button>

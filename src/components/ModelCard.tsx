@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
-import { Star, Clock, MapPin } from 'lucide-react';
+import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 interface ModelCardProps {
@@ -35,6 +35,15 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
         <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container */}
           <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[1/1] xl:aspect-[4/5] overflow-hidden bg-muted">
+            {/* Exclusive Members Badge */}
+            {model.members_only && (
+              <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-bold flex items-center gap-1 shadow-lg">
+                <Crown size={12} className="fill-current" />
+                <span className="hidden sm:inline">EXCLUSIVE FOR MEMBERS</span>
+                <span className="sm:hidden">EXCLUSIVE</span>
+              </div>
+            )}
+            
             {!imageError ? (
               <>
                 {/* Main Image */}

@@ -58,9 +58,11 @@ const ConditionalFeatures = () => {
   );
 };
 
+import { useDataSyncManager } from '@/hooks/useDataSyncManager';
+
 // Mobile Sync Component to initialize the sync manager
-const MobileSyncInitializer = () => {
-  useMobileSyncManager();
+const DataSyncInitializer = () => {
+  useDataSyncManager();
   return null;
 };
 
@@ -73,7 +75,7 @@ const App = () => (
             <AuthProvider>
               <BrowserRouter>
                 <ConditionalFeatures />
-                <MobileSyncInitializer />
+                <DataSyncInitializer />
                 <MobileOptimizer />
                 <MobileForceRefresh />
                 <MobileDebugPanel />

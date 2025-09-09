@@ -110,69 +110,61 @@ export const usePreferenceCategories = () => {
   };
 
   useEffect(() => {
-    // Initial fetch with logging
-    console.log('[usePreferenceCategories] Component mounted, fetching categories...');
     fetchCategories();
 
-    // Ultra-aggressive mobile refresh listeners
-    const handleRefresh = (event?: CustomEvent) => {
-      console.log('[usePreferenceCategories] Refresh event detected:', event?.type, event?.detail);
-      fetchCategories();
+    const handleRefreshEvent = (event: any) => {
+      console.log('[usePreferenceCategories] Refresh event detected:', event.type, event.detail);
+      
+      // Debounced refresh to avoid excessive calls
+      setTimeout(() => {
+        console.log('[usePreferenceCategories] Refreshing categories...');
+        fetchCategories();
+      }, 100);
     };
 
     const handleVisibilityChange = () => {
       if (!document.hidden) {
-        console.log('[usePreferenceCategories] Page visibility changed, refreshing...');
-        setTimeout(fetchCategories, 100);
-      }
-    };
-
-    const handleFocus = () => {
-      console.log('[usePreferenceCategories] Window focus, refreshing...');
-      setTimeout(fetchCategories, 50);
-    };
-
-    const handleOnline = () => {
-      if (navigator.onLine) {
-        console.log('[usePreferenceCategories] Online event, refreshing...');
+        console.log('[usePreferenceCategories] App visible, refreshing');
         setTimeout(fetchCategories, 200);
       }
     };
 
-    // Enhanced event list for maximum coverage
+    const handleFocus = () => {
+      console.log('[usePreferenceCategories] App focused, refreshing');
+      setTimeout(fetchCategories, 100);
+    };
+
+    const handleOnline = () => {
+      console.log('[usePreferenceCategories] Network restored, refreshing');
+      setTimeout(fetchCategories, 300);
+    };
+
+    // Listen for relevant refresh events
     const events = [
-      'mobile-force-refresh', 
-      'mobile-force-sync', 
-      'mobile-status-change',
-      'mobile-cache-clear',
+      'mobile-force-sync',
       'preference-categories-refresh',
-      'data-refresh'
+      'mobile-data-changed',
+      'data-changed'
     ];
-    
+
     events.forEach(eventType => {
-      window.addEventListener(eventType, handleRefresh as EventListener);
+      window.addEventListener(eventType, handleRefreshEvent);
     });
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     window.addEventListener('focus', handleFocus);
     window.addEventListener('online', handleOnline);
 
-    // Ultra-aggressive polling SEMPRE - ignora mobile detection
-    const pollInterval = setInterval(() => {
-      console.log('[usePreferenceCategories] POLLING FORÇADO a cada 5 segundos');
-      fetchCategories(); // Sempre busca dados atualizados
-    }, 5000); // A cada 5 segundos SEMPRE
-
     return () => {
       events.forEach(eventType => {
-        window.removeEventListener(eventType, handleRefresh as EventListener);
+        window.removeEventListener(eventType, handleRefreshEvent);
       });
+      
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleFocus);
       window.removeEventListener('online', handleOnline);
-      clearInterval(pollInterval);
     };
-  }, []);
+  }, [fetchCategories]);
 
   return {
     categories,

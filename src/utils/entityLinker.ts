@@ -746,6 +746,363 @@ const entities: EntityLink[] = [
     url: 'https://en.wikipedia.org/wiki/Little_Venice',
     category: 'area',
     priority: 6
+  },
+
+  // Missing Premium Hotels
+  {
+    name: 'Chiltern Firehouse',
+    variations: ['Chiltern Firehouse Hotel', 'The Chiltern Firehouse'],
+    url: 'https://www.chilternfirehouse.com',
+    category: 'hotel',
+    priority: 10
+  },
+  {
+    name: 'Edition London',
+    variations: ['The Edition London', 'London Edition', 'Edition Hotel London'],
+    url: 'https://www.editionhotels.com/london',
+    category: 'hotel',
+    priority: 10
+  },
+  {
+    name: 'The Zetter Townhouse',
+    variations: ['Zetter Townhouse', 'Zetter Townhouse Marylebone', 'Zetter Townhouse Fitzrovia'],
+    url: 'https://www.thezettertownhouse.com',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'The Ham Yard Hotel',
+    variations: ['Ham Yard Hotel', 'Ham Yard'],
+    url: 'https://www.firmdalehotels.com/hotels/london/ham-yard-hotel',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'The Haymarket Hotel',
+    variations: ['Haymarket Hotel'],
+    url: 'https://www.firmdalehotels.com/hotels/london/haymarket-hotel',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'Charlotte Street Hotel',
+    variations: ['Charlotte Street', 'The Charlotte Street Hotel'],
+    url: 'https://www.firmdalehotels.com/hotels/london/charlotte-street-hotel',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'The Landmark London',
+    variations: ['Landmark Hotel', 'Landmark London'],
+    url: 'https://www.landmarklondon.co.uk',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'Four Seasons Park Lane',
+    variations: ['Four Seasons London', 'Four Seasons Mayfair'],
+    url: 'https://www.fourseasons.com/london',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'St. Pancras Renaissance Hotel',
+    variations: ['St Pancras Renaissance', 'Renaissance Hotel', 'St. Pancras Hotel'],
+    url: 'https://www.marriott.com/hotels/travel/lonmr-st-pancras-renaissance-hotel-london',
+    category: 'hotel',
+    priority: 8
+  },
+
+  // Premium Spas & Wellness
+  {
+    name: 'ESPA Life at Corinthia',
+    variations: ['ESPA Life', 'ESPA Corinthia Life'],
+    url: 'https://www.corinthia.com/london/espa-life',
+    category: 'experience',
+    priority: 9
+  },
+  {
+    name: 'The Spa at The Dorchester',
+    variations: ['Dorchester Spa', 'Spa Dorchester'],
+    url: 'https://www.dorchestercollection.com/london/the-dorchester/spa-wellness',
+    category: 'experience',
+    priority: 8
+  },
+  {
+    name: 'AKASHA Spa at Claridge\'s',
+    variations: ['AKASHA Spa', 'Claridges Spa', 'AKASHA Claridges'],
+    url: 'https://www.claridges.co.uk/spa-wellness/akasha-holistic-wellbeing',
+    category: 'experience',
+    priority: 8
+  },
+  {
+    name: 'Cowshed Spa at The Ned',
+    variations: ['Cowshed Spa', 'The Ned Spa', 'Cowshed'],
+    url: 'https://www.thened.com/cowshed-spa',
+    category: 'experience',
+    priority: 7
+  },
+  {
+    name: 'Agua Spa at Sanderson',
+    variations: ['Agua Spa', 'Sanderson Spa'],
+    url: 'https://www.sandersonlondon.com/spa',
+    category: 'experience',
+    priority: 7
+  },
+
+  // Premium Restaurants & Bars
+  {
+    name: 'Berners Tavern',
+    variations: ['Berners Tavern Restaurant'],
+    url: 'https://www.editionhotels.com/london/restaurants-bars/berners-tavern',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Savoy Grill',
+    variations: ['Savoy Grill Restaurant', 'Gordon Ramsay Savoy Grill'],
+    url: 'https://www.thesavoylondon.com/dining/savoy-grill',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'HIX Mayfair',
+    variations: ['HIX Restaurant', 'HIX'],
+    url: 'https://www.roccofortehotels.com/hotels-and-resorts/browns-hotel/restaurants-bars/hix-mayfair',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Ikoyi',
+    variations: ['Ikoyi Restaurant'],
+    url: 'https://www.ikoyilondon.com',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Trinity',
+    variations: ['Trinity Restaurant', 'Trinity Clapham'],
+    url: 'https://trinityrestaurant.co.uk',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Story',
+    variations: ['Story Restaurant'],
+    url: 'https://restaurantstory.co.uk',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Kitchen Table',
+    variations: ['Kitchen Table Restaurant'],
+    url: 'https://kitchentablelondon.co.uk',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Aquavit',
+    variations: ['Aquavit Restaurant', 'Aquavit London'],
+    url: 'https://www.aquavitrestaurants.com/london',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Roka',
+    variations: ['Roka Restaurant', 'Roka London'],
+    url: 'https://www.rokarestaurant.com',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Sexy Fish',
+    variations: ['Sexy Fish Restaurant'],
+    url: 'https://www.sexyfish.com',
+    category: 'restaurant',
+    priority: 7
+  },
+
+  // Iconic Bars & Lounges
+  {
+    name: 'American Bar at The Savoy',
+    variations: ['American Bar', 'Savoy American Bar', 'The American Bar'],
+    url: 'https://www.thesavoylondon.com/dining/american-bar',
+    category: 'venue',
+    priority: 9
+  },
+  {
+    name: 'Rivoli Bar at The Ritz',
+    variations: ['Rivoli Bar', 'Ritz Rivoli Bar', 'The Rivoli Bar'],
+    url: 'https://www.theritzlondon.com/dine-with-us/rivoli-bar',
+    category: 'venue',
+    priority: 8
+  },
+  {
+    name: 'Charlie\'s Bar at Brown\'s',
+    variations: ['Charlies Bar', 'Charlie\'s Bar', 'Browns Bar'],
+    url: 'https://www.roccofortehotels.com/hotels-and-resorts/browns-hotel/restaurants-bars/charlie-s-bar',
+    category: 'venue',
+    priority: 7
+  },
+  {
+    name: 'Punch Room at Edition',
+    variations: ['Punch Room', 'Edition Punch Room', 'The Punch Room'],
+    url: 'https://www.editionhotels.com/london/restaurants-bars/punch-room',
+    category: 'venue',
+    priority: 7
+  },
+  {
+    name: 'Seymour\'s Parlour',
+    variations: ['Seymours Parlour', 'Seymour\'s', 'Zetter Parlour'],
+    url: 'https://www.thezettertownhouse.com/seymours-parlour',
+    category: 'venue',
+    priority: 6
+  },
+  {
+    name: 'Connaught Bar',
+    variations: ['The Connaught Bar'],
+    url: 'https://www.the-connaught.co.uk/restaurants-bars/connaught-bar',
+    category: 'venue',
+    priority: 8
+  },
+  {
+    name: 'Artesian at The Langham',
+    variations: ['Artesian Bar', 'Artesian', 'Langham Bar'],
+    url: 'https://www.langhamhotels.com/en/the-langham/london/dining/artesian',
+    category: 'venue',
+    priority: 7
+  },
+
+  // Hotel Specific Areas
+  {
+    name: 'Thames Foyer at The Savoy',
+    variations: ['Thames Foyer', 'Savoy Thames Foyer', 'The Thames Foyer'],
+    url: 'https://www.thesavoylondon.com/dining/thames-foyer',
+    category: 'venue',
+    priority: 7
+  },
+  {
+    name: 'Palm Court at The Ritz',
+    variations: ['Palm Court', 'Ritz Palm Court', 'The Palm Court'],
+    url: 'https://www.theritzlondon.com/dine-with-us/palm-court',
+    category: 'venue',
+    priority: 8
+  },
+  {
+    name: 'Kipling Cotta at Brown\'s',
+    variations: ['Kipling Cotta', 'Browns Tea Room'],
+    url: 'https://www.roccofortehotels.com/hotels-and-resorts/browns-hotel/restaurants-bars/kipling-cotta',
+    category: 'venue',
+    priority: 6
+  },
+  {
+    name: 'Lobby Lounge at Claridge\'s',
+    variations: ['Claridges Lobby', 'Claridge\'s Lobby', 'Lobby Lounge'],
+    url: 'https://www.claridges.co.uk/restaurants-bars/lobby-lounge',
+    category: 'venue',
+    priority: 7
+  },
+
+  // Premium Shopping Destinations
+  {
+    name: 'Burlington Arcade',
+    variations: ['Burlington Arcade Mayfair'],
+    url: 'https://www.burlington-arcade.co.uk',
+    category: 'shopping',
+    priority: 8
+  },
+  {
+    name: 'Royal Exchange',
+    variations: ['Royal Exchange London', 'The Royal Exchange'],
+    url: 'https://www.theroyalexchange.co.uk',
+    category: 'shopping',
+    priority: 7
+  },
+  {
+    name: 'One New Change',
+    variations: ['One New Change Shopping'],
+    url: 'https://www.onenewchange.com',
+    category: 'shopping',
+    priority: 6
+  },
+  {
+    name: 'Westfield London',
+    variations: ['Westfield Shepherds Bush', 'Westfield'],
+    url: 'https://uk.westfield.com/london',
+    category: 'shopping',
+    priority: 6
+  },
+  {
+    name: 'Peter Jones',
+    variations: ['Peter Jones Sloane Square', 'Peter Jones Department Store'],
+    url: 'https://www.peterjones.co.uk',
+    category: 'shopping',
+    priority: 7
+  },
+
+  // Exclusive Entertainment Venues
+  {
+    name: 'Chiltern Firehouse Restaurant',
+    variations: ['Chiltern Firehouse Dining'],
+    url: 'https://www.chilternfirehouse.com/restaurant',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Bob Bob Ricard',
+    variations: ['Bob Bob Ricard Restaurant'],
+    url: 'https://www.bobbobricard.com',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Quaglino\'s',
+    variations: ['Quaglinos', 'Quaglino\'s Restaurant'],
+    url: 'https://www.quaglinos-restaurant.co.uk',
+    category: 'restaurant',
+    priority: 7
+  },
+  {
+    name: 'The Ivy',
+    variations: ['Ivy Restaurant', 'The Ivy West Street'],
+    url: 'https://www.the-ivy.co.uk',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Scott\'s',
+    variations: ['Scotts Restaurant', 'Scott\'s Mayfair'],
+    url: 'https://www.scotts-restaurant.com',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'J. Sheekey',
+    variations: ['J Sheekey', 'Sheekey Restaurant'],
+    url: 'https://www.j-sheekey.co.uk',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Le Gavroche',
+    variations: ['Gavroche Restaurant'],
+    url: 'https://www.le-gavroche.co.uk',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Gymkhana',
+    variations: ['Gymkhana Restaurant'],
+    url: 'https://www.gymkhanalondon.com',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Hawksmoor',
+    variations: ['Hawksmoor Restaurant', 'Hawksmoor Steakhouse'],
+    url: 'https://thehawksmoor.com',
+    category: 'restaurant',
+    priority: 8
   }
 ];
 

@@ -406,24 +406,346 @@ const entities: EntityLink[] = [
   // Exclusive Spas & Wellness
   {
     name: 'ESPA at Corinthia',
-    variations: ['ESPA Corinthia', 'Corinthia Spa'],
+    variations: ['ESPA Corinthia', 'Corinthia Spa', 'Spa Corinthia', 'ESPA', 'Corinthia Hotel Spa'],
     url: 'https://www.corinthia.com/london/spa',
     category: 'experience',
     priority: 8
   },
   {
     name: 'The Berkeley Spa',
-    variations: ['Berkeley Health Club & Spa'],
+    variations: ['Berkeley Health Club & Spa', 'Berkeley Spa', 'Spa at Berkeley'],
     url: 'https://www.the-berkeley.co.uk/health-club-spa',
     category: 'experience',
     priority: 7
   },
   {
     name: 'Akasha at Hotel Café Royal',
-    variations: ['Akasha Spa', 'Hotel Café Royal Spa'],
+    variations: ['Akasha Spa', 'Hotel Café Royal Spa', 'Akasha', 'Café Royal Spa'],
     url: 'https://www.hotelcaferoyal.com/wellness/akasha-holistic-wellbeing',
     category: 'experience',
     priority: 7
+  },
+
+  // Additional Luxury Hotels
+  {
+    name: 'Hotel Café Royal',
+    variations: ['Café Royal', 'Hotel Cafe Royal'],
+    url: 'https://www.hotelcaferoyal.com',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'Corinthia London',
+    variations: ['Corinthia Hotel', 'The Corinthia'],
+    url: 'https://www.corinthia.com/london',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'The Langham London',
+    variations: ['The Langham', 'Langham Hotel'],
+    url: 'https://www.langhamhotels.com/en/the-langham/london',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'The Connaught',
+    variations: ['Connaught Hotel'],
+    url: 'https://www.the-connaught.co.uk',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'Brown\'s Hotel',
+    variations: ['Browns Hotel', 'Brown\'s'],
+    url: 'https://www.roccofortehotels.com/hotels-and-resorts/browns-hotel',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'The Dorchester',
+    variations: ['Dorchester Hotel'],
+    url: 'https://www.dorchestercollection.com/en/london/the-dorchester',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'Mandarin Oriental Hyde Park',
+    variations: ['Mandarin Oriental', 'Mandarin Oriental London'],
+    url: 'https://www.mandarinoriental.com/london/hyde-park',
+    category: 'hotel',
+    priority: 9
+  },
+  {
+    name: 'Park Lane Hotel',
+    variations: ['The Park Lane Hotel'],
+    url: 'https://www.parklane.co.uk',
+    category: 'hotel',
+    priority: 7
+  },
+  {
+    name: 'The Goring',
+    variations: ['Goring Hotel'],
+    url: 'https://www.thegoring.com',
+    category: 'hotel',
+    priority: 8
+  },
+  {
+    name: 'Rosewood London',
+    variations: ['Rosewood Hotel'],
+    url: 'https://www.rosewoodhotels.com/en/london',
+    category: 'hotel',
+    priority: 8
+  },
+
+  // Additional Fine Dining
+  {
+    name: 'Alain Ducasse at The Dorchester',
+    variations: ['Alain Ducasse', 'Ducasse Dorchester'],
+    url: 'https://www.dorchestercollection.com/en/london/the-dorchester/restaurants-bars/alain-ducasse',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Hélène Darroze at The Connaught',
+    variations: ['Helene Darroze', 'Darroze Connaught'],
+    url: 'https://www.the-connaught.co.uk/restaurants-bars/helene-darroze',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Nobu London',
+    variations: ['Nobu', 'Nobu Berkeley Street'],
+    url: 'https://www.noburestaurants.com/london/berkeley-street',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'The Ledbury',
+    variations: ['Ledbury Restaurant'],
+    url: 'https://www.theledbury.com',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Dinner by Heston Blumenthal',
+    variations: ['Dinner Heston', 'Heston Blumenthal Restaurant'],
+    url: 'https://www.dinnerbyheston.com',
+    category: 'restaurant',
+    priority: 9
+  },
+  {
+    name: 'Fera at Claridge\'s',
+    variations: ['Fera Restaurant', 'Fera Claridges'],
+    url: 'https://www.claridges.co.uk/restaurants-bars/fera',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Galvin La Chapelle',
+    variations: ['La Chapelle', 'Galvin Restaurant'],
+    url: 'https://galvinrestaurants.com/restaurant/galvin-la-chapelle',
+    category: 'restaurant',
+    priority: 8
+  },
+  {
+    name: 'Rules Restaurant',
+    variations: ['Rules', 'Rules London'],
+    url: 'https://rules.co.uk',
+    category: 'restaurant',
+    priority: 7
+  },
+  {
+    name: 'Simpson\'s in the Strand',
+    variations: ['Simpsons Restaurant', 'Simpson\'s'],
+    url: 'https://www.simpsonsinthestrand.co.uk',
+    category: 'restaurant',
+    priority: 7
+  },
+
+  // Additional Shopping & Fashion
+  {
+    name: 'Fortnum & Mason',
+    variations: ['Fortnum and Mason', 'Fortnums', 'F&M'],
+    url: 'https://www.fortnumandmason.com',
+    category: 'shopping',
+    priority: 9
+  },
+  {
+    name: 'Liberty London',
+    variations: ['Liberty', 'Liberty Department Store'],
+    url: 'https://www.libertylondon.com',
+    category: 'shopping',
+    priority: 8
+  },
+  {
+    name: 'King\'s Road',
+    variations: ['Kings Road', 'King\'s Road Chelsea'],
+    url: 'https://en.wikipedia.org/wiki/King%27s_Road',
+    category: 'shopping',
+    priority: 8
+  },
+  {
+    name: 'Elizabeth Street',
+    variations: ['Elizabeth St'],
+    url: 'https://en.wikipedia.org/wiki/Elizabeth_Street,_London',
+    category: 'shopping',
+    priority: 7
+  },
+  {
+    name: 'Motcomb Street',
+    variations: ['Motcomb St'],
+    url: 'https://en.wikipedia.org/wiki/Motcomb_Street',
+    category: 'shopping',
+    priority: 7
+  },
+  {
+    name: 'Savile Row',
+    variations: ['Savile Row London'],
+    url: 'https://en.wikipedia.org/wiki/Savile_Row',
+    category: 'shopping',
+    priority: 8
+  },
+  {
+    name: 'Jermyn Street',
+    variations: ['Jermyn St'],
+    url: 'https://en.wikipedia.org/wiki/Jermyn_Street',
+    category: 'shopping',
+    priority: 7
+  },
+
+  // Exclusive Venues & Experiences
+  {
+    name: 'Royal Opera House',
+    variations: ['Covent Garden Opera House', 'ROH'],
+    url: 'https://www.roh.org.uk',
+    category: 'venue',
+    priority: 9
+  },
+  {
+    name: 'Royal Albert Hall',
+    variations: ['Albert Hall'],
+    url: 'https://www.royalalberthall.com',
+    category: 'venue',
+    priority: 8
+  },
+  {
+    name: 'Barbican Centre',
+    variations: ['Barbican', 'Barbican Theatre'],
+    url: 'https://www.barbican.org.uk',
+    category: 'venue',
+    priority: 7
+  },
+  {
+    name: 'The O2',
+    variations: ['O2 Arena', 'O2 London'],
+    url: 'https://www.theo2.co.uk',
+    category: 'venue',
+    priority: 7
+  },
+  {
+    name: 'Ronnie Scott\'s',
+    variations: ['Ronnie Scotts', 'Ronnie Scott\'s Jazz Club'],
+    url: 'https://www.ronniescotts.co.uk',
+    category: 'venue',
+    priority: 7
+  },
+
+  // Private Members Clubs
+  {
+    name: 'Annabel\'s',
+    variations: ['Annabels', 'Annabel\'s Mayfair'],
+    url: 'https://annabels.co.uk',
+    category: 'club',
+    priority: 8
+  },
+  {
+    name: '5 Hertford Street',
+    variations: ['5 Hertford St', 'Hertford Street'],
+    url: 'https://5hertfordstreet.com',
+    category: 'club',
+    priority: 7
+  },
+  {
+    name: 'The Groucho Club',
+    variations: ['Groucho Club'],
+    url: 'https://www.thegrouchoclub.com',
+    category: 'club',
+    priority: 7
+  },
+  {
+    name: 'White\'s Club',
+    variations: ['Whites Club', 'White\'s'],
+    url: 'https://en.wikipedia.org/wiki/White%27s',
+    category: 'club',
+    priority: 7
+  },
+
+  // Additional Transport
+  {
+    name: 'Gatwick Airport',
+    variations: ['Gatwick', 'LGW', 'London Gatwick'],
+    url: 'https://www.gatwickairport.com',
+    category: 'transport',
+    priority: 7
+  },
+  {
+    name: 'London City Airport',
+    variations: ['City Airport', 'LCY'],
+    url: 'https://www.londoncityairport.com',
+    category: 'transport',
+    priority: 6
+  },
+  {
+    name: 'St Pancras International',
+    variations: ['St Pancras', 'Saint Pancras'],
+    url: 'https://www.stpancras.com',
+    category: 'transport',
+    priority: 7
+  },
+  {
+    name: 'Eurostar',
+    variations: ['Eurostar Terminal'],
+    url: 'https://www.eurostar.com',
+    category: 'transport',
+    priority: 7
+  },
+
+  // Premium Areas & Neighborhoods
+  {
+    name: 'Marylebone',
+    variations: ['Marylebone Village'],
+    url: 'https://en.wikipedia.org/wiki/Marylebone',
+    category: 'area',
+    priority: 7
+  },
+  {
+    name: 'Fitzrovia',
+    variations: ['Fitzrovia London'],
+    url: 'https://en.wikipedia.org/wiki/Fitzrovia',
+    category: 'area',
+    priority: 6
+  },
+  {
+    name: 'Bloomsbury',
+    variations: ['Bloomsbury London'],
+    url: 'https://en.wikipedia.org/wiki/Bloomsbury',
+    category: 'area',
+    priority: 6
+  },
+  {
+    name: 'Pimlico',
+    variations: ['Pimlico London'],
+    url: 'https://en.wikipedia.org/wiki/Pimlico',
+    category: 'area',
+    priority: 6
+  },
+  {
+    name: 'Little Venice',
+    variations: ['Little Venice London'],
+    url: 'https://en.wikipedia.org/wiki/Little_Venice',
+    category: 'area',
+    priority: 6
   }
 ];
 
@@ -431,7 +753,7 @@ export function processContentWithEntityLinks(content: string): string {
   let processedContent = content;
   const linkedEntities = new Set<string>();
   let linkCount = 0;
-  const maxLinks = 35;
+  const maxLinks = 60;
 
   // Sort entities by priority (highest first)
   const sortedEntities = [...entities].sort((a, b) => b.priority - a.priority);

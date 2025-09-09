@@ -30,7 +30,7 @@ export const ContentManager: React.FC = () => {
     if (path.includes('/blog')) setActiveTab('blog');
     else if (path.includes('/site')) setActiveTab('site-content');
     else if (path.includes('/faq')) setActiveTab('faq');
-    else if (path.includes('/gallery')) setActiveTab('gallery');
+    
     else if (path.includes('/homepage')) setActiveTab('homepage');
     else setActiveTab('homepage'); // default
   }, [location.pathname, navigate]);

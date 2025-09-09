@@ -140,7 +140,5 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({
           </div>
         </section>
       </main>
-      
-      <Footer />
     </div>;
 };

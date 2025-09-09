@@ -114,11 +114,11 @@ export const Navigation: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 transition-colors text-foreground hover:text-muted-foreground"
+            className="lg:hidden p-2 transition-colors text-black hover:text-gray-600"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-6 h-6 text-black" /> : <Menu className="w-6 h-6 text-black" />}
           </button>
         </div>
 

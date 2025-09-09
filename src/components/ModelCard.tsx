@@ -76,22 +76,24 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
-                {/* Info overlay that appears on hover - exactly like homepage */}
+                {/* Info overlay that appears on hover - with age below name */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
                   <div className="space-y-1.5">
-                     <h3 className="luxury-heading-sm tracking-normal">
+                     <h3 className="luxury-heading-sm tracking-normal text-white">
                        {model.name}
                      </h3>
-                    <div className="flex items-center justify-between">
-                      <p className="luxury-body-sm text-white/90 tracking-normal">
-                        {model.age ? `${model.age} anos` : ''}
-                      </p>
-                      {model.characteristics?.[0] && (
-                        <span className="luxury-body-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
-                          {model.characteristics[0]}
-                        </span>
-                      )}
-                    </div>
+                     {model.age && (
+                       <p className="luxury-body-sm text-white tracking-normal">
+                         {model.age} anos
+                       </p>
+                     )}
+                     {model.characteristics?.[0] && (
+                       <div className="flex justify-start">
+                         <span className="luxury-body-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm text-white">
+                           {model.characteristics[0]}
+                         </span>
+                       </div>
+                     )}
                   </div>
                 </div>
               </>

@@ -2,7 +2,9 @@ import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
-import { Card } from '@/components/ui/card';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
+import { BookNowButton } from '@/components/BookNowButton';
 import { Star } from 'lucide-react';
 
 const testimonials = [
@@ -45,67 +47,100 @@ const testimonials = [
 ];
 
 export const Reviews: React.FC = () => {
+  const structuredData = [
+    generateOrganizationSchema(),
+    generateBreadcrumbSchema([
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "Reviews", url: "https://fivelondon.com/reviews" }
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "ReviewPage", 
+      "about": {
+        "@type": "Organization",
+        "name": "Five London",
+        "description": "Premier luxury escort agency in London"
+      },
+      "review": testimonials.map(testimonial => ({
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": testimonial.name
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": testimonial.rating,
+          "bestRating": 5
+        },
+        "reviewBody": testimonial.content
+      }))
+    }
+  ];
+
   return (
     <>
       <SEO 
-        title="Client Reviews - Five London"
-        description="Read authentic reviews from our satisfied clients about their experiences with Five London's premium escort services."
-        keywords="escort reviews London, client testimonials, luxury companionship reviews"
+        title="Client Reviews - Five London | Premium Escort Testimonials"
+        description="Read authentic reviews from our satisfied clients about their experiences with Five London's premium escort services. Discover why discerning gentlemen choose us for exceptional companionship."
+        keywords="escort reviews London, client testimonials, luxury companionship reviews, Five London reviews, premium escort testimonials"
+        canonicalUrl="/reviews"
+        structuredData={structuredData}
       />
       <Navigation />
       
-      <main className="pt-16">
+      <main className="pt-16 bg-white">
+        {/* Breadcrumbs */}
+        <section className="py-4 bg-white">
+          <div className="container mx-auto px-4">
+            <Breadcrumbs 
+              items={[{ label: "Reviews" }]}
+              className="text-gray-600"
+            />
+          </div>
+        </section>
+
         {/* Hero Section */}
-        <section className="section-padding bg-gradient-subtle">
-          <div className="container-width text-center">
-            <h1 className="luxury-heading-xl mb-6">Client Reviews</h1>
-            <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
+        <section className="py-16 md:py-24 lg:py-32 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h1 className="luxury-heading-display mb-6 text-black">Client Reviews</h1>
+            <p className="luxury-body-lg text-gray-800 max-w-2xl mx-auto">
               Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
             </p>
           </div>
         </section>
 
         {/* Reviews Grid */}
-        <section className="section-padding">
-          <div className="container-width">
+        <section className="py-16 md:py-20 bg-white">
+          <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
-                <Card key={index} className="minimal-card h-full">
+                <div key={index} className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
                   <div className="space-y-4 h-full flex flex-col">
                     <div className="flex items-center space-x-1">
                       {Array.from({ length: testimonial.rating }).map((_, i) => (
                         <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <p className="luxury-body-base italic flex-grow">"{testimonial.content}"</p>
+                    <p className="luxury-body-md text-gray-800 italic flex-grow leading-relaxed">"{testimonial.content}"</p>
                     <div className="space-y-1 mt-auto">
-                      <p className="font-medium text-foreground">{testimonial.name}</p>
-                      <p className="luxury-body-sm text-muted-foreground">{testimonial.role}</p>
+                      <p className="luxury-heading-xs text-black">{testimonial.name}</p>
+                      <p className="luxury-body-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="section-padding bg-muted/30">
-          <div className="container-width text-center">
-            <h2 className="luxury-heading-lg mb-6">Experience Excellence</h2>
-            <p className="luxury-body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Join our satisfied clients and discover the Five London difference.
+        <section className="py-16 md:py-20 bg-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="luxury-heading-lg mb-6 text-black">Experience Excellence</h2>
+            <p className="luxury-body-lg text-gray-800 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Join our satisfied clients and discover the Five London difference. Contact us today to experience the finest luxury companionship services in London.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a 
-                href="https://wa.me/447436190679"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="minimal-button bg-primary text-primary-foreground hover:bg-primary/90"
-              >
-                Book Now: +44 7436 190679
-              </a>
-            </div>
+            <BookNowButton />
           </div>
         </section>
       </main>

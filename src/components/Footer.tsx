@@ -113,6 +113,27 @@ export const Footer = () => {
               </SafeLink>
             </div>
           </div>
+
+          {/* Local Information - New GEO Section */}
+          <div className="space-y-4">
+            <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
+              Local Information
+            </h4>
+            <div className="space-y-3">
+              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Area Guides
+              </SafeLink>
+              <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Local Services FAQ
+              </SafeLink>
+              <SafeLink to="/locations" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Premium Districts
+              </SafeLink>
+              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors" rel="nofollow">
+                Business Services
+              </SafeLink>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Section */}

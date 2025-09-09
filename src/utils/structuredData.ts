@@ -136,8 +136,8 @@ export const generateBlogSchema = (article: any) => ({
   "headline": article.title,
   "description": article.excerpt,
   "image": article.image,
-  "datePublished": article.published_at,
-  "dateModified": article.updated_at,
+  "datePublished": article.published_at || article.publishedAt,
+  "dateModified": article.updated_at || article.publishedAt,
   "author": {
     "@type": "Person",
     "name": article.author || "Five London Editorial Team"
@@ -153,6 +153,104 @@ export const generateBlogSchema = (article: any) => ({
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `https://fivelondon.com/blog/${article.slug}`
+  },
+  // Enhanced GEO data for location-based articles
+  ...(article.coordinates && {
+    "spatialCoverage": {
+      "@type": "Place",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": article.coordinates.lat,
+        "longitude": article.coordinates.lng
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": article.locationArea?.split(' ')[0] || "London",
+        "postalCode": article.locationArea?.split(' ')[1] || "",
+        "addressCountry": "GB"
+      }
+    }
+  }),
+  ...(article.serviceAreas && {
+    "areaServed": article.serviceAreas.map((area: string) => ({
+      "@type": "PostalCodeSpecification",
+      "postalCode": area,
+      "addressCountry": "GB"
+    }))
+  })
+});
+
+// Enhanced LocalBusiness schema for specific areas
+export const generateLocalBusinessSchemaForArea = (area: any) => ({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": `Five London - ${area.name}`,
+  "description": `Premium luxury escort services in ${area.name}, offering sophisticated companionship for discerning clients in the ${area.postcode} area.`,
+  "url": "https://fivelondon.com",
+  "telephone": "+447436190679",
+  "priceRange": "£500-£1000",
+  "currenciesAccepted": "GBP",
+  "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": area.name,
+    "addressLocality": "London",
+    "postalCode": area.postcode,
+    "addressRegion": "England",
+    "addressCountry": "GB"
+  },
+  "geo": area.coordinates && {
+    "@type": "GeoCoordinates",
+    "latitude": area.coordinates.lat,
+    "longitude": area.coordinates.lng
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "London",
+    "addressCountry": "GB"
+  },
+  "serviceType": "Luxury Companion Services",
+  "hasMap": `https://www.google.com/maps/place/${area.coordinates?.lat},${area.coordinates?.lng}`,
+  "openingHours": [
+    "Mo 00:00-23:59",
+    "Tu 00:00-23:59", 
+    "We 00:00-23:59",
+    "Th 00:00-23:59",
+    "Fr 00:00-23:59",
+    "Sa 00:00-23:59",
+    "Su 00:00-23:59"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "127",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+});
+
+// Event schema for availability and services
+export const generateEventSchema = (eventData: any) => ({
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": eventData.name || "Luxury Companion Services Available",
+  "description": eventData.description || "Premium escort services available 24/7 in London",
+  "startDate": eventData.startDate || new Date().toISOString(),
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+  "location": {
+    "@type": "Place",
+    "name": "London",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "London",
+      "addressCountry": "GB"
+    }
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": "Five London",
+    "url": "https://fivelondon.com"
   }
 });
 

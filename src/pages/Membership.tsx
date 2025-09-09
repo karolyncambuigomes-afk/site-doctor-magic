@@ -179,6 +179,24 @@ export const Membership: React.FC = () => {
             </div>
           </section>}
 
+        {/* SEO Content - Invisible */}
+        <div className="sr-only">
+          <h2>Exclusive VIP Membership Benefits - Premium Access to Elite Companions</h2>
+          <p>Experience the ultimate in luxury companionship through our exclusive VIP membership program. Members gain privileged access to London's most sophisticated escort models, personalized concierge services, priority booking for special events, and bespoke experiences tailored to the refined tastes of our distinguished clientele. Our membership program represents the pinnacle of discretion, elegance, and personalized service in London's premium escort industry.</p>
+          
+          <h3>Premium Access to Elite Companions and Exclusive Gallery</h3>
+          <p>VIP members enjoy unlimited access to our complete collection of elite companions, including exclusive models available only to premium members. Browse detailed profiles, high-quality photography, and comprehensive background information about each companion. Members receive priority booking privileges, advanced scheduling options, and access to special events featuring our most sought-after models. The exclusive members' gallery showcases the finest selection of sophisticated companions in London, carefully curated for discerning clients who demand nothing but excellence.</p>
+          
+          <h3>Members-Only Services and Personalized Experiences</h3>
+          <p>Our VIP membership extends beyond companion access to include comprehensive lifestyle services. Members benefit from personalized restaurant recommendations and reservations at London's most exclusive venues, priority access to cultural events and private viewings, bespoke travel arrangements with international companions, and 24/7 concierge support for any special requests. Each service is tailored to individual preferences, ensuring every experience exceeds expectations and maintains the highest standards of luxury and discretion.</p>
+          
+          <h4>Exclusive Events and Private Member Functions</h4>
+          <p>VIP members are invited to exclusive events throughout London, including private dinners at prestigious venues, cultural experiences at premier locations, and intimate gatherings with our elite companions. These events take place at carefully selected venues such as private dining rooms in Mayfair, exclusive galleries in Chelsea, luxury yachts on the Thames, and historic venues across London's most sophisticated neighborhoods, providing unparalleled networking opportunities within our distinguished member community.</p>
+          
+          <h4>Membership Tiers and Luxury Benefits</h4>
+          <p>Our tiered membership structure offers increasing levels of luxury and exclusivity. Platinum members receive access to the most exclusive companions, priority booking for all services, complimentary upgrades, and personalized attention from our senior concierge team. Diamond members enjoy all benefits plus access to international travel companions, exclusive event invitations, and bespoke experiences designed specifically for their preferences. Each tier represents a commitment to excellence, ensuring that our most valued members receive the extraordinary service and attention they deserve.</p>
+        </div>
+
         {/* Information Section */}
         
           </div>

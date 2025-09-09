@@ -42,7 +42,7 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-              <h4 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
+              <h4 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
               <div className="flex space-x-4">

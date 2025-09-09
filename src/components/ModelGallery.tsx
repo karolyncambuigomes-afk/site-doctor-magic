@@ -79,9 +79,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             .maybeSingle();
 
           if (subscription) {
-            // Member can see public and members_only images
-            query = query.in('visibility', ['public', 'members_only']);
-            console.log('🖼️ SITE GALERIA: Membro - pode ver imagens públicas e exclusivas');
+            // Member can see ONLY members_only images (not public ones)
+            query = query.eq('visibility', 'members_only');
+            console.log('🖼️ SITE GALERIA: Membro - pode ver apenas imagens exclusivas para membros');
           } else {
             // Regular user - only public images
             query = query.eq('visibility', 'public');

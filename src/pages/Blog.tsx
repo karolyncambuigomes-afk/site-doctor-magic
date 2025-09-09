@@ -81,7 +81,7 @@ const Blog = () => {
           </section>
 
           {/* Categories */}
-          <section className="py-6 sm:py-8 border-b border-border">
+          <section className="py-6 sm:py-8 border-b border-border bg-gray-50">
             <div className="container-width">
               <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center px-4">
                 <Link to="/blog">

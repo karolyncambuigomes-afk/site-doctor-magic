@@ -29,10 +29,10 @@ export const CategoryFilters: React.FC = () => {
   return <section className="py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="luxury-heading-lg text-black mb-4">
+          <h2 className="luxury-heading-lg text-foreground mb-4">
             Browse by Preference
           </h2>
-          <p className="luxury-body-md text-black max-w-2xl mx-auto">
+          <p className="luxury-body-md text-foreground max-w-2xl mx-auto">
             Discover your perfect companion from our carefully curated selection of elite London models
           </p>
         </div>
@@ -51,7 +51,7 @@ export const CategoryFilters: React.FC = () => {
         
         <div className="text-center mt-8">
           <a href="https://wa.me/447436190679" target="_blank" rel="noopener noreferrer" className="inline-block border border-border hover:border-foreground px-8 py-3 transition-all duration-300">
-            <span className="luxury-body-sm tracking-[0.3em] uppercase font-light text-black">CBOOK NOW</span>
+            <span className="luxury-body-sm tracking-[0.3em] uppercase font-light text-foreground">BOOK NOW</span>
           </a>
         </div>
       </div>

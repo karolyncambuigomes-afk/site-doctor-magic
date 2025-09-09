@@ -266,7 +266,7 @@ const About = () => {
                 Contact us today to discover how Five London can provide you with an unforgettable luxury companionship experience. Our dedicated team is ready to assist you in creating the perfect arrangement tailored to your specific needs and preferences.
               </p>
               <a
-                href="https://wa.me/447397123456"
+                href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg font-medium"

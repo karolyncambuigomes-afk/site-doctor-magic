@@ -94,7 +94,7 @@ export const Footer = () => {
                 <Phone className="w-4 h-4" />
                 <span>+44 7436 190679</span>
               </a>
-              <a href="mailto:info@fivelondon.com" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="mailto:models@exclusivefivelondon.com" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" />
                 <span>Contact Us</span>
               </a>

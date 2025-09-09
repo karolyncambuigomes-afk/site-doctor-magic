@@ -176,7 +176,7 @@ const FAQ = () => {
               </a>
 
               <a 
-                href="mailto:info@fivelondon.com"
+                href="mailto:models@exclusivefivelondon.com"
                 className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
               >
                 <Mail className="w-8 h-8 text-white mx-auto mb-4" />

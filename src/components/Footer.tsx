@@ -23,8 +23,11 @@ export const Footer = () => {
               <h3 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
                 Subscribe to Our Newsletter
               </h3>
-              <p className="luxury-body-xs text-muted-foreground mb-4 leading-relaxed">
+              <p className="luxury-body-xs text-muted-foreground mb-2 leading-relaxed">
                 Stay informed about our exclusive events, new companions, and luxury experiences in London.
+              </p>
+              <p className="luxury-body-xs text-muted-foreground mb-4 leading-relaxed">
+                Receive priority access to new model arrivals, special events in Mayfair, Knightsbridge, and Chelsea, plus insider guides to London's finest restaurants, hotels, and cultural experiences. Our newsletter delivers curated content for discerning clients who appreciate luxury, sophistication, and exclusivity.
               </p>
               <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                 <Input type="email" placeholder="Enter your email address" value={email} onChange={e => setEmail(e.target.value)} className="flex-1" required />
@@ -144,7 +147,10 @@ export const Footer = () => {
                 © {currentYear} Five London. All rights reserved.
               </p>
               <p className="text-xs text-muted-foreground">
-                Premium companion services in London since 2020
+                Premium companion services in London since 2020. Elite escort agency specializing in sophisticated companions for business events, social occasions, and cultural experiences throughout Central London's most prestigious areas.
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Licensed professional services with complete discretion guaranteed. Available 24/7 for outcall services to luxury hotels and private venues in Mayfair, Knightsbridge, Chelsea, and Belgravia.
               </p>
             </div>
             

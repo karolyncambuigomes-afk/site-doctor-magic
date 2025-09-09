@@ -5,7 +5,7 @@ import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
-import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema } from '@/utils/structuredData';
+import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema, generateFAQSchema } from '@/utils/structuredData';
 import { generateLocalBusinessSchema } from '@/utils/geoTargeting';
 import { generateLocalBusinessByPostcode, generateServiceWithPricingSchema, generateContactPointSchema } from '@/utils/advancedStructuredData';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
@@ -13,6 +13,7 @@ import { useReviews } from '@/hooks/useReviews';
 import { useBookingContent } from '@/hooks/useBookingContent';
 import heroSecondBanner from '@/assets/hero-second-banner-new.jpg';
 import { CategoryFilters } from '@/components/CategoryFilters';
+import { faqSchemaData, serviceSchemaData, londonAreasData } from '@/data/faq-schema';
 const Index = () => {
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
@@ -24,10 +25,10 @@ const Index = () => {
     generateWebsiteSchema(),
     generateServiceSchema("Premium Companion Services", "Elite companions for discerning clients in London", "£300-£2000"),
     generateServiceWithPricingSchema(
-      "Luxury Companion Services London",
-      "Premium, sophisticated companions for exclusive events, business functions, and cultural experiences throughout London",
-      "London",
-      "£££"
+      serviceSchemaData.serviceName,
+      serviceSchemaData.description,
+      serviceSchemaData.areaName,
+      serviceSchemaData.priceRange
     ),
     generateLocalBusinessSchema({
       name: "Central London",
@@ -35,6 +36,7 @@ const Index = () => {
       description: "Premium companion services in Central London"
     }),
     generateContactPointSchema(),
+    generateFAQSchema(faqSchemaData),
     // Individual area schemas for major London districts
     generateLocalBusinessByPostcode("W1", "Mayfair", reviewData),
     generateLocalBusinessByPostcode("SW1", "Knightsbridge", reviewData),
@@ -81,14 +83,60 @@ const Index = () => {
           </div>
         </section>
 
+        {/* About Our Services - Collapsible Rich Content */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                About Our Premium Services
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Elite Escort Services London</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
+                  </p>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Premium London Areas</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Mayfair W1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Home to luxury shopping at Bond Street, exclusive dining, and world-class hotels including Claridge's and The Connaught.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Knightsbridge SW1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Prestigious area near Harrods, Hyde Park, and luxury hotels including The Berkeley and Mandarin Oriental.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Chelsea SW3</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Sophisticated neighbourhood with world-class restaurants, galleries, and exclusive private members' clubs.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Belgravia SW1</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Elite residential area with Georgian architecture, premium boutiques, and Michelin-starred dining venues.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
             <h2 className="luxury-heading-xl text-black mb-6">
               Elite Companion
             </h2>
-            <p className="luxury-body-base text-black mb-16 md:mb-20">
+            <p className="luxury-body-base text-black mb-4">
               Contact us through your preferred method for a discreet consultation
+            </p>
+            <p className="luxury-body-sm text-muted-foreground mb-16 md:mb-20">
+              Our dedicated team is available 24/7 to arrange exclusive companion services throughout London's premium districts. All communications are handled with complete confidentiality and professionalism.
             </p>
             
             <div className="flex items-center justify-center gap-12 md:gap-16">

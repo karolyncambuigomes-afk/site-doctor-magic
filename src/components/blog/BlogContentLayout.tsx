@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { BlogTextImageSection } from './BlogTextImageSection';
 import { BlogVenueCard } from './BlogVenueCard';
+import { BlogContentIndex } from './BlogContentIndex';
+import { BlogProgressBar } from './BlogProgressBar';
+import { BlogShareButtons } from './BlogShareButtons';
 import { getImageForContent } from '@/data/blog-images';
 
 interface BlogSection {
@@ -16,6 +19,25 @@ interface BlogContentLayoutProps {
 }
 
 export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, slug }) => {
+  // Add section IDs to content for navigation
+  useEffect(() => {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    
+    Array.from(tempDiv.querySelectorAll('h2, h3')).forEach((heading, index) => {
+      heading.id = `section-${index}`;
+    });
+    
+    // Update DOM with IDs
+    setTimeout(() => {
+      document.querySelectorAll('h2, h3').forEach((heading, index) => {
+        if (!heading.id) {
+          heading.id = `section-${index}`;
+        }
+      });
+    }, 100);
+  }, [content]);
+
   const parseContent = (htmlContent: string): BlogSection[] => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
@@ -63,36 +85,64 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
 
   const sections = parseContent(content);
 
+  const currentUrl = `${window.location.origin}/blog/${slug}`;
+  const firstSection = sections[0];
+
   return (
-    <div className="space-y-8">
-      {sections.map((section, index) => {
-        const imageSrc = getImageForContent(slug, section.title, index);
-        const imagePosition = index % 2 === 0 ? 'right' : 'left';
-        
-        return (
-          <React.Fragment key={index}>
-            {section.type === 'venue' ? (
-              <BlogVenueCard 
-                title={section.title}
-                content={section.content}
-                imageSrc={imageSrc || undefined}
+    <>
+      <BlogProgressBar />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 relative">
+        {/* Content Index - Sidebar */}
+        <div className="lg:col-span-1 order-2 lg:order-1">
+          <div className="lg:sticky lg:top-24">
+            <BlogContentIndex content={content} slug={slug} />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="lg:col-span-3 order-1 lg:order-2">
+          <div className="space-y-12">
+            {sections.map((section, index) => {
+              const imageSrc = getImageForContent(slug, section.title, index);
+              const imagePosition = index % 2 === 0 ? 'right' : 'left';
+              
+              return (
+                <React.Fragment key={index}>
+                  {section.type === 'venue' ? (
+                    <BlogVenueCard 
+                      title={section.title}
+                      content={section.content}
+                      imageSrc={imageSrc || undefined}
+                    />
+                  ) : (
+                    <BlogTextImageSection
+                      title={section.title}
+                      content={section.content}
+                      imageSrc={imageSrc || undefined}
+                      imagePosition={imagePosition}
+                      index={index}
+                    />
+                  )}
+                  
+                  {index < sections.length - 1 && (
+                    <Separator className="my-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent h-px max-w-2xl mx-auto" />
+                  )}
+                </React.Fragment>
+              );
+            })}
+
+            {/* Share Section */}
+            <div className="mt-16 pt-8 border-t border-gray-200">
+              <BlogShareButtons 
+                title={firstSection?.title || 'Luxury London Experience'}
+                url={currentUrl}
+                description={firstSection?.content.substring(0, 150) || 'Discover luxury experiences in London'}
               />
-            ) : (
-              <BlogTextImageSection
-                title={section.title}
-                content={section.content}
-                imageSrc={imageSrc || undefined}
-                imagePosition={imagePosition}
-                index={index}
-              />
-            )}
-            
-            {index < sections.length - 1 && (
-              <Separator className="my-20 bg-gray-300 h-px max-w-2xl mx-auto" />
-            )}
-          </React.Fragment>
-        );
-      })}
-    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

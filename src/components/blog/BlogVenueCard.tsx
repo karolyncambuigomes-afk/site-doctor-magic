@@ -22,20 +22,22 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
   });
 
   return (
-    <div className="my-16">
-      <Card className="border border-gray-200 bg-white shadow-xl overflow-hidden">
+    <article className="my-20">
+      <Card className="border border-gray-200 bg-white shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2">
         {imageSrc && (
-          <div className="aspect-video bg-gray-100 relative overflow-hidden">
+          <div className="aspect-[21/9] bg-gray-100 relative overflow-hidden">
             <img 
               src={imageSrc}
               alt={title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+              loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-6 left-6">
-              <h3 className="luxury-heading-lg text-white font-light drop-shadow-lg">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute bottom-8 left-8">
+              <h3 className="luxury-heading-lg text-white font-light drop-shadow-2xl mb-2">
                 {title}
               </h3>
+              <div className="w-16 h-1 bg-white/80 rounded-full"></div>
             </div>
           </div>
         )}
@@ -49,8 +51,8 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
           )}
         </CardHeader>
         
-        <CardContent className="px-8 pb-8">
-          <div className="bg-gray-50 rounded-xl p-6">
+        <CardContent className="px-10 pb-10">
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-8 shadow-inner">
             <Table>
               <TableHeader>
                 <TableRow className="border-gray-200">
@@ -90,6 +92,6 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
           </div>
         </CardContent>
       </Card>
-    </div>
+    </article>
   );
 };

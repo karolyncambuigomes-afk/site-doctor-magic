@@ -135,9 +135,9 @@ const BlogPost = () => {
             </div>
           </section>
 
-          <section className="pb-16 bg-white">
+          <section className="pb-20 bg-white">
             <div className="container mx-auto px-4">
-              <div className="max-w-6xl mx-auto">
+              <div className="max-w-7xl mx-auto">
                 <BlogContentRenderer content={article.content} slug={article.slug} />
               </div>
             </div>

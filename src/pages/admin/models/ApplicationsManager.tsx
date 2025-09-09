@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
-import ModelApplicationManager from '@/components/ModelApplicationManager';
+import { ModelApplicationManager } from '@/components/ModelApplicationManager';
 
 export const ApplicationsManager: React.FC = () => {
   return (

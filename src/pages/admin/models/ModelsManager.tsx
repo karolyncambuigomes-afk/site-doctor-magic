@@ -42,7 +42,7 @@ interface Model {
   created_at: string;
 }
 
-export const ModelsManager: React.FC = () => {
+export const ModelsManagerContent: React.FC = () => {
   const [models, setModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingModel, setEditingModel] = useState<Model | null>(null);
@@ -158,155 +158,160 @@ export const ModelsManager: React.FC = () => {
   }
 
   return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="luxury-heading-xl mb-2 flex items-center gap-2">
+            <Users className="h-6 w-6" />
+            Models Management
+          </h1>
+          <p className="text-muted-foreground">
+            Manage model profiles with SEO optimization for search visibility.
+          </p>
+        </div>
+        
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={() => setEditingModel(null)} className="flex items-center gap-2">
+              <Plus className="h-4 w-4" />
+              Add Model
+            </Button>
+          </DialogTrigger>
+          <ModelDialog 
+            model={editingModel} 
+            onSave={handleSaveModel}
+            onClose={() => setIsDialogOpen(false)}
+          />
+        </Dialog>
+      </div>
+
+      {/* Search */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <Label htmlFor="search">Search Models</Label>
+              <div className="relative">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="search"
+                  placeholder="Search by name or location..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              {filteredModels.length} of {models.length} models
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Models Table */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Models</CardTitle>
+          <CardDescription>
+            Manage your model profiles and their SEO settings.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Location</TableHead>
+                <TableHead>Age</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Visibility</TableHead>
+                <TableHead>Created</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredModels.map((model) => (
+                <TableRow key={model.id}>
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-2">
+                      {model.image && (
+                        <img 
+                          src={model.image} 
+                          alt={model.name}
+                          className="h-8 w-8 rounded-full object-cover"
+                        />
+                      )}
+                      {model.name}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline">{model.location}</Badge>
+                  </TableCell>
+                  <TableCell>{model.age}</TableCell>
+                  <TableCell>{model.price}</TableCell>
+                  <TableCell>
+                    <Badge variant={model.availability ? "default" : "secondary"}>
+                      {model.availability || "Not Set"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Badge variant={model.members_only ? "destructive" : "secondary"}>
+                        {model.members_only ? "Members Only" : "Public"}
+                      </Badge>
+                      {!model.face_visible && (
+                        <Badge variant="outline" className="text-xs">
+                          Face Hidden
+                        </Badge>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    {new Date(model.created_at).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setEditingModel(model);
+                          setIsDialogOpen(true);
+                        }}
+                      >
+                        <Edit className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDeleteModel(model.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export const ModelsManager: React.FC = () => {
+  return (
     <>
       <SEO 
         title="Models Management - Admin"
         description="Manage models with SEO optimization"
         noIndex={true}
       />
-      
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="luxury-heading-xl mb-2 flex items-center gap-2">
-              <Users className="h-6 w-6" />
-              Models Management
-            </h1>
-            <p className="text-muted-foreground">
-              Manage model profiles with SEO optimization for search visibility.
-            </p>
-          </div>
-          
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={() => setEditingModel(null)} className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                Add Model
-              </Button>
-            </DialogTrigger>
-            <ModelDialog 
-              model={editingModel} 
-              onSave={handleSaveModel}
-              onClose={() => setIsDialogOpen(false)}
-            />
-          </Dialog>
-        </div>
-
-        {/* Search */}
-        <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
-                <Label htmlFor="search">Search Models</Label>
-                <div className="relative">
-                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="search"
-                    placeholder="Search by name or location..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                {filteredModels.length} of {models.length} models
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Models Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Models</CardTitle>
-            <CardDescription>
-              Manage your model profiles and their SEO settings.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Age</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Visibility</TableHead>
-                  <TableHead>Created</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredModels.map((model) => (
-                  <TableRow key={model.id}>
-                    <TableCell className="font-medium">
-                      <div className="flex items-center gap-2">
-                        {model.image && (
-                          <img 
-                            src={model.image} 
-                            alt={model.name}
-                            className="h-8 w-8 rounded-full object-cover"
-                          />
-                        )}
-                        {model.name}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{model.location}</Badge>
-                    </TableCell>
-                    <TableCell>{model.age}</TableCell>
-                    <TableCell>{model.price}</TableCell>
-                    <TableCell>
-                      <Badge variant={model.availability ? "default" : "secondary"}>
-                        {model.availability || "Not Set"}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Badge variant={model.members_only ? "destructive" : "secondary"}>
-                          {model.members_only ? "Members Only" : "Public"}
-                        </Badge>
-                        {!model.face_visible && (
-                          <Badge variant="outline" className="text-xs">
-                            Face Hidden
-                          </Badge>
-                        )}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      {new Date(model.created_at).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setEditingModel(model);
-                            setIsDialogOpen(true);
-                          }}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleDeleteModel(model.id)}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      </div>
+      <ModelsManagerContent />
     </>
   );
 };
@@ -507,7 +512,7 @@ const ModelDialog: React.FC<{
           </Button>
           <Button type="submit">
             <Save className="h-4 w-4 mr-2" />
-            Save Model
+            {model ? 'Update Model' : 'Create Model'}
           </Button>
         </div>
       </form>

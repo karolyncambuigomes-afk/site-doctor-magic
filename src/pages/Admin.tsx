@@ -23,7 +23,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryManager } from '@/components/GalleryManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
-import ModelApplicationManager from '@/components/ModelApplicationManager';
+import { ModelApplicationManager } from '@/components/ModelApplicationManager';
 import { HomepageManager } from '@/components/HomepageManager';
 import { ServicesManager } from '@/components/ServicesManager';
 import { LocationsManager } from '@/components/LocationsManager';

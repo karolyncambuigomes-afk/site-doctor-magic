@@ -475,4 +475,5 @@ const ModelApplicationManager = () => {
   );
 };
 
+export { ModelApplicationManager };
 export default ModelApplicationManager;

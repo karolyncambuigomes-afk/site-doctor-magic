@@ -11,6 +11,7 @@ import { Check, Lock, Mail } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { toast } from 'sonner';
 import { MobileAuthDebugger } from '@/components/MobileAuthDebugger';
+import { ServiceWorkerKiller } from '@/components/ServiceWorkerKiller';
 export const Membership: React.FC = () => {
   const auth = useAuth();
   const {
@@ -377,6 +378,7 @@ export const Membership: React.FC = () => {
         
         <Footer />
         <MobileAuthDebugger />
+        <ServiceWorkerKiller />
       </div>
     </>;
 };

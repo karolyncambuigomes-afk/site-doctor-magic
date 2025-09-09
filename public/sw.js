@@ -85,52 +85,24 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event - special handling for mobile auth endpoints
+// Fetch event - completely bypass service worker for auth on mobile
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
   const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
   
-  // Skip service worker entirely for auth endpoints to prevent request body corruption
-  if (url.pathname.includes('/auth/') || url.pathname.includes('/token') || url.pathname.includes('supabase.co/auth/')) {
-    console.log('SW: Bypassing auth endpoint:', url.pathname);
-    return;
+  // COMPLETELY BYPASS service worker for ANY auth-related requests
+  if (url.pathname.includes('/auth') || 
+      url.pathname.includes('/token') || 
+      url.hostname.includes('supabase.co') ||
+      event.request.method === 'POST') {
+    console.log('SW: Completely bypassing auth/POST request:', url.pathname);
+    return; // Let browser handle directly
   }
   
+  // For mobile, bypass ALL requests to prevent any interference
   if (isMobileBrowser) {
-    // For mobile POST requests with body, clone properly to avoid corruption
-    if (event.request.method === 'POST' && event.request.body) {
-      event.respondWith(
-        (async () => {
-          try {
-            // Clone the request properly to preserve body
-            const clonedRequest = event.request.clone();
-            const response = await fetch(clonedRequest);
-            return response;
-          } catch (error) {
-            console.error('SW: Mobile POST request failed:', error);
-            throw error;
-          }
-        })()
-      );
-      return;
-    }
-    
-    // For other mobile requests, use cache-busting headers
-    event.respondWith(
-      fetch(new Request(event.request.url, {
-        method: event.request.method,
-        headers: new Headers({
-          ...Object.fromEntries(event.request.headers.entries()),
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-          'Expires': '0'
-        }),
-        mode: event.request.mode,
-        credentials: event.request.credentials,
-        body: event.request.body
-      }))
-    );
-    return;
+    console.log('SW: Mobile detected, bypassing all requests');
+    return; // Let browser handle directly
   }
   
   // Skip non-GET requests and never-cache patterns

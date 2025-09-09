@@ -49,19 +49,22 @@ export const Membership: React.FC = () => {
         <Navigation />
         
         <main className="pt-16">
-          {/* Hero Section */}
-          <section className="py-12 md:py-20 lg:py-24 bg-white">
-        <div className="container-width text-center">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-              Members Area
-            </h1>
-            <p className="luxury-body-lg text-black">
-              Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
-            </p>
-          </div>
-        </div>
-      </section>
+          {/* Elegant Hero Section */}
+          <section className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-b from-background to-background/95">
+            <div className="absolute inset-0 bg-[url('/images/ritz-london-exterior.jpg')] bg-cover bg-center bg-no-repeat opacity-15"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+            
+            <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-16 text-center">
+              <div className="max-w-2xl mx-auto">
+                <h1 className="luxury-heading-xl mb-4 text-foreground font-light tracking-wide leading-tight">
+                  Members Area
+                </h1>
+                <p className="luxury-body-lg mb-6 text-muted-foreground">
+                  Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
+                </p>
+              </div>
+            </div>
+          </section>
 
       {/* Divider */}
       <div className="py-3">

@@ -43,11 +43,11 @@ export const HeroSection: React.FC = () => {
           </p>
           
           {/* SEO Rich Content - Always visible */}
-          <div className="mb-8">
-            <p className="luxury-body-md text-white/80 mb-4 leading-relaxed">
+          <div className="mb-6 md:mb-8">
+            <p className="text-sm md:text-base text-white/80 mb-3 md:mb-4 leading-relaxed">
               {heroContent.content}
             </p>
-            <p className="luxury-body-sm text-white/70 mb-6">
+            <p className="text-xs md:text-sm text-white/70 mb-4 md:mb-6">
               Our carefully selected international models offer exclusive companion services throughout Central London, specializing in high-class entertainment, cultural experiences, and business accompaniment for distinguished clients seeking uncompromising quality and elegance.
             </p>
           </div>

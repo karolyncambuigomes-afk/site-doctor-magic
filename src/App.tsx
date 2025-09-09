@@ -18,6 +18,7 @@ import { SkipToContent } from "@/components/SkipToContent";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Auth } from "./pages/Auth";
@@ -203,159 +204,159 @@ const App = () => (
                   <Route path="/join-us" element={<JoinUs />} />
           {/* New Admin Panel Routes */}
           <Route path="/admin" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <AdminDashboard />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/dashboard" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <AdminDashboard />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* SEO Management */}
           <Route path="/admin/seo/global" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <GlobalSEO />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/seo/meta-tags" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <MetaTagsManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/seo/structured-data" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <StructuredDataManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/seo/technical" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <TechnicalSEO />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/seo/performance" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <PerformanceAnalytics />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* Content Management */}
           <Route path="/admin/content" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/content/homepage" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/content/blog" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/content/site" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/content/faq" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/content/gallery" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ContentManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* Models & Services */}
           <Route path="/admin/models" element={<Navigate to="/admin/models/list" replace />} />
           <Route path="/admin/models/list" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ModelsListManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/new" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ModelFormPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/edit/:id" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ModelFormPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/applications" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ApplicationsManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/characteristics" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <CharacteristicsManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/services" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ServicesManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/models/reviews" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ReviewsManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* Locations & Geo */}
           <Route path="/admin/locations/list" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <LocationsManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/locations/seo" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <LocalSEOManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* System Settings */}
           <Route path="/admin/settings/theme" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <ThemeManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/settings/categories" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <CategoriesManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/settings/legal" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <LegalPagesManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* User Management */}
           <Route path="/admin/users/list" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <UsersManager />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/users/permissions" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <PermissionsManagerPage />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
           {/* System Settings */}
           <Route path="/admin/system" element={
-            <ProtectedRoute requiresAccess={true}>
+            <AdminProtectedRoute>
               <SystemSettings />
-            </ProtectedRoute>
+            </AdminProtectedRoute>
           } />
           
                   <Route path="*" element={<NotFound />} />

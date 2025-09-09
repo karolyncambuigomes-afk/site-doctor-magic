@@ -99,9 +99,9 @@ export const ModelsCarousel = () => {
                              {model.name}
                            </h3>
                           <div className="flex items-center justify-between">
-                            <p className="luxury-body-sm text-white/90 tracking-normal">
-                              {model.age ? `${model.age} anos` : ''}
-                            </p>
+                             <p className="luxury-body-sm text-white/90 tracking-normal">
+                               {model.age ? `${model.age} years old` : ''}
+                             </p>
                             {model.characteristics?.[0] && (
                               <span className="luxury-body-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm">
                                 {model.characteristics[0]}

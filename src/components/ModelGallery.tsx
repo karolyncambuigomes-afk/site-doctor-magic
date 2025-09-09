@@ -120,34 +120,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     }
   ];
 
-  // Check if there are exclusive images for members
-  const [totalImages, setTotalImages] = useState(0);
-  const [hasExclusiveImages, setHasExclusiveImages] = useState(false);
-
-  useEffect(() => {
-    const checkExclusiveImages = async () => {
-      try {
-        // Get total number of images for this model
-        const { data: allImagesData } = await supabase
-          .from('model_gallery')
-          .select('visibility')
-          .eq('model_id', modelId);
-
-        if (allImagesData) {
-          setTotalImages(allImagesData.length);
-          const exclusiveCount = allImagesData.filter(img => 
-            img.visibility === 'members_only' || img.visibility === 'admin_only'
-          ).length;
-          setHasExclusiveImages(exclusiveCount > 0);
-        }
-      } catch (error) {
-        console.error('Error checking exclusive images:', error);
-      }
-    };
-
-    checkExclusiveImages();
-  }, [modelId, galleryImages]);
-
   console.log('🖼️ SITE GALERIA: allImages após processamento:', allImages);
   console.log('🖼️ SITE GALERIA: galleryImages.length:', galleryImages.length);
 

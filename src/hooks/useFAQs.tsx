@@ -187,7 +187,6 @@ export const useFAQs = () => {
       question: 'Do you provide companion services in Mayfair and Westminster areas?',
       answer: 'Yes, we provide premium companion services throughout Central London including Mayfair (W1), Westminster (SW1), and all prime areas. Our companions are available for both incall and outcall services in these prestigious locations.',
       order_index: 100,
-      active: true,
       is_active: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
@@ -197,7 +196,6 @@ export const useFAQs = () => {
       question: 'What areas of London do you cover for outcall services?',
       answer: 'We cover all Central London areas including Kensington (SW7), Chelsea (SW3), Canary Wharf (E14), Covent Garden (WC2), Camden (NW1), and surrounding premium districts. Travel arrangements can be made for locations outside Central London.',
       order_index: 101,
-      active: true,
       is_active: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
@@ -207,7 +205,6 @@ export const useFAQs = () => {
       question: 'Do you serve business clients in the City of London financial district?',
       answer: 'Absolutely. We understand the unique requirements of business professionals in the City of London and Canary Wharf. Our companions are experienced in corporate environments and can provide discreet, professional companionship for business events, dinners, and social occasions.',
       order_index: 102,
-      active: true,
       is_active: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
@@ -217,7 +214,6 @@ export const useFAQs = () => {
       question: 'Are your services available in luxury hotels across London?',
       answer: 'Yes, our companions are welcome at all major luxury hotels in London including The Ritz, Claridge\'s, The Savoy, and other prestigious establishments in Mayfair, Covent Garden, and Central London. We maintain excellent relationships with premium hotel concierge services.',
       order_index: 103,
-      active: true,
       is_active: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
@@ -227,7 +223,6 @@ export const useFAQs = () => {
       question: 'Can you arrange services for events in South Kensington and Knightsbridge?',
       answer: 'Certainly. South Kensington and Knightsbridge are among our core service areas. Whether for gallery openings, museum events, shopping excursions on Sloane Street, or dining at prestigious venues, our companions are perfectly suited for these sophisticated locations.',
       order_index: 104,
-      active: true,
       is_active: true,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()

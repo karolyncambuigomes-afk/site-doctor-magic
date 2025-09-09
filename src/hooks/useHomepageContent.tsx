@@ -19,7 +19,7 @@ interface HomepageContentData {
   content: string;
   button_text?: string;
   button_url?: string;
-  active: boolean;
+  is_active: boolean;
 }
 
 export const useHomepageContent = () => {
@@ -43,7 +43,7 @@ export const useHomepageContent = () => {
         .from('site_content')
         .select('*')
         .eq('section', 'homepage_hero_main')
-        .eq('active', true)
+        .eq('is_active', true)
         .single();
 
       if (error && error.code !== 'PGRST116') {
@@ -81,7 +81,7 @@ export const useHomepageContent = () => {
           content: updates.content || heroContent.content,
           button_text: updates.button_primary_text || heroContent.button_primary_text,
           button_url: updates.button_primary_url || heroContent.button_primary_url,
-          active: true,
+          is_active: true,
           updated_at: new Date().toISOString()
         })
         .select()

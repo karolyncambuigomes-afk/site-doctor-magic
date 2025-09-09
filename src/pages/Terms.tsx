@@ -81,7 +81,7 @@ const Terms = () => {
                 For questions regarding these terms, please contact us at:
               </p>
               <p className="text-gray-600">
-                Email: legal@fivelondon.com<br />
+                Email: models@exclusivefivelondon.com<br />
                 Phone: +44 7436 190679
               </p>
             </section>

@@ -182,7 +182,7 @@ const FAQ = () => {
                 <Mail className="w-8 h-8 text-white mx-auto mb-4" />
                 <h3 className="text-lg font-medium mb-2">Email Us</h3>
                 <p className="text-white/70 mb-3">Get detailed information</p>
-                <span className="text-white font-medium">info@fivelondon.com</span>
+                <span className="text-white font-medium">models@exclusivefivelondon.com</span>
               </a>
             </div>
           </div>

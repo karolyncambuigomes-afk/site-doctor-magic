@@ -86,7 +86,7 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
+            <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
               Support & Information
             </h4>
             <div className="space-y-3">

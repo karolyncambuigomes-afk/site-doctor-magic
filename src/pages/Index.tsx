@@ -88,7 +88,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <details className="mb-8">
               <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
-                About Our Premium Services
+                <h2>About Our Premium Services</h2>
               </summary>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
@@ -130,7 +130,7 @@ const Index = () => {
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
             <h2 className="luxury-heading-xl text-black mb-6">
-              Elite Companion
+              Elite Companion Services
             </h2>
             <p className="luxury-body-base text-black mb-4">
               Contact us through your preferred method for a discreet consultation

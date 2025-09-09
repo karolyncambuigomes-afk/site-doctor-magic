@@ -119,7 +119,7 @@ const Blog = () => {
                       </div>
                     </div>
                     
-                    <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6">
+                    <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6 bg-white">
                       <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />

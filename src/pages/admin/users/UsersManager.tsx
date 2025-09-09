@@ -429,10 +429,10 @@ export const UsersManager: React.FC = () => {
                       </Button>
                     )}
                     
-                    {user.role === 'admin' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
+                     {user.role === 'admin' && (
+                       <Button
+                         variant="outline"
+                         size="sm"
                          onClick={() => updateUserRole(user.id, 'user')}
                        >
                          Remover Admin

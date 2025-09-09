@@ -272,30 +272,38 @@ export const GalleryManager: React.FC = () => {
                 <div className="space-y-4">
                   <div className="space-y-2">
                     <Label>Modelo</Label>
-                    <Select value={selectedModel} onValueChange={setSelectedModel}>
-                      <SelectTrigger className="bg-background">
-                        <SelectValue placeholder="Selecione uma modelo" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-background border border-border shadow-lg z-50">
-                        {availableModels.length === 0 ? (
-                          <SelectItem value="no-models" disabled>
-                            Nenhuma modelo disponível
-                          </SelectItem>
-                        ) : (
-                          availableModels.map(model => (
+                    {availableModels.length === 0 ? (
+                      <div className="p-4 border rounded-lg bg-muted text-center">
+                        <p className="text-sm text-muted-foreground">
+                          {models.filter(m => !m.image).length > 0 
+                            ? `Nenhuma modelo disponível. ${models.filter(m => !m.image).length} modelo(s) sem foto precisam de imagens antes de serem adicionadas ao carousel.`
+                            : 'Todas as modelos com foto já estão no carousel.'
+                          }
+                        </p>
+                      </div>
+                    ) : (
+                      <Select value={selectedModel} onValueChange={setSelectedModel}>
+                        <SelectTrigger className="bg-background">
+                          <SelectValue placeholder="Selecione uma modelo" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background border border-border shadow-lg z-50">
+                          {availableModels.map(model => (
                             <SelectItem key={model.id} value={model.id} className="bg-background hover:bg-accent">
                               {model.name}
                             </SelectItem>
-                          ))
-                        )}
-                      </SelectContent>
-                    </Select>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
                   </div>
                   <div className="flex justify-end gap-2">
                     <Button variant="outline" onClick={() => setShowAddDialog(false)}>
                       Cancelar
                     </Button>
-                    <Button onClick={addToCarousel} disabled={!selectedModel}>
+                    <Button 
+                      onClick={addToCarousel} 
+                      disabled={!selectedModel || availableModels.length === 0}
+                    >
                       Adicionar
                     </Button>
                   </div>

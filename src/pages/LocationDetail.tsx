@@ -109,7 +109,7 @@ const LocationDetail = () => {
         
         <main className="pt-16">
           {/* Minimal Hero */}
-          <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <section className="py-8 md:py-12 lg:py-16 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
@@ -123,13 +123,13 @@ const LocationDetail = () => {
           </section>
 
           {/* Gallery Section */}
-          <section className="py-16 md:py-20 bg-white">
+          <section className="py-10 md:py-14 bg-white">
             <div className="container-width mx-auto px-6">
-              <div className="text-center mb-12">
-                <h2 className="luxury-heading-lg text-foreground mb-6">
+                <div className="text-center mb-8">
+                <h2 className="luxury-heading-lg text-foreground mb-4">
                   Our Exclusive {location.name} Collection
                 </h2>
-                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
                 <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">
                   Meet our sophisticated companions available in {location.name}
                 </p>
@@ -154,13 +154,13 @@ const LocationDetail = () => {
 
           {/* Available Models - Only show if there are models for this location */}
           {locationModels.length > 0 && (
-            <section className="py-20 md:py-28 bg-gradient-to-b from-gray-50 to-white">
+            <section className="py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white">
               <div className="container-width mx-auto px-6">
-                <div className="text-center mb-16">
-                  <h2 className="luxury-heading-lg text-primary mb-6">
+                <div className="text-center mb-12">
+                  <h2 className="luxury-heading-lg text-primary mb-4">
                     Available Companions in {location.name}
                   </h2>
-                  <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                  <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
                   <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
                     Meet our exclusive selection of sophisticated companions available in {location.name}
                   </p>
@@ -183,7 +183,7 @@ const LocationDetail = () => {
           )}
 
           {/* SEO Content Section - Collapsible */}
-          <section className="py-16 md:py-20 bg-white">
+          <section className="py-10 md:py-14 bg-white">
             <div className="container-width mx-auto px-6">
               <div className="text-center mb-8">
                 <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
@@ -201,7 +201,7 @@ const LocationDetail = () => {
                       )}
                     </Button>
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="mt-12 animate-accordion-down">
+                  <CollapsibleContent className="mt-8 animate-accordion-down">
                      <div 
                        className="max-w-4xl mx-auto !text-black [&>*]:!text-black [&>h2]:luxury-heading-lg [&>h2]:!text-black [&>h3]:luxury-heading-md [&>h3]:!text-black [&>p]:luxury-body-base [&>p]:!text-black [&>p]:leading-relaxed [&>ul]:!text-black [&>li]:!text-black [&>strong]:!text-black [&>em]:!text-black [&>a]:!text-black"
                        dangerouslySetInnerHTML={{ __html: location.content }}
@@ -213,13 +213,13 @@ const LocationDetail = () => {
           </section>
 
           {/* Other Locations */}
-          <section className="py-16 md:py-20 bg-white">
+          <section className="py-10 md:py-14 bg-white">
             <div className="container-width mx-auto px-6">
-              <div className="text-center mb-12">
+              <div className="text-center mb-8">
                 <h2 className="luxury-heading-lg text-foreground mb-4">
                   Explore Other Locations
                 </h2>
-                <p className="text-foreground mb-8">
+                <p className="text-foreground mb-6">
                   Discover our premium escort services in London's most exclusive districts
                 </p>
               </div>
@@ -246,7 +246,7 @@ const LocationDetail = () => {
           </section>
 
           {/* Contact Section */}
-          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <section className="py-8 md:py-12 lg:py-16 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">

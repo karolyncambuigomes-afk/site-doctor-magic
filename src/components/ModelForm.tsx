@@ -9,11 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryUpload } from '@/components/GalleryUpload';
+import { ModelGallery } from '@/components/ModelGallery';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
 import { locations } from '@/data/locations';
-import { X, Plus, Image as ImageIcon, AlertCircle } from 'lucide-react';
+import { X, Plus, Image as ImageIcon, AlertCircle, ExternalLink, Eye } from 'lucide-react';
 
 interface Model {
   id?: string;
@@ -503,41 +504,93 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
 
       {/* Gallery Management */}
-      <Card className={`border-2 ${model?.id ? 'border-border bg-white' : 'border-border bg-white'}`}>
-        <CardHeader className="bg-white">
-          <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
-            <ImageIcon className="w-5 h-5" />
-            Galeria de Fotos (Sistema Único)
-          </CardTitle>
-          <p className={`text-sm ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
-            {model?.id 
-              ? "📸 Adicione todas as fotos aqui. A primeira foto (posição 1) será a principal que aparece nos cards" 
-              : "⚠️ Salve primeiro as informações básicas para poder adicionar fotos"
-            }
-          </p>
-        </CardHeader>
-        <CardContent className="pt-6">
-          {model?.id ? (
-            <GalleryUpload modelId={model.id} />
-          ) : (
-            <div className="text-center py-8 border-2 border-dashed border-border rounded-lg bg-muted">
-              <div className="mb-4 text-4xl">🔒</div>
-              <p className="mb-2 font-medium text-foreground">Galeria Bloqueada</p>
-              <p className="text-sm text-muted-foreground mb-4">
-                Primeiro salve as informações básicas e depois você poderá adicionar fotos à galeria
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Upload Management */}
+        <Card className={`border-2 ${model?.id ? 'border-border bg-white' : 'border-border bg-white'}`}>
+          <CardHeader className="bg-white">
+            <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
+              <ImageIcon className="w-5 h-5" />
+              Gerenciar Fotos
+            </CardTitle>
+            <p className={`text-sm ${model?.id ? 'text-foreground' : 'text-muted-foreground'}`}>
+              {model?.id 
+                ? "📸 Adicione, edite e organize as fotos da galeria" 
+                : "⚠️ Salve primeiro as informações básicas para poder adicionar fotos"
+              }
+            </p>
+          </CardHeader>
+          <CardContent className="pt-6">
+            {model?.id ? (
+              <GalleryUpload modelId={model.id} />
+            ) : (
+              <div className="text-center py-8 border-2 border-dashed border-border rounded-lg bg-muted">
+                <div className="mb-4 text-4xl">🔒</div>
+                <p className="mb-2 font-medium text-foreground">Galeria Bloqueada</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Primeiro salve as informações básicas e depois você poderá adicionar fotos à galeria
+                </p>
+                <Button 
+                  type="submit" 
+                  variant="default" 
+                  className="mt-2"
+                  disabled={!formData.name}
+                >
+                  {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Gallery Preview */}
+        <Card className={`border-2 ${model?.id ? 'border-green-200 bg-green-50/30' : 'border-gray-200 bg-gray-50'}`}>
+          <CardHeader>
+            <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-green-700' : 'text-muted-foreground'}`}>
+              <Eye className="w-5 h-5" />
+              Prévia do Site Público
+            </CardTitle>
+            <div className="flex items-center justify-between">
+              <p className={`text-sm ${model?.id ? 'text-green-600' : 'text-muted-foreground'}`}>
+                {model?.id 
+                  ? "🌟 Como a galeria aparece no site para os usuários" 
+                  : "⏳ Disponível após salvar e adicionar fotos"
+                }
               </p>
-              <Button 
-                type="submit" 
-                variant="default" 
-                className="mt-2"
-                disabled={!formData.name}
-              >
-                {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
-              </Button>
+              {model?.id && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="ml-2"
+                  onClick={() => window.open(`/models/${model.id}`, '_blank')}
+                >
+                  <ExternalLink className="w-4 h-4 mr-1" />
+                  Ver Página Pública
+                </Button>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
+          </CardHeader>
+          <CardContent className="pt-6">
+            {model?.id ? (
+              <div className="border rounded-lg p-4 bg-white">
+                <ModelGallery 
+                  modelId={model.id}
+                  mainImage={formData.image || undefined}
+                  modelName={formData.name}
+                />
+              </div>
+            ) : (
+              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+                <div className="mb-4 text-4xl text-gray-400">👁️</div>
+                <p className="mb-2 font-medium text-gray-500">Prévia Indisponível</p>
+                <p className="text-sm text-gray-400">
+                  A prévia da galeria será exibida aqui após salvar o modelo e adicionar fotos
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Pricing */}
       <Card>

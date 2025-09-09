@@ -148,7 +148,7 @@ const Blog = () => {
                       </h2>
                     </CardHeader>
                     
-                    <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6">
+                    <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6 bg-white">
                       <p className="luxury-body-xs text-black leading-relaxed mb-4 sm:mb-6">
                         {article.excerpt}
                       </p>

@@ -32,7 +32,7 @@ export const CategoryFilters: React.FC = () => {
           <h2 className="luxury-heading-lg text-black mb-4">
             Browse by Preference
           </h2>
-          <p className="luxury-body-md text-foreground max-w-2xl mx-auto">
+          <p className="luxury-body-md text-black max-w-2xl mx-auto">
             Discover your perfect companion from our carefully curated selection of elite London models
           </p>
         </div>

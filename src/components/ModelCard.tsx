@@ -78,13 +78,13 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Info Card - Bottom - Mobile responsive */}
                 <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 lg:p-6 z-10">
-                  <div className={`bg-black/75 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-white transform transition-transform duration-700 ${
+                  <div className={`transform transition-transform duration-700 ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
                   }`} style={{ transitionDelay: `${index * 0.1}s` }}>
                     
                      {/* Header: Nome e idade */}
                      <div className="text-center">
-                       <h3 className="text-base sm:text-lg md:text-xl font-light">
+                       <h3 className="text-base sm:text-lg md:text-xl font-light text-white drop-shadow-lg">
                          {model.name}
                          {model.age ? `, ${model.age} anos` : ''}
                        </h3>

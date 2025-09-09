@@ -76,7 +76,7 @@ export const Membership: React.FC = () => {
         {!user && <section className="py-16 md:py-20 bg-white">
             <div className="max-w-md mx-auto">
               <Card className="border border-border shadow-elegant">
-                <CardHeader className="text-center pb-6">
+                <CardHeader className="text-center pb-6 bg-black">
                   <CardTitle className="luxury-heading-lg text-foreground">Member Login</CardTitle>
                   <CardDescription className="luxury-body-base text-muted-foreground">
                     Access your membership area

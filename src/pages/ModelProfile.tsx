@@ -25,11 +25,17 @@ export const ModelProfile: React.FC = () => {
   const model = id ? getModelById(id) : null;
 
   // Debug logging
+  console.log('🔍 ModelProfile - ID from URL:', id);
+  console.log('🔍 ModelProfile - All models:', models.length);
+  console.log('🔍 ModelProfile - Found model:', model);
   if (model) {
-    console.log('ModelProfile - Model data:', {
+    console.log('🔍 ModelProfile - Model data:', {
       name: model.name,
+      age: model.age,
+      location: model.location,
       price: model.price,
-      pricing: model.pricing
+      pricing: model.pricing,
+      members_only: model.members_only
     });
   }
 
@@ -127,11 +133,13 @@ export const ModelProfile: React.FC = () => {
             <h1 className="text-3xl md:text-4xl font-light tracking-wide text-black">{model.name}</h1>
             
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base text-muted-foreground">
-              <span className="font-medium">{model.age} years</span>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>{model.location}</span>
-              </div>
+              {model.age && <span className="font-medium">{model.age} years</span>}
+              {model.location && (
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  <span>{model.location}</span>
+                </div>
+              )}
             </div>
             
             <div className="flex justify-center">

@@ -227,7 +227,7 @@ export const ModelProfile: React.FC = () => {
         {/* You Might Also Like Section */}
         <div className="border-t border-border/30 bg-white">
           <div className="max-w-4xl mx-auto p-4 md:p-6">
-            <h3 className="text-xl font-light text-foreground mb-6 text-center">Yocou Might Also Like</h3>
+            <h3 className="text-xl font-light text-black mb-6 text-center">Yocou Might Also Like</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {models.filter(m => m.id !== model.id).slice(0, 6).map(suggestedModel => <Link key={suggestedModel.id} to={`/models/${suggestedModel.id}`} className="group">
                     <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-muted">

@@ -121,7 +121,7 @@ export const Membership: React.FC = () => {
                       Membership is by invitation or approval only. To request access, please contact our team.
                     </p>
                     <Button variant="outline" className="w-full" asChild>
-                      <a href="/contact" className="inline-flex items-center justify-center">
+                      <a href="/contact" className="inline-flex items-center justify-center text-white">
                         Contact for Access
                       </a>
                     </Button>

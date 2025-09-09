@@ -1,4 +1,5 @@
 import React from 'react';
+import { processContentWithLinks } from '@/utils/entityLinker';
 
 interface BlogTextImageSectionProps {
   title: string;
@@ -42,8 +43,15 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
                 [&>ul]:my-10 [&>ol]:my-10 [&>ul]:bg-gradient-to-r [&>ul]:from-gray-50 [&>ul]:to-gray-100/50 [&>ul]:p-8 [&>ul]:rounded-2xl [&>ul]:border-l-4 [&>ul]:border-gray-600 [&>ul]:shadow-sm
                 [&>blockquote]:border-l-4 [&>blockquote]:border-gray-600 [&>blockquote]:pl-8 [&>blockquote]:pr-6
                 [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-gray-50 [&>blockquote]:to-gray-100/30 [&>blockquote]:py-8 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-10 [&>blockquote]:shadow-sm
-                [&>em]:text-gray-700 [&>em]:font-medium"
-              dangerouslySetInnerHTML={{ __html: content }}
+                [&>em]:text-gray-700 [&>em]:font-medium
+                [&_a]:no-underline [&_a]:relative [&_a]:transition-all [&_a]:duration-200
+                [&_.entity-link-hotel]:text-primary [&_.entity-link-hotel]:hover:text-primary-dark
+                [&_.entity-link-restaurant]:text-accent [&_.entity-link-restaurant]:hover:text-accent-dark
+                [&_.entity-link-culture]:text-secondary [&_.entity-link-culture]:hover:text-secondary-dark
+                [&_.entity-link-historic]:text-muted-foreground [&_.entity-link-historic]:hover:text-foreground
+                [&_.entity-link-event]:text-primary [&_.entity-link-event]:hover:text-primary-dark
+                [&_.entity-link-area]:text-accent [&_.entity-link-area]:hover:text-accent-dark"
+              dangerouslySetInnerHTML={{ __html: processContentWithLinks(content) }}
             />
           </div>
           
@@ -76,8 +84,15 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
               [&>ul]:my-10 [&>ol]:my-10 [&>ul]:bg-gradient-to-br [&>ul]:from-gray-50 [&>ul]:to-gray-100/50 [&>ul]:p-10 [&>ul]:rounded-2xl [&>ul]:border-l-4 [&>ul]:border-gray-600 [&>ul]:shadow-lg
               [&>blockquote]:border-l-4 [&>blockquote]:border-gray-600 [&>blockquote]:pl-10 [&>blockquote]:pr-8
               [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-gray-50 [&>blockquote]:to-gray-100/30 [&>blockquote]:py-10 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-12 [&>blockquote]:shadow-lg [&>blockquote]:text-xl
-              [&>em]:text-gray-700 [&>em]:font-medium"
-            dangerouslySetInnerHTML={{ __html: content }}
+              [&>em]:text-gray-700 [&>em]:font-medium
+              [&_a]:no-underline [&_a]:relative [&_a]:transition-all [&_a]:duration-200
+              [&_.entity-link-hotel]:text-primary [&_.entity-link-hotel]:hover:text-primary-dark
+              [&_.entity-link-restaurant]:text-accent [&_.entity-link-restaurant]:hover:text-accent-dark
+              [&_.entity-link-culture]:text-secondary [&_.entity-link-culture]:hover:text-secondary-dark
+              [&_.entity-link-historic]:text-muted-foreground [&_.entity-link-historic]:hover:text-foreground
+              [&_.entity-link-event]:text-primary [&_.entity-link-event]:hover:text-primary-dark
+              [&_.entity-link-area]:text-accent [&_.entity-link-area]:hover:text-accent-dark"
+            dangerouslySetInnerHTML={{ __html: processContentWithLinks(content) }}
           />
         </div>
       )}

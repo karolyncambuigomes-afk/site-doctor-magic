@@ -89,10 +89,10 @@ export const Models: React.FC = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-foreground">
+              <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">
                 Ready to Meet Your Perfect Companion?
               </h2>
-              <p className="luxury-body-lg text-foreground mb-6 sm:mb-8">
+              <p className="luxury-body-lg text-black mb-6 sm:mb-8">
                 Contact our concierge team to arrange your exclusive experience with one of our elite models.
               </p>
               <a

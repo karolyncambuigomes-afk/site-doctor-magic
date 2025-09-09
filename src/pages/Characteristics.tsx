@@ -65,8 +65,53 @@ const Characteristics = () => {
             </div>
           </section>
 
+          {/* SEO Content Section */}
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <details className="mb-8">
+                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                  <h2>Find Your Perfect Companion</h2>
+                </summary>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Physical Characteristics</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Our diverse selection of companions includes sophisticated ladies with varying physical attributes, from elegant brunettes to stunning blondes, petite companions to statuesque beauties, ensuring the perfect match for your preferences.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Elegant Sophistication</h4>
+                        <p className="luxury-body-xs text-muted-foreground">High-class companions with refined appearance and impeccable presentation for London's most exclusive venues.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Diverse Selection</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Wide range of ethnicities, ages, and physical types to match your specific preferences and requirements.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Personality Traits</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Beyond physical beauty, our companions are selected for their intelligence, sophistication, and engaging personalities. Whether you prefer vivacious conversation or quiet elegance, we have the perfect companion for your occasion.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Intellectual Companions</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Well-educated companions capable of engaging conversation on diverse topics from business to arts and culture.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Social Adaptability</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Companions skilled in various social settings, from intimate dinners to high-profile business events across London.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
           {/* Contact Section */}
-          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">

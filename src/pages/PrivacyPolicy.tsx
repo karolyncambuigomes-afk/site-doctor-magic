@@ -83,7 +83,20 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-black mb-4">7. Contact Us</h2>
+              <h2 className="text-2xl font-light text-black mb-4">7. Data Protection</h2>
+              <p className="text-gray-600 mb-4">
+                Five London implements comprehensive data protection measures:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Advanced encryption for all client communications and data storage</li>
+                <li>Regular security audits and system updates to maintain protection</li>
+                <li>Staff training on confidentiality and data protection requirements</li>
+                <li>Secure disposal of any physical or digital records when no longer needed</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-black mb-4">8. Contact Us</h2>
               <p className="text-gray-600 mb-4">
                 If you have any questions about this Privacy Policy, please contact us at:
               </p>

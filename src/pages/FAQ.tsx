@@ -170,6 +170,51 @@ const FAQ = () => {
           </div>
         </section>
 
+        {/* SEO Content Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>Common Questions About Our Services</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Booking Process</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Our streamlined booking process ensures complete discretion and efficiency. From initial contact to final arrangements, we handle every detail with the utmost professionalism and care for our distinguished clientele.
+                  </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Simple Booking Steps</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Contact us via WhatsApp or phone, discuss your preferences, confirm availability, and finalize arrangements.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Advance Notice</h4>
+                      <p className="luxury-body-xs text-muted-foreground">While same-day bookings are often possible, advance notice ensures the best companion selection for your specific requirements.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Service Areas</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Five London operates throughout London's most prestigious areas, providing luxury companionship services to hotels, restaurants, private residences, and exclusive venues across the capital.
+                  </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Premium Locations</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Mayfair, Knightsbridge, Belgravia, Kensington, Chelsea, Westminster, and Central London covered.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Outcall Services</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Professional companions available for hotel visits, dinner dates, business events, and cultural occasions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+
         {/* Contact CTA */}
         <section className="py-16 md:py-24 bg-black text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">

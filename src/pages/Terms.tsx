@@ -76,7 +76,20 @@ const Terms = () => {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-light text-black mb-4">7. Contact Information</h2>
+              <h2 className="text-2xl font-light text-black mb-4">7. Service Standards</h2>
+              <p className="text-gray-600 mb-4">
+                Five London maintains the highest standards of professional service delivery:
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>All companions are thoroughly vetted and professionally trained</li>
+                <li>Services are provided in accordance with UK laws and regulations</li>
+                <li>Complete discretion and confidentiality guaranteed at all times</li>
+                <li>Professional conduct expected from both companions and clients</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-light text-black mb-4">8. Contact Information</h2>
               <p className="text-gray-600 mb-4">
                 For questions regarding these terms, please contact us at:
               </p>

@@ -258,6 +258,51 @@ const About = () => {
             </div>
           </section>
 
+          {/* SEO Content Section */}
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <details className="mb-8">
+                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                  <h2>About Five London Premium Agency</h2>
+                </summary>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Elite Escort Services Since 2020</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Five London has established itself as London's premier luxury escort agency, serving discerning clients across Mayfair, Knightsbridge, Belgravia, and Central London. Our carefully selected companions represent the pinnacle of sophistication, elegance, and professionalism in the industry.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Professional Standards</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Every companion undergoes rigorous screening to ensure they meet our exceptional standards of beauty, intelligence, and social grace.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Discreet Service</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Complete confidentiality guaranteed for all our prestigious clients throughout London's most exclusive areas.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">London's Most Trusted Agency</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Operating in London's most prestigious locations including The Ritz, Claridge's, The Shard, and exclusive private venues, we provide unparalleled companionship services for business dinners, cultural events, and sophisticated social occasions across the capital.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Premium Locations</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Serving Mayfair, Kensington, Chelsea, Westminster, and the City of London with 24/7 availability.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">International Clientele</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Trusted by business executives, entrepreneurs, and discerning gentlemen from around the world visiting London.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
           {/* Contact Section */}
           <section className="py-16 md:py-20 bg-white">
             <div className="container mx-auto px-4 text-center">

@@ -122,8 +122,53 @@ const Contact = () => {
           </div>
         </section>
 
+        {/* SEO Content Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <details className="mb-8">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                <h2>Contact Our London Team</h2>
+              </summary>
+              <div className="grid md:grid-cols-2 gap-8 mt-8">
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">24/7 Availability</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Our dedicated concierge team is available around the clock to handle your booking requests, whether you need same-day arrangements or advance planning for special occasions across London's premier venues.
+                  </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Instant Booking</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Most companions available for same-day bookings throughout Central London, Mayfair, and Knightsbridge.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Emergency Contact</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Urgent assistance available via WhatsApp for last-minute requests and special arrangements.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="luxury-heading-md">Booking Methods</h3>
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    Choose your preferred method to contact Five London. We offer multiple channels to ensure discreet and efficient communication for all your luxury companionship needs in London.
+                  </p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">WhatsApp Preferred</h4>
+                      <p className="luxury-body-xs text-muted-foreground">Fastest response times with instant confirmations and real-time availability updates.</p>
+                    </div>
+                    <div>
+                      <h4 className="luxury-body-sm font-medium">Secure Communication</h4>
+                      <p className="luxury-body-xs text-muted-foreground">All communications encrypted and handled with complete discretion and confidentiality.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+
         {/* Contact Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+        <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
               <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Need Immediate Assistance?</h2>

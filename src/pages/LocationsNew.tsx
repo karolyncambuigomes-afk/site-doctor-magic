@@ -147,6 +147,51 @@ export const Locations: React.FC = () => {
             </div>
           </section>
 
+          {/* SEO Content Section */}
+          <section className="mt-16 py-16 bg-gray-50">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <details className="mb-8">
+                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 hover:text-muted-foreground transition-colors">
+                  <h2>Elite Escorts Across London</h2>
+                </summary>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Central London Areas</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Five London provides premium escort services throughout Central London's most prestigious areas including Mayfair, Marylebone, Fitzrovia, and Covent Garden. Our companions are perfectly positioned to meet clients at luxury hotels, exclusive restaurants, and private venues.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Mayfair & Marylebone</h4>
+                        <p className="luxury-body-xs text-muted-foreground">Premium coverage of W1 postcode areas including Berkeley Square, Bond Street, and Oxford Street vicinity.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Covent Garden & Bloomsbury</h4>
+                        <p className="luxury-body-xs text-muted-foreground">WC1 and WC2 areas served with companions available for theatre, dining, and cultural events.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="luxury-heading-md">Premium Locations</h3>
+                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                      Extending our services to London's most exclusive neighborhoods including Knightsbridge, Belgravia, Kensington, and Chelsea. Our professional companions are experienced with the capital's finest hotels, restaurants, and private clubs.
+                    </p>
+                    <div className="space-y-3">
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Knightsbridge & Belgravia</h4>
+                        <p className="luxury-body-xs text-muted-foreground">SW1 and SW3 premium areas including Harrods, Harvey Nichols, and exclusive diplomatic quarter.</p>
+                      </div>
+                      <div>
+                        <h4 className="luxury-body-sm font-medium">Kensington & Chelsea</h4>
+                        <p className="luxury-body-xs text-muted-foreground">SW7 and SW5 areas covering South Kensington museums, Kings Road, and exclusive residential districts.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
           {/* CTA Section */}
           <section className="mt-16 text-center">
             <h2 className="luxury-heading-xl text-foreground mb-4">

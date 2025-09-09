@@ -7,52 +7,64 @@ export interface BlogImageMap {
 export const blogImages: BlogImageMap = {
   'dining': {
     'restaurants': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/model1.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/sketch-restaurant.jpg',
+      '/images/model1.jpg',
+      '/images/kate1.jpg'
     ],
     'fine-dining': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/model2.jpg',
-      '/src/assets/luisa1.jpg'
+      '/images/sketch-restaurant.jpg',
+      '/images/model2.jpg',
+      '/images/luisa1.jpg'
     ],
     'michelin': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/model3.jpg',
-      '/src/assets/model1.jpg'
+      '/images/sketch-restaurant.jpg',
+      '/images/model3.jpg',
+      '/images/model1.jpg'
     ],
     'wine': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/model4.jpg'
+      '/images/sketch-restaurant.jpg',
+      '/images/model4.jpg'
     ],
     'cocktails': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/sketch-restaurant.jpg',
+      '/images/kate1.jpg'
     ]
   },
   'events': {
     'exclusive': [
-      '/src/assets/blog-london-events.jpg',
-      '/src/assets/model1.jpg',
-      '/src/assets/model2.jpg'
+      '/images/london-gala-event.jpg',
+      '/images/model1.jpg',
+      '/images/model2.jpg'
     ],
     'fashion': [
-      '/src/assets/blog-london-events.jpg',
-      '/src/assets/luisa1.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/london-gala-event.jpg',
+      '/images/luisa1.jpg',
+      '/images/kate1.jpg'
     ],
     'parties': [
-      '/src/assets/blog-london-events.jpg',
-      '/src/assets/model3.jpg',
-      '/src/assets/model4.jpg'
+      '/images/london-gala-event.jpg',
+      '/images/model3.jpg',
+      '/images/model4.jpg'
     ],
     'galas': [
-      '/src/assets/blog-london-events.jpg',
-      '/src/assets/model1.jpg'
+      '/images/london-gala-event.jpg',
+      '/images/model1.jpg'
     ],
     'premieres': [
-      '/src/assets/blog-london-events.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/london-gala-event.jpg',
+      '/images/kate1.jpg'
+    ],
+    'royal': [
+      '/images/london-gala-event.jpg',
+      '/images/model2.jpg'
+    ],
+    'sports': [
+      '/images/london-gala-event.jpg',
+      '/images/model4.jpg'
+    ],
+    'culture': [
+      '/images/london-gala-event.jpg',
+      '/images/luisa1.jpg'
     ]
   },
   'culture': {
@@ -82,29 +94,29 @@ export const blogImages: BlogImageMap = {
   },
   'luxury': {
     'experiences': [
-      '/src/assets/blog-exclusive-experiences.jpg',
-      '/src/assets/model1.jpg',
-      '/src/assets/kate1.jpg',
-      '/src/assets/model3.jpg'
+      '/images/luxury-spa-treatment.jpg',
+      '/images/model1.jpg',
+      '/images/kate1.jpg',
+      '/images/model3.jpg'
     ],
     'hotels': [
-      '/src/assets/blog-luxury-hotels.jpg',
-      '/src/assets/model2.jpg',
-      '/src/assets/luisa1.jpg',
-      '/src/assets/model4.jpg'
+      '/images/clariges-lobby.jpg',
+      '/images/model2.jpg',
+      '/images/luisa1.jpg',
+      '/images/model4.jpg'
     ],
     'shopping': [
-      '/src/assets/blog-exclusive-experiences.jpg',
-      '/src/assets/kate1.jpg',
-      '/src/assets/model1.jpg'
+      '/images/luxury-spa-treatment.jpg',
+      '/images/kate1.jpg',
+      '/images/model1.jpg'
     ],
     'spas': [
-      '/src/assets/blog-luxury-hotels.jpg',
-      '/src/assets/luisa1.jpg'
+      '/images/luxury-spa-treatment.jpg',
+      '/images/luisa1.jpg'
     ],
     'travel': [
-      '/src/assets/blog-exclusive-experiences.jpg',
-      '/src/assets/model2.jpg'
+      '/images/luxury-spa-treatment.jpg',
+      '/images/model2.jpg'
     ]
   },
   'lifestyle': {
@@ -145,14 +157,17 @@ export const blogImages: BlogImageMap = {
   },
   hotels: {
     classic: [
-      '/src/assets/blog-luxury-hotels.jpg',
-      '/images/model2.jpg'
+      '/images/clariges-lobby.jpg',
+      '/images/ritz-london-exterior.jpg',
+      '/images/savoy-thames-foyer.jpg'
     ],
     contemporary: [
-      '/images/model3.jpg',
-      '/images/model4.jpg'
+      '/images/ned-banking-hall.jpg',
+      '/images/shangri-la-shard-view.jpg',
+      '/images/model3.jpg'
     ],
     boutique: [
+      '/images/clariges-lobby.jpg',
       '/images/luisa1.jpg',
       '/images/kate1.jpg'
     ]

@@ -131,9 +131,27 @@ export const Membership: React.FC = () => {
             </div>
           </section>}
 
-        {/* Current Status for Logged In Users */}
+        {/* Welcome Message for Logged In Users */}
         {user && <section className="py-16 md:py-20 bg-white">
             <div className="max-w-md mx-auto">
+              {/* Welcome Message */}
+              <Card className="border border-primary/20 bg-primary/5 shadow-elegant mb-6">
+                <CardContent className="pt-8 pb-8 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-primary/10">
+                      <Check className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="font-light text-lg text-foreground">
+                      Bem-vindo, Five London Membro
+                    </span>
+                  </div>
+                  <p className="luxury-body-base text-muted-foreground">
+                    Você está logado com sucesso. Aproveite seus benefícios especiais por ser Five London membro.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Current Status */}
               <Card className={`border shadow-elegant ${hasAccess ? 'border-green-500/30 bg-green-50/5 dark:bg-green-950/5' : 'border-border'}`}>
                 <CardContent className="pt-8 pb-8 text-center">
                   <div className="flex items-center justify-center mb-4">

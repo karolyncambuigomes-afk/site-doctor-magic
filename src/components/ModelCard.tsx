@@ -32,7 +32,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   return (
     <div ref={ref} style={{ animationDelay: `${index * 0.1}s` }}>
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block group">
-        <div className="card-luxury hover-lift overflow-hidden relative">
+        <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container */}
           <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[1/1] xl:aspect-[4/5] overflow-hidden bg-muted">
             {!imageError ? (

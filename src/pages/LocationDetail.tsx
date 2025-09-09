@@ -203,7 +203,7 @@ const LocationDetail = () => {
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-12 animate-accordion-down">
                      <div 
-                       className="prose prose-lg max-w-4xl mx-auto text-black [&>h2]:luxury-heading-lg [&>h2]:text-black [&>h3]:luxury-heading-md [&>h3]:text-black [&>p]:luxury-body-base [&>p]:text-black [&>p]:leading-relaxed"
+                       className="max-w-4xl mx-auto !text-black [&>*]:!text-black [&>h2]:luxury-heading-lg [&>h2]:!text-black [&>h3]:luxury-heading-md [&>h3]:!text-black [&>p]:luxury-body-base [&>p]:!text-black [&>p]:leading-relaxed [&>ul]:!text-black [&>li]:!text-black [&>strong]:!text-black [&>em]:!text-black [&>a]:!text-black"
                        dangerouslySetInnerHTML={{ __html: location.content }}
                      />
                   </CollapsibleContent>

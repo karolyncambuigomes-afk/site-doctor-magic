@@ -7,13 +7,13 @@ export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
 
   if (loading) {
-    return <section className="relative min-h-screen flex items-end">
+    return <section className="relative h-[70vh] md:min-h-screen flex items-end">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
           <div className="absolute inset-0 bg-black/40" />
         </div>
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-16 text-center text-white">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
           <div className="max-w-2xl mx-auto">
             <div className="animate-pulse">
               <div className="h-12 bg-white/20 rounded mb-4"></div>
@@ -24,7 +24,7 @@ export const HeroSection: React.FC = () => {
       </section>;
   }
 
-  return <section className="relative min-h-screen flex items-end">
+  return <section className="relative h-[70vh] md:min-h-screen flex items-end">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
@@ -32,7 +32,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Content - Minimalist and positioned at bottom */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-16 text-center text-white">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
           {/* Visible H1 with elegant styling */}
           <h1 className="luxury-heading-lg mb-4 text-white font-light tracking-wide leading-tight">

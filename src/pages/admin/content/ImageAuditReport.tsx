@@ -308,6 +308,43 @@ export const ImageAuditReport = () => {
     }
   };
 
+  const executeFullPlan = async () => {
+    setIsGenerating(true);
+    
+    try {
+      toast.info('Iniciando plano completo...');
+      
+      // Step 1: Generate canonical images
+      await generateCanonicalImages();
+      
+      // Step 2: Wait for generation and then activate local preference
+      setTimeout(() => {
+        const flags = { preferLocalImages: true };
+        localStorage.setItem('featureFlags', JSON.stringify(flags));
+        setFeatureFlags(flags);
+        
+        // Dispatch event to notify other components
+        window.dispatchEvent(new CustomEvent('imagePreferenceChanged', { 
+          detail: { preferLocalImages: true } 
+        }));
+        
+        toast.success('Prefer Local Images ativado!');
+        
+        // Step 3: Final audit after a brief delay
+        setTimeout(() => {
+          runFullAudit();
+          toast.success('Plano completo executado com sucesso!');
+        }, 3000);
+      }, 5000);
+
+    } catch (error) {
+      console.error('Plan execution failed:', error);
+      toast.error(`Falha na execução do plano: ${error.message}`);
+    } finally {
+      setTimeout(() => setIsGenerating(false), 8000);
+    }
+  };
+
   useEffect(() => {
     const savedFlags = localStorage.getItem('featureFlags');
     if (savedFlags) {
@@ -328,9 +365,19 @@ export const ImageAuditReport = () => {
         </div>
         <div className="flex gap-2">
           <Button
+            onClick={executeFullPlan}
+            disabled={isGenerating || isRunning}
+            className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground flex items-center gap-2"
+          >
+            <Zap className={`w-4 h-4 ${isGenerating ? 'animate-pulse' : ''}`} />
+            {isGenerating ? 'Executando...' : '🚀 Executar Plano Completo'}
+          </Button>
+          
+          <Button
             onClick={runFullAudit}
-            disabled={isRunning}
+            disabled={isRunning || isGenerating}
             className="flex items-center gap-2"
+            variant="outline"
           >
             <RefreshCw className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
             {isRunning ? 'Running Audit...' : 'Run Full Audit'}
@@ -339,7 +386,7 @@ export const ImageAuditReport = () => {
           <Button
             onClick={generateCanonicalImages}
             disabled={isGenerating || isRunning}
-            variant="default"
+            variant="outline"
             className="flex items-center gap-2"
           >
             <Zap className={`w-4 h-4 ${isGenerating ? 'animate-pulse' : ''}`} />

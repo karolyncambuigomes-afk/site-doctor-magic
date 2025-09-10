@@ -20,11 +20,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Heavy admin libraries in separate chunks
-          if (id.includes('fabric')) return 'fabric';
-          if (id.includes('recharts')) return 'recharts';
-          
-          // Core libraries
+          // Critical vendor libraries that should be loaded immediately
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
             return 'react-vendor';
           }
@@ -32,60 +28,75 @@ export default defineConfig(({ mode }) => ({
             return 'router';
           }
           
-          // Lucide React separate chunk for lazy loading
-          if (id.includes('lucide-react/dynamicIconImports') || id.includes('lucide-react/dist/esm/icons')) {
-            return 'lucide-icons';
-          }
-          if (id.includes('lucide-react')) {
-            return 'lucide-core';
-          }
+          // Heavy libraries that can be lazy loaded
+          if (id.includes('fabric')) return 'fabric';
+          if (id.includes('recharts')) return 'charts';
+          if (id.includes('embla-carousel')) return 'carousel';
           
-          // Radix UI components chunking
-          if (id.includes('@radix-ui/react-dropdown-menu') || 
-              id.includes('@radix-ui/react-dialog') || 
-              id.includes('@radix-ui/react-alert-dialog')) {
-            return 'radix-modals';
-          }
-          if (id.includes('@radix-ui')) {
-            return 'radix-core';
-          }
-          
-          // Supabase chunk
-          if (id.includes('@supabase') || id.includes('@tanstack/react-query')) {
-            return 'supabase';
-          }
-          
-          // Admin pages chunk
+          // Admin-only chunks (lazy loaded)
           if (id.includes('/pages/admin/') || id.includes('/layouts/AdminLayout')) {
-            return 'admin';
+            return 'admin-pages';
+          }
+          if (id.includes('/components/admin/') || id.includes('AdminProtectedRoute')) {
+            return 'admin-components';
           }
           
-          // Page-based chunks for better caching
-          if (id.includes('/pages/Models') || id.includes('/components/ModelsGallery')) {
-            return 'models-page';
+          // Supabase and query clients
+          if (id.includes('@supabase') || id.includes('@tanstack/react-query')) {
+            return 'api-client';
+          }
+          
+          // UI component libraries
+          if (id.includes('@radix-ui')) return 'ui-library';
+          if (id.includes('lucide-react')) return 'icons';
+          
+          // Page-specific chunks for better code splitting
+          if (id.includes('/pages/Models') || id.includes('/components/Models')) {
+            return 'models-feature';
           }
           if (id.includes('/pages/Blog') || id.includes('/components/blog/')) {
-            return 'blog-page';
+            return 'blog-feature';
           }
-          if (id.includes('/pages/About') || id.includes('/pages/Services')) {
-            return 'content-pages';
+          if (id.includes('/pages/About') || id.includes('/pages/Services') || 
+              id.includes('/pages/Contact') || id.includes('/pages/FAQ')) {
+            return 'static-pages';
           }
           
-          // Large utility libraries
-          if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx')) {
+          // Mobile-specific features (can be lazy loaded)
+          if (id.includes('MobileOptimizer') || id.includes('MobileRefresh') || 
+              id.includes('MobileDebug') || id.includes('MobileSync')) {
+            return 'mobile-features';
+          }
+          
+          // Analytics and tracking (can be deferred)
+          if (id.includes('Analytics') || id.includes('ServiceWorker') || 
+              id.includes('CookieConsent')) {
+            return 'analytics';
+          }
+          
+          // Utility libraries
+          if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') ||
+              id.includes('node_modules/class-variance-authority')) {
             return 'utils';
           }
-          
-          // Embla carousel separate chunk
-          if (id.includes('embla-carousel')) {
-            return 'carousel';
-          }
+        },
+        chunkFileNames: (chunkInfo) => {
+          // Add hashing for better caching
+          return '[name]-[hash].js';
         }
       }
     },
     sourcemap: false,
-    assetsInlineLimit: 2048, // Reduced for smaller bundles
-    chunkSizeWarningLimit: 1000
+    assetsInlineLimit: 1024, // Smaller inline limit
+    chunkSizeWarningLimit: 500, // Stricter chunk size warning
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs in production
+        drop_debugger: true,
+        pure_funcs: ['console.log'], // Remove specific functions
+      }
+    }
   },
   plugins: [
     react(),

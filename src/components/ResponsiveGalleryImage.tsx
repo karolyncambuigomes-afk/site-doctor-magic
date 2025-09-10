@@ -84,7 +84,7 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
     );
   }
 
-  // If we have a local image, use picture element with responsive sources
+  // If we have a local optimized image, use picture element with responsive sources
   const isLocalImage = currentSource.startsWith('/images/') && currentSource.includes('gallery-');
   
   if (isLocalImage && !hasError) {
@@ -104,12 +104,14 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
           onLoad={handleLoad}
           onError={handleError}
           style={{ aspectRatio: '4/3' }}
+          width={1200}
+          height={900}
         />
       </picture>
     );
   }
 
-  // Fallback to regular img for external sources
+  // Fallback to regular img for external/raw sources
   return (
     <img
       src={currentSource}
@@ -121,6 +123,8 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
       onError={handleError}
       style={{ aspectRatio: '4/3' }}
       sizes={sizes}
+      width={1200}
+      height={900}
     />
   );
 };

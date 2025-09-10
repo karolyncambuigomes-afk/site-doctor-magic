@@ -61,43 +61,68 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
       setLoading(true);
       setLoadingError(null);
       
-      // Get model data with gallery arrays and access settings
-      const { data: modelData, error } = await supabase
-        .from('models')
-        .select('gallery_external_urls, gallery_local_urls, members_only, all_photos_public, face_visible')
-        .eq('id', modelId)
-        .single();
+      // First try to get photos from model_gallery table
+      const { data: galleryData, error: galleryError } = await supabase
+        .from('model_gallery')
+        .select('image_url, visibility, order_index')
+        .eq('model_id', modelId)
+        .order('order_index');
 
-      if (error) throw error;
+      let effectiveImages: string[] = [];
 
-      // Create effective gallery list: prioritize local, fallback to external
-      const externalUrls = modelData?.gallery_external_urls || [];
-      const localUrls = modelData?.gallery_local_urls || [];
-      
-      // Build effective image list with local priority
-      const effectiveImages: string[] = [];
-      const maxLength = Math.max(localUrls.length, externalUrls.length);
-      
-      for (let i = 0; i < maxLength; i++) {
-        if (localUrls[i]) {
-          effectiveImages.push(localUrls[i]);
-        } else if (externalUrls[i]) {
-          effectiveImages.push(externalUrls[i]);
+      if (galleryData && galleryData.length > 0) {
+        // Use model_gallery with visibility control
+        console.log(`📱 RESPONSIVE GALLERY: ${galleryData.length} fotos encontradas na model_gallery`);
+        
+        let filteredPhotos = galleryData;
+        
+        // Apply visibility filter based on user access
+        if (!hasAccess && !isAdmin) {
+          // Non-members see only public photos
+          filteredPhotos = galleryData.filter(photo => photo.visibility === 'public');
+          console.log(`🔒 NÃO-MEMBRO: Mostrando ${filteredPhotos.length} fotos públicas de ${galleryData.length} totais`);
+        } else {
+          // Members see all photos (public + members_only)
+          console.log(`🔑 MEMBRO: Mostrando todas as ${galleryData.length} fotos`);
+        }
+        
+        effectiveImages = filteredPhotos.map(photo => photo.image_url);
+      } else {
+        // Fallback to old gallery arrays
+        console.log(`📱 RESPONSIVE GALLERY: Fallback para arrays antigos`);
+        
+        const { data: modelData, error } = await supabase
+          .from('models')
+          .select('gallery_external_urls, gallery_local_urls, members_only, all_photos_public')
+          .eq('id', modelId)
+          .single();
+
+        if (error) throw error;
+
+        const externalUrls = modelData?.gallery_external_urls || [];
+        const localUrls = modelData?.gallery_local_urls || [];
+        
+        // Build effective image list with local priority
+        const maxLength = Math.max(localUrls.length, externalUrls.length);
+        
+        for (let i = 0; i < maxLength; i++) {
+          if (localUrls[i]) {
+            effectiveImages.push(localUrls[i]);
+          } else if (externalUrls[i]) {
+            effectiveImages.push(externalUrls[i]);
+          }
+        }
+
+        // Apply old access control for fallback
+        const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
+        if (!hasAccess && !isAdmin && !modelAllPhotosPublic) {
+          effectiveImages.splice(6); // Keep first 6 images for mixed models
+          console.log(`🔒 FALLBACK MODELO MISTO: Mostrando ${effectiveImages.length} fotos`);
         }
       }
 
-      // Apply access control: limit images for non-members
-      const modelMembersOnly = modelData?.members_only || membersOnly;
-      const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
-      
-      // For mixed models (all_photos_public = false), show 5-6 public photos to non-members
-      if (!hasAccess && !isAdmin && !modelAllPhotosPublic) {
-        effectiveImages.splice(6); // Keep first 6 images for mixed models
-        console.log(`🔒 MODELO MISTO: Mostrando ${effectiveImages.length} fotos públicas para não-membros`);
-      }
-
       const loadTime = performance.now() - startTime;
-      console.log(`📱 RESPONSIVE GALLERY: ${effectiveImages.length} imagens em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 RESPONSIVE GALLERY: ${effectiveImages.length} imagens finais em ${loadTime.toFixed(2)}ms`);
       
       trackPerformance(startTime, effectiveImages.length);
       

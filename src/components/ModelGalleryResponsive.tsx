@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, X, ZoomIn, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, ZoomIn, AlertCircle, Lock } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ResponsiveGalleryImage } from '@/components/ResponsiveGalleryImage';
+import { useAuth } from '@/components/AuthProvider';
 
 interface ModelGalleryResponsiveProps {
   modelId: string;
   mainImage: string;
   modelName: string;
+  membersOnly?: boolean;
+  allPhotosPublic?: boolean;
+  faceVisible?: boolean;
 }
 
 export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({ 
   modelId, 
   mainImage, 
-  modelName 
+  modelName,
+  membersOnly = false,
+  allPhotosPublic = true,
+  faceVisible = true
 }) => {
   const isMobile = useIsMobile();
+  const { hasAccess, isAdmin } = useAuth();
   const { 
     optimizations, 
     trackPerformance, 
@@ -53,10 +61,10 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
       setLoading(true);
       setLoadingError(null);
       
-      // Get model data with gallery arrays
+      // Get model data with gallery arrays and access settings
       const { data: modelData, error } = await supabase
         .from('models')
-        .select('gallery_external_urls, gallery_local_urls')
+        .select('gallery_external_urls, gallery_local_urls, members_only, all_photos_public, face_visible')
         .eq('id', modelId)
         .single();
 
@@ -76,6 +84,16 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
         } else if (externalUrls[i]) {
           effectiveImages.push(externalUrls[i]);
         }
+      }
+
+      // Apply access control: limit images for non-members
+      const modelMembersOnly = modelData?.members_only || membersOnly;
+      const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
+      
+      // If user doesn't have access and photos are restricted, limit to first 2-3 images
+      if (!hasAccess && !isAdmin && (modelMembersOnly || !modelAllPhotosPublic)) {
+        effectiveImages.splice(3); // Keep only first 3 images
+        console.log(`🔒 ACESSO LIMITADO: Mostrando apenas ${effectiveImages.length} fotos para não-membros`);
       }
 
       const loadTime = performance.now() - startTime;
@@ -219,9 +237,25 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
                   alt={`Thumbnail ${index + 1}`}
                   className="w-full h-full"
                   loading="lazy"
+                  membersOnly={membersOnly}
+                  allPhotosPublic={allPhotosPublic}
+                  faceVisible={faceVisible}
                 />
               </button>
             ))}
+          </div>
+        )}
+
+        {/* Access Control Message */}
+        {!hasAccess && !isAdmin && (membersOnly || !allPhotosPublic) && (
+          <div className="bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 rounded-lg p-4 text-center">
+            <div className="flex items-center justify-center gap-2 text-accent mb-2">
+              <Lock className="w-5 h-5" />
+              <span className="font-medium">Mais fotos disponíveis para membros</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Faça login para ver todas as {galleryImages.length} fotos desta modelo
+            </p>
           </div>
         )}
       </div>

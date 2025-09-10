@@ -17,12 +17,18 @@ interface ModelGalleryProps {
   modelId: string;
   mainImage: string;
   modelName: string;
+  membersOnly?: boolean;
+  allPhotosPublic?: boolean;
+  faceVisible?: boolean;
 }
 
 export const ModelGallery: React.FC<ModelGalleryProps> = ({ 
   modelId, 
   mainImage, 
-  modelName 
+  modelName,
+  membersOnly = false,
+  allPhotosPublic = true,
+  faceVisible = true
 }) => {
   const isMobile = useIsMobile();
   const { 

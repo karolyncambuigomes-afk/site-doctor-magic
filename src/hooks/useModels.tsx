@@ -36,6 +36,7 @@ export interface Model {
   interests: string[];
   members_only?: boolean;
   face_visible?: boolean;
+  all_photos_public?: boolean;
 }
 
 export const useModels = () => {

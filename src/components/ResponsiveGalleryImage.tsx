@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '@/components/AuthProvider';
 
 interface ResponsiveGalleryImageProps {
   localUrls?: string[];
@@ -10,6 +11,9 @@ interface ResponsiveGalleryImageProps {
   loading?: 'lazy' | 'eager';
   onLoad?: () => void;
   onError?: () => void;
+  membersOnly?: boolean;
+  allPhotosPublic?: boolean;
+  faceVisible?: boolean;
 }
 
 export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
@@ -21,10 +25,14 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
   loading = 'lazy',
   onLoad,
-  onError
+  onError,
+  membersOnly = false,
+  allPhotosPublic = true,
+  faceVisible = true
 }) => {
   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const { hasAccess, isAdmin } = useAuth();
 
   // Create effective source array: prioritize local, then external
   const allSources = [
@@ -34,6 +42,9 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
 
   const currentSource = allSources[currentSourceIndex];
   
+  // Check if image should be blurred for non-members
+  const shouldBlur = !hasAccess && !isAdmin && (membersOnly || !allPhotosPublic || !faceVisible);
+  
   // Debug log for Anastasia
   if (alt.includes('Anastasia') || externalUrls.some(url => url?.includes('anastasia'))) {
     console.log(`🔍 ANASTASIA DEBUG: ResponsiveGalleryImage inputs`, {
@@ -42,7 +53,12 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
       allSources,
       currentSource,
       currentSourceIndex,
-      alt
+      alt,
+      shouldBlur,
+      hasAccess,
+      membersOnly,
+      allPhotosPublic,
+      faceVisible
     });
   }
 
@@ -98,7 +114,7 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
         <img
           src={currentSource}
           alt={alt}
-          className="w-full h-full object-cover"
+          className={`w-full h-full object-cover transition-all duration-300 ${shouldBlur ? 'blur-md grayscale' : ''}`}
           loading={loading}
           decoding="async"
           onLoad={handleLoad}
@@ -116,7 +132,7 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
     <img
       src={currentSource}
       alt={alt}
-      className={`w-full h-full object-cover ${className}`}
+      className={`w-full h-full object-cover transition-all duration-300 ${shouldBlur ? 'blur-md grayscale' : ''} ${className}`}
       loading={loading}
       decoding="async"
       onLoad={handleLoad}

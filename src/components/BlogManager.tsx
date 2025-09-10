@@ -9,15 +9,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
+import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { ImageUpload } from '@/components/ImageUpload';
 import { 
   BookOpen, 
   Plus, 
   Edit, 
   Trash2, 
   Save,
-  RefreshCw
+  RefreshCw,
+  Upload
 } from 'lucide-react';
 
 interface BlogPost {
@@ -379,6 +382,24 @@ const BlogPostDialog: React.FC<{
                 placeholder="Breve descrição do post"
                 rows={3}
               />
+            </div>
+
+            <Separator />
+
+            <div className="space-y-2">
+              <Label className="flex items-center gap-2">
+                <Upload className="h-4 w-4" />
+                Imagem do Post
+              </Label>
+              <ImageUpload
+                value={formData.image}
+                onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
+                placeholder="URL da imagem do post ou faça upload"
+                label=""
+              />
+              <p className="text-xs text-muted-foreground">
+                Esta imagem será exibida como destaque do post do blog. Recomendamos imagens em alta resolução.
+              </p>
             </div>
 
             <div className="space-y-2">

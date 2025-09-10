@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,6 +10,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useAuth } from '@/components/AuthProvider';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
 import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle } from 'lucide-react';
 
@@ -25,6 +26,7 @@ interface GalleryImage {
 
 interface ModelForGallery {
   id?: string;
+  name?: string;
   members_only?: boolean;
   all_photos_public?: boolean;
 }
@@ -37,6 +39,8 @@ interface GalleryUploadProps {
 export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  const auth = useAuth();
+  const isAdmin = auth?.isAdmin || false;
   const { 
     optimizations, 
     metrics, 
@@ -352,14 +356,37 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
   // Determine if this is a mixed model (neither all public nor all members only)
   const isMixedModel = !model?.members_only && !model?.all_photos_public;
-  const allPublicModel = model?.all_photos_public === true;
-  const membersOnlyModel = model?.members_only === true;
+  
+  // NEW: Check if there are actually multiple visibility types in the gallery
+  const hasMultipleVisibilityTypes = useMemo(() => {
+    const visibilityTypes = new Set(galleryImages.map(img => img.visibility));
+    return visibilityTypes.size > 1;
+  }, [galleryImages]);
+  
+  // NEW: More robust logic for showing tabs
+  const shouldShowTabs = useMemo(() => {
+    // Always show for admin users
+    if (isAdmin) return true;
+    
+    // Show if model has mixed configuration OR if gallery actually has mixed photos
+    return isMixedModel || hasMultipleVisibilityTypes;
+  }, [isAdmin, isMixedModel, hasMultipleVisibilityTypes]);
 
-  console.log(`📱 GALLERY DEBUG: Tipo de modelo detectado:`, {
+  console.log(`🎯 GALLERY TABS DEBUG:`, {
+    modelId: modelId,
+    modelName: model?.name,
     isMixedModel,
-    allPublicModel, 
-    membersOnlyModel,
-    modelConfig: model
+    hasMultipleVisibilityTypes,
+    shouldShowTabs,
+    isAdmin,
+    totalImages: galleryImages.length,
+    publicCount: publicImages.length,
+    membersCount: membersImages.length,
+    adminCount: adminImages.length,
+    modelConfig: {
+      members_only: model?.members_only,
+      all_photos_public: model?.all_photos_public
+    }
   });
 
   return (
@@ -510,13 +537,16 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             • Públicas: {publicImages.length}<br/>
             • Membros: {membersImages.length}<br/>
             • Admin: {adminImages.length}<br/>
-            • Modelo misto: {isMixedModel ? 'Sim' : 'Não'}
+            • Modelo misto: {isMixedModel ? 'Sim' : 'Não'}<br/>
+            • Múltiplos tipos: {hasMultipleVisibilityTypes ? 'Sim' : 'Não'}<br/>
+            • Mostrar abas: {shouldShowTabs ? 'Sim' : 'Não'}<br/>
+            • É admin: {isAdmin ? 'Sim' : 'Não'}
           </div>
         </div>
       )}
 
       {galleryImages.length > 0 ? (
-        isMixedModel ? (
+        shouldShowTabs ? (
           <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'public' | 'members_only' | 'admin_only')}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="public" className="flex items-center gap-2">

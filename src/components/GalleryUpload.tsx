@@ -350,8 +350,17 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   const membersImages = galleryImages.filter(img => img.visibility === 'members_only');
   const adminImages = galleryImages.filter(img => img.visibility === 'admin_only');
 
-  // Determine if this is a mixed model
+  // Determine if this is a mixed model (neither all public nor all members only)
   const isMixedModel = !model?.members_only && !model?.all_photos_public;
+  const allPublicModel = model?.all_photos_public === true;
+  const membersOnlyModel = model?.members_only === true;
+
+  console.log(`📱 GALLERY DEBUG: Tipo de modelo detectado:`, {
+    isMixedModel,
+    allPublicModel, 
+    membersOnlyModel,
+    modelConfig: model
+  });
 
   return (
     <div className="space-y-4">
@@ -390,23 +399,22 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
           </div>
           
-          {/* Visibility Selector for Mixed Models */}
-          {isMixedModel && (
-            <div className="bg-white p-4 rounded-lg border-2 border-border">
-              <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
-                🎯 Tipo de Foto
-              </Label>
-              <div className="flex gap-2">
-                <Button
-                  type="button"
-                  variant={selectedVisibility === 'public' ? 'default' : 'outline'}
-                  onClick={() => setSelectedVisibility('public')}
-                  className={`flex-1 ${
-                    selectedVisibility === 'public' 
-                      ? 'bg-green-500 hover:bg-green-600 text-white' 
-                      : 'text-green-600 border-green-200 hover:bg-green-50'
-                  }`}
-                >
+          {/* Visibility Selector - SEMPRE mostrar para admin poder escolher */}
+          <div className="bg-white p-4 rounded-lg border-2 border-border">
+            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
+              🎯 Tipo de Foto
+            </Label>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant={selectedVisibility === 'public' ? 'default' : 'outline'}
+                onClick={() => setSelectedVisibility('public')}
+                className={`flex-1 ${
+                  selectedVisibility === 'public' 
+                    ? 'bg-green-500 hover:bg-green-600 text-white' 
+                    : 'text-green-600 border-green-200 hover:bg-green-50'
+                }`}
+              >
                   <Globe className="w-4 h-4 mr-2" />
                   Foto Pública
                 </Button>
@@ -438,7 +446,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                 </Button>
               </div>
             </div>
-          )}
+          
           
           <div className="bg-white p-4 rounded-lg border-2 border-border">
             <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
@@ -489,6 +497,20 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             >
               Cancelar
             </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Debug Info */}
+      {isMobile && (
+        <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm">
+          <div className="font-medium text-yellow-800">Debug Info:</div>
+          <div className="text-yellow-700">
+            • Total de imagens: {galleryImages.length}<br/>
+            • Públicas: {publicImages.length}<br/>
+            • Membros: {membersImages.length}<br/>
+            • Admin: {adminImages.length}<br/>
+            • Modelo misto: {isMixedModel ? 'Sim' : 'Não'}
           </div>
         </div>
       )}

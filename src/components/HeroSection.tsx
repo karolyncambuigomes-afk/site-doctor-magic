@@ -24,7 +24,7 @@ export const HeroSection: React.FC = () => {
       </section>;
   }
 
-  return <section className="relative h-[100vh] w-full flex items-end snap-start">
+  return <section className="relative min-h-screen max-h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
@@ -32,15 +32,15 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Content - Minimalist and positioned at bottom */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
           {/* H1 - Título principal */}
-          <h1 className="luxury-heading-lg mb-4 text-white font-light tracking-wide leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
             {heroContent.title}
           </h1>
           
           {/* H2 - Subtítulo */}
-          <h2 className="luxury-body-lg mb-8 text-white/90 font-light">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
             {heroContent.subtitle}
           </h2>
           

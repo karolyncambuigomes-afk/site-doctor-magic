@@ -115,7 +115,7 @@ serve(async (req) => {
           updateData = { image_url: localUrl }
           updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'models') {
-          updateData = { image: localUrl }
+          updateData = { [fieldName]: localUrl }
           updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'blog_posts') {
           updateData = { image: localUrl }

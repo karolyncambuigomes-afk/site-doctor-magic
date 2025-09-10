@@ -4,12 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Image, Images, CheckCircle, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { processAnastasiaPhotos } from '@/utils/processAnastasiaPhotos';
 
 const ANASTASIA_ID = 'd851677c-b1cc-43ac-bb9a-a65f83bf9e5b';
 
 export const AnastasiaFixManager: React.FC = () => {
   const [fixingMain, setFixingMain] = useState(false);
   const [fixingGallery, setFixingGallery] = useState(false);
+  const [processingAll, setProcessingAll] = useState(false);
   const [mainImageStatus, setMainImageStatus] = useState<'pending' | 'success' | 'error'>('pending');
   const [galleryStatus, setGalleryStatus] = useState<'pending' | 'success' | 'error'>('pending');
   const { toast } = useToast();
@@ -79,98 +81,37 @@ export const AnastasiaFixManager: React.FC = () => {
     }
   };
 
-  // Add a test gallery image
-  const addTestGalleryImage = async () => {
-    setFixingGallery(true);
+  // Process all Anastasia photos
+  const processAllPhotos = async () => {
+    setProcessingAll(true);
+    setMainImageStatus('pending');
     setGalleryStatus('pending');
-
+    
     try {
-      console.log('🖼️ Adding test gallery image for Anastasia...');
+      console.log('🔄 Processing all Anastasia photos...');
+      const result = await processAnastasiaPhotos();
       
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        throw new Error('No authentication session');
-      }
-
-      // Example image URL for testing
-      const testImageUrl = 'https://images.unsplash.com/photo-1494790108755-2616c5a79e78?q=80&w=400&h=600';
-
-      // First, add to gallery_external_urls for immediate preview
-      const { data: model, error: fetchError } = await supabase
-        .from('models')
-        .select('gallery_external_urls, gallery_local_urls')
-        .eq('id', ANASTASIA_ID)
-        .single();
-
-      if (fetchError) throw fetchError;
-
-      const updatedExternalUrls = [...(model.gallery_external_urls || []), testImageUrl];
-      
-      // Update database for immediate preview
-      const { error: updateError } = await supabase
-        .from('models')
-        .update({
-          gallery_external_urls: updatedExternalUrls
-        })
-        .eq('id', ANASTASIA_ID);
-
-      if (updateError) throw updateError;
-
-      console.log('✅ Gallery updated with external URL');
-
-      // Now call admin-fix-one-gallery to optimize
-      const { data, error } = await supabase.functions.invoke('admin-fix-one-gallery', {
-        body: {
-          modelId: ANASTASIA_ID,
-          sourceUrl: testImageUrl,
-          index: updatedExternalUrls.length - 1,
-          dry_run: false
-        },
-        headers: {
-          'Authorization': `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (error) {
-        console.warn('⚠️ Gallery optimization failed but image is added:', error);
+      if (result.success) {
+        setMainImageStatus('success');
+        setGalleryStatus('success');
+        toast({
+          title: "Sucesso!",
+          description: "Todas as fotos da Anastasia foram processadas com sucesso",
+        });
       } else {
-        console.log('✅ Gallery optimization result:', data);
+        throw new Error(result.error || 'Processing failed');
       }
-
-      setGalleryStatus('success');
-      
-      toast({
-        title: "Gallery image added",
-        description: "Test image has been added to Anastasia's gallery",
-        variant: "default"
-      });
-
-      // Validate the local gallery image
-      const localPath = `/images/models/${ANASTASIA_ID}/gallery-${updatedExternalUrls.length - 1}-1200.webp`;
-      setTimeout(async () => {
-        try {
-          const response = await fetch(localPath, { method: 'HEAD' });
-          if (response.ok) {
-            console.log('✅ Local gallery image is accessible:', localPath);
-          } else {
-            console.warn('⚠️ Local gallery image not yet accessible:', response.status);
-          }
-        } catch (checkError) {
-          console.warn('⚠️ Could not validate local gallery image:', checkError);
-        }
-      }, 2000);
-
     } catch (error) {
-      console.error('❌ Gallery image add failed:', error);
+      console.error('Error processing photos:', error);
+      setMainImageStatus('error');
       setGalleryStatus('error');
       toast({
-        title: "Gallery image add failed",
-        description: error.message || 'Failed to add gallery image',
-        variant: "destructive"
+        title: "Erro",
+        description: "Falha ao processar as fotos",
+        variant: "destructive",
       });
     } finally {
-      setFixingGallery(false);
+      setProcessingAll(false);
     }
   };
 
@@ -227,30 +168,31 @@ export const AnastasiaFixManager: React.FC = () => {
             </Button>
           </div>
 
-          {/* Gallery Image Test */}
-          <div className="flex items-center justify-between p-4 border rounded-lg">
+          {/* Process All Photos */}
+          <div className="flex items-center justify-between p-4 border rounded-lg bg-blue-50">
             <div className="flex items-center gap-3">
               <Images className="h-5 w-5" />
               <div>
-                <div className="font-medium">Foto de Galeria (Teste)</div>
+                <div className="font-medium">Processar Todas as Fotos</div>
                 <div className="text-sm text-muted-foreground">
-                  Adicionar uma foto de teste na galeria
+                  Corrige foto principal + processa galeria existente
                 </div>
               </div>
-              {getStatusIcon(galleryStatus)}
+              {processingAll && <Loader2 className="h-4 w-4 animate-spin" />}
             </div>
             <Button
-              onClick={addTestGalleryImage}
-              disabled={fixingGallery}
-              variant={galleryStatus === 'success' ? 'outline' : 'default'}
+              onClick={processAllPhotos}
+              disabled={processingAll}
+              variant="default"
+              size="lg"
             >
-              {fixingGallery ? (
+              {processingAll ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Adicionando...
+                  Processando...
                 </>
               ) : (
-                'Adicionar Teste'
+                'Processar Tudo'
               )}
             </Button>
           </div>
@@ -262,10 +204,13 @@ export const AnastasiaFixManager: React.FC = () => {
           <CardTitle>Próximos Passos</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
-          <div>1. Clique em "Corrigir Principal" para processar a foto principal</div>
-          <div>2. Clique em "Adicionar Teste" para adicionar uma foto na galeria</div>
-          <div>3. Verifique se as imagens aparecem corretamente no card da Anastasia</div>
-          <div>4. Acesse o perfil da Anastasia para ver as mudanças</div>
+          <div>✅ <strong>RECOMENDADO:</strong> Clique em "Processar Tudo" para corrigir automaticamente</div>
+          <div>• Processa foto principal (image_url_local_main)</div>
+          <div>• Converte fotos da galeria (gallery_external_urls → gallery_local_urls)</div>
+          <div>• Verifica se as imagens locais estão acessíveis</div>
+          <div className="mt-3 pt-3 border-t">
+            <strong>Alternativa manual:</strong> Use os botões individuais acima
+          </div>
         </CardContent>
       </Card>
     </div>

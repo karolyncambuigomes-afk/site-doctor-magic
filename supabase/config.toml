@@ -56,3 +56,6 @@ verify_jwt = true
 
 [functions.sync-image-to-local]
 verify_jwt = true
+
+[functions.process-anastasia-gallery]
+verify_jwt = false

@@ -1,102 +1,99 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ModelCard } from '@/components/ModelCard';
 import { useModels } from '@/hooks/useModels';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { AdvancedModelFilters } from './AdvancedModelFilters';
-import { useModelsFilters } from '@/hooks/useModelsFilters';
+import { CategoryFilters } from './CategoryFilters';
+import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
-export const ModelsGallery: React.FC = () => {
-  const {
-    filters,
-    availableOptions,
-    updateSearchTerm,
-    updateLocations,
-    updateCharacteristics,
-    updateServices,
-    clearAllFilters,
-    hasActiveFilters,
-    activeFiltersCount,
-  } = useModelsFilters();
+import { Input } from '@/components/ui/input';
 
+export const ModelsGallery: React.FC = () => {
   const { models, loading, error } = useModels();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  // Get unique categories/characteristics from models
+  const categories = useMemo(() => {
+    if (!models.length) return [];
+    const allCharacteristics = models.flatMap(model => model.characteristics || []);
+    return [...new Set(allCharacteristics)];
+  }, [models]);
 
   const filteredModels = useMemo(() => {
     if (!models.length) return [];
     
     return models.filter(model => {
       // Search term filter
-      const matchesSearch = !filters.searchTerm || 
-        model.name?.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-        model.description?.toLowerCase().includes(filters.searchTerm.toLowerCase());
+      const matchesSearch = !searchTerm || 
+        model.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        model.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
-      // Location filter (multi-select)
-      const matchesLocation = filters.selectedLocations.length === 0 ||
-        filters.selectedLocations.includes(model.location || '');
+      // Category filter
+      const matchesCategory = selectedCategory === 'all' ||
+        model.characteristics?.includes(selectedCategory);
 
-      // Characteristics filter (multi-select)
-      const matchesCharacteristics = filters.selectedCharacteristics.length === 0 ||
-        filters.selectedCharacteristics.some(characteristic => 
-          model.characteristics?.includes(characteristic)
-        );
-
-      // Services filter (multi-select)
-      const matchesServices = filters.selectedServices.length === 0 ||
-        filters.selectedServices.some(service => 
-          model.services?.includes(service)
-        );
-
-      return matchesSearch && matchesLocation && matchesCharacteristics && matchesServices;
+      return matchesSearch && matchesCategory;
     });
-  }, [models, filters]);
-  return <div className="min-h-screen bg-white">
-      
-      
-      <main id="main-content" className="pt-16 sm:pt-20">
-        {/* Breadcrumbs */}
-        <section className="py-4 border-b border-border/30">
-          
-        </section>
+  }, [models, searchTerm, selectedCategory]);
 
-
-        {/* Advanced Filters */}
+  return (
+    <div className="min-h-screen bg-white">
+      <main className="pt-0">
+        {/* Simple Search and Category Filters */}
         <section className="py-8 border-b border-border/50">
           <div className="container-width">
-            <AdvancedModelFilters
-              searchTerm={filters.searchTerm}
-              selectedLocations={filters.selectedLocations}
-              selectedCharacteristics={filters.selectedCharacteristics}
-              selectedServices={filters.selectedServices}
-              onSearchChange={updateSearchTerm}
-              onLocationChange={updateLocations}
-              onCharacteristicChange={updateCharacteristics}
-              onServiceChange={updateServices}
-              onClearAll={clearAllFilters}
-              availableLocations={availableOptions.locations}
-              availableCharacteristics={availableOptions.characteristics}
-              availableServices={availableOptions.services}
-            />
+            {/* Search Bar */}
+            <div className="max-w-md mx-auto mb-6">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  type="text"
+                  placeholder="Search models..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+
+            {/* Category Filter Buttons */}
+            <div className="flex flex-wrap justify-center gap-2 mb-4">
+              <Button
+                variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory('all')}
+                className="text-sm"
+              >
+                All Models
+              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory(category)}
+                  className="text-sm"
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
 
             {/* Results Counter */}
-            {hasActiveFilters && (
-              <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border/30">
-                <span className="text-sm text-gray-600">
-                  {filteredModels.length} companion{filteredModels.length !== 1 ? 's' : ''} found
-                </span>
-              </div>
-            )}
+            <div className="text-center text-sm text-gray-600">
+              {filteredModels.length} companion{filteredModels.length !== 1 ? 's' : ''} available
+            </div>
           </div>
         </section>
 
-        {/* Elegant Gallery - Loro Piana Style Mobile */}
+        {/* Models Gallery */}
         <section className="py-16">
           <div className="container-width-lg">
-            {loading ? <div className="text-center py-24">
+            {loading ? (
+              <div className="text-center py-24">
                 <LoadingSpinner size="lg" className="mx-auto mb-4" />
                 <p className="text-muted-foreground">Loading companions...</p>
-              </div> : error ? <div className="text-center py-24">
+              </div>
+            ) : error ? (
+              <div className="text-center py-24">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-50 flex items-center justify-center">
                   <AlertCircle className="w-8 h-8 text-red-500" />
                 </div>
@@ -104,22 +101,37 @@ export const ModelsGallery: React.FC = () => {
                 <p className="luxury-body-md text-muted-foreground mb-8 max-w-md mx-auto">
                   {error}. Please try again later.
                 </p>
-              </div> : filteredModels.length > 0 ? <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 md:gap-6 lg:gap-6 xl:gap-8">
+              </div>
+            ) : filteredModels.length > 0 ? (
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 md:gap-6 lg:gap-6 xl:gap-8">
                 {filteredModels.map(model => <ModelCard key={model.id} model={model} />)}
-              </div> : <div className="text-center py-24">
+              </div>
+            ) : (
+              <div className="text-center py-24">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-muted/30 flex items-center justify-center">
                   <Search className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <h3 className="luxury-heading-lg mb-3">No companions found</h3>
                 <p className="luxury-body-md text-muted-foreground mb-8 max-w-md mx-auto">
-                  Try adjusting your search criteria or browse all companions
+                  Try adjusting your search or browse all companions
                 </p>
-                <button onClick={clearAllFilters} className="inline-flex items-center px-6 py-2 luxury-body-sm font-medium text-primary hover:text-primary/80 border border-primary/20 hover:border-primary/40 rounded-full transition-all">
+                <Button 
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('all');
+                  }}
+                  variant="outline"
+                >
                   Clear Filters
-                </button>
-              </div>}
+                </Button>
+              </div>
+            )}
           </div>
         </section>
+
+        {/* Category Filters Section */}
+        <CategoryFilters />
       </main>
-    </div>;
+    </div>
+  );
 };

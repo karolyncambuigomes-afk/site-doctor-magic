@@ -21,7 +21,7 @@ export const useMobileSyncManager = () => {
       return;
     }
 
-    console.log('[MobileSyncManager] Force sync for mobile device');
+    console.log('[MobileSyncManager] Force sync disabled to prevent loops');
     
     const timestamp = Date.now();
     setSyncState(prev => ({
@@ -30,73 +30,20 @@ export const useMobileSyncManager = () => {
       isStale: false
     }));
 
-    // Smart cache clearing - only relevant caches
-    if ('caches' in window) {
-      caches.open('runtime-cache').then(cache => {
-        cache.keys().then(keys => {
-          const relevantKeys = keys.filter(req => 
-            req.url.includes('preference_categories') || 
-            req.url.includes('models') ||
-            req.url.includes('storage/v1/object')
-          );
-          
-          console.log('[MobileSyncManager] Clearing relevant cache entries:', relevantKeys.length);
-          Promise.all(relevantKeys.map(key => cache.delete(key)));
-        });
-      });
-    }
-
-    // Dispatch targeted sync events
-    const events = [
-      'mobile-force-sync',
-      'preference-categories-refresh'
-    ];
-
-    events.forEach(eventType => {
-      window.dispatchEvent(new CustomEvent(eventType, {
-        detail: { 
-          timestamp,
-          syncCount: syncState.syncCount + 1,
-          source: 'mobile-sync-manager'
-        }
-      }));
-    });
-
+    // No more event dispatching to prevent loops
     console.log(`[MobileSyncManager] Mobile sync completed: ${timestamp}`);
-  }, [isMobile, syncState.syncCount]);
+  }, [isMobile]);
 
+  // Disabled all event listeners to prevent loops
   useEffect(() => {
     if (!isMobile) return;
 
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        console.log('[MobileSyncManager] App visible, triggering sync');
-        setTimeout(forceSync, 200);
-      }
-    };
-
-    const handleFocus = () => {
-      console.log('[MobileSyncManager] App focused, triggering sync');
-      setTimeout(forceSync, 100);
-    };
-
-    const handleNetworkChange = () => {
-      if (navigator.onLine) {
-        console.log('[MobileSyncManager] Network restored, triggering sync');
-        setTimeout(forceSync, 300);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-    window.addEventListener('online', handleNetworkChange);
+    console.log('[MobileSyncManager] Event listeners disabled to prevent infinite loops');
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
-      window.removeEventListener('online', handleNetworkChange);
+      // Cleanup placeholder
     };
-  }, [isMobile, forceSync]);
+  }, [isMobile]);
 
   return {
     syncState,

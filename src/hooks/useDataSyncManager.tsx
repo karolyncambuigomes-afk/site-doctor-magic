@@ -24,28 +24,14 @@ export const useDataSyncManager = () => {
     isStale: false
   });
 
-  // Get data versions from Supabase to detect changes
+  // Disabled to prevent loops - simplified version
   const getDataVersions = useCallback(async (): Promise<DataVersions> => {
-    try {
-      const [categoriesResult, modelsResult, locationsResult] = await Promise.all([
-        supabase.from('preference_categories').select('updated_at').order('updated_at', { ascending: false }).limit(1),
-        supabase.from('models').select('updated_at').order('updated_at', { ascending: false }).limit(1),
-        supabase.from('locations').select('updated_at').order('updated_at', { ascending: false }).limit(1)
-      ]);
-
-      return {
-        preferenceCategories: categoriesResult.data?.[0]?.updated_at || '0',
-        models: modelsResult.data?.[0]?.updated_at || '0',
-        locations: locationsResult.data?.[0]?.updated_at || '0'
-      };
-    } catch (error) {
-      console.warn('[DataSync] Error getting data versions:', error);
-      return {
-        preferenceCategories: Date.now().toString(),
-        models: Date.now().toString(),
-        locations: Date.now().toString()
-      };
-    }
+    console.log('[DataSync] Data version checking disabled to prevent loops');
+    return {
+      preferenceCategories: Date.now().toString(),
+      models: Date.now().toString(),
+      locations: Date.now().toString()
+    };
   }, []);
 
   // Generate hash from data versions
@@ -138,48 +124,14 @@ export const useDataSyncManager = () => {
     }
   }, [checkForDataChanges, syncState.isStale, syncState.dataHash, syncState.syncCount, isMobile]);
 
-  // Smart polling based on mobile/desktop
+  // Disabled all sync mechanisms to prevent loops
   useEffect(() => {
-    if (!isMobile) return; // Only mobile needs aggressive sync
-
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        console.log('[DataSync] App became visible, checking for changes...');
-        setTimeout(checkForDataChanges, 200);
-      }
-    };
-
-    const handleFocus = () => {
-      console.log('[DataSync] App focused, checking for changes...');
-      setTimeout(checkForDataChanges, 100);
-    };
-
-    // Smart polling - more frequent on mobile
-    const pollInterval = setInterval(() => {
-      console.log('[DataSync] Polling for changes...');
-      checkForDataChanges();
-    }, 15000); // 15 seconds on mobile
-
-    // Listen for manual sync requests
-    const handleSyncRequest = () => {
-      console.log('[DataSync] Manual sync requested');
-      forceSync();
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('focus', handleFocus);
-    window.addEventListener('mobile-sync-request', handleSyncRequest);
-
-    // Initial check
-    checkForDataChanges();
-
+    console.log('[DataSync] All sync mechanisms disabled to prevent infinite loops');
+    
     return () => {
-      clearInterval(pollInterval);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('focus', handleFocus);
-      window.removeEventListener('mobile-sync-request', handleSyncRequest);
+      // Cleanup placeholder
     };
-  }, [isMobile, checkForDataChanges, forceSync]);
+  }, []);
 
   return {
     syncState,

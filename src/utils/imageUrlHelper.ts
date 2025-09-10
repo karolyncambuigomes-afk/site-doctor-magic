@@ -36,7 +36,7 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
     return `${path}${separator}v=${timestamp}`;
     
   } catch (error) {
-    console.warn('[ImageURL] Error generating URL:', error);
+    console.warn('[ImageURL] Error generating URL:', error, 'Path:', path);
     return path;
   }
 };

@@ -111,7 +111,10 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       {/* Error state */}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground text-sm">
-          Imagem não encontrada
+          <div className="text-center">
+            <div>Imagem não encontrada</div>
+            <div className="text-xs mt-1 opacity-70">Src: {src}</div>
+          </div>
         </div>
       )}
     </div>

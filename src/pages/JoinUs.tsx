@@ -265,7 +265,7 @@ const JoinUs = () => {
     return (
       <>
         <Navigation />
-        <main className="pt-16 min-h-screen flex items-center justify-center">
+        <main className="pt-0 min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
             <p>Loading...</p>
@@ -287,7 +287,7 @@ const JoinUs = () => {
         />
         <Navigation />
         
-        <main className="pt-16 min-h-screen">
+        <main className="pt-0 min-h-screen">
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width">
               <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
@@ -340,7 +340,7 @@ const JoinUs = () => {
         />
         <Navigation />
         
-        <main className="pt-16 min-h-screen">
+        <main className="pt-0 min-h-screen">
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width">
               <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
@@ -384,7 +384,7 @@ const JoinUs = () => {
       />
       <Navigation />
       
-      <main className="pt-16">
+      <main className="pt-0">
         {/* Hero Section */}
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">

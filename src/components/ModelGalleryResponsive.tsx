@@ -90,10 +90,10 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
       const modelMembersOnly = modelData?.members_only || membersOnly;
       const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
       
-      // If user doesn't have access and photos are restricted, limit to first 2-3 images
-      if (!hasAccess && !isAdmin && (modelMembersOnly || !modelAllPhotosPublic)) {
-        effectiveImages.splice(3); // Keep only first 3 images
-        console.log(`🔒 ACESSO LIMITADO: Mostrando apenas ${effectiveImages.length} fotos para não-membros`);
+      // For mixed models (all_photos_public = false), show 5-6 public photos to non-members
+      if (!hasAccess && !isAdmin && !modelAllPhotosPublic) {
+        effectiveImages.splice(6); // Keep first 6 images for mixed models
+        console.log(`🔒 MODELO MISTO: Mostrando ${effectiveImages.length} fotos públicas para não-membros`);
       }
 
       const loadTime = performance.now() - startTime;
@@ -246,16 +246,16 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
           </div>
         )}
 
-        {/* Access Control Message */}
-        {!hasAccess && !isAdmin && (membersOnly || !allPhotosPublic) && (
-          <div className="bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 rounded-lg p-4 text-center">
-            <div className="flex items-center justify-center gap-2 text-accent mb-2">
-              <Lock className="w-5 h-5" />
-              <span className="font-medium">Mais fotos disponíveis para membros</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Faça login para ver todas as {galleryImages.length} fotos desta modelo
+        {/* Premium Content Message for Mixed Models */}
+        {!hasAccess && !isAdmin && !allPhotosPublic && galleryImages.length > 0 && (
+          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20 p-6 text-center">
+            <h3 className="text-lg font-semibold mb-2">Conteúdo Exclusivo Disponível</h3>
+            <p className="text-muted-foreground mb-4">
+              Você está vendo {galleryImages.length} fotos públicas. Desbloqueie fotos exclusivas e conteúdo premium com a assinatura.
             </p>
+            <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium transition-colors">
+              Torne-se Membro - Ver Todas as Fotos
+            </button>
           </div>
         )}
       </div>

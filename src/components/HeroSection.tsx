@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/useMediaQuery';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
@@ -78,20 +79,14 @@ export const HeroSection: React.FC = () => {
   return <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
-        <img 
+        <OptimizedImage
           src={imageError ? fallbackImage : primaryImage}
-          alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
-          className="w-full h-full object-cover object-center" 
-          loading="eager"
-          onError={handleImageError}
-          onLoad={handleImageLoad}
+          alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele"
+          className="w-full h-full"
+          priority={true}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/40" />
-        {!imageLoaded && !imageError && (
-          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-            <div className="text-white text-sm">Loading banner...</div>
-          </div>
-        )}
       </div>
 
       {/* Content - Minimalist and positioned at bottom */}

@@ -3,6 +3,7 @@ import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface ModelCardProps {
   model: Model;
@@ -54,28 +55,22 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
             {!imageError ? (
               <>
                 {/* Main Image */}
-                <img
+                <OptimizedImage
                   src={model.image}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full object-cover transition-all duration-700 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  } ${
+                  className={`w-full h-full transition-all duration-700 ${
                     model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
-                  } ${
-                    model.face_visible === false ? 'object-[center_40%]' : 'object-[center_30%]'
                   }`}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageError(true)}
-                  loading="lazy"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
                 
                 {/* Second Image (from gallery) - only if available */}
                 {model.gallery && model.gallery.length > 1 && (
-                  <img
+                  <OptimizedImage
                     src={model.gallery[0]}
                     alt={`${model.name} - alternate view`}
-                    className="w-full h-full object-cover object-[center_30%] transition-all duration-700 opacity-0 group-hover:opacity-100"
-                    loading="lazy"
+                    className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   />
                 )}
                 

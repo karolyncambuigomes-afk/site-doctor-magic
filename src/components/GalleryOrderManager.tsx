@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { GripVertical, Eye, EyeOff, Star } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/components/AuthProvider';
 
 interface GalleryImage {
   id: string;
@@ -31,6 +32,7 @@ export const GalleryOrderManager: React.FC<GalleryOrderManagerProps> = ({
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { user, isAdmin } = useAuth();
 
   useEffect(() => {
     fetchGalleryImages();
@@ -109,7 +111,19 @@ export const GalleryOrderManager: React.FC<GalleryOrderManagerProps> = ({
   };
 
   const toggleVisibility = async (imageId: string, currentVisibility: string) => {
+    if (!isAdmin) {
+      toast({
+        title: "Access Denied",
+        description: "Only administrators can change image visibility",
+        variant: "destructive"
+      });
+      return;
+    }
+
     try {
+      console.log(`Toggling visibility for image ${imageId} from ${currentVisibility}`);
+      console.log(`User: ${user?.email}, Admin: ${isAdmin}`);
+      
       const newVisibility = currentVisibility === 'public' ? 'members_only' : 'public';
       
       const { error } = await supabase
@@ -117,7 +131,21 @@ export const GalleryOrderManager: React.FC<GalleryOrderManagerProps> = ({
         .update({ visibility: newVisibility })
         .eq('id', imageId);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        if (error.message?.includes('row-level security')) {
+          toast({
+            title: "Permission Denied",
+            description: "You don't have permission to modify this image. Please ensure you're logged in as an admin.",
+            variant: "destructive"
+          });
+        } else {
+          throw error;
+        }
+        return;
+      }
+
+      console.log(`Successfully updated visibility to ${newVisibility}`);
 
       setImages(images.map(img => 
         img.id === imageId 
@@ -248,6 +276,7 @@ export const GalleryOrderManager: React.FC<GalleryOrderManagerProps> = ({
                                 id={`visibility-${image.id}`}
                                 checked={image.visibility === 'public'}
                                 onCheckedChange={() => toggleVisibility(image.id, image.visibility)}
+                                disabled={!isAdmin}
                               />
                             </div>
 

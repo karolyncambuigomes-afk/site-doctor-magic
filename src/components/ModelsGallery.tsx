@@ -1,45 +1,56 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { ModelCard } from '@/components/ModelCard';
 import { useModels } from '@/hooks/useModels';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Search, MapPin, Sparkles, Settings, ChevronDown, AlertCircle, Crown } from 'lucide-react';
+import { AdvancedModelFilters } from './AdvancedModelFilters';
+import { useModelsFilters } from '@/hooks/useModelsFilters';
+import { Search, AlertCircle } from 'lucide-react';
 export const ModelsGallery: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('all');
-  const [selectedCharacteristic, setSelectedCharacteristic] = useState('all');
-  const [selectedServiceType, setSelectedServiceType] = useState('all');
-
-  // Use secure hook instead of hardcoded data
   const {
-    models,
-    loading,
-    error,
-    refetch
-  } = useModels();
-  console.log('ModelsGallery - Loading:', loading, 'Models count:', models.length, 'Error:', error);
+    filters,
+    availableOptions,
+    updateSearchTerm,
+    updateLocations,
+    updateCharacteristics,
+    updateServices,
+    clearAllFilters,
+    hasActiveFilters,
+    activeFiltersCount,
+  } = useModelsFilters();
 
-  // Get unique values for filters
-  const uniqueLocations = [...new Set(models.map(model => model.location).filter(Boolean))];
-  const uniqueCharacteristics = [...new Set(models.flatMap(model => model.characteristics || []).filter(Boolean))];
+  const { models, loading, error } = useModels();
+
   const filteredModels = useMemo(() => {
     if (!models.length) return [];
+    
     return models.filter(model => {
-      const matchesSearch = model.name?.toLowerCase().includes(searchTerm.toLowerCase()) || model.description?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesLocation = selectedLocation === 'all' || model.location === selectedLocation;
-      const matchesCharacteristic = selectedCharacteristic === 'all' || model.characteristics && model.characteristics.includes(selectedCharacteristic);
-      const matchesServiceType = selectedServiceType === 'all' || model.services && model.services.some(service => service.toLowerCase().includes(selectedServiceType.toLowerCase()));
-      return matchesSearch && matchesLocation && matchesCharacteristic && matchesServiceType;
+      // Search term filter
+      const matchesSearch = !filters.searchTerm || 
+        model.name?.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+        model.description?.toLowerCase().includes(filters.searchTerm.toLowerCase());
+
+      // Location filter (multi-select)
+      const matchesLocation = filters.selectedLocations.length === 0 ||
+        filters.selectedLocations.includes(model.location || '');
+
+      // Characteristics filter (multi-select)
+      const matchesCharacteristics = filters.selectedCharacteristics.length === 0 ||
+        filters.selectedCharacteristics.some(characteristic => 
+          model.characteristics?.includes(characteristic)
+        );
+
+      // Services filter (multi-select)
+      const matchesServices = filters.selectedServices.length === 0 ||
+        filters.selectedServices.some(service => 
+          model.services?.includes(service)
+        );
+
+      return matchesSearch && matchesLocation && matchesCharacteristics && matchesServices;
     });
-  }, [models, searchTerm, selectedLocation, selectedCharacteristic, selectedServiceType]);
-  const clearAllFilters = () => {
-    setSearchTerm('');
-    setSelectedLocation('all');
-    setSelectedCharacteristic('all');
-    setSelectedServiceType('all');
-  };
+  }, [models, filters]);
   return <div className="min-h-screen bg-white">
       
       
@@ -50,57 +61,32 @@ export const ModelsGallery: React.FC = () => {
         </section>
 
 
-        {/* Sophisticated Filters */}
+        {/* Advanced Filters */}
         <section className="py-8 border-b border-border/50">
           <div className="container-width">
-            <div className="flex flex-wrap gap-3 justify-center">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input type="text" placeholder="Search..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-48 pl-9 pr-4 py-2 luxury-body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all" />
-              </div>
+            <AdvancedModelFilters
+              searchTerm={filters.searchTerm}
+              selectedLocations={filters.selectedLocations}
+              selectedCharacteristics={filters.selectedCharacteristics}
+              selectedServices={filters.selectedServices}
+              onSearchChange={updateSearchTerm}
+              onLocationChange={updateLocations}
+              onCharacteristicChange={updateCharacteristics}
+              onServiceChange={updateServices}
+              onClearAll={clearAllFilters}
+              availableLocations={availableOptions.locations}
+              availableCharacteristics={availableOptions.characteristics}
+              availableServices={availableOptions.services}
+            />
 
-              {/* Location Filter */}
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <select value={selectedLocation} onChange={e => setSelectedLocation(e.target.value)} className="w-40 pl-9 pr-10 py-2 luxury-body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer">
-                  <option value="all">All Areas</option>
-                  {uniqueLocations.map(location => <option key={location} value={location}>{location}</option>)}
-                </select>
-              </div>
-
-              {/* Characteristic Filter */}
-              <div className="relative">
-                <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <select value={selectedCharacteristic} onChange={e => setSelectedCharacteristic(e.target.value)} className="w-44 pl-9 pr-10 py-2 luxury-body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer">
-                  <option value="all">All Characteristics</option>
-                  {uniqueCharacteristics.map(characteristic => <option key={characteristic} value={characteristic}>{characteristic}</option>)}
-                </select>
-              </div>
-
-              {/* Service Type Filter */}
-              <div className="relative">
-                <Settings className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" />
-                <select value={selectedServiceType} onChange={e => setSelectedServiceType(e.target.value)} className="w-36 pl-9 pr-10 py-2 luxury-body-sm border border-border rounded-full bg-background focus:border-primary outline-none transition-all appearance-none cursor-pointer">
-                  <option value="all">All Services</option>
-                  <option value="incall">Incall</option>
-                  <option value="outcall">Outcall</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Results Counter & Clear */}
-            {(searchTerm || selectedLocation !== 'all' || selectedCharacteristic !== 'all' || selectedServiceType !== 'all') && <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border/30">
-                <span className="luxury-body-sm text-muted-foreground">
-                  {filteredModels.length} companions found
+            {/* Results Counter */}
+            {hasActiveFilters && (
+              <div className="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-border/30">
+                <span className="text-sm text-gray-600">
+                  {filteredModels.length} companion{filteredModels.length !== 1 ? 's' : ''} found
                 </span>
-                <button onClick={clearAllFilters} className="luxury-body-sm text-primary hover:text-primary/80 transition-colors underline underline-offset-4">
-                  Clear filters
-                </button>
-              </div>}
+              </div>
+            )}
           </div>
         </section>
 

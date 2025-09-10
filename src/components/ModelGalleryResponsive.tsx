@@ -61,68 +61,43 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
       setLoading(true);
       setLoadingError(null);
       
-      // First try to get photos from model_gallery table
-      const { data: galleryData, error: galleryError } = await supabase
-        .from('model_gallery')
-        .select('image_url, visibility, order_index')
-        .eq('model_id', modelId)
-        .order('order_index');
+      // Get model data with gallery arrays and access settings
+      const { data: modelData, error } = await supabase
+        .from('models')
+        .select('gallery_external_urls, gallery_local_urls, members_only, all_photos_public, face_visible')
+        .eq('id', modelId)
+        .single();
 
-      let effectiveImages: string[] = [];
+      if (error) throw error;
 
-      if (galleryData && galleryData.length > 0) {
-        // Use model_gallery with visibility control
-        console.log(`📱 RESPONSIVE GALLERY: ${galleryData.length} fotos encontradas na model_gallery`);
-        
-        let filteredPhotos = galleryData;
-        
-        // Apply visibility filter based on user access
-        if (!hasAccess && !isAdmin) {
-          // Non-members see only public photos
-          filteredPhotos = galleryData.filter(photo => photo.visibility === 'public');
-          console.log(`🔒 NÃO-MEMBRO: Mostrando ${filteredPhotos.length} fotos públicas de ${galleryData.length} totais`);
-        } else {
-          // Members see all photos (public + members_only)
-          console.log(`🔑 MEMBRO: Mostrando todas as ${galleryData.length} fotos`);
-        }
-        
-        effectiveImages = filteredPhotos.map(photo => photo.image_url);
-      } else {
-        // Fallback to old gallery arrays
-        console.log(`📱 RESPONSIVE GALLERY: Fallback para arrays antigos`);
-        
-        const { data: modelData, error } = await supabase
-          .from('models')
-          .select('gallery_external_urls, gallery_local_urls, members_only, all_photos_public')
-          .eq('id', modelId)
-          .single();
-
-        if (error) throw error;
-
-        const externalUrls = modelData?.gallery_external_urls || [];
-        const localUrls = modelData?.gallery_local_urls || [];
-        
-        // Build effective image list with local priority
-        const maxLength = Math.max(localUrls.length, externalUrls.length);
-        
-        for (let i = 0; i < maxLength; i++) {
-          if (localUrls[i]) {
-            effectiveImages.push(localUrls[i]);
-          } else if (externalUrls[i]) {
-            effectiveImages.push(externalUrls[i]);
-          }
-        }
-
-        // Apply old access control for fallback
-        const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
-        if (!hasAccess && !isAdmin && !modelAllPhotosPublic) {
-          effectiveImages.splice(6); // Keep first 6 images for mixed models
-          console.log(`🔒 FALLBACK MODELO MISTO: Mostrando ${effectiveImages.length} fotos`);
+      // Create effective gallery list: prioritize local, fallback to external
+      const externalUrls = modelData?.gallery_external_urls || [];
+      const localUrls = modelData?.gallery_local_urls || [];
+      
+      // Build effective image list with local priority
+      const effectiveImages: string[] = [];
+      const maxLength = Math.max(localUrls.length, externalUrls.length);
+      
+      for (let i = 0; i < maxLength; i++) {
+        if (localUrls[i]) {
+          effectiveImages.push(localUrls[i]);
+        } else if (externalUrls[i]) {
+          effectiveImages.push(externalUrls[i]);
         }
       }
 
+      // Apply access control: limit images for non-members
+      const modelMembersOnly = modelData?.members_only || membersOnly;
+      const modelAllPhotosPublic = modelData?.all_photos_public ?? allPhotosPublic;
+      
+      // If user doesn't have access and photos are restricted, limit to first 2-3 images
+      if (!hasAccess && !isAdmin && (modelMembersOnly || !modelAllPhotosPublic)) {
+        effectiveImages.splice(3); // Keep only first 3 images
+        console.log(`🔒 ACESSO LIMITADO: Mostrando apenas ${effectiveImages.length} fotos para não-membros`);
+      }
+
       const loadTime = performance.now() - startTime;
-      console.log(`📱 RESPONSIVE GALLERY: ${effectiveImages.length} imagens finais em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 RESPONSIVE GALLERY: ${effectiveImages.length} imagens em ${loadTime.toFixed(2)}ms`);
       
       trackPerformance(startTime, effectiveImages.length);
       
@@ -271,16 +246,16 @@ export const ModelGalleryResponsive: React.FC<ModelGalleryResponsiveProps> = ({
           </div>
         )}
 
-        {/* Premium Content Message for Mixed Models */}
-        {!hasAccess && !isAdmin && !allPhotosPublic && galleryImages.length > 0 && (
-          <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg border border-primary/20 p-6 text-center">
-            <h3 className="text-lg font-semibold mb-2">Conteúdo Exclusivo Disponível</h3>
-            <p className="text-muted-foreground mb-4">
-              Você está vendo {galleryImages.length} fotos públicas. Desbloqueie fotos exclusivas e conteúdo premium com a assinatura.
+        {/* Access Control Message */}
+        {!hasAccess && !isAdmin && (membersOnly || !allPhotosPublic) && (
+          <div className="bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 rounded-lg p-4 text-center">
+            <div className="flex items-center justify-center gap-2 text-accent mb-2">
+              <Lock className="w-5 h-5" />
+              <span className="font-medium">Mais fotos disponíveis para membros</span>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Faça login para ver todas as {galleryImages.length} fotos desta modelo
             </p>
-            <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium transition-colors">
-              Torne-se Membro - Ver Todas as Fotos
-            </button>
           </div>
         )}
       </div>

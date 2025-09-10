@@ -32,7 +32,6 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import { Models } from "./pages/Models";
 import { ModelProfile } from "./pages/ModelProfile";
-import { ModelGallery } from "./pages/ModelGallery";
 import { Membership } from "./pages/Membership";
 import { Members } from "./pages/Members";
 import { PaymentSuccess } from "./pages/PaymentSuccess";
@@ -138,7 +137,6 @@ const App = () => (
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogPost />} />
                   <Route path="/models" element={<Models />} />
-                  <Route path="/model-gallery" element={<ModelGallery />} />
                   <Route path="/models/:id" element={<ModelProfile />} />
                   <Route path="/membership" element={<Membership />} />
                   <Route path="/members" element={<Members />} />

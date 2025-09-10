@@ -5,7 +5,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { ResponsiveGalleryImage } from '@/components/ResponsiveGalleryImage';
-import { useAuth } from '@/components/AuthProvider';
 
 interface GalleryImage {
   id: string;
@@ -32,7 +31,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   faceVisible = true
 }) => {
   const isMobile = useIsMobile();
-  const { hasAccess, isAdmin } = useAuth();
   const { 
     optimizations, 
     trackPerformance, 
@@ -62,74 +60,39 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando para modelo ${modelId}`);
+    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando arrays para modelo ${modelId}`);
     
     try {
       setLoading(true);
       setLoadingError(null);
       
-      // First try to get photos from model_gallery table
-      const { data: galleryData, error: galleryError } = await supabase
-        .from('model_gallery')
-        .select('image_url, visibility, order_index')
-        .eq('model_id', modelId)
-        .order('order_index');
+      // Get model data with gallery arrays
+      const { data: modelData, error } = await supabase
+        .from('models')
+        .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
+        .eq('id', modelId)
+        .single();
 
-      let images: GalleryImage[] = [];
+      if (error) throw error;
 
-      if (galleryData && galleryData.length > 0) {
-        // Use model_gallery with visibility control
-        console.log(`📱 MODEL GALLERY DEBUG: ${galleryData.length} fotos encontradas na model_gallery`);
-        
-        let filteredPhotos = galleryData;
-        
-        // Apply visibility filter based on user access
-        if (!hasAccess && !isAdmin) {
-          // Non-members see only public photos
-          filteredPhotos = galleryData.filter(photo => photo.visibility === 'public');
-          console.log(`🔒 NÃO-MEMBRO: Mostrando ${filteredPhotos.length} fotos públicas de ${galleryData.length} totais`);
-        } else {
-          // Members see all photos (public + members_only)
-          console.log(`🔑 MEMBRO: Mostrando todas as ${galleryData.length} fotos`);
-        }
-        
-        images = filteredPhotos.map((photo, index) => ({
-          id: `gallery-${photo.order_index || index}`,
-          image_url: photo.image_url,
-          order_index: photo.order_index || index
-        }));
-        
-        console.log(`📱 MODEL GALLERY DEBUG: Processadas ${images.length} fotos finais`);
-      } else {
-        // Fallback to old gallery arrays
-        console.log(`📱 MODEL GALLERY DEBUG: Fallback para arrays antigos`);
-        
-        const { data: modelData, error } = await supabase
-          .from('models')
-          .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
-          .eq('id', modelId)
-          .single();
-
-        if (error) throw error;
-
-        console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
-        
-        // Create effective gallery list: local || external
-        const externalUrls = modelData?.gallery_external_urls || [];
-        const localUrls = modelData?.gallery_local_urls || [];
-        
-        const imgs = [...localUrls, ...externalUrls].filter(Boolean);
-        
-        // Convert to gallery format
-        images = imgs.map((url, index) => ({
-          id: `img-${index}`,
-          image_url: url,
-          order_index: index
-        }));
-      }
+      console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
+      
+      // Create effective gallery list: local || external
+      const externalUrls = modelData?.gallery_external_urls || [];
+      const localUrls = modelData?.gallery_local_urls || [];
+      
+      const imgs = [...localUrls, ...externalUrls].filter(Boolean);
+      
+      // Convert to gallery format
+      const images: GalleryImage[] = imgs.map((url, index) => ({
+        id: `img-${index}`,
+        image_url: url,
+        caption: `${modelName} - Foto ${index + 1}`,
+        order_index: index
+      }));
 
       const loadTime = performance.now() - startTime;
-      console.log(`📱 MODEL GALLERY DEBUG: ${images.length} imagens finais em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 MODEL GALLERY DEBUG: ${images.length} imagens processadas em ${loadTime.toFixed(2)}ms`);
       
       trackPerformance(startTime, images.length);
       
@@ -310,6 +273,14 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           </div>
         )}
 
+        {/* Caption */}
+        {allImages[currentImageIndex]?.caption && (
+          <div className="text-center">
+            <p className="text-sm text-muted-foreground italic">
+              {allImages[currentImageIndex].caption}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Lightbox Modal */}
@@ -358,6 +329,11 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
               <div className="text-white text-center">
                 <p className="text-lg font-medium">{modelName}</p>
+                {allImages[currentImageIndex]?.caption && (
+                  <p className="text-sm opacity-90 mt-1">
+                    {allImages[currentImageIndex].caption}
+                  </p>
+                )}
                 <p className="text-xs opacity-75 mt-2">
                   {currentImageIndex + 1} of {allImages.length}
                 </p>

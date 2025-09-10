@@ -67,7 +67,7 @@ const FAQ = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Frequently Asked Questions
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-8 md:mb-12">
                 Find answers to the most common questions about our luxury companion services.
               </p>
             </div>

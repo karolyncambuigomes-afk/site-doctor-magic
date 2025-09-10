@@ -129,7 +129,7 @@ const About = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   About Five London
                 </h1>
-                <p className="luxury-body-lg text-black">
+                <p className="luxury-body-lg text-black mb-8 md:mb-12">
                   London's premier luxury escort agency. Discover our commitment to excellence, discretion, and sophisticated companionship services.
                 </p>
               </div>

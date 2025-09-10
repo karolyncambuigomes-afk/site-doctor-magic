@@ -175,7 +175,7 @@ const Services = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Elite Companion Services
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-8 md:mb-12">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>

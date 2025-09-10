@@ -22,7 +22,7 @@ const Terms = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Terms of Service
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-8 md:mb-12">
                 Our terms and conditions for premium escort services in London
               </p>
             </div>

@@ -285,7 +285,7 @@ const JoinUs = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Join Our Agency
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-8 md:mb-12">
                 Be part of a prestigious agency and build a successful career
               </p>
             </div>

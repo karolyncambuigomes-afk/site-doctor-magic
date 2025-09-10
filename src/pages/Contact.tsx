@@ -78,7 +78,7 @@ const Contact = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Contact for Same Day Booking
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-8 md:mb-12">
                 Most companions available today. Call now for instant confirmation.
               </p>
             </div>

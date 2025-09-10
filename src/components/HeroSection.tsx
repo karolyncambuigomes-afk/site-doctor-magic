@@ -1,15 +1,25 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { addCacheBusting } from '@/utils/imageCacheBuster';
+import { syncModelMainImages } from '@/utils/modelImageSyncManager';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
   const isMobile = useIsMobile();
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Auto-sync model images on component mount
+  useEffect(() => {
+    syncModelMainImages().then(result => {
+      if (result.success && result.synced && result.synced > 0) {
+        console.log(`✅ [HeroSection] Auto-synced ${result.synced} model images`);
+      }
+    });
+  }, []);
 
   // Determine which image to use based on device type with memoization
   const primaryImage = useMemo(() => {
@@ -41,6 +51,12 @@ export const HeroSection: React.FC = () => {
         hasDesktopImage ? 'Específica Desktop' :
         heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
       );
+    }
+    
+    // Only apply cache busting if image is valid
+    if (!selectedImage || selectedImage.trim() === '') {
+      console.warn('🚨 [HERO] No valid image found, using fallback');
+      return '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
     }
     
     // Apply cache busting to selected image

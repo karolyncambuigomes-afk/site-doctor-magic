@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
@@ -14,6 +14,43 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.2);
+
+  // Robust fallback logic for main image
+  const mainImage = useMemo(() => {
+    // First priority: model.image if valid
+    if (model.image && model.image.trim() !== '') {
+      return model.image;
+    }
+    
+    // Second priority: first public gallery image
+    if (model.gallery && Array.isArray(model.gallery)) {
+      const publicImage = model.gallery
+        .filter(img => img.visibility === 'public' || !img.visibility)
+        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0];
+      
+      if (publicImage?.image_url) {
+        console.log(`✅ [ModelCard] Using gallery fallback for ${model.name}:`, publicImage.image_url);
+        return publicImage.image_url;
+      }
+    }
+    
+    console.warn(`🚨 [ModelCard] No valid image found for model ${model.name}`);
+    return null;
+  }, [model.image, model.gallery, model.name]);
+
+  // Secondary image for hover effect
+  const secondaryImage = useMemo(() => {
+    if (model.gallery && Array.isArray(model.gallery)) {
+      const publicImages = model.gallery
+        .filter(img => img.visibility === 'public' || !img.visibility)
+        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+      
+      // Use second image if available, or first if main image is from gallery
+      const secondImg = publicImages[1] || publicImages[0];
+      return secondImg?.image_url !== mainImage ? secondImg?.image_url : null;
+    }
+    return null;
+  }, [model.gallery, mainImage]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {
@@ -52,22 +89,22 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
               </div>
             )}
             
-            {!imageError ? (
+            {mainImage && !imageError ? (
               <>
                 {/* Main Image */}
                 <OptimizedImage
-                  src={model.image}
+                  src={mainImage}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
-                    model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
+                    secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
                 
                 {/* Second Image (from gallery) - only if available */}
-                {model.gallery && model.gallery.length > 1 && (
+                {secondaryImage && (
                   <OptimizedImage
-                    src={model.gallery[0]}
+                    src={secondaryImage}
                     alt={`${model.name} - alternate view`}
                     className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
@@ -117,6 +154,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                      <span className="text-2xl">✨</span>
                    </div>
                    <p className="luxury-body-sm">{model.name}</p>
+                   <div className="text-xs mt-1 opacity-70">Imagem não disponível</div>
                 </div>
               </div>
             )}

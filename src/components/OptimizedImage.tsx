@@ -28,6 +28,22 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
+  // Early validation for empty or invalid src
+  if (!src || src.trim() === '') {
+    console.warn(`🚨 [OptimizedImage] Empty or invalid src provided:`, src);
+    return (
+      <div 
+        className={cn('relative overflow-hidden bg-muted flex items-center justify-center', className)}
+        style={{ width, height }}
+      >
+        <div className="text-muted-foreground text-sm text-center">
+          <div>Imagem não disponível</div>
+          <div className="text-xs mt-1 opacity-70">Src: {src || 'empty'}</div>
+        </div>
+      </div>
+    );
+  }
+
   // Intersection Observer for lazy loading
   useEffect(() => {
     if (priority) return; // Skip lazy loading for priority images

@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, Save, Eye, Upload } from 'lucide-react';
+import { Loader2, Save, Eye, Upload, FileImage } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { ImageUpload } from '@/components/ImageUpload';
@@ -156,10 +156,23 @@ export const HomepageManager: React.FC = () => {
         <TabsContent value="hero">
           <Card>
             <CardHeader>
-              <CardTitle>Hero Section Principal</CardTitle>
-              <CardDescription>
-                Seção principal da homepage com título, subtítulo e descrição
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Hero Section Principal</CardTitle>
+                  <CardDescription>
+                    Seção principal da homepage com título, subtítulo e descrição
+                  </CardDescription>
+                </div>
+                <Button
+                  onClick={() => window.location.href = '/admin/content/bulk-migration'}
+                  variant="default"
+                  size="sm"
+                  className="bg-primary hover:bg-primary/90"
+                >
+                  <FileImage className="w-4 h-4 mr-2" />
+                  Complete WebP Migration
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               {/* Live Preview Simulator */}

@@ -17,7 +17,8 @@ import {
   Image as ImageIcon, 
   Download, 
   RefreshCw,
-  ExternalLink
+  ExternalLink,
+  Zap
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
@@ -447,11 +448,21 @@ export const ImageDiagnostics: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold">Image Diagnostics</h1>
-        <p className="text-muted-foreground">
-          Review and fix images using external URLs or old asset paths
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Image Diagnostics</h1>
+          <p className="text-muted-foreground">
+            Review and fix images using external URLs or old asset paths
+          </p>
+        </div>
+        <Button
+          onClick={() => window.location.href = '/admin/content/bulk-migration'}
+          size="lg"
+          className="bg-primary hover:bg-primary/90"
+        >
+          <Zap className="w-4 h-4 mr-2" />
+          Launch Bulk Migration
+        </Button>
       </div>
 
       {/* Stats */}

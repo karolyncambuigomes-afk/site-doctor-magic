@@ -98,7 +98,7 @@ export const HeroSection: React.FC = () => {
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
           {/* H1 - Título principal */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
             {heroContent.title}
           </h1>
           

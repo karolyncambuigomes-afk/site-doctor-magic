@@ -83,6 +83,8 @@ const Contact = () => {
               </p>
             </div>
           </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* Contact Methods */}

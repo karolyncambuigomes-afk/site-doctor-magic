@@ -62,16 +62,18 @@ const FAQ = () => {
       <main className="pt-0">
         {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h1 className="luxury-heading-xl text-black mb-6">
-              Frequently Asked Questions
-            </h1>
-            <div className="w-16 h-px bg-black/20 mx-auto mb-8"></div>
-            <p className="luxury-body-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              Find answers to the most common questions about our luxury companion services. 
-              Our team is here to help ensure your complete satisfaction and peace of mind.
-            </p>
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                Frequently Asked Questions
+              </h1>
+              <p className="luxury-body-lg text-black">
+                Find answers to the most common questions about our luxury companion services.
+              </p>
+            </div>
           </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* FAQ Accordion */}

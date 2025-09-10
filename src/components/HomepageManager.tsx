@@ -246,17 +246,60 @@ export const HomepageManager: React.FC = () => {
                   </p>
                   
                   {/* Desktop Image Reprocessor */}
-                  <ImageReprocessor
-                    currentImageUrl={heroFormData.image_url_desktop}
-                    onImageReprocessed={(localUrl) => {
-                      setHeroFormData(prev => ({
-                        ...prev,
-                        image_url_local_desktop: localUrl
-                      }));
-                    }}
-                    section="homepage_hero_desktop"
-                    disabled={!heroFormData.image_url_desktop}
-                  />
+                  {/* Convert to WebP Button */}
+                  {heroFormData.image_url_desktop && heroFormData.image_url_desktop.includes('supabase.co') && (
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          toast({
+                            title: "Processando",
+                            description: "Convertendo banner para WebP otimizado..."
+                          });
+                          
+                          const { data: fixData, error: fixError } = await supabase.functions
+                            .invoke('fix-image-to-local', {
+                              body: { 
+                                imageUrl: heroFormData.image_url_desktop,
+                                category: 'Hero/Banners',
+                                itemId: 'homepage-hero-desktop',
+                                tableName: 'site_content',
+                                fieldName: 'image_url_local_desktop',
+                                itemName: 'Homepage Hero Desktop',
+                                altText: 'Elite London Escort Agency — luxury banner'
+                              }
+                            });
+
+                          if (fixError) {
+                            throw fixError;
+                          }
+
+                          if (fixData?.success) {
+                            // Force reload after cache purge
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 2000);
+                            
+                            toast({
+                              title: "Sucesso",
+                              description: "Banner convertido para WebP! Recarregando página..."
+                            });
+                          }
+                        } catch (error) {
+                          console.error('Fix error:', error);
+                          toast({
+                            title: "Erro",
+                            description: "Erro ao converter banner",
+                            variant: "destructive"
+                          });
+                        }
+                      }}
+                      className="w-full"
+                    >
+                      🔧 Converter para WebP Local
+                    </Button>
+                  )}
                   {heroFormData.image_url_desktop && (
                     <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
                       ✅ Imagem desktop configurada: {heroFormData.image_url_desktop.substring(0, 50)}...

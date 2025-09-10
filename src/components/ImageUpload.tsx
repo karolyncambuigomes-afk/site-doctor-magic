@@ -82,12 +82,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             description: "Otimizando imagem para melhor performance..."
           });
           
-          // Call Edge Function to sync image to local
+          // Call Edge Function to fix image to local
           const { data: syncData, error: syncError } = await supabase.functions
-            .invoke('sync-image-to-local', {
+            .invoke('fix-image-to-local', {
               body: { 
                 imageUrl: imageUrl,
-                imageType: imageType
+                category: imageType === 'hero-banner' ? 'Hero/Banners' : 
+                         imageType === 'model-main' ? 'Models' :
+                         imageType === 'blog' ? 'Blog Posts' : 'Site Content',
+                itemId: `upload-${Date.now()}`,
+                tableName: imageType === 'hero-banner' ? 'site_content' : 
+                          imageType === 'model-main' ? 'models' :
+                          imageType === 'blog' ? 'blog_posts' : 'site_content',
+                fieldName: imageType === 'hero-banner' ? 'image_url_desktop' : 'image',
+                itemName: `${imageType}-${Date.now()}`,
+                altText: `Optimized ${imageType} image`
               }
             });
 
@@ -95,9 +104,9 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             console.error('❌ Sync error:', syncError);
             // Continue with original URL if sync fails
           } else if (syncData?.success) {
-            console.log('✅ Image synced successfully:', syncData);
+            console.log('✅ Image fixed successfully:', syncData);
             // Use local path as final URL
-            finalUrl = syncData.localPath;
+            finalUrl = syncData.localUrl;
             
             toast({
               title: "Sucesso",

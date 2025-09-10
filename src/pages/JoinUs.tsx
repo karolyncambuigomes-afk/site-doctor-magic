@@ -200,15 +200,6 @@ const JoinUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!user || !userProfile || userProfile.status !== 'approved') {
-      toast({
-        title: "Authentication Required",
-        description: "You must be a verified user to submit an application.",
-        variant: "destructive"
-      });
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -277,104 +268,6 @@ const JoinUs = () => {
   }
 
   // Show authentication required screen for non-authenticated users
-  if (!user) {
-    return (
-      <>
-        <SEO 
-          title="Join Our Agency - Authentication Required"
-          description="Be part of our luxury escort agency. Sign up to apply for elite model positions."
-          keywords="model application, escort agency, work as escort, elite model, sign up"
-        />
-        <Navigation />
-        
-        <main className="pt-0 min-h-screen">
-          <section className="py-16 md:py-24 bg-white">
-            <div className="container-width">
-              <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-                <Shield className="h-16 w-16 mx-auto mb-6 text-primary" />
-                <h1 className="luxury-heading-xl mb-6 text-black">
-                  Secure Application Process
-                </h1>
-                <p className="luxury-body-lg text-black mb-8">
-                  To protect applicants' sensitive information, we require account verification before submitting applications.
-                </p>
-                
-                <Alert className="mb-8 text-left">
-                  <Lock className="h-4 w-4" />
-                  <AlertDescription>
-                    <strong>Privacy & Security:</strong> Your personal information, photos, and videos are encrypted and securely stored. 
-                    Only verified administrators can access applications.
-                  </AlertDescription>
-                </Alert>
-
-                <div className="space-y-4">
-                  <Button 
-                    onClick={handleSignUp}
-                    size="lg"
-                    className="w-full md:w-auto"
-                  >
-                    Create Account to Apply
-                  </Button>
-                  
-                  <p className="text-sm text-muted-foreground">
-                    Already have an account? <Button variant="link" onClick={() => navigate('/auth')} className="p-0 h-auto">Sign in here</Button>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-        <Footer />
-      </>
-    );
-  }
-
-  // Show verification required screen for unverified users
-  if (userProfile?.status !== 'approved') {
-    return (
-      <>
-        <SEO 
-          title="Account Verification Required"
-          description="Your account needs verification before you can submit model applications."
-          keywords="account verification, model application"
-        />
-        <Navigation />
-        
-        <main className="pt-0 min-h-screen">
-          <section className="py-16 md:py-24 bg-white">
-            <div className="container-width">
-              <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-                <Lock className="h-16 w-16 mx-auto mb-6 text-yellow-500" />
-                <h1 className="luxury-heading-xl mb-6 text-black">
-                  Account Verification Required
-                </h1>
-                <p className="luxury-body-lg text-black mb-8">
-                  Your account is currently being reviewed. You'll receive an email once verification is complete.
-                </p>
-                
-                <Alert>
-                  <AlertDescription>
-                    Status: <strong>{userProfile?.status || 'Pending'}</strong><br />
-                    This security measure protects all applicants' sensitive information.
-                  </AlertDescription>
-                </Alert>
-
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate('/')}
-                  className="mt-6"
-                >
-                  Return to Homepage
-                </Button>
-              </div>
-            </div>
-          </section>
-        </main>
-        <Footer />
-      </>
-    );
-  }
-
   return (
     <>
       <SEO 

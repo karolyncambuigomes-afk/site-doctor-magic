@@ -74,8 +74,8 @@ export const usePreferenceCategories = () => {
         .abortSignal(globalCache.activeRequest.signal);
 
       if (error) {
-        console.error('Error fetching preference categories:', error.message || error);
-        // Silently fail for permission issues to avoid console spam on public pages
+        console.error('Error fetching preference categories:', error);
+        toast.error('Failed to load categories');
         return;
       }
       
@@ -93,12 +93,13 @@ export const usePreferenceCategories = () => {
         return; // Request was aborted, ignore
       }
       
-      console.error('Error fetching preference categories:', error.message || error);
+      console.error('Error fetching preference categories:', error);
       globalCache.isLoading = false;
       globalCache.activeRequest = null;
       
       if (mountedRef.current) {
         setLoading(false);
+        toast.error('Failed to load categories');
       }
     }
   }, []);

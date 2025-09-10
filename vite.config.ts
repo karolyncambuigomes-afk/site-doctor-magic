@@ -1,41 +1,8 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
-import { componentTagger } from 'lovable-tagger';
-import fs from 'fs';
-
-// CSS optimization plugin
-const cssOptimizationPlugin = () => {
-  return {
-    name: 'css-optimization',
-    order: 'pre' as const,
-    transformIndexHtml: {
-      order: 'pre' as const,
-      handler(html: string) {
-        try {
-          // Inline critical CSS
-          const criticalCSS = fs.readFileSync(
-            path.resolve(__dirname, 'src/styles/critical-inline.css'),
-            'utf-8'
-          );
-          
-          return html.replace(
-            '<head>',
-            `<head>
-              <style data-critical-css>
-                ${criticalCSS}
-              </style>
-              <link rel="preload" href="/assets/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-              <noscript><link rel="stylesheet" href="/assets/index.css"></noscript>`
-          );
-        } catch (error) {
-          console.warn('Could not inline critical CSS:', error);
-          return html;
-        }
-      }
-    }
-  };
-};
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
+import { componentTagger } from "lovable-tagger";
+import { criticalCSSPlugin } from "./src/plugins/critical-css-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -53,7 +20,11 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          // Critical vendor libraries that should be loaded immediately
+          // Heavy admin libraries in separate chunks
+          if (id.includes('fabric')) return 'fabric';
+          if (id.includes('recharts')) return 'recharts';
+          
+          // Core libraries
           if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
             return 'react-vendor';
           }
@@ -61,85 +32,69 @@ export default defineConfig(({ mode }) => ({
             return 'router';
           }
           
-          // Heavy libraries that can be lazy loaded
-          if (id.includes('fabric')) return 'fabric';
-          if (id.includes('recharts')) return 'charts';
-          if (id.includes('embla-carousel')) return 'carousel';
-          
-          // Admin-only chunks (lazy loaded)
-          if (id.includes('/pages/admin/') || id.includes('/layouts/AdminLayout')) {
-            return 'admin-pages';
+          // Lucide React separate chunk for lazy loading
+          if (id.includes('lucide-react/dynamicIconImports') || id.includes('lucide-react/dist/esm/icons')) {
+            return 'lucide-icons';
           }
-          if (id.includes('/components/admin/') || id.includes('AdminProtectedRoute')) {
-            return 'admin-components';
+          if (id.includes('lucide-react')) {
+            return 'lucide-core';
           }
           
-          // Supabase and query clients
+          // Radix UI components chunking
+          if (id.includes('@radix-ui/react-dropdown-menu') || 
+              id.includes('@radix-ui/react-dialog') || 
+              id.includes('@radix-ui/react-alert-dialog')) {
+            return 'radix-modals';
+          }
+          if (id.includes('@radix-ui')) {
+            return 'radix-core';
+          }
+          
+          // Supabase chunk
           if (id.includes('@supabase') || id.includes('@tanstack/react-query')) {
-            return 'api-client';
+            return 'supabase';
           }
           
-          // UI component libraries
-          if (id.includes('@radix-ui')) return 'ui-library';
-          if (id.includes('lucide-react')) return 'icons';
+          // Admin pages chunk
+          if (id.includes('/pages/admin/') || id.includes('/layouts/AdminLayout')) {
+            return 'admin';
+          }
           
-          // Page-specific chunks for better code splitting
-          if (id.includes('/pages/Models') || id.includes('/components/Models')) {
-            return 'models-feature';
+          // Page-based chunks for better caching
+          if (id.includes('/pages/Models') || id.includes('/components/ModelsGallery')) {
+            return 'models-page';
           }
           if (id.includes('/pages/Blog') || id.includes('/components/blog/')) {
-            return 'blog-feature';
+            return 'blog-page';
           }
-          if (id.includes('/pages/About') || id.includes('/pages/Services') || 
-              id.includes('/pages/Contact') || id.includes('/pages/FAQ')) {
-            return 'static-pages';
-          }
-          
-          // Mobile-specific features (can be lazy loaded)
-          if (id.includes('MobileOptimizer') || id.includes('MobileRefresh') || 
-              id.includes('MobileDebug') || id.includes('MobileSync')) {
-            return 'mobile-features';
+          if (id.includes('/pages/About') || id.includes('/pages/Services')) {
+            return 'content-pages';
           }
           
-          // Analytics and tracking (can be deferred)
-          if (id.includes('Analytics') || id.includes('ServiceWorker') || 
-              id.includes('CookieConsent')) {
-            return 'analytics';
-          }
-          
-          // Utility libraries
-          if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') ||
-              id.includes('node_modules/class-variance-authority')) {
+          // Large utility libraries
+          if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx')) {
             return 'utils';
           }
-        },
-        chunkFileNames: '[name]-[hash].js',
-        assetFileNames: (assetInfo) => {
-          // Organize assets by type
-          if (assetInfo.name?.endsWith('.css')) {
-            return 'assets/css/[name]-[hash][extname]';
+          
+          // Embla carousel separate chunk
+          if (id.includes('embla-carousel')) {
+            return 'carousel';
           }
-          if (assetInfo.name?.match(/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i)) {
-            return 'assets/images/[name]-[hash][extname]';
-          }
-          if (assetInfo.name?.match(/\.(woff2?|eot|ttf|otf)$/i)) {
-            return 'assets/fonts/[name]-[hash][extname]';
-          }
-          return 'assets/[name]-[hash][extname]';
         }
       }
     },
-    sourcemap: true,
-    assetsInlineLimit: 1024,
-    chunkSizeWarningLimit: 500,
-    minify: 'esbuild',
-    cssMinify: false, // Temporarily disabled to fix blue screen
-    cssCodeSplit: true
+    sourcemap: false,
+    assetsInlineLimit: 2048, // Reduced for smaller bundles
+    chunkSizeWarningLimit: 1000
   },
   plugins: [
     react(),
-    cssOptimizationPlugin(),
-    mode === 'development' && componentTagger(),
+    // Temporarily disable critical CSS plugin to avoid build issues
+    // criticalCSSPlugin({
+    //   criticalCSS: './src/styles/critical.css'
+    // }),
+    mode === 'development' &&
+    componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {

@@ -1,16 +1,16 @@
 import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
-import { Menu, X, User, LogOut, Settings } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings } from '@/components/LazyLucideIcon';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from '@/components/ui/dropdown-menu';
+  LazyDropdownMenu as DropdownMenu, 
+  LazyDropdownMenuContent as DropdownMenuContent, 
+  LazyDropdownMenuItem as DropdownMenuItem, 
+  LazyDropdownMenuSeparator as DropdownMenuSeparator, 
+  LazyDropdownMenuTrigger as DropdownMenuTrigger 
+} from '@/components/LazyRadixComponents';
 
 const navItems = [
   { href: '/about', label: 'About Us' },

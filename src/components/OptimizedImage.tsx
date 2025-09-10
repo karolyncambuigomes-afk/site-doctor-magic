@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { generateImageSources, heroSizes, defaultSizes, createImageObserver } from '@/utils/imageOptimizer';
 
 interface OptimizedImageProps {
   src: string;
@@ -31,37 +32,24 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   useEffect(() => {
     if (priority) return; // Skip lazy loading for priority images
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { 
-        rootMargin: '50px', // Start loading 50px before visible
-        threshold: 0.1 
+    const observer = createImageObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer?.disconnect();
       }
-    );
+    });
 
-    if (imgRef.current) {
+    if (observer && imgRef.current) {
       observer.observe(imgRef.current);
+      return () => observer.disconnect();
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      setIsVisible(true);
     }
-
-    return () => observer.disconnect();
   }, [priority]);
 
-  // Generate WebP srcset if original is JPG/PNG
-  const generateSrcSet = (originalSrc: string) => {
-    const isPhoto = /\.(jpg|jpeg|png)$/i.test(originalSrc);
-    if (!isPhoto) return undefined;
-
-    const base = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '');
-    const ext = originalSrc.match(/\.(jpg|jpeg|png)$/i)?.[1] || 'jpg';
-    
-    // Generate multiple sizes (would need backend support for actual WebP conversion)
-    return `${base}.${ext} 1x, ${base}@2x.${ext} 2x`;
-  };
+  // Generate responsive image sources with WebP fallback
+  const imageSources = generateImageSources({ src, alt, width, height });
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -93,23 +81,31 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
       {/* Main image - only load when visible */}
       {(isVisible || priority) && (
-        <img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          sizes={sizes}
-          srcSet={generateSrcSet(src)}
-          loading={priority ? 'eager' : 'lazy'}
-          decoding="async"
-          onLoad={handleLoad}
-          onError={handleError}
-          className={cn(
-            'w-full h-full object-cover transition-opacity duration-300',
-            isLoaded ? 'opacity-100' : 'opacity-0',
-            error && 'bg-muted'
-          )}
-        />
+        <picture>
+          {imageSources.map((source, index) => (
+            <source 
+              key={index}
+              srcSet={source.srcSet} 
+              type={source.type}
+              sizes={sizes || (src.includes('hero') ? heroSizes : defaultSizes)}
+            />
+          ))}
+          <img
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            onLoad={handleLoad}
+            onError={handleError}
+            className={cn(
+              'w-full h-full object-cover transition-opacity duration-300',
+              isLoaded ? 'opacity-100' : 'opacity-0',
+              error && 'bg-muted'
+            )}
+          />
+        </picture>
       )}
 
       {/* Error state */}

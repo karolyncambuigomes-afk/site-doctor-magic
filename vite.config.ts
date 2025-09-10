@@ -31,9 +31,22 @@ export default defineConfig(({ mode }) => ({
             return 'router';
           }
           
-          // UI libraries chunk
-          if (id.includes('@radix-ui') || id.includes('lucide-react')) {
-            return 'ui-vendor';
+          // Lucide React separate chunk for lazy loading
+          if (id.includes('lucide-react/dynamicIconImports') || id.includes('lucide-react/dist/esm/icons')) {
+            return 'lucide-icons';
+          }
+          if (id.includes('lucide-react')) {
+            return 'lucide-core';
+          }
+          
+          // Radix UI components chunking
+          if (id.includes('@radix-ui/react-dropdown-menu') || 
+              id.includes('@radix-ui/react-dialog') || 
+              id.includes('@radix-ui/react-alert-dialog')) {
+            return 'radix-modals';
+          }
+          if (id.includes('@radix-ui')) {
+            return 'radix-core';
           }
           
           // Supabase chunk
@@ -46,9 +59,25 @@ export default defineConfig(({ mode }) => ({
             return 'admin';
           }
           
+          // Page-based chunks for better caching
+          if (id.includes('/pages/Models') || id.includes('/components/ModelsGallery')) {
+            return 'models-page';
+          }
+          if (id.includes('/pages/Blog') || id.includes('/components/blog/')) {
+            return 'blog-page';
+          }
+          if (id.includes('/pages/About') || id.includes('/pages/Services')) {
+            return 'content-pages';
+          }
+          
           // Large utility libraries
           if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx')) {
             return 'utils';
+          }
+          
+          // Embla carousel separate chunk
+          if (id.includes('embla-carousel')) {
+            return 'carousel';
           }
         }
       }

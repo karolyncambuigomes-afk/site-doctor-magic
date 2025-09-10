@@ -1,6 +1,8 @@
 import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
+import { OptimizedImage } from '@/components/OptimizedImage';
+import heroMainWebP from '@/assets/hero-main.webp';
 import heroMain from '@/assets/hero-main.jpg';
 
 export const HeroSection: React.FC = () => {
@@ -10,7 +12,14 @@ export const HeroSection: React.FC = () => {
     return <section className="relative h-[100vh] w-full flex items-end snap-start">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
+          <OptimizedImage 
+            src={heroMainWebP} 
+            alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
+            className="w-full h-full object-cover object-center" 
+            priority
+            width={1920}
+            height={1080}
+          />
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
@@ -27,7 +36,14 @@ export const HeroSection: React.FC = () => {
   return <section className="relative min-h-screen max-h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img src={heroMain} alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" className="w-full h-full object-cover object-center" />
+        <OptimizedImage 
+          src={heroMainWebP} 
+          alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
+          className="w-full h-full object-cover object-center" 
+          priority
+          width={1920}
+          height={1080}
+        />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 

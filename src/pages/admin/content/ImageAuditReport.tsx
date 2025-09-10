@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
+import { getAuditTargets, AuditTarget } from '@/utils/getAuditTargets';
 
 interface AuditSection {
   name: string;
@@ -16,7 +17,11 @@ interface AuditSection {
 interface ImageStatus {
   url: string;
   status: 200 | 404 | 500;
-  category: 'banner' | 'models' | 'carousel' | 'blog';
+  category: 'hero' | 'models' | 'carousel' | 'blog' | 'slides';
+  name: string;
+  id: string;
+  localUrl?: string;
+  externalUrl?: string;
   responseTime?: number;
 }
 
@@ -26,6 +31,7 @@ export const ImageAuditReport = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [featureFlags, setFeatureFlags] = useState({ preferLocalImages: true });
+  const [auditTargets, setAuditTargets] = useState<AuditTarget[]>([]);
 
   const runFullAudit = async () => {
     setIsRunning(true);
@@ -43,103 +49,83 @@ export const ImageAuditReport = () => {
         details: 'Production environment confirmed, Supabase connected'
       });
 
-      // 2. Proxy Check
+      // 2. Load audit targets from database
       setProgress(20);
+      const { targets, summary } = await getAuditTargets();
+      setAuditTargets(targets);
+      
+      sections.push({
+        name: '2. Database Targets',
+        status: 'success',
+        details: `Found ${summary.total} images: ${summary.hero} hero, ${summary.models} models, ${summary.carousel} carousel, ${summary.slides} slides, ${summary.blog} blog`
+      });
+
+      // 3. Proxy Check
+      setProgress(30);
       try {
         const proxyTest = await fetch('/images/health.png', { method: 'HEAD' });
         sections.push({
-          name: '2. Image Proxy (/images/*)',
+          name: '3. Image Proxy (/images/*)',
           status: proxyTest.ok ? 'success' : 'error',
           details: proxyTest.ok ? 'Proxy responding correctly' : 'Proxy not responding'
         });
       } catch {
         sections.push({
-          name: '2. Image Proxy (/images/*)',
+          name: '3. Image Proxy (/images/*)',
           status: 'error',
           details: 'Proxy not accessible'
         });
       }
 
-      // 3. Banner Check
-      setProgress(30);
-      const bannerImages = document.querySelectorAll('[data-hero-image]');
-      for (const img of bannerImages) {
-        const src = (img as HTMLImageElement).src;
+      // 4. Test each target image
+      setProgress(40);
+      for (let i = 0; i < targets.length; i++) {
+        const target = targets[i];
+        const testUrl = target.effectiveUrl;
+        
         try {
-          const response = await fetch(src, { method: 'HEAD' });
+          const response = await fetch(testUrl, { method: 'HEAD' });
           statuses.push({
-            url: src,
+            id: target.id,
+            name: target.name,
+            url: testUrl,
+            localUrl: target.localUrl,
+            externalUrl: target.externalUrl,
             status: response.status as 200 | 404 | 500,
-            category: 'banner'
+            category: target.category
           });
         } catch {
           statuses.push({
-            url: src,
+            id: target.id,
+            name: target.name,
+            url: testUrl,
+            localUrl: target.localUrl,
+            externalUrl: target.externalUrl,
             status: 500,
-            category: 'banner'
+            category: target.category
           });
         }
+        
+        // Update progress
+        setProgress(40 + (i / targets.length) * 40);
       }
 
-      // 4. Models Check
-      setProgress(50);
-      const modelImages = document.querySelectorAll('[data-model-image], [data-carousel-image]');
-      for (const img of modelImages) {
-        const src = (img as HTMLImageElement).src;
-        try {
-          const response = await fetch(src, { method: 'HEAD' });
-          statuses.push({
-            url: src,
-            status: response.status as 200 | 404 | 500,
-            category: 'models'
-          });
-        } catch {
-          statuses.push({
-            url: src,
-            status: 500,
-            category: 'models'
-          });
-        }
-      }
-
-      // 5. Carousel Check
-      setProgress(70);
-      const carouselImages = document.querySelectorAll('[data-carousel-image]');
-      for (const img of carouselImages) {
-        const src = (img as HTMLImageElement).src;
-        if (!statuses.find(s => s.url === src)) {
-          try {
-            const response = await fetch(src, { method: 'HEAD' });
-            statuses.push({
-              url: src,
-              status: response.status as 200 | 404 | 500,
-              category: 'carousel'
-            });
-          } catch {
-            statuses.push({
-              url: src,
-              status: 500,
-              category: 'carousel'
-            });
-          }
-        }
-      }
-
-      // Calculate summary
+      // 5. Calculate summary
       setProgress(90);
       const totalImages = statuses.length;
       const successfulImages = statuses.filter(s => s.status === 200).length;
       const localImages = statuses.filter(s => s.url.includes('/images/')).length;
       const brokenImages = statuses.filter(s => s.status !== 200).length;
+      const pendingMigration = statuses.filter(s => s.externalUrl && !s.localUrl).length;
 
       sections.push({
-        name: '6. Image Summary',
+        name: '4. Image Analysis',
         status: brokenImages === 0 ? 'success' : 'warning',
-        details: `${successfulImages}/${totalImages} images working, ${localImages} using /images/ proxy`
+        details: `${successfulImages}/${totalImages} images working, ${localImages} using /images/ proxy, ${pendingMigration} pending migration`
       });
 
       sections.push({
-        name: '10. Feature Flags',
+        name: '5. Feature Flags',
         status: 'success',
         details: `preferLocalImages: ${featureFlags.preferLocalImages ? 'Enabled' : 'Disabled'}`
       });
@@ -148,7 +134,7 @@ export const ImageAuditReport = () => {
       setAuditSections(sections);
       setImageStatuses(statuses);
       
-      toast.success('Full audit completed');
+      toast.success(`Audit completed: ${totalImages} images analyzed`);
     } catch (error) {
       console.error('Audit error:', error);
       toast.error('Audit failed');
@@ -277,11 +263,27 @@ export const ImageAuditReport = () => {
             <CardContent>
               <div className="space-y-2">
                 {imageStatuses.map((status, index) => (
-                  <div key={index} className="flex items-center justify-between p-2 rounded border">
-                    <div className="flex-1 truncate">
-                      <span className="text-sm font-mono">{status.url}</span>
-                      <div className="text-xs text-muted-foreground">
-                        Category: {status.category}
+                  <div key={index} className="flex items-center justify-between p-3 rounded border">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Badge variant="outline" className="text-xs">
+                          {status.category}
+                        </Badge>
+                        <span className="font-medium text-sm">{status.name}</span>
+                      </div>
+                      <div className="text-xs font-mono text-muted-foreground mb-1">
+                        {status.url}
+                      </div>
+                      <div className="flex gap-2 text-xs">
+                        {status.localUrl && (
+                          <span className="text-green-600">🟢 Local: {status.localUrl.includes('/images/') ? 'Yes' : 'No'}</span>
+                        )}
+                        {status.externalUrl && (
+                          <span className="text-blue-600">🔗 External: Yes</span>
+                        )}
+                        {!status.localUrl && !status.externalUrl && (
+                          <span className="text-gray-500">📷 Placeholder</span>
+                        )}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">

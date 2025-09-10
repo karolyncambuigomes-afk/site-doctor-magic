@@ -308,6 +308,146 @@ export const ImageAuditReport = () => {
     }
   };
 
+  const syncDisconnectedSystems = async () => {
+    setIsGenerating(true);
+    
+    try {
+      toast.info('🔄 Sincronizando sistemas desconectados...');
+      
+      // Step 1: Force database sync for all external URLs
+      toast.info('📊 Atualizando banco de dados...');
+      
+      const { data: heroSlides, error: heroError } = await supabase
+        .from('hero_slides')
+        .select('id, image_url')
+        .like('image_url', '%supabase%');
+      
+      if (heroError) {
+        console.error('Error fetching hero slides:', heroError);
+      } else if (heroSlides && heroSlides.length > 0) {
+        for (const slide of heroSlides) {
+          const response = await supabase.functions.invoke('fix-image-to-local', {
+            body: {
+              url: slide.image_url,
+              category: 'hero_slides',
+              name: `slide-${slide.id}`,
+              tableName: 'hero_slides',
+              fieldName: 'image_url',
+              id: slide.id
+            }
+          });
+          
+          if (response.error) {
+            console.error('Migration error:', response.error);
+          }
+        }
+      }
+      
+      // Step 2: Force update models with external URLs
+      const { data: models, error: modelsError } = await supabase
+        .from('models')
+        .select('id, name, image')
+        .like('image', '%supabase%');
+      
+      if (!modelsError && models && models.length > 0) {
+        for (const model of models) {
+          const response = await supabase.functions.invoke('fix-image-to-local', {
+            body: {
+              url: model.image,
+              category: 'models',
+              name: model.name,
+              tableName: 'models',
+              fieldName: 'image',
+              id: model.id
+            }
+          });
+          
+          if (response.error) {
+            console.error('Model migration error:', response.error);
+          }
+        }
+      }
+      
+      // Step 3: Force update homepage carousel
+      const { data: carousel, error: carouselError } = await supabase
+        .from('homepage_carousel')
+        .select('id, model_name, image_url')
+        .like('image_url', '%supabase%');
+      
+      if (!carouselError && carousel && carousel.length > 0) {
+        for (const item of carousel) {
+          const response = await supabase.functions.invoke('fix-image-to-local', {
+            body: {
+              url: item.image_url,
+              category: 'homepage_carousel',
+              name: item.model_name,
+              tableName: 'homepage_carousel',
+              fieldName: 'image_url',
+              id: item.id
+            }
+          });
+          
+          if (response.error) {
+            console.error('Carousel migration error:', response.error);
+          }
+        }
+      }
+      
+      // Step 4: Force local preference activation
+      setTimeout(() => {
+        const flags = { preferLocalImages: true };
+        localStorage.setItem('featureFlags', JSON.stringify(flags));
+        setFeatureFlags(flags);
+        
+        // Dispatch event to notify all components
+        window.dispatchEvent(new CustomEvent('imagePreferenceChanged', { 
+          detail: { preferLocalImages: true } 
+        }));
+        
+        toast.success('✅ Preferência local ativada!');
+        
+        // Step 5: Force complete cache refresh
+        setTimeout(async () => {
+          toast.info('🗑️ Limpando cache...');
+          
+          // Clear service worker cache
+          if ('caches' in window) {
+            const cacheNames = await caches.keys();
+            await Promise.all(
+              cacheNames.map(cacheName => caches.delete(cacheName))
+            );
+          }
+          
+          // Clear localStorage
+          localStorage.removeItem('imagePreferences');
+          localStorage.removeItem('cachedImages');
+          
+          // Force reload all images
+          const images = document.querySelectorAll('img');
+          images.forEach(img => {
+            const src = img.src;
+            img.src = '';
+            img.src = src + (src.includes('?') ? '&' : '?') + 'sync=' + Date.now();
+          });
+          
+          toast.success('✅ Cache limpo!');
+          
+          // Step 6: Final validation
+          setTimeout(() => {
+            runFullAudit();
+            toast.success('🎉 Sistemas sincronizados com sucesso!');
+          }, 2000);
+        }, 3000);
+      }, 5000);
+
+    } catch (error) {
+      console.error('Sync failed:', error);
+      toast.error(`❌ Falha na sincronização: ${error.message}`);
+    } finally {
+      setTimeout(() => setIsGenerating(false), 15000);
+    }
+  };
+
   const executeFullPlan = async () => {
     setIsGenerating(true);
     
@@ -365,9 +505,19 @@ export const ImageAuditReport = () => {
         </div>
         <div className="flex gap-2">
           <Button
+            onClick={syncDisconnectedSystems}
+            disabled={isGenerating || isRunning}
+            className="bg-gradient-to-r from-destructive to-orange-500 text-destructive-foreground flex items-center gap-2"
+          >
+            <RefreshCw className={`w-4 h-4 ${isGenerating ? 'animate-spin' : ''}`} />
+            {isGenerating ? 'Sincronizando...' : '🔧 Corrigir Sistemas Desconectados'}
+          </Button>
+          
+          <Button
             onClick={executeFullPlan}
             disabled={isGenerating || isRunning}
             className="bg-gradient-to-r from-primary to-primary-glow text-primary-foreground flex items-center gap-2"
+            variant="outline"
           >
             <Zap className={`w-4 h-4 ${isGenerating ? 'animate-pulse' : ''}`} />
             {isGenerating ? 'Executando...' : '🚀 Executar Plano Completo'}

@@ -153,6 +153,15 @@ export const useModels = () => {
           return;
         }
 
+        // Validation function to filter out invalid models
+        const isValidModel = (model: any) => {
+          if (!model.name || model.name.trim() === '') {
+            console.warn(`⚠️ [MODELS] Skipping model with empty name:`, model);
+            return false;
+          }
+          return true;
+        };
+
         // Transform database data to match our Model interface
         const transformedModels = data?.filter(isValidModel).map((model: any) => {
           // Sort gallery images by order_index and extract URLs
@@ -190,8 +199,8 @@ export const useModels = () => {
               threeHours: '£1,300',
               additionalHour: '£400'
             },
-            image: getImageUrl(mainImage), // Use processed main image with fallback
-            gallery: galleryImages.slice(1), // Rest of gallery images
+            image: mainImage ? getImageUrl(mainImage) : null, // Use processed main image with fallback
+            gallery: galleryImages, // All gallery images with metadata
             services: model.services || [],
             characteristics: model.characteristics || [],
             availability: model.availability || 'available',

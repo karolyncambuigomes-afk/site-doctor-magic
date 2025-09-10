@@ -1,12 +1,11 @@
 import React, { useMemo, useState } from 'react';
-import { ModelCard } from '@/components/ModelCard';
+import { ModelCardWrapper } from '@/components/ModelCardWrapper';
 import { useModels } from '@/hooks/useModels';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { CategoryFilters } from './CategoryFilters';
 import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 
 export const ModelsGallery: React.FC = () => {
   const { models, loading, error } = useModels();
@@ -111,11 +110,11 @@ export const ModelsGallery: React.FC = () => {
                 </p>
               </div>
             ) : filteredModels.length > 0 ? (
-              <ErrorBoundaryWrapper context="Models Gallery">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 md:gap-6 lg:gap-6 xl:gap-8">
-                  {filteredModels.map(model => <ModelCard key={model.id} model={model} />)}
-                </div>
-              </ErrorBoundaryWrapper>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 md:gap-6 lg:gap-6 xl:gap-8">
+                {filteredModels.map((model, index) => (
+                  <ModelCardWrapper key={model.id} model={model} index={index} />
+                ))}
+              </div>
             ) : (
               <div className="text-center py-24">
                 <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-muted/30 flex items-center justify-center">

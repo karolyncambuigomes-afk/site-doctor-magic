@@ -4,6 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { ResponsiveGalleryImage } from '@/components/ResponsiveGalleryImage';
 
 interface GalleryImage {
   id: string;
@@ -187,12 +188,17 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       <div className="space-y-4">
         {/* Main Image */}
         <div className="relative aspect-[3/4] rounded-lg overflow-hidden group cursor-pointer">
-          <img
-            src={allImages[currentImageIndex]?.image_url}
-            alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover object-[center_15%] transition-transform duration-300 group-hover:scale-105"
+          <div 
+            className="w-full h-full transition-transform duration-300 group-hover:scale-105 cursor-pointer"
             onClick={() => openLightbox(currentImageIndex)}
-          />
+          >
+            <ResponsiveGalleryImage
+              localUrls={[allImages[currentImageIndex]?.image_url].filter(url => url?.startsWith('/images/'))}
+              externalUrls={[allImages[currentImageIndex]?.image_url].filter(url => url && !url.startsWith('/images/'))}
+              alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
+              className="object-[center_15%]"
+            />
+          </div>
           
           {/* Zoom indicator */}
           <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -249,10 +255,12 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
                     : 'border-border'
                 }`}
               >
-                <img
-                  src={image.image_url}
+                <ResponsiveGalleryImage
+                  localUrls={[image.image_url].filter(url => url?.startsWith('/images/'))}
+                  externalUrls={[image.image_url].filter(url => url && !url.startsWith('/images/'))}
                   alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover object-[center_25%]"
+                  className="object-[center_25%]"
+                  loading="lazy"
                 />
               </button>
             ))}
@@ -303,10 +311,12 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
           {/* Main lightbox image */}
           <div className="relative max-w-4xl max-h-full">
-            <img
-              src={allImages[currentImageIndex]?.image_url}
+            <ResponsiveGalleryImage
+              localUrls={[allImages[currentImageIndex]?.image_url].filter(url => url?.startsWith('/images/'))}
+              externalUrls={[allImages[currentImageIndex]?.image_url].filter(url => url && !url.startsWith('/images/'))}
               alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
               className="max-w-full max-h-full object-contain"
+              loading="eager"
             />
             
             {/* Image info */}

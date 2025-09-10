@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 export const ModelsGallery: React.FC = () => {
   const { models, loading, error } = useModels();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState<string[]>([]);
 
   // Get unique categories/characteristics from models
   const categories = useMemo(() => {
@@ -23,18 +23,19 @@ export const ModelsGallery: React.FC = () => {
     if (!models.length) return [];
     
     return models.filter(model => {
-      // Search term filter
+      // Search term filter (includes location)
       const matchesSearch = !searchTerm || 
         model.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        model.description?.toLowerCase().includes(searchTerm.toLowerCase());
+        model.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        model.location?.toLowerCase().includes(searchTerm.toLowerCase());
 
-      // Category filter
-      const matchesCategory = selectedCategory === 'all' ||
-        model.characteristics?.includes(selectedCategory);
+      // Category filter (multiple selection)
+      const matchesCategory = selectedCharacteristics.length === 0 ||
+        selectedCharacteristics.some(char => model.characteristics?.includes(char));
 
       return matchesSearch && matchesCategory;
     });
-  }, [models, searchTerm, selectedCategory]);
+  }, [models, searchTerm, selectedCharacteristics]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -48,7 +49,7 @@ export const ModelsGallery: React.FC = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   type="text"
-                  placeholder="Search models..."
+                  placeholder="Search models by name, location..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
@@ -59,8 +60,8 @@ export const ModelsGallery: React.FC = () => {
             {/* Category Filter Buttons */}
             <div className="flex flex-wrap justify-center gap-2 mb-4">
               <Button
-                variant={selectedCategory === 'all' ? 'default' : 'outline'}
-                onClick={() => setSelectedCategory('all')}
+                variant={selectedCharacteristics.length === 0 ? 'default' : 'outline'}
+                onClick={() => setSelectedCharacteristics([])}
                 className="text-sm"
               >
                 All Models
@@ -68,8 +69,14 @@ export const ModelsGallery: React.FC = () => {
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? 'default' : 'outline'}
-                  onClick={() => setSelectedCategory(category)}
+                  variant={selectedCharacteristics.includes(category) ? 'default' : 'outline'}
+                  onClick={() => {
+                    setSelectedCharacteristics(prev => 
+                      prev.includes(category)
+                        ? prev.filter(char => char !== category)
+                        : [...prev, category]
+                    );
+                  }}
                   className="text-sm"
                 >
                   {category}
@@ -118,7 +125,7 @@ export const ModelsGallery: React.FC = () => {
                 <Button 
                   onClick={() => {
                     setSearchTerm('');
-                    setSelectedCategory('all');
+                    setSelectedCharacteristics([]);
                   }}
                   variant="outline"
                 >

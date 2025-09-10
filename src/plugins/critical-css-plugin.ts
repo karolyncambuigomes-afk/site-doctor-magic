@@ -33,33 +33,30 @@ export function criticalCSSPlugin(options: CriticalCSSOptions): Plugin {
         }
       }
     },
-    transformIndexHtml: {
-      enforce: 'post',
-      transform(html, context) {
-        if ((this as any).criticalCSS) {
-          const criticalCSS = (this as any).criticalCSS;
-          
-          // Inject critical CSS inline
-          const inlineCSSTag = `<style>${criticalCSS}</style>`;
-          
-          // Insert before closing </head> tag
-          html = html.replace('</head>', `${inlineCSSTag}\n</head>`);
-          
-          // Add preload for non-critical CSS
-          const preloadTags = `
-            <link rel="preload" href="/src/styles/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-            <link rel="preload" href="/src/styles/utilities.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-            <noscript>
-              <link rel="stylesheet" href="/src/styles/components.css">
-              <link rel="stylesheet" href="/src/styles/utilities.css">
-            </noscript>
-          `;
-          
-          html = html.replace('</head>', `${preloadTags}\n</head>`);
-        }
+    transformIndexHtml(html, context) {
+      if ((this as any).criticalCSS) {
+        const criticalCSS = (this as any).criticalCSS;
         
-        return html;
+        // Inject critical CSS inline
+        const inlineCSSTag = `<style>${criticalCSS}</style>`;
+        
+        // Insert before closing </head> tag
+        html = html.replace('</head>', `${inlineCSSTag}\n</head>`);
+        
+        // Add preload for non-critical CSS
+        const preloadTags = `
+          <link rel="preload" href="/src/styles/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+          <link rel="preload" href="/src/styles/utilities.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+          <noscript>
+            <link rel="stylesheet" href="/src/styles/components.css">
+            <link rel="stylesheet" href="/src/styles/utilities.css">
+          </noscript>
+        `;
+        
+        html = html.replace('</head>', `${preloadTags}\n</head>`);
       }
+      
+      return html;
     }
   };
 }

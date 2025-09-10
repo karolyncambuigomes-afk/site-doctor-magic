@@ -89,9 +89,10 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    criticalCSSPlugin({
-      criticalCSS: './src/styles/critical.css'
-    }),
+    // Temporarily disable critical CSS plugin to avoid build issues
+    // criticalCSSPlugin({
+    //   criticalCSS: './src/styles/critical.css'
+    // }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),

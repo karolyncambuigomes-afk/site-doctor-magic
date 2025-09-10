@@ -1,5 +1,6 @@
 /* Utility styles - Lazy loaded */
 @import 'tailwindcss/utilities';
+@import 'tailwindcss/components';
 
 @layer utilities {
   /* Advanced animations */

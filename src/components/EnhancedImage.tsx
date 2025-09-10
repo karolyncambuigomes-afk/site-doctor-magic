@@ -83,6 +83,14 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
 
   // Show error state if all fallbacks failed
   if (hasError || !currentSrc) {
+    console.warn('⚠️ [EnhancedImage] All fallbacks failed:', { 
+      fallbackChain, 
+      external, 
+      local, 
+      placeholder,
+      preferLocalImages 
+    });
+    
     return (
       <div 
         className={cn(

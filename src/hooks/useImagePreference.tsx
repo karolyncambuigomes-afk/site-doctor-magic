@@ -14,9 +14,16 @@ export const useImagePreference = () => {
       if (saved) {
         const flags: FeatureFlags = JSON.parse(saved);
         setPreferLocalImages(flags.preferLocalImages !== false); // Default to true
+      } else {
+        // HOTFIX: Force external images until local images are generated
+        console.log('🔧 HOTFIX: Setting preferLocalImages = false by default');
+        setPreferLocalImages(false);
+        localStorage.setItem('featureFlags', JSON.stringify({ preferLocalImages: false }));
       }
     } catch (error) {
       console.warn('Failed to load image preference:', error);
+      // HOTFIX: Fallback to external images
+      setPreferLocalImages(false);
     }
   }, []);
 

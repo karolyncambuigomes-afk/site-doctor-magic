@@ -74,7 +74,7 @@ export const ModelsCarousel = () => {
                       
                       {/* Main Image */}
                       <EnhancedImage
-                        local={model.image?.startsWith('/images/') ? model.image : null}
+                        local={null}
                         external={model.image}
                         placeholder="/images/placeholders/model.jpg"
                         alt={`${model.name} - elite companion in London`}

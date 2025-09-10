@@ -102,6 +102,7 @@ serve(async (req) => {
       try {
         // Update database based on table and category
         let updateData: any = {}
+        let updateQuery: any = null
         
         if (tableName === 'hero_slides') {
           updateData = {
@@ -109,16 +110,23 @@ serve(async (req) => {
             image_url_local_mobile: localUrl,
             image_url_local_fallback: localUrl
           }
+          updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'homepage_carousel') {
           updateData = { image_url: localUrl }
+          updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'models') {
           updateData = { image: localUrl }
+          updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'blog_posts') {
           updateData = { image: localUrl }
+          updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         } else if (tableName === 'site_content') {
           updateData = { [fieldName]: localUrl }
+          // For site_content, use section field instead of id
+          updateQuery = supabase.from(tableName).update(updateData).eq('section', itemId)
         } else {
           updateData = { [fieldName]: localUrl }
+          updateQuery = supabase.from(tableName).update(updateData).eq('id', itemId)
         }
 
         // Auto-generate alt text if missing
@@ -148,10 +156,7 @@ serve(async (req) => {
         }
 
         // Update the database
-        const { error: updateError } = await supabase
-          .from(tableName)
-          .update(updateData)
-          .eq('id', itemId)
+        const { error: updateError } = await updateQuery
 
         if (updateError) {
           console.error(`❌ [FIX-IMAGE] Database update failed:`, updateError)

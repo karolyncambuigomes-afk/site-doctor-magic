@@ -99,6 +99,8 @@ export const useHomepageContent = () => {
           button_url: updates.button_primary_url || heroContent.button_primary_url,
           is_active: true,
           updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'section'
         })
         .select()
         .maybeSingle();

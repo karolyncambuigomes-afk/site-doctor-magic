@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from 'react';
-import { EnhancedImageProps, resolveImage, getFeatureFlags, createImageFallbackChain } from '@/utils/imageResolver';
+import React, { useState, useMemo, useEffect } from 'react';
+import { EnhancedImageProps, resolveImage, createImageFallbackChain } from '@/utils/imageResolver';
+import { useImagePreference } from '@/hooks/useImagePreference';
 import { cn } from '@/lib/utils';
 
 export const EnhancedImage: React.FC<EnhancedImageProps> = ({
@@ -20,18 +21,26 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
   const [hasError, setHasError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Get feature flags
-  const featureFlags = useMemo(() => getFeatureFlags(), []);
+  // Get image preference with real-time updates
+  const { preferLocalImages } = useImagePreference();
 
-  // Create fallback chain based on feature flags
+  // Create fallback chain based on preference
   const fallbackChain = useMemo(() => {
+    const featureFlags = { preferLocalImages };
     const primarySrc = resolveImage({ local, external, placeholder }, featureFlags);
-    const fallbacks = featureFlags.preferLocalImages 
+    const fallbacks = preferLocalImages 
       ? [external, placeholder].filter(Boolean)
       : [local, placeholder].filter(Boolean);
     
     return createImageFallbackChain(primarySrc, fallbacks as string[]);
-  }, [local, external, placeholder, featureFlags]);
+  }, [local, external, placeholder, preferLocalImages]);
+
+  // Reset state when fallback chain changes (preference updated)
+  useEffect(() => {
+    setCurrentSrcIndex(0);
+    setHasError(false);
+    setIsLoaded(false);
+  }, [fallbackChain]);
 
   const currentSrc = fallbackChain[currentSrcIndex] || '';
 

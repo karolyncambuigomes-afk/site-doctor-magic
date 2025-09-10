@@ -3,6 +3,7 @@ import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { useImagePreference } from '@/hooks/useImagePreference';
 import { EnhancedImage } from '@/components/EnhancedImage';
 
 interface ModelCardProps {
@@ -14,34 +15,22 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.2);
+  const { preferLocalImages } = useImagePreference();
 
-  // Robust fallback logic for main image with local priority
-  const mainImage = useMemo(() => {
-    // First priority: local optimized image
-    if (model.image_url_local_main && model.image_url_local_main.trim() !== '') {
-      return model.image_url_local_main;
-    }
-    
-    // Second priority: model.image if valid
-    if (model.image && model.image.trim() !== '') {
-      return model.image;
-    }
-    
-    // Third priority: first public gallery image
-    if (model.gallery && Array.isArray(model.gallery)) {
-      const publicImage = model.gallery
-        .filter(img => img.visibility === 'public' || !img.visibility)
-        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0];
-      
-      if (publicImage?.image_url) {
-        console.log(`✅ [ModelCard] Using gallery fallback for ${model.name}:`, publicImage.image_url);
-        return publicImage.image_url;
-      }
-    }
-    
-    console.warn(`🚨 [ModelCard] No valid image found for model ${model.name}`);
-    return null;
-  }, [model.image_url_local_main, model.image, model.gallery, model.name]);
+  // Enhanced image selection with preference awareness
+  const imageConfig = useMemo(() => {
+    const fallbackFromGallery = model.gallery && Array.isArray(model.gallery)
+      ? model.gallery
+          .filter(img => img.visibility === 'public' || !img.visibility)
+          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
+      : undefined;
+
+    return {
+      local: model.image_url_local_main,
+      external: model.image || fallbackFromGallery,
+      placeholder: '/images/placeholder-model.jpg'
+    };
+  }, [model.image_url_local_main, model.image, model.gallery]);
 
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {
@@ -50,12 +39,12 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
         .filter(img => img.visibility === 'public' || !img.visibility)
         .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
-      // Use second image if available, or first if main image is from gallery
       const secondImg = publicImages[1] || publicImages[0];
-      return secondImg?.image_url !== mainImage ? secondImg?.image_url : null;
+      const primarySrc = preferLocalImages ? imageConfig.local : imageConfig.external;
+      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
     }
     return null;
-  }, [model.gallery, mainImage]);
+  }, [model.gallery, imageConfig, preferLocalImages]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {
@@ -94,11 +83,13 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
               </div>
             )}
             
-            {mainImage && !imageError ? (
+            {imageConfig.local || imageConfig.external ? (
               <>
                 {/* Main Image */}
                 <EnhancedImage
-                  external={mainImage}
+                  local={imageConfig.local}
+                  external={imageConfig.external}
+                  placeholder={imageConfig.placeholder}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'

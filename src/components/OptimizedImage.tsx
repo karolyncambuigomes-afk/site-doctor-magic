@@ -1,22 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { generateImageSources, heroSizes, defaultSizes, createImageObserver } from '@/utils/imageOptimizer';
+import { useImagePreference } from '@/hooks/useImagePreference';
+import { resolveImage } from '@/utils/imageResolver';
 
 interface OptimizedImageProps {
-  src: string;
+  src?: string;
+  localSrc?: string; // Local optimized version
   alt: string;
   className?: string;
   width?: number;
   height?: number;
-  priority?: boolean; // For above-the-fold images
-  sizes?: string; // Responsive sizes
-  placeholder?: string; // Base64 placeholder
-  onLoad?: (e?: React.SyntheticEvent<HTMLImageElement>) => void; // Callback for successful load
-  onError?: (e?: React.SyntheticEvent<HTMLImageElement>) => void; // Callback for error
+  priority?: boolean;
+  sizes?: string;
+  placeholder?: string;
+  onLoad?: (e?: React.SyntheticEvent<HTMLImageElement>) => void;
+  onError?: (e?: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
+  localSrc,
   alt,
   className,
   width,
@@ -31,10 +35,18 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [isVisible, setIsVisible] = useState(priority);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
+  const { preferLocalImages } = useImagePreference();
 
-  // Early validation for empty or invalid src
-  if (!src || src.trim() === '') {
-    console.warn(`🚨 [OptimizedImage] Empty or invalid src provided:`, src);
+  // Resolve image source based on preference
+  const resolvedSrc = resolveImage({
+    local: localSrc,
+    external: src,
+    placeholder
+  }, { preferLocalImages });
+
+  // Early validation
+  if (!resolvedSrc || resolvedSrc.trim() === '') {
+    console.warn(`🚨 [OptimizedImage] No valid image source:`, { src, localSrc });
     return (
       <div 
         className={cn('relative overflow-hidden bg-muted flex items-center justify-center', className)}
@@ -42,7 +54,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       >
         <div className="text-muted-foreground text-sm text-center">
           <div>Imagem não disponível</div>
-          <div className="text-xs mt-1 opacity-70">Src: {src || 'empty'}</div>
+          <div className="text-xs mt-1 opacity-70">
+            Mode: {preferLocalImages ? 'Local' : 'External'}
+          </div>
         </div>
       </div>
     );
@@ -50,7 +64,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (priority) return; // Skip lazy loading for priority images
+    if (priority) return;
 
     const observer = createImageObserver(([entry]) => {
       if (entry.isIntersecting) {
@@ -63,22 +77,31 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       observer.observe(imgRef.current);
       return () => observer.disconnect();
     } else {
-      // Fallback for browsers without IntersectionObserver
       setIsVisible(true);
     }
   }, [priority]);
 
-  // Generate responsive image sources with WebP fallback
-  const imageSources = generateImageSources({ src, alt, width, height });
+  // Reset state when source changes (preference updated)
+  useEffect(() => {
+    setIsLoaded(false);
+    setError(false);
+  }, [resolvedSrc]);
+
+  const imageSources = generateImageSources({ 
+    src: resolvedSrc, 
+    alt, 
+    width, 
+    height 
+  });
 
   const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    console.log(`✅ [OptimizedImage] Image loaded successfully:`, src);
+    console.log(`✅ [OptimizedImage] Image loaded:`, resolvedSrc, `(${preferLocalImages ? 'local' : 'external'} mode)`);
     setIsLoaded(true);
     onLoad?.(e);
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    console.error(`❌ [OptimizedImage] Failed to load image:`, src, e);
+    console.error(`❌ [OptimizedImage] Failed to load:`, resolvedSrc);
     setError(true);
     setIsLoaded(true);
     onError?.(e);
@@ -103,7 +126,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         />
       )}
 
-      {/* Main image - only load when visible */}
+      {/* Main image */}
       {(isVisible || priority) && (
         <picture>
           {imageSources.map((source, index) => (
@@ -111,11 +134,11 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
               key={index}
               srcSet={source.srcSet} 
               type={source.type}
-              sizes={sizes || (src.includes('hero') ? heroSizes : defaultSizes)}
+              sizes={sizes || (resolvedSrc.includes('hero') ? heroSizes : defaultSizes)}
             />
           ))}
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             width={width}
             height={height}
@@ -137,7 +160,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         <div className="absolute inset-0 flex items-center justify-center bg-muted text-muted-foreground text-sm">
           <div className="text-center">
             <div>Imagem não encontrada</div>
-            <div className="text-xs mt-1 opacity-70">Src: {src}</div>
+            <div className="text-xs mt-1 opacity-70">
+              {preferLocalImages ? 'Local' : 'External'}: {resolvedSrc}
+            </div>
           </div>
         </div>
       )}

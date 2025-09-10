@@ -20,6 +20,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
 
 // Types
 interface ImageItem {
@@ -38,6 +39,7 @@ interface ImageStats {
   local: number;
   supabase: number;
   assets: number;
+  fixed?: number;
 }
 
 // Status determination function
@@ -102,11 +104,50 @@ const ImageFixButton: React.FC<{
   const handleFix = async () => {
     setIsFixing(true);
     try {
-      // TODO: Implement image download, optimization, and database update
-      toast.info(`Fix functionality will be implemented in next step for ${item.source}`);
+      console.log(`🔧 Starting fix for ${item.source}`);
+      
+      // Get current session for auth
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
+      }
+      
+      // Call the edge function to fix the image
+      const response = await fetch('/functions/v1/fix-image-to-local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          imageUrl: item.url,
+          category: item.category,
+          itemId: item.id,
+          tableName: item.tableName,
+          fieldName: item.fieldName,
+          itemName: item.source.split(': ')[1] || item.source,
+          altText: item.alt
+        })
+      });
+
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to fix image');
+      }
+
+      console.log(`✅ Fixed ${item.source} → ${result.localUrl}`);
+      
+      // Purge cache and refresh service worker
+      await purgeImageCache(['/images/*']);
+      await refreshServiceWorker();
+      
+      toast.success(`✅ Fixed: ${item.source}`);
       onFixComplete();
+      
     } catch (error) {
-      toast.error(`Failed to fix image: ${error}`);
+      console.error('Fix error:', error);
+      toast.error(`❌ Failed to fix ${item.source}: ${error}`);
     } finally {
       setIsFixing(false);
     }
@@ -138,46 +179,108 @@ const BulkFixButton: React.FC<{
   onFixComplete: () => void;
 }> = ({ category, items, onFixComplete }) => {
   const [isFixing, setIsFixing] = useState(false);
+  const [fixedCount, setFixedCount] = useState(0);
   const needsFix = items.filter(item => item.status !== 'local');
 
   const handleBulkFix = async () => {
     setIsFixing(true);
+    setFixedCount(0);
+    let successCount = 0;
+    
     try {
-      // TODO: Implement bulk fix functionality
-      toast.info(`Bulk fix functionality will be implemented in next step for ${needsFix.length} ${category} images`);
+      // Get current session for auth
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        throw new Error('Not authenticated');
+      }
+      
+      toast.info(`🚀 Starting bulk fix for ${needsFix.length} ${category} images`);
+      
+      // Process each item sequentially to avoid overwhelming the system
+      for (let i = 0; i < needsFix.length; i++) {
+        const item = needsFix[i];
+        
+        try {
+          console.log(`🔧 [${i+1}/${needsFix.length}] Fixing ${item.source}`);
+          
+          const response = await fetch('/functions/v1/fix-image-to-local', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${session.access_token}`,
+            },
+            body: JSON.stringify({
+              imageUrl: item.url,
+              category: item.category,
+              itemId: item.id,
+              tableName: item.tableName,
+              fieldName: item.fieldName,
+              itemName: item.source.split(': ')[1] || item.source,
+              altText: item.alt
+            })
+          });
+
+          const result = await response.json();
+          
+          if (result.success) {
+            successCount++;
+            setFixedCount(successCount);
+            console.log(`✅ [${i+1}/${needsFix.length}] Fixed ${item.source}`);
+          } else {
+            console.error(`❌ [${i+1}/${needsFix.length}] Failed to fix ${item.source}:`, result.error);
+          }
+          
+          // Small delay between requests to avoid rate limiting
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+        } catch (error) {
+          console.error(`❌ [${i+1}/${needsFix.length}] Error fixing ${item.source}:`, error);
+        }
+      }
+      
+      // Purge cache and refresh service worker after bulk operations
+      await purgeImageCache(['/images/*']);
+      await refreshServiceWorker();
+      
+      toast.success(`✅ Bulk fix complete: ${successCount}/${needsFix.length} ${category} images fixed`);
       onFixComplete();
+      
     } catch (error) {
-      toast.error(`Failed to bulk fix images: ${error}`);
+      toast.error(`❌ Bulk fix failed: ${error}`);
     } finally {
       setIsFixing(false);
+      setFixedCount(0);
     }
   };
 
   if (needsFix.length === 0) return null;
 
-  return (
-    <Button
-      size="sm"
-      variant="default"
-      onClick={handleBulkFix}
-      disabled={isFixing}
-      className="ml-2"
-    >
-      {isFixing ? (
-        <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
-      ) : (
-        <Download className="w-3 h-3 mr-1" />
-      )}
-      {isFixing ? 'Fixing All...' : `Fix All (${needsFix.length})`}
-    </Button>
-  );
-};
+    return (
+      <Button
+        size="sm"
+        variant="default"
+        onClick={handleBulkFix}
+        disabled={isFixing}
+        className="ml-2"
+      >
+        {isFixing ? (
+          <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
+        ) : (
+          <Download className="w-3 h-3 mr-1" />
+        )}
+        {isFixing 
+          ? `Fixing... (${fixedCount}/${needsFix.length})` 
+          : `Fix All (${needsFix.length})`
+        }
+      </Button>
+    );
+  };
 
 // Main component
 export const ImageDiagnostics: React.FC = () => {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState<ImageStats>({ total: 0, local: 0, supabase: 0, assets: 0 });
+  const [stats, setStats] = useState<ImageStats>({ total: 0, local: 0, supabase: 0, assets: 0, fixed: 0 });
 
   const fetchImages = async () => {
     setLoading(true);
@@ -309,7 +412,7 @@ export const ImageDiagnostics: React.FC = () => {
         else if (img.status === 'supabase') acc.supabase++;
         else if (img.status === 'assets') acc.assets++;
         return acc;
-      }, { total: 0, local: 0, supabase: 0, assets: 0 });
+      }, { total: 0, local: 0, supabase: 0, assets: 0, fixed: 0 });
 
       setStats(newStats);
     } catch (error) {

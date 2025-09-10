@@ -1,8 +1,41 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
-import { criticalCSSPlugin } from "./src/plugins/critical-css-plugin";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import path from 'path';
+import { componentTagger } from 'lovable-tagger';
+import fs from 'fs';
+
+// CSS optimization plugin
+const cssOptimizationPlugin = () => {
+  return {
+    name: 'css-optimization',
+    order: 'pre' as const,
+    transformIndexHtml: {
+      order: 'pre' as const,
+      handler(html: string) {
+        try {
+          // Inline critical CSS
+          const criticalCSS = fs.readFileSync(
+            path.resolve(__dirname, 'src/styles/critical-inline.css'),
+            'utf-8'
+          );
+          
+          return html.replace(
+            '<head>',
+            `<head>
+              <style data-critical-css>
+                ${criticalCSS}
+              </style>
+              <link rel="preload" href="/assets/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+              <noscript><link rel="stylesheet" href="/assets/index.css"></noscript>`
+          );
+        } catch (error) {
+          console.warn('Could not inline critical CSS:', error);
+          return html;
+        }
+      }
+    }
+  };
+};
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -80,32 +113,33 @@ export default defineConfig(({ mode }) => ({
             return 'utils';
           }
         },
-        chunkFileNames: (chunkInfo) => {
-          // Add hashing for better caching
-          return '[name]-[hash].js';
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          // Organize assets by type
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'assets/css/[name]-[hash][extname]';
+          }
+          if (assetInfo.name?.match(/\.(png|jpe?g|svg|gif|tiff|bmp|ico)$/i)) {
+            return 'assets/images/[name]-[hash][extname]';
+          }
+          if (assetInfo.name?.match(/\.(woff2?|eot|ttf|otf)$/i)) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
         }
       }
     },
     sourcemap: false,
-    assetsInlineLimit: 1024, // Smaller inline limit
-    chunkSizeWarningLimit: 500, // Stricter chunk size warning
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-        pure_funcs: ['console.log'], // Remove specific functions
-      }
-    }
+    assetsInlineLimit: 1024,
+    chunkSizeWarningLimit: 500,
+    minify: 'esbuild',
+    cssMinify: 'esbuild',
+    cssCodeSplit: true
   },
   plugins: [
     react(),
-    // Temporarily disable critical CSS plugin to avoid build issues
-    // criticalCSSPlugin({
-    //   criticalCSS: './src/styles/critical.css'
-    // }),
-    mode === 'development' &&
-    componentTagger(),
+    cssOptimizationPlugin(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {

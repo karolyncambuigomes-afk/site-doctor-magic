@@ -15,6 +15,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { VersionManager } from "@/components/VersionManager";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ResourcePreloader, IdlePrefetcher, DNSPrefetcher } from "@/components/ResourceOptimizer";
+import { CSSOptimizer, ResponsiveCSS } from "@/components/CSSOptimizer";
 
 // Critical pages that should load immediately
 import { Auth } from "./pages/Auth";
@@ -125,16 +126,18 @@ const App = () => (
         <TooltipProvider>
           <DegradedModeProvider>
             <AuthProvider>
-              <BrowserRouter>
-                <ResourcePreloader />
-                <DNSPrefetcher />
-                <IdlePrefetcher />
-                <ConditionalFeatures />
-                <Toaster />
-                <Sonner />
-                <BookNowButton />
-                <SkipToContent />
-                <Routes>
+              <CSSOptimizer>
+                <BrowserRouter>
+                  <ResourcePreloader />
+                  <DNSPrefetcher />
+                  <IdlePrefetcher />
+                  <ResponsiveCSS />
+                  <ConditionalFeatures />
+                  <Toaster />
+                  <Sonner />
+                  <BookNowButton />
+                  <SkipToContent />
+                  <Routes>
                   {/* Critical pages - no lazy loading */}
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
@@ -721,12 +724,13 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
-            </AuthProvider>
-          </DegradedModeProvider>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
-  </ErrorBoundary>
+            </CSSOptimizer>
+          </AuthProvider>
+        </DegradedModeProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
+</ErrorBoundary>
 );
 
 export default App;

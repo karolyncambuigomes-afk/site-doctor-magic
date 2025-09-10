@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSafeNavigate } from '@/hooks/useSafeRouter';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Upload, X } from "lucide-react";
+import { CalendarIcon, Upload, X, Shield, Lock } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ApplicationData {
   full_name: string;
@@ -50,6 +51,9 @@ const JoinUs = () => {
     console.warn('JoinUs: useNavigate returned undefined');
   }
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
   const [videos, setVideos] = useState<File[]>([]);
   const [formData, setFormData] = useState<ApplicationData>({
@@ -74,6 +78,48 @@ const JoinUs = () => {
     availability: "",
     location_preference: ""
   });
+
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+      
+      if (session?.user) {
+        // Check user profile status
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+        
+        setUserProfile(profile);
+      }
+      setAuthChecked(true);
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setUser(session?.user || null);
+        
+        if (session?.user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+          
+          setUserProfile(profile);
+        } else {
+          setUserProfile(null);
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleInputChange = (field: keyof ApplicationData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -153,6 +199,16 @@ const JoinUs = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user || !userProfile || userProfile.status !== 'approved') {
+      toast({
+        title: "Authentication Required",
+        description: "You must be a verified user to submit an application.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -178,9 +234,18 @@ const JoinUs = () => {
 
       navigate('/');
     } catch (error: any) {
+      let errorMessage = error.message;
+      
+      // Provide more helpful error messages for security-related errors
+      if (error.message.includes('row-level security')) {
+        errorMessage = "Your account needs to be verified before you can submit an application. Please contact support.";
+      } else if (error.message.includes('policy')) {
+        errorMessage = "You don't have permission to submit applications. Please ensure you're logged in with a verified account.";
+      }
+      
       toast({
         title: "Error submitting application",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive"
       });
     } finally {
@@ -190,6 +255,125 @@ const JoinUs = () => {
 
   const languages = ["Portuguese", "English", "Spanish", "French", "Italian", "German", "Russian", "Other Language"];
   const interests = ["Art", "Music", "Literature", "Travel", "Gastronomy", "Fitness", "Fashion", "Photography"];
+
+  const handleSignUp = () => {
+    navigate('/auth');
+  };
+
+  // Show loading state while checking authentication
+  if (!authChecked) {
+    return (
+      <>
+        <Navigation />
+        <main className="pt-16 min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p>Loading...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show authentication required screen for non-authenticated users
+  if (!user) {
+    return (
+      <>
+        <SEO 
+          title="Join Our Agency - Authentication Required"
+          description="Be part of our luxury escort agency. Sign up to apply for elite model positions."
+          keywords="model application, escort agency, work as escort, elite model, sign up"
+        />
+        <Navigation />
+        
+        <main className="pt-16 min-h-screen">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width">
+              <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+                <Shield className="h-16 w-16 mx-auto mb-6 text-primary" />
+                <h1 className="luxury-heading-xl mb-6 text-black">
+                  Secure Application Process
+                </h1>
+                <p className="luxury-body-lg text-black mb-8">
+                  To protect applicants' sensitive information, we require account verification before submitting applications.
+                </p>
+                
+                <Alert className="mb-8 text-left">
+                  <Lock className="h-4 w-4" />
+                  <AlertDescription>
+                    <strong>Privacy & Security:</strong> Your personal information, photos, and videos are encrypted and securely stored. 
+                    Only verified administrators can access applications.
+                  </AlertDescription>
+                </Alert>
+
+                <div className="space-y-4">
+                  <Button 
+                    onClick={handleSignUp}
+                    size="lg"
+                    className="w-full md:w-auto"
+                  >
+                    Create Account to Apply
+                  </Button>
+                  
+                  <p className="text-sm text-muted-foreground">
+                    Already have an account? <Button variant="link" onClick={() => navigate('/auth')} className="p-0 h-auto">Sign in here</Button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  // Show verification required screen for unverified users
+  if (userProfile?.status !== 'approved') {
+    return (
+      <>
+        <SEO 
+          title="Account Verification Required"
+          description="Your account needs verification before you can submit model applications."
+          keywords="account verification, model application"
+        />
+        <Navigation />
+        
+        <main className="pt-16 min-h-screen">
+          <section className="py-12 md:py-20 lg:py-24 bg-white">
+            <div className="container-width">
+              <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+                <Lock className="h-16 w-16 mx-auto mb-6 text-yellow-500" />
+                <h1 className="luxury-heading-xl mb-6 text-black">
+                  Account Verification Required
+                </h1>
+                <p className="luxury-body-lg text-black mb-8">
+                  Your account is currently being reviewed. You'll receive an email once verification is complete.
+                </p>
+                
+                <Alert>
+                  <AlertDescription>
+                    Status: <strong>{userProfile?.status || 'Pending'}</strong><br />
+                    This security measure protects all applicants' sensitive information.
+                  </AlertDescription>
+                </Alert>
+
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/')}
+                  className="mt-6"
+                >
+                  Return to Homepage
+                </Button>
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>

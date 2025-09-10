@@ -41,6 +41,33 @@ export type Database = {
         }
         Relationships: []
       }
+      application_submission_log: {
+        Row: {
+          email: string
+          id: string
+          ip_address: unknown | null
+          submitted_at: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          email: string
+          id?: string
+          ip_address?: unknown | null
+          submitted_at?: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          email?: string
+          id?: string
+          ip_address?: unknown | null
+          submitted_at?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       audit_log: {
         Row: {
           id: string

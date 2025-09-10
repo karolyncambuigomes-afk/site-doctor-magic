@@ -179,6 +179,14 @@
     <meta name="twitter:title" content="Five London - Premier Luxury Companion Services" />
     <meta name="twitter:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />
     <meta name="twitter:image" content="/hero-elegant-woman.jpg" />
+    
+    <!-- Resource hints for non-critical CSS -->
+    <link rel="preload" href="/src/styles/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/src/styles/utilities.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="/src/styles/components.css">
+      <link rel="stylesheet" href="/src/styles/utilities.css">
+    </noscript>
   </head>
 
   <body>

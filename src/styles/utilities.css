@@ -1,0 +1,129 @@
+/* Utility styles - Lazy loaded */
+@import 'tailwindcss/utilities';
+
+/* Advanced animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(var(--primary), 0.3);
+}
+
+/* Luxury gradients */
+.gradient-luxury {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-foreground)) 100%);
+}
+
+.gradient-elegant {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* Responsive utilities */
+@media (max-width: 640px) {
+  .sm-only\:block { display: block; }
+  .sm-only\:hidden { display: none; }
+}
+
+/* Admin specific styles */
+.admin-sidebar {
+  @apply w-64 bg-background border-r border-border;
+}
+
+.admin-content {
+  @apply flex-1 overflow-auto p-6;
+}
+
+.admin-nav-item {
+  @apply flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground;
+}
+
+.admin-nav-item.active {
+  @apply bg-accent text-accent-foreground;
+}
+
+/* Complex layouts */
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 1rem;
+  grid-auto-rows: max-content;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Loading states */
+.skeleton {
+  @apply animate-pulse bg-muted;
+}
+
+.skeleton-text {
+  @apply h-4 bg-muted rounded;
+}
+
+.skeleton-avatar {
+  @apply h-12 w-12 bg-muted rounded-full;
+}
+
+.skeleton-button {
+  @apply h-10 w-24 bg-muted rounded-md;
+}
+
+/* Print styles */
+@media print {
+  .print\:hidden { display: none; }
+  .print\:block { display: block; }
+  .print\:text-black { color: black; }
+  .print\:bg-white { background-color: white; }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .contrast\:border-2 { border-width: 2px; }
+  .contrast\:font-bold { font-weight: 700; }
+}

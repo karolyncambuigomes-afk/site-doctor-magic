@@ -1,6 +1,6 @@
 // Debug panel for image loading issues
 import React, { useState } from 'react';
-import { syncModelMainImages } from '@/utils/modelImageSync';
+import { syncModelMainImages } from '@/utils/modelImageSyncManager';
 import { forceImageRefresh } from '@/utils/imageCacheBuster';
 
 export const ImageDebugPanel: React.FC = () => {

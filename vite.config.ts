@@ -18,15 +18,44 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu']
+        manualChunks: (id) => {
+          // Heavy admin libraries in separate chunks
+          if (id.includes('fabric')) return 'fabric';
+          if (id.includes('recharts')) return 'recharts';
+          
+          // Core libraries
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+            return 'react-vendor';
+          }
+          if (id.includes('node_modules/react-router')) {
+            return 'router';
+          }
+          
+          // UI libraries chunk
+          if (id.includes('@radix-ui') || id.includes('lucide-react')) {
+            return 'ui-vendor';
+          }
+          
+          // Supabase chunk
+          if (id.includes('@supabase') || id.includes('@tanstack/react-query')) {
+            return 'supabase';
+          }
+          
+          // Admin pages chunk
+          if (id.includes('/pages/admin/') || id.includes('/layouts/AdminLayout')) {
+            return 'admin';
+          }
+          
+          // Large utility libraries
+          if (id.includes('node_modules/date-fns') || id.includes('node_modules/clsx')) {
+            return 'utils';
+          }
         }
       }
     },
     sourcemap: false,
-    assetsInlineLimit: 4096
+    assetsInlineLimit: 2048, // Reduced for smaller bundles
+    chunkSizeWarningLimit: 1000
   },
   plugins: [
     react(),

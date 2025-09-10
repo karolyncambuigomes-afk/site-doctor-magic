@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ImageUpload } from '@/components/ImageUpload';
-import { ImageEditor } from '@/components/ImageEditor';
+import { LazyImageEditor } from '@/components/LazyImageEditor';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info } from 'lucide-react';
@@ -525,7 +525,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
       {/* Image Editor */}
       {editingImage && (
-        <ImageEditor
+        <LazyImageEditor
           imageUrl={editingImage}
           isOpen={true}
           onClose={() => setEditingImage(null)}

@@ -11,7 +11,7 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { GalleryUpload } from '@/components/GalleryUpload';
 import { ModelGallery } from '@/components/ModelGallery';
 import { PhotoSelector } from '@/components/PhotoSelector';
-import { ImageEditor } from '@/components/ImageEditor';
+import { LazyImageEditor } from '@/components/LazyImageEditor';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { characteristics } from '@/data/characteristics';
@@ -948,7 +948,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
       {/* Image Editor for main photo */}
       {editingMainImage && formData.image && (
-        <ImageEditor
+        <LazyImageEditor
           imageUrl={formData.image}
           isOpen={true}
           onClose={() => setEditingMainImage(false)}

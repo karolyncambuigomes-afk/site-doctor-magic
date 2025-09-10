@@ -1,18 +1,38 @@
 # Five London - Optimized for External Tools & Performance Analysis
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
-# Enable compression for all browsers including crawlers
+# Advanced compression for maximum size reduction
 <IfModule mod_deflate.c>
+    # Text-based content
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
     AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    
+    # Application content
     AddOutputFilterByType DEFLATE application/xml
     AddOutputFilterByType DEFLATE application/xhtml+xml
     AddOutputFilterByType DEFLATE application/rss+xml
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
     AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/ld+json
+    
+    # Fonts and SVG
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+    
+    # Compression level (6 = good balance)
+    DeflateCompressionLevel 6
+    
+    # Don't compress already compressed files
+    SetEnvIfNoCase Request_URI \
+        \.(?:gif|jpe?g|png|webp|zip|gz|tar|bz2|sit|rar|exe)$ no-gzip dont-vary
 </IfModule>
 
 # Smart cache control with crawler-friendly settings

@@ -72,7 +72,7 @@ const Blog = () => {
       <div className="min-h-screen bg-white">
         <Navigation />
         
-        <main className="pt-16">
+        <main className="pt-0">
           {/* Hero Section */}
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">

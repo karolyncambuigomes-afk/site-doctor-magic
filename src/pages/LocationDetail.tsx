@@ -107,7 +107,7 @@ const LocationDetail = () => {
       <div className="min-h-screen bg-white">
         <Navigation />
         
-        <main className="pt-16">
+        <main className="pt-0">
           {/* Minimal Hero */}
           <section className="py-8 md:py-12 lg:py-16 bg-white">
             <div className="container-width text-center">

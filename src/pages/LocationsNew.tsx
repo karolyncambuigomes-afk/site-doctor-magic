@@ -26,7 +26,7 @@ export const Locations: React.FC = () => {
         structuredData={structuredData}
       />
       
-      <main className="min-h-screen pt-16 pb-16">
+      <main className="min-h-screen pt-0 pb-16">
         <div className="max-w-6xl mx-auto px-4">
           {/* Hero Section */}
           <section className="text-center mb-16">

@@ -19,7 +19,7 @@ const Characteristics = () => {
       <div className="min-h-screen bg-background">
         <Navigation />
         
-        <main className="pt-16">
+        <main className="pt-0">
           {/* Minimal Hero */}
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">

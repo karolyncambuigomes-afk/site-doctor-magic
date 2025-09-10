@@ -93,7 +93,7 @@ export const Reviews: React.FC = () => {
       />
       <Navigation />
       
-      <main className="pt-16 bg-white">
+      <main className="pt-0 bg-white">
         {/* Breadcrumbs */}
         <section className="py-4 bg-white">
           <div className="container mx-auto px-4">

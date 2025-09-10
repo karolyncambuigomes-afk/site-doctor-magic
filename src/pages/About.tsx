@@ -120,7 +120,7 @@ const About = () => {
       
       <Navigation />
       
-      <main className="pt-16 bg-white">
+      <main className="pt-0 bg-white">
 
           {/* Hero Section */}
           <section className="py-16 md:py-24 lg:py-32 bg-white">

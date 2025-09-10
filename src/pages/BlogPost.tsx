@@ -71,7 +71,7 @@ const BlogPost = () => {
       <div className="min-h-screen bg-white">
         <Navigation />
         
-        <main className="pt-16">
+        <main className="pt-0">
           {/* Breadcrumb */}
           <section className="py-8 border-b border-border">
             <div className="container-width">

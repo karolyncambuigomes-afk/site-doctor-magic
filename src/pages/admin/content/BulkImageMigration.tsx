@@ -102,18 +102,18 @@ export const BulkImageMigration: React.FC = () => {
             itemName = `blog-${item.category?.toLowerCase() || 'post'}-${item.slug || 'untitled'}`;
           }
 
-          // Call fix-image-to-local Edge Function
-          const { data: result, error: fixError } = await supabase.functions.invoke('fix-image-to-local', {
-            body: {
-              imageUrl: item.image_url || item.image,
-              category: category.name.toLowerCase(),
-              itemId: item.id,
-              tableName: category.tableName,
-              fieldName: category.fieldName,
-              itemName: itemName,
-              altText: item.name || item.model_name || item.title || 'Optimized image'
-            }
-          });
+      // Call fix-image-to-local Edge Function
+      const { data: result, error: fixError } = await supabase.functions.invoke('fix-image-to-local', {
+        body: {
+          imageUrl: item.image_url || item.image,
+          category: category.name.toLowerCase().replace(' ', '_'),
+          itemId: item.id,
+          tableName: category.tableName,
+          fieldName: category.fieldName,
+          itemName: itemName,
+          altText: item.name || item.model_name || item.title || 'Optimized image'
+        }
+      });
 
           if (fixError) throw fixError;
 

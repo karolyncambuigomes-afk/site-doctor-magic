@@ -11,6 +11,7 @@ import { Loader2, Save, Eye, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { ImageUpload } from '@/components/ImageUpload';
+import { BannerPreviewSimulator } from '@/components/BannerPreviewSimulator';
 
 interface HomepageContent {
   hero_main: any;
@@ -160,16 +161,25 @@ export const HomepageManager: React.FC = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Preview Card */}
+              {/* Live Preview Simulator */}
+              <BannerPreviewSimulator
+                desktopImage={heroFormData.image_url_desktop}
+                mobileImage={heroFormData.image_url_mobile}
+                fallbackImage={heroFormData.image_url}
+                title={heroFormData.title}
+                subtitle={heroFormData.subtitle}
+              />
+
+              {/* Text Content Preview */}
               <div className="p-4 bg-gray-50 rounded-lg border">
                 <div className="flex items-center gap-2 mb-3">
                   <Eye className="h-4 w-4" />
-                  <span className="text-sm font-medium">Preview Atual</span>
+                  <span className="text-sm font-medium">Conteúdo Textual</span>
                 </div>
                 <div className="space-y-2 text-sm">
-                  <div><strong>Título:</strong> {heroContent.title}</div>
-                  <div><strong>Subtítulo:</strong> {heroContent.subtitle}</div>
-                  <div><strong>Descrição:</strong> {heroContent.content?.substring(0, 100)}...</div>
+                  <div><strong>Título:</strong> {heroFormData.title}</div>
+                  <div><strong>Subtítulo:</strong> {heroFormData.subtitle}</div>
+                  <div><strong>Descrição:</strong> {heroFormData.content?.substring(0, 100)}...</div>
                 </div>
               </div>
 
@@ -219,18 +229,38 @@ export const HomepageManager: React.FC = () => {
                   <ImageUpload
                     value={heroFormData.image_url_desktop}
                     onChange={(url) => {
-                      console.log('Desktop banner changed to:', url);
-                      setHeroFormData(prev => ({ ...prev, image_url_desktop: url }));
+                      console.log('🖥️ [DESKTOP BANNER] URL alterada para:', url);
+                      console.log('🖥️ [DESKTOP BANNER] Campo específico: image_url_desktop');
+                      setHeroFormData(prev => {
+                        const updated = { ...prev, image_url_desktop: url };
+                        console.log('🖥️ [DESKTOP BANNER] Estado atualizado:', updated);
+                        return updated;
+                      });
                     }}
                     placeholder="URL da imagem desktop ou faça upload"
                     label=""
                   />
                   <p className="text-xs text-blue-600">
-                    📱 <strong>Desktop:</strong> Imagem otimizada para telas grandes. Recomendamos proporção 16:9 (ex: 1920x1080).
+                    🖥️ <strong>Desktop:</strong> Imagem otimizada para telas grandes. Recomendamos proporção 16:9 (ex: 1920x1080).
                   </p>
                   {heroFormData.image_url_desktop && (
                     <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
-                      ✅ Imagem desktop configurada
+                      ✅ Imagem desktop configurada: {heroFormData.image_url_desktop.substring(0, 50)}...
+                    </div>
+                  )}
+                  {/* Preview Desktop */}
+                  {heroFormData.image_url_desktop && (
+                    <div className="mt-2 p-2 bg-white rounded border">
+                      <div className="text-xs text-blue-600 mb-1">Preview Desktop:</div>
+                      <img 
+                        src={heroFormData.image_url_desktop} 
+                        alt="Preview desktop" 
+                        className="w-full h-20 object-cover rounded border"
+                        onError={(e) => {
+                          console.error('❌ [DESKTOP BANNER] Erro ao carregar preview:', heroFormData.image_url_desktop);
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -247,8 +277,13 @@ export const HomepageManager: React.FC = () => {
                   <ImageUpload
                     value={heroFormData.image_url_mobile}
                     onChange={(url) => {
-                      console.log('Mobile banner changed to:', url);
-                      setHeroFormData(prev => ({ ...prev, image_url_mobile: url }));
+                      console.log('📱 [MOBILE BANNER] URL alterada para:', url);
+                      console.log('📱 [MOBILE BANNER] Campo específico: image_url_mobile');
+                      setHeroFormData(prev => {
+                        const updated = { ...prev, image_url_mobile: url };
+                        console.log('📱 [MOBILE BANNER] Estado atualizado:', updated);
+                        return updated;
+                      });
                     }}
                     placeholder="URL da imagem mobile ou faça upload"
                     label=""
@@ -258,7 +293,22 @@ export const HomepageManager: React.FC = () => {
                   </p>
                   {heroFormData.image_url_mobile && (
                     <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
-                      ✅ Imagem mobile configurada
+                      ✅ Imagem mobile configurada: {heroFormData.image_url_mobile.substring(0, 50)}...
+                    </div>
+                  )}
+                  {/* Preview Mobile */}
+                  {heroFormData.image_url_mobile && (
+                    <div className="mt-2 p-2 bg-white rounded border">
+                      <div className="text-xs text-green-600 mb-1">Preview Mobile:</div>
+                      <img 
+                        src={heroFormData.image_url_mobile} 
+                        alt="Preview mobile" 
+                        className="w-full h-20 object-cover rounded border"
+                        onError={(e) => {
+                          console.error('❌ [MOBILE BANNER] Erro ao carregar preview:', heroFormData.image_url_mobile);
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
                     </div>
                   )}
                 </div>
@@ -305,28 +355,69 @@ export const HomepageManager: React.FC = () => {
                 </div>
               </div>
 
-              {/* Debug Info Panel */}
-              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              {/* Enhanced Debug Panel */}
+              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <details className="cursor-pointer">
-                  <summary className="text-sm font-medium text-yellow-700 mb-2">🔧 Debug Info (Click para expandir)</summary>
-                  <div className="text-xs space-y-1 text-yellow-600">
-                    <div><strong>Desktop:</strong> {heroFormData.image_url_desktop ? '✅ Configurado' : '❌ Vazio'}</div>
-                    <div><strong>Mobile:</strong> {heroFormData.image_url_mobile ? '✅ Configurado' : '❌ Vazio'}</div>
-                    <div><strong>Fallback:</strong> {heroFormData.image_url ? '✅ Configurado' : '❌ Vazio'}</div>
+                  <summary className="text-sm font-medium text-yellow-700 mb-3">🔧 Debug & Validation Info</summary>
+                  <div className="text-xs space-y-2 text-yellow-600">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <div className="font-semibold mb-1">Estado Atual:</div>
+                        <div><strong>Desktop:</strong> {heroFormData.image_url_desktop ? `✅ ${heroFormData.image_url_desktop.substring(0, 30)}...` : '❌ Vazio'}</div>
+                        <div><strong>Mobile:</strong> {heroFormData.image_url_mobile ? `✅ ${heroFormData.image_url_mobile.substring(0, 30)}...` : '❌ Vazio'}</div>
+                        <div><strong>Fallback:</strong> {heroFormData.image_url ? `✅ ${heroFormData.image_url.substring(0, 30)}...` : '❌ Vazio'}</div>
+                      </div>
+                      <div>
+                        <div className="font-semibold mb-1">Validação:</div>
+                        <div className={heroFormData.image_url_desktop ? 'text-green-600' : 'text-red-600'}>
+                          🖥️ Desktop: {heroFormData.image_url_desktop ? 'Válido' : 'Necessário'}
+                        </div>
+                        <div className={heroFormData.image_url_mobile ? 'text-green-600' : 'text-orange-600'}>
+                          📱 Mobile: {heroFormData.image_url_mobile ? 'Válido' : 'Recomendado'}
+                        </div>
+                        <div className={heroFormData.image_url ? 'text-green-600' : 'text-red-600'}>
+                          🔄 Fallback: {heroFormData.image_url ? 'Válido' : 'Necessário'}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-3 p-2 bg-white rounded border">
+                      <div className="font-semibold mb-1">Simulação de Exibição:</div>
+                      <div>📱 <strong>No Mobile será exibido:</strong> {heroFormData.image_url_mobile || heroFormData.image_url || 'Imagem padrão'}</div>
+                      <div>🖥️ <strong>No Desktop será exibido:</strong> {heroFormData.image_url_desktop || heroFormData.image_url || 'Imagem padrão'}</div>
+                    </div>
                   </div>
                 </details>
               </div>
 
               <Button
                 onClick={async () => {
-                  console.log('Saving hero content with data:', heroFormData);
+                  console.log('🚀 [SAVE] Iniciando salvamento com dados:', heroFormData);
+                  console.log('🚀 [SAVE] Desktop URL:', heroFormData.image_url_desktop);
+                  console.log('🚀 [SAVE] Mobile URL:', heroFormData.image_url_mobile);
+                  console.log('🚀 [SAVE] Fallback URL:', heroFormData.image_url);
+                  
                   setSaving('hero_main');
+                  
+                  // Validação antes de salvar
+                  if (!heroFormData.image_url_desktop && !heroFormData.image_url_mobile && !heroFormData.image_url) {
+                    toast({
+                      title: "Aviso",
+                      description: "Configure pelo menos uma imagem (desktop, mobile ou fallback)",
+                      variant: "destructive",
+                    });
+                    setSaving(null);
+                    return;
+                  }
+                  
                   const success = await updateHeroContent(heroFormData);
                   if (success) {
+                    console.log('✅ [SAVE] Dados salvos com sucesso');
                     toast({
                       title: "Sucesso",
-                      description: "Banners desktop e mobile salvos separadamente!",
+                      description: `Configuração salva! Desktop: ${heroFormData.image_url_desktop ? '✅' : '❌'} | Mobile: ${heroFormData.image_url_mobile ? '✅' : '❌'}`,
                     });
+                  } else {
+                    console.error('❌ [SAVE] Falha ao salvar dados');
                   }
                   setSaving(null);
                 }}
@@ -338,7 +429,7 @@ export const HomepageManager: React.FC = () => {
                 ) : (
                   <Save className="mr-2 h-4 w-4" />
                 )}
-                Salvar Hero Section
+                Salvar Configuração de Banners
               </Button>
 
               <div className="text-xs text-muted-foreground p-3 bg-blue-50 rounded border">

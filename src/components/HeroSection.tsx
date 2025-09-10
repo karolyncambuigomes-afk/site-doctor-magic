@@ -11,11 +11,31 @@ export const HeroSection: React.FC = () => {
 
   // Determine which image to use based on device type with memoization
   const primaryImage = useMemo(() => {
+    console.log('🖼️ [HERO] Determinando imagem para exibição');
+    console.log('🖼️ [HERO] - Device: ', isMobile ? 'Mobile 📱' : 'Desktop 🖥️');
+    console.log('🖼️ [HERO] - image_url_mobile:', heroContent.image_url_mobile);
+    console.log('🖼️ [HERO] - image_url_desktop:', heroContent.image_url_desktop);
+    console.log('🖼️ [HERO] - image_url (fallback):', heroContent.image_url);
+    
+    let selectedImage: string;
+    
     if (isMobile) {
-      return heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      selectedImage = heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      console.log('📱 [HERO] Mobile - Imagem selecionada:', selectedImage);
+      console.log('📱 [HERO] Mobile - Origem:', 
+        heroContent.image_url_mobile ? 'Específica Mobile' :
+        heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
+      );
     } else {
-      return heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      selectedImage = heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      console.log('🖥️ [HERO] Desktop - Imagem selecionada:', selectedImage);
+      console.log('🖥️ [HERO] Desktop - Origem:', 
+        heroContent.image_url_desktop ? 'Específica Desktop' :
+        heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
+      );
     }
+    
+    return selectedImage;
   }, [isMobile, heroContent.image_url_mobile, heroContent.image_url_desktop, heroContent.image_url]);
 
   const fallbackImage = '/src/assets/hero-elegant-woman.webp';

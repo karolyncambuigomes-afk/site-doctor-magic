@@ -91,8 +91,15 @@ export const useHomepageContent = () => {
 
   const updateHeroContent = async (updates: Partial<HeroContent>) => {
     try {
-      console.log('useHomepageContent: updateHeroContent called with updates:', updates);
-      console.log('useHomepageContent: Current heroContent:', heroContent);
+      console.log('🔄 [HOOK] updateHeroContent iniciado');
+      console.log('🔄 [HOOK] Updates recebidos:', updates);
+      console.log('🔄 [HOOK] HeroContent atual:', heroContent);
+      
+      // Validação específica dos campos de imagem
+      console.log('🖼️ [HOOK] Validando imagens:');
+      console.log('🖼️ [HOOK] - Desktop:', updates.image_url_desktop);
+      console.log('🖼️ [HOOK] - Mobile:', updates.image_url_mobile);
+      console.log('🖼️ [HOOK] - Fallback:', updates.image_url);
       
       const updateData = {
         section: 'homepage_hero_main',
@@ -108,7 +115,11 @@ export const useHomepageContent = () => {
         updated_at: new Date().toISOString()
       };
 
-      console.log('useHomepageContent: Data being sent to Supabase:', updateData);
+      console.log('💾 [HOOK] Dados preparados para Supabase:', updateData);
+      console.log('💾 [HOOK] Verificação final:');
+      console.log('💾 [HOOK] - image_url_desktop:', updateData.image_url_desktop);
+      console.log('💾 [HOOK] - image_url_mobile:', updateData.image_url_mobile);
+      console.log('💾 [HOOK] - image_url (fallback):', updateData.image_url);
       
       const { data, error } = await supabase
         .from('site_content')
@@ -118,21 +129,30 @@ export const useHomepageContent = () => {
         .select()
         .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        console.error('❌ [HOOK] Erro do Supabase:', error);
+        throw error;
+      }
+
+      console.log('✅ [HOOK] Dados salvos no Supabase:', data);
+      console.log('✅ [HOOK] Verificação pós-salvamento:');
+      console.log('✅ [HOOK] - Desktop salvo:', data?.image_url_desktop);
+      console.log('✅ [HOOK] - Mobile salvo:', data?.image_url_mobile);
+      console.log('✅ [HOOK] - Fallback salvo:', data?.image_url);
 
       setHeroContent(prev => ({ ...prev, ...updates }));
       
       toast({
         title: "Sucesso",
-        description: "Conteúdo da Hero Section atualizado com sucesso!",
+        description: "Configuração de banners atualizada com sucesso!",
       });
 
       return true;
     } catch (err) {
-      console.error('Error updating hero content:', err);
+      console.error('❌ [HOOK] Erro ao atualizar hero content:', err);
       toast({
         title: "Erro",
-        description: "Erro ao atualizar conteúdo da Hero Section",
+        description: "Erro ao atualizar configuração de banners",
         variant: "destructive",
       });
       return false;

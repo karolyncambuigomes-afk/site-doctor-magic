@@ -1,22 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
-import { OptimizedImage } from '@/components/OptimizedImage';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageError = () => {
+    console.error('Failed to load hero image:', '/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png');
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    console.log('Hero image loaded successfully');
+    setImageLoaded(true);
+  };
+
+  // Fallback image from assets
+  const fallbackImage = '/src/assets/hero-main.jpg';
 
   if (loading) {
     return <section className="relative h-screen w-full flex items-end snap-start">
         {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-gray-900">
           <img 
-            src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
+            src={imageError ? fallbackImage : "/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png"}
             alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
             className="w-full h-full object-cover object-center" 
             loading="eager"
+            onError={handleImageError}
+            onLoad={handleImageLoad}
           />
           <div className="absolute inset-0 bg-black/40" />
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+              <div className="text-white text-sm">Loading banner...</div>
+            </div>
+          )}
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
           <div className="max-w-2xl mx-auto">
@@ -31,14 +52,21 @@ export const HeroSection: React.FC = () => {
 
   return <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 bg-gray-900">
         <img 
-          src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
+          src={imageError ? fallbackImage : "/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png"}
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
           className="w-full h-full object-cover object-center" 
           loading="eager"
+          onError={handleImageError}
+          onLoad={handleImageLoad}
         />
         <div className="absolute inset-0 bg-black/40" />
+        {!imageLoaded && !imageError && (
+          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+            <div className="text-white text-sm">Loading banner...</div>
+          </div>
+        )}
       </div>
 
       {/* Content - Minimalist and positioned at bottom */}

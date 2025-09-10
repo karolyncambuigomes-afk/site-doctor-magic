@@ -19,8 +19,8 @@ serve(async (req) => {
     // Handle status endpoint
     if (imagePath === '_status') {
       return new Response(JSON.stringify({ 
-        ok: true, 
-        status: "healthy",
+        status: "ok",
+        healthy: true,
         timestamp: new Date().toISOString()
       }), { 
         status: 200,

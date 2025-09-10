@@ -88,11 +88,24 @@ export const SystemTestPage: React.FC = () => {
     }
 
     // Test 5: Check Anastasia photos
-    const anastasiaElement = document.querySelector('[data-model-name*="Anastasia"]');
-    if (anastasiaElement) {
-      updateTest(4, 'success', 'Anastasia photos found in DOM');
+    updateTest(4, 'pending');
+    
+    // Wait a bit for images to load
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const anastasiaPhotos = document.querySelectorAll('img[alt*="Anastasia"]');
+    const galleryImages = document.querySelectorAll('[class*="gallery"] img, [class*="Gallery"] img');
+    
+    console.log('🔍 DOM DEBUG: Found images:', {
+      anastasiaSpecific: anastasiaPhotos.length,
+      galleryImages: galleryImages.length,
+      allImages: document.querySelectorAll('img').length
+    });
+    
+    if (anastasiaPhotos.length > 0) {
+      updateTest(4, 'success', `Found ${anastasiaPhotos.length} Anastasia photos`);
     } else {
-      updateTest(4, 'error', 'Anastasia photos not found in DOM');
+      updateTest(4, 'error', `Anastasia photos not found. Gallery images: ${galleryImages.length}`);
     }
   };
 

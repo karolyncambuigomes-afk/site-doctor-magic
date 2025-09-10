@@ -47,6 +47,7 @@ import Reviews from "./pages/Reviews";
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
 import { SystemTestPage } from "./pages/SystemTest";
+import { AnastasiaTestPage } from "./pages/AnastasiaTest";
 
 // New Admin Panel Components
 import { AdminDashboard } from "./pages/admin/Dashboard";
@@ -386,7 +387,8 @@ const App = () => (
           } />
           
           {/* System Test Page (temporary) */}
-          <Route path="/system-test" element={<SystemTestPage />} />
+              <Route path="/system-test" element={<SystemTestPage />} />
+              <Route path="/anastasia-test" element={<AnastasiaTestPage />} />
           
                   <Route path="*" element={<NotFound />} />
                 </Routes>

@@ -33,6 +33,18 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
   ];
 
   const currentSource = allSources[currentSourceIndex];
+  
+  // Debug log for Anastasia
+  if (alt.includes('Anastasia') || externalUrls.some(url => url?.includes('anastasia'))) {
+    console.log(`🔍 ANASTASIA DEBUG: ResponsiveGalleryImage inputs`, {
+      localUrls,
+      externalUrls,
+      allSources,
+      currentSource,
+      currentSourceIndex,
+      alt
+    });
+  }
 
   // Generate responsive srcset for local images (if available)
   const generateSrcSet = (baseUrl: string) => {

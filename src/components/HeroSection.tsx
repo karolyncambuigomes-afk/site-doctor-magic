@@ -34,23 +34,15 @@ export const HeroSection: React.FC = () => {
       {/* Content - Minimalist and positioned at bottom */}
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
-          {/* Visible H1 with elegant styling */}
+          {/* H1 - Título principal */}
           <h1 className="luxury-heading-lg mb-4 text-white font-light tracking-wide leading-tight">
             {heroContent.title}
           </h1>
-          <p className="luxury-body-lg mb-6 text-white/90">
-            {heroContent.subtitle}
-          </p>
           
-          {/* SEO Rich Content - Always visible */}
-          <div className="mb-6 md:mb-8">
-            <p className="text-sm md:text-base text-white/80 mb-3 md:mb-4 leading-relaxed">
-              {heroContent.content}
-            </p>
-            <p className="text-xs md:text-sm text-white/70 mb-4 md:mb-6">
-              Our carefully selected international models offer exclusive companion services throughout Central London, specializing in high-class entertainment, cultural experiences, and business accompaniment for distinguished clients seeking uncompromising quality and elegance.
-            </p>
-          </div>
+          {/* H2 - Subtítulo */}
+          <h2 className="luxury-body-lg mb-8 text-white/90 font-light">
+            {heroContent.subtitle}
+          </h2>
           
           <div className="flex justify-center gap-4">
             <SafeLink to={heroContent.button_primary_url || "/models"} className="inline-block">

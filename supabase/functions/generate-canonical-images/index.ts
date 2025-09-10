@@ -58,89 +58,115 @@ serve(async (req) => {
       return new Response('Forbidden', { status: 403, headers: corsHeaders });
     }
 
-    // Define all canonical items to generate
-    const itemsToGenerate: GenerationItem[] = [
-      // Hero items
-      {
-        id: 'hero-vic',
-        name: 'Hero Vic 1600',
-        category: 'hero',
-        sourceUrl: '/images/hero-banner-vic-original.jpg',
-        canonicalPath: 'hero/hero-banner-vic-1600.webp',
-        width: 1600,
-        height: 900,
-        tableName: 'hero_slides',
-        fieldName: 'image_url_local'
-      },
-      {
-        id: 'hero-vic-1200',
-        name: 'Hero Vic 1200',
-        category: 'hero',
-        sourceUrl: '/images/hero-banner-vic-original.jpg',
-        canonicalPath: 'hero/hero-banner-vic-1200.webp',
-        width: 1200,
-        height: 675,
-        tableName: 'hero_slides',
-        fieldName: 'image_url_local'
-      },
-      {
-        id: 'hero-vic-mobile',
-        name: 'Hero Vic Mobile',
-        category: 'hero',
-        sourceUrl: '/images/hero-banner-vic-original.jpg',
-        canonicalPath: 'hero/hero-banner-vic-mobile-1080x1920.webp',
-        width: 1080,
-        height: 1920,
-        tableName: 'hero_slides',
-        fieldName: 'image_url_local'
-      },
-      // Carousel items
-      {
-        id: 'carousel-kate',
-        name: 'Carousel Kate',
-        category: 'carousel',
-        sourceUrl: '/images/kate1.jpg',
-        canonicalPath: 'carousel/kate-1200.webp',
-        width: 1200,
-        height: 800,
-        tableName: 'homepage_carousel',
-        fieldName: 'image_url_local'
-      },
-      {
-        id: 'carousel-livia',
-        name: 'Carousel Livia',
-        category: 'carousel',
-        sourceUrl: '/images/luisa1.jpg',
-        canonicalPath: 'carousel/livia-1200.webp',
-        width: 1200,
-        height: 800,
-        tableName: 'homepage_carousel',
-        fieldName: 'image_url_local'
-      },
-      // Model items
-      {
-        id: '95437c3e-58d2-4be5-b208-ff582a43f036',
-        name: 'Kate Model',
-        category: 'models',
-        sourceUrl: '/images/kate1.jpg',
-        canonicalPath: 'models/95437c3e-58d2-4be5-b208-ff582a43f036/model-95437c3e-58d2-4be5-b208-ff582a43f036-main-1200.webp',
-        width: 1200,
-        height: 800,
-        tableName: 'models',
-        fieldName: 'image_local'
-      },
-      {
-        id: '7a60e995-0daa-423e-9864-050081d11c3f',
-        name: 'Livia Model',
-        category: 'models',
-        sourceUrl: '/images/luisa1.jpg',
-        canonicalPath: 'models/7a60e995-0daa-423e-9864-050081d11c3f/model-7a60e995-0daa-423e-9864-050081d11c3f-main-1200.webp',
-        width: 1200,
-        height: 800,
-        tableName: 'models',
-        fieldName: 'image_local'
+    console.log('Fetching real data from database...');
+    
+    // Fetch real data from database
+    const { data: models, error: modelsError } = await supabase
+      .from('models')
+      .select('id, name, image')
+      .neq('image', null);
+
+    const { data: carouselItems, error: carouselError } = await supabase
+      .from('homepage_carousel')
+      .select('id, model_name, image_url')
+      .eq('is_active', true);
+
+    const { data: heroSlides, error: heroError } = await supabase
+      .from('hero_slides')
+      .select('id, title, image_url')
+      .eq('active', true);
+
+    if (modelsError || carouselError || heroError) {
+      console.error('Database fetch errors:', { modelsError, carouselError, heroError });
+    }
+
+    const itemsToGenerate: GenerationItem[] = [];
+
+    // Add models
+    if (models) {
+      for (const model of models) {
+        if (model.image) {
+          itemsToGenerate.push({
+            id: model.id,
+            name: `Model ${model.name}`,
+            category: 'models',
+            sourceUrl: model.image,
+            canonicalPath: `models/${model.id}/model-${model.id}-main-1200.webp`,
+            width: 1200,
+            height: 800,
+            tableName: 'models',
+            fieldName: 'image_url_local_main'
+          });
+        }
       }
-    ];
+    }
+
+    // Add carousel items
+    if (carouselItems) {
+      for (const item of carouselItems) {
+        if (item.image_url) {
+          itemsToGenerate.push({
+            id: item.id,
+            name: `Carousel ${item.model_name}`,
+            category: 'carousel',
+            sourceUrl: item.image_url,
+            canonicalPath: `carousel/${item.id}-1200.webp`,
+            width: 1200,
+            height: 800,
+            tableName: 'homepage_carousel',
+            fieldName: 'image_url_local'
+          });
+        }
+      }
+    }
+
+    // Add hero slides - generate desktop, mobile and fallback versions
+    if (heroSlides) {
+      for (const slide of heroSlides) {
+        if (slide.image_url) {
+          // Desktop version
+          itemsToGenerate.push({
+            id: slide.id,
+            name: `${slide.title} Desktop`,
+            category: 'hero',
+            sourceUrl: slide.image_url,
+            canonicalPath: `hero/${slide.id}-desktop-1600.webp`,
+            width: 1600,
+            height: 900,
+            tableName: 'hero_slides',
+            fieldName: 'image_url_local_desktop'
+          });
+
+          // Mobile version
+          itemsToGenerate.push({
+            id: slide.id,
+            name: `${slide.title} Mobile`,
+            category: 'hero',
+            sourceUrl: slide.image_url,
+            canonicalPath: `hero/${slide.id}-mobile-1080.webp`,
+            width: 1080,
+            height: 1920,
+            tableName: 'hero_slides',
+            fieldName: 'image_url_local_mobile'
+          });
+
+          // Fallback version
+          itemsToGenerate.push({
+            id: slide.id,
+            name: `${slide.title} Fallback`,
+            category: 'hero',
+            sourceUrl: slide.image_url,
+            canonicalPath: `hero/${slide.id}-fallback-1200.webp`,
+            width: 1200,
+            height: 675,
+            tableName: 'hero_slides',
+            fieldName: 'image_url_local_fallback'
+          });
+        }
+      }
+    }
+
+    console.log(`Generated ${itemsToGenerate.length} items to process`);
 
     const results: GenerationResult[] = [];
 
@@ -148,9 +174,16 @@ serve(async (req) => {
     for (const item of itemsToGenerate) {
       console.log(`Processing ${item.name}...`);
       
-      try {
-        // Download source image
-        const sourceResponse = await fetch(`${supabaseUrl.replace('/rest/v1', '')}${item.sourceUrl}`);
+        try {
+        // Download source image - handle both Supabase Storage URLs and public URLs
+        let sourceUrl = item.sourceUrl;
+        if (sourceUrl.startsWith('/images/')) {
+          // Convert to full public URL
+          sourceUrl = `${supabaseUrl.replace('/rest/v1', '')}${sourceUrl}`;
+        }
+
+        console.log(`Downloading from: ${sourceUrl}`);
+        const sourceResponse = await fetch(sourceUrl);
         if (!sourceResponse.ok) {
           results.push({
             item,
@@ -158,7 +191,7 @@ serve(async (req) => {
             uploaded: false,
             proxyStatus: 0,
             dbUpdated: false,
-            error: `Failed to download source: ${sourceResponse.status}`
+            error: `Failed to download source: ${sourceResponse.status} from ${sourceUrl}`
           });
           continue;
         }
@@ -169,6 +202,7 @@ serve(async (req) => {
         // Create optimized WebP version (simplified - in production would use image processing library)
         const optimizedImage = sourceImage; // For now, just use original
 
+        console.log(`Uploading to: ${item.canonicalPath}`);
         // Upload to bucket
         const { error: uploadError } = await supabase.storage
           .from('model-images')
@@ -201,36 +235,18 @@ serve(async (req) => {
           // Update database with local path
           const localPath = `/images/${item.canonicalPath}`;
           
-          if (item.tableName === 'models') {
-            const { error: dbError } = await supabase
-              .from('models')
-              .update({ image_url_local_main: localPath })
-              .eq('id', item.id);
-            
-            dbUpdated = !dbError;
-          } else if (item.tableName === 'homepage_carousel') {
-            const { error: dbError } = await supabase
-              .from('homepage_carousel')
-              .update({ image_url_local: localPath })
-              .eq('id', item.id);
-            
-            dbUpdated = !dbError;
-          } else if (item.tableName === 'hero_slides') {
-            // Determine which field to update based on dimensions
-            let updateField = 'image_url_local_desktop';
-            if (item.dimensions?.includes('mobile')) {
-              updateField = 'image_url_local_mobile';
-            } else if (item.dimensions?.includes('1200')) {
-              updateField = 'image_url_local_fallback';
-            }
-            
-            const { error: dbError } = await supabase
-              .from('hero_slides')
-              .update({ [updateField]: localPath })
-              .eq('id', item.id);
-            
-            dbUpdated = !dbError;
+          console.log(`Updating DB: ${item.tableName}.${item.fieldName} = ${localPath} for ID ${item.id}`);
+          
+          const { error: dbError } = await supabase
+            .from(item.tableName)
+            .update({ [item.fieldName]: localPath })
+            .eq('id', item.id);
+          
+          if (dbError) {
+            console.error(`DB update error for ${item.id}:`, dbError);
           }
+          
+          dbUpdated = !dbError;
         }
 
         results.push({

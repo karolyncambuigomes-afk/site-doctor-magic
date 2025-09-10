@@ -62,3 +62,6 @@ verify_jwt = false
 
 [functions.migrate-all-model-images]
 verify_jwt = false
+
+[functions.fix-image-to-local]
+verify_jwt = false

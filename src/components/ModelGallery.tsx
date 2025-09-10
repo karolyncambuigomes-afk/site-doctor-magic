@@ -4,7 +4,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { ResponsiveGalleryImage } from '@/components/ResponsiveGalleryImage';
 
 interface GalleryImage {
   id: string;
@@ -17,18 +16,12 @@ interface ModelGalleryProps {
   modelId: string;
   mainImage: string;
   modelName: string;
-  membersOnly?: boolean;
-  allPhotosPublic?: boolean;
-  faceVisible?: boolean;
 }
 
 export const ModelGallery: React.FC<ModelGalleryProps> = ({ 
   modelId, 
   mainImage, 
-  modelName,
-  membersOnly = false,
-  allPhotosPublic = true,
-  faceVisible = true
+  modelName 
 }) => {
   const isMobile = useIsMobile();
   const { 
@@ -60,75 +53,143 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando galeria para modelo ${modelId}`);
+    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando galeria pública para modelo ${modelId}`);
     
     try {
       setLoading(true);
       setLoadingError(null);
       
-      // First try to load from model_gallery table (new system)
-      const { data: galleryData, error: galleryError } = await supabase
+      // Get model info including gallery arrays
+      const { data: modelData } = await supabase
+        .from('models')
+        .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
+        .eq('id', modelId)
+        .single();
+
+      console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
+      
+      // Get current user info to determine what images they can see
+      const { data: { user } } = await supabase.auth.getUser();
+      console.log(`📱 MODEL GALLERY DEBUG: Usuário:`, user ? 'logado' : 'não logado', user?.email);
+      
+      let query = supabase
         .from('model_gallery')
         .select('*')
         .eq('model_id', modelId)
         .order('order_index', { ascending: true });
 
-      if (galleryError) {
-        console.warn('Failed to load from model_gallery table:', galleryError);
+      // Filter images based on model configuration and user access level
+      if (modelData?.all_photos_public) {
+        // All photos are public - everyone can see all images
+        console.log('🖼️ SITE GALERIA: Todas as fotos são públicas - todos podem ver');
+        // No filter needed - show all images
+      } else if (modelData?.members_only) {
+        // Members only model
+        if (!user) {
+          // Not logged in - no images
+          query = query.eq('visibility', 'members_only'); // This will return empty for non-members
+          console.log('🖼️ SITE GALERIA: Modelo exclusivo - usuário não logado, sem imagens');
+        } else {
+          // Check if user is admin or has subscription
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .maybeSingle();
+
+          console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
+
+          if (profile?.role === 'admin') {
+            // Admin can see all images
+            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+          } else {
+            // Check if user has subscription (is a member)
+            const { data: subscription } = await supabase
+              .from('user_subscriptions')
+              .select('active')
+              .eq('user_id', user.id)
+              .eq('active', true)
+              .maybeSingle();
+
+            console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
+
+            if (subscription) {
+              // Member can see all images of members-only model
+              console.log('🖼️ SITE GALERIA: Membro - pode ver todas as imagens do modelo exclusivo');
+            } else {
+              // Regular user - no images for members-only model
+              query = query.eq('visibility', 'members_only_no_access'); // This will return empty
+              console.log('🖼️ SITE GALERIA: Usuário comum - sem acesso ao modelo exclusivo');
+            }
+          }
+        }
+      } else {
+        // Mixed access model - filter by individual photo visibility
+        if (!user) {
+          // Not logged in - only public images
+          query = query.eq('visibility', 'public');
+          console.log('🖼️ SITE GALERIA: Modelo misto - usuário não logado, apenas imagens públicas');
+        } else {
+          // Check if user is admin
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .maybeSingle();
+
+          console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
+
+          if (profile?.role === 'admin') {
+            // Admin can see all images
+            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+          } else {
+            // Check if user has subscription (is a member)
+            const { data: subscription } = await supabase
+              .from('user_subscriptions')
+              .select('active')
+              .eq('user_id', user.id)
+              .eq('active', true)
+              .maybeSingle();
+
+            console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
+
+            if (subscription) {
+              // Member can see ONLY members_only images (not public ones)
+              query = query.eq('visibility', 'members_only');
+              console.log('🖼️ SITE GALERIA: Membro - pode ver apenas imagens exclusivas para membros');
+            } else {
+              // Regular user - only public images
+              query = query.eq('visibility', 'public');
+              console.log('🖼️ SITE GALERIA: Usuário comum - apenas imagens públicas');
+            }
+          }
+        }
       }
 
-      let images: GalleryImage[] = [];
+      const { data, error } = await query;
 
-      if (galleryData && galleryData.length > 0) {
-        // Use structured gallery data (new system)
-        console.log(`📱 MODEL GALLERY DEBUG: Usando sistema estruturado - ${galleryData.length} imagens`);
-        
-        images = galleryData.map((item) => ({
-          id: item.id,
-          image_url: item.image_url,
-          caption: item.caption || `${modelName} - Foto ${item.order_index + 1}`,
-          order_index: item.order_index
-        }));
-      } else {
-        // Fallback to legacy arrays system
-        console.log(`📱 MODEL GALLERY DEBUG: Fallback para sistema de arrays`);
-        
-        const { data: modelData, error } = await supabase
-          .from('models')
-          .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
-          .eq('id', modelId)
-          .single();
-
-        if (error) throw error;
-
-        console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
-        
-        // Create effective gallery list: local || external
-        const externalUrls = modelData?.gallery_external_urls || [];
-        const localUrls = modelData?.gallery_local_urls || [];
-        
-        const imgs = [...localUrls, ...externalUrls].filter(Boolean);
-        
-        // Convert to gallery format
-        images = imgs.map((url, index) => ({
-          id: `img-${index}`,
-          image_url: url,
-          caption: `${modelName} - Foto ${index + 1}`,
-          order_index: index
-        }));
+      if (error) {
+        console.error(`📱 MODEL GALLERY DEBUG: Erro na query Supabase:`, error);
+        throw error;
       }
 
       const loadTime = performance.now() - startTime;
-      console.log(`📱 MODEL GALLERY DEBUG: ${images.length} imagens processadas em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 MODEL GALLERY DEBUG: Galeria carregada em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 MODEL GALLERY DEBUG: ${data?.length || 0} imagens visíveis encontradas`);
       
-      trackPerformance(startTime, images.length);
+      // Track performance metrics
+      trackPerformance(startTime, data?.length || 0);
       
       if (isMobile && loadTime > 2000) {
-        console.warn(`📱 MODEL GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms)`);
+        console.warn(`📱 MODEL GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
       }
       
-      setGalleryImages(images);
-      console.log(`📱 MODEL GALLERY DEBUG: Estado atualizado`);
+      if (data && data.length > 0) {
+        console.log(`📱 MODEL GALLERY DEBUG: Visibilidades:`, data.map(img => ({ order: img.order_index, visibility: img.visibility })));
+      }
+      
+      setGalleryImages(data || []);
+      console.log(`📱 MODEL GALLERY DEBUG: Estado atualizado, forçando re-render`);
     } catch (error) {
       console.error(`📱 MODEL GALLERY DEBUG: Erro ao carregar galeria:`, error);
       setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
@@ -137,12 +198,8 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     }
   };
 
-  // Use gallery images with ResponsiveGalleryImage fallback strategy
-  const allImages = galleryImages.length > 0 ? galleryImages.map((img, index) => ({
-    ...img,
-    image_url: img.image_url,
-    fallback_url: index === 0 ? mainImage : undefined // First image can fallback to main
-  })) : [
+  // Use only gallery images, first one is the main image
+  const allImages = galleryImages.length > 0 ? galleryImages : [
     { 
       id: 'fallback', 
       image_url: mainImage, 
@@ -221,17 +278,12 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       <div className="space-y-4">
         {/* Main Image */}
         <div className="relative aspect-[3/4] rounded-lg overflow-hidden group cursor-pointer">
-          <div 
-            className="w-full h-full transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+          <img
+            src={allImages[currentImageIndex]?.image_url}
+            alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
+            className="w-full h-full object-cover object-[center_15%] transition-transform duration-300 group-hover:scale-105"
             onClick={() => openLightbox(currentImageIndex)}
-          >
-            <ResponsiveGalleryImage
-              localUrls={[allImages[currentImageIndex]?.image_url].filter(url => url?.startsWith('/images/'))}
-              externalUrls={[allImages[currentImageIndex]?.image_url].filter(url => url && !url.startsWith('/images/'))}
-              alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
-              className="object-[center_15%]"
-            />
-          </div>
+          />
           
           {/* Zoom indicator */}
           <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -288,12 +340,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
                     : 'border-border'
                 }`}
               >
-                <ResponsiveGalleryImage
-                  localUrls={[image.image_url].filter(url => url?.startsWith('/images/'))}
-                  externalUrls={[image.image_url].filter(url => url && !url.startsWith('/images/'))}
+                <img
+                  src={image.image_url}
                   alt={`Thumbnail ${index + 1}`}
-                  className="object-[center_25%]"
-                  loading="lazy"
+                  className="w-full h-full object-cover object-[center_25%]"
                 />
               </button>
             ))}
@@ -344,12 +394,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
           {/* Main lightbox image */}
           <div className="relative max-w-4xl max-h-full">
-            <ResponsiveGalleryImage
-              localUrls={[allImages[currentImageIndex]?.image_url].filter(url => url?.startsWith('/images/'))}
-              externalUrls={[allImages[currentImageIndex]?.image_url].filter(url => url && !url.startsWith('/images/'))}
+            <img
+              src={allImages[currentImageIndex]?.image_url}
               alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
               className="max-w-full max-h-full object-contain"
-              loading="eager"
             />
             
             {/* Image info */}

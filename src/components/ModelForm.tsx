@@ -640,18 +640,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </CardHeader>
           <CardContent className="pt-6">
             {model?.id ? (
-              <GalleryUpload 
-                modelId={model.id} 
-                currentGallery={(formData as any).gallery_external_urls || []}
-                localGallery={(formData as any).gallery_local_urls || []}
-                onGalleryUpdate={(external, local) => {
-                  setFormData(prev => ({
-                    ...prev,
-                    gallery_external_urls: external,
-                    gallery_local_urls: local
-                  } as any));
-                }}
-              />
+              <GalleryUpload modelId={model.id} model={formData} />
             ) : (
               <div className="text-center py-8 border-2 border-dashed border-border rounded-lg bg-muted">
                 <div className="mb-4 text-4xl">🔒</div>

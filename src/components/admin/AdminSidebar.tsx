@@ -64,7 +64,7 @@ const menuItems = [
       { title: "Blog Posts", url: "/admin/content/blog", icon: BookOpen },
       { title: "Site Content", url: "/admin/content/site", icon: FileText },
       { title: "FAQ", url: "/admin/content/faq", icon: HelpCircle },
-      { title: "Gallery Diagnostics", url: "/admin/content/gallery-diagnostics", icon: Image },
+      { title: "Gallery", url: "/admin/content/gallery", icon: Image },
       { title: "Image Diagnostics", url: "/admin/content/image-diagnostics", icon: Search },
       { title: "Image Audit Report", url: "/admin/content/image-audit-report", icon: BarChart3 },
       { title: "Bulk Migration", url: "/admin/content/bulk-migration", icon: Image },

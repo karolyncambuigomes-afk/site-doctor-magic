@@ -16,18 +16,6 @@ serve(async (req) => {
     const url = new URL(req.url);
     const imagePath = url.pathname.replace('/api/i/', '');
     
-    // Handle status endpoint
-    if (imagePath === '_status') {
-      return new Response(JSON.stringify({ 
-        status: "ok",
-        healthy: true,
-        timestamp: new Date().toISOString()
-      }), { 
-        status: 200,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      });
-    }
-    
     if (!imagePath) {
       return new Response('Image path required', { 
         status: 400,

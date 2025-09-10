@@ -9,7 +9,7 @@ import { ArrowLeft, MapPin, Clock, Star, MessageCircle, Phone, ChevronLeft, Chev
 import { SEO } from '@/components/SEO';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { ModelGalleryResponsive } from '@/components/ModelGalleryResponsive';
+import { ModelGallery } from '@/components/ModelGallery';
 export const ModelProfile: React.FC = () => {
   const {
     id
@@ -123,14 +123,7 @@ export const ModelProfile: React.FC = () => {
       {/* Main Gallery Section */}
       <section className="min-h-screen bg-white pt-16 md:pt-20">
         <div className="max-w-md mx-auto p-4">
-          <ModelGalleryResponsive 
-            modelId={model.id} 
-            mainImage={model.image} 
-            modelName={model.name} 
-            membersOnly={model.members_only}
-            allPhotosPublic={model.all_photos_public}
-            faceVisible={model.face_visible}
-          />
+          <ModelGallery modelId={model.id} mainImage={model.image} modelName={model.name} />
         </div>
 
         {/* Model Details */}

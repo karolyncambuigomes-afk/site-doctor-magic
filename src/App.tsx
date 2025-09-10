@@ -46,9 +46,6 @@ import Reviews from "./pages/Reviews";
 
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
-import { SystemTestPage } from "./pages/SystemTest";
-import { AnastasiaTestPage } from "./pages/AnastasiaTest";
-import { AdminGalleryTest } from "./pages/admin/AdminGalleryTest";
 
 // New Admin Panel Components
 import { AdminDashboard } from "./pages/admin/Dashboard";
@@ -82,8 +79,6 @@ import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPag
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
-import { GalleryDiagnosticsPage } from "./pages/admin/content/GalleryDiagnosticsPage";
-import { AnastasiaFixPage } from "./pages/admin/content/AnastasiaFixPage";
 
 
 const queryClient = new QueryClient();
@@ -276,9 +271,9 @@ const App = () => (
               <ContentManager />
             </AdminProtectedRoute>
           } />
-          <Route path="/admin/content/gallery-diagnostics" element={
+          <Route path="/admin/content/gallery" element={
             <AdminProtectedRoute>
-              <GalleryDiagnosticsPage />
+              <ContentManager />
             </AdminProtectedRoute>
           } />
           <Route path="/admin/content/image-diagnostics" element={
@@ -294,11 +289,6 @@ const App = () => (
           <Route path="/admin/content/bulk-migration" element={
             <AdminProtectedRoute>
               <BulkImageMigrationPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/anastasia-fix" element={
-            <AdminProtectedRoute>
-              <AnastasiaFixPage />
             </AdminProtectedRoute>
           } />
           
@@ -392,11 +382,6 @@ const App = () => (
               <SystemSettings />
             </AdminProtectedRoute>
           } />
-          
-          {/* System Test Page (temporary) */}
-              <Route path="/system-test" element={<SystemTestPage />} />
-              <Route path="/anastasia-test" element={<AnastasiaTestPage />} />
-              <Route path="/admin-gallery-test" element={<AdminGalleryTest />} />
           
                   <Route path="*" element={<NotFound />} />
                 </Routes>

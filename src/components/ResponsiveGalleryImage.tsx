@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from '@/components/AuthProvider';
 
 interface ResponsiveGalleryImageProps {
   localUrls?: string[];
@@ -11,9 +10,6 @@ interface ResponsiveGalleryImageProps {
   loading?: 'lazy' | 'eager';
   onLoad?: () => void;
   onError?: () => void;
-  membersOnly?: boolean;
-  allPhotosPublic?: boolean;
-  faceVisible?: boolean;
 }
 
 export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
@@ -25,14 +21,10 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
   sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
   loading = 'lazy',
   onLoad,
-  onError,
-  membersOnly = false,
-  allPhotosPublic = true,
-  faceVisible = true
+  onError
 }) => {
   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
   const [hasError, setHasError] = useState(false);
-  const { hasAccess, isAdmin } = useAuth();
 
   // Create effective source array: prioritize local, then external
   const allSources = [
@@ -41,26 +33,6 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
   ];
 
   const currentSource = allSources[currentSourceIndex];
-  
-  // Check if image should be blurred for non-members
-  const shouldBlur = !hasAccess && !isAdmin && (membersOnly || !allPhotosPublic || !faceVisible);
-  
-  // Debug log for Anastasia
-  if (alt.includes('Anastasia') || externalUrls.some(url => url?.includes('anastasia'))) {
-    console.log(`🔍 ANASTASIA DEBUG: ResponsiveGalleryImage inputs`, {
-      localUrls,
-      externalUrls,
-      allSources,
-      currentSource,
-      currentSourceIndex,
-      alt,
-      shouldBlur,
-      hasAccess,
-      membersOnly,
-      allPhotosPublic,
-      faceVisible
-    });
-  }
 
   // Generate responsive srcset for local images (if available)
   const generateSrcSet = (baseUrl: string) => {
@@ -100,7 +72,7 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
     );
   }
 
-  // If we have a local optimized image, use picture element with responsive sources
+  // If we have a local image, use picture element with responsive sources
   const isLocalImage = currentSource.startsWith('/images/') && currentSource.includes('gallery-');
   
   if (isLocalImage && !hasError) {
@@ -114,33 +86,29 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
         <img
           src={currentSource}
           alt={alt}
-          className={`w-full h-full object-cover transition-all duration-300 ${shouldBlur ? 'blur-md grayscale' : ''}`}
+          className="w-full h-full object-cover"
           loading={loading}
           decoding="async"
           onLoad={handleLoad}
           onError={handleError}
           style={{ aspectRatio: '4/3' }}
-          width={1200}
-          height={900}
         />
       </picture>
     );
   }
 
-  // Fallback to regular img for external/raw sources
+  // Fallback to regular img for external sources
   return (
     <img
       src={currentSource}
       alt={alt}
-      className={`w-full h-full object-cover transition-all duration-300 ${shouldBlur ? 'blur-md grayscale' : ''} ${className}`}
+      className={`w-full h-full object-cover ${className}`}
       loading={loading}
       decoding="async"
       onLoad={handleLoad}
       onError={handleError}
       style={{ aspectRatio: '4/3' }}
       sizes={sizes}
-      width={1200}
-      height={900}
     />
   );
 };

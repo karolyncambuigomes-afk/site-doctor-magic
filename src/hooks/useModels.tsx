@@ -19,7 +19,6 @@ export interface Model {
   image: string;
   image_url_local_main?: string;
   gallery_local_urls?: string[];
-  gallery_external_urls?: string[];
   gallery: { image_url: string; visibility?: string; order_index?: number; caption?: string }[];
   services: string[];
   characteristics: string[];
@@ -36,7 +35,6 @@ export interface Model {
   interests: string[];
   members_only?: boolean;
   face_visible?: boolean;
-  all_photos_public?: boolean;
 }
 
 export const useModels = () => {
@@ -191,39 +189,36 @@ export const useModels = () => {
           // Apply aggressive cache busting
           mainImage = addCacheBusting(mainImage);
           
-            return {
-              id: model.id,
-              name: model.name,
-              age: model.age,
-              location: model.location,
-              price: model.price,
-              pricing: model.pricing || {
-                oneHour: model.price || '£500',
-                twoHours: '£900',
-                threeHours: '£1,300',
-                additionalHour: '£400'
-              },
-              image: mainImage ? getImageUrl(mainImage) : null, // Use processed main image with fallback
-              image_url_local_main: model.image_url_local_main, // Add local main image mapping
-              gallery_local_urls: model.gallery_local_urls || [], // Add local gallery URLs mapping
-              gallery_external_urls: model.gallery_external_urls || [], // Add external gallery URLs mapping
-              gallery: galleryImages, // All gallery images with metadata
-              services: model.services || [],
-              characteristics: model.characteristics || [],
-              availability: model.availability || 'available',
-              rating: model.rating || 0,
-              reviews: model.reviews || 0,
-              description: model.description || '',
-              height: model.height || '',
-              measurements: model.measurements || '',
-              hair: model.hair || '',
-              eyes: model.eyes || '',
-              nationality: model.nationality || '',
-              education: model.education || '',
-              interests: model.interests || [],
-              members_only: model.members_only || false,
-              face_visible: model.face_visible !== false
-            };
+          return {
+            id: model.id,
+            name: model.name,
+            age: model.age,
+            location: model.location,
+            price: model.price,
+            pricing: model.pricing || {
+              oneHour: model.price || '£500',
+              twoHours: '£900',
+              threeHours: '£1,300',
+              additionalHour: '£400'
+            },
+            image: mainImage ? getImageUrl(mainImage) : null, // Use processed main image with fallback
+            gallery: galleryImages, // All gallery images with metadata
+            services: model.services || [],
+            characteristics: model.characteristics || [],
+            availability: model.availability || 'available',
+            rating: model.rating || 0,
+            reviews: model.reviews || 0,
+            description: model.description || '',
+            height: model.height || '',
+            measurements: model.measurements || '',
+            hair: model.hair || '',
+            eyes: model.eyes || '',
+            nationality: model.nationality || '',
+            education: model.education || '',
+            interests: model.interests || [],
+            members_only: model.members_only || false,
+            face_visible: model.face_visible !== false
+          };
         }) || [];
 
         setModels(transformedModels);

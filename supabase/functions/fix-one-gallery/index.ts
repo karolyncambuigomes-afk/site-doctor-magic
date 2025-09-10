@@ -1,12 +1,10 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.57.0'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-// Interface for the request
 interface FixGalleryRequest {
   modelId: string;
   sourceUrl: string;
@@ -14,7 +12,7 @@ interface FixGalleryRequest {
   dry_run?: boolean;
 }
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -24,71 +22,136 @@ serve(async (req) => {
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    
-    const supabase = createClient(supabaseUrl, supabaseServiceKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false
-      }
-    });
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    // Parse request body
+    // Parse request
     const { modelId, sourceUrl, index, dry_run = false }: FixGalleryRequest = await req.json();
-    
-    console.log(`🔄 Processing gallery image for model ${modelId}, index ${index}`);
-    console.log(`📥 Source URL: ${sourceUrl}`);
-    console.log(`🧪 Dry run: ${dry_run}`);
+
+    console.log('🖼️ GALLERY FIX: Processing', { modelId, sourceUrl, index, dry_run });
 
     // Validate inputs
-    if (!modelId || !sourceUrl || index === undefined) {
-      throw new Error('Missing required fields: modelId, sourceUrl, index');
+    if (!modelId || !sourceUrl || index < 0) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid modelId, sourceUrl, or index' }), 
+        { status: 400, headers: corsHeaders }
+      );
     }
 
-    // Generate optimized filename
-    const timestamp = Date.now();
-    const filename = `models/${modelId}/gallery-${index}-1200.webp`;
-    const filename800 = `models/${modelId}/gallery-${index}-800.webp`;
-    
-    // If dry run, just return success
-    if (dry_run) {
-      return new Response(JSON.stringify({
-        success: true,
-        message: 'Dry run - would process image',
-        local_path: `/images/${filename}`,
-        filename,
-        modelId,
-        index
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
-    }
+    // Generate optimized filenames
+    const baseFilename = `models/${modelId}/gallery-${index}`;
+    const filename800 = `${baseFilename}-800.webp`;
+    const filename1200 = `${baseFilename}-1200.webp`;
+    const localUrl = `/images/${filename1200}`;
 
-    // Check if files already exist in optimized-images bucket
+    // Check if local image already exists
     const { data: existingFile } = await supabase.storage
-      .from('optimized-images')
-      .list(`models/${modelId}`, {
-        search: `gallery-${index}-1200.webp`
-      });
+      .from('model-images')
+      .download(filename1200);
 
-    if (existingFile && existingFile.length > 0) {
-      console.log(`✅ Image already exists, updating database only`);
+    if (existingFile) {
+      console.log('✅ GALLERY FIX: File already exists, updating DB only');
       
-      // Update database with existing paths
-      const { data: model, error: selectError } = await supabase
+      // Update database to ensure URLs are tracked
+      const { data: model } = await supabase
         .from('models')
         .select('gallery_external_urls, gallery_local_urls')
         .eq('id', modelId)
         .single();
 
-      if (selectError) throw selectError;
+      if (model) {
+        const externalUrls = model.gallery_external_urls || [];
+        const localUrls = model.gallery_local_urls || [];
+        
+        const updatedExternalUrls = externalUrls.includes(sourceUrl) 
+          ? externalUrls 
+          : [...externalUrls, sourceUrl];
+        
+        const updatedLocalUrls = localUrls.includes(localUrl)
+          ? localUrls
+          : [...localUrls, localUrl];
 
-      const updatedExternalUrls = [...(model.gallery_external_urls || [])];
-      const updatedLocalUrls = [...(model.gallery_local_urls || [])];
+        await supabase
+          .from('models')
+          .update({
+            gallery_external_urls: updatedExternalUrls,
+            gallery_local_urls: updatedLocalUrls
+          })
+          .eq('id', modelId);
+      }
 
-      // Update arrays at the specified index
-      updatedExternalUrls[index] = sourceUrl;
-      updatedLocalUrls[index] = `/images/${filename}`;
+      return new Response(
+        JSON.stringify({ 
+          ok: true, 
+          status: 200, 
+          local: localUrl,
+          message: 'File already exists, DB updated'
+        }),
+        { headers: corsHeaders }
+      );
+    }
+
+    if (dry_run) {
+      return new Response(
+        JSON.stringify({ 
+          ok: true, 
+          status: 'dry_run', 
+          local: localUrl,
+          message: 'Dry run - would process this image'
+        }),
+        { headers: corsHeaders }
+      );
+    }
+
+    // Download source image
+    console.log('📥 GALLERY FIX: Downloading source image');
+    const imageResponse = await fetch(sourceUrl);
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to download image: ${imageResponse.status}`);
+    }
+
+    const imageBuffer = await imageResponse.arrayBuffer();
+    const imageData = new Uint8Array(imageBuffer);
+
+    // Upload both sizes (for now, we'll upload the same image - optimization can be added later)
+    console.log('📤 GALLERY FIX: Uploading optimized images');
+    
+    const { error: uploadError800 } = await supabase.storage
+      .from('model-images')
+      .upload(filename800, imageData, {
+        contentType: 'image/webp',
+        upsert: true
+      });
+
+    const { error: uploadError1200 } = await supabase.storage
+      .from('model-images')
+      .upload(filename1200, imageData, {
+        contentType: 'image/webp',
+        upsert: true
+      });
+
+    if (uploadError800 || uploadError1200) {
+      throw new Error(`Upload failed: ${uploadError800?.message || uploadError1200?.message}`);
+    }
+
+    // Update database
+    console.log('💾 GALLERY FIX: Updating database');
+    const { data: model } = await supabase
+      .from('models')
+      .select('gallery_external_urls, gallery_local_urls')
+      .eq('id', modelId)
+      .single();
+
+    if (model) {
+      const externalUrls = model.gallery_external_urls || [];
+      const localUrls = model.gallery_local_urls || [];
+      
+      const updatedExternalUrls = externalUrls.includes(sourceUrl) 
+        ? externalUrls 
+        : [...externalUrls, sourceUrl];
+      
+      const updatedLocalUrls = localUrls.includes(localUrl)
+        ? localUrls
+        : [...localUrls, localUrl];
 
       const { error: updateError } = await supabase
         .from('models')
@@ -98,109 +161,31 @@ serve(async (req) => {
         })
         .eq('id', modelId);
 
-      if (updateError) throw updateError;
-
-      return new Response(JSON.stringify({
-        success: true,
-        message: 'File already existed, database updated',
-        local_path: `/images/${filename}`,
-        filename,
-        modelId,
-        index
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
-      });
+      if (updateError) {
+        console.error('❌ GALLERY FIX: Database update error:', updateError);
+      }
     }
 
-    // Download source image
-    console.log(`📥 Downloading source image...`);
-    const imageResponse = await fetch(sourceUrl);
-    if (!imageResponse.ok) {
-      throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
-    }
-
-    const imageBlob = await imageResponse.blob();
-    const imageArrayBuffer = await imageBlob.arrayBuffer();
+    console.log('✅ GALLERY FIX: Complete');
     
-    console.log(`📦 Downloaded ${imageArrayBuffer.byteLength} bytes`);
-
-    // Upload to optimized-images bucket as webp
-    console.log(`📤 Uploading to optimized-images/${filename}...`);
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from('optimized-images')
-      .upload(filename, imageArrayBuffer, {
-        contentType: 'image/webp',
-        cacheControl: '31536000', // 1 year
-        upsert: true
-      });
-
-    if (uploadError) {
-      console.error(`❌ Upload error:`, uploadError);
-      throw uploadError;
-    }
-
-    console.log(`✅ Uploaded successfully:`, uploadData);
-
-    // Also create 800px version (copy same file for now)
-    console.log(`📤 Creating 800px version...`);
-    await supabase.storage
-      .from('optimized-images')
-      .upload(filename800, imageArrayBuffer, {
-        contentType: 'image/webp',
-        cacheControl: '31536000',
-        upsert: true
-      });
-
-    // Update database
-    console.log(`💾 Updating database...`);
-    const { data: model, error: selectError } = await supabase
-      .from('models')
-      .select('gallery_external_urls, gallery_local_urls')
-      .eq('id', modelId)
-      .single();
-
-    if (selectError) throw selectError;
-
-    const updatedExternalUrls = [...(model.gallery_external_urls || [])];
-    const updatedLocalUrls = [...(model.gallery_local_urls || [])];
-
-    // Update arrays at the specified index
-    updatedExternalUrls[index] = sourceUrl;
-    updatedLocalUrls[index] = `/images/${filename}`;
-
-    const { error: updateError } = await supabase
-      .from('models')
-      .update({
-        gallery_external_urls: updatedExternalUrls,
-        gallery_local_urls: updatedLocalUrls
-      })
-      .eq('id', modelId);
-
-    if (updateError) throw updateError;
-
-    console.log(`✅ Database updated successfully`);
-
-    return new Response(JSON.stringify({
-      success: true,
-      message: 'Image processed and uploaded successfully',
-      local_path: `/images/${filename}`,
-      filename,
-      modelId,
-      index
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    return new Response(
+      JSON.stringify({ 
+        ok: true, 
+        status: 200, 
+        local: localUrl,
+        message: 'Gallery image processed successfully'
+      }),
+      { headers: corsHeaders }
+    );
 
   } catch (error) {
-    console.error('❌ Error processing gallery image:', error);
-    return new Response(JSON.stringify({
-      success: false,
-      error: error.message
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    });
+    console.error('❌ GALLERY FIX: Error:', error);
+    return new Response(
+      JSON.stringify({ 
+        error: error.message,
+        ok: false 
+      }),
+      { status: 500, headers: corsHeaders }
+    );
   }
 });

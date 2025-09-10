@@ -34,7 +34,7 @@ export const useBlogPosts = () => {
         .from('blog_posts')
         .select('*')
         .eq('is_published', true)
-        .order('published_at', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (fetchError) {
         throw fetchError;

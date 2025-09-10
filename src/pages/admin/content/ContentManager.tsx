@@ -10,7 +10,8 @@ import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
 
 import { BlogManager } from '@/components/BlogManager';
-import { Home, FileText, HelpCircle, Image, Layout, BookOpen } from 'lucide-react';
+import { GlobalModelMigration } from '@/components/admin/GlobalModelMigration';
+import { Home, FileText, HelpCircle, Image, Layout, BookOpen, Database } from 'lucide-react';
 
 export const ContentManager: React.FC = () => {
   const location = useLocation();
@@ -61,7 +62,11 @@ export const ContentManager: React.FC = () => {
           }} 
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
+            <TabsTrigger value="migration" className="flex items-center gap-2">
+              <Database className="h-4 w-4" />
+              Migração
+            </TabsTrigger>
             <TabsTrigger value="homepage" className="flex items-center gap-2">
               <Home className="h-4 w-4" />
               Homepage
@@ -83,6 +88,10 @@ export const ContentManager: React.FC = () => {
               Layout
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="migration" className="space-y-4">
+            <GlobalModelMigration />
+          </TabsContent>
 
           <TabsContent value="homepage" className="space-y-4">
             <Card>

@@ -65,6 +65,7 @@ const menuItems = [
       { title: "Site Content", url: "/admin/content/site", icon: FileText },
       { title: "FAQ", url: "/admin/content/faq", icon: HelpCircle },
       { title: "Gallery", url: "/admin/content/gallery", icon: Image },
+      { title: "Image Diagnostics", url: "/admin/content/image-diagnostics", icon: Search },
     ],
   },
   {

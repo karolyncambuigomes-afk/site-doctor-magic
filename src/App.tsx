@@ -75,6 +75,7 @@ import { SystemSettings } from "./pages/admin/system/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
 import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
+import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 
 
 const queryClient = new QueryClient();
@@ -270,6 +271,11 @@ const App = () => (
           <Route path="/admin/content/gallery" element={
             <AdminProtectedRoute>
               <ContentManager />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/content/image-diagnostics" element={
+            <AdminProtectedRoute>
+              <ImageDiagnostics />
             </AdminProtectedRoute>
           } />
           

@@ -66,6 +66,7 @@ const menuItems = [
       { title: "FAQ", url: "/admin/content/faq", icon: HelpCircle },
       { title: "Gallery", url: "/admin/content/gallery", icon: Image },
       { title: "Image Diagnostics", url: "/admin/content/image-diagnostics", icon: Search },
+      { title: "Bulk Migration", url: "/admin/content/bulk-migration", icon: Image },
     ],
   },
   {

@@ -76,7 +76,7 @@ import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
 import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
-import { BulkImageMigration } from "./pages/admin/content/BulkImageMigration";
+import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 
 
 const queryClient = new QueryClient();
@@ -281,7 +281,7 @@ const App = () => (
           } />
           <Route path="/admin/content/bulk-migration" element={
             <AdminProtectedRoute>
-              <BulkImageMigration />
+              <BulkImageMigrationPage />
             </AdminProtectedRoute>
           } />
           

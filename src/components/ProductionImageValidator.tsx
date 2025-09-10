@@ -399,6 +399,14 @@ export const ProductionImageValidator: React.FC = () => {
                   Auto-Fix Issues
                 </Button>
               )}
+              <Button
+                onClick={() => window.location.href = '/admin/content/bulk-migration'}
+                variant="outline"
+                size="sm"
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                Bulk Migration
+              </Button>
             </div>
           </div>
         </CardHeader>

@@ -44,37 +44,19 @@ const LondonEscortGuide = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-br from-background via-background/95 to-muted">
-          <div className="container-width mx-auto px-6">
-            <div className="text-center mb-20">
-              <h1 className="luxury-heading-display text-primary mb-8">
-                Complete London Escort Guide
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                London Escort Guide
               </h1>
-              <div className="w-24 h-0.5 bg-foreground mx-auto mb-12"></div>
-              <p className="luxury-body-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-12">
-                Your comprehensive guide to elite companionship services in London. 
-                Everything you need to know about premium escort services, best areas, and booking etiquette.
+              <p className="luxury-body-lg text-black">
+                Your comprehensive guide to elite escort services in London's most prestigious districts
               </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                <div className="text-center p-6">
-                  <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="luxury-heading-sm mb-2">Premium Locations</h3>
-                  <p className="luxury-body-base text-muted-foreground">London's most exclusive districts</p>
-                </div>
-                <div className="text-center p-6">
-                  <Star className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="luxury-heading-sm mb-2">Elite Service</h3>
-                  <p className="luxury-body-base text-muted-foreground">Unparalleled luxury experiences</p>
-                </div>
-                <div className="text-center p-6">
-                  <Shield className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="luxury-heading-sm mb-2">Complete Discretion</h3>
-                  <p className="luxury-body-base text-muted-foreground">Absolute confidentiality</p>
-                </div>
-              </div>
             </div>
           </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* Hidden SEO Content - Best Areas for Elite Companionship */}

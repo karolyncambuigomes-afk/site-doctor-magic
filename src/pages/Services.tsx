@@ -168,7 +168,7 @@ const Services = () => {
       <Navigation />
       
       <main className="pt-0">
-        {/* Minimal Hero */}
+        {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
@@ -180,6 +180,8 @@ const Services = () => {
               </p>
             </div>
           </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* Minimal Services Accordion */}

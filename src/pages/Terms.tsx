@@ -15,11 +15,25 @@ const Terms = () => {
       <Navigation />
       
       <main className="pt-0">
+        {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                Terms of Service
+              </h1>
+              <p className="luxury-body-lg text-black">
+                Our terms and conditions for premium escort services in London
+              </p>
+            </div>
+          </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+        </section>
+        
+        <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-          <h1 className="luxury-heading-xl text-foreground mb-8">Terms of Service - Five London</h1>
-          
-          <div className="prose max-w-none">
+            <div className="prose max-w-none">
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
@@ -98,7 +112,7 @@ const Terms = () => {
                 Phone: +44 7436 190679
               </p>
             </section>
-          </div>
+            </div>
           </div>
         </section>
       </main>

@@ -94,6 +94,22 @@ export const Reviews: React.FC = () => {
       <Navigation />
       
       <main className="pt-0 bg-white">
+        {/* Hero Section */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                Client Reviews
+              </h1>
+              <p className="luxury-body-lg text-black">
+                Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
+              </p>
+            </div>
+          </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+        </section>
+
         {/* Breadcrumbs */}
         <section className="py-4 bg-white">
           <div className="container mx-auto px-4">
@@ -101,16 +117,6 @@ export const Reviews: React.FC = () => {
               items={[{ label: "Reviews" }]}
               className="text-gray-600"
             />
-          </div>
-        </section>
-
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="luxury-heading-xl mb-6 text-black">Client Reviews</h1>
-            <p className="luxury-body-lg text-gray-800 max-w-2xl mx-auto">
-              Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
-            </p>
           </div>
         </section>
 

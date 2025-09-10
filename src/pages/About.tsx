@@ -124,27 +124,30 @@ const About = () => {
 
           {/* Hero Section */}
           <section className="py-16 md:py-24 bg-white">
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h1 className="luxury-heading-xl mb-6 text-black">
-                    About Five London
-                  </h1>
-                  <p className="luxury-body-lg text-gray-800 mb-8 leading-relaxed">
-                    Five London stands as the epitome of luxury companionship services in the heart of England's capital. Founded on principles of discretion, elegance, and uncompromising quality, we have established ourselves as the premier destination for sophisticated individuals seeking exceptional companionship experiences.
-                  </p>
-                  <p className="luxury-body-md text-gray-800 leading-relaxed">
-                    Our commitment to excellence has made us the trusted choice for discerning clients who demand nothing but the finest in luxury companionship services.
-                  </p>
-                </div>
-                <div className="relative">
-                  <img 
-                    src={aboutLuxury1} 
-                    alt="Luxury lifestyle and elegance representing Five London's premium services"
-                    className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
-                    loading="lazy"
-                  />
-                </div>
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                  About Five London
+                </h1>
+                <p className="luxury-body-lg text-black">
+                  London's premier luxury escort agency. Discover our commitment to excellence, discretion, and sophisticated companionship services.
+                </p>
+              </div>
+            </div>
+            {/* Elegant separator */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          </section>
+
+          {/* Image Section */}
+          <section className="py-12">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto">
+                <img 
+                  src={aboutLuxury1} 
+                  alt="Luxury lifestyle and elegance representing Five London's premium services"
+                  className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
+                  loading="lazy"
+                />
               </div>
             </div>
           </section>

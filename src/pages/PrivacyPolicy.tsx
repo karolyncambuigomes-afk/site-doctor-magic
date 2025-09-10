@@ -15,11 +15,25 @@ const PrivacyPolicy = () => {
       <Navigation />
       
       <main className="pt-0">
+        {/* Hero Section */}
         <section className="py-16 md:py-24 bg-white">
+          <div className="container-width text-center">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                Privacy Policy
+              </h1>
+              <p className="luxury-body-lg text-black">
+                How we protect and handle your personal information with complete discretion
+              </p>
+            </div>
+          </div>
+          {/* Elegant separator */}
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+        </section>
+        
+        <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-          <h1 className="luxury-heading-xl text-foreground mb-8">Privacy Policy - Five London</h1>
-          
-          <div className="prose max-w-none">
+            <div className="prose max-w-none">
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
@@ -105,7 +119,7 @@ const PrivacyPolicy = () => {
                 Phone: +44 7436 190679
               </p>
             </section>
-          </div>
+            </div>
           </div>
         </section>
       </main>

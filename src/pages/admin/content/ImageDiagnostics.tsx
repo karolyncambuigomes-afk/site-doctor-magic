@@ -23,6 +23,8 @@ import {
 import { toast } from 'sonner';
 import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
 import { ProductionImageValidator } from '@/components/ProductionImageValidator';
+import { resolveImage } from '@/utils/imageResolver';
+import { useImagePreference } from '@/hooks/useImagePreference';
 
 // Types
 interface ImageItem {
@@ -46,11 +48,32 @@ interface ImageStats {
 
 // Status determination function
 const getImageStatus = (url: string): 'local' | 'supabase' | 'assets' | 'unknown' => {
-  if (!url) return 'unknown';
-  if (url.startsWith('/images') || url.startsWith('/public/images')) return 'local';
-  if (url.includes('supabase.co')) return 'supabase';
-  if (url.startsWith('/src/assets')) return 'assets';
+  if (!url || url.trim() === '') return 'unknown';
+  
+  // Check for local proxy URLs (the system we migrated to)
+  if (url.startsWith('/images/') || url.startsWith('/public/images/')) return 'local';
+  
+  // Check for external Supabase URLs
+  if (url.includes('supabase.co') || url.includes('xata.sh')) return 'supabase';
+  
+  // Check for old assets folder URLs
+  if (url.startsWith('/src/assets/') || url.startsWith('./src/assets/')) return 'assets';
+  
+  // Check for relative paths that might be local
+  if (url.startsWith('./') || url.startsWith('../') || url.startsWith('/')) {
+    return 'local';
+  }
+  
   return 'unknown';
+};
+
+// Utility function to resolve the actual image URL that would be used
+const getEffectiveImageUrl = (localUrl?: string, externalUrl?: string, preferLocal: boolean = true): string => {
+  return resolveImage({
+    local: localUrl,
+    external: externalUrl,
+    placeholder: ''
+  }, { preferLocalImages: preferLocal });
 };
 
 // Components
@@ -283,6 +306,7 @@ export const ImageDiagnostics: React.FC = () => {
   const [images, setImages] = useState<ImageItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<ImageStats>({ total: 0, local: 0, supabase: 0, assets: 0, fixed: 0 });
+  const { preferLocalImages } = useImagePreference();
 
   const fetchImages = async () => {
     setLoading(true);
@@ -292,17 +316,24 @@ export const ImageDiagnostics: React.FC = () => {
       // Fetch Hero Slides
       const { data: heroSlides } = await supabase
         .from('hero_slides')
-        .select('id, title, image_url')
+        .select('id, title, image_url, image_url_local_desktop, image_url_local_mobile')
         .eq('active', true);
 
       heroSlides?.forEach(slide => {
+        // Get the effective URL that would actually be used in the frontend
+        const effectiveUrl = getEffectiveImageUrl(
+          slide.image_url_local_desktop || slide.image_url_local_mobile,
+          slide.image_url,
+          preferLocalImages
+        );
+
         allImages.push({
           id: slide.id,
           source: `Hero: ${slide.title}`,
           category: 'Hero/Banners',
-          url: slide.image_url,
+          url: effectiveUrl,
           alt: slide.title,
-          status: getImageStatus(slide.image_url),
+          status: getImageStatus(effectiveUrl),
           tableName: 'hero_slides',
           fieldName: 'image_url'
         });
@@ -311,17 +342,24 @@ export const ImageDiagnostics: React.FC = () => {
       // Fetch Homepage Carousel
       const { data: carouselItems } = await supabase
         .from('homepage_carousel')
-        .select('id, model_name, image_url')
+        .select('id, model_name, image_url, image_url_local')
         .eq('is_active', true);
 
       carouselItems?.forEach(item => {
+        // Get the effective URL that would actually be used in the frontend
+        const effectiveUrl = getEffectiveImageUrl(
+          item.image_url_local,
+          item.image_url,
+          preferLocalImages
+        );
+
         allImages.push({
           id: item.id,
           source: `Carousel: ${item.model_name}`,
           category: 'Homepage Carousel',
-          url: item.image_url,
+          url: effectiveUrl,
           alt: `${item.model_name} carousel image`,
-          status: getImageStatus(item.image_url),
+          status: getImageStatus(effectiveUrl),
           tableName: 'homepage_carousel',
           fieldName: 'image_url'
         });
@@ -330,18 +368,25 @@ export const ImageDiagnostics: React.FC = () => {
       // Fetch Models
       const { data: models } = await supabase
         .from('models')
-        .select('id, name, image')
+        .select('id, name, image, image_local, image_url_local_main')
         .limit(10);
 
       models?.forEach(model => {
-        if (model.image) {
+        // Get the effective URL that would actually be used in the frontend
+        const effectiveUrl = getEffectiveImageUrl(
+          model.image_url_local_main || model.image_local,
+          model.image,
+          preferLocalImages
+        );
+
+        if (effectiveUrl) {
           allImages.push({
             id: model.id,
             source: `Model: ${model.name}`,
             category: 'Models',
-            url: model.image,
+            url: effectiveUrl,
             alt: `${model.name} profile image`,
-            status: getImageStatus(model.image),
+            status: getImageStatus(effectiveUrl),
             tableName: 'models',
             fieldName: 'image'
           });
@@ -351,19 +396,26 @@ export const ImageDiagnostics: React.FC = () => {
       // Fetch Blog Posts
       const { data: blogPosts } = await supabase
         .from('blog_posts')
-        .select('id, title, image')
+        .select('id, title, image, image_local, image_url_local')
         .eq('is_published', true)
         .limit(10);
 
       blogPosts?.forEach(post => {
-        if (post.image) {
+        // Get the effective URL that would actually be used in the frontend
+        const effectiveUrl = getEffectiveImageUrl(
+          post.image_url_local || post.image_local,
+          post.image,
+          preferLocalImages
+        );
+
+        if (effectiveUrl) {
           allImages.push({
             id: post.id,
             source: `Blog: ${post.title}`,
             category: 'Blog Posts',
-            url: post.image,
+            url: effectiveUrl,
             alt: `${post.title} featured image`,
-            status: getImageStatus(post.image),
+            status: getImageStatus(effectiveUrl),
             tableName: 'blog_posts',
             fieldName: 'image'
           });

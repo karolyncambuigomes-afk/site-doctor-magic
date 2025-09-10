@@ -16,6 +16,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/ImageUpload';
 import { BlogMigrationManager } from '@/components/BlogMigrationManager';
+import { BlogPostForm } from '@/components/blog/BlogPostForm';
 import { 
   BookOpen, 
   Plus, 
@@ -296,212 +297,24 @@ const BlogPostDialog: React.FC<{
   onSave: (data: Partial<BlogPost>) => void;
   onClose: () => void;
 }> = ({ post, onSave, onClose }) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    excerpt: '',
-    content: '',
-    author: '',
-    category: '',
-    image: '',
-    meta_description: '',
-    seo_keywords: '',
-    service_keywords: [],
-    is_published: false,
-    read_time: 5
-  });
-
-  useEffect(() => {
-    if (post) {
-      setFormData({
-        title: post.title || '',
-        slug: post.slug || '',
-        excerpt: post.excerpt || '',
-        content: post.content || '',
-        author: post.author || '',
-        category: post.category || '',
-        image: post.image || '',
-        meta_description: post.meta_description || '',
-        seo_keywords: post.seo_keywords || '',
-        service_keywords: post.service_keywords || [],
-        is_published: post.is_published || false,
-        read_time: post.read_time || 5
-      });
-    } else {
-      // Reset form for new post
-      setFormData({
-        title: '',
-        slug: '',
-        excerpt: '',
-        content: '',
-        author: '',
-        category: '',
-        image: '',
-        meta_description: '',
-        seo_keywords: '',
-        service_keywords: [],
-        is_published: false,
-        read_time: 5
-      });
-    }
-  }, [post]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSave(formData);
-  };
-
   return (
-    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+    <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden">
       <DialogHeader>
         <DialogTitle>
-          {post ? 'Edit Blog Post' : 'Create New Blog Post'}
+          {post ? 'Editar Post do Blog' : 'Criar Novo Post'}
         </DialogTitle>
         <DialogDescription>
-          Create and optimize your blog post for maximum SEO impact.
+          Editor avançado com ferramentas de SEO, formatação e otimização de conteúdo.
         </DialogDescription>
       </DialogHeader>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <Tabs defaultValue="content" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="content">Content</TabsTrigger>
-            <TabsTrigger value="seo">SEO</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="content" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                  placeholder="Blog post title"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="slug">Slug</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                  placeholder="blog-post-slug"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea
-                id="excerpt"
-                value={formData.excerpt}
-                onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
-                placeholder="Brief description of the blog post"
-                rows={3}
-              />
-            </div>
-
-            <Separator />
-
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2">
-                <Upload className="h-4 w-4" />
-                Post Image
-              </Label>
-              <ImageUpload
-                value={formData.image}
-                onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
-                placeholder="Post image URL or upload file"
-                label=""
-              />
-              <p className="text-xs text-muted-foreground">
-                This image will be displayed as the featured image for the blog post. High resolution images recommended.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="content">Content</Label>
-              <Textarea
-                id="content"
-                value={formData.content}
-                onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                placeholder="Full blog post content"
-                rows={10}
-              />
-            </div>
-          </TabsContent>
-
-          <TabsContent value="seo" className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="meta_description">Meta Description</Label>
-              <Textarea
-                id="meta_description"
-                value={formData.meta_description}
-                onChange={(e) => setFormData(prev => ({ ...prev, meta_description: e.target.value }))}
-                placeholder="SEO meta description"
-                rows={3}
-              />
-              <p className="text-xs text-muted-foreground">
-                Length: {formData.meta_description.length}/160 characters
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="seo_keywords">SEO Keywords</Label>
-              <Input
-                id="seo_keywords"
-                value={formData.seo_keywords}
-                onChange={(e) => setFormData(prev => ({ ...prev, seo_keywords: e.target.value }))}
-                placeholder="keyword1, keyword2, keyword3"
-              />
-            </div>
-          </TabsContent>
-
-          <TabsContent value="settings" className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="author">Author</Label>
-                <Input
-                  id="author"
-                  value={formData.author}
-                  onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
-                  placeholder="Author name"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Input
-                  id="category"
-                  value={formData.category}
-                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                  placeholder="Blog category"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="is_published"
-                checked={formData.is_published}
-                onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
-              />
-              <Label htmlFor="is_published">Publish immediately</Label>
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <div className="flex justify-end gap-2">
-          <Button type="button" variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button type="submit">
-            <Save className="h-4 w-4 mr-2" />
-            Save Post
-          </Button>
-        </div>
-      </form>
+      
+      <div className="overflow-y-auto max-h-[calc(95vh-120px)]">
+        <BlogPostForm
+          post={post}
+          onSave={onSave}
+          onClose={onClose}
+        />
+      </div>
     </DialogContent>
   );
 };

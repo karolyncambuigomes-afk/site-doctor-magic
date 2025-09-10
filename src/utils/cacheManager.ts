@@ -224,3 +224,42 @@ export const preloadOptimizedImages = (imagePaths: string[]): void => {
   
   console.log('✅ [PRELOAD] Image preloading initiated');
 };
+
+/**
+ * Enhanced Cache Manager class for comprehensive cache control
+ */
+export class CacheManager {
+  /**
+   * Purge specific cache patterns
+   */
+  static async purge(patterns: string[]): Promise<void> {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      // Send message to service worker to purge cache
+      navigator.serviceWorker.controller.postMessage({
+        type: 'PURGE_CACHE',
+        patterns
+      });
+
+      // Also force refresh service worker
+      navigator.serviceWorker.controller.postMessage({
+        type: 'SKIP_WAITING'
+      });
+
+      console.log('Cache purge requested for patterns:', patterns);
+    }
+
+    // Also use existing purge functionality
+    await purgeImageCache(patterns);
+  }
+
+  /**
+   * Force service worker to skip waiting and claim clients
+   */
+  static async forceUpdate(): Promise<void> {
+    await refreshServiceWorker();
+    
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'CLAIM_CLIENTS' });
+    }
+  }
+}

@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw, ExternalLink, TestTube, Upload } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw, ExternalLink, TestTube, Upload, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAuditTargets, AuditTarget } from '@/utils/getAuditTargets';
+import { supabase } from '@/integrations/supabase/client';
 
 interface AuditSection {
   name: string;
@@ -36,6 +37,7 @@ export const ImageAuditReport = () => {
   const [progress, setProgress] = useState(0);
   const [featureFlags, setFeatureFlags] = useState({ preferLocalImages: true });
   const [auditTargets, setAuditTargets] = useState<AuditTarget[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const runFullAudit = async () => {
     setIsRunning(true);
@@ -252,6 +254,60 @@ export const ImageAuditReport = () => {
     window.open(url, '_blank');
   };
 
+  const generateCanonicalImages = async () => {
+    setIsGenerating(true);
+    
+    try {
+      const { data: session } = await supabase.auth.getSession();
+      if (!session.session) {
+        toast.error('Not authenticated');
+        return;
+      }
+
+      const response = await supabase.functions.invoke('generate-canonical-images', {
+        headers: {
+          Authorization: `Bearer ${session.session.access_token}`,
+        },
+      });
+
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+
+      const result = response.data;
+      
+      // Show success summary
+      toast.success(
+        `Generated ${result.summary.successful}/${result.summary.total} images. ` +
+        `${result.summary.proxyWorking} working via /images/, ` +
+        `${result.summary.dbUpdated} DB records updated.`
+      );
+
+      // Trigger cache purge and service worker refresh
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'PURGE_CACHE',
+          patterns: ['/images/*']
+        });
+        
+        navigator.serviceWorker.controller.postMessage({
+          type: 'SKIP_WAITING'
+        });
+      }
+
+      // Re-run the audit to see updated status
+      setTimeout(() => {
+        runFullAudit();
+      }, 2000);
+
+    } catch (error) {
+      console.error('Generation failed:', error);
+      toast.error(`Generation failed: ${error.message}`);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   useEffect(() => {
     const savedFlags = localStorage.getItem('featureFlags');
     if (savedFlags) {
@@ -279,6 +335,17 @@ export const ImageAuditReport = () => {
             <RefreshCw className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
             {isRunning ? 'Running Audit...' : 'Run Full Audit'}
           </Button>
+          
+          <Button
+            onClick={generateCanonicalImages}
+            disabled={isGenerating || isRunning}
+            variant="default"
+            className="flex items-center gap-2"
+          >
+            <Zap className={`w-4 h-4 ${isGenerating ? 'animate-pulse' : ''}`} />
+            {isGenerating ? 'Generating...' : 'Generate Canonical Images'}
+          </Button>
+          
           {auditSections.length > 0 && (
             <Button variant="outline" onClick={exportReport}>
               <Download className="w-4 h-4 mr-2" />

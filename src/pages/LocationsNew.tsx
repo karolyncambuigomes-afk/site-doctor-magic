@@ -29,7 +29,7 @@ export const Locations: React.FC = () => {
       <main className="min-h-screen pt-0 pb-16">
         <div className="max-w-6xl mx-auto px-4">
           {/* Hero Section */}
-          <section className="text-center mb-16">
+          <section className="text-center mb-16 pt-20 pb-16 md:py-24">
             <h1 className="luxury-heading-display text-foreground mb-6">
               Elite Escorts Across London
             </h1>

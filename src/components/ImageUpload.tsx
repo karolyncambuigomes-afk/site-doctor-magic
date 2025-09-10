@@ -82,19 +82,17 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             description: "Otimizando imagem para melhor performance..."
           });
           
-          // Call Edge Function to fix image to local
+          // Call Edge Function to fix image to local with proper parameters
           const { data: syncData, error: syncError } = await supabase.functions
             .invoke('fix-image-to-local', {
               body: { 
                 imageUrl: imageUrl,
-                category: imageType === 'hero-banner' ? 'Hero/Banners' : 
-                         imageType === 'model-main' ? 'Models' :
-                         imageType === 'blog' ? 'Blog Posts' : 'Site Content',
+                category: imageType,
                 itemId: `upload-${Date.now()}`,
                 tableName: imageType === 'hero-banner' ? 'site_content' : 
                           imageType === 'model-main' ? 'models' :
                           imageType === 'blog' ? 'blog_posts' : 'site_content',
-                fieldName: imageType === 'hero-banner' ? 'image_url_desktop' : 'image',
+                fieldName: imageType === 'hero-banner' ? 'image_url_local_desktop' : 'image',
                 itemName: `${imageType}-${Date.now()}`,
                 altText: `Optimized ${imageType} image`
               }

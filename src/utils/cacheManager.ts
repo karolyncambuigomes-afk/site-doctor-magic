@@ -92,7 +92,16 @@ export const refreshServiceWorker = async (): Promise<void> => {
  * Complete cache refresh after image updates
  */
 export const performCompleteImageRefresh = async (options: CacheManagerOptions = {}): Promise<void> => {
-  const { patterns = ['hero-banner-*', 'banner-*'], force = true } = options;
+  const { 
+    patterns = [
+      'hero-banner-*', 
+      'model-*', 
+      'carousel-*', 
+      'blog-*',
+      '/images/*'
+    ], 
+    force = true 
+  } = options;
   
   try {
     console.log('🧹 [COMPLETE-REFRESH] Starting complete image refresh');
@@ -119,6 +128,74 @@ export const performCompleteImageRefresh = async (options: CacheManagerOptions =
     console.error('❌ [COMPLETE-REFRESH] Failed to perform complete refresh:', error);
     throw error;
   }
+};
+
+/**
+ * Bulk fix images using the fix-image-to-local Edge Function
+ */
+export const bulkFixImagesToLocal = async (
+  imageUrls: string[], 
+  category: string,
+  onProgress?: (current: number, total: number) => void
+): Promise<{ success: number; failed: number; errors: string[] }> => {
+  const results = { success: 0, failed: 0, errors: [] as string[] };
+  
+  console.log(`🚀 [BULK-FIX] Starting bulk fix for ${imageUrls.length} ${category} images`);
+  
+  for (let i = 0; i < imageUrls.length; i++) {
+    const imageUrl = imageUrls[i];
+    
+    try {
+      onProgress?.(i + 1, imageUrls.length);
+      
+      // Use fetch to call the Edge Function directly
+      const response = await fetch('/functions/v1/fix-image-to-local', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imageUrl,
+          category: category.toLowerCase(),
+          itemId: `bulk-${Date.now()}-${i}`,
+          tableName: 'bulk_migration',
+          fieldName: 'image_url',
+          itemName: `${category.toLowerCase()}-${i}`,
+          altText: `Optimized ${category} image`
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        results.success++;
+        console.log(`✅ [BULK-FIX] [${i+1}/${imageUrls.length}] Fixed: ${imageUrl.substring(0, 50)}...`);
+      } else {
+        results.failed++;
+        results.errors.push(`${imageUrl}: ${result.error || 'Unknown error'}`);
+        console.error(`❌ [BULK-FIX] [${i+1}/${imageUrls.length}] Failed: ${imageUrl}`);
+      }
+      
+      // Small delay to avoid overwhelming the system
+      if (i < imageUrls.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+      
+    } catch (error) {
+      results.failed++;
+      results.errors.push(`${imageUrl}: ${error}`);
+      console.error(`❌ [BULK-FIX] [${i+1}/${imageUrls.length}] Error: ${error}`);
+    }
+  }
+  
+  // Comprehensive cache purge after bulk operations
+  await performCompleteImageRefresh({ 
+    patterns: [`${category.toLowerCase()}-*`, '/images/*'], 
+    force: true 
+  });
+  
+  console.log(`✅ [BULK-FIX] Completed: ${results.success} success, ${results.failed} failed`);
+  return results;
 };
 
 /**

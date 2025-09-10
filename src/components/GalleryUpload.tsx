@@ -417,6 +417,74 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </p>
       </div>
 
+      {/* Seção de Configuração de Visibilidade - SEMPRE para modelos mistas e admin */}
+      {(shouldShowTabs && isAdmin) && (
+        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <div className="flex items-center gap-2 text-blue-700 font-medium mb-2">
+            <Info className="w-4 h-4" />
+            Modelo Misto - Sistema de Abas Ativo
+          </div>
+          <p className="text-sm text-blue-600">
+            Este modelo permite fotos com diferentes tipos de visibilidade. O seletor abaixo estará sempre disponível.
+          </p>
+        </div>
+      )}
+
+      {/* Seletor de Visibilidade - Sempre visível para modelos mistas */}
+      {(isAdding || (shouldShowTabs && isAdmin)) && (
+        <div className="bg-white p-4 rounded-lg border-2 border-border mb-4">
+          <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
+            🎯 {isAdding ? 'Tipo de Foto' : 'Configuração de Visibilidade'}
+          </Label>
+          {!isAdding && (
+            <p className="text-sm text-muted-foreground mb-3">
+              Escolha o tipo de visibilidade que será aplicado ao próximo upload
+            </p>
+          )}
+          <div className="flex gap-2">
+            <Button
+              type="button"
+              variant={selectedVisibility === 'public' ? 'default' : 'outline'}
+              onClick={() => setSelectedVisibility('public')}
+              className={`flex-1 ${
+                selectedVisibility === 'public' 
+                  ? 'bg-green-500 hover:bg-green-600 text-white' 
+                  : 'text-green-600 border-green-200 hover:bg-green-50'
+              }`}
+            >
+              <Globe className="w-4 h-4 mr-2" />
+              Foto Pública
+            </Button>
+            <Button
+              type="button"
+              variant={selectedVisibility === 'members_only' ? 'default' : 'outline'}
+              onClick={() => setSelectedVisibility('members_only')}
+              className={`flex-1 ${
+                selectedVisibility === 'members_only' 
+                  ? 'bg-amber-500 hover:bg-amber-600 text-white' 
+                  : 'text-amber-600 border-amber-200 hover:bg-amber-50'
+              }`}
+            >
+              <Crown className="w-4 h-4 mr-2" />
+              Foto Membros
+            </Button>
+            <Button
+              type="button"
+              variant={selectedVisibility === 'admin_only' ? 'default' : 'outline'}
+              onClick={() => setSelectedVisibility('admin_only')}
+              className={`flex-1 ${
+                selectedVisibility === 'admin_only' 
+                  ? 'bg-red-500 hover:bg-red-600 text-white' 
+                  : 'text-red-600 border-red-200 hover:bg-red-50'
+              }`}
+            >
+              <Lock className="w-4 h-4 mr-2" />
+              Foto Admin
+            </Button>
+          </div>
+        </div>
+      )}
+
       {isAdding && (
         <div className="border-2 border-border rounded-lg p-6 space-y-4 bg-white">
           <div className="flex items-center justify-center gap-3 mb-4 bg-muted p-3 rounded-lg">
@@ -425,54 +493,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             </div>
             <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
           </div>
-          
-          {/* Visibility Selector - SEMPRE mostrar para admin poder escolher */}
-          <div className="bg-white p-4 rounded-lg border-2 border-border">
-            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
-              🎯 Tipo de Foto
-            </Label>
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant={selectedVisibility === 'public' ? 'default' : 'outline'}
-                onClick={() => setSelectedVisibility('public')}
-                className={`flex-1 ${
-                  selectedVisibility === 'public' 
-                    ? 'bg-green-500 hover:bg-green-600 text-white' 
-                    : 'text-green-600 border-green-200 hover:bg-green-50'
-                }`}
-              >
-                  <Globe className="w-4 h-4 mr-2" />
-                  Foto Pública
-                </Button>
-                <Button
-                  type="button"
-                  variant={selectedVisibility === 'members_only' ? 'default' : 'outline'}
-                  onClick={() => setSelectedVisibility('members_only')}
-                  className={`flex-1 ${
-                    selectedVisibility === 'members_only' 
-                      ? 'bg-amber-500 hover:bg-amber-600 text-white' 
-                      : 'text-amber-600 border-amber-200 hover:bg-amber-50'
-                  }`}
-                >
-                  <Crown className="w-4 h-4 mr-2" />
-                  Foto Membros
-                </Button>
-                <Button
-                  type="button"
-                  variant={selectedVisibility === 'admin_only' ? 'default' : 'outline'}
-                  onClick={() => setSelectedVisibility('admin_only')}
-                  className={`flex-1 ${
-                    selectedVisibility === 'admin_only' 
-                      ? 'bg-red-500 hover:bg-red-600 text-white' 
-                      : 'text-red-600 border-red-200 hover:bg-red-50'
-                  }`}
-                >
-                  <Lock className="w-4 h-4 mr-2" />
-                  Foto Admin
-                </Button>
-              </div>
-            </div>
           
           
           <div className="bg-white p-4 rounded-lg border-2 border-border">

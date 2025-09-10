@@ -64,9 +64,9 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
           id: slide.id,
           name: slide.title || `Hero Slide ${slide.order_index + 1}`,
           category: 'slides',
-          localUrl: undefined, // hero_slides não tem campo local ainda
+          localUrl: slide.image_url_local,
           externalUrl: slide.image_url,
-          effectiveUrl: slide.image_url || '/placeholder.svg',
+          effectiveUrl: slide.image_url_local || slide.image_url || '/placeholder.svg',
           tableName: 'hero_slides',
           fieldName: 'image_url_local'
         });
@@ -76,7 +76,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
     // 3. Models ativos
     const { data: models } = await supabase
       .from('models')
-      .select('id, name, image')
+      .select('id, name, image, image_local')
       .limit(50);
 
     if (models) {
@@ -86,9 +86,9 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
             id: model.id,
             name: model.name,
             category: 'models',
-            localUrl: undefined, // models não tem campo local ainda
+            localUrl: model.image_local,
             externalUrl: model.image,
-            effectiveUrl: model.image || '/placeholder.svg',
+            effectiveUrl: model.image_local || model.image || '/placeholder.svg',
             tableName: 'models',
             fieldName: 'image_local'
           });
@@ -109,9 +109,9 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
           id: item.id,
           name: item.model_name || `Carousel Item ${item.order_index + 1}`,
           category: 'carousel',
-          localUrl: undefined, // homepage_carousel não tem campo local ainda
+          localUrl: item.image_url_local,
           externalUrl: item.image_url,
-          effectiveUrl: item.image_url || '/placeholder.svg',
+          effectiveUrl: item.image_url_local || item.image_url || '/placeholder.svg',
           tableName: 'homepage_carousel',
           fieldName: 'image_url_local'
         });
@@ -121,7 +121,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
     // 5. Blog posts com imagem
     const { data: blogPosts } = await supabase
       .from('blog_posts')
-      .select('id, title, image')
+      .select('id, title, image, image_local')
       .eq('is_published', true)
       .not('image', 'is', null);
 
@@ -132,9 +132,9 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
             id: post.id,
             name: post.title,
             category: 'blog',
-            localUrl: undefined, // blog_posts não tem campo local ainda
+            localUrl: post.image_local,
             externalUrl: post.image,
-            effectiveUrl: post.image || '/placeholder.svg',
+            effectiveUrl: post.image_local || post.image || '/placeholder.svg',
             tableName: 'blog_posts',
             fieldName: 'image_local'
           });

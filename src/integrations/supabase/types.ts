@@ -107,6 +107,7 @@ export type Database = {
           excerpt: string | null
           id: string
           image: string | null
+          image_local: string | null
           is_published: boolean | null
           meta_description: string | null
           published_at: string | null
@@ -125,6 +126,7 @@ export type Database = {
           excerpt?: string | null
           id?: string
           image?: string | null
+          image_local?: string | null
           is_published?: boolean | null
           meta_description?: string | null
           published_at?: string | null
@@ -143,6 +145,7 @@ export type Database = {
           excerpt?: string | null
           id?: string
           image?: string | null
+          image_local?: string | null
           is_published?: boolean | null
           meta_description?: string | null
           published_at?: string | null
@@ -223,6 +226,7 @@ export type Database = {
           created_at: string
           id: string
           image_url: string
+          image_url_local: string | null
           media_type: string | null
           order_index: number
           subtitle: string | null
@@ -237,6 +241,7 @@ export type Database = {
           created_at?: string
           id?: string
           image_url: string
+          image_url_local?: string | null
           media_type?: string | null
           order_index?: number
           subtitle?: string | null
@@ -251,6 +256,7 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string
+          image_url_local?: string | null
           media_type?: string | null
           order_index?: number
           subtitle?: string | null
@@ -265,6 +271,7 @@ export type Database = {
           created_at: string
           id: string
           image_url: string
+          image_url_local: string | null
           is_active: boolean
           model_id: string
           model_name: string
@@ -275,6 +282,7 @@ export type Database = {
           created_at?: string
           id?: string
           image_url: string
+          image_url_local?: string | null
           is_active?: boolean
           model_id: string
           model_name: string
@@ -285,6 +293,7 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string
+          image_url_local?: string | null
           is_active?: boolean
           model_id?: string
           model_name?: string
@@ -505,6 +514,7 @@ export type Database = {
           homepage_order: number | null
           id: string
           image: string | null
+          image_local: string | null
           interests: string[] | null
           location: string | null
           measurements: string | null
@@ -534,6 +544,7 @@ export type Database = {
           homepage_order?: number | null
           id?: string
           image?: string | null
+          image_local?: string | null
           interests?: string[] | null
           location?: string | null
           measurements?: string | null
@@ -563,6 +574,7 @@ export type Database = {
           homepage_order?: number | null
           id?: string
           image?: string | null
+          image_local?: string | null
           interests?: string[] | null
           location?: string | null
           measurements?: string | null

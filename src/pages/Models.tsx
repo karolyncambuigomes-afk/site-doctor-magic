@@ -26,7 +26,7 @@ export const Models: React.FC = () => {
       
       <Navigation />
       
-      <main className="pt-16">
+      <main className="pt-0">
         {/* Minimal Hero */}
         <section className="pt-8 pb-2 md:pt-12 md:pb-3 lg:pt-16 lg:pb-4 bg-white">
           <div className="container-width text-center">

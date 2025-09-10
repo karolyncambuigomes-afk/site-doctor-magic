@@ -281,6 +281,11 @@ const App = () => (
               <ImageDiagnostics />
             </AdminProtectedRoute>
           } />
+          <Route path="/admin/content/image-audit-report" element={
+            <AdminProtectedRoute>
+              <ImageAuditReport />
+            </AdminProtectedRoute>
+          } />
           <Route path="/admin/content/bulk-migration" element={
             <AdminProtectedRoute>
               <BulkImageMigrationPage />

@@ -1024,6 +1024,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_application_rate_limit: {
+        Args: { user_email: string; user_ip?: unknown }
+        Returns: Json
+      }
       check_user_subscription: {
         Args: { user_uuid: string }
         Returns: boolean

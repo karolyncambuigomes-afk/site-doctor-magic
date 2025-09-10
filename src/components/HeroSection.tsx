@@ -76,8 +76,7 @@ export const HeroSection: React.FC = () => {
   
   const fallbackImages = [
     heroMainWebp,
-    heroElegantWoman,
-    '/images/hero-second-banner.jpg'
+    heroElegantWoman
   ];
 
   const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {

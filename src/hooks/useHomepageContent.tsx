@@ -37,8 +37,11 @@ export const useHomepageContent = () => {
   const { toast } = useToast();
 
   const loadHeroContent = async () => {
+    console.log('useHomepageContent: Starting loadHeroContent');
     try {
       setLoading(true);
+      console.log('useHomepageContent: Loading set to true');
+      
       const { data, error } = await supabase
         .from('site_content')
         .select('*')
@@ -46,11 +49,15 @@ export const useHomepageContent = () => {
         .eq('is_active', true)
         .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') {
+      console.log('useHomepageContent: Query completed', { data, error });
+
+      if (error) {
+        console.error('useHomepageContent: Database error:', error);
         throw error;
       }
 
       if (data) {
+        console.log('useHomepageContent: Setting hero content with data');
         setHeroContent({
           title: data.title || heroContent.title,
           subtitle: data.subtitle || heroContent.subtitle,
@@ -60,12 +67,17 @@ export const useHomepageContent = () => {
           button_secondary_text: heroContent.button_secondary_text,
           button_secondary_url: heroContent.button_secondary_url
         });
+      } else {
+        console.log('useHomepageContent: No data found, using defaults');
       }
+      
+      setError(null);
     } catch (err) {
-      console.error('Error loading hero content:', err);
+      console.error('useHomepageContent: Error in loadHeroContent:', err);
       setError('Erro ao carregar conteúdo da hero section');
       // Keep default values on error
     } finally {
+      console.log('useHomepageContent: Setting loading to false');
       setLoading(false);
     }
   };
@@ -109,6 +121,7 @@ export const useHomepageContent = () => {
   };
 
   useEffect(() => {
+    console.log('useHomepageContent: useEffect triggered');
     loadHeroContent();
   }, []);
 

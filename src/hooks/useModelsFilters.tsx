@@ -28,8 +28,12 @@ export const useModelsFilters = () => {
 
   // Load available filter options from database
   useEffect(() => {
+    console.log('useModelsFilters: Starting loadFilterOptions');
+    
     const loadFilterOptions = async () => {
       try {
+        console.log('useModelsFilters: Making database queries');
+        
         // Direct queries since RPC functions don't exist
         const [locationsQuery, modelsQuery] = await Promise.all([
           supabase
@@ -43,6 +47,11 @@ export const useModelsFilters = () => {
             .not('services', 'is', null)
         ]);
 
+        console.log('useModelsFilters: Queries completed', { 
+          locationsError: locationsQuery.error, 
+          modelsError: modelsQuery.error 
+        });
+
         // Extract unique locations
         const uniqueLocations = [...new Set(locationsQuery.data?.map(m => m.location) || [])].filter(Boolean);
         
@@ -53,13 +62,19 @@ export const useModelsFilters = () => {
         const allServices = modelsQuery.data?.flatMap(m => m.services || []) || [];
         const uniqueServices = [...new Set(allServices)].filter(Boolean);
 
+        console.log('useModelsFilters: Setting available options', {
+          locations: uniqueLocations.length,
+          characteristics: uniqueCharacteristics.length,
+          services: uniqueServices.length
+        });
+
         setAvailableOptions({
           locations: uniqueLocations,
           characteristics: uniqueCharacteristics,
           services: uniqueServices,
         });
       } catch (error) {
-        console.error('Error loading filter options:', error);
+        console.error('useModelsFilters: Error loading filter options:', error);
         // Fallback to hardcoded values
         setAvailableOptions({
           locations: ['Knightsbridge', 'Mayfair'],

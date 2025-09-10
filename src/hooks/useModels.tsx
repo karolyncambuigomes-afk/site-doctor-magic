@@ -57,13 +57,22 @@ export const useModels = () => {
   }, [loading, models.length]);
 
   const fetchModels = async () => {
-    if (loading && isInitialized) return; // Prevent concurrent calls
+    console.log('useModels: Starting fetchModels', { loading, isInitialized });
+    
+    if (loading && isInitialized) {
+      console.log('useModels: Preventing concurrent calls');
+      return; // Prevent concurrent calls
+    }
     
     try {
+      console.log('useModels: Setting loading to true');
       setLoading(true);
       setError(null);
 
+      console.log('useModels: Checking user state', { user: !!user });
+
       if (!user) {
+        console.log('useModels: User not authenticated, fetching public models');
         // For non-authenticated users, use the public function (only non-exclusive models)
         const { data, error: rpcError } = await supabase
           .rpc('get_public_models');
@@ -228,10 +237,11 @@ export const useModels = () => {
       
       setIsInitialized(true);
     } catch (err) {
-      console.error('Unexpected error fetching models:', err);
+      console.error('useModels: Unexpected error fetching models:', err);
       setError('An unexpected error occurred');
       setIsInitialized(true);
     } finally {
+      console.log('useModels: Setting loading to false in finally block');
       setLoading(false);
     }
   };

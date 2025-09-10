@@ -105,7 +105,7 @@ export const Reviews: React.FC = () => {
         </section>
 
         {/* Hero Section */}
-        <section className="py-16 md:py-24 lg:py-32 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-4 text-center">
             <h1 className="luxury-heading-xl mb-6 text-black">Client Reviews</h1>
             <p className="luxury-body-lg text-gray-800 max-w-2xl mx-auto">

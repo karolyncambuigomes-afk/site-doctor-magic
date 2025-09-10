@@ -123,7 +123,7 @@ const About = () => {
       <main className="pt-0 bg-white">
 
           {/* Hero Section */}
-          <section className="py-16 md:py-24 lg:py-32 bg-white">
+          <section className="py-16 md:py-24 bg-white">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>

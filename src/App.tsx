@@ -76,6 +76,7 @@ import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
 import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
+import { BulkImageMigration } from "./pages/admin/content/BulkImageMigration";
 
 
 const queryClient = new QueryClient();
@@ -276,6 +277,11 @@ const App = () => (
           <Route path="/admin/content/image-diagnostics" element={
             <AdminProtectedRoute>
               <ImageDiagnostics />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/content/bulk-migration" element={
+            <AdminProtectedRoute>
+              <BulkImageMigration />
             </AdminProtectedRoute>
           } />
           

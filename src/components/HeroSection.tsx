@@ -4,6 +4,8 @@ import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OptimizedImage } from '@/components/OptimizedImage';
 import { OptimizedHeroImage } from '@/components/OptimizedHeroImage';
+import { EnhancedImage } from '@/components/EnhancedImage';
+import { resolveImage, getFeatureFlags } from '@/utils/imageResolver';
 import { DebugPanel } from '@/components/DebugPanel';
 import heroMainWebp from '@/assets/hero-main.webp';
 import heroElegantWoman from '@/assets/hero-elegant-woman.webp';
@@ -25,9 +27,9 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  // Smart image selection with LOCAL PREFERENCE
-  const primaryImage = useMemo(() => {
-    if (!heroContent) return null;
+  // Enhanced image resolution with feature flags
+  const { primaryImage, fallbackImage, placeholderImage } = useMemo(() => {
+    if (!heroContent) return { primaryImage: null, fallbackImage: null, placeholderImage: null };
 
     const { 
       image_url_local_desktop, 
@@ -38,103 +40,37 @@ export const HeroSection: React.FC = () => {
       image_url 
     } = heroContent;
     
-    console.log('🎯 [HeroSection] Image selection for:', isMobile ? 'Mobile' : 'Desktop');
-    console.log('🎯 [HeroSection] LOCAL images:', {
-      localDesktop: image_url_local_desktop,
-      localMobile: image_url_local_mobile,
-      localFallback: image_url_local_fallback
-    });
-    console.log('🎯 [HeroSection] EXTERNAL images:', {
-      desktop: image_url_desktop,
-      mobile: image_url_mobile,
-      fallback: image_url
-    });
-
-    // **PRIORITY 1: LOCAL IMAGES** (always preferred for performance)
-    if (isMobile && image_url_local_mobile && isValidUrl(image_url_local_mobile)) {
-      console.log('🏠 [HeroSection] Using LOCAL mobile image');
-      return image_url_local_mobile;
-    }
+    // Local images (prioritized)
+    const localImage = isMobile 
+      ? (image_url_local_mobile || image_url_local_desktop || image_url_local_fallback)
+      : (image_url_local_desktop || image_url_local_mobile || image_url_local_fallback);
     
-    if (!isMobile && image_url_local_desktop && isValidUrl(image_url_local_desktop)) {
-      console.log('🏠 [HeroSection] Using LOCAL desktop image');
-      return image_url_local_desktop;
-    }
+    // External images (fallback)
+    const externalImage = isMobile 
+      ? (image_url_mobile || image_url || image_url_desktop)
+      : (image_url_desktop || image_url || image_url_mobile);
     
-    if (image_url_local_fallback && isValidUrl(image_url_local_fallback)) {
-      console.log('🏠 [HeroSection] Using LOCAL fallback image');
-      return image_url_local_fallback;
-    }
+    // Static fallback
+    const staticImage = isMobile ? heroElegantWoman : heroMainWebp;
+    
+    console.log('🎯 [HeroSection] Image resolution:', {
+      isMobile,
+      localImage,
+      externalImage,
+      staticImage
+    });
 
-    // **PRIORITY 2: EXTERNAL IMAGES** (Supabase storage)
-    if (isMobile) {
-      if (image_url_mobile && isValidUrl(image_url_mobile)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL mobile image');
-        return image_url_mobile;
-      }
-      if (image_url && isValidUrl(image_url)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL fallback for mobile');
-        return image_url;
-      }
-      if (image_url_desktop && isValidUrl(image_url_desktop)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL desktop on mobile (fallback)');
-        return image_url_desktop;
-      }
-    } else {
-      if (image_url_desktop && isValidUrl(image_url_desktop)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL desktop image');
-        return image_url_desktop;
-      }
-      if (image_url && isValidUrl(image_url)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL fallback for desktop');
-        return image_url;
-      }
-      if (image_url_mobile && isValidUrl(image_url_mobile)) {
-        console.log('🌐 [HeroSection] Using EXTERNAL mobile on desktop (fallback)');
-        return image_url_mobile;
-      }
-    }
-
-    // **PRIORITY 3: STATIC ASSETS** (final fallback)
-    console.log('📁 [HeroSection] Using STATIC asset fallback');
-    return isMobile ? heroElegantWoman : heroMainWebp;
+    return {
+      primaryImage: localImage,
+      fallbackImage: externalImage,
+      placeholderImage: staticImage
+    };
   }, [heroContent, isMobile]);
 
-  const [imageFallbackIndex, setImageFallbackIndex] = useState(0);
-  const [hasImageError, setHasImageError] = useState(false);
-  
-  const fallbackImages = [
-    heroMainWebp,
-    heroElegantWoman
-  ];
-
-  const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
-    const failedUrl = e.currentTarget.src;
-    console.warn('❌ [HeroSection] Failed to load image:', failedUrl);
-    
-    setImageFallbackIndex(prev => {
-      const nextIndex = prev + 1;
-      
-      if (nextIndex < fallbackImages.length) {
-        const nextImage = fallbackImages[nextIndex];
-        console.log(`🔄 [HeroSection] Trying fallback ${nextIndex + 1}/${fallbackImages.length}:`, nextImage);
-        e.currentTarget.src = nextImage;
-        return nextIndex;
-      } else {
-        console.error('❌ [HeroSection] All fallbacks failed, showing error state');
-        setHasImageError(true);
-        return prev;
-      }
-    });
-  }, [fallbackImages]);
-
-  const handleImageLoad = useCallback(() => {
-    console.log('✅ [HeroSection] Image loaded successfully:', primaryImage);
-    setImageLoaded(true);
-  }, [primaryImage]);
 
   if (loading) {
-    return <section className="relative h-screen w-full flex items-end snap-start">
+    return (
+      <section className="relative h-screen w-full flex items-end snap-start">
         <div className="absolute inset-0 z-0 bg-gray-900">
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
@@ -149,16 +85,23 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>;
+      </section>
+    );
   }
 
-  return <section className="relative h-screen w-full flex items-end snap-start">
+  return (
+    <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
-        <OptimizedHeroImage
-          src={hasImageError ? fallbackImages[fallbackImages.length - 1] : (imageFallbackIndex > 0 ? fallbackImages[imageFallbackIndex] : primaryImage)}
-          alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele"
-          className="w-full h-full"
+        {/* Hero Image with Enhanced Fallback */}
+        <EnhancedImage
+          local={primaryImage || undefined}
+          external={fallbackImage || undefined}
+          placeholder={placeholderImage || undefined}
+          alt={heroContent.title || 'Elegant companion services'}
+          className="w-full h-full object-cover object-center"
+          data-hero-image="true"
+          data-image-type={isMobile ? 'mobile' : 'desktop'}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
@@ -198,5 +141,6 @@ export const HeroSection: React.FC = () => {
         <p>Available 24/7 for outcall services to luxury hotels including The Ritz London, Claridge's, The Savoy, and Shangri-La at The Shard. Our carefully vetted international models offer uncompromising quality, intelligence, and elegance for discerning clients seeking premium escort services in Central London.</p>
         <p>Specializing in high-class entertainment, business accompaniment, social events, and cultural experiences throughout London's exclusive areas. Complete discretion guaranteed with professional, sophisticated companions fluent in multiple languages and experienced in international business and social etiquette.</p>
       </div>
-    </section>;
+    </section>
+  );
 };

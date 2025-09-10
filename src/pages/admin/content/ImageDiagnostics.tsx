@@ -22,7 +22,6 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
-import { RuntimeImageValidator } from '@/components/RuntimeImageValidator';
 
 // Types
 interface ImageItem {
@@ -466,6 +465,8 @@ export const ImageDiagnostics: React.FC = () => {
         </Button>
       </div>
 
+      {/* Production Image Validator */}
+      <ProductionImageValidator />
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

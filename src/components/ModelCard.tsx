@@ -3,7 +3,7 @@ import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
-import { OptimizedImage } from '@/components/OptimizedImage';
+import { EnhancedImage } from '@/components/EnhancedImage';
 
 interface ModelCardProps {
   model: Model;
@@ -92,24 +92,24 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
             {mainImage && !imageError ? (
               <>
                 {/* Main Image */}
-                <OptimizedImage
-                  src={mainImage}
+                <EnhancedImage
+                  external={mainImage}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
                   data-model-image="true"
                   data-model-name={model.name}
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
                 
                 {/* Second Image (from gallery) - only if available */}
                 {secondaryImage && (
-                  <OptimizedImage
-                    src={secondaryImage}
+                  <EnhancedImage
+                    external={secondaryImage}
                     alt={`${model.name} - alternate view`}
                     className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                    data-model-image="true"
+                    data-model-name={`${model.name}-secondary`}
                   />
                 )}
                 

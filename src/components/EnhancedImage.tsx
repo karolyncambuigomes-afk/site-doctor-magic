@@ -24,15 +24,32 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
   // Get image preference with real-time updates
   const { preferLocalImages } = useImagePreference();
 
-  // Create fallback chain based on preference
+  // Create fallback chain based on preference with robust backup strategy
   const fallbackChain = useMemo(() => {
     const featureFlags = { preferLocalImages };
     const primarySrc = resolveImage({ local, external, placeholder }, featureFlags);
-    const fallbacks = preferLocalImages 
-      ? [external, placeholder].filter(Boolean)
-      : [local, placeholder].filter(Boolean);
     
-    return createImageFallbackChain(primarySrc, fallbacks as string[]);
+    // Create comprehensive fallback chain
+    const allSources = [];
+    
+    if (preferLocalImages) {
+      // Local first, then external, then placeholder
+      if (local) allSources.push(local);
+      if (external) allSources.push(external);
+      if (placeholder) allSources.push(placeholder);
+    } else {
+      // External first, then local, then placeholder
+      if (external) allSources.push(external);
+      if (local) allSources.push(local);
+      if (placeholder) allSources.push(placeholder);
+    }
+    
+    // Always ensure we have a fallback
+    if (allSources.length === 0) {
+      allSources.push('/images/placeholders/model.jpg');
+    }
+    
+    return createImageFallbackChain(primarySrc, allSources);
   }, [local, external, placeholder, preferLocalImages]);
 
   // Reset state when fallback chain changes (preference updated)

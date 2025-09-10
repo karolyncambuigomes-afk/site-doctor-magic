@@ -3,10 +3,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw, ExternalLink, TestTube, Upload, Zap } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw, ExternalLink, TestTube, Upload, Zap, Wrench } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAuditTargets, AuditTarget } from '@/utils/getAuditTargets';
 import { supabase } from '@/integrations/supabase/client';
+import { ImageRestoreManager } from '@/components/ImageRestoreManager';
 
 interface AuditSection {
   name: string;
@@ -551,6 +552,9 @@ export const ImageAuditReport = () => {
           )}
         </div>
       </div>
+
+      {/* Image Restore Manager */}
+      <ImageRestoreManager />
 
       {isRunning && (
         <Card>

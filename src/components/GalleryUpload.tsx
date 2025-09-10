@@ -303,7 +303,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({
                 onChange={handleFileUpload}
                 disabled={uploading}
               />
-              <Button disabled={uploading}>
+              <Button type="button" disabled={uploading}>
                 <Upload className="h-4 w-4 mr-2" />
                 {uploading ? (
                   <>

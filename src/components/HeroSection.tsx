@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/useMediaQuery';
@@ -9,46 +9,34 @@ export const HeroSection: React.FC = () => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // Determine which image to use based on device type with memoization
+  const primaryImage = useMemo(() => {
+    if (isMobile) {
+      return heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+    } else {
+      return heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+    }
+  }, [isMobile, heroContent.image_url_mobile, heroContent.image_url_desktop, heroContent.image_url]);
+
+  const fallbackImage = '/src/assets/hero-elegant-woman.webp';
+
   const handleImageError = () => {
     console.error('Failed to load hero image:', primaryImage);
     setImageError(true);
   };
 
   const handleImageLoad = () => {
-    console.log('Hero image loaded successfully');
+    console.log('Hero image loaded successfully:', primaryImage);
     setImageLoaded(true);
   };
 
-  // Determine which image to use based on device type
-  const getResponsiveImage = () => {
-    if (isMobile) {
-      return heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
-    } else {
-      return heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
-    }
-  };
-
-  const primaryImage = getResponsiveImage();
-  const fallbackImage = '/src/assets/hero-elegant-woman.webp';
-
   if (loading) {
     return <section className="relative h-screen w-full flex items-end snap-start">
-        {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0 bg-gray-900">
-          <img 
-            src={imageError ? fallbackImage : primaryImage}
-            alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
-            className="w-full h-full object-cover object-center" 
-            loading="eager"
-            onError={handleImageError}
-            onLoad={handleImageLoad}
-          />
           <div className="absolute inset-0 bg-black/40" />
-          {!imageLoaded && !imageError && (
-            <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-              <div className="text-white text-sm">Loading banner...</div>
-            </div>
-          )}
+          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+            <div className="text-white text-sm">Loading banner...</div>
+          </div>
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
           <div className="max-w-2xl mx-auto">

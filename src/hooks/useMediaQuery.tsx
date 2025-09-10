@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 export const useMediaQuery = (query: string): boolean => {
   const [matches, setMatches] = useState(() => {
@@ -12,8 +12,14 @@ export const useMediaQuery = (query: string): boolean => {
     if (typeof window === 'undefined') return;
 
     const media = window.matchMedia(query);
+    let timeoutId: NodeJS.Timeout;
+    
     const listener = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
+      // Debounce to prevent rapid changes
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setMatches(event.matches);
+      }, 16); // ~60fps
     };
 
     // Set initial value
@@ -28,6 +34,7 @@ export const useMediaQuery = (query: string): boolean => {
     }
 
     return () => {
+      clearTimeout(timeoutId);
       if (media.removeEventListener) {
         media.removeEventListener('change', listener);
       } else {

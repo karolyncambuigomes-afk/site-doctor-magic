@@ -133,7 +133,7 @@ export default defineConfig(({ mode }) => ({
     assetsInlineLimit: 1024,
     chunkSizeWarningLimit: 500,
     minify: 'esbuild',
-    cssMinify: 'esbuild',
+    cssMinify: false, // Temporarily disabled to fix blue screen
     cssCodeSplit: true
   },
   plugins: [

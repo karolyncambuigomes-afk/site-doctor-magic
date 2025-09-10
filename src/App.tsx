@@ -15,7 +15,8 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { VersionManager } from "@/components/VersionManager";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ResourcePreloader, IdlePrefetcher, DNSPrefetcher } from "@/components/ResourceOptimizer";
-import { CSSOptimizer, ResponsiveCSS } from "@/components/CSSOptimizer";
+// Temporarily disabled CSS optimizer due to blue screen issue
+// import { CSSOptimizer, ResponsiveCSS } from "@/components/CSSOptimizer";
 
 // Critical pages that should load immediately
 import { Auth } from "./pages/Auth";
@@ -126,12 +127,13 @@ const App = () => (
         <TooltipProvider>
           <DegradedModeProvider>
             <AuthProvider>
-              <CSSOptimizer>
+        {/* Temporarily disabled CSS optimizer */}
+        <div>
                 <BrowserRouter>
                   <ResourcePreloader />
                   <DNSPrefetcher />
                   <IdlePrefetcher />
-                  <ResponsiveCSS />
+                  {/* Temporarily disabled ResponsiveCSS */}
                   <ConditionalFeatures />
                   <Toaster />
                   <Sonner />
@@ -724,7 +726,7 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
-            </CSSOptimizer>
+            </div>
           </AuthProvider>
         </DegradedModeProvider>
       </TooltipProvider>

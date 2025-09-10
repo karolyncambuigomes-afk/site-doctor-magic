@@ -2,8 +2,6 @@ import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { OptimizedImage } from '@/components/OptimizedImage';
-import heroMainWebP from '@/assets/hero-main.webp';
-import heroMain from '@/assets/hero-main.jpg';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
@@ -13,7 +11,7 @@ export const HeroSection: React.FC = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <OptimizedImage 
-            src={heroMainWebP} 
+            src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
             alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
             className="w-full h-full object-cover object-center" 
             priority
@@ -37,7 +35,7 @@ export const HeroSection: React.FC = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <OptimizedImage 
-          src={heroMainWebP} 
+          src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
           className="w-full h-full object-cover object-center" 
           priority

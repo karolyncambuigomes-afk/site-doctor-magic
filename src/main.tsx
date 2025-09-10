@@ -11,7 +11,7 @@ initializePerformanceOptimizations();
 
 // Preload critical images
 preloadCriticalImages([
-  '/src/assets/hero-main.webp',
+  '/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png',
   '/src/assets/hero-elegant-woman.webp'
 ]);
 

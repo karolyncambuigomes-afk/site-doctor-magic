@@ -1136,6 +1136,10 @@ export type Database = {
         }
         Returns: undefined
       }
+      migrate_gallery_arrays_to_table: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       update_user_role: {
         Args: { new_role: string; user_id: string }
         Returns: undefined

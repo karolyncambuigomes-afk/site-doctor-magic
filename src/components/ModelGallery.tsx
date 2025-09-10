@@ -60,36 +60,63 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando arrays para modelo ${modelId}`);
+    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando galeria para modelo ${modelId}`);
     
     try {
       setLoading(true);
       setLoadingError(null);
       
-      // Get model data with gallery arrays
-      const { data: modelData, error } = await supabase
-        .from('models')
-        .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
-        .eq('id', modelId)
-        .single();
+      // First try to load from model_gallery table (new system)
+      const { data: galleryData, error: galleryError } = await supabase
+        .from('model_gallery')
+        .select('*')
+        .eq('model_id', modelId)
+        .order('order_index', { ascending: true });
 
-      if (error) throw error;
+      if (galleryError) {
+        console.warn('Failed to load from model_gallery table:', galleryError);
+      }
 
-      console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
-      
-      // Create effective gallery list: local || external
-      const externalUrls = modelData?.gallery_external_urls || [];
-      const localUrls = modelData?.gallery_local_urls || [];
-      
-      const imgs = [...localUrls, ...externalUrls].filter(Boolean);
-      
-      // Convert to gallery format
-      const images: GalleryImage[] = imgs.map((url, index) => ({
-        id: `img-${index}`,
-        image_url: url,
-        caption: `${modelName} - Foto ${index + 1}`,
-        order_index: index
-      }));
+      let images: GalleryImage[] = [];
+
+      if (galleryData && galleryData.length > 0) {
+        // Use structured gallery data (new system)
+        console.log(`📱 MODEL GALLERY DEBUG: Usando sistema estruturado - ${galleryData.length} imagens`);
+        
+        images = galleryData.map((item) => ({
+          id: item.id,
+          image_url: item.image_url,
+          caption: item.caption || `${modelName} - Foto ${item.order_index + 1}`,
+          order_index: item.order_index
+        }));
+      } else {
+        // Fallback to legacy arrays system
+        console.log(`📱 MODEL GALLERY DEBUG: Fallback para sistema de arrays`);
+        
+        const { data: modelData, error } = await supabase
+          .from('models')
+          .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
+          .eq('id', modelId)
+          .single();
+
+        if (error) throw error;
+
+        console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
+        
+        // Create effective gallery list: local || external
+        const externalUrls = modelData?.gallery_external_urls || [];
+        const localUrls = modelData?.gallery_local_urls || [];
+        
+        const imgs = [...localUrls, ...externalUrls].filter(Boolean);
+        
+        // Convert to gallery format
+        images = imgs.map((url, index) => ({
+          id: `img-${index}`,
+          image_url: url,
+          caption: `${modelName} - Foto ${index + 1}`,
+          order_index: index
+        }));
+      }
 
       const loadTime = performance.now() - startTime;
       console.log(`📱 MODEL GALLERY DEBUG: ${images.length} imagens processadas em ${loadTime.toFixed(2)}ms`);

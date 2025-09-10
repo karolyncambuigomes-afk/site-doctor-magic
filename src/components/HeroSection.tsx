@@ -20,17 +20,23 @@ export const HeroSection: React.FC = () => {
     let selectedImage: string;
     
     if (isMobile) {
-      selectedImage = heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      // Verifica se mobile tem conteúdo válido (não vazio ou undefined)
+      const hasMobileImage = heroContent.image_url_mobile && heroContent.image_url_mobile.trim() !== '';
+      selectedImage = hasMobileImage ? heroContent.image_url_mobile : 
+                     heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
       console.log('📱 [HERO] Mobile - Imagem selecionada:', selectedImage);
       console.log('📱 [HERO] Mobile - Origem:', 
-        heroContent.image_url_mobile ? 'Específica Mobile' :
+        hasMobileImage ? 'Específica Mobile' :
         heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
       );
     } else {
-      selectedImage = heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+      // Verifica se desktop tem conteúdo válido (não vazio ou undefined)
+      const hasDesktopImage = heroContent.image_url_desktop && heroContent.image_url_desktop.trim() !== '';
+      selectedImage = hasDesktopImage ? heroContent.image_url_desktop : 
+                     heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
       console.log('🖥️ [HERO] Desktop - Imagem selecionada:', selectedImage);
       console.log('🖥️ [HERO] Desktop - Origem:', 
-        heroContent.image_url_desktop ? 'Específica Desktop' :
+        hasDesktopImage ? 'Específica Desktop' :
         heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
       );
     }

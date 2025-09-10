@@ -6,9 +6,12 @@ import { ImageUpload } from '@/components/ImageUpload';
 import { LazyImageEditor } from '@/components/LazyImageEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
+import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle } from 'lucide-react';
 
 interface GalleryImage {
   id: string;
@@ -33,8 +36,17 @@ interface GalleryUploadProps {
 
 export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) => {
   const { toast } = useToast();
+  const isMobile = useIsMobile();
+  const { 
+    optimizations, 
+    metrics, 
+    trackPerformance, 
+    getOptimizedImageUrl, 
+    getOptimizedClasses 
+  } = useMobileGalleryOptimizer();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState<string | null>(null);
   const [newImageUrl, setNewImageUrl] = useState('');
   const [newImageCaption, setNewImageCaption] = useState('');
   const [isAdding, setIsAdding] = useState(false);
@@ -47,29 +59,54 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   }, [modelId]);
 
   const loadGalleryImages = async () => {
+    const startTime = performance.now();
+    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Iniciando carregamento de galeria para modelo ${modelId}`);
+    
     try {
+      setLoading(true);
+      setLoadingError(null);
       const { data, error } = await supabase
         .from('model_gallery')
         .select('*')
         .eq('model_id', modelId)
         .order('order_index', { ascending: true });
 
-      if (error) throw error;
+      if (error) {
+        console.error(`📱 GALLERY DEBUG: Erro na query Supabase:`, error);
+        throw error;
+      }
+
+      const loadTime = performance.now() - startTime;
+      console.log(`📱 GALLERY DEBUG: Galeria carregada com sucesso em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 GALLERY DEBUG: ${data?.length || 0} imagens encontradas`);
+      
+      // Track performance metrics
+      trackPerformance(startTime, data?.length || 0);
+      
+      if (isMobile && loadTime > 3000) {
+        console.warn(`📱 GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
+      }
+
       setGalleryImages(data || []);
     } catch (error) {
-      console.error('Error loading gallery images:', error);
+      console.error(`📱 GALLERY DEBUG: Erro ao carregar galeria:`, error);
+      setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
       toast({
         title: "Erro",
-        description: "Erro ao carregar galeria",
+        description: isMobile ? "Erro ao carregar galeria (mobile)" : "Erro ao carregar galeria",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
   const addImage = async () => {
-    console.log('🎭 GALERIA: Tentando adicionar imagem à GALERIA');
-    console.log('🎭 GALERIA: newImageUrl =', newImageUrl);
-    console.log('🎭 GALERIA: modelId =', modelId);
+    const addStartTime = performance.now();
+    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Adicionando imagem`);
+    console.log('📱 GALLERY DEBUG: URL =', newImageUrl);
+    console.log('📱 GALLERY DEBUG: Visibilidade =', selectedVisibility);
+    console.log('📱 GALLERY DEBUG: ModelId =', modelId);
     
     if (!newImageUrl) {
       console.log('🎭 GALERIA: Erro - sem URL de imagem');
@@ -490,7 +527,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                     <Globe className="w-5 h-5 text-green-600" />
                     <span className="font-medium text-green-800">Carrossel Público - {publicImages.length} fotos</span>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
                     {publicImages.map((image, index) => (
                       <ImageCard 
                         key={image.id} 
@@ -523,7 +560,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                     <Crown className="w-5 h-5 text-amber-600" />
                     <span className="font-medium text-amber-800">Carrossel Membros - {membersImages.length} fotos</span>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
                     {membersImages.map((image, index) => (
                       <ImageCard 
                         key={image.id} 

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, ZoomIn, AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 interface GalleryImage {
   id: string;
@@ -20,10 +23,18 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   mainImage, 
   modelName 
 }) => {
+  const isMobile = useIsMobile();
+  const { 
+    optimizations, 
+    trackPerformance, 
+    getOptimizedImageUrl, 
+    getOptimizedClasses 
+  } = useMobileGalleryOptimizer();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingError, setLoadingError] = useState<string | null>(null);
 
   useEffect(() => {
     loadGalleryImages();
@@ -41,8 +52,12 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   }, []);
 
   const loadGalleryImages = async () => {
+    const startTime = performance.now();
+    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando galeria pública para modelo ${modelId}`);
+    
     try {
-      console.log('🖼️ SITE GALERIA: Carregando imagens para modelId:', modelId);
+      setLoading(true);
+      setLoadingError(null);
       
       // Get model info to check access configuration
       const { data: modelData } = await supabase
@@ -51,11 +66,11 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
         .eq('id', modelId)
         .single();
 
-      console.log('🖼️ SITE GALERIA: Configuração do modelo:', modelData);
+      console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
       
       // Get current user info to determine what images they can see
       const { data: { user } } = await supabase.auth.getUser();
-      console.log('🖼️ SITE GALERIA: Usuário:', user ? 'logado' : 'não logado', user?.email);
+      console.log(`📱 MODEL GALLERY DEBUG: Usuário:`, user ? 'logado' : 'não logado', user?.email);
       
       let query = supabase
         .from('model_gallery')
@@ -154,21 +169,30 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       const { data, error } = await query;
 
       if (error) {
-        console.error('🖼️ SITE GALERIA: Erro ao carregar:', error);
+        console.error(`📱 MODEL GALLERY DEBUG: Erro na query Supabase:`, error);
         throw error;
       }
 
-      console.log('🖼️ SITE GALERIA: Imagens carregadas após filtro:', data);
-      console.log('🖼️ SITE GALERIA: Número de imagens visíveis:', data?.length || 0);
-      if (data && data.length > 0) {
-        console.log('🖼️ SITE GALERIA: Visibilidades das imagens:', data.map(img => ({ order: img.order_index, visibility: img.visibility })));
-      }
-      setGalleryImages(data || []);
+      const loadTime = performance.now() - startTime;
+      console.log(`📱 MODEL GALLERY DEBUG: Galeria carregada em ${loadTime.toFixed(2)}ms`);
+      console.log(`📱 MODEL GALLERY DEBUG: ${data?.length || 0} imagens visíveis encontradas`);
       
-      // Force re-render after setting gallery images
-      console.log('🖼️ SITE GALERIA: Estado atualizado, forçando re-render');
+      // Track performance metrics
+      trackPerformance(startTime, data?.length || 0);
+      
+      if (isMobile && loadTime > 2000) {
+        console.warn(`📱 MODEL GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
+      }
+      
+      if (data && data.length > 0) {
+        console.log(`📱 MODEL GALLERY DEBUG: Visibilidades:`, data.map(img => ({ order: img.order_index, visibility: img.visibility })));
+      }
+      
+      setGalleryImages(data || []);
+      console.log(`📱 MODEL GALLERY DEBUG: Estado atualizado, forçando re-render`);
     } catch (error) {
-      console.error('Error loading gallery images:', error);
+      console.error(`📱 MODEL GALLERY DEBUG: Erro ao carregar galeria:`, error);
+      setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
     } finally {
       setLoading(false);
     }
@@ -184,8 +208,8 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     }
   ];
 
-  console.log('🖼️ SITE GALERIA: allImages após processamento:', allImages);
-  console.log('🖼️ SITE GALERIA: galleryImages.length:', galleryImages.length);
+  console.log(`📱 MODEL GALLERY DEBUG: allImages após processamento:`, allImages);
+  console.log(`📱 MODEL GALLERY DEBUG: galleryImages.length:`, galleryImages.length);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % allImages.length);
@@ -209,6 +233,14 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   if (loading) {
     return (
       <div className="space-y-4">
+        {isMobile && (
+          <div className="bg-blue-50 border border-blue-200 p-3 rounded-lg">
+            <div className="flex items-center gap-2 text-blue-700 text-sm">
+              <LoadingSpinner className="w-4 h-4" />
+              <span>Carregando galeria (mobile)...</span>
+            </div>
+          </div>
+        )}
         <div className="animate-pulse">
           <div className="aspect-[3/4] bg-muted rounded-lg"></div>
         </div>
@@ -216,6 +248,25 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="w-16 h-16 bg-muted rounded animate-pulse"></div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (loadingError) {
+    return (
+      <div className="space-y-4">
+        <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
+          <div className="flex items-center gap-2 text-red-700">
+            <AlertCircle className="w-5 h-5" />
+            <span className="font-medium">Erro ao carregar galeria</span>
+          </div>
+          <p className="text-sm text-red-600 mt-1">{loadingError}</p>
+          {isMobile && (
+            <p className="text-xs text-red-500 mt-2">
+              Modo mobile detectado - verifique sua conexão
+            </p>
+          )}
         </div>
       </div>
     );

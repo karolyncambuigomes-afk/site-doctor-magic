@@ -1,5 +1,5 @@
 import { Plugin } from 'vite';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 interface CriticalCSSOptions {
@@ -23,10 +23,13 @@ export function criticalCSSPlugin(options: CriticalCSSOptions): Plugin {
         // Remove critical CSS from the main bundle
         if (cssAsset && typeof cssAsset.source === 'string') {
           // This is a simplified approach - in production you'd want more sophisticated parsing
-          const criticalCSS = readFileSync(resolve(options.criticalCSS), 'utf-8');
-          
-          // Store critical CSS for HTML injection
-          (this as any).criticalCSS = criticalCSS;
+          try {
+            const criticalCSS = readFileSync(resolve(options.criticalCSS), 'utf-8');
+            // Store critical CSS for HTML injection
+            (this as any).criticalCSS = criticalCSS;
+          } catch (error) {
+            console.warn('Could not read critical CSS file:', error);
+          }
         }
       }
     },

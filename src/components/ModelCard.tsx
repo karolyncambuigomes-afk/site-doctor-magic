@@ -17,22 +17,24 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const { ref, isVisible } = useScrollAnimation(0.2);
   const { preferLocalImages } = useImagePreference();
 
-  // Enhanced image selection using gallery arrays
+  // Enhanced image selection with proper fallback order
   const imageConfig = useMemo(() => {
-    // Use gallery arrays for modern approach
+    // Priority order: image_url_local_main > image (external) > first gallery local > first gallery external > placeholder
+    const mainLocal = model.image_url_local_main;
+    const mainExternal = model.image;
     const localUrls = model.gallery_local_urls || [];
     const externalUrls = model.gallery_external_urls || [];
     
-    // First image from arrays, with fallback to main image
-    const primaryLocal = localUrls[0];
-    const primaryExternal = externalUrls[0] || model.image;
+    // Primary image selection with fallback chain
+    const primaryLocal = mainLocal || localUrls[0];
+    const primaryExternal = mainExternal || externalUrls[0];
     
     return {
       local: primaryLocal,
       external: primaryExternal,
       placeholder: '/images/placeholders/model.jpg'
     };
-  }, [model.gallery_local_urls, model.gallery_external_urls, model.image]);
+  }, [model.image_url_local_main, model.image, model.gallery_local_urls, model.gallery_external_urls]);
 
   // Secondary image for hover effect from arrays
   const secondaryImage = useMemo(() => {

@@ -83,6 +83,7 @@ import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
 import { GalleryDiagnosticsPage } from "./pages/admin/content/GalleryDiagnosticsPage";
+import { AnastasiaFixPage } from "./pages/admin/content/AnastasiaFixPage";
 
 
 const queryClient = new QueryClient();
@@ -293,6 +294,11 @@ const App = () => (
           <Route path="/admin/content/bulk-migration" element={
             <AdminProtectedRoute>
               <BulkImageMigrationPage />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/content/anastasia-fix" element={
+            <AdminProtectedRoute>
+              <AnastasiaFixPage />
             </AdminProtectedRoute>
           } />
           

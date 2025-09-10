@@ -9,6 +9,9 @@ export interface HeroContent {
   image_url?: string;
   image_url_desktop?: string;
   image_url_mobile?: string;
+  image_url_local_desktop?: string;
+  image_url_local_mobile?: string;
+  image_url_local_fallback?: string;
   button_primary_text?: string;
   button_primary_url?: string;
   button_secondary_text?: string;
@@ -69,6 +72,9 @@ export const useHomepageContent = () => {
           image_url: data.image_url || heroContent.image_url,
           image_url_desktop: data.image_url_desktop || heroContent.image_url_desktop,
           image_url_mobile: data.image_url_mobile || heroContent.image_url_mobile,
+          image_url_local_desktop: data.image_url_local_desktop || heroContent.image_url_local_desktop,
+          image_url_local_mobile: data.image_url_local_mobile || heroContent.image_url_local_mobile,
+          image_url_local_fallback: data.image_url_local_fallback || heroContent.image_url_local_fallback,
           button_primary_text: data.button_text || heroContent.button_primary_text,
           button_primary_url: data.button_url || heroContent.button_primary_url,
           button_secondary_text: heroContent.button_secondary_text,
@@ -109,6 +115,9 @@ export const useHomepageContent = () => {
         image_url: updates.image_url !== undefined ? updates.image_url : heroContent.image_url,
         image_url_desktop: updates.image_url_desktop !== undefined ? updates.image_url_desktop : heroContent.image_url_desktop,
         image_url_mobile: updates.image_url_mobile !== undefined ? updates.image_url_mobile : heroContent.image_url_mobile,
+        image_url_local_desktop: updates.image_url_local_desktop !== undefined ? updates.image_url_local_desktop : heroContent.image_url_local_desktop,
+        image_url_local_mobile: updates.image_url_local_mobile !== undefined ? updates.image_url_local_mobile : heroContent.image_url_local_mobile,
+        image_url_local_fallback: updates.image_url_local_fallback !== undefined ? updates.image_url_local_fallback : heroContent.image_url_local_fallback,
         button_text: updates.button_primary_text || heroContent.button_primary_text,
         button_url: updates.button_primary_url || heroContent.button_primary_url,
         is_active: true,

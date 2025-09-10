@@ -11,6 +11,7 @@ import { Loader2, Save, Eye, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { ImageUpload } from '@/components/ImageUpload';
+import { ImageReprocessor } from '@/components/ImageReprocessor';
 import { BannerPreviewSimulator } from '@/components/BannerPreviewSimulator';
 
 interface HomepageContent {
@@ -243,6 +244,19 @@ export const HomepageManager: React.FC = () => {
                   <p className="text-xs text-blue-600">
                     🖥️ <strong>Desktop:</strong> Imagem otimizada para telas grandes. Recomendamos proporção 16:9 (ex: 1920x1080).
                   </p>
+                  
+                  {/* Desktop Image Reprocessor */}
+                  <ImageReprocessor
+                    currentImageUrl={heroFormData.image_url_desktop}
+                    onImageReprocessed={(localUrl) => {
+                      setHeroFormData(prev => ({
+                        ...prev,
+                        image_url_local_desktop: localUrl
+                      }));
+                    }}
+                    section="homepage_hero_desktop"
+                    disabled={!heroFormData.image_url_desktop}
+                  />
                   {heroFormData.image_url_desktop && (
                     <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
                       ✅ Imagem desktop configurada: {heroFormData.image_url_desktop.substring(0, 50)}...
@@ -291,6 +305,19 @@ export const HomepageManager: React.FC = () => {
                   <p className="text-xs text-green-600">
                     📱 <strong>Mobile:</strong> Imagem otimizada para celulares. Recomendamos proporção vertical (ex: 768x1024).
                   </p>
+                  
+                  {/* Mobile Image Reprocessor */}
+                  <ImageReprocessor
+                    currentImageUrl={heroFormData.image_url_mobile}
+                    onImageReprocessed={(localUrl) => {
+                      setHeroFormData(prev => ({
+                        ...prev,
+                        image_url_local_mobile: localUrl
+                      }));
+                    }}
+                    section="homepage_hero_mobile"
+                    disabled={!heroFormData.image_url_mobile}
+                  />
                   {heroFormData.image_url_mobile && (
                     <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
                       ✅ Imagem mobile configurada: {heroFormData.image_url_mobile.substring(0, 50)}...
@@ -332,6 +359,19 @@ export const HomepageManager: React.FC = () => {
                 <p className="text-xs text-gray-600">
                   🔄 Imagem de fallback usada quando não há imagens específicas para desktop ou mobile.
                 </p>
+                
+                {/* Fallback Image Reprocessor */}
+                <ImageReprocessor
+                  currentImageUrl={heroFormData.image_url}
+                  onImageReprocessed={(localUrl) => {
+                    setHeroFormData(prev => ({
+                      ...prev,
+                      image_url_local_fallback: localUrl
+                    }));
+                  }}
+                  section="homepage_hero_main"
+                  disabled={!heroFormData.image_url}
+                />
               </div>
 
               <div className="grid grid-cols-2 gap-4">

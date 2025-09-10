@@ -3,6 +3,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { OptimizedImage } from '@/components/OptimizedImage';
+import { OptimizedHeroImage } from '@/components/OptimizedHeroImage';
 import { DebugPanel } from '@/components/DebugPanel';
 import heroMainWebp from '@/assets/hero-main.webp';
 import heroElegantWoman from '@/assets/hero-elegant-woman.webp';
@@ -24,50 +25,78 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  // Smart image selection with proper fallback cascade
+  // Smart image selection with LOCAL PREFERENCE
   const primaryImage = useMemo(() => {
     if (!heroContent) return null;
 
-    const { image_url_desktop, image_url_mobile, image_url } = heroContent;
+    const { 
+      image_url_local_desktop, 
+      image_url_local_mobile, 
+      image_url_local_fallback,
+      image_url_desktop, 
+      image_url_mobile, 
+      image_url 
+    } = heroContent;
     
     console.log('🎯 [HeroSection] Image selection for:', isMobile ? 'Mobile' : 'Desktop');
-    console.log('🎯 [HeroSection] Available images:', {
+    console.log('🎯 [HeroSection] LOCAL images:', {
+      localDesktop: image_url_local_desktop,
+      localMobile: image_url_local_mobile,
+      localFallback: image_url_local_fallback
+    });
+    console.log('🎯 [HeroSection] EXTERNAL images:', {
       desktop: image_url_desktop,
       mobile: image_url_mobile,
       fallback: image_url
     });
 
-    // Smart selection: device-specific → general fallback → local assets
+    // **PRIORITY 1: LOCAL IMAGES** (always preferred for performance)
+    if (isMobile && image_url_local_mobile && isValidUrl(image_url_local_mobile)) {
+      console.log('🏠 [HeroSection] Using LOCAL mobile image');
+      return image_url_local_mobile;
+    }
+    
+    if (!isMobile && image_url_local_desktop && isValidUrl(image_url_local_desktop)) {
+      console.log('🏠 [HeroSection] Using LOCAL desktop image');
+      return image_url_local_desktop;
+    }
+    
+    if (image_url_local_fallback && isValidUrl(image_url_local_fallback)) {
+      console.log('🏠 [HeroSection] Using LOCAL fallback image');
+      return image_url_local_fallback;
+    }
+
+    // **PRIORITY 2: EXTERNAL IMAGES** (Supabase storage)
     if (isMobile) {
       if (image_url_mobile && isValidUrl(image_url_mobile)) {
-        console.log('✅ [HeroSection] Using mobile-specific image');
+        console.log('🌐 [HeroSection] Using EXTERNAL mobile image');
         return image_url_mobile;
       }
       if (image_url && isValidUrl(image_url)) {
-        console.log('✅ [HeroSection] Using general fallback for mobile');
+        console.log('🌐 [HeroSection] Using EXTERNAL fallback for mobile');
         return image_url;
       }
       if (image_url_desktop && isValidUrl(image_url_desktop)) {
-        console.log('✅ [HeroSection] Using desktop image on mobile (fallback)');
+        console.log('🌐 [HeroSection] Using EXTERNAL desktop on mobile (fallback)');
         return image_url_desktop;
       }
     } else {
       if (image_url_desktop && isValidUrl(image_url_desktop)) {
-        console.log('✅ [HeroSection] Using desktop-specific image');
+        console.log('🌐 [HeroSection] Using EXTERNAL desktop image');
         return image_url_desktop;
       }
       if (image_url && isValidUrl(image_url)) {
-        console.log('✅ [HeroSection] Using general fallback for desktop');
+        console.log('🌐 [HeroSection] Using EXTERNAL fallback for desktop');
         return image_url;
       }
       if (image_url_mobile && isValidUrl(image_url_mobile)) {
-        console.log('✅ [HeroSection] Using mobile image on desktop (fallback)');
+        console.log('🌐 [HeroSection] Using EXTERNAL mobile on desktop (fallback)');
         return image_url_mobile;
       }
     }
 
-    // Use local assets as final fallback
-    console.log('⚠️ [HeroSection] Using local asset fallback');
+    // **PRIORITY 3: STATIC ASSETS** (final fallback)
+    console.log('📁 [HeroSection] Using STATIC asset fallback');
     return isMobile ? heroElegantWoman : heroMainWebp;
   }, [heroContent, isMobile]);
 
@@ -126,14 +155,10 @@ export const HeroSection: React.FC = () => {
   return <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
-        <OptimizedImage
+        <OptimizedHeroImage
           src={hasImageError ? fallbackImages[fallbackImages.length - 1] : (imageFallbackIndex > 0 ? fallbackImages[imageFallbackIndex] : primaryImage)}
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele"
           className="w-full h-full"
-          priority={true}
-          sizes="100vw"
-          onError={handleImageError}
-          onLoad={handleImageLoad}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>

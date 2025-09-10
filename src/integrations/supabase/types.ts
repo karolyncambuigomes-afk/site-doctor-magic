@@ -939,6 +939,9 @@ export type Database = {
           image_alt: string | null
           image_url: string | null
           image_url_desktop: string | null
+          image_url_local_desktop: string | null
+          image_url_local_fallback: string | null
+          image_url_local_mobile: string | null
           image_url_mobile: string | null
           is_active: boolean | null
           meta_data: Json | null
@@ -956,6 +959,9 @@ export type Database = {
           image_alt?: string | null
           image_url?: string | null
           image_url_desktop?: string | null
+          image_url_local_desktop?: string | null
+          image_url_local_fallback?: string | null
+          image_url_local_mobile?: string | null
           image_url_mobile?: string | null
           is_active?: boolean | null
           meta_data?: Json | null
@@ -973,6 +979,9 @@ export type Database = {
           image_alt?: string | null
           image_url?: string | null
           image_url_desktop?: string | null
+          image_url_local_desktop?: string | null
+          image_url_local_fallback?: string | null
+          image_url_local_mobile?: string | null
           image_url_mobile?: string | null
           is_active?: boolean | null
           meta_data?: Json | null

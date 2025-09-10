@@ -521,6 +521,7 @@ export type Database = {
           education: string | null
           eyes: string | null
           face_visible: boolean | null
+          gallery_external_urls: string[] | null
           gallery_local_urls: string[] | null
           hair: string | null
           height: string | null
@@ -553,6 +554,7 @@ export type Database = {
           education?: string | null
           eyes?: string | null
           face_visible?: boolean | null
+          gallery_external_urls?: string[] | null
           gallery_local_urls?: string[] | null
           hair?: string | null
           height?: string | null
@@ -585,6 +587,7 @@ export type Database = {
           education?: string | null
           eyes?: string | null
           face_visible?: boolean | null
+          gallery_external_urls?: string[] | null
           gallery_local_urls?: string[] | null
           hair?: string | null
           height?: string | null

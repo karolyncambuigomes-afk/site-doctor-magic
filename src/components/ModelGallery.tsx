@@ -59,10 +59,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       setLoading(true);
       setLoadingError(null);
       
-      // Get model info to check access configuration
+      // Get model info including gallery arrays
       const { data: modelData } = await supabase
         .from('models')
-        .select('members_only, all_photos_public')
+        .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
         .eq('id', modelId)
         .single();
 

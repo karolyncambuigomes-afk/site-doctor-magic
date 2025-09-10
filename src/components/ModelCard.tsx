@@ -62,7 +62,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   } ${
                     model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   } ${
-                    model.face_visible === false ? 'object-[center_20%]' : 'object-center'
+                    model.face_visible === false ? 'object-[center_40%]' : 'object-[center_30%]'
                   }`}
                   onLoad={() => setImageLoaded(true)}
                   onError={() => setImageError(true)}
@@ -74,7 +74,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   <img
                     src={model.gallery[0]}
                     alt={`${model.name} - alternate view`}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
+                    className="w-full h-full object-cover object-[center_30%] transition-all duration-700 opacity-0 group-hover:opacity-100"
                     loading="lazy"
                   />
                 )}

@@ -230,7 +230,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           <img
             src={allImages[currentImageIndex]?.image_url}
             alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover object-[center_30%] transition-transform duration-300 group-hover:scale-105"
             onClick={() => openLightbox(currentImageIndex)}
           />
           
@@ -292,7 +292,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
                 <img
                   src={image.image_url}
                   alt={`Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-[center_30%]"
                 />
               </button>
             ))}

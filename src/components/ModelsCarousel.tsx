@@ -75,7 +75,7 @@ export const ModelsCarousel = () => {
                       <img
                         src={model.image}
                         alt={model.name}
-                        className="w-full aspect-[3/4] object-cover transition-all duration-700 group-hover:scale-105"
+                        className="w-full aspect-[3/4] object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105"
                       />
                       
                       {/* Elegant overlay that appears on hover */}

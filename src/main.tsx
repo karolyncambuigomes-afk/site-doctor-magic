@@ -11,7 +11,7 @@ initializePerformanceOptimizations();
 
 // Preload critical images
 preloadCriticalImages([
-  '/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png',
+  '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png',
   '/src/assets/hero-elegant-woman.webp'
 ]);
 

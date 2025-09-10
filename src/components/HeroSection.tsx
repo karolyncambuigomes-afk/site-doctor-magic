@@ -8,7 +8,7 @@ export const HeroSection: React.FC = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleImageError = () => {
-    console.error('Failed to load hero image:', '/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png');
+    console.error('Failed to load hero image:', '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png');
     setImageError(true);
   };
 
@@ -17,9 +17,9 @@ export const HeroSection: React.FC = () => {
     setImageLoaded(true);
   };
 
-  // Use the elegant woman image as primary
-  const primaryImage = '/src/assets/hero-elegant-woman.webp';
-  const fallbackImage = '/src/assets/hero-main.jpg';
+  // Use the new uploaded image as primary
+  const primaryImage = '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+  const fallbackImage = '/src/assets/hero-elegant-woman.webp';
 
   if (loading) {
     return <section className="relative h-screen w-full flex items-end snap-start">

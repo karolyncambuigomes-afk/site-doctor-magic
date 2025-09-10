@@ -1,6 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { AnastasiaFixManager } from '@/components/admin/AnastasiaFixManager';
+import { AnastasiaFixButton } from '@/components/admin/AnastasiaFixButton';
 
 export const AnastasiaFixPage: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ export const AnastasiaFixPage: React.FC = () => {
           </p>
         </div>
         
+        <AnastasiaFixButton />
         <AnastasiaFixManager />
       </div>
     </AdminLayout>

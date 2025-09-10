@@ -7,16 +7,14 @@ export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
 
   if (loading) {
-    return <section className="relative h-[100vh] w-full flex items-end snap-start">
+    return <section className="relative h-screen w-full flex items-end snap-start">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
-          <OptimizedImage 
+          <img 
             src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
             alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
             className="w-full h-full object-cover object-center" 
-            priority
-            width={1920}
-            height={1080}
+            loading="eager"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
@@ -31,16 +29,14 @@ export const HeroSection: React.FC = () => {
       </section>;
   }
 
-  return <section className="relative min-h-screen max-h-screen w-full flex items-end snap-start">
+  return <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <OptimizedImage 
+        <img 
           src="/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png" 
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
           className="w-full h-full object-cover object-center" 
-          priority
-          width={1920}
-          height={1080}
+          loading="eager"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
@@ -58,14 +54,14 @@ export const HeroSection: React.FC = () => {
             {heroContent.subtitle}
           </h2>
           
-          <div className="flex justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <SafeLink to={heroContent.button_primary_url || "/models"} className="inline-block">
-              <button className="bg-white text-black hover:bg-gray-100 px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+              <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
                 {heroContent.button_primary_text || "View Models"}
               </button>
             </SafeLink>
             
-            <a href={heroContent.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block border border-white text-white hover:bg-white hover:text-black px-6 py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+            <a href={heroContent.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
               {heroContent.button_secondary_text || "Book Now"}
             </a>
           </div>

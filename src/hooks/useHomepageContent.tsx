@@ -44,7 +44,7 @@ export const useHomepageContent = () => {
         .select('*')
         .eq('section', 'homepage_hero_main')
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
       if (error && error.code !== 'PGRST116') {
         throw error;
@@ -85,7 +85,7 @@ export const useHomepageContent = () => {
           updated_at: new Date().toISOString()
         })
         .select()
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
 

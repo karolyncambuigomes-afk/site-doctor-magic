@@ -96,7 +96,7 @@ export const usePageSEO = (pagePath: string) => {
         .from('page_seo')
         .select('*')
         .eq('page_path', pagePath)
-        .single();
+        .maybeSingle();
 
       if (error && error.code !== 'PGRST116') throw error; // PGRST116 = no rows returned
 

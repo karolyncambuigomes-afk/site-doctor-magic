@@ -11,6 +11,8 @@ interface OptimizedImageProps {
   priority?: boolean; // For above-the-fold images
   sizes?: string; // Responsive sizes
   placeholder?: string; // Base64 placeholder
+  onLoad?: () => void; // Callback for successful load
+  onError?: () => void; // Callback for error
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -21,7 +23,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height,
   priority = false,
   sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
-  placeholder
+  placeholder,
+  onLoad,
+  onError
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(priority);
@@ -70,12 +74,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const handleLoad = () => {
     console.log(`✅ [OptimizedImage] Image loaded successfully:`, src);
     setIsLoaded(true);
+    onLoad?.();
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     console.error(`❌ [OptimizedImage] Failed to load image:`, src, e);
     setError(true);
     setIsLoaded(true);
+    onError?.();
   };
 
   return (

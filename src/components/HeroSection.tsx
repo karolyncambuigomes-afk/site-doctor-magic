@@ -21,7 +21,18 @@ export const HeroSection: React.FC = () => {
     });
   }, []);
 
-  // Determine which image to use based on device type with memoization
+  // Validate if URL is accessible
+  const isValidUrl = (url: string): boolean => {
+    if (!url || url.trim() === '') return false;
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  // Determine which image to use based on device type with robust fallback
   const primaryImage = useMemo(() => {
     console.log('🖼️ [HERO] Determinando imagem para exibição');
     console.log('🖼️ [HERO] - Device: ', isMobile ? 'Mobile 📱' : 'Desktop 🖥️');
@@ -29,48 +40,60 @@ export const HeroSection: React.FC = () => {
     console.log('🖼️ [HERO] - image_url_desktop:', heroContent.image_url_desktop);
     console.log('🖼️ [HERO] - image_url (fallback):', heroContent.image_url);
     
-    let selectedImage: string;
+    // Cascading fallback: device-specific -> general -> local assets
+    const candidates = [
+      isMobile ? heroContent.image_url_mobile : heroContent.image_url_desktop,
+      heroContent.image_url,
+      '/src/assets/hero-main.webp',
+      '/src/assets/hero-elegant-woman.webp',
+      '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png'
+    ];
     
-    if (isMobile) {
-      // Verifica se mobile tem conteúdo válido (não vazio ou undefined)
-      const hasMobileImage = heroContent.image_url_mobile && heroContent.image_url_mobile.trim() !== '';
-      selectedImage = hasMobileImage ? heroContent.image_url_mobile : 
-                     heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
-      console.log('📱 [HERO] Mobile - Imagem selecionada:', selectedImage);
-      console.log('📱 [HERO] Mobile - Origem:', 
-        hasMobileImage ? 'Específica Mobile' :
-        heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
-      );
-    } else {
-      // Verifica se desktop tem conteúdo válido (não vazio ou undefined)
-      const hasDesktopImage = heroContent.image_url_desktop && heroContent.image_url_desktop.trim() !== '';
-      selectedImage = hasDesktopImage ? heroContent.image_url_desktop : 
-                     heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
-      console.log('🖥️ [HERO] Desktop - Imagem selecionada:', selectedImage);
-      console.log('🖥️ [HERO] Desktop - Origem:', 
-        hasDesktopImage ? 'Específica Desktop' :
-        heroContent.image_url ? 'Fallback' : 'Padrão do sistema'
-      );
+    let selectedImage: string = '';
+    let source = 'unknown';
+    
+    for (const candidate of candidates) {
+      if (isValidUrl(candidate)) {
+        selectedImage = candidate;
+        if (candidate === heroContent.image_url_mobile) source = 'Mobile específica';
+        else if (candidate === heroContent.image_url_desktop) source = 'Desktop específica';
+        else if (candidate === heroContent.image_url) source = 'Fallback geral';
+        else source = 'Asset local';
+        break;
+      }
     }
     
-    // Only apply cache busting if image is valid
-    if (!selectedImage || selectedImage.trim() === '') {
-      console.warn('🚨 [HERO] No valid image found, using fallback');
-      return '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+    console.log('✅ [HERO] Imagem selecionada:', selectedImage);
+    console.log('📍 [HERO] Origem:', source);
+    
+    // Only apply cache busting to Supabase URLs
+    if (selectedImage.includes('supabase.co')) {
+      const finalImage = addCacheBusting(selectedImage);
+      console.log('🔄 [HERO] Com cache busting:', finalImage);
+      return finalImage;
     }
     
-    // Apply cache busting to selected image
-    const finalImage = addCacheBusting(selectedImage);
-    console.log('🔄 [HERO] Final image with cache busting:', finalImage);
-    
-    return finalImage;
+    return selectedImage;
   }, [isMobile, heroContent.image_url_mobile, heroContent.image_url_desktop, heroContent.image_url]);
 
-  const fallbackImage = '/src/assets/hero-elegant-woman.webp';
+  const [currentFallbackIndex, setCurrentFallbackIndex] = useState(0);
+  const fallbackImages = [
+    '/src/assets/hero-main.webp',
+    '/src/assets/hero-elegant-woman.webp',
+    '/src/assets/hero-second-banner.webp'
+  ];
 
   const handleImageError = () => {
-    console.error('Failed to load hero image:', primaryImage);
-    setImageError(true);
+    console.error('❌ [HERO] Falha ao carregar imagem:', primaryImage);
+    
+    // Try next fallback image
+    if (currentFallbackIndex < fallbackImages.length - 1) {
+      console.log('🔄 [HERO] Tentando próximo fallback:', fallbackImages[currentFallbackIndex + 1]);
+      setCurrentFallbackIndex(prev => prev + 1);
+    } else {
+      console.warn('🚨 [HERO] Todos os fallbacks falharam');
+      setImageError(true);
+    }
   };
 
   const handleImageLoad = () => {
@@ -101,11 +124,13 @@ export const HeroSection: React.FC = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
         <OptimizedImage
-          src={imageError ? fallbackImage : primaryImage}
+          src={imageError ? fallbackImages[fallbackImages.length - 1] : (currentFallbackIndex > 0 ? fallbackImages[currentFallbackIndex] : primaryImage)}
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele"
           className="w-full h-full"
           priority={true}
           sizes="100vw"
+          onError={handleImageError}
+          onLoad={handleImageLoad}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>

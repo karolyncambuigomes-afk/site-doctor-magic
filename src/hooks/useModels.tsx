@@ -70,6 +70,15 @@ export const useModels = () => {
       setLoading(true);
       setError(null);
 
+      // Data validation helper
+      const isValidModel = (model: any) => {
+        return model && 
+               model.id && 
+               model.name && 
+               model.name.trim() !== '' &&
+               model.name !== 'Teste';
+      };
+
       console.log('useModels: Checking user state', { user: !!user });
 
       if (!user) {
@@ -87,7 +96,7 @@ export const useModels = () => {
         console.log('Models Hook - Raw public models data:', data);
 
         // Transform the public data to match our Model interface
-        const transformedModels = data?.map((model: any) => {
+        const transformedModels = data?.filter(isValidModel).map((model: any) => {
           console.log('Models Hook - Processing model:', model.name, 'price:', model.price);
           
           // Create pricing structure from base price
@@ -145,7 +154,7 @@ export const useModels = () => {
         }
 
         // Transform database data to match our Model interface
-        const transformedModels = data?.map((model: any) => {
+        const transformedModels = data?.filter(isValidModel).map((model: any) => {
           // Sort gallery images by order_index and extract URLs
           const galleryImages = model.model_gallery
             ?.sort((a: any, b: any) => a.order_index - b.order_index)
@@ -213,7 +222,7 @@ export const useModels = () => {
           return;
         }
 
-        const transformedModels = data?.map((model: any) => {
+        const transformedModels = data?.filter(isValidModel).map((model: any) => {
           // Create pricing structure from base price
           const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
           const pricing = {

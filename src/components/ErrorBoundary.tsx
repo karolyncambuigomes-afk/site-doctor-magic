@@ -2,12 +2,12 @@ import React from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  errorMessage?: string;
+  error?: Error;
 }
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  fallback?: React.ReactNode;
+  fallback?: (error: Error) => React.ReactNode;
 }
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -20,7 +20,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     console.error('ErrorBoundary caught error:', error);
     return { 
       hasError: true, 
-      errorMessage: error.message 
+      error: error 
     };
   }
 
@@ -30,8 +30,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
   render() {
     if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback;
+      if (this.props.fallback && this.state.error) {
+        return this.props.fallback(this.state.error);
       }
 
       return (

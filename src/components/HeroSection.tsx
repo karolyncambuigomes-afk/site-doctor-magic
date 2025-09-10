@@ -12,13 +12,9 @@ export const HeroSection: React.FC = () => {
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Auto-sync model images on component mount
+  // Removed auto-sync to prevent potential issues
   useEffect(() => {
-    syncModelMainImages().then(result => {
-      if (result.success && result.synced && result.synced > 0) {
-        console.log(`✅ [HeroSection] Auto-synced ${result.synced} model images`);
-      }
-    });
+    console.log('🎯 [HeroSection] Component mounted without auto-sync');
   }, []);
 
   // Validate if URL is accessible

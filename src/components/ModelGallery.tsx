@@ -87,7 +87,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       const images: GalleryImage[] = imgs.map((url, index) => ({
         id: `img-${index}`,
         image_url: url,
-        caption: `${modelName} - Foto ${index + 1}`,
         order_index: index
       }));
 
@@ -273,14 +272,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           </div>
         )}
 
-        {/* Caption */}
-        {allImages[currentImageIndex]?.caption && (
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground italic">
-              {allImages[currentImageIndex].caption}
-            </p>
-          </div>
-        )}
       </div>
 
       {/* Lightbox Modal */}
@@ -329,11 +320,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
               <div className="text-white text-center">
                 <p className="text-lg font-medium">{modelName}</p>
-                {allImages[currentImageIndex]?.caption && (
-                  <p className="text-sm opacity-90 mt-1">
-                    {allImages[currentImageIndex].caption}
-                  </p>
-                )}
                 <p className="text-xs opacity-75 mt-2">
                   {currentImageIndex + 1} of {allImages.length}
                 </p>

@@ -7,6 +7,8 @@ export interface HeroContent {
   subtitle: string;
   content: string;
   image_url?: string;
+  image_url_desktop?: string;
+  image_url_mobile?: string;
   button_primary_text?: string;
   button_primary_url?: string;
   button_secondary_text?: string;
@@ -65,6 +67,8 @@ export const useHomepageContent = () => {
           subtitle: data.subtitle || heroContent.subtitle,
           content: data.content || heroContent.content,
           image_url: data.image_url || heroContent.image_url,
+          image_url_desktop: data.image_url_desktop || heroContent.image_url_desktop,
+          image_url_mobile: data.image_url_mobile || heroContent.image_url_mobile,
           button_primary_text: data.button_text || heroContent.button_primary_text,
           button_primary_url: data.button_url || heroContent.button_primary_url,
           button_secondary_text: heroContent.button_secondary_text,
@@ -95,6 +99,8 @@ export const useHomepageContent = () => {
           subtitle: updates.subtitle || heroContent.subtitle,
           content: updates.content || heroContent.content,
           image_url: updates.image_url || heroContent.image_url,
+          image_url_desktop: updates.image_url_desktop || heroContent.image_url_desktop,
+          image_url_mobile: updates.image_url_mobile || heroContent.image_url_mobile,
           button_text: updates.button_primary_text || heroContent.button_primary_text,
           button_url: updates.button_primary_url || heroContent.button_primary_url,
           is_active: true,

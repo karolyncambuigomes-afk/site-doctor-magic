@@ -35,6 +35,8 @@ export const HomepageManager: React.FC = () => {
     subtitle: '',
     content: '',
     image_url: '',
+    image_url_desktop: '',
+    image_url_mobile: '',
     button_primary_text: '',
     button_primary_url: ''
   });
@@ -47,6 +49,8 @@ export const HomepageManager: React.FC = () => {
         subtitle: heroContent.subtitle || '',
         content: heroContent.content || '',
         image_url: heroContent.image_url || '',
+        image_url_desktop: heroContent.image_url_desktop || '',
+        image_url_mobile: heroContent.image_url_mobile || '',
         button_primary_text: heroContent.button_primary_text || '',
         button_primary_url: heroContent.button_primary_url || ''
       });
@@ -202,20 +206,54 @@ export const HomepageManager: React.FC = () => {
 
               <Separator />
 
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Upload className="h-4 w-4" />
-                  Imagem do Banner
-                </Label>
-                <ImageUpload
-                  value={heroFormData.image_url}
-                  onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url: url }))}
-                  placeholder="URL da imagem do banner ou faça upload"
-                  label=""
-                />
-                <p className="text-xs text-muted-foreground">
-                  Esta imagem será exibida como fundo da seção principal da homepage. Recomendamos imagens em alta resolução (1920x1080 ou superior).
-                </p>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Upload className="h-4 w-4" />
+                    Banner Desktop
+                  </Label>
+                  <ImageUpload
+                    value={heroFormData.image_url_desktop}
+                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url_desktop: url }))}
+                    placeholder="URL da imagem desktop ou faça upload"
+                    label=""
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Imagem otimizada para desktop. Recomendamos proporção 16:9 (ex: 1920x1080).
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Upload className="h-4 w-4" />
+                    Banner Mobile
+                  </Label>
+                  <ImageUpload
+                    value={heroFormData.image_url_mobile}
+                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url_mobile: url }))}
+                    placeholder="URL da imagem mobile ou faça upload"
+                    label=""
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Imagem otimizada para mobile. Recomendamos proporção vertical ou quadrada (ex: 768x1024 ou 1080x1080).
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Upload className="h-4 w-4" />
+                    Banner Geral (Fallback)
+                  </Label>
+                  <ImageUpload
+                    value={heroFormData.image_url}
+                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url: url }))}
+                    placeholder="URL da imagem geral ou faça upload"
+                    label=""
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Imagem de fallback caso não tenha imagens específicas para desktop/mobile.
+                  </p>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -250,6 +288,8 @@ export const HomepageManager: React.FC = () => {
                       subtitle: heroFormData.subtitle,
                       content: heroFormData.content,
                       image_url: heroFormData.image_url,
+                      image_url_desktop: heroFormData.image_url_desktop,
+                      image_url_mobile: heroFormData.image_url_mobile,
                       button_primary_text: heroFormData.button_primary_text,
                       button_primary_url: heroFormData.button_primary_url
                     });

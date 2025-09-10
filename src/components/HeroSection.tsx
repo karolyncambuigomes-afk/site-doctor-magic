@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
+  const isMobile = useIsMobile();
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -17,8 +19,16 @@ export const HeroSection: React.FC = () => {
     setImageLoaded(true);
   };
 
-  // Use database image if available, otherwise fallback to uploaded image
-  const primaryImage = heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+  // Determine which image to use based on device type
+  const getResponsiveImage = () => {
+    if (isMobile) {
+      return heroContent.image_url_mobile || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+    } else {
+      return heroContent.image_url_desktop || heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+    }
+  };
+
+  const primaryImage = getResponsiveImage();
   const fallbackImage = '/src/assets/hero-elegant-woman.webp';
 
   if (loading) {

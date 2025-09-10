@@ -938,6 +938,8 @@ export type Database = {
           id: string
           image_alt: string | null
           image_url: string | null
+          image_url_desktop: string | null
+          image_url_mobile: string | null
           is_active: boolean | null
           meta_data: Json | null
           section: string
@@ -953,6 +955,8 @@ export type Database = {
           id?: string
           image_alt?: string | null
           image_url?: string | null
+          image_url_desktop?: string | null
+          image_url_mobile?: string | null
           is_active?: boolean | null
           meta_data?: Json | null
           section: string
@@ -968,6 +972,8 @@ export type Database = {
           id?: string
           image_alt?: string | null
           image_url?: string | null
+          image_url_desktop?: string | null
+          image_url_mobile?: string | null
           is_active?: boolean | null
           meta_data?: Json | null
           section?: string

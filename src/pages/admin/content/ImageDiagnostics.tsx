@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
+import { ProductionImageValidator } from '@/components/ProductionImageValidator';
 
 // Types
 interface ImageItem {

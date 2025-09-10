@@ -6,10 +6,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ThemeManager } from '@/components/ThemeManager';
 import { PreferenceCategoriesManager } from '@/components/PreferenceCategoriesManager';
 import { LegalPagesManager } from '@/components/LegalPagesManager';
-import { Settings, Palette, Tags, FileText, Database, Shield } from 'lucide-react';
+import { Settings, Palette, Tags, FileText, Database, Shield, Image } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { useImagePreference } from '@/hooks/useImagePreference';
 
 export const SystemSettings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('theme');
+  const { preferLocalImages, updatePreference } = useImagePreference();
 
   return (
     <AdminLayout>
@@ -29,7 +33,7 @@ export const SystemSettings: React.FC = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="theme" className="flex items-center gap-2">
               <Palette className="h-4 w-4" />
               Tema
@@ -45,6 +49,10 @@ export const SystemSettings: React.FC = () => {
             <TabsTrigger value="database" className="flex items-center gap-2">
               <Database className="h-4 w-4" />
               Base de Dados
+            </TabsTrigger>
+            <TabsTrigger value="images" className="flex items-center gap-2">
+              <Image className="h-4 w-4" />
+              Imagens
             </TabsTrigger>
             <TabsTrigger value="security" className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
@@ -207,6 +215,86 @@ export const SystemSettings: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">Tamanho do Cache</span>
                       <span className="text-sm">124MB</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="images" className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Configurações de Imagem</CardTitle>
+                  <CardDescription>
+                    Configure como as imagens são carregadas e exibidas no site
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center justify-between space-x-2">
+                    <Label htmlFor="prefer-local" className="flex flex-col space-y-1">
+                      <span className="font-medium">Preferir Imagens Locais</span>
+                      <span className="text-sm text-muted-foreground">
+                        Quando ativado, o sistema priorizará imagens armazenadas localmente sobre URLs externas
+                      </span>
+                    </Label>
+                    <Switch
+                      id="prefer-local"
+                      checked={preferLocalImages}
+                      onCheckedChange={updatePreference}
+                    />
+                  </div>
+                  
+                  <div className="space-y-3 pt-4 border-t">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Status Atual</span>
+                      <span className={`text-sm ${preferLocalImages ? 'text-emerald-600' : 'text-orange-600'}`}>
+                        {preferLocalImages ? 'Imagens Locais Prioritárias' : 'URLs Externas Prioritárias'}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Performance</span>
+                      <span className="text-sm text-emerald-600">
+                        {preferLocalImages ? 'Otimizada (Local)' : 'Dependente de CDN'}
+                      </span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Cache</span>
+                      <span className="text-sm text-emerald-600">
+                        {preferLocalImages ? 'Edge Cache Ativo' : 'Browser Cache'}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Informações do Sistema</CardTitle>
+                  <CardDescription>
+                    Status do sistema de imagens e fallbacks
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Bucket de Imagens</span>
+                      <span className="text-sm text-emerald-600">Ativo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Proxy /images/</span>
+                      <span className="text-sm text-emerald-600">Funcionando</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Fallback System</span>
+                      <span className="text-sm text-emerald-600">Configurado</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">Cache Bust</span>
+                      <span className="text-sm text-emerald-600">Automático</span>
                     </div>
                   </div>
                 </CardContent>

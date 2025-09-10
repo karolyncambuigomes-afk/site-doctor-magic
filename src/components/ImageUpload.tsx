@@ -51,13 +51,61 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         .getPublicUrl(filePath);
 
       const imageUrl = data.publicUrl;
-      setPreviewUrl(imageUrl);
-      onChange(imageUrl);
+      
+      // Check if this is a banner image and sync to local
+      const isBannerImage = label?.toLowerCase().includes('banner') || 
+                           label?.toLowerCase().includes('hero') ||
+                           label?.toLowerCase().includes('desktop') ||
+                           label?.toLowerCase().includes('mobile');
+      
+      let finalUrl = imageUrl;
+      
+      if (isBannerImage) {
+        try {
+          console.log('🔄 Syncing banner image to local storage:', imageUrl);
+          
+          toast({
+            title: "Processando",
+            description: "Otimizando imagem para melhor performance..."
+          });
+          
+          // Call Edge Function to sync image to local
+          const { data: syncData, error: syncError } = await supabase.functions
+            .invoke('sync-image-to-local', {
+              body: { 
+                imageUrl: imageUrl,
+                imageType: 'hero-banner'
+              }
+            });
 
-      toast({
-        title: "Sucesso",
-        description: "Imagem enviada com sucesso"
-      });
+          if (syncError) {
+            console.error('❌ Sync error:', syncError);
+            // Continue with original URL if sync fails
+          } else if (syncData?.success) {
+            console.log('✅ Image synced successfully:', syncData);
+            // Use local path as final URL
+            finalUrl = syncData.localPath;
+            
+            toast({
+              title: "Sucesso",
+              description: "Imagem otimizada e salva localmente"
+            });
+          }
+        } catch (syncError) {
+          console.error('❌ Error syncing to local:', syncError);
+          // Continue with original URL if sync fails
+        }
+      }
+      
+      setPreviewUrl(finalUrl);
+      onChange(finalUrl);
+
+      if (!isBannerImage) {
+        toast({
+          title: "Sucesso",
+          description: "Imagem enviada com sucesso"
+        });
+      }
 
     } catch (error) {
       console.error('Error uploading file:', error);

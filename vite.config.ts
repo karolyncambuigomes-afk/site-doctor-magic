@@ -129,7 +129,7 @@ export default defineConfig(({ mode }) => ({
         }
       }
     },
-    sourcemap: false,
+    sourcemap: true,
     assetsInlineLimit: 1024,
     chunkSizeWarningLimit: 500,
     minify: 'esbuild',

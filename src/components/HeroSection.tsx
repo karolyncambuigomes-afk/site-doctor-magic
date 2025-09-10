@@ -3,6 +3,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/useMediaQuery';
 import { OptimizedImage } from '@/components/OptimizedImage';
+import { addCacheBusting } from '@/utils/imageCacheBuster';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
@@ -42,7 +43,11 @@ export const HeroSection: React.FC = () => {
       );
     }
     
-    return selectedImage;
+    // Apply cache busting to selected image
+    const finalImage = addCacheBusting(selectedImage);
+    console.log('🔄 [HERO] Final image with cache busting:', finalImage);
+    
+    return finalImage;
   }, [isMobile, heroContent.image_url_mobile, heroContent.image_url_desktop, heroContent.image_url]);
 
   const fallbackImage = '/src/assets/hero-elegant-woman.webp';

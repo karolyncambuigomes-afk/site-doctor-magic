@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageMapper';
+import { addCacheBusting } from '@/utils/imageCacheBuster';
 
 export interface CarouselModel {
   id: string;
@@ -37,14 +38,16 @@ export const useHomepageCarousel = () => {
         return;
       }
 
-      // Transform data to match our interface, with gallery fallback for images
+      // Transform data to match our interface, with robust gallery fallback for images
       const transformedModels = [];
       
       for (const model of modelsData || []) {
         let imageUrl = model.image;
         
-        // If no main image, try to get from gallery
-        if (!imageUrl) {
+        // Robust fallback: try main image, then first gallery image
+        if (!imageUrl || imageUrl.trim() === '') {
+          console.log(`🔍 [CAROUSEL] Model ${model.name} sem imagem principal, buscando na galeria`);
+          
           const { data: galleryData } = await supabase
             .from('model_gallery')
             .select('image_url')
@@ -54,8 +57,16 @@ export const useHomepageCarousel = () => {
           
           if (galleryData && galleryData.length > 0) {
             imageUrl = galleryData[0].image_url;
+            console.log(`✅ [CAROUSEL] Encontrada imagem de fallback para ${model.name}:`, imageUrl);
+          } else {
+            console.warn(`⚠️ [CAROUSEL] Nenhuma imagem encontrada para ${model.name}`);
           }
+        } else {
+          console.log(`✅ [CAROUSEL] Model ${model.name} tem imagem principal:`, imageUrl);
         }
+        
+        // Apply aggressive cache busting
+        imageUrl = addCacheBusting(imageUrl);
         
         transformedModels.push({
           id: model.id,

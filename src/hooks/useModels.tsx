@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/AuthProvider';
 import { getImageUrl } from '@/utils/imageMapper';
+import { addCacheBusting } from '@/utils/imageCacheBuster';
 
 export interface Model {
   id: string;
@@ -150,8 +151,23 @@ export const useModels = () => {
             ?.sort((a: any, b: any) => a.order_index - b.order_index)
             ?.map((img: any) => img.image_url) || [];
           
-          // Use first gallery image as main image, or keep existing image field as fallback
-          const mainImage = galleryImages[0] || model.image;
+          // Robust fallback logic for main image
+          let mainImage = model.image;
+          
+          if (!mainImage || mainImage.trim() === '') {
+            console.log(`🔍 [MODELS] Model ${model.name} sem imagem principal, usando primeira da galeria`);
+            mainImage = galleryImages[0];
+            if (mainImage) {
+              console.log(`✅ [MODELS] Fallback image found for ${model.name}:`, mainImage);
+            } else {
+              console.warn(`⚠️ [MODELS] Nenhuma imagem encontrada para ${model.name}`);
+            }
+          } else {
+            console.log(`✅ [MODELS] Model ${model.name} tem imagem principal:`, mainImage);
+          }
+          
+          // Apply aggressive cache busting
+          mainImage = addCacheBusting(mainImage);
           
           return {
             id: model.id,
@@ -165,7 +181,7 @@ export const useModels = () => {
               threeHours: '£1,300',
               additionalHour: '£400'
             },
-            image: mainImage, // Use first gallery image as main
+            image: getImageUrl(mainImage), // Use processed main image with fallback
             gallery: galleryImages.slice(1), // Rest of gallery images
             services: model.services || [],
             characteristics: model.characteristics || [],

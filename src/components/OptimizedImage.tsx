@@ -52,10 +52,12 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const imageSources = generateImageSources({ src, alt, width, height });
 
   const handleLoad = () => {
+    console.log(`✅ [OptimizedImage] Image loaded successfully:`, src);
     setIsLoaded(true);
   };
 
-  const handleError = () => {
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    console.error(`❌ [OptimizedImage] Failed to load image:`, src, e);
     setError(true);
     setIsLoaded(true);
   };

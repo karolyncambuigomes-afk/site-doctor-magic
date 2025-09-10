@@ -1,3 +1,4 @@
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +18,8 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { ResourcePreloader, IdlePrefetcher, DNSPrefetcher } from "@/components/ResourceOptimizer";
 // Temporarily disabled CSS optimizer due to blue screen issue
 // import { CSSOptimizer, ResponsiveCSS } from "@/components/CSSOptimizer";
+
+import { SimpleDebug as SimpleDebugComponent } from "@/components/SimpleDebug";
 
 // Critical pages that should load immediately
 import { Auth } from "./pages/Auth";
@@ -139,6 +142,7 @@ const App = () => (
                   <Sonner />
                   <BookNowButton />
                   <SkipToContent />
+                  {import.meta.env.DEV && <SimpleDebugComponent />}
                   <Routes>
                   {/* Critical pages - no lazy loading */}
                   <Route path="/" element={<Index />} />

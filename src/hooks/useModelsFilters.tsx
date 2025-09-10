@@ -30,53 +30,37 @@ export const useModelsFilters = () => {
   useEffect(() => {
     const loadFilterOptions = async () => {
       try {
-        const [locationsResult, characteristicsResult, servicesResult] = await Promise.all([
-          supabase.rpc('get_distinct_locations'),
-          supabase.rpc('get_distinct_characteristics'),
-          supabase.rpc('get_distinct_services'),
-        ]);
-
-        // Fallback to direct queries if RPC functions don't exist
-        if (locationsResult.error) {
-          const { data: locations } = await supabase
+        // Direct queries since RPC functions don't exist
+        const [locationsQuery, modelsQuery] = await Promise.all([
+          supabase
             .from('models')
             .select('location')
-            .not('location', 'is', null);
-          
-          const uniqueLocations = [...new Set(locations?.map(m => m.location) || [])].filter(Boolean);
-          setAvailableOptions(prev => ({ ...prev, locations: uniqueLocations }));
-        } else {
-          setAvailableOptions(prev => ({ ...prev, locations: locationsResult.data || [] }));
-        }
-
-        if (characteristicsResult.error) {
-          const { data: models } = await supabase
+            .not('location', 'is', null),
+          supabase
             .from('models')
-            .select('characteristics')
-            .not('characteristics', 'is', null);
-          
-          const allCharacteristics = models?.flatMap(m => m.characteristics || []) || [];
-          const uniqueCharacteristics = [...new Set(allCharacteristics)].filter(Boolean);
-          setAvailableOptions(prev => ({ ...prev, characteristics: uniqueCharacteristics }));
-        } else {
-          setAvailableOptions(prev => ({ ...prev, characteristics: characteristicsResult.data || [] }));
-        }
+            .select('characteristics, services')
+            .not('characteristics', 'is', null)
+            .not('services', 'is', null)
+        ]);
 
-        if (servicesResult.error) {
-          const { data: models } = await supabase
-            .from('models')
-            .select('services')
-            .not('services', 'is', null);
-          
-          const allServices = models?.flatMap(m => m.services || []) || [];
-          const uniqueServices = [...new Set(allServices)].filter(Boolean);
-          setAvailableOptions(prev => ({ ...prev, services: uniqueServices }));
-        } else {
-          setAvailableOptions(prev => ({ ...prev, services: servicesResult.data || [] }));
-        }
+        // Extract unique locations
+        const uniqueLocations = [...new Set(locationsQuery.data?.map(m => m.location) || [])].filter(Boolean);
+        
+        // Extract unique characteristics and services
+        const allCharacteristics = modelsQuery.data?.flatMap(m => m.characteristics || []) || [];
+        const uniqueCharacteristics = [...new Set(allCharacteristics)].filter(Boolean);
+        
+        const allServices = modelsQuery.data?.flatMap(m => m.services || []) || [];
+        const uniqueServices = [...new Set(allServices)].filter(Boolean);
+
+        setAvailableOptions({
+          locations: uniqueLocations,
+          characteristics: uniqueCharacteristics,
+          services: uniqueServices,
+        });
       } catch (error) {
         console.error('Error loading filter options:', error);
-        // Fallback to hardcoded values based on our query results
+        // Fallback to hardcoded values
         setAvailableOptions({
           locations: ['Knightsbridge', 'Mayfair'],
           characteristics: [

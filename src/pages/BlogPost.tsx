@@ -7,24 +7,40 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
-import { getBlogArticleBySlug, getRelatedArticles } from "@/data/blog-articles";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { BlogContentRenderer } from "@/components/BlogContentRenderer";
 import NotFound from "./NotFound";
 
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
+  const { getPostBySlug, getRelatedPosts, loading } = useBlogPosts();
   
   if (!slug) {
     return <NotFound />;
   }
 
-  const article = getBlogArticleBySlug(slug);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="container-width py-16 text-center">
+          <div className="flex items-center justify-center gap-2">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+            <span>Loading article...</span>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const article = getPostBySlug(slug);
   
   if (!article) {
     return <NotFound />;
   }
 
-  const relatedArticles = getRelatedArticles(slug, 3);
+  const relatedArticles = getRelatedPosts(slug, 3);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -32,8 +48,8 @@ const BlogPost = () => {
     "headline": article.title,
     "description": article.excerpt,
     "image": article.image,
-    "datePublished": article.publishedAt,
-    "dateModified": article.publishedAt,
+    "datePublished": article.published_at,
+    "dateModified": article.updated_at,
     "author": {
       "@type": "Organization",
       "name": article.author,
@@ -51,18 +67,18 @@ const BlogPost = () => {
       "@type": "WebPage",
       "@id": `https://fivelondon.com/blog/${article.slug}`
     },
-    "keywords": article.seoKeywords,
+    "keywords": article.seo_keywords,
     "articleSection": article.category,
     "wordCount": article.content.length,
-    "timeRequired": `PT${article.readTime}M`
+    "timeRequired": `PT${article.read_time}M`
   };
 
   return (
     <>
       <SEO
         title={article.title}
-        description={article.metaDescription}
-        keywords={article.seoKeywords}
+        description={article.meta_description}
+        keywords={article.seo_keywords}
         canonicalUrl={`/blog/${article.slug}`}
         ogImage={article.image}
         structuredData={structuredData}
@@ -104,8 +120,8 @@ const BlogPost = () => {
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                     <time dateTime={article.publishedAt}>
-                       {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                    <time dateTime={article.published_at}>
+                      {new Date(article.published_at).toLocaleDateString('en-GB', {
                          day: 'numeric',
                          month: 'long',
                          year: 'numeric'
@@ -114,7 +130,7 @@ const BlogPost = () => {
                   </div>
                       <div className="flex items-center gap-2">
                         <Clock className="w-4 h-4" />
-                        <span>{article.readTime} minutes read</span>
+                        <span>{article.read_time} minutes read</span>
                       </div>
                       <div>
                         By {article.author}

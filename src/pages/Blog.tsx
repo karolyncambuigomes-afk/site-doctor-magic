@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
-import { blogArticles } from "@/data/blog-articles";
+import { Calendar, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const Blog = () => {
+  const { posts, loading, error, categories } = useBlogPosts();
+
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
@@ -29,28 +31,84 @@ const Blog = () => {
         "url": "https://fivelondon.com",
         "logo": "https://fivelondon.com/logo.png"
       },
-      "blogPost": blogArticles.map(article => ({
+      "blogPost": posts.map(post => ({
         "@type": "BlogPosting",
-        "headline": article.title,
-        "description": article.excerpt,
-        "url": `https://fivelondon.com/blog/${article.slug}`,
-        "datePublished": article.publishedAt,
-        "dateModified": article.publishedAt,
+        "headline": post.title,
+        "description": post.excerpt,
+        "url": `https://fivelondon.com/blog/${post.slug}`,
+        "datePublished": post.published_at,
+        "dateModified": post.updated_at,
         "author": {
           "@type": "Organization",
-          "name": article.author
+          "name": post.author
         },
-        "image": article.image,
-        "keywords": article.seoKeywords,
+        "image": post.image,
+        "keywords": post.seo_keywords,
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://fivelondon.com/blog/${article.slug}`
+          "@id": `https://fivelondon.com/blog/${post.slug}`
         }
       }))
     }
   ];
 
-  const categories = [...new Set(blogArticles.map(article => article.category))];
+  if (loading) {
+    return (
+      <>
+        <SEO
+          title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
+          description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations."
+          keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London"
+          canonicalUrl="/blog"
+        />
+        <div className="min-h-screen bg-white">
+          <Navigation />
+          <main className="pt-0">
+            <section className="py-16 md:py-24 bg-white">
+              <div className="container-width text-center">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                  <div className="flex items-center justify-center gap-2">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                    <span className="luxury-body-lg text-black">Loading articles...</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+          <Footer />
+        </div>
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <SEO
+          title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
+          description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London."
+          canonicalUrl="/blog"
+        />
+        <div className="min-h-screen bg-white">
+          <Navigation />
+          <main className="pt-0">
+            <section className="py-16 md:py-24 bg-white">
+              <div className="container-width text-center">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                  <h1 className="luxury-heading-xl mb-4 text-red-600">Error Loading Blog</h1>
+                  <p className="luxury-body-lg text-black mb-8">{error}</p>
+                  <Button onClick={() => window.location.reload()}>
+                    Try Again
+                  </Button>
+                </div>
+              </div>
+            </section>
+          </main>
+          <Footer />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -113,17 +171,17 @@ const Blog = () => {
           <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
-                {blogArticles.map((article) => (
-                  <Card key={article.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
+                {posts.map((post) => (
+                  <Card key={post.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
                       <img 
-                        src={article.image} 
-                        alt={article.title}
+                        src={post.image} 
+                        alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
                         <Badge variant="secondary" className="bg-background/90 text-black text-xs">
-                          {article.category}
+                          {post.category}
                         </Badge>
                       </div>
                     </div>
@@ -132,15 +190,15 @@ const Blog = () => {
                       <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                           <time dateTime={article.publishedAt} className="hidden sm:inline">
-                             {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                           <time dateTime={post.published_at} className="hidden sm:inline">
+                             {new Date(post.published_at).toLocaleDateString('en-GB', {
                                day: 'numeric',
                                month: 'long',
                                year: 'numeric'
                              })}
                            </time>
-                           <time dateTime={article.publishedAt} className="sm:hidden">
-                             {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                           <time dateTime={post.published_at} className="sm:hidden">
+                             {new Date(post.published_at).toLocaleDateString('en-GB', {
                                day: 'numeric',
                                month: 'short'
                              })}
@@ -148,21 +206,21 @@ const Blog = () => {
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{article.readTime} min</span>
+                          <span>{post.read_time} min</span>
                         </div>
                       </div>
                       
                       <h2 className="luxury-heading-sm font-medium text-black group-hover:text-black/80 transition-colors leading-tight">
-                        {article.title}
+                        {post.title}
                       </h2>
                     </CardHeader>
                     
                     <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6 bg-white">
                       <p className="luxury-body-xs text-black leading-relaxed mb-4 sm:mb-6">
-                        {article.excerpt}
+                        {post.excerpt}
                       </p>
                       
-                      <Link to={`/blog/${article.slug}`}>
+                      <Link to={`/blog/${post.slug}`}>
                         <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-black hover:text-black/80 luxury-body-sm">
                           Read full article
                           <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />

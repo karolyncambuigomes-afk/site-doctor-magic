@@ -15,6 +15,7 @@ import { Separator } from '@/components/ui/separator';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { ImageUpload } from '@/components/ImageUpload';
+import { BlogMigrationManager } from '@/components/BlogMigrationManager';
 import { 
   BookOpen, 
   Plus, 
@@ -207,6 +208,9 @@ export const BlogManager: React.FC = () => {
             />
           </Dialog>
         </div>
+
+        {/* Migration Manager */}
+        <BlogMigrationManager />
 
         {/* Blog Posts Table */}
         <Card>

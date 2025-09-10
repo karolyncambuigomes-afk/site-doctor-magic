@@ -17,7 +17,8 @@ export const HeroSection: React.FC = () => {
     setImageLoaded(true);
   };
 
-  // Fallback image from assets
+  // Use the elegant woman image as primary
+  const primaryImage = '/src/assets/hero-elegant-woman.webp';
   const fallbackImage = '/src/assets/hero-main.jpg';
 
   if (loading) {
@@ -25,7 +26,7 @@ export const HeroSection: React.FC = () => {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0 bg-gray-900">
           <img 
-            src={imageError ? fallbackImage : "/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png"}
+            src={imageError ? fallbackImage : primaryImage}
             alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
             className="w-full h-full object-cover object-center" 
             loading="eager"
@@ -54,7 +55,7 @@ export const HeroSection: React.FC = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
         <img 
-          src={imageError ? fallbackImage : "/lovable-uploads/b9666d02-1bbe-4bf1-88f4-63fd2c735981.png"}
+          src={imageError ? fallbackImage : primaryImage}
           alt="Elite luxury escorts and sophisticated companions in London's prestigious Mayfair, Knightsbridge, and Chelsea districts offering discreet premium escort services for discerning clientele" 
           className="w-full h-full object-cover object-center" 
           loading="eager"

@@ -56,12 +56,33 @@ export const EnhancedImageUpload: React.FC<EnhancedImageUploadProps> = ({
         .from('model-images')
         .getPublicUrl(filePath);
 
-      onChange(data.publicUrl);
+      // Auto-sync blog image to local
+      let finalImageUrl = data.publicUrl;
+      try {
+        const { data: syncData, error: syncError } = await supabase.functions.invoke('sync-image-to-local', {
+          body: { 
+            imageUrl: data.publicUrl,
+            imageType: 'blog',
+            category: label?.toLowerCase().includes('blog') ? 'content' : 'general'
+          }
+        });
+
+        if (syncError) {
+          console.error('Blog image sync error:', syncError);
+        } else if (syncData?.success) {
+          console.log('✅ Blog image synced to local:', syncData.localPath);
+          finalImageUrl = syncData.localPath;
+        }
+      } catch (syncError) {
+        console.error('Blog image sync function error:', syncError);
+      }
+
+      onChange(finalImageUrl);
       setIsEditorOpen(false);
       
       toast({
         title: "Sucesso!",
-        description: "Imagem editada e salva com sucesso",
+        description: finalImageUrl !== data.publicUrl ? "Imagem editada e otimizada" : "Imagem editada e salva com sucesso",
       });
     } catch (error) {
       console.error('Error saving edited image:', error);

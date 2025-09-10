@@ -69,27 +69,27 @@ export const blogImages: BlogImageMap = {
   },
   'culture': {
     'entertainment': [
-      '/src/assets/blog-entertainment-culture.jpg',
-      '/src/assets/model2.jpg',
-      '/src/assets/luisa1.jpg'
+      '/images/blog-entertainment-culture.jpg',
+      '/images/model2.jpg',
+      '/images/luisa1.jpg'
     ],
     'art': [
-      '/src/assets/blog-entertainment-culture.jpg',
-      '/src/assets/model3.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/blog-entertainment-culture.jpg',
+      '/images/model3.jpg',
+      '/images/kate1.jpg'
     ],
     'theater': [
-      '/src/assets/blog-entertainment-culture.jpg',
-      '/src/assets/model1.jpg',
-      '/src/assets/model4.jpg'
+      '/images/blog-entertainment-culture.jpg',
+      '/images/model1.jpg',
+      '/images/model4.jpg'
     ],
     'museums': [
-      '/src/assets/blog-entertainment-culture.jpg',
-      '/src/assets/luisa1.jpg'
+      '/images/blog-entertainment-culture.jpg',
+      '/images/luisa1.jpg'
     ],
     'concerts': [
-      '/src/assets/blog-entertainment-culture.jpg',
-      '/src/assets/model2.jpg'
+      '/images/blog-entertainment-culture.jpg',
+      '/images/model2.jpg'
     ]
   },
   'luxury': {
@@ -121,29 +121,29 @@ export const blogImages: BlogImageMap = {
   },
   'lifestyle': {
     'wellness': [
-      '/src/assets/model1.jpg',
-      '/src/assets/kate1.jpg'
+      '/images/model1.jpg',
+      '/images/kate1.jpg'
     ],
     'fitness': [
-      '/src/assets/model2.jpg',
-      '/src/assets/luisa1.jpg'
+      '/images/model2.jpg',
+      '/images/luisa1.jpg'
     ],
     'fashion': [
-      '/src/assets/model3.jpg',
-      '/src/assets/model4.jpg'
+      '/images/model3.jpg',
+      '/images/model4.jpg'
     ]
   },
   'experiences': {
     'private': [
-      '/src/assets/blog-exclusive-experiences.jpg',
-      '/src/assets/model1.jpg'
+      '/images/blog-exclusive-experiences.jpg',
+      '/images/model1.jpg'
     ],
     'gastronomic': [
-      '/src/assets/blog-restaurant-dining.jpg',
-      '/src/assets/model2.jpg'
+      '/images/blog-restaurant-dining.jpg',
+      '/images/model2.jpg'
     ],
     'cultural': [
-      '/src/assets/blog-entertainment-culture.jpg',
+      '/images/blog-entertainment-culture.jpg',
       '/images/model3.jpg'
     ],
     wellness: [
@@ -174,7 +174,7 @@ export const blogImages: BlogImageMap = {
   },
   entertainment: {
     culture: [
-      '/src/assets/blog-entertainment-culture.jpg',
+      '/images/blog-entertainment-culture.jpg',
       '/images/model1.jpg'
     ],
     nightlife: [
@@ -182,7 +182,7 @@ export const blogImages: BlogImageMap = {
       '/images/model3.jpg'
     ],
     events: [
-      '/src/assets/blog-london-events.jpg',
+      '/images/blog-london-events.jpg',
       '/images/model4.jpg'
     ]
   }

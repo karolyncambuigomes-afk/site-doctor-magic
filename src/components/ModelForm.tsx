@@ -216,12 +216,33 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         .from('model-images')
         .getPublicUrl(fileName);
 
-      handleInputChange('image', publicUrl);
+      // Auto-sync model main image to local
+      let finalImageUrl = publicUrl;
+      try {
+        const { data: syncData, error: syncError } = await supabase.functions.invoke('sync-image-to-local', {
+          body: { 
+            imageUrl: publicUrl,
+            imageType: 'model-main',
+            modelId: model?.id || 'new'
+          }
+        });
+
+        if (syncError) {
+          console.error('Model main image sync error:', syncError);
+        } else if (syncData?.success) {
+          console.log('✅ Model main image synced to local:', syncData.localPath);
+          finalImageUrl = syncData.localPath;
+        }
+      } catch (syncError) {
+        console.error('Model main image sync function error:', syncError);
+      }
+
+      handleInputChange('image', finalImageUrl);
       setEditingMainImage(false);
       
       toast({
         title: "Sucesso",
-        description: "Foto principal atualizada com sucesso",
+        description: finalImageUrl !== publicUrl ? "Foto principal atualizada e otimizada" : "Foto principal atualizada com sucesso",
       });
     } catch (error) {
       console.error('Error uploading edited image:', error);

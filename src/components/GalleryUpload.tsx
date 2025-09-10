@@ -141,9 +141,34 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       const imagesWithSameVisibility = galleryImages.filter(img => img.visibility === selectedVisibility);
       const nextOrderForVisibility = Math.max(...imagesWithSameVisibility.map(img => img.order_index), -1) + 1;
       
+      // Auto-sync gallery image to local if it's from Supabase Storage
+      let finalImageUrl = newImageUrl;
+      if (newImageUrl.includes('supabase') || newImageUrl.includes('storage')) {
+        console.log('🎯 Gallery image from Supabase, syncing to local...');
+        try {
+          const { data: syncData, error: syncError } = await supabase.functions.invoke('sync-image-to-local', {
+            body: { 
+              imageUrl: newImageUrl,
+              imageType: 'model-gallery',
+              modelId: modelId,
+              index: nextOrderForVisibility
+            }
+          });
+
+          if (syncError) {
+            console.error('Gallery sync error:', syncError);
+          } else if (syncData?.success) {
+            console.log('✅ Gallery image synced to local:', syncData.localPath);
+            finalImageUrl = syncData.localPath;
+          }
+        } catch (syncError) {
+          console.error('Gallery sync function error:', syncError);
+        }
+      }
+      
       const insertData = {
         model_id: modelId,
-        image_url: newImageUrl,
+        image_url: finalImageUrl,
         caption: newImageCaption || null,
         order_index: nextOrderForVisibility,
         visibility: selectedVisibility
@@ -162,7 +187,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       console.log('🎭 GALERIA: Sucesso! Imagem adicionada à model_gallery');
       toast({
         title: "Sucesso",
-        description: "Imagem adicionada à galeria",
+        description: finalImageUrl !== newImageUrl ? "Imagem adicionada e otimizada automaticamente" : "Imagem adicionada à galeria",
       });
 
       setNewImageUrl('');

@@ -52,17 +52,30 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
       const imageUrl = data.publicUrl;
       
-      // Check if this is a banner image and sync to local
-      const isBannerImage = label?.toLowerCase().includes('banner') || 
-                           label?.toLowerCase().includes('hero') ||
-                           label?.toLowerCase().includes('desktop') ||
-                           label?.toLowerCase().includes('mobile');
+      // Auto-sync logic for different image types
+      const shouldSync = label?.toLowerCase().includes('banner') || 
+                        label?.toLowerCase().includes('hero') ||
+                        label?.toLowerCase().includes('model') ||
+                        label?.toLowerCase().includes('blog') ||
+                        label?.toLowerCase().includes('main');
       
       let finalUrl = imageUrl;
       
-      if (isBannerImage) {
+      if (shouldSync) {
         try {
-          console.log('🔄 Syncing banner image to local storage:', imageUrl);
+          console.log('🎯 Auto-sync eligible image detected, syncing to local...');
+          
+          // Determine image type from context
+          let imageType = 'general';
+          if (label?.toLowerCase().includes('banner') || label?.toLowerCase().includes('hero')) {
+            imageType = 'hero-banner';
+          } else if (label?.toLowerCase().includes('model')) {
+            imageType = 'model-main';
+          } else if (label?.toLowerCase().includes('blog')) {
+            imageType = 'blog';
+          } else if (label?.toLowerCase().includes('static')) {
+            imageType = 'static';
+          }
           
           toast({
             title: "Processando",
@@ -74,7 +87,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             .invoke('sync-image-to-local', {
               body: { 
                 imageUrl: imageUrl,
-                imageType: 'hero-banner'
+                imageType: imageType
               }
             });
 
@@ -100,7 +113,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       setPreviewUrl(finalUrl);
       onChange(finalUrl);
 
-      if (!isBannerImage) {
+      if (!shouldSync) {
         toast({
           title: "Sucesso",
           description: "Imagem enviada com sucesso"

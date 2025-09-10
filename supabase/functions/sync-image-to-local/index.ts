@@ -13,13 +13,14 @@ serve(async (req) => {
   }
 
   try {
-    const { imageUrl, imageType = 'hero-banner' } = await req.json();
+    const { imageUrl, imageType = 'general', modelId, category, index } = await req.json();
     
     if (!imageUrl) {
       throw new Error('Image URL is required');
     }
 
     console.log('🔄 Starting image sync process for:', imageUrl);
+    console.log('📋 Sync details:', { imageType, modelId, category, index });
     
     // Initialize Supabase client
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -36,10 +37,31 @@ serve(async (req) => {
     const arrayBuffer = await imageBlob.arrayBuffer();
     const uint8Array = new Uint8Array(arrayBuffer);
 
-    // Generate optimized filename
+    // Generate optimized filename based on image type
     const timestamp = Date.now();
     const fileExtension = imageUrl.split('.').pop()?.toLowerCase() || 'jpg';
-    const fileName = `${imageType}-${timestamp}.${fileExtension}`;
+    let fileName: string;
+    
+    switch (imageType) {
+      case 'hero-banner':
+        fileName = `hero-banner-${timestamp}.${fileExtension}`;
+        break;
+      case 'model-main':
+        fileName = `model-${modelId}-main-${timestamp}.${fileExtension}`;
+        break;
+      case 'model-gallery':
+        fileName = `model-${modelId}-gallery-${index || 'new'}-${timestamp}.${fileExtension}`;
+        break;
+      case 'blog':
+        fileName = `blog-${category || 'general'}-${timestamp}.${fileExtension}`;
+        break;
+      case 'static':
+        fileName = `static-${category || 'general'}-${timestamp}.${fileExtension}`;
+        break;
+      default:
+        fileName = `${imageType}-${timestamp}.${fileExtension}`;
+    }
+    
     const localPath = `/images/${fileName}`;
 
     console.log('📁 Generated local path:', localPath);
@@ -73,7 +95,8 @@ serve(async (req) => {
       localPath: localPath,
       cachedUrl: publicUrlData.publicUrl,
       originalUrl: imageUrl,
-      fileName: fileName
+      fileName: fileName,
+      imageType: imageType
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

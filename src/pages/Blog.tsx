@@ -9,6 +9,7 @@ import { Calendar, Clock, ArrowRight, Loader2 } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 import { BlogMigrationTrigger } from '@/components/BlogMigrationTrigger';
+import { getImageUrl } from '@/utils/imageMapper';
 
 const Blog = () => {
   const { posts, loading, error, categories } = useBlogPosts();
@@ -178,7 +179,7 @@ const Blog = () => {
                   <Card key={post.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
                       <img 
-                        src={post.image} 
+                        src={getImageUrl(post.image)} 
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

@@ -28,11 +28,16 @@ const imageMap: Record<string, string> = {
   '/images/luisa1.jpg': luisa1,
   '/src/assets/hero-main.jpg': heroMain,
   '/images/hero-main.jpg': heroMain,
+  // Blog images - assets paths
   '/src/assets/blog-restaurant-dining.jpg': blogRestaurantDining,
   '/src/assets/blog-london-events.jpg': blogLondonEvents,
   '/src/assets/blog-exclusive-experiences.jpg': blogExclusiveExperiences,
   '/src/assets/blog-luxury-hotels.jpg': blogLuxuryHotels,
   '/src/assets/blog-entertainment-culture.jpg': blogEntertainmentCulture,
+  // Blog images - public paths (map to same images)
+  '/images/blog/corporate-events.jpg': blogLondonEvents,
+  '/images/blog/london-theatre.jpg': blogEntertainmentCulture,
+  '/images/blog/michelin-dining.jpg': blogRestaurantDining,
 };
 
 export const getImageUrl = (imagePath: string): string => {

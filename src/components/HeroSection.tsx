@@ -8,7 +8,7 @@ export const HeroSection: React.FC = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleImageError = () => {
-    console.error('Failed to load hero image:', '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png');
+    console.error('Failed to load hero image:', primaryImage);
     setImageError(true);
   };
 
@@ -17,8 +17,8 @@ export const HeroSection: React.FC = () => {
     setImageLoaded(true);
   };
 
-  // Use the new uploaded image as primary
-  const primaryImage = '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
+  // Use database image if available, otherwise fallback to uploaded image
+  const primaryImage = heroContent.image_url || '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
   const fallbackImage = '/src/assets/hero-elegant-woman.webp';
 
   if (loading) {

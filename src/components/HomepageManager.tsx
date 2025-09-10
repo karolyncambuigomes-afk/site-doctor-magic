@@ -7,9 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Loader2, Save, Eye } from 'lucide-react';
+import { Loader2, Save, Eye, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
+import { ImageUpload } from '@/components/ImageUpload';
 
 interface HomepageContent {
   hero_main: any;
@@ -33,6 +34,7 @@ export const HomepageManager: React.FC = () => {
     title: '',
     subtitle: '',
     content: '',
+    image_url: '',
     button_primary_text: '',
     button_primary_url: ''
   });
@@ -44,6 +46,7 @@ export const HomepageManager: React.FC = () => {
         title: heroContent.title || '',
         subtitle: heroContent.subtitle || '',
         content: heroContent.content || '',
+        image_url: heroContent.image_url || '',
         button_primary_text: heroContent.button_primary_text || '',
         button_primary_url: heroContent.button_primary_url || ''
       });
@@ -197,6 +200,24 @@ export const HomepageManager: React.FC = () => {
                 />
               </div>
 
+              <Separator />
+
+              <div className="space-y-2">
+                <Label className="flex items-center gap-2">
+                  <Upload className="h-4 w-4" />
+                  Imagem do Banner
+                </Label>
+                <ImageUpload
+                  value={heroFormData.image_url}
+                  onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url: url }))}
+                  placeholder="URL da imagem do banner ou faça upload"
+                  label=""
+                />
+                <p className="text-xs text-muted-foreground">
+                  Esta imagem será exibida como fundo da seção principal da homepage. Recomendamos imagens em alta resolução (1920x1080 ou superior).
+                </p>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="hero-button-text">Texto do Botão Principal</Label>
@@ -228,6 +249,7 @@ export const HomepageManager: React.FC = () => {
                       title: heroFormData.title,
                       subtitle: heroFormData.subtitle,
                       content: heroFormData.content,
+                      image_url: heroFormData.image_url,
                       button_primary_text: heroFormData.button_primary_text,
                       button_primary_url: heroFormData.button_primary_url
                     });

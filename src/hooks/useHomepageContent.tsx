@@ -6,6 +6,7 @@ export interface HeroContent {
   title: string;
   subtitle: string;
   content: string;
+  image_url?: string;
   button_primary_text?: string;
   button_primary_url?: string;
   button_secondary_text?: string;
@@ -27,6 +28,7 @@ export const useHomepageContent = () => {
     title: "Premium London Escort Agency",
     subtitle: "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea",
     content: "Elite companions for discerning gentlemen in London's most prestigious areas. Available 24/7 for dinner dates, business events, and sophisticated social occasions with complete discretion and professionalism.",
+    image_url: "",
     button_primary_text: "View Models",
     button_primary_url: "/models",
     button_secondary_text: "Book Now",
@@ -62,6 +64,7 @@ export const useHomepageContent = () => {
           title: data.title || heroContent.title,
           subtitle: data.subtitle || heroContent.subtitle,
           content: data.content || heroContent.content,
+          image_url: data.image_url || heroContent.image_url,
           button_primary_text: data.button_text || heroContent.button_primary_text,
           button_primary_url: data.button_url || heroContent.button_primary_url,
           button_secondary_text: heroContent.button_secondary_text,
@@ -91,6 +94,7 @@ export const useHomepageContent = () => {
           title: updates.title || heroContent.title,
           subtitle: updates.subtitle || heroContent.subtitle,
           content: updates.content || heroContent.content,
+          image_url: updates.image_url || heroContent.image_url,
           button_text: updates.button_primary_text || heroContent.button_primary_text,
           button_url: updates.button_primary_url || heroContent.button_primary_url,
           is_active: true,

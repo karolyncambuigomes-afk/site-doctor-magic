@@ -16,8 +16,21 @@ interface ModelDiagnostic {
   externalStatuses: { [key: string]: number };
 }
 
+interface BannerDiagnostic {
+  section: string;
+  title?: string;
+  image_url_desktop?: string;
+  image_url_mobile?: string;
+  image_url?: string;
+  image_url_local_desktop?: string;
+  image_url_local_mobile?: string;
+  image_url_local_fallback?: string;
+  statuses: { [key: string]: number };
+}
+
 export const GalleryDiagnostics: React.FC = () => {
   const [models, setModels] = useState<ModelDiagnostic[]>([]);
+  const [banners, setBanners] = useState<BannerDiagnostic[]>([]);
   const [loading, setLoading] = useState(false);
   const [fixing, setFixing] = useState<{ [key: string]: boolean }>({});
   
@@ -76,6 +89,45 @@ export const GalleryDiagnostics: React.FC = () => {
       }
 
       setModels(diagnostics);
+
+      // Fetch banner data from site_content
+      const { data: bannersData, error: bannersError } = await supabase
+        .from('site_content')
+        .select(`
+          section, title, 
+          image_url_desktop, image_url_mobile, image_url,
+          image_url_local_desktop, image_url_local_mobile, image_url_local_fallback
+        `)
+        .order('section');
+
+      if (bannersError) throw bannersError;
+
+      const bannerDiagnostics: BannerDiagnostic[] = [];
+
+      for (const banner of bannersData || []) {
+        const statuses: { [key: string]: number } = {};
+        
+        // Check all URLs
+        const urlsToCheck = [
+          banner.image_url_desktop,
+          banner.image_url_mobile, 
+          banner.image_url,
+          banner.image_url_local_desktop,
+          banner.image_url_local_mobile,
+          banner.image_url_local_fallback
+        ].filter(Boolean);
+
+        for (const url of urlsToCheck) {
+          statuses[url] = await checkImageStatus(url);
+        }
+
+        bannerDiagnostics.push({
+          ...banner,
+          statuses
+        });
+      }
+
+      setBanners(bannerDiagnostics);
       toast.success('Diagnostics completed');
     } catch (error) {
       console.error('Diagnostics error:', error);
@@ -135,6 +187,35 @@ export const GalleryDiagnostics: React.FC = () => {
     }
   };
 
+  const fixBannerImage = async (sectionId: string, sourceUrl: string, imageType: 'desktop' | 'mobile' | 'fallback') => {
+    const fixKey = `${sectionId}-${imageType}`;
+    setFixing(prev => ({ ...prev, [fixKey]: true }));
+    
+    try {
+      const { data: fixResult } = await supabase.functions.invoke('fix-banner-image', {
+        body: {
+          sectionId,
+          sourceUrl,
+          imageType,
+          dry_run: false
+        }
+      });
+
+      if (fixResult?.success) {
+        toast.success(`Fixed banner image for ${sectionId} (${imageType})`);
+        await runDiagnostics();
+      } else {
+        toast.error(`Failed to fix banner image: ${fixResult?.error}`);
+      }
+      
+    } catch (error) {
+      console.error('Banner fix error:', error);
+      toast.error('Failed to fix banner image');
+    } finally {
+      setFixing(prev => ({ ...prev, [fixKey]: false }));
+    }
+  };
+
   const getStatusIcon = (status: number) => {
     if (status === 200) return <CheckCircle className="w-4 h-4 text-green-500" />;
     if (status === 404) return <XCircle className="w-4 h-4 text-red-500" />;
@@ -155,10 +236,11 @@ export const GalleryDiagnostics: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Banner Diagnostics */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            Gallery Diagnostics
+            Banner Diagnostics
             <Button 
               variant="outline" 
               size="sm" 
@@ -169,6 +251,167 @@ export const GalleryDiagnostics: React.FC = () => {
               Refresh
             </Button>
           </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="text-center py-8">
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4" />
+              <p>Running diagnostics...</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {banners.map(banner => (
+                <div key={banner.section} className="border rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="font-medium">{banner.section}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {banner.title || 'Banner Section'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4">
+                    {/* Desktop Image */}
+                    {(banner.image_url_desktop || banner.image_url_local_desktop) && (
+                      <div className="border rounded p-3">
+                        <h4 className="font-medium mb-2 flex items-center gap-2">
+                          Desktop Image
+                          {banner.image_url_desktop && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => fixBannerImage(banner.section, banner.image_url_desktop!, 'desktop')}
+                              disabled={fixing[`${banner.section}-desktop`]}
+                            >
+                              {fixing[`${banner.section}-desktop`] ? (
+                                <RefreshCw className="w-4 h-4 animate-spin" />
+                              ) : 'Fix'}
+                            </Button>
+                          )}
+                        </h4>
+                        <div className="space-y-1">
+                          {banner.image_url_local_desktop && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url_local_desktop])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url_local_desktop])}>
+                                {banner.statuses[banner.image_url_local_desktop]}
+                              </Badge>
+                              <span className="text-green-600 font-medium">LOCAL:</span>
+                              <span className="truncate">{banner.image_url_local_desktop}</span>
+                            </div>
+                          )}
+                          {banner.image_url_desktop && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url_desktop])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url_desktop])}>
+                                {banner.statuses[banner.image_url_desktop]}
+                              </Badge>
+                              <span className="text-blue-600 font-medium">EXTERNAL:</span>
+                              <span className="truncate">{banner.image_url_desktop}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Mobile Image */}
+                    {(banner.image_url_mobile || banner.image_url_local_mobile) && (
+                      <div className="border rounded p-3">
+                        <h4 className="font-medium mb-2 flex items-center gap-2">
+                          Mobile Image
+                          {banner.image_url_mobile && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => fixBannerImage(banner.section, banner.image_url_mobile!, 'mobile')}
+                              disabled={fixing[`${banner.section}-mobile`]}
+                            >
+                              {fixing[`${banner.section}-mobile`] ? (
+                                <RefreshCw className="w-4 h-4 animate-spin" />
+                              ) : 'Fix'}
+                            </Button>
+                          )}
+                        </h4>
+                        <div className="space-y-1">
+                          {banner.image_url_local_mobile && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url_local_mobile])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url_local_mobile])}>
+                                {banner.statuses[banner.image_url_local_mobile]}
+                              </Badge>
+                              <span className="text-green-600 font-medium">LOCAL:</span>
+                              <span className="truncate">{banner.image_url_local_mobile}</span>
+                            </div>
+                          )}
+                          {banner.image_url_mobile && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url_mobile])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url_mobile])}>
+                                {banner.statuses[banner.image_url_mobile]}
+                              </Badge>
+                              <span className="text-blue-600 font-medium">EXTERNAL:</span>
+                              <span className="truncate">{banner.image_url_mobile}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* General/Fallback Image */}
+                    {(banner.image_url || banner.image_url_local_fallback) && (
+                      <div className="border rounded p-3">
+                        <h4 className="font-medium mb-2 flex items-center gap-2">
+                          General Image
+                          {banner.image_url && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => fixBannerImage(banner.section, banner.image_url!, 'fallback')}
+                              disabled={fixing[`${banner.section}-fallback`]}
+                            >
+                              {fixing[`${banner.section}-fallback`] ? (
+                                <RefreshCw className="w-4 h-4 animate-spin" />
+                              ) : 'Fix'}
+                            </Button>
+                          )}
+                        </h4>
+                        <div className="space-y-1">
+                          {banner.image_url_local_fallback && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url_local_fallback])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url_local_fallback])}>
+                                {banner.statuses[banner.image_url_local_fallback]}
+                              </Badge>
+                              <span className="text-green-600 font-medium">LOCAL:</span>
+                              <span className="truncate">{banner.image_url_local_fallback}</span>
+                            </div>
+                          )}
+                          {banner.image_url && (
+                            <div className="flex items-center gap-2 text-xs">
+                              {getStatusIcon(banner.statuses[banner.image_url])}
+                              <Badge variant="outline" className={getStatusColor(banner.statuses[banner.image_url])}>
+                                {banner.statuses[banner.image_url]}
+                              </Badge>
+                              <span className="text-blue-600 font-medium">EXTERNAL:</span>
+                              <span className="truncate">{banner.image_url}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Model Gallery Diagnostics */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Model Gallery Diagnostics</CardTitle>
         </CardHeader>
         <CardContent>
           {loading ? (

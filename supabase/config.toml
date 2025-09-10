@@ -6,6 +6,9 @@ verify_jwt = false
 [functions.admin-fix-one-gallery]
 verify_jwt = false
 
+[functions.fix-banner-image]
+verify_jwt = false
+
 [api]
 port = 54321
 schemas = ["public", "storage"]

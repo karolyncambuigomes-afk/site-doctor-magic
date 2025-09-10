@@ -11,8 +11,8 @@ interface OptimizedImageProps {
   priority?: boolean; // For above-the-fold images
   sizes?: string; // Responsive sizes
   placeholder?: string; // Base64 placeholder
-  onLoad?: () => void; // Callback for successful load
-  onError?: () => void; // Callback for error
+  onLoad?: (e?: React.SyntheticEvent<HTMLImageElement>) => void; // Callback for successful load
+  onError?: (e?: React.SyntheticEvent<HTMLImageElement>) => void; // Callback for error
 }
 
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -71,17 +71,17 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   // Generate responsive image sources with WebP fallback
   const imageSources = generateImageSources({ src, alt, width, height });
 
-  const handleLoad = () => {
+  const handleLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     console.log(`✅ [OptimizedImage] Image loaded successfully:`, src);
     setIsLoaded(true);
-    onLoad?.();
+    onLoad?.(e);
   };
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     console.error(`❌ [OptimizedImage] Failed to load image:`, src, e);
     setError(true);
     setIsLoaded(true);
-    onError?.();
+    onError?.(e);
   };
 
   return (

@@ -1,22 +1,42 @@
 import { supabase } from '@/integrations/supabase/client';
 
-// Generate cache-busting URL with real timestamp
+// Test URL connectivity before applying cache busting
+export const testUrlConnectivity = async (url: string): Promise<boolean> => {
+  try {
+    const response = await fetch(url, { 
+      method: 'HEAD',
+      cache: 'no-cache',
+      signal: AbortSignal.timeout(5000)
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+// Smart image URL generation with connectivity test
 export const generateImageUrl = async (path: string | null, tableName?: string, recordId?: string): Promise<string | null> => {
   if (!path) return null;
 
-  const isMobile = shouldBustCache();
-  
   try {
-    // For mobile browsers, always use current timestamp for aggressive cache busting
-    if (isMobile) {
-      const timestamp = Date.now();
-      const separator = path.includes('?') ? '&' : '?';
-      const randomSalt = Math.random().toString(36).substring(7);
-      return `${path}${separator}v=${timestamp}&mobile=1&r=${randomSalt}`;
+    // First test if the original URL works
+    const isConnected = await testUrlConnectivity(path);
+    
+    if (!isConnected) {
+      console.warn('[ImageURL] URL not accessible:', path);
+      return null; // Return null to trigger fallback
     }
 
-    // For desktop, try to get real updated timestamp first
-    if (tableName && recordId) {
+    // Only apply cache busting when really needed
+    const isMobile = shouldBustCache();
+    const needsCacheBust = isMobile || (tableName && recordId);
+    
+    if (!needsCacheBust) {
+      return path; // Return original URL for better performance
+    }
+
+    // For mobile or when specific table updates, apply minimal cache busting
+    if (tableName && recordId && !isMobile) {
       const { data } = await supabase
         .from(tableName)
         .select('updated_at')
@@ -30,28 +50,30 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
       }
     }
 
-    // Fallback to current timestamp for cache busting
-    const timestamp = Date.now();
-    const separator = path.includes('?') ? '&' : '?';
-    return `${path}${separator}v=${timestamp}`;
+    // Light cache busting for mobile
+    if (isMobile) {
+      const timestamp = Date.now();
+      const separator = path.includes('?') ? '&' : '?';
+      return `${path}${separator}t=${timestamp}`;
+    }
+
+    return path;
     
   } catch (error) {
     console.warn('[ImageURL] Error generating URL:', error, 'Path:', path);
-    return path;
+    return path; // Return original path on error
   }
 };
 
-// Get Supabase storage URL with proper cache busting
+// Get Supabase storage URL with intelligent cache management
 export const getStorageUrl = (bucket: string, path: string, forceRefresh = false): string => {
   const { data } = supabase.storage.from(bucket).getPublicUrl(path);
-  const isMobile = shouldBustCache();
   
-  if (forceRefresh || isMobile) {
+  // Only apply cache busting when explicitly requested or on mobile
+  if (forceRefresh) {
     const timestamp = Date.now();
     const separator = data.publicUrl.includes('?') ? '&' : '?';
-    const randomSalt = Math.random().toString(36).substring(7);
-    const mobileParam = isMobile ? '&mobile=1' : '';
-    return `${data.publicUrl}${separator}v=${timestamp}${mobileParam}&r=${randomSalt}`;
+    return `${data.publicUrl}${separator}v=${timestamp}`;
   }
   
   return data.publicUrl;

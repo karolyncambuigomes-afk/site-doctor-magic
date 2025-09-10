@@ -93,9 +93,10 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
-                  }`}
+                  } ${index < 4 ? 'priority-load' : ''}`}
                   data-model-image="true"
                   data-model-name={model.name}
+                  data-model-priority={index < 4 ? 'high' : 'normal'}
                 />
                 
                 {/* Second Image (from gallery) - only if available */}

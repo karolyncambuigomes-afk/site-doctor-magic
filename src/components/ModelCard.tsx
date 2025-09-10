@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Model } from '@/hooks/useModels';
 import { SafeLink } from '@/components/ui/safe-link';
-import { Star, Clock, MapPin, Crown } from 'lucide-react';
+import { Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { ModelImage } from '@/components/OptimizedImage';
 
 interface ModelCardProps {
   model: Model;
@@ -53,30 +54,30 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
             
             {!imageError ? (
               <>
-                {/* Main Image */}
-                <img
-                  src={model.image}
-                  alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full object-cover transition-all duration-700 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  } ${
-                    model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
-                  } ${
-                    model.face_visible === false ? 'object-[center_20%]' : 'object-center'
-                  }`}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageError(true)}
-                  loading="lazy"
-                />
-                
-                {/* Second Image (from gallery) - only if available */}
-                {model.gallery && model.gallery.length > 1 && (
-                  <img
-                    src={model.gallery[0]}
-                    alt={`${model.name} - alternate view`}
-                    className="w-full h-full object-cover transition-all duration-700 opacity-0 group-hover:opacity-100"
-                    loading="lazy"
+                {/* Main Image - Optimized */}
+                <div className={`${
+                  model.gallery && model.gallery.length > 1 ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
+                } transition-all duration-700`}>
+                  <ModelImage
+                    src={model.image}
+                    alt={`${model.name} - Sophisticated companion in ${model.location}`}
+                    className={`w-full h-full ${
+                      model.face_visible === false ? 'object-[center_20%]' : 'object-center'
+                    }`}
+                    onLoad={() => setImageLoaded(true)}
+                    onError={() => setImageError(true)}
                   />
+                </div>
+                
+                {/* Second Image (from gallery) - Optimized */}
+                {model.gallery && model.gallery.length > 1 && (
+                  <div className="w-full h-full absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700">
+                    <ModelImage
+                      src={model.gallery[0]}
+                      alt={`${model.name} - alternate view`}
+                      className="w-full h-full"
+                    />
+                  </div>
                 )}
                 
                 {/* Price - Top Left */}

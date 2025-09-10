@@ -238,7 +238,7 @@ export const HomepageManager: React.FC = () => {
                       });
                     }}
                     placeholder="URL da imagem desktop ou faça upload"
-                    label=""
+                    label="Banner Desktop"
                   />
                   <p className="text-xs text-blue-600">
                     🖥️ <strong>Desktop:</strong> Imagem otimizada para telas grandes. Recomendamos proporção 16:9 (ex: 1920x1080).
@@ -286,7 +286,7 @@ export const HomepageManager: React.FC = () => {
                       });
                     }}
                     placeholder="URL da imagem mobile ou faça upload"
-                    label=""
+                    label="Banner Mobile"
                   />
                   <p className="text-xs text-green-600">
                     📱 <strong>Mobile:</strong> Imagem otimizada para celulares. Recomendamos proporção vertical (ex: 768x1024).
@@ -327,7 +327,7 @@ export const HomepageManager: React.FC = () => {
                     setHeroFormData(prev => ({ ...prev, image_url: url }));
                   }}
                   placeholder="URL da imagem geral ou faça upload"
-                  label=""
+                  label="Banner Geral"
                 />
                 <p className="text-xs text-gray-600">
                   🔄 Imagem de fallback usada quando não há imagens específicas para desktop ou mobile.

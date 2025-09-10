@@ -28,7 +28,7 @@ export const Models: React.FC = () => {
       
       <main className="pt-0">
         {/* Minimal Hero */}
-        <section className="pt-8 pb-2 md:pt-12 md:pb-3 lg:pt-16 lg:pb-4 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">

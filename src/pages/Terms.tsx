@@ -15,7 +15,7 @@ const Terms = () => {
       <Navigation />
       
       <main className="pt-0">
-        <section className="py-12 md:py-20 lg:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="max-w-4xl mx-auto px-4">
           <h1 className="luxury-heading-xl text-foreground mb-8">Terms of Service - Five London</h1>
           

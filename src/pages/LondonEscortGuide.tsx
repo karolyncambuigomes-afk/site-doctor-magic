@@ -44,7 +44,7 @@ const LondonEscortGuide = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="py-20 md:py-32 bg-gradient-to-br from-background via-background/95 to-muted">
+        <section className="py-16 md:py-24 bg-gradient-to-br from-background via-background/95 to-muted">
           <div className="container-width mx-auto px-6">
             <div className="text-center mb-20">
               <h1 className="luxury-heading-display text-primary mb-8">

@@ -288,7 +288,7 @@ const JoinUs = () => {
         <Navigation />
         
         <main className="pt-0 min-h-screen">
-          <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <section className="py-16 md:py-24 bg-white">
             <div className="container-width">
               <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
                 <Shield className="h-16 w-16 mx-auto mb-6 text-primary" />
@@ -341,7 +341,7 @@ const JoinUs = () => {
         <Navigation />
         
         <main className="pt-0 min-h-screen">
-          <section className="py-12 md:py-20 lg:py-24 bg-white">
+          <section className="py-16 md:py-24 bg-white">
             <div className="container-width">
               <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
                 <Lock className="h-16 w-16 mx-auto mb-6 text-yellow-500" />
@@ -386,7 +386,7 @@ const JoinUs = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">

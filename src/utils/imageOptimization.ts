@@ -32,26 +32,27 @@ export const getOptimizedImageUrl = (
   }
 
   try {
-    // For Supabase images, use their built-in transformation API
-    const transformParams = new URLSearchParams();
+    const urlObj = new URL(url);
+    const params = new URLSearchParams();
     
     // Add size parameters
     const dimensions = IMAGE_SIZES[size];
-    if (dimensions.width && dimensions.height) {
-      transformParams.set('width', dimensions.width.toString());
-      transformParams.set('height', dimensions.height.toString());
-      transformParams.set('resize', 'cover');
+    if (dimensions.width) {
+      params.set('width', dimensions.width.toString());
+    }
+    if (dimensions.height) {
+      params.set('height', dimensions.height.toString());
     }
     
     // Add format and quality
-    if (format !== 'png') {
-      transformParams.set('format', format);
-    }
-    transformParams.set('quality', quality.toString());
+    params.set('format', format);
+    params.set('quality', quality.toString());
+    params.set('resize', 'cover');
     
-    // Append transform parameters to URL
-    const separator = url.includes('?') ? '&' : '?';
-    return `${url}${separator}${transformParams.toString()}`;
+    // Supabase image transformation
+    urlObj.search = params.toString();
+    
+    return urlObj.toString();
   } catch (error) {
     console.warn('Failed to optimize image URL:', error);
     return url;

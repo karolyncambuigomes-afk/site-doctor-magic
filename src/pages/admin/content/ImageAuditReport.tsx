@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, Download, RefreshCw, ExternalLink, TestTube, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { getAuditTargets, AuditTarget } from '@/utils/getAuditTargets';
 
@@ -23,6 +23,10 @@ interface ImageStatus {
   localUrl?: string;
   externalUrl?: string;
   responseTime?: number;
+  canonicalUrl?: string;
+  legacyUrl?: string;
+  canonicalStatus?: number;
+  legacyStatus?: number;
 }
 
 export const ImageAuditReport = () => {
@@ -185,6 +189,69 @@ export const ImageAuditReport = () => {
     return <Badge variant="secondary">{status} Error</Badge>;
   };
 
+  const generateCanonicalUrl = (target: AuditTarget): string => {
+    if (target.category === 'models') {
+      return `/images/models/${target.id}/model-${target.id}-main-1200.webp`;
+    }
+    if (target.category === 'carousel') {
+      const slug = target.name.toLowerCase().replace(/\s+/g, '-');
+      return `/images/carousel/${slug}-1200.webp`;
+    }
+    if (target.category === 'hero' || target.category === 'slides') {
+      const slug = target.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+      return `/images/hero/hero-banner-${slug}-1600.webp`;
+    }
+    return target.effectiveUrl;
+  };
+
+  const generateLegacyUrl = (target: AuditTarget): string => {
+    if (target.category === 'models') {
+      return `/images/model-${target.id}-main-1200.webp`;
+    }
+    if (target.category === 'carousel') {
+      const slug = target.name.toLowerCase().replace(/\s+/g, '-');
+      return `/images/carousel-${slug}-1200.webp`;
+    }
+    return target.effectiveUrl;
+  };
+
+  const testUrl = async (url: string): Promise<number> => {
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.status;
+    } catch {
+      return 500;
+    }
+  };
+
+  const testAllUrls = async (target: AuditTarget, index: number) => {
+    const canonicalUrl = generateCanonicalUrl(target);
+    const legacyUrl = generateLegacyUrl(target);
+    
+    const [effectiveStatus, canonicalStatus, legacyStatus] = await Promise.all([
+      testUrl(target.effectiveUrl),
+      testUrl(canonicalUrl),
+      testUrl(legacyUrl)
+    ]);
+
+    const updatedStatuses = [...imageStatuses];
+    updatedStatuses[index] = {
+      ...updatedStatuses[index],
+      canonicalUrl,
+      legacyUrl,
+      status: effectiveStatus as 200 | 404 | 500,
+      canonicalStatus,
+      legacyStatus
+    };
+    
+    setImageStatuses(updatedStatuses);
+    toast.success(`Tested URLs for ${target.name}`);
+  };
+
+  const openUrl = (url: string) => {
+    window.open(url, '_blank');
+  };
+
   useEffect(() => {
     const savedFlags = localStorage.getItem('featureFlags');
     if (savedFlags) {
@@ -262,35 +329,118 @@ export const ImageAuditReport = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {imageStatuses.map((status, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 rounded border">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge variant="outline" className="text-xs">
-                          {status.category}
-                        </Badge>
-                        <span className="font-medium text-sm">{status.name}</span>
-                      </div>
-                      <div className="text-xs font-mono text-muted-foreground mb-1">
-                        {status.url}
-                      </div>
-                      <div className="flex gap-2 text-xs">
-                        {status.localUrl && (
-                          <span className="text-green-600">🟢 Local: {status.localUrl.includes('/images/') ? 'Yes' : 'No'}</span>
-                        )}
-                        {status.externalUrl && (
-                          <span className="text-blue-600">🔗 External: Yes</span>
-                        )}
-                        {!status.localUrl && !status.externalUrl && (
-                          <span className="text-gray-500">📷 Placeholder</span>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {getStatusBadge(status.status)}
-                    </div>
-                  </div>
-                ))}
+                 {imageStatuses.map((status, index) => {
+                   const target = auditTargets[index];
+                   return (
+                     <div key={index} className="p-3 rounded border space-y-3">
+                       <div className="flex items-center justify-between">
+                         <div className="flex-1">
+                           <div className="flex items-center gap-2 mb-1">
+                             <Badge variant="outline" className="text-xs">
+                               {status.category}
+                             </Badge>
+                             <span className="font-medium text-sm">{status.name}</span>
+                           </div>
+                           <div className="text-xs font-mono text-muted-foreground mb-1">
+                             Current: {status.url}
+                           </div>
+                           <div className="flex gap-2 text-xs">
+                             {status.localUrl && (
+                               <span className="text-green-600">🟢 Local: {status.localUrl.includes('/images/') ? 'Yes' : 'No'}</span>
+                             )}
+                             {status.externalUrl && (
+                               <span className="text-blue-600">🔗 External: Yes</span>
+                             )}
+                             {!status.localUrl && !status.externalUrl && (
+                               <span className="text-gray-500">📷 Placeholder</span>
+                             )}
+                           </div>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           {getStatusBadge(status.status)}
+                         </div>
+                       </div>
+
+                       {/* URL Testing Section */}
+                       <div className="border-t pt-3">
+                         <div className="flex flex-wrap gap-2 mb-2">
+                           <Button
+                             size="sm"
+                             variant="outline"
+                             onClick={() => openUrl(status.url)}
+                             className="text-xs"
+                           >
+                             <ExternalLink className="w-3 h-3 mr-1" />
+                             Open Effective
+                           </Button>
+                           
+                           <Button
+                             size="sm"
+                             variant="outline"
+                             onClick={() => openUrl(generateCanonicalUrl(target))}
+                             className="text-xs"
+                           >
+                             <ExternalLink className="w-3 h-3 mr-1" />
+                             Open Canonical
+                           </Button>
+                           
+                           <Button
+                             size="sm"
+                             variant="outline"
+                             onClick={() => openUrl(generateLegacyUrl(target))}
+                             className="text-xs"
+                           >
+                             <ExternalLink className="w-3 h-3 mr-1" />
+                             Open Legacy
+                           </Button>
+                           
+                           <Button
+                             size="sm"
+                             variant="secondary"
+                             onClick={() => testAllUrls(target, index)}
+                             className="text-xs"
+                           >
+                             <TestTube className="w-3 h-3 mr-1" />
+                             Test All URLs
+                           </Button>
+                         </div>
+
+                         {/* URL Status Display */}
+                         {(status.canonicalStatus || status.legacyStatus) && (
+                           <div className="grid grid-cols-3 gap-2 text-xs">
+                             <div className="space-y-1">
+                               <div className="font-medium">Effective</div>
+                               {getStatusBadge(status.status)}
+                             </div>
+                             <div className="space-y-1">
+                               <div className="font-medium">Canonical</div>
+                               {status.canonicalStatus && getStatusBadge(status.canonicalStatus)}
+                             </div>
+                             <div className="space-y-1">
+                               <div className="font-medium">Legacy</div>
+                               {status.legacyStatus && getStatusBadge(status.legacyStatus)}
+                             </div>
+                           </div>
+                         )}
+
+                         {/* Regenerate Button for 404 Canonical */}
+                         {status.canonicalStatus === 404 && (
+                           <div className="mt-2">
+                             <Button
+                               size="sm"
+                               variant="default"
+                               className="text-xs"
+                               onClick={() => toast.info('Regenerate & Upload feature coming soon...')}
+                             >
+                               <Upload className="w-3 h-3 mr-1" />
+                               Regenerate & Upload
+                             </Button>
+                           </div>
+                         )}
+                       </div>
+                     </div>
+                   );
+                 })}
               </div>
             </CardContent>
           </Card>

@@ -30,6 +30,7 @@ export const useBlogPosts = () => {
       setLoading(true);
       setError(null);
 
+      // Try to fetch from database first
       const { data, error: fetchError } = await supabase
         .from('blog_posts')
         .select('*')
@@ -40,10 +41,60 @@ export const useBlogPosts = () => {
         throw fetchError;
       }
 
-      setPosts(data || []);
+      // If we have posts in database, use them
+      if (data && data.length > 0) {
+        setPosts(data);
+      } else {
+        // Import static articles as fallback
+        const { blogArticles } = await import('@/data/blog-articles');
+        const staticPosts = blogArticles.map(article => ({
+          id: article.slug,
+          slug: article.slug,
+          title: article.title,
+          excerpt: article.excerpt,
+          content: article.content,
+          image: article.image,
+          author: article.author,
+          category: article.category,
+          meta_description: article.metaDescription,
+          seo_keywords: article.seoKeywords,
+          read_time: article.readTime,
+          is_published: true,
+          published_at: article.publishedAt,
+          service_keywords: article.serviceAreas || [],
+          created_at: article.publishedAt,
+          updated_at: new Date().toISOString()
+        }));
+        setPosts(staticPosts);
+      }
     } catch (err) {
       console.error('Error fetching blog posts:', err);
-      setError(err.message);
+      // Try to load static articles as final fallback
+      try {
+        const { blogArticles } = await import('@/data/blog-articles');
+        const staticPosts = blogArticles.map(article => ({
+          id: article.slug,
+          slug: article.slug,
+          title: article.title,
+          excerpt: article.excerpt,
+          content: article.content,
+          image: article.image,
+          author: article.author,
+          category: article.category,
+          meta_description: article.metaDescription,
+          seo_keywords: article.seoKeywords,
+          read_time: article.readTime,
+          is_published: true,
+          published_at: article.publishedAt,
+          service_keywords: article.serviceAreas || [],
+          created_at: article.publishedAt,
+          updated_at: new Date().toISOString()
+        }));
+        setPosts(staticPosts);
+        setError(null); // Clear error since we have fallback data
+      } catch (fallbackErr) {
+        setError(err.message);
+      }
     } finally {
       setLoading(false);
     }

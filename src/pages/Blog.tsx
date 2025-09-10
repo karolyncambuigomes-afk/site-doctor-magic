@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Calendar, Clock, ArrowRight, Loader2 } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { BlogMigrationTrigger } from '@/components/BlogMigrationTrigger';
 
 const Blog = () => {
   const { posts, loading, error, categories } = useBlogPosts();
@@ -62,6 +63,7 @@ const Blog = () => {
           canonicalUrl="/blog"
         />
         <div className="min-h-screen bg-white">
+          <BlogMigrationTrigger />
           <Navigation />
           <main className="pt-0">
             <section className="py-16 md:py-24 bg-white">
@@ -128,6 +130,7 @@ const Blog = () => {
       />
       
       <div className="min-h-screen bg-white">
+        <BlogMigrationTrigger />
         <Navigation />
         
         <main className="pt-0">

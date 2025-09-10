@@ -24,7 +24,4 @@ export const runBlogMigration = async () => {
   }
 };
 
-// Auto-execute migration on import in development
-if (typeof window !== 'undefined') {
-  runBlogMigration().catch(console.error);
-}
+// Migration available but not auto-executed

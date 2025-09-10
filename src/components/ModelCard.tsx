@@ -98,6 +98,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
+                  data-model-image="true"
+                  data-model-name={model.name}
                   sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
                 

@@ -108,8 +108,20 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             
             toast({
               title: "Sucesso",
-              description: "Imagem otimizada e salva localmente"
+              description: "Imagem otimizada e salva localmente com cache refresh"
             });
+
+            // Auto-purge cache and refresh SW after successful sync
+            try {
+              const { performCompleteImageRefresh } = await import('@/utils/cacheManager');
+              await performCompleteImageRefresh({ 
+                patterns: [`${imageType}-*`, '/images/*'], 
+                force: true 
+              });
+              console.log('✅ Cache purged and SW refreshed after image sync');
+            } catch (cacheError) {
+              console.warn('⚠️ Cache refresh failed:', cacheError);
+            }
           }
         } catch (syncError) {
           console.error('❌ Error syncing to local:', syncError);

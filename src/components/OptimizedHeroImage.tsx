@@ -4,12 +4,16 @@ interface OptimizedHeroImageProps {
   src: string;
   alt: string;
   className?: string;
+  'data-hero-image'?: string;
+  'data-image-type'?: string;
 }
 
 export const OptimizedHeroImage: React.FC<OptimizedHeroImageProps> = ({
   src,
   alt,
-  className = ""
+  className = "",
+  'data-hero-image': dataHeroImage,
+  'data-image-type': dataImageType
 }) => {
   // Generate WebP and fallback sources
   const generateSources = (imageSrc: string) => {
@@ -59,6 +63,8 @@ export const OptimizedHeroImage: React.FC<OptimizedHeroImageProps> = ({
           width: '100%',
           height: '100%'
         }}
+        data-hero-image={dataHeroImage}
+        data-image-type={dataImageType}
         onLoad={() => {
           console.log('✅ [HERO-IMAGE] Loaded successfully:', webpSrc || fallbackSrc);
         }}

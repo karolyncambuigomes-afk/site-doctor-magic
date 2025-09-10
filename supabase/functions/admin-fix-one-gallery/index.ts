@@ -56,8 +56,29 @@ serve(async (req) => {
       });
     }
 
-    // Parse request
-    const { modelId, sourceUrl, index, dry_run = false }: FixGalleryRequest = await req.json();
+    // Parse request with better error handling
+    let requestBody: FixGalleryRequest;
+    try {
+      const requestText = await req.text();
+      console.log('📥 Raw request body:', requestText);
+      
+      if (!requestText || requestText.trim() === '') {
+        throw new Error('Empty request body');
+      }
+      
+      requestBody = JSON.parse(requestText);
+    } catch (parseError) {
+      console.error('❌ JSON Parse Error:', parseError);
+      return new Response(JSON.stringify({ 
+        error: 'Invalid JSON in request body',
+        details: parseError.message 
+      }), {
+        status: 400,
+        headers: corsHeaders
+      });
+    }
+
+    const { modelId, sourceUrl, index, dry_run = false } = requestBody;
 
     console.log('🖼️ ADMIN FIX GALLERY: Processing', { modelId, sourceUrl, index, dry_run });
 

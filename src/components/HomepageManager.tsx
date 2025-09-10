@@ -206,54 +206,82 @@ export const HomepageManager: React.FC = () => {
 
               <Separator />
 
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label className="flex items-center gap-2">
-                    <Upload className="h-4 w-4" />
-                    Banner Desktop
-                  </Label>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Desktop Banner */}
+                <div className="space-y-3 p-4 border rounded-lg bg-blue-50 border-blue-200">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <Label className="flex items-center gap-2 font-semibold text-blue-700">
+                      <Upload className="h-4 w-4" />
+                      Banner Desktop
+                    </Label>
+                  </div>
                   <ImageUpload
                     value={heroFormData.image_url_desktop}
-                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url_desktop: url }))}
+                    onChange={(url) => {
+                      console.log('Desktop banner changed to:', url);
+                      setHeroFormData(prev => ({ ...prev, image_url_desktop: url }));
+                    }}
                     placeholder="URL da imagem desktop ou faça upload"
                     label=""
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Imagem otimizada para desktop. Recomendamos proporção 16:9 (ex: 1920x1080).
+                  <p className="text-xs text-blue-600">
+                    📱 <strong>Desktop:</strong> Imagem otimizada para telas grandes. Recomendamos proporção 16:9 (ex: 1920x1080).
                   </p>
+                  {heroFormData.image_url_desktop && (
+                    <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
+                      ✅ Imagem desktop configurada
+                    </div>
+                  )}
                 </div>
 
-                <div className="space-y-2">
-                  <Label className="flex items-center gap-2">
-                    <Upload className="h-4 w-4" />
-                    Banner Mobile
-                  </Label>
+                {/* Mobile Banner */}
+                <div className="space-y-3 p-4 border rounded-lg bg-green-50 border-green-200">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <Label className="flex items-center gap-2 font-semibold text-green-700">
+                      <Upload className="h-4 w-4" />
+                      Banner Mobile
+                    </Label>
+                  </div>
                   <ImageUpload
                     value={heroFormData.image_url_mobile}
-                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url_mobile: url }))}
+                    onChange={(url) => {
+                      console.log('Mobile banner changed to:', url);
+                      setHeroFormData(prev => ({ ...prev, image_url_mobile: url }));
+                    }}
                     placeholder="URL da imagem mobile ou faça upload"
                     label=""
                   />
-                  <p className="text-xs text-muted-foreground">
-                    Imagem otimizada para mobile. Recomendamos proporção vertical ou quadrada (ex: 768x1024 ou 1080x1080).
+                  <p className="text-xs text-green-600">
+                    📱 <strong>Mobile:</strong> Imagem otimizada para celulares. Recomendamos proporção vertical (ex: 768x1024).
                   </p>
+                  {heroFormData.image_url_mobile && (
+                    <div className="text-xs p-2 bg-green-100 text-green-700 rounded border border-green-200">
+                      ✅ Imagem mobile configurada
+                    </div>
+                  )}
                 </div>
+              </div>
 
-                <div className="space-y-2">
-                  <Label className="flex items-center gap-2">
-                    <Upload className="h-4 w-4" />
-                    Banner Geral (Fallback)
-                  </Label>
-                  <ImageUpload
-                    value={heroFormData.image_url}
-                    onChange={(url) => setHeroFormData(prev => ({ ...prev, image_url: url }))}
-                    placeholder="URL da imagem geral ou faça upload"
-                    label=""
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Imagem de fallback caso não tenha imagens específicas para desktop/mobile.
-                  </p>
-                </div>
+              {/* Fallback Banner */}
+              <div className="space-y-2 p-4 border rounded-lg bg-gray-50">
+                <Label className="flex items-center gap-2 text-gray-700">
+                  <Upload className="h-4 w-4" />
+                  Banner Geral (Fallback)
+                </Label>
+                <ImageUpload
+                  value={heroFormData.image_url}
+                  onChange={(url) => {
+                    console.log('Fallback banner changed to:', url);
+                    setHeroFormData(prev => ({ ...prev, image_url: url }));
+                  }}
+                  placeholder="URL da imagem geral ou faça upload"
+                  label=""
+                />
+                <p className="text-xs text-gray-600">
+                  🔄 Imagem de fallback usada quando não há imagens específicas para desktop ou mobile.
+                </p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -277,21 +305,27 @@ export const HomepageManager: React.FC = () => {
                 </div>
               </div>
 
+              {/* Debug Info Panel */}
+              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <details className="cursor-pointer">
+                  <summary className="text-sm font-medium text-yellow-700 mb-2">🔧 Debug Info (Click para expandir)</summary>
+                  <div className="text-xs space-y-1 text-yellow-600">
+                    <div><strong>Desktop:</strong> {heroFormData.image_url_desktop ? '✅ Configurado' : '❌ Vazio'}</div>
+                    <div><strong>Mobile:</strong> {heroFormData.image_url_mobile ? '✅ Configurado' : '❌ Vazio'}</div>
+                    <div><strong>Fallback:</strong> {heroFormData.image_url ? '✅ Configurado' : '❌ Vazio'}</div>
+                  </div>
+                </details>
+              </div>
+
               <Button
                 onClick={async () => {
+                  console.log('Saving hero content with data:', heroFormData);
                   setSaving('hero_main');
                   const success = await updateHeroContent(heroFormData);
                   if (success) {
-                    // Refresh the form data to match the updated content
-                    setHeroFormData({
-                      title: heroFormData.title,
-                      subtitle: heroFormData.subtitle,
-                      content: heroFormData.content,
-                      image_url: heroFormData.image_url,
-                      image_url_desktop: heroFormData.image_url_desktop,
-                      image_url_mobile: heroFormData.image_url_mobile,
-                      button_primary_text: heroFormData.button_primary_text,
-                      button_primary_url: heroFormData.button_primary_url
+                    toast({
+                      title: "Sucesso",
+                      description: "Banners desktop e mobile salvos separadamente!",
                     });
                   }
                   setSaving(null);

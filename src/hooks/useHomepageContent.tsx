@@ -91,21 +91,28 @@ export const useHomepageContent = () => {
 
   const updateHeroContent = async (updates: Partial<HeroContent>) => {
     try {
+      console.log('useHomepageContent: updateHeroContent called with updates:', updates);
+      console.log('useHomepageContent: Current heroContent:', heroContent);
+      
+      const updateData = {
+        section: 'homepage_hero_main',
+        title: updates.title || heroContent.title,
+        subtitle: updates.subtitle || heroContent.subtitle,
+        content: updates.content || heroContent.content,
+        image_url: updates.image_url !== undefined ? updates.image_url : heroContent.image_url,
+        image_url_desktop: updates.image_url_desktop !== undefined ? updates.image_url_desktop : heroContent.image_url_desktop,
+        image_url_mobile: updates.image_url_mobile !== undefined ? updates.image_url_mobile : heroContent.image_url_mobile,
+        button_text: updates.button_primary_text || heroContent.button_primary_text,
+        button_url: updates.button_primary_url || heroContent.button_primary_url,
+        is_active: true,
+        updated_at: new Date().toISOString()
+      };
+
+      console.log('useHomepageContent: Data being sent to Supabase:', updateData);
+      
       const { data, error } = await supabase
         .from('site_content')
-        .upsert({
-          section: 'homepage_hero_main',
-          title: updates.title || heroContent.title,
-          subtitle: updates.subtitle || heroContent.subtitle,
-          content: updates.content || heroContent.content,
-          image_url: updates.image_url || heroContent.image_url,
-          image_url_desktop: updates.image_url_desktop || heroContent.image_url_desktop,
-          image_url_mobile: updates.image_url_mobile || heroContent.image_url_mobile,
-          button_text: updates.button_primary_text || heroContent.button_primary_text,
-          button_url: updates.button_primary_url || heroContent.button_primary_url,
-          is_active: true,
-          updated_at: new Date().toISOString()
-        }, {
+        .upsert(updateData, {
           onConflict: 'section'
         })
         .select()

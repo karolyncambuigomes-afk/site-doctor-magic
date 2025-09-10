@@ -15,14 +15,19 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.2);
 
-  // Robust fallback logic for main image
+  // Robust fallback logic for main image with local priority
   const mainImage = useMemo(() => {
-    // First priority: model.image if valid
+    // First priority: local optimized image
+    if (model.image_url_local_main && model.image_url_local_main.trim() !== '') {
+      return model.image_url_local_main;
+    }
+    
+    // Second priority: model.image if valid
     if (model.image && model.image.trim() !== '') {
       return model.image;
     }
     
-    // Second priority: first public gallery image
+    // Third priority: first public gallery image
     if (model.gallery && Array.isArray(model.gallery)) {
       const publicImage = model.gallery
         .filter(img => img.visibility === 'public' || !img.visibility)
@@ -36,7 +41,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
     
     console.warn(`🚨 [ModelCard] No valid image found for model ${model.name}`);
     return null;
-  }, [model.image, model.gallery, model.name]);
+  }, [model.image_url_local_main, model.image, model.gallery, model.name]);
 
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {

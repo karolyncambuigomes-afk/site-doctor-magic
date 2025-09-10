@@ -108,6 +108,7 @@ export type Database = {
           id: string
           image: string | null
           image_local: string | null
+          image_url_local: string | null
           is_published: boolean | null
           meta_description: string | null
           published_at: string | null
@@ -127,6 +128,7 @@ export type Database = {
           id?: string
           image?: string | null
           image_local?: string | null
+          image_url_local?: string | null
           is_published?: boolean | null
           meta_description?: string | null
           published_at?: string | null
@@ -146,6 +148,7 @@ export type Database = {
           id?: string
           image?: string | null
           image_local?: string | null
+          image_url_local?: string | null
           is_published?: boolean | null
           meta_description?: string | null
           published_at?: string | null
@@ -227,6 +230,9 @@ export type Database = {
           id: string
           image_url: string
           image_url_local: string | null
+          image_url_local_desktop: string | null
+          image_url_local_fallback: string | null
+          image_url_local_mobile: string | null
           media_type: string | null
           order_index: number
           subtitle: string | null
@@ -242,6 +248,9 @@ export type Database = {
           id?: string
           image_url: string
           image_url_local?: string | null
+          image_url_local_desktop?: string | null
+          image_url_local_fallback?: string | null
+          image_url_local_mobile?: string | null
           media_type?: string | null
           order_index?: number
           subtitle?: string | null
@@ -257,6 +266,9 @@ export type Database = {
           id?: string
           image_url?: string
           image_url_local?: string | null
+          image_url_local_desktop?: string | null
+          image_url_local_fallback?: string | null
+          image_url_local_mobile?: string | null
           media_type?: string | null
           order_index?: number
           subtitle?: string | null
@@ -509,12 +521,14 @@ export type Database = {
           education: string | null
           eyes: string | null
           face_visible: boolean | null
+          gallery_local_urls: string[] | null
           hair: string | null
           height: string | null
           homepage_order: number | null
           id: string
           image: string | null
           image_local: string | null
+          image_url_local_main: string | null
           interests: string[] | null
           location: string | null
           measurements: string | null
@@ -539,12 +553,14 @@ export type Database = {
           education?: string | null
           eyes?: string | null
           face_visible?: boolean | null
+          gallery_local_urls?: string[] | null
           hair?: string | null
           height?: string | null
           homepage_order?: number | null
           id?: string
           image?: string | null
           image_local?: string | null
+          image_url_local_main?: string | null
           interests?: string[] | null
           location?: string | null
           measurements?: string | null
@@ -569,12 +585,14 @@ export type Database = {
           education?: string | null
           eyes?: string | null
           face_visible?: boolean | null
+          gallery_local_urls?: string[] | null
           hair?: string | null
           height?: string | null
           homepage_order?: number | null
           id?: string
           image?: string | null
           image_local?: string | null
+          image_url_local_main?: string | null
           interests?: string[] | null
           location?: string | null
           measurements?: string | null

@@ -17,6 +17,8 @@ export interface Model {
     additionalHour: string;
   };
   image: string;
+  image_url_local_main?: string;
+  gallery_local_urls?: string[];
   gallery: { image_url: string; visibility?: string; order_index?: number; caption?: string }[];
   services: string[];
   characteristics: string[];

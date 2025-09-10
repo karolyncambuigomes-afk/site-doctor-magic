@@ -60,15 +60,16 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
 
     if (heroSlides) {
       heroSlides.forEach(slide => {
+        const localUrl = slide.image_url_local_desktop || slide.image_url_local_mobile || slide.image_url_local_fallback;
         targets.push({
           id: slide.id,
           name: slide.title || `Hero Slide ${slide.order_index + 1}`,
           category: 'slides',
-          localUrl: slide.image_url_local,
+          localUrl,
           externalUrl: slide.image_url,
-          effectiveUrl: slide.image_url_local || slide.image_url || '/placeholder.svg',
+          effectiveUrl: localUrl || slide.image_url || '/placeholder.svg',
           tableName: 'hero_slides',
-          fieldName: 'image_url_local'
+          fieldName: 'image_url_local_desktop'
         });
       });
     }
@@ -76,7 +77,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
     // 3. Models ativos
     const { data: models } = await supabase
       .from('models')
-      .select('id, name, image, image_local')
+      .select('id, name, image, image_url_local_main')
       .limit(50);
 
     if (models) {
@@ -86,11 +87,11 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
             id: model.id,
             name: model.name,
             category: 'models',
-            localUrl: model.image_local,
+            localUrl: model.image_url_local_main,
             externalUrl: model.image,
-            effectiveUrl: model.image_local || model.image || '/placeholder.svg',
+            effectiveUrl: model.image_url_local_main || model.image || '/placeholder.svg',
             tableName: 'models',
-            fieldName: 'image_local'
+            fieldName: 'image_url_local_main'
           });
         }
       });
@@ -121,7 +122,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
     // 5. Blog posts com imagem
     const { data: blogPosts } = await supabase
       .from('blog_posts')
-      .select('id, title, image, image_local')
+      .select('id, title, image, image_url_local')
       .eq('is_published', true)
       .not('image', 'is', null);
 
@@ -132,11 +133,11 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
             id: post.id,
             name: post.title,
             category: 'blog',
-            localUrl: post.image_local,
+            localUrl: post.image_url_local,
             externalUrl: post.image,
-            effectiveUrl: post.image_local || post.image || '/placeholder.svg',
+            effectiveUrl: post.image_url_local || post.image || '/placeholder.svg',
             tableName: 'blog_posts',
-            fieldName: 'image_local'
+            fieldName: 'image_url_local'
           });
         }
       });

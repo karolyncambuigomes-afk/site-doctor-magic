@@ -204,22 +204,30 @@ serve(async (req) => {
           if (item.tableName === 'models') {
             const { error: dbError } = await supabase
               .from('models')
-              .update({ [item.fieldName]: localPath })
+              .update({ image_url_local_main: localPath })
               .eq('id', item.id);
             
             dbUpdated = !dbError;
           } else if (item.tableName === 'homepage_carousel') {
             const { error: dbError } = await supabase
               .from('homepage_carousel')
-              .update({ [item.fieldName]: localPath })
-              .eq('model_name', item.name.includes('Kate') ? 'Kate' : 'Livia');
+              .update({ image_url_local: localPath })
+              .eq('id', item.id);
             
             dbUpdated = !dbError;
           } else if (item.tableName === 'hero_slides') {
+            // Determine which field to update based on dimensions
+            let updateField = 'image_url_local_desktop';
+            if (item.dimensions?.includes('mobile')) {
+              updateField = 'image_url_local_mobile';
+            } else if (item.dimensions?.includes('1200')) {
+              updateField = 'image_url_local_fallback';
+            }
+            
             const { error: dbError } = await supabase
               .from('hero_slides')
-              .update({ [item.fieldName]: localPath })
-              .eq('title', item.name.includes('Vic') ? 'Welcome to Elite Companions' : 'Discover London');
+              .update({ [updateField]: localPath })
+              .eq('id', item.id);
             
             dbUpdated = !dbError;
           }

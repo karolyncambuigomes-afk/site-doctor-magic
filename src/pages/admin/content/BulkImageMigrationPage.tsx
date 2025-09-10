@@ -2,6 +2,7 @@ import React from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { BulkImageMigration } from './BulkImageMigration';
 import { ImageBulkProcessor } from '@/components/ImageBulkProcessor';
+import { MigrationExecutor } from '@/components/MigrationExecutor';
 
 export const BulkImageMigrationPage: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ export const BulkImageMigrationPage: React.FC = () => {
           <h1 className="text-3xl font-luxury-heading">Bulk Image Migration</h1>
           <p className="text-muted-foreground">Convert all external images to optimized local WebP versions</p>
         </div>
+        <MigrationExecutor />
         <ImageBulkProcessor />
         <BulkImageMigration />
       </div>

@@ -1,9 +1,9 @@
 // Five London - Service Worker for Caching and Offline Support
 // Optimized for private browsing compatibility
 
-const CACHE_NAME = 'five-london-v1';
-const STATIC_CACHE = 'five-london-static-v1';
-const RUNTIME_CACHE = 'five-london-runtime-v1';
+const CACHE_NAME = 'five-london-v1.2.0';
+const STATIC_CACHE = 'five-london-static-v1.2.0';
+const RUNTIME_CACHE = 'five-london-runtime-v1.2.0';
 
 // Essential assets to precache
 const PRECACHE_ASSETS = [
@@ -20,6 +20,13 @@ const NEVER_CACHE = [
   'chrome-extension',
   '.map'
 ];
+
+// Bypass cache for image proxy requests
+const shouldBypassCache = (url) => {
+  return url.includes('/images/') || 
+         url.includes('/api/i/') ||
+         url.includes('skipCache=true');
+};
 
 // Ultra-simple private mode detection
 function isPrivateMode() {

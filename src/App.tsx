@@ -71,12 +71,14 @@ import { LocationsManager as LocationsManagerPage } from "./pages/admin/location
 import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
-import { SystemSettings } from "./pages/admin/system/SystemSettings";
+import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
+import { SystemSettings } from "./pages/admin/settings/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
 import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
+import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
 
 
 const queryClient = new QueryClient();
@@ -366,6 +368,11 @@ const App = () => (
           
           {/* System Settings */}
           <Route path="/admin/system" element={
+            <AdminProtectedRoute>
+              <SystemSettingsOld />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/system/settings" element={
             <AdminProtectedRoute>
               <SystemSettings />
             </AdminProtectedRoute>

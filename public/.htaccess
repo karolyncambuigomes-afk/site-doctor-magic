@@ -83,17 +83,21 @@
 # Enable basic ETags for better cache validation
 FileETag MTime Size
 
-# SPA Routing and Optional HTTPS
+# SPA Routing and Image Proxy
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
     
+    # Image proxy: /images/* → /api/i/*
+    RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]
+    
     # SPA Routing - Serve index.html for all non-file requests
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !^/api/
     RewriteCond %{REQUEST_URI} !^/supabase/
+    RewriteCond %{REQUEST_URI} !^/images/
     RewriteRule . /index.html [L]
 </IfModule>

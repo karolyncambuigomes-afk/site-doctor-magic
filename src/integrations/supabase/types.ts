@@ -1047,6 +1047,19 @@ export type Database = {
         Args: { user_uuid: string }
         Returns: boolean
       }
+      fetch_migration_items: {
+        Args: { query_text: string }
+        Returns: {
+          category: string
+          id: string
+          image: string
+          image_url: string
+          model_name: string
+          name: string
+          slug: string
+          title: string
+        }[]
+      }
       get_current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: string

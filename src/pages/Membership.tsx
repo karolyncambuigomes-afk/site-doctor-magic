@@ -52,17 +52,19 @@ export const Membership: React.FC = () => {
         <main className="pt-0">
           {/* Hero Section */}
           <section className="py-16 md:py-24 bg-white">
-        <div className="container-width text-center">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-              Members Area
-            </h1>
-            <p className="luxury-body-lg text-black">
-              Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
-            </p>
-          </div>
-        </div>
-      </section>
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                  Members Area
+                </h1>
+                <p className="luxury-body-lg text-black">
+                  Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
+                </p>
+              </div>
+            </div>
+            {/* Elegant separator */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          </section>
 
       {/* Divider */}
       <div className="py-3">

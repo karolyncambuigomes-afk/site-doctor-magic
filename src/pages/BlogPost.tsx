@@ -86,45 +86,51 @@ const BlogPost = () => {
           </section>
 
           {/* Article Header */}
-          <section className="py-12 md:py-16 bg-white">
-            <div className="container-width">
-              <div className="max-w-4xl mx-auto">
-                <div className="mb-8">
-                  <Badge variant="secondary" className="mb-4">
-                    {article.category}
-                  </Badge>
-                  
-                  <h1 className="luxury-heading-display mb-6 text-black leading-tight">
-                    {article.title}
-                  </h1>
-                  
-                  <p className="luxury-body-lg text-gray-700 leading-relaxed mb-8">
-                    {article.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center gap-6 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                       <time dateTime={article.publishedAt}>
-                         {new Date(article.publishedAt).toLocaleDateString('en-GB', {
-                           day: 'numeric',
-                           month: 'long',
-                           year: 'numeric'
-                         })}
-                       </time>
-                    </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" />
-                          <span>{article.readTime} minutes read</span>
-                        </div>
-                        <div>
-                          By {article.author}
-                    </div>
+          <section className="py-16 md:py-24 bg-white">
+            <div className="container-width text-center">
+              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+                <Badge variant="secondary" className="mb-4">
+                  {article.category}
+                </Badge>
+                
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                  {article.title}
+                </h1>
+                
+                <p className="luxury-body-lg text-black">
+                  {article.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                     <time dateTime={article.publishedAt}>
+                       {new Date(article.publishedAt).toLocaleDateString('en-GB', {
+                         day: 'numeric',
+                         month: 'long',
+                         year: 'numeric'
+                       })}
+                     </time>
+                  </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        <span>{article.readTime} minutes read</span>
+                      </div>
+                      <div>
+                        By {article.author}
                   </div>
                 </div>
+              </div>
+            </div>
+            {/* Elegant separator */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          </section>
 
-                {/* Featured Image */}
-                <div className="aspect-video bg-muted rounded-lg overflow-hidden mb-12">
+          {/* Featured Image */}
+          <section className="py-8 bg-white">
+            <div className="container-width">
+              <div className="max-w-4xl mx-auto">
+                <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                   <img 
                     src={article.image} 
                     alt={article.title}

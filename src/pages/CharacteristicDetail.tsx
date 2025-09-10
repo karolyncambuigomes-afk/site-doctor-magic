@@ -108,7 +108,7 @@ const CharacteristicDetail = () => {
           <section className="py-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-display mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   {characteristic.name} Escorts
                 </h1>
                 <p className="luxury-body-lg text-black">
@@ -116,6 +116,8 @@ const CharacteristicDetail = () => {
                 </p>
               </div>
             </div>
+            {/* Elegant separator */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
           {/* Models Gallery */}

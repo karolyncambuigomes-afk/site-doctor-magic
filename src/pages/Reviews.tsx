@@ -101,7 +101,7 @@ export const Reviews: React.FC = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Client Reviews
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
               </p>
             </div>

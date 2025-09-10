@@ -57,7 +57,7 @@ export const Membership: React.FC = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Members Area
                 </h1>
-                <p className="luxury-body-lg text-black">
+                <p className="luxury-body-lg text-black mb-12 md:mb-12">
                   Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
                 </p>
               </div>

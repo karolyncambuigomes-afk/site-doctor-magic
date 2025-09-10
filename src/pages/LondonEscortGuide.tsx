@@ -50,7 +50,7 @@ const LondonEscortGuide = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 London Escort Guide
               </h1>
-              <p className="luxury-body-lg text-black">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Your comprehensive guide to elite escort services in London's most prestigious districts
               </p>
             </div>

@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Privacy Policy
               </h1>
-              <p className="luxury-body-lg text-black mb-8 md:mb-12">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 How we protect and handle your personal information with complete discretion
               </p>
             </div>

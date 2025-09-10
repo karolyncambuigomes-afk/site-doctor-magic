@@ -110,18 +110,14 @@ export const Reviews: React.FC = () => {
           <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
-        {/* Breadcrumbs */}
-        <section className="py-4 bg-white">
-          <div className="container mx-auto px-4">
+        {/* Reviews Grid */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4 mb-8">
             <Breadcrumbs 
               items={[{ label: "Reviews" }]}
               className="text-gray-600"
             />
           </div>
-        </section>
-
-        {/* Reviews Grid */}
-        <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (

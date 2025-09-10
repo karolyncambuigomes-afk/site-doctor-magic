@@ -37,7 +37,7 @@ const Locations = () => {
           </section>
 
           {/* Locations Grid */}
-          <section className="py-8 bg-white">
+          <section className="py-16 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 px-4 sm:px-6">
                 {locations.map((location) => (

@@ -66,17 +66,10 @@ export const Membership: React.FC = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
-      {/* Divider */}
-      <div className="py-3">
-        <div className="container-width">
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
-        </div>
-      </div>
-
           <div className="container-width px-6">
 
         {/* Login Section for Non-Logged In Users */}
-        {!user && <section className="py-16 md:py-20 bg-white">
+        {!user && <section className="py-16 bg-white">
             <div className="max-w-md mx-auto">
               <Card className="border border-border shadow-elegant">
                 <CardHeader className="text-center pb-6 bg-black">
@@ -151,7 +144,7 @@ export const Membership: React.FC = () => {
           </section>}
 
         {/* Welcome Message for Logged In Users */}
-        {user && <section className="py-16 md:py-20 bg-white">
+        {user && <section className="py-16 bg-white">
             <div className="max-w-md mx-auto">
               {/* Welcome Message */}
               <Card className="border border-primary/20 bg-primary/5 shadow-elegant mb-6">
@@ -189,15 +182,8 @@ export const Membership: React.FC = () => {
             </div>
           </section>}
 
-        {/* Divider */}
-        <div className="py-3">
-          <div className="container-width">
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30"></div>
-          </div>
-        </div>
-
         {/* Access Status for Users Without Access */}
-        {user && !hasAccess && <section className="py-16 md:py-20 bg-white">
+        {user && !hasAccess && <section className="py-16 bg-white">
             <div className="max-w-md mx-auto">
               <Card className="border border-orange-200 bg-orange-50/30">
                 <CardContent className="p-6 text-center">

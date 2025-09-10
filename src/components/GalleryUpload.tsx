@@ -24,10 +24,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({
   const [urlInput, setUrlInput] = useState('');
   const [optimizingStates, setOptimizingStates] = useState<{[key: number]: boolean}>({});
   const { toast } = useToast();
-  const { user, session } = useAuth();
-
-  // Check if user is admin
-  const isAdmin = session?.user?.id && user?.role === 'admin';
+  const { isAdmin } = useAuth();
 
   if (!isAdmin) {
     return (

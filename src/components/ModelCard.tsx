@@ -17,38 +17,34 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const { ref, isVisible } = useScrollAnimation(0.2);
   const { preferLocalImages } = useImagePreference();
 
-  // Enhanced image selection with robust fallback
+  // Enhanced image selection using gallery arrays
   const imageConfig = useMemo(() => {
-    const fallbackFromGallery = model.gallery && Array.isArray(model.gallery)
-      ? model.gallery
-          .filter(img => img.visibility === 'public' || !img.visibility)
-          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
-      : undefined;
-
-    // HOTFIX: Robust fallback chain - always prefer external URLs for now
-    const external = model.image || fallbackFromGallery;
-    const local = model.image_url_local_main;
+    // Use gallery arrays for modern approach
+    const localUrls = model.gallery_local_urls || [];
+    const externalUrls = model.gallery_external_urls || [];
+    
+    // First image from arrays, with fallback to main image
+    const primaryLocal = localUrls[0];
+    const primaryExternal = externalUrls[0] || model.image;
     
     return {
-      local: preferLocalImages ? local : null,
-      external: external,
+      local: primaryLocal,
+      external: primaryExternal,
       placeholder: '/images/placeholders/model.jpg'
     };
-  }, [model.image_url_local_main, model.image, model.gallery, preferLocalImages]);
+  }, [model.gallery_local_urls, model.gallery_external_urls, model.image]);
 
-  // Secondary image for hover effect
+  // Secondary image for hover effect from arrays
   const secondaryImage = useMemo(() => {
-    if (model.gallery && Array.isArray(model.gallery)) {
-      const publicImages = model.gallery
-        .filter(img => img.visibility === 'public' || !img.visibility)
-        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-      
-      const secondImg = publicImages[1] || publicImages[0];
-      const primarySrc = preferLocalImages ? imageConfig.local : imageConfig.external;
-      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
-    }
-    return null;
-  }, [model.gallery, imageConfig, preferLocalImages]);
+    const localUrls = model.gallery_local_urls || [];
+    const externalUrls = model.gallery_external_urls || [];
+    
+    // Get second image, preferring local over external
+    const secondLocal = localUrls[1];
+    const secondExternal = externalUrls[1];
+    
+    return secondLocal || secondExternal || null;
+  }, [model.gallery_local_urls, model.gallery_external_urls]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {

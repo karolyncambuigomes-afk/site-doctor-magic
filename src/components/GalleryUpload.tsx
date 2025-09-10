@@ -64,16 +64,18 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Iniciando carregamento de galeria para modelo ${modelId}`);
+    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando arrays de galeria para modelo ${modelId}`);
     
     try {
       setLoading(true);
       setLoadingError(null);
-      const { data, error } = await supabase
-        .from('model_gallery')
-        .select('*')
-        .eq('model_id', modelId)
-        .order('order_index', { ascending: true });
+      
+      // Fetch model with gallery arrays
+      const { data: modelData, error } = await supabase
+        .from('models')
+        .select('gallery_external_urls, gallery_local_urls')
+        .eq('id', modelId)
+        .single();
 
       if (error) {
         console.error(`📱 GALLERY DEBUG: Erro na query Supabase:`, error);
@@ -81,17 +83,30 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       }
 
       const loadTime = performance.now() - startTime;
-      console.log(`📱 GALLERY DEBUG: Galeria carregada com sucesso em ${loadTime.toFixed(2)}ms`);
-      console.log(`📱 GALLERY DEBUG: ${data?.length || 0} imagens encontradas`);
+      console.log(`📱 GALLERY DEBUG: Arrays carregados em ${loadTime.toFixed(2)}ms`);
       
-      // Track performance metrics
-      trackPerformance(startTime, data?.length || 0);
+      // Convert arrays to gallery image format
+      const externalUrls = modelData?.gallery_external_urls || [];
+      const localUrls = modelData?.gallery_local_urls || [];
+      
+      const images: GalleryImage[] = externalUrls.map((url: string, index: number) => ({
+        id: `external-${index}`,
+        model_id: modelId,
+        image_url: localUrls[index] || url, // Prefer local over external
+        caption: `Foto ${index + 1}`,
+        order_index: index,
+        visibility: 'public' as const,
+        created_at: new Date().toISOString()
+      }));
+      
+      console.log(`📱 GALLERY DEBUG: ${images.length} imagens processadas dos arrays`);
+      trackPerformance(startTime, images.length);
       
       if (isMobile && loadTime > 3000) {
-        console.warn(`📱 GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
+        console.warn(`📱 GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms)`);
       }
 
-      setGalleryImages(data || []);
+      setGalleryImages(images);
     } catch (error) {
       console.error(`📱 GALLERY DEBUG: Erro ao carregar galeria:`, error);
       setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
@@ -105,98 +120,111 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     }
   };
 
-  const addImage = async () => {
+  const addImage = async (sourceUrl?: string, isFile = false) => {
     const addStartTime = performance.now();
     console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Adicionando imagem`);
-    console.log('📱 GALLERY DEBUG: URL =', newImageUrl);
-    console.log('📱 GALLERY DEBUG: Visibilidade =', selectedVisibility);
-    console.log('📱 GALLERY DEBUG: ModelId =', modelId);
     
-    if (!newImageUrl) {
-      console.log('🎭 GALERIA: Erro - sem URL de imagem');
+    const urlToAdd = sourceUrl || newImageUrl;
+    
+    if (!urlToAdd) {
       toast({
         title: "Erro",
-        description: "Por favor, selecione uma imagem",
+        description: "Por favor, selecione uma imagem ou URL",
         variant: "destructive",
       });
       return;
     }
 
     if (!modelId) {
-      console.log('🎭 GALERIA: Erro - sem modelId');
       toast({
-        title: "Erro",
+        title: "Erro", 
         description: "ID do modelo não encontrado",
         variant: "destructive",
       });
       return;
     }
 
-    setLoading(true);
+    setIsAdding(true);
+    
     try {
-      const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
-      console.log('🎭 GALERIA: nextOrderIndex =', nextOrderIndex);
+      // Get current arrays
+      const { data: modelData } = await supabase
+        .from('models')
+        .select('gallery_external_urls, gallery_local_urls')
+        .eq('id', modelId)
+        .single();
 
-      // Get the count of images with the selected visibility to set the order
-      const imagesWithSameVisibility = galleryImages.filter(img => img.visibility === selectedVisibility);
-      const nextOrderForVisibility = Math.max(...imagesWithSameVisibility.map(img => img.order_index), -1) + 1;
-      
-      // Auto-sync gallery image to local if it's from Supabase Storage
-      let finalImageUrl = newImageUrl;
-      if (newImageUrl.includes('supabase') || newImageUrl.includes('storage')) {
-        console.log('🎯 Gallery image from Supabase, syncing to local...');
-        try {
-          const { data: syncData, error: syncError } = await supabase.functions.invoke('sync-image-to-local', {
-            body: { 
-              imageUrl: newImageUrl,
-              imageType: 'model-gallery',
-              modelId: modelId,
-              index: nextOrderForVisibility
-            }
-          });
+      const externalUrls = [...(modelData?.gallery_external_urls || [])];
+      const localUrls = [...(modelData?.gallery_local_urls || [])];
+      const nextIndex = externalUrls.length;
 
-          if (syncError) {
-            console.error('Gallery sync error:', syncError);
-          } else if (syncData?.success) {
-            console.log('✅ Gallery image synced to local:', syncData.localPath);
-            finalImageUrl = syncData.localPath;
-          }
-        } catch (syncError) {
-          console.error('Gallery sync function error:', syncError);
-        }
-      }
-      
-      const insertData = {
-        model_id: modelId,
-        image_url: finalImageUrl,
-        caption: newImageCaption || null,
-        order_index: nextOrderForVisibility,
-        visibility: selectedVisibility
-      };
-      console.log('🎭 GALERIA: Inserindo na tabela model_gallery:', insertData);
+      // Add to external array immediately
+      externalUrls.push(urlToAdd);
 
-      const { error } = await supabase
-        .from('model_gallery')
-        .insert([insertData]);
+      // Update database with new external URL
+      const { error: updateError } = await supabase
+        .from('models')
+        .update({ gallery_external_urls: externalUrls })
+        .eq('id', modelId);
 
-      if (error) {
-        console.error('🎭 GALERIA: Erro do Supabase:', error);
-        throw error;
-      }
+      if (updateError) throw updateError;
 
-      console.log('🎭 GALERIA: Sucesso! Imagem adicionada à model_gallery');
+      // Toast: Enviado
       toast({
-        title: "Sucesso",
-        description: finalImageUrl !== newImageUrl ? "Imagem adicionada e otimizada automaticamente" : "Imagem adicionada à galeria",
+        title: "✅ Enviado",
+        description: "Imagem adicionada, iniciando otimização...",
       });
+
+      // Call conversion endpoint in background
+      try {
+        const { data: fixData, error: fixError } = await supabase.functions.invoke('fix-one-gallery', {
+          body: {
+            modelId,
+            sourceUrl: urlToAdd,
+            index: nextIndex,
+            dry_run: false
+          }
+        });
+
+        if (fixError) {
+          console.error('Erro na conversão:', fixError);
+          // Toast: Error but keep external
+          toast({
+            title: "⚠️ Otimização Falhou",
+            description: "Imagem carregada mas não otimizada",
+            variant: "destructive"
+          });
+        } else if (fixData?.success) {
+          // Toast: Otimizado
+          toast({
+            title: "🚀 Otimizado",
+            description: "Imagem convertida para versão local",
+          });
+          
+          // Refresh to show local version
+          loadGalleryImages();
+          
+          // Toast: Disponível
+          setTimeout(() => {
+            toast({
+              title: "✨ Disponível",
+              description: "Imagem otimizada disponível no site",
+            });
+          }, 1000);
+        }
+      } catch (conversionError) {
+        console.error('Erro na conversão:', conversionError);
+        toast({
+          title: "⚠️ Otimização Falhou", 
+          description: "Imagem salva mas não otimizada",
+          variant: "destructive"
+        });
+      }
 
       setNewImageUrl('');
       setNewImageCaption('');
-      setIsAdding(false);
       loadGalleryImages();
       
-      // Dispatch custom event to notify ModelGallery component
-      console.log('🎭 GALERIA: Disparando evento galleryUpdated');
       window.dispatchEvent(new CustomEvent('galleryUpdated'));
     } catch (error) {
       console.error('Error adding image:', error);
@@ -206,7 +234,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setIsAdding(false);
     }
   };
 
@@ -214,10 +242,32 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     if (!confirm('Tem certeza que deseja remover esta imagem?')) return;
 
     try {
+      // Extract index from ID
+      const indexStr = imageId.replace('external-', '');
+      const index = parseInt(indexStr);
+      
+      // Get current arrays
+      const { data: modelData } = await supabase
+        .from('models')
+        .select('gallery_external_urls, gallery_local_urls')
+        .eq('id', modelId)
+        .single();
+
+      const externalUrls = [...(modelData?.gallery_external_urls || [])];
+      const localUrls = [...(modelData?.gallery_local_urls || [])];
+
+      // Remove from both arrays
+      externalUrls.splice(index, 1);
+      localUrls.splice(index, 1);
+
+      // Update database
       const { error } = await supabase
-        .from('model_gallery')
-        .delete()
-        .eq('id', imageId);
+        .from('models')
+        .update({ 
+          gallery_external_urls: externalUrls,
+          gallery_local_urls: localUrls 
+        })
+        .eq('id', modelId);
 
       if (error) throw error;
 
@@ -227,9 +277,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       });
 
       loadGalleryImages();
-      
-      // Dispatch custom event to notify ModelGallery component
-      console.log('🎭 GALERIA: Disparando evento galleryUpdated (remoção)');
       window.dispatchEvent(new CustomEvent('galleryUpdated'));
     } catch (error) {
       console.error('Error removing image:', error);
@@ -552,7 +599,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
           <div className="flex gap-2">
             <Button
               type="button"
-              onClick={addImage}
+              onClick={() => addImage()}
               disabled={loading || !newImageUrl}
               className="bg-black text-white hover:bg-gray-800"
             >

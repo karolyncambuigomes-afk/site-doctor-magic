@@ -79,6 +79,7 @@ import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPag
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
+import { GalleryDiagnosticsPage } from "./pages/admin/content/GalleryDiagnosticsPage";
 
 
 const queryClient = new QueryClient();
@@ -271,9 +272,9 @@ const App = () => (
               <ContentManager />
             </AdminProtectedRoute>
           } />
-          <Route path="/admin/content/gallery" element={
+          <Route path="/admin/content/gallery-diagnostics" element={
             <AdminProtectedRoute>
-              <ContentManager />
+              <GalleryDiagnosticsPage />
             </AdminProtectedRoute>
           } />
           <Route path="/admin/content/image-diagnostics" element={

@@ -19,6 +19,7 @@ export interface Model {
   image: string;
   image_url_local_main?: string;
   gallery_local_urls?: string[];
+  gallery_external_urls?: string[];
   gallery: { image_url: string; visibility?: string; order_index?: number; caption?: string }[];
   services: string[];
   characteristics: string[];

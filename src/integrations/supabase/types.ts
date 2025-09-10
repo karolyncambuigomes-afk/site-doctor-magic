@@ -965,6 +965,7 @@ export type Database = {
           button_url: string | null
           content: string | null
           created_at: string
+          hero_version: number | null
           id: string
           image_alt: string | null
           image_url: string | null
@@ -985,6 +986,7 @@ export type Database = {
           button_url?: string | null
           content?: string | null
           created_at?: string
+          hero_version?: number | null
           id?: string
           image_alt?: string | null
           image_url?: string | null
@@ -1005,6 +1007,7 @@ export type Database = {
           button_url?: string | null
           content?: string | null
           created_at?: string
+          hero_version?: number | null
           id?: string
           image_alt?: string | null
           image_url?: string | null

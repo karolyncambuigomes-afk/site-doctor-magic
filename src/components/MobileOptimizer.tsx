@@ -8,9 +8,15 @@ export const MobileOptimizer = () => {
   useEffect(() => {
     if (!isMobile) return;
 
-    // Enhanced mobile detection
+    // Enhanced mobile detection with crawler exclusion
     const isMobileDevice = () => {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      const userAgent = navigator.userAgent;
+      const isCrawler = /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider|facebookexternalhit|WhatsApp|LinkedInBot|slurp|DuckDuckBot/i.test(userAgent);
+      
+      // Don't optimize for crawlers
+      if (isCrawler) return false;
+      
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) ||
              window.innerWidth <= 768 ||
              'ontouchstart' in window;
     };

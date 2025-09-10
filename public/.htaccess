@@ -23,6 +23,8 @@
         Header always set X-Robots-Tag "index, follow"
         Header always set X-Debug-Tool "external-analyzer"
         Header always set Access-Control-Allow-Origin "*"
+        Header always set X-Mobile-Crawler-Friendly "true"
+        Header always set Vary "User-Agent"
     </If>
     
     # Mobile browsers: balanced caching for better performance

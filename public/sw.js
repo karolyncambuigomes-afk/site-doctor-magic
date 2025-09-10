@@ -36,10 +36,12 @@ function isPrivateMode() {
 self.addEventListener('install', event => {
   console.log('SW: Install event');
   
-  // Check for mobile browsers and disable completely
-  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+  // Check for mobile browsers but allow crawlers
+  const userAgent = navigator.userAgent;
+  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent);
+  const isCrawler = /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider|facebookexternalhit|WhatsApp|LinkedInBot|slurp|DuckDuckBot/i.test(userAgent);
   
-  if (isMobileBrowser) {
+  if (isMobileBrowser && !isCrawler) {
     console.log('SW: Mobile browser detected, disabling service worker completely');
     return self.skipWaiting();
   }
@@ -88,7 +90,9 @@ self.addEventListener('activate', (event) => {
 // Fetch event - completely bypass service worker for auth on mobile
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
-  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+  const userAgent = event.request.headers.get('user-agent') || '';
+  const isMobileBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent);
+  const isCrawler = /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider|facebookexternalhit|WhatsApp|LinkedInBot|slurp|DuckDuckBot/i.test(userAgent);
   
   // COMPLETELY BYPASS service worker for ANY auth-related requests
   if (url.pathname.includes('/auth') || 
@@ -99,9 +103,9 @@ self.addEventListener('fetch', event => {
     return; // Let browser handle directly
   }
   
-  // For mobile, bypass ALL requests to prevent any interference
-  if (isMobileBrowser) {
-    console.log('SW: Mobile detected, bypassing all requests');
+  // For mobile browsers (but not crawlers), bypass ALL requests to prevent any interference
+  if (isMobileBrowser && !isCrawler) {
+    console.log('SW: Mobile browser detected, bypassing all requests');
     return; // Let browser handle directly
   }
   

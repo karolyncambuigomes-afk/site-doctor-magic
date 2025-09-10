@@ -22,8 +22,16 @@ export function useIsMobile() {
         return false;
       }
       
-      // Real mobile detection
+      // Real mobile detection - exclude crawlers
       const userAgent = navigator.userAgent.toLowerCase();
+      const isCrawler = /googlebot|bingbot|pagespeed|gtmetrix|pingdom|webpagetest|lighthouse|crawler|bot|spider|facebookexternalhit|whatsapp|linkedinbot|slurp|duckduckbot/i.test(userAgent);
+      
+      // If it's a crawler, never treat as mobile
+      if (isCrawler) {
+        console.log('[MobileDetection] Crawler detected, forcing desktop mode:', userAgent);
+        return false;
+      }
+      
       const userAgentMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(userAgent);
       const screenMobile = window.innerWidth < MOBILE_BREAKPOINT;
       const touchCapable = 'ontouchstart' in window || navigator.maxTouchPoints > 0;

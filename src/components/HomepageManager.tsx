@@ -429,41 +429,42 @@ export const HomepageManager: React.FC = () => {
                 </details>
               </div>
 
-              <Button
-                onClick={async () => {
-                  console.log('🚀 [SAVE] Iniciando salvamento com dados:', heroFormData);
-                  console.log('🚀 [SAVE] Desktop URL:', heroFormData.image_url_desktop);
-                  console.log('🚀 [SAVE] Mobile URL:', heroFormData.image_url_mobile);
-                  console.log('🚀 [SAVE] Fallback URL:', heroFormData.image_url);
-                  
-                  setSaving('hero_main');
-                  
-                  // Validação antes de salvar
-                  if (!heroFormData.image_url_desktop && !heroFormData.image_url_mobile && !heroFormData.image_url) {
-                    toast({
-                      title: "Aviso",
-                      description: "Configure pelo menos uma imagem (desktop, mobile ou fallback)",
-                      variant: "destructive",
-                    });
+              <div className="flex gap-2">
+                <Button
+                  onClick={async () => {
+                    console.log('🚀 [SAVE] Iniciando salvamento com dados:', heroFormData);
+                    console.log('🚀 [SAVE] Desktop URL:', heroFormData.image_url_desktop);
+                    console.log('🚀 [SAVE] Mobile URL:', heroFormData.image_url_mobile);
+                    console.log('🚀 [SAVE] Fallback URL:', heroFormData.image_url);
+                    
+                    setSaving('hero_main');
+                    
+                    // Validação antes de salvar
+                    if (!heroFormData.image_url_desktop && !heroFormData.image_url_mobile && !heroFormData.image_url) {
+                      toast({
+                        title: "Aviso",
+                        description: "Configure pelo menos uma imagem (desktop, mobile ou fallback)",
+                        variant: "destructive",
+                      });
+                      setSaving(null);
+                      return;
+                    }
+                    
+                    const success = await updateHeroContent(heroFormData);
+                    if (success) {
+                      console.log('✅ [SAVE] Dados salvos com sucesso');
+                      toast({
+                        title: "Sucesso",
+                        description: `Configuração salva! Desktop: ${heroFormData.image_url_desktop ? '✅' : '❌'} | Mobile: ${heroFormData.image_url_mobile ? '✅' : '❌'}`,
+                      });
+                    } else {
+                      console.error('❌ [SAVE] Falha ao salvar dados');
+                    }
                     setSaving(null);
-                    return;
-                  }
-                  
-                  const success = await updateHeroContent(heroFormData);
-                  if (success) {
-                    console.log('✅ [SAVE] Dados salvos com sucesso');
-                    toast({
-                      title: "Sucesso",
-                      description: `Configuração salva! Desktop: ${heroFormData.image_url_desktop ? '✅' : '❌'} | Mobile: ${heroFormData.image_url_mobile ? '✅' : '❌'}`,
-                    });
-                  } else {
-                    console.error('❌ [SAVE] Falha ao salvar dados');
-                  }
-                  setSaving(null);
-                }}
-                disabled={saving === 'hero_main' || heroLoading}
-                className="w-full"
-              >
+                  }}
+                  disabled={saving === 'hero_main' || heroLoading}
+                  className="flex-1"
+                >
                 {saving === 'hero_main' ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
@@ -471,6 +472,21 @@ export const HomepageManager: React.FC = () => {
                 )}
                 Salvar Configuração de Banners
               </Button>
+              <Button 
+                onClick={async () => {
+                  const { processBannerComplete } = await import('@/utils/bannerProcessor');
+                  await processBannerComplete();
+                  toast({
+                    title: "Sucesso",
+                    description: "Cache do banner atualizado com sucesso!",
+                  });
+                }}
+                variant="outline"
+                className="whitespace-nowrap"
+              >
+                Atualizar Cache
+              </Button>
+            </div>
 
               <div className="text-xs text-muted-foreground p-3 bg-blue-50 rounded border">
                 <strong>💡 Dica:</strong> As alterações aqui afetam diretamente a seção principal da homepage. 

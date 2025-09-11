@@ -61,26 +61,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     
     try {
-      // Direct query instead of RPC to avoid JSON parsing issues
-      const { data: profile, error } = await supabase
+      // Get approval status from profiles
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('status, role')
+        .select('status')
         .eq('id', userId)
         .single();
 
-      if (error) {
-        console.error('Error checking user status:', error);
-        return { approved: false, status: null };
+      if (profileError) {
+        console.error('Error checking user status:', profileError);
+        return { approved: false, status: null, isAdmin: false };
       }
 
+      // Check admin status using secure RPC function
+      const { data: isAdminData, error: adminError } = await supabase
+        .rpc('is_admin');
+
       const approved = profile?.status === 'approved';
-      const isAdmin = profile?.role === 'admin';
+      const isAdminResult = adminError ? false : (isAdminData || false);
       
       setIsApproved(approved);
       setUserStatus(profile?.status || null);
-      setIsAdmin(isAdmin);
+      setIsAdmin(isAdminResult);
 
-      return { approved, status: profile?.status, isAdmin };
+      if (adminError) {
+        console.error('Error checking admin status:', adminError);
+      }
+
+      return { approved, status: profile?.status, isAdmin: isAdminResult };
     } catch (error) {
       console.error('Error checking user status:', error);
       return { approved: false, status: null, isAdmin: false };

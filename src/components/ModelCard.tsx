@@ -74,7 +74,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block group">
         <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container */}
-          <div className="relative aspect-[2/3] md:aspect-[3/4] overflow-hidden bg-muted">
+          <div className="relative aspect-[4/5] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
               <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">

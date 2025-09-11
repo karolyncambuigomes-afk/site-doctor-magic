@@ -59,7 +59,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   // Minimal Layout Component
   const MinimalModelCard = ({ model }: { model: Model }) => (
     <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
-      <div className="relative overflow-hidden bg-white aspect-[2/3] md:aspect-[3/4] rounded-none">
+      <div className="relative overflow-hidden bg-white aspect-[4/5] rounded-none">
         <img 
           src={model.image} 
           alt={model.name}
@@ -87,7 +87,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   // Elegant Layout Component  
   const ElegantModelCard = ({ model }: { model: Model }) => (
     <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
-      <div className="relative overflow-hidden aspect-[2/3] md:aspect-[3/4] rounded-lg bg-muted">
+      <div className="relative overflow-hidden aspect-[4/5] rounded-lg bg-muted">
         <img 
           src={model.image} 
           alt={model.name}
@@ -130,7 +130,7 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   const ModernModelCard = ({ model }: { model: Model }) => (
     <div className="group relative">
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
-        <div className="relative overflow-hidden aspect-[2/3] md:aspect-[3/4] rounded-2xl bg-muted">
+        <div className="relative overflow-hidden aspect-[4/5] rounded-2xl bg-muted">
           <img 
             src={model.image} 
             alt={model.name}

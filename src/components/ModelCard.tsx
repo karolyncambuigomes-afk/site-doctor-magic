@@ -42,16 +42,40 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {
     if (model.gallery && Array.isArray(model.gallery)) {
-      const publicImages = model.gallery
-        .filter(img => img.visibility === 'public' || !img.visibility)
-        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-      
-      const secondImg = publicImages[1] || publicImages[0];
       const primarySrc = imageConfig.external;
-      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
+      
+      // For members: use all available images (public + members_only)
+      // For non-members: use only public images
+      const availableImages = model.gallery
+        .filter(img => {
+          if (hasAccess) {
+            // Members can see all images
+            return true;
+          } else {
+            // Non-members can only see public images
+            return img.visibility === 'public' || !img.visibility;
+          }
+        })
+        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+        .filter(img => img.image_url !== primarySrc); // Exclude the primary image
+      
+      // Get the first available secondary image
+      const secondaryImg = availableImages[0];
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[ModelCard] ${model.name} secondary image selection:`, {
+          hasAccess,
+          primarySrc,
+          totalGalleryImages: model.gallery.length,
+          availableForSecondary: availableImages.length,
+          selectedSecondary: secondaryImg?.image_url || 'none'
+        });
+      }
+      
+      return secondaryImg?.image_url || null;
     }
     return null;
-  }, [model.gallery, imageConfig, preferLocalImages]);
+  }, [model.gallery, imageConfig, hasAccess]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {

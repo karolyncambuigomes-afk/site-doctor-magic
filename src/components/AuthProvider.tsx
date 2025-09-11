@@ -61,10 +61,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     
     try {
-      // Get approval status from profiles
+      // Get profile data including role and status
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('status')
+        .select('status, role, email')
         .eq('id', userId)
         .single();
 
@@ -73,20 +73,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return { approved: false, status: null, isAdmin: false };
       }
 
-      // Check admin status using secure RPC function
-      const { data: isAdminData, error: adminError } = await supabase
-        .rpc('is_admin');
-
       const approved = profile?.status === 'approved';
-      const isAdminResult = adminError ? false : (isAdminData || false);
+      const isAdminResult = profile?.role === 'admin';
+      
+      console.log('AuthProvider - User profile:', {
+        email: profile?.email,
+        status: profile?.status,
+        role: profile?.role,
+        isAdmin: isAdminResult
+      });
       
       setIsApproved(approved);
       setUserStatus(profile?.status || null);
       setIsAdmin(isAdminResult);
-
-      if (adminError) {
-        console.error('Error checking admin status:', adminError);
-      }
 
       return { approved, status: profile?.status, isAdmin: isAdminResult };
     } catch (error) {

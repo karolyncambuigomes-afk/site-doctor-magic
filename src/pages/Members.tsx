@@ -6,21 +6,21 @@ export const Members: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect to models page since exclusive models are now shown there
-    navigate('/models', { replace: true });
+    // Redirect to membership page instead of models
+    navigate('/membership', { replace: true });
   }, [navigate]);
 
   return (
     <>
       <SEO 
-        title="Members Area - Redirecting to Models | Five London"
-        description="Redirecting to our main models gallery where exclusive models are displayed for premium members."
-        canonicalUrl="/models"
+        title="Members Area - Redirecting to Membership | Five London"
+        description="Redirecting to our membership page for exclusive access and benefits."
+        canonicalUrl="/membership"
       />
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Redirecting...</h1>
-          <p className="text-muted-foreground">Taking you to our models gallery where exclusive models are displayed.</p>
+          <p className="text-muted-foreground">Taking you to our membership page for exclusive access.</p>
         </div>
       </div>
     </>

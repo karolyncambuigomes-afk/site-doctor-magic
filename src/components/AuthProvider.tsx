@@ -113,12 +113,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return true;
       }
 
-      // For regular users, check manual approval status only
-      const approved = result.approved;
-      console.log('AuthProvider - User approval status:', approved);
-      
-      setHasAccess(approved);
-      return approved;
+      // All authenticated users have access now (since only admin creates accounts)
+      console.log('AuthProvider - Authenticated user, granting access');
+      setHasAccess(true);
+      return true;
     } catch (error) {
       console.error('Error checking user access:', error);
       setHasAccess(false);

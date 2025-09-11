@@ -146,59 +146,6 @@ export const Membership: React.FC = () => {
     }
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm(true)) return;
-
-    setLoading(true);
-    setError('');
-
-    try {
-      console.log('Attempting member sign up with:', { email: formData.email });
-      
-      const redirectUrl = `${window.location.origin}/membership`;
-      
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email.trim(),
-        password: formData.password,
-        options: {
-          emailRedirectTo: redirectUrl
-        }
-      });
-
-      if (error) {
-        console.error('Sign up error:', error);
-        if (error.message.includes('User already registered')) {
-          setError('This email is already registered. Please try signing in.');
-        } else if (error.message.includes('JSON')) {
-          setError('Connection error. Please reload the page.');
-        } else {
-          setError(`Error: ${error.message}`);
-        }
-        return;
-      }
-
-      if (data.user) {
-        console.log('Member sign up successful for user:', data.user.id);
-        toast({
-          title: "Check your email",
-          description: "We've sent you a confirmation link. Please check your email and click the link to activate your account.",
-        });
-
-        // Clear form
-        setFormData({
-          email: '',
-          password: '',
-          confirmPassword: ''
-        });
-      }
-    } catch (err: any) {
-      console.error('Unexpected sign-up error:', err);
-      setError('Unexpected error. Please reload the page.');
-    } finally {
-      setLoading(false);
-    }
-  };
   return <>
       <SEO title="Members Area - Exclusive Access | Five London" description="Exclusive membership area for Five London. Access requires approval from our team." keywords="members area, exclusive access, VIP membership, Five London" canonicalUrl="/membership" />
       
@@ -242,133 +189,61 @@ export const Membership: React.FC = () => {
                     Member Access
                   </CardTitle>
                   <CardDescription className="text-muted-foreground">
-                    Sign in to your membership account or create a new one
+                    Sign in to your membership account (created by administrator)
                   </CardDescription>
                 </CardHeader>
                 
                 <CardContent>
-                  <Tabs defaultValue="signin" className="space-y-6">
-                    <TabsList className="grid w-full grid-cols-2">
-                      <TabsTrigger value="signin">Sign In</TabsTrigger>
-                      <TabsTrigger value="signup">Sign Up</TabsTrigger>
-                    </TabsList>
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
 
-                    {error && (
-                      <Alert variant="destructive">
-                        <AlertDescription>{error}</AlertDescription>
-                      </Alert>
-                    )}
-
-                    <TabsContent value="signin" className="space-y-4">
-                      <form onSubmit={handleSignIn} className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="signin-email">Email</Label>
-                          <Input
-                            id="signin-email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange('email', e.target.value)}
-                            disabled={loading}
-                            className="transition-luxury"
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="signin-password">Password</Label>
-                          <div className="relative">
-                            <Input
-                              id="signin-password"
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder="••••••••"
-                              value={formData.password}
-                              onChange={(e) => handleInputChange('password', e.target.value)}
-                              disabled={loading}
-                              className="pr-10 transition-luxury"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                            </button>
-                          </div>
-                        </div>
-
-                        <Button 
-                          type="submit" 
-                          className="w-full five-london-button"
+                  <form onSubmit={handleSignIn} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-email">Email</Label>
+                      <Input
+                        id="signin-email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        disabled={loading}
+                        className="transition-luxury"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="signin-password">Password</Label>
+                      <div className="relative">
+                        <Input
+                          id="signin-password"
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="••••••••"
+                          value={formData.password}
+                          onChange={(e) => handleInputChange('password', e.target.value)}
                           disabled={loading}
+                          className="pr-10 transition-luxury"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                         >
-                          {loading ? 'Signing In...' : 'Sign In'}
-                        </Button>
-                      </form>
-                    </TabsContent>
+                          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </button>
+                      </div>
+                    </div>
 
-                    <TabsContent value="signup" className="space-y-4">
-                      <form onSubmit={handleSignUp} className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="signup-email">Email</Label>
-                          <Input
-                            id="signup-email"
-                            type="email"
-                            placeholder="your@email.com"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange('email', e.target.value)}
-                            disabled={loading}
-                            className="transition-luxury"
-                          />
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="signup-password">Password</Label>
-                          <div className="relative">
-                            <Input
-                              id="signup-password"
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder="••••••••"
-                              value={formData.password}
-                              onChange={(e) => handleInputChange('password', e.target.value)}
-                              disabled={loading}
-                              className="pr-10 transition-luxury"
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                            >
-                              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                            </button>
-                          </div>
-                          <p className="caption text-muted-foreground">
-                            Minimum 8 characters with uppercase, lowercase, and numbers
-                          </p>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="confirm-password">Confirm Password</Label>
-                          <Input
-                            id="confirm-password"
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="••••••••"
-                            value={formData.confirmPassword}
-                            onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                            disabled={loading}
-                            className="transition-luxury"
-                          />
-                        </div>
-
-                        <Button 
-                          type="submit" 
-                          className="w-full five-london-button"
-                          disabled={loading}
-                        >
-                          {loading ? 'Creating Account...' : 'Create Account'}
-                        </Button>
-                      </form>
-                    </TabsContent>
-                  </Tabs>
+                    <Button 
+                      type="submit" 
+                      className="w-full five-london-button"
+                      disabled={loading}
+                    >
+                      {loading ? 'Signing In...' : 'Sign In'}
+                    </Button>
+                  </form>
 
                   <div className="mt-6 text-center space-y-4">
                     <div className="flex justify-center">
@@ -398,14 +273,14 @@ export const Membership: React.FC = () => {
                 </CardContent>
               </Card>
               
-              {/* Access Request Information */}
+              {/* Contact Information */}
               <div className="mt-8">
                 <Card className="border border-border/50 bg-gray-50/50">
                   <CardContent className="p-6 text-center">
                     <Mail className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
-                    <h3 className="font-medium mb-2 text-foreground">Need Membership Access?</h3>
+                    <h3 className="font-medium mb-2 text-foreground">Need Support?</h3>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Membership approval may be required for full access. Contact our team for assistance.
+                      Only accounts created by our administration team can access this area.
                     </p>
                     <Button variant="outline" className="w-full" asChild>
                       <Link to="/contact" className="inline-flex items-center justify-center">

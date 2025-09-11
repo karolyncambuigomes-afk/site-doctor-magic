@@ -127,7 +127,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       return;
     }
 
-    // Add to pending list instead of directly saving
+    // Add to pending list and auto-process
     const newPendingImage: PendingImage = {
       id: `pending-${Date.now()}`,
       url: newImageUrl.trim(),
@@ -141,8 +141,13 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     
     toast({
       title: "Foto Adicionada",
-      description: "Foto adicionada à lista. Use 'Processar Todas' para baixar e otimizar.",
+      description: "Foto será processada automaticamente.",
     });
+
+    // Auto-process the new image after a short delay
+    setTimeout(() => {
+      processAllImages();
+    }, 500);
   };
 
   const handleBulkUrls = () => {
@@ -164,11 +169,15 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     });
     
     setBulkUrls('');
-    setShowBulkUpload(false);
     toast({
       title: "URLs Adicionadas",
-      description: `${urls.length} URLs adicionadas à lista`,
+      description: `${urls.length} URLs serão processadas automaticamente`,
     });
+
+    // Auto-process the new images after a short delay
+    setTimeout(() => {
+      processAllImages();
+    }, 500);
   };
 
   const handleMultipleFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -208,6 +217,11 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     }
     
     event.target.value = '';
+    
+    // Auto-process uploaded files after a short delay
+    setTimeout(() => {
+      processAllImages();
+    }, 1000);
   };
 
   // NEW: Process all pending images
@@ -542,24 +556,14 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-medium">Galeria de Fotos ({galleryImages.length} fotos)</h3>
-        <div className="flex gap-2">
-          <Button 
-            variant="outline"
-            onClick={() => setShowBulkUpload(true)}
-            disabled={isLoading}
-          >
-            <Upload className="w-4 h-4 mr-2" />
-            Upload Múltiplo
-          </Button>
-          <Button
-            type="button"
-            onClick={() => setIsAdding(!isAdding)}
-            className="bg-foreground text-background hover:bg-foreground/90"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            {isAdding ? 'Fechar' : 'Adicionar Fotos'}
-          </Button>
-        </div>
+        <Button
+          type="button"
+          onClick={() => setIsAdding(!isAdding)}
+          className="bg-foreground text-background hover:bg-foreground/90"
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          {isAdding ? 'Fechar' : 'Adicionar Fotos'}
+        </Button>
       </div>
 
       {/* Banner para modelos exclusivos */}
@@ -592,48 +596,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Bulk Upload Modal */}
-      {showBulkUpload && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-background rounded-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
-            <h3 className="text-lg font-semibold mb-4">Upload Múltiplo</h3>
-            
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="bulk-urls">URLs das Imagens (uma por linha)</Label>
-                <textarea
-                  id="bulk-urls"
-                  value={bulkUrls}
-                  onChange={(e) => setBulkUrls(e.target.value)}
-                  placeholder="https://exemplo.com/imagem1.jpg&#10;https://exemplo.com/imagem2.jpg"
-                  className="w-full h-32 p-2 border rounded-md resize-none"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="multiple-files">Ou selecione múltiplos arquivos:</Label>
-                <input
-                  id="multiple-files"
-                  type="file"
-                  multiple
-                  accept="image/*"
-                  onChange={handleMultipleFiles}
-                  className="w-full p-2 border rounded-md"
-                />
-              </div>
-            </div>
-            
-            <div className="flex gap-2 mt-6">
-              <Button variant="outline" onClick={() => setShowBulkUpload(false)}>
-                Cancelar
-              </Button>
-              <Button onClick={handleBulkUrls} disabled={!bulkUrls.trim()}>
-                Adicionar URLs
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Seletor de Visibilidade - Apenas para modelos com fotos realmente mistas */}
       {!model?.members_only && hasMultipleVisibilityTypes && (isAdding || isAdmin) && (
@@ -701,33 +663,85 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
           </div>
 
           {isAdding && (
-            <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
-              <div>
-                <Label htmlFor="imageUrl" className="text-foreground font-bold text-lg">URL da Imagem *</Label>
-                <ImageUpload
-                  value={newImageUrl}
-                  onChange={(url) => setNewImageUrl(url)}
-                  placeholder="Cole a URL da imagem aqui..."
-                />
+            <div className="space-y-6 p-4 bg-muted/50 rounded-lg">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* URLs Section */}
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="bulk-urls" className="text-foreground font-bold text-lg">URLs das Imagens</Label>
+                    <textarea
+                      id="bulk-urls"
+                      value={bulkUrls}
+                      onChange={(e) => setBulkUrls(e.target.value)}
+                      placeholder="Cole múltiplas URLs aqui (uma por linha):&#10;https://exemplo.com/imagem1.jpg&#10;https://exemplo.com/imagem2.jpg&#10;https://exemplo.com/imagem3.jpg"
+                      className="w-full h-32 p-3 border rounded-md resize-none bg-background"
+                      rows={6}
+                    />
+                  </div>
+                  <Button 
+                    onClick={handleBulkUrls} 
+                    disabled={!bulkUrls.trim()}
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Adicionar URLs ({bulkUrls.split('\n').filter(url => url.trim() && url.startsWith('http')).length})
+                  </Button>
+                </div>
+
+                {/* Files Section */}
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="multiple-files" className="text-foreground font-bold text-lg">Selecionar Arquivos</Label>
+                    <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
+                      <input
+                        id="multiple-files"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleMultipleFiles}
+                        className="hidden"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => document.getElementById('multiple-files')?.click()}
+                        className="w-full"
+                      >
+                        <Upload className="w-4 h-4 mr-2" />
+                        Selecionar Múltiplos Arquivos
+                      </Button>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Selecione várias imagens de uma vez
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <Label htmlFor="caption" className="text-foreground font-bold text-lg">Legenda (opcional)</Label>
-                <Input
-                  id="caption"
-                  value={newImageCaption}
-                  onChange={(e) => setNewImageCaption(e.target.value)}
-                  placeholder="Descreva a imagem..."
-                  className="bg-background border-border text-foreground"
-                />
+              {/* Single URL Input for quick add */}
+              <div className="border-t pt-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                  <div className="md:col-span-2">
+                    <Label htmlFor="imageUrl" className="text-foreground font-medium">Adicionar uma URL rapidamente</Label>
+                    <ImageUpload
+                      value={newImageUrl}
+                      onChange={(url) => setNewImageUrl(url)}
+                      placeholder="Cole uma URL aqui para adicionar rapidamente..."
+                    />
+                  </div>
+                  <Button 
+                    onClick={addToPendingList} 
+                    disabled={!newImageUrl.trim()}
+                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Adicionar
+                  </Button>
+                </div>
               </div>
 
-              <div className="flex gap-3">
-                <Button onClick={addToPendingList} className="flex-1 bg-foreground text-background hover:bg-foreground/90">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Adicionar à Lista
-                </Button>
-                <Button variant="outline" onClick={() => setIsAdding(false)} className="flex-1">
+              <div className="flex justify-center">
+                <Button variant="outline" onClick={() => setIsAdding(false)}>
                   Fechar
                 </Button>
               </div>
@@ -807,7 +821,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Main Action Buttons - Always visible when there are pending images */}
+      {/* Main Action Buttons - Process automatically when images are added */}
       {pendingImages.length > 0 && (
         <div className="flex gap-3 p-4 bg-primary/5 border border-primary/20 rounded-lg">
           <Button
@@ -824,7 +838,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             ) : (
               <>
                 <Download className="w-4 h-4 mr-2" />
-                Baixar e Processar Todas ({pendingImages.filter(img => img.status === 'pending').length})
+                Processar Todas ({pendingImages.filter(img => img.status === 'pending').length})
               </>
             )}
           </Button>
@@ -839,6 +853,20 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               Salvar Galeria ({pendingImages.filter(img => img.status === 'ready').length} prontas)
             </Button>
           )}
+        </div>
+      )}
+
+      {/* Fixed Save Button at Bottom - Always visible when gallery has changes */}
+      {(pendingImages.length > 0 || galleryImages.length > 0) && hasReadyToSave && (
+        <div className="fixed bottom-6 right-6 z-40">
+          <Button
+            onClick={saveGallery}
+            className="bg-green-600 text-white hover:bg-green-700 shadow-lg"
+            size="lg"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            Salvar Galeria ({pendingImages.filter(img => img.status === 'ready').length})
+          </Button>
         </div>
       )}
 

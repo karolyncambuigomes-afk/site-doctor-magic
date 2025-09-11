@@ -67,11 +67,11 @@ export const ProductionImageValidator: React.FC = () => {
     try {
       console.log(`🔧 Reprocessing ${category} image:`, item.name);
       
-      // Call fix-image-to-local Edge Function
-      const { data: result, error } = await supabase.functions.invoke('fix-image-to-local', {
+      // Call sync-image-to-local Edge Function
+      const { data: result, error } = await supabase.functions.invoke('sync-image-to-local', {
         body: {
           imageUrl: item.effectiveUrl,
-          category: category.toLowerCase(),
+          imageType: category.toLowerCase(),
           itemId: item.id,
           tableName: category === 'Models' ? 'models' : 
                     category === 'Carousel' ? 'homepage_carousel' : 'site_content',

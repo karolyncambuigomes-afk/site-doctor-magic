@@ -109,10 +109,10 @@ export const executeMigration = async (): Promise<{
       const itemName = item.name || item.model_name || item.title || `item-${item.id}`;
       console.log(`🔄 Processing: ${item.category} - ${itemName}`);
 
-      const { data: result, error } = await supabase.functions.invoke('fix-image-to-local', {
+      const { data: result, error } = await supabase.functions.invoke('sync-image-to-local', {
         body: {
           imageUrl: item.imageUrl,
-          category: item.category,
+          imageType: item.category,
           itemId: item.id,
           tableName: item.tableName,
           fieldName: item.fieldName,

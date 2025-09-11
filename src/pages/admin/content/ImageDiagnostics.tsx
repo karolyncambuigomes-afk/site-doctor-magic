@@ -137,8 +137,8 @@ const ImageFixButton: React.FC<{
         throw new Error('Not authenticated');
       }
       
-      // Call the edge function to fix the image
-      const response = await fetch('/functions/v1/fix-image-to-local', {
+      // Call the edge function to sync the image
+      const response = await fetch(`https://jiegopvbwpyfohhfvmwo.supabase.co/functions/v1/sync-image-to-local`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ const BulkFixButton: React.FC<{
         try {
           console.log(`🔧 [${i+1}/${needsFix.length}] Fixing ${item.source}`);
           
-          const response = await fetch('/functions/v1/fix-image-to-local', {
+          const response = await fetch(`https://jiegopvbwpyfohhfvmwo.supabase.co/functions/v1/sync-image-to-local`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

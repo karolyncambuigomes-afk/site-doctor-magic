@@ -102,11 +102,11 @@ export const BulkImageMigration: React.FC = () => {
             itemName = `blog-${item.category?.toLowerCase() || 'post'}-${item.slug || 'untitled'}`;
           }
 
-      // Call fix-image-to-local Edge Function
-      const { data: result, error: fixError } = await supabase.functions.invoke('fix-image-to-local', {
+      // Call sync-image-to-local Edge Function
+      const { data: result, error: fixError } = await supabase.functions.invoke('sync-image-to-local', {
         body: {
           imageUrl: item.image_url || item.image,
-          category: category.name.toLowerCase().replace(' ', '_'),
+          imageType: category.name.toLowerCase().replace(' ', '_'),
           itemId: item.id,
           tableName: category.tableName,
           fieldName: category.fieldName,

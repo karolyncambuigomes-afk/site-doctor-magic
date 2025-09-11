@@ -131,7 +131,7 @@ export const performCompleteImageRefresh = async (options: CacheManagerOptions =
 };
 
 /**
- * Bulk fix images using the fix-image-to-local Edge Function
+ * Bulk fix images using the sync-image-to-local Edge Function
  */
 export const bulkFixImagesToLocal = async (
   imageUrls: string[], 
@@ -149,7 +149,7 @@ export const bulkFixImagesToLocal = async (
       onProgress?.(i + 1, imageUrls.length);
       
       // Use fetch to call the Edge Function directly
-      const response = await fetch('/functions/v1/fix-image-to-local', {
+      const response = await fetch(`https://jiegopvbwpyfohhfvmwo.supabase.co/functions/v1/sync-image-to-local`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

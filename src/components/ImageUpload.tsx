@@ -84,10 +84,10 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           
           // Call Edge Function to fix image to local with proper parameters
           const { data: syncData, error: syncError } = await supabase.functions
-            .invoke('fix-image-to-local', {
+            .invoke('sync-image-to-local', {
               body: { 
                 imageUrl: imageUrl,
-                category: imageType,
+                imageType: imageType,
                 itemId: `upload-${Date.now()}`,
                 tableName: imageType === 'hero-banner' ? 'site_content' : 
                           imageType === 'model-main' ? 'models' :

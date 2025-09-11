@@ -135,7 +135,7 @@ export async function autoFixBrokenImage(
   fieldName?: string
 ): Promise<boolean> {
   try {
-    const response = await fetch('/api/fix-image-to-local', {
+    const response = await fetch(`https://jiegopvbwpyfohhfvmwo.supabase.co/functions/v1/sync-image-to-local`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

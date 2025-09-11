@@ -327,10 +327,10 @@ export const ImageAuditReport = () => {
         console.error('Error fetching hero slides:', heroError);
       } else if (heroSlides && heroSlides.length > 0) {
         for (const slide of heroSlides) {
-          const response = await supabase.functions.invoke('fix-image-to-local', {
+          const response = await supabase.functions.invoke('sync-image-to-local', {
             body: {
-              url: slide.image_url,
-              category: 'hero_slides',
+              imageUrl: slide.image_url,
+              imageType: 'hero-banner',
               name: `slide-${slide.id}`,
               tableName: 'hero_slides',
               fieldName: 'image_url',
@@ -352,10 +352,10 @@ export const ImageAuditReport = () => {
       
       if (!modelsError && models && models.length > 0) {
         for (const model of models) {
-          const response = await supabase.functions.invoke('fix-image-to-local', {
+          const response = await supabase.functions.invoke('sync-image-to-local', {
             body: {
-              url: model.image,
-              category: 'models',
+              imageUrl: model.image,
+              imageType: 'model-main',
               name: model.name,
               tableName: 'models',
               fieldName: 'image',
@@ -377,10 +377,10 @@ export const ImageAuditReport = () => {
       
       if (!carouselError && carousel && carousel.length > 0) {
         for (const item of carousel) {
-          const response = await supabase.functions.invoke('fix-image-to-local', {
+          const response = await supabase.functions.invoke('sync-image-to-local', {
             body: {
-              url: item.image_url,
-              category: 'homepage_carousel',
+              imageUrl: item.image_url,
+              imageType: 'static',
               name: item.model_name,
               tableName: 'homepage_carousel',
               fieldName: 'image_url',

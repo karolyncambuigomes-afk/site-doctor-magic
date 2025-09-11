@@ -90,10 +90,10 @@ export const ImageBulkProcessor: React.FC = () => {
           const imageUrl = item.image_url || item.image;
           const itemName = `${item.category.toLowerCase().replace(' ', '-')}-${item.id}`;
           
-          const { data: result, error: fixError } = await supabase.functions.invoke('fix-image-to-local', {
+          const { data: result, error: fixError } = await supabase.functions.invoke('sync-image-to-local', {
             body: {
               imageUrl,
-              category: item.category.toLowerCase().replace(' ', '_'),
+              imageType: item.category.toLowerCase().replace(' ', '_'),
               itemId: item.id,
               tableName: item.tableName,
               fieldName: item.fieldName,

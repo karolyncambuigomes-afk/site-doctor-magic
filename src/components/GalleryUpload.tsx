@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuth } from '@/components/AuthProvider';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
-import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle } from 'lucide-react';
+import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle, Download, Save } from 'lucide-react';
 
 interface GalleryImage {
   id: string;
@@ -36,6 +36,14 @@ interface GalleryUploadProps {
   model?: ModelForGallery;
 }
 
+interface PendingImage {
+  id: string;
+  url: string;
+  caption: string;
+  status: 'pending' | 'processing' | 'ready' | 'saved' | 'error';
+  error?: string;
+}
+
 export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
@@ -48,151 +56,227 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     getOptimizedImageUrl, 
     getOptimizedClasses 
   } = useMobileGalleryOptimizer();
+
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
   const [newImageUrl, setNewImageUrl] = useState('');
   const [newImageCaption, setNewImageCaption] = useState('');
-  const [isAdding, setIsAdding] = useState(false);
   const [editingImage, setEditingImage] = useState<string | null>(null);
   const [selectedVisibility, setSelectedVisibility] = useState<'public' | 'members_only' | 'admin_only'>('public');
   const [activeTab, setActiveTab] = useState<'public' | 'members_only' | 'admin_only'>('public');
+  const [loading, setLoading] = useState(false);
+  
+  // NEW: Batch upload states
+  const [pendingImages, setPendingImages] = useState<PendingImage[]>([]);
+  const [isProcessingBatch, setIsProcessingBatch] = useState(false);
+  const [processingProgress, setProcessingProgress] = useState(0);
 
   useEffect(() => {
     loadGalleryImages();
   }, [modelId]);
 
+  useEffect(() => {
+    // Set default visibility based on model configuration
+    if (model?.members_only) {
+      setSelectedVisibility('members_only');
+      setActiveTab('members_only');
+    } else if (model?.all_photos_public) {
+      setSelectedVisibility('public');
+      setActiveTab('public');
+    }
+  }, [model]);
+
   const loadGalleryImages = async () => {
-    const startTime = performance.now();
-    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Iniciando carregamento de galeria para modelo ${modelId}`);
+    if (!modelId) return;
     
     try {
-      setLoading(true);
-      setLoadingError(null);
+      setIsLoading(true);
+      
       const { data, error } = await supabase
         .from('model_gallery')
         .select('*')
         .eq('model_id', modelId)
         .order('order_index', { ascending: true });
 
-      if (error) {
-        console.error(`📱 GALLERY DEBUG: Erro na query Supabase:`, error);
-        throw error;
-      }
-
-      const loadTime = performance.now() - startTime;
-      console.log(`📱 GALLERY DEBUG: Galeria carregada com sucesso em ${loadTime.toFixed(2)}ms`);
-      console.log(`📱 GALLERY DEBUG: ${data?.length || 0} imagens encontradas`);
-      
-      // Track performance metrics
-      trackPerformance(startTime, data?.length || 0);
-      
-      if (isMobile && loadTime > 3000) {
-        console.warn(`📱 GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
-      }
+      if (error) throw error;
 
       setGalleryImages(data || []);
+      trackPerformance('loadTime', Date.now());
     } catch (error) {
-      console.error(`📱 GALLERY DEBUG: Erro ao carregar galeria:`, error);
-      setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
+      console.error('Error loading gallery images:', error);
       toast({
         title: "Erro",
-        description: isMobile ? "Erro ao carregar galeria (mobile)" : "Erro ao carregar galeria",
+        description: "Erro ao carregar galeria",
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  const addImage = async () => {
-    const addStartTime = performance.now();
-    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Adicionando imagem`);
-    console.log('📱 GALLERY DEBUG: URL =', newImageUrl);
-    console.log('📱 GALLERY DEBUG: Visibilidade =', selectedVisibility);
-    console.log('📱 GALLERY DEBUG: ModelId =', modelId);
+  const addToPendingList = async () => {
+    if (!newImageUrl.trim()) {
+      toast({
+        title: "Erro",
+        description: "URL da imagem é obrigatória",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Add to pending list instead of directly saving
+    const newPendingImage: PendingImage = {
+      id: `pending-${Date.now()}`,
+      url: newImageUrl.trim(),
+      caption: newImageCaption.trim() || '',
+      status: 'pending'
+    };
+
+    setPendingImages(prev => [...prev, newPendingImage]);
+    setNewImageUrl('');
+    setNewImageCaption('');
     
-    if (!newImageUrl) {
-      console.log('🎭 GALERIA: Erro - sem URL de imagem');
-      toast({
-        title: "Erro",
-        description: "Por favor, selecione uma imagem",
-        variant: "destructive",
-      });
-      return;
-    }
+    toast({
+      title: "Foto Adicionada",
+      description: "Foto adicionada à lista. Use 'Processar Todas' para baixar e otimizar.",
+    });
+  };
 
-    if (!modelId) {
-      console.log('🎭 GALERIA: Erro - sem modelId');
-      toast({
-        title: "Erro",
-        description: "ID do modelo não encontrado",
-        variant: "destructive",
-      });
-      return;
-    }
+  // NEW: Process all pending images
+  const processAllImages = async () => {
+    if (pendingImages.length === 0) return;
 
-    setLoading(true);
+    setIsProcessingBatch(true);
+    setProcessingProgress(0);
+
     try {
-      const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
-      console.log('🎭 GALERIA: nextOrderIndex =', nextOrderIndex);
+      const total = pendingImages.length;
+      let processed = 0;
 
-      // Get the count of images with the selected visibility to set the order
-      const imagesWithSameVisibility = galleryImages.filter(img => img.visibility === selectedVisibility);
-      const nextOrderForVisibility = Math.max(...imagesWithSameVisibility.map(img => img.order_index), -1) + 1;
-      
-      // HOTFIX: Temporarily disable sync-to-local to fix broken photo URLs
-      // Use direct Supabase URLs to ensure photos work correctly
-      let finalImageUrl = newImageUrl;
-      console.log('🎯 Using direct Supabase URL (sync-to-local disabled):', finalImageUrl);
-      
-      const insertData = {
-        model_id: modelId,
-        image_url: finalImageUrl,
-        caption: newImageCaption || null,
-        order_index: nextOrderForVisibility,
-        visibility: selectedVisibility
-      };
-      console.log('🎭 GALERIA: Inserindo na tabela model_gallery:', insertData);
+      for (const pendingImage of pendingImages) {
+        // Update status to processing
+        setPendingImages(prev => 
+          prev.map(img => 
+            img.id === pendingImage.id 
+              ? { ...img, status: 'processing' } 
+              : img
+          )
+        );
 
-      const { error } = await supabase
-        .from('model_gallery')
-        .insert([insertData]);
+        try {
+          // Determine visibility based on model configuration
+          let visibility = selectedVisibility;
+          if (model?.members_only) {
+            visibility = 'members_only';
+          } else if (model?.all_photos_public) {
+            visibility = 'public';
+          }
 
-      if (error) {
-        console.error('🎭 GALERIA: Erro do Supabase:', error);
-        throw error;
+          // Call sync-image-to-local to process the image
+          const { data: result, error: syncError } = await supabase.functions.invoke('sync-image-to-local', {
+            body: {
+              imageUrl: pendingImage.url,
+              imageType: 'gallery',
+              itemId: modelId,
+              tableName: 'model_gallery',
+              fieldName: 'image_url',
+              itemName: `gallery-${modelId}-${Date.now()}`,
+              altText: pendingImage.caption || 'Gallery image'
+            }
+          });
+
+          if (syncError) throw syncError;
+
+          // Add to gallery
+          const { error: insertError } = await supabase
+            .from('model_gallery')
+            .insert({
+              model_id: modelId,
+              image_url: result?.localUrl || pendingImage.url,
+              caption: pendingImage.caption || null,
+              visibility: visibility,
+              order_index: galleryImages.length + processed
+            });
+
+          if (insertError) throw insertError;
+
+          // Update status to ready
+          setPendingImages(prev => 
+            prev.map(img => 
+              img.id === pendingImage.id 
+                ? { ...img, status: 'ready' } 
+                : img
+            )
+          );
+
+        } catch (error) {
+          console.error('Error processing image:', error);
+          setPendingImages(prev => 
+            prev.map(img => 
+              img.id === pendingImage.id 
+                ? { ...img, status: 'error', error: error instanceof Error ? error.message : 'Erro desconhecido' } 
+                : img
+            )
+          );
+        }
+
+        processed++;
+        setProcessingProgress((processed / total) * 100);
+        
+        // Small delay between requests
+        await new Promise(resolve => setTimeout(resolve, 500));
       }
 
-      console.log('🎭 GALERIA: Sucesso! Imagem adicionada à model_gallery');
+      loadGalleryImages();
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
+
       toast({
-        title: "Sucesso",
-        description: finalImageUrl !== newImageUrl ? "Imagem adicionada e otimizada automaticamente" : "Imagem adicionada à galeria",
+        title: "Processamento Concluído",
+        description: `${processed} fotos processadas. Use 'Salvar Galeria' para finalizar.`,
       });
 
-      setNewImageUrl('');
-      setNewImageCaption('');
-      setIsAdding(false);
-      loadGalleryImages();
-      
-      // Dispatch custom event to notify ModelGallery component
-      console.log('🎭 GALERIA: Disparando evento galleryUpdated');
+    } finally {
+      setIsProcessingBatch(false);
+    }
+  };
+
+  // NEW: Save all changes (clear pending list and refresh)
+  const saveGallery = async () => {
+    try {
+      // Mark all ready images as saved
+      setPendingImages(prev => 
+        prev.map(img => 
+          img.status === 'ready' 
+            ? { ...img, status: 'saved' } 
+            : img
+        )
+      );
+
+      // Remove saved images after a short delay
+      setTimeout(() => {
+        setPendingImages(prev => prev.filter(img => img.status !== 'saved'));
+      }, 1000);
+
+      await loadGalleryImages();
       window.dispatchEvent(new CustomEvent('galleryUpdated'));
+
+      toast({
+        title: "Galeria Salva",
+        description: "Todas as alterações foram salvas com sucesso.",
+      });
+
     } catch (error) {
-      console.error('Error adding image:', error);
+      console.error('Error saving gallery:', error);
       toast({
         title: "Erro",
-        description: error instanceof Error ? error.message : "Erro ao adicionar imagem",
+        description: "Erro ao salvar galeria",
         variant: "destructive",
       });
-    } finally {
-      setLoading(false);
     }
   };
 
   const removeImage = async (imageId: string) => {
-    if (!confirm('Tem certeza que deseja remover esta imagem?')) return;
-
     try {
       const { error } = await supabase
         .from('model_gallery')
@@ -304,11 +388,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
       if (error) throw error;
 
-      toast({
-        title: "Sucesso",
-        description: "Ordem atualizada",
-      });
-
       loadGalleryImages();
     } catch (error) {
       console.error('Error updating order:', error);
@@ -329,20 +408,18 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
       if (error) throw error;
 
-      const visibilityLabels = {
-        'public': 'Pública',
-        'members_only': 'Apenas Membros',
-        'admin_only': 'Apenas Admin'
-      };
+      setGalleryImages(prev => 
+        prev.map(img => 
+          img.id === imageId ? { ...img, visibility: newVisibility } : img
+        )
+      );
 
       toast({
         title: "Sucesso",
-        description: `Visibilidade alterada para: ${visibilityLabels[newVisibility]}`,
+        description: "Visibilidade atualizada",
       });
 
-      loadGalleryImages();
-      
-      // Notify other components about the change
+      // Dispatch event to notify gallery updates
       window.dispatchEvent(new CustomEvent('galleryUpdated'));
     } catch (error) {
       console.error('Error updating visibility:', error);
@@ -397,6 +474,9 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     }
   });
 
+  const hasPendingToProcess = pendingImages.filter(img => img.status === 'pending').length > 0;
+  const hasReadyToSave = pendingImages.filter(img => img.status === 'ready').length > 0;
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -404,49 +484,22 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         <Button
           type="button"
           onClick={() => setIsAdding(!isAdding)}
-          className="bg-black text-white hover:bg-gray-800"
+          className="bg-foreground text-background hover:bg-foreground/90"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Adicionar Foto
+          {isAdding ? 'Fechar' : 'Adicionar Fotos'}
         </Button>
       </div>
 
-      <div className="bg-white border-2 border-border rounded-lg p-4">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 bg-muted rounded-full flex items-center justify-center">
-            <span className="text-foreground text-sm font-bold">!</span>
-          </div>
-          <h4 className="font-bold text-foreground">Sistema de Ordenação</h4>
-        </div>
-        <p className="text-sm text-foreground">
-          • A primeira foto será exibida como destaque<br/>
-          • Use os seletores de ordem para reorganizar as fotos<br/>
-          • Adicione pelo menos 1 foto para que o modelo apareça no site
-        </p>
-      </div>
-
-      {/* Seção de Configuração de Visibilidade - SEMPRE para modelos mistas e admin */}
-      {(shouldShowTabs && isAdmin) && (
-        <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <div className="flex items-center gap-2 text-blue-700 font-medium mb-2">
-            <Info className="w-4 h-4" />
-            Modelo Misto - Sistema de Abas Ativo
-          </div>
-          <p className="text-sm text-blue-600">
-            Este modelo permite fotos com diferentes tipos de visibilidade. O seletor abaixo estará sempre disponível.
-          </p>
-        </div>
-      )}
-
       {/* Banner para modelos exclusivos */}
-      {model?.members_only && isAdding && (
-        <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-4">
+      {model?.members_only && (
+        <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
           <div className="flex items-center gap-3">
             <Crown className="h-5 w-5 text-primary" />
             <div>
               <h4 className="font-medium text-foreground">Modelo Exclusiva</h4>
               <p className="text-sm text-muted-foreground">
-                Todas as fotos adicionadas serão automaticamente disponíveis apenas para membros
+                Todas as fotos são automaticamente para membros apenas
               </p>
             </div>
           </div>
@@ -455,16 +508,12 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
       {/* Seletor de Visibilidade - Apenas para modelos mistas */}
       {!model?.members_only && (isAdding || (shouldShowTabs && isAdmin)) && (
-        <div className="bg-background p-4 rounded-lg border border-border mb-4">
+        <div className="bg-background p-4 rounded-lg border border-border">
           <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
             🎯 {isAdding ? 'Tipo de Foto' : 'Configuração de Visibilidade'}
           </Label>
-          {!isAdding && (
-            <p className="text-sm text-muted-foreground mb-3">
-              Escolha o tipo de visibilidade que será aplicado ao próximo upload
-            </p>
-          )}
-          <div className="flex gap-2">
+          
+          <div className="grid grid-cols-3 gap-2">
             <Button
               type="button"
               variant={selectedVisibility === 'public' ? 'default' : 'outline'}
@@ -478,6 +527,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               <Globe className="w-4 h-4 mr-2" />
               Foto Pública
             </Button>
+            
             <Button
               type="button"
               variant={selectedVisibility === 'members_only' ? 'default' : 'outline'}
@@ -491,6 +541,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               <Crown className="w-4 h-4 mr-2" />
               Foto Membros
             </Button>
+            
             <Button
               type="button"
               variant={selectedVisibility === 'admin_only' ? 'default' : 'outline'}
@@ -508,83 +559,157 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {isAdding && (
+      {/* Batch Processing Section */}
+      {(pendingImages.length > 0 || isAdding) && (
         <div className="border border-border rounded-lg p-6 space-y-4 bg-background">
           <div className="flex items-center justify-center gap-3 mb-4 bg-muted p-3 rounded-lg">
             <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-background" />
             </div>
-            <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
-          </div>
-          
-          
-          <div className="bg-white p-4 rounded-lg border-2 border-border">
-            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
-              📸 Upload da Foto
-            </Label>
-            <div className="space-y-3">
-              <div className="p-3 bg-muted rounded border border-border">
-                <ImageUpload
-                  value={newImageUrl}
-                  onChange={(url) => {
-                    console.log('🎭 GALERIA: ImageUpload onChange chamado com URL:', url);
-                    setNewImageUrl(url);
-                  }}
-                  label="Selecionar foto ou fazer upload"
-                  placeholder="URL da imagem ou faça upload"
-                />
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="caption">Legenda (opcional)</Label>
-            <Input
-              id="caption"
-              value={newImageCaption}
-              onChange={(e) => setNewImageCaption(e.target.value)}
-              placeholder="Adicione uma legenda para esta imagem"
-            />
+            <h4 className="font-bold text-foreground">
+              {isAdding ? 'Adicionar Novas Fotos' : 'Fotos Pendentes'}
+            </h4>
           </div>
 
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              onClick={addImage}
-              disabled={loading || !newImageUrl}
-              className="bg-black text-white hover:bg-gray-800"
-            >
-              {loading ? 'Adicionando...' : `Adicionar à ${selectedVisibility === 'public' ? 'Públicas' : selectedVisibility === 'members_only' ? 'Membros' : 'Admin'}`}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setIsAdding(false);
-                setNewImageUrl('');
-                setNewImageCaption('');
-              }}
-            >
-              Cancelar
-            </Button>
-          </div>
+          {isAdding && (
+            <div className="space-y-4 p-4 bg-muted/50 rounded-lg">
+              <div>
+                <Label htmlFor="imageUrl" className="text-foreground font-bold text-lg">URL da Imagem *</Label>
+                <ImageUpload
+                  value={newImageUrl}
+                  onChange={(url) => setNewImageUrl(url)}
+                  placeholder="Cole a URL da imagem aqui..."
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="caption" className="text-foreground font-bold text-lg">Legenda (opcional)</Label>
+                <Input
+                  id="caption"
+                  value={newImageCaption}
+                  onChange={(e) => setNewImageCaption(e.target.value)}
+                  placeholder="Descreva a imagem..."
+                  className="bg-background border-border text-foreground"
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <Button onClick={addToPendingList} className="flex-1 bg-foreground text-background hover:bg-foreground/90">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Adicionar à Lista
+                </Button>
+                <Button variant="outline" onClick={() => setIsAdding(false)} className="flex-1">
+                  Fechar
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Pending Images List */}
+          {pendingImages.length > 0 && (
+            <div className="space-y-3">
+              <h5 className="font-medium text-foreground">Fotos na Lista ({pendingImages.length})</h5>
+              
+              {/* Processing Progress */}
+              {isProcessingBatch && (
+                <div className="bg-primary/10 border border-primary/20 rounded-lg p-3">
+                  <div className="flex justify-between text-sm mb-2">
+                    <span>Processando fotos...</span>
+                    <span>{Math.round(processingProgress)}%</span>
+                  </div>
+                  <div className="h-2 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary transition-all duration-500"
+                      style={{ width: `${processingProgress}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {pendingImages.map((pendingImage) => (
+                <div key={pendingImage.id} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg">
+                  <div className="w-16 h-16 bg-muted rounded-lg overflow-hidden">
+                    <img 
+                      src={pendingImage.url} 
+                      alt="Preview" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/placeholder.svg';
+                      }}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-foreground">
+                      {pendingImage.caption || 'Sem legenda'}
+                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge 
+                        variant={
+                          pendingImage.status === 'ready' ? 'default' :
+                          pendingImage.status === 'processing' ? 'secondary' :
+                          pendingImage.status === 'error' ? 'destructive' :
+                          'outline'
+                        }
+                        className="text-xs"
+                      >
+                        {pendingImage.status === 'pending' && 'Pendente'}
+                        {pendingImage.status === 'processing' && 'Processando...'}
+                        {pendingImage.status === 'ready' && 'Pronta'}
+                        {pendingImage.status === 'saved' && 'Salva'}
+                        {pendingImage.status === 'error' && 'Erro'}
+                      </Badge>
+                      {pendingImage.status === 'error' && pendingImage.error && (
+                        <span className="text-xs text-destructive">{pendingImage.error}</span>
+                      )}
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setPendingImages(prev => prev.filter(img => img.id !== pendingImage.id))}
+                    disabled={pendingImage.status === 'processing'}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
-      {/* Debug Info */}
-      {isMobile && (
-        <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm">
-          <div className="font-medium text-yellow-800">Debug Info:</div>
-          <div className="text-yellow-700">
-            • Total de imagens: {galleryImages.length}<br/>
-            • Públicas: {publicImages.length}<br/>
-            • Membros: {membersImages.length}<br/>
-            • Admin: {adminImages.length}<br/>
-            • Modelo misto: {isMixedModel ? 'Sim' : 'Não'}<br/>
-            • Múltiplos tipos: {hasMultipleVisibilityTypes ? 'Sim' : 'Não'}<br/>
-            • Mostrar abas: {shouldShowTabs ? 'Sim' : 'Não'}<br/>
-            • É admin: {isAdmin ? 'Sim' : 'Não'}
-          </div>
+      {/* Main Action Buttons - Always visible when there are pending images */}
+      {pendingImages.length > 0 && (
+        <div className="flex gap-3 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+          <Button
+            onClick={processAllImages}
+            disabled={isProcessingBatch || !hasPendingToProcess}
+            className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+            size="lg"
+          >
+            {isProcessingBatch ? (
+              <>
+                <LoadingSpinner className="w-4 h-4 mr-2" />
+                Processando... ({Math.round(processingProgress)}%)
+              </>
+            ) : (
+              <>
+                <Download className="w-4 h-4 mr-2" />
+                Baixar e Processar Todas ({pendingImages.filter(img => img.status === 'pending').length})
+              </>
+            )}
+          </Button>
+          
+          {hasReadyToSave && (
+            <Button
+              onClick={saveGallery}
+              className="flex-1 bg-green-600 text-white hover:bg-green-700"
+              size="lg"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              Salvar Galeria ({pendingImages.filter(img => img.status === 'ready').length} prontas)
+            </Button>
+          )}
         </div>
       )}
 
@@ -614,318 +739,329 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                 </Badge>
               </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="public" className="space-y-4">
               {publicImages.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <Globe className="w-5 h-5 text-green-600" />
-                    <span className="font-medium text-green-800">Carrossel Público - {publicImages.length} fotos</span>
-                  </div>
-                   <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
-                    {publicImages.map((image, index) => (
-                      <ImageCard 
-                        key={image.id} 
-                        image={image} 
-                        index={index} 
-                        images={publicImages}
-                        onEdit={setEditingImage}
-                        onUpdateOrder={updateOrder}
-                        onUpdateCaption={updateCaption}
-                        onUpdateVisibility={updateVisibility}
-                        onRemove={removeImage}
-                        showVisibilityControls={false}
-                      />
-                    ))}
-                  </div>
+                <div className="grid gap-4">
+                  {publicImages.map((image, index) => (
+                    <ImageCard
+                      key={image.id}
+                      image={image}
+                      index={index}
+                      visibility="public"
+                      onRemove={removeImage}
+                      onUpdateCaption={updateCaption}
+                      onUpdateOrder={updateOrder}
+                      onUpdateVisibility={updateVisibility}
+                      onEdit={setEditingImage}
+                      isAdmin={isAdmin}
+                      isMobile={isMobile}
+                      getOptimizedImageUrl={getOptimizedImageUrl}
+                      getOptimizedClasses={getOptimizedClasses}
+                      isExclusiveModel={model?.members_only || false}
+                    />
+                  ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-green-200 rounded-lg bg-green-50">
-                  <Globe className="w-16 h-16 text-green-300 mx-auto mb-4" />
-                  <p className="font-medium text-green-700">Nenhuma foto pública</p>
-                  <p className="text-sm text-green-600">Estas fotos serão visíveis para todos os visitantes</p>
+                <div className="text-center p-8 text-muted-foreground">
+                  <Globe className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>Nenhuma foto pública adicionada ainda</p>
                 </div>
               )}
             </TabsContent>
-            
+
             <TabsContent value="members_only" className="space-y-4">
               {membersImages.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                    <Crown className="w-5 h-5 text-amber-600" />
-                    <span className="font-medium text-amber-800">Carrossel Membros - {membersImages.length} fotos</span>
-                  </div>
-                   <div className={`grid gap-4 ${isMobile ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
-                    {membersImages.map((image, index) => (
-                      <ImageCard 
-                        key={image.id} 
-                        image={image} 
-                        index={index} 
-                        images={membersImages}
-                        onEdit={setEditingImage}
-                        onUpdateOrder={updateOrder}
-                        onUpdateCaption={updateCaption}
-                        onUpdateVisibility={updateVisibility}
-                        onRemove={removeImage}
-                        showVisibilityControls={false}
-                      />
-                    ))}
-                  </div>
+                <div className="grid gap-4">
+                  {membersImages.map((image, index) => (
+                    <ImageCard
+                      key={image.id}
+                      image={image}
+                      index={index}
+                      visibility="members_only"
+                      onRemove={removeImage}
+                      onUpdateCaption={updateCaption}
+                      onUpdateOrder={updateOrder}
+                      onUpdateVisibility={updateVisibility}
+                      onEdit={setEditingImage}
+                      isAdmin={isAdmin}
+                      isMobile={isMobile}
+                      getOptimizedImageUrl={getOptimizedImageUrl}
+                      getOptimizedClasses={getOptimizedClasses}
+                      isExclusiveModel={model?.members_only || false}
+                    />
+                  ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-amber-200 rounded-lg bg-amber-50">
-                  <Crown className="w-16 h-16 text-amber-300 mx-auto mb-4" />
-                  <p className="font-medium text-amber-700">Nenhuma foto para membros</p>
-                  <p className="text-sm text-amber-600">Estas fotos serão visíveis apenas para membros autorizados</p>
+                <div className="text-center p-8 text-muted-foreground">
+                  <Crown className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>Nenhuma foto para membros adicionada ainda</p>
                 </div>
               )}
             </TabsContent>
-            
+
             <TabsContent value="admin_only" className="space-y-4">
               {adminImages.length > 0 ? (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <Lock className="w-5 h-5 text-red-600" />
-                    <span className="font-medium text-red-800">Fotos Admin - {adminImages.length} fotos</span>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {adminImages.map((image, index) => (
-                      <ImageCard 
-                        key={image.id} 
-                        image={image} 
-                        index={index} 
-                        images={adminImages}
-                        onEdit={setEditingImage}
-                        onUpdateOrder={updateOrder}
-                        onUpdateCaption={updateCaption}
-                        onUpdateVisibility={updateVisibility}
-                        onRemove={removeImage}
-                        showVisibilityControls={false}
-                      />
-                    ))}
-                  </div>
+                <div className="grid gap-4">
+                  {adminImages.map((image, index) => (
+                    <ImageCard
+                      key={image.id}
+                      image={image}
+                      index={index}
+                      visibility="admin_only"
+                      onRemove={removeImage}
+                      onUpdateCaption={updateCaption}
+                      onUpdateOrder={updateOrder}
+                      onUpdateVisibility={updateVisibility}
+                      onEdit={setEditingImage}
+                      isAdmin={isAdmin}
+                      isMobile={isMobile}
+                      getOptimizedImageUrl={getOptimizedImageUrl}
+                      getOptimizedClasses={getOptimizedClasses}
+                      isExclusiveModel={model?.members_only || false}
+                    />
+                  ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-red-200 rounded-lg bg-red-50">
-                  <Lock className="w-16 h-16 text-red-300 mx-auto mb-4" />
-                  <p className="font-medium text-red-700">Nenhuma foto admin</p>
-                  <p className="text-sm text-red-600">Estas fotos são visíveis apenas para administradores</p>
+                <div className="text-center p-8 text-muted-foreground">
+                  <Lock className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>Nenhuma foto admin adicionada ainda</p>
                 </div>
               )}
             </TabsContent>
           </Tabs>
         ) : (
+          // Single view for non-tabbed models
           <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {galleryImages.map((image, index) => (
-                <ImageCard 
-                  key={image.id} 
-                  image={image} 
-                  index={index} 
-                  images={galleryImages}
-                  onEdit={setEditingImage}
-                  onUpdateOrder={updateOrder}
-                  onUpdateCaption={updateCaption}
-                  onUpdateVisibility={updateVisibility}
-                  onRemove={removeImage}
-                  showVisibilityControls={true}
-                />
-              ))}
-            </div>
+            {galleryImages.map((image, index) => (
+              <ImageCard
+                key={image.id}
+                image={image}
+                index={index}
+                visibility={image.visibility || 'public'}
+                onRemove={removeImage}
+                onUpdateCaption={updateCaption}
+                onUpdateOrder={updateOrder}
+                onUpdateVisibility={updateVisibility}
+                onEdit={setEditingImage}
+                isAdmin={isAdmin}
+                isMobile={isMobile}
+                getOptimizedImageUrl={getOptimizedImageUrl}
+                getOptimizedClasses={getOptimizedClasses}
+                isExclusiveModel={model?.members_only || false}
+              />
+            ))}
           </div>
         )
       ) : (
-        <div className="text-center py-8 text-muted-foreground border-2 border-dashed border-border rounded-lg">
-          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-            <Plus className="w-8 h-8 text-muted-foreground" />
-          </div>
-          <p className="font-medium">Nenhuma foto adicionada</p>
-          <p className="text-sm">Adicione pelo menos uma foto para que o modelo apareça no site</p>
+        <div className="text-center p-12 text-muted-foreground">
+          <AlertCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
+          <h4 className="text-lg font-medium mb-2">Nenhuma foto na galeria</h4>
+          <p>Comece adicionando algumas fotos para criar a galeria do modelo</p>
         </div>
       )}
 
-      {/* Image Editor */}
+      {/* Image Editor Modal */}
       {editingImage && (
-        <LazyImageEditor
-          imageUrl={editingImage}
-          isOpen={true}
-          onClose={() => setEditingImage(null)}
-          onSave={(blob) => {
-            const imageToEdit = galleryImages.find(img => img.image_url === editingImage);
-            if (imageToEdit) {
-              handleImageEdited(imageToEdit.id, blob);
-            }
-          }}
-          aspectRatio={1} // Square aspect ratio
-        />
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-lg max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div className="p-4 border-b">
+              <h3 className="text-lg font-medium">Editar Imagem</h3>
+            </div>
+            <div className="p-4">
+              <LazyImageEditor
+                imageUrl={galleryImages.find(img => img.id === editingImage)?.image_url || ''}
+                onSave={(blob) => handleImageEdited(editingImage, blob)}
+              />
+              <div className="flex gap-2 mt-4">
+                <Button onClick={() => setEditingImage(null)} variant="outline">
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="flex justify-center p-8">
+          <LoadingSpinner />
+        </div>
       )}
     </div>
   );
 };
 
-// Separate component for image cards to reduce complexity
+// ImageCard component remains the same...
 interface ImageCardProps {
   image: GalleryImage;
   index: number;
-  images: GalleryImage[];
-  onEdit: (url: string) => void;
-  onUpdateOrder: (id: string, order: number, visibility: string) => void;
-  onUpdateCaption: (id: string, caption: string) => void;
-  onUpdateVisibility: (id: string, visibility: 'public' | 'members_only' | 'admin_only') => void;
+  visibility: string;
   onRemove: (id: string) => void;
-  showVisibilityControls: boolean;
+  onUpdateCaption: (id: string, caption: string) => void;
+  onUpdateOrder: (id: string, newOrder: number, visibility: string) => void;
+  onUpdateVisibility: (id: string, visibility: 'public' | 'members_only' | 'admin_only') => void;
+  onEdit: (id: string) => void;
+  isAdmin: boolean;
+  isMobile: boolean;
+  getOptimizedImageUrl: (url: string) => string;
+  getOptimizedClasses: () => string;
+  isExclusiveModel: boolean;
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({
   image,
   index,
-  images,
-  onEdit,
-  onUpdateOrder,
-  onUpdateCaption,
-  onUpdateVisibility,
+  visibility,
   onRemove,
-  showVisibilityControls
+  onUpdateCaption,
+  onUpdateOrder,
+  onUpdateVisibility,
+  onEdit,
+  isAdmin,
+  isMobile,
+  getOptimizedImageUrl,
+  getOptimizedClasses,
+  isExclusiveModel
 }) => {
+  const [caption, setCaption] = useState(image.caption || '');
+  const [isUpdatingCaption, setIsUpdatingCaption] = useState(false);
+
+  const handleCaptionUpdate = async () => {
+    setIsUpdatingCaption(true);
+    await onUpdateCaption(image.id, caption);
+    setIsUpdatingCaption(false);
+  };
+
   return (
-    <div className="border-2 rounded-lg overflow-hidden border-border">
-      <div 
-        className="aspect-square cursor-pointer group relative"
-        onClick={() => onEdit(image.image_url)}
-        title="Clique para editar a imagem"
-      >
-        <img
-          src={image.image_url}
-          alt={image.caption || 'Gallery image'}
-          className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200 flex items-center justify-center">
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            <Edit3 className="w-8 h-8 text-white drop-shadow-lg" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="p-4 space-y-3">
-        {/* Order selector */}
-        <div className="flex items-center gap-2">
-          <Label className="text-sm font-medium">Posição:</Label>
-          <select
-            value={image.order_index}
-            onChange={(e) => onUpdateOrder(image.id, parseInt(e.target.value), image.visibility || 'public')}
-            className="px-2 py-1 border border-gray-300 rounded text-sm"
-          >
-            {Array.from({ length: Math.max(5, images.length + 1) }, (_, i) => (
-              <option key={i} value={i}>{i + 1}</option>
-            ))}
-          </select>
-          {index === 0 && (
-            <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
-              Destaque
-            </span>
-          )}
+    <div className="border border-border rounded-lg p-4 bg-background space-y-4">
+      <div className="flex gap-4">
+        <div className="w-32 h-32 flex-shrink-0">
+          <img
+            src={getOptimizedImageUrl(image.image_url)}
+            alt={image.caption || 'Gallery image'}
+            className={`w-full h-full object-cover rounded-lg ${getOptimizedClasses()}`}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = '/placeholder.svg';
+            }}
+          />
         </div>
 
-        {/* Quick set order buttons */}
-        <div className="flex items-center gap-2 mt-2">
-          <Label className="text-sm font-medium">Definir como:</Label>
-          {[1, 2, 3, 4].map((n) => (
-            <Button
-              key={n}
-              type="button"
-              size="sm"
-              variant={image.order_index === n - 1 ? 'default' : 'outline'}
-              onClick={() => onUpdateOrder(image.id, n - 1, image.visibility || 'public')}
-            >
-              {n}
-            </Button>
-          ))}
-        </div>
-        
-        {/* Visibility controls for mixed access models */}
-        {showVisibilityControls && (
-          <div className="space-y-2">
-            <Label className="text-sm font-medium">Visibilidade:</Label>
-            <div className="flex gap-1">
-              <Button
-                type="button"
-                variant={image.visibility === 'public' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => onUpdateVisibility(image.id, 'public')}
-                className={`flex-1 text-xs ${
-                  image.visibility === 'public' 
-                    ? 'bg-green-500 hover:bg-green-600 text-white' 
-                    : 'text-green-600 border-green-200 hover:bg-green-50'
-                }`}
-              >
-                <Globe className="w-3 h-3 mr-1" />
-                Pública
-              </Button>
-              <Button
-                type="button"
-                variant={image.visibility === 'members_only' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => onUpdateVisibility(image.id, 'members_only')}
-                className={`flex-1 text-xs ${
-                  image.visibility === 'members_only' 
-                    ? 'bg-amber-500 hover:bg-amber-600 text-white' 
-                    : 'text-amber-600 border-amber-200 hover:bg-amber-50'
-                }`}
-              >
+        <div className="flex-1 space-y-3">
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="text-xs">
+              #{index + 1}
+            </Badge>
+            {index === 0 && (
+              <Badge variant="default" className="text-xs bg-primary">
+                Destaque
+              </Badge>
+            )}
+            {isExclusiveModel && (
+              <Badge variant="secondary" className="text-xs">
                 <Crown className="w-3 h-3 mr-1" />
-                Membros
-              </Button>
+                Exclusiva
+              </Badge>
+            )}
+          </div>
 
-        {/* Info note for exclusive models */}
-        {!showVisibilityControls && (
-          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-            <div className="flex items-start gap-2">
-              <Crown className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-amber-800">
-                <p className="font-medium mb-1">Modelo Exclusivo para Membros</p>
-                <p>Todas as fotos desta modelo serão automaticamente visíveis apenas para membros aprovados. Use os botões numerados para definir a ordem das imagens (1ª imagem = cartão principal, 2ª = hover).</p>
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Legenda</Label>
+            <div className="flex gap-2">
+              <Input
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                placeholder="Adicione uma legenda..."
+                className="flex-1"
+              />
+              <Button
+                size="sm"
+                onClick={handleCaptionUpdate}
+                disabled={isUpdatingCaption}
+                variant="outline"
+              >
+                {isUpdatingCaption ? 'Salvando...' : 'Salvar'}
+              </Button>
+            </div>
+          </div>
+
+          {/* Order Controls */}
+          <div className="flex items-center gap-2">
+            <Label className="text-sm font-medium">Ordem:</Label>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onUpdateOrder(image.id, Math.max(0, image.order_index - 1), visibility)}
+              disabled={index === 0}
+            >
+              ↑
+            </Button>
+            <span className="text-sm px-2">{index + 1}</span>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onUpdateOrder(image.id, image.order_index + 1, visibility)}
+            >
+              ↓
+            </Button>
+          </div>
+
+          {/* Visibility Controls - Only for non-exclusive models and admins */}
+          {!isExclusiveModel && isAdmin && (
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Visibilidade</Label>
+              <div className="flex gap-1">
+                <Button
+                  size="sm"
+                  variant={image.visibility === 'public' ? 'default' : 'outline'}
+                  onClick={() => onUpdateVisibility(image.id, 'public')}
+                  className="text-xs"
+                >
+                  <Globe className="w-3 h-3 mr-1" />
+                  Pública
+                </Button>
+                <Button
+                  size="sm"
+                  variant={image.visibility === 'members_only' ? 'default' : 'outline'}
+                  onClick={() => onUpdateVisibility(image.id, 'members_only')}
+                  className="text-xs"
+                >
+                  <Crown className="w-3 h-3 mr-1" />
+                  Membros
+                </Button>
+                <Button
+                  size="sm"
+                  variant={image.visibility === 'admin_only' ? 'default' : 'outline'}
+                  onClick={() => onUpdateVisibility(image.id, 'admin_only')}
+                  className="text-xs"
+                >
+                  <Lock className="w-3 h-3 mr-1" />
+                  Admin
+                </Button>
               </div>
             </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onEdit(image.id)}
+            >
+              <Edit3 className="w-4 h-4 mr-1" />
+              Editar
+            </Button>
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={() => onRemove(image.id)}
+            >
+              <Trash2 className="w-4 h-4 mr-1" />
+              Remover
+            </Button>
           </div>
-        )}
-              <Button
-                type="button"
-                variant={image.visibility === 'admin_only' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => onUpdateVisibility(image.id, 'admin_only')}
-                className={`flex-1 text-xs ${
-                  image.visibility === 'admin_only' 
-                    ? 'bg-red-500 hover:bg-red-600 text-white' 
-                    : 'text-red-600 border-red-200 hover:bg-red-50'
-                }`}
-              >
-                <Lock className="w-3 h-3 mr-1" />
-                Admin
-              </Button>
-            </div>
-          </div>
-        )}
-        
-        {/* Caption */}
-        <Input
-          value={image.caption || ''}
-          onChange={(e) => onUpdateCaption(image.id, e.target.value)}
-          placeholder="Adicionar legenda..."
-          className="text-sm"
-        />
-        
-        {/* Action buttons */}
-        <div className="flex justify-center">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => onRemove(image.id)}
-            className="text-red-600 border-red-200 hover:bg-red-50"
-          >
-            <Trash2 className="w-4 h-4 mr-2" />
-            Remover
-          </Button>
         </div>
       </div>
     </div>

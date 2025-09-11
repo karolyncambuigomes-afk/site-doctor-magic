@@ -37,12 +37,6 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
 
-  console.log('AdminProtectedRoute - Auth state:', {
-    userEmail: user?.email,
-    loading,
-    isAdmin
-  });
-
   if (isAdmin === false) {
     return (
       <>

@@ -76,13 +76,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const approved = profile?.status === 'approved';
       const isAdminResult = profile?.role === 'admin';
       
-      console.log('AuthProvider - User profile:', {
-        email: profile?.email,
-        status: profile?.status,
-        role: profile?.role,
-        isAdmin: isAdminResult
-      });
-      
       setIsApproved(approved);
       setUserStatus(profile?.status || null);
       setIsAdmin(isAdminResult);

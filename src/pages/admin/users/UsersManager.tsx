@@ -264,7 +264,7 @@ export const UsersManager: React.FC = () => {
         </div>
 
         {/* Estatísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-card-foreground">Total de Usuários</CardTitle>
@@ -272,36 +272,6 @@ export const UsersManager: React.FC = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-card-foreground">{stats.total_users}</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-card-foreground">Pendentes</CardTitle>
-              <Calendar className="h-4 w-4 text-yellow-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{stats.pending_users}</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-card-foreground">Aprovados</CardTitle>
-              <UserCheck className="h-4 w-4 text-green-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">{stats.approved_users}</div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-card-foreground">Rejeitados</CardTitle>
-              <UserX className="h-4 w-4 text-red-600" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-600">{stats.rejected_users}</div>
             </CardContent>
           </Card>
 
@@ -316,7 +286,7 @@ export const UsersManager: React.FC = () => {
           </Card>
         </div>
 
-        {/* Filtros e Busca */}
+        {/* Ações Principais */}
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -332,40 +302,20 @@ export const UsersManager: React.FC = () => {
           
           <div className="flex flex-wrap gap-2">
             <Button
-              variant={filterStatus === 'all' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterStatus('all')}
-            >
-              Todos
-            </Button>
-            <Button
-              variant={filterStatus === 'pending' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterStatus('pending')}
-            >
-              Pendentes
-            </Button>
-            <Button
-              variant={filterStatus === 'approved' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterStatus('approved')}
-            >
-              Aprovados
-            </Button>
-            <Button
-              variant={filterStatus === 'admin' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setFilterStatus('admin')}
-            >
-              Admins
-            </Button>
-            <Button
               onClick={() => setIsCreateMemberModalOpen(true)}
               className="bg-primary text-primary-foreground hover:bg-primary/90"
               size="sm"
             >
               <Crown className="mr-2 h-4 w-4" />
-              Criar Membro Exclusivo
+              Adicionar Membro
+            </Button>
+            <Button
+              onClick={() => {/* TODO: Implementar modal para criar admin */}}
+              variant="outline"
+              size="sm"
+            >
+              <Shield className="mr-2 h-4 w-4" />
+              Adicionar Admin
             </Button>
           </div>
         </div>
@@ -397,29 +347,7 @@ export const UsersManager: React.FC = () => {
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    {user.status === 'pending' && (
-                      <>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => updateUserStatus(user.id, 'approved')}
-                          className="bg-green-50 border-green-200 text-green-700 hover:bg-green-100 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400"
-                        >
-                          <UserCheck className="h-4 w-4 mr-1" />
-                          Aprovar
-                        </Button>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => updateUserStatus(user.id, 'rejected')}
-                        >
-                          <UserX className="h-4 w-4 mr-1" />
-                          Rejeitar
-                        </Button>
-                      </>
-                    )}
-                    
-                    {user.role === 'user' && user.status === 'approved' && (
+                    {user.role === 'user' && (
                       <Button
                         variant="outline"
                         size="sm"

@@ -512,11 +512,11 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     return visibilityTypes.size > 1;
   }, [galleryImages]);
   
-  // Simplified logic for showing tabs - only show if truly mixed
+  // Simplified logic for showing tabs - only show for mixed models
   const shouldShowTabs = useMemo(() => {
-    // Only show tabs if model actually has photos with different visibility levels
-    return hasMultipleVisibilityTypes;
-  }, [hasMultipleVisibilityTypes]);
+    // Only show tabs for mixed models (not exclusively public or members-only)
+    return isMixedModel;
+  }, [isMixedModel]);
 
   console.log(`🎯 GALLERY TABS DEBUG:`, {
     modelId: modelId,

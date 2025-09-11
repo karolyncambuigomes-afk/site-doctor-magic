@@ -215,9 +215,9 @@ export const UsersManager: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge variant="secondary">Pendente</Badge>;
+        return <Badge variant="pending">Pendente</Badge>;
       case 'approved':
-        return <Badge variant="default">Aprovado</Badge>;
+        return <Badge variant="success">Aprovado</Badge>;
       case 'rejected':
         return <Badge variant="destructive">Rejeitado</Badge>;
       default:
@@ -230,7 +230,7 @@ export const UsersManager: React.FC = () => {
       case 'admin':
         return <Badge variant="default"><Shield className="h-3 w-3 mr-1" />Admin</Badge>;
       case 'user':
-        return <Badge variant="outline">Usuário</Badge>;
+        return <Badge variant="secondary">Usuário</Badge>;
       default:
         return <Badge variant="outline">{role}</Badge>;
     }
@@ -265,50 +265,50 @@ export const UsersManager: React.FC = () => {
 
         {/* Estatísticas */}
         <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
+              <CardTitle className="text-sm font-medium text-card-foreground">Total de Usuários</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.total_users}</div>
+              <div className="text-2xl font-bold text-card-foreground">{stats.total_users}</div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pendentes</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-card-foreground">Pendentes</CardTitle>
+              <Calendar className="h-4 w-4 text-yellow-600" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-yellow-600">{stats.pending_users}</div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Aprovados</CardTitle>
-              <UserCheck className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-card-foreground">Aprovados</CardTitle>
+              <UserCheck className="h-4 w-4 text-green-600" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-600">{stats.approved_users}</div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Rejeitados</CardTitle>
-              <UserX className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-card-foreground">Rejeitados</CardTitle>
+              <UserX className="h-4 w-4 text-red-600" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-600">{stats.rejected_users}</div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-card border-border">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Administradores</CardTitle>
-              <Shield className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-card-foreground">Administradores</CardTitle>
+              <Shield className="h-4 w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-600">{stats.admin_users}</div>
@@ -361,7 +361,7 @@ export const UsersManager: React.FC = () => {
             </Button>
             <Button
               onClick={() => setIsCreateMemberModalOpen(true)}
-              className="bg-gradient-to-r from-primary to-primary-variant text-white"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
               size="sm"
             >
               <Crown className="mr-2 h-4 w-4" />
@@ -370,21 +370,21 @@ export const UsersManager: React.FC = () => {
           </div>
         </div>
 
-        <Card>
+        <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle>Lista de Usuários</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-card-foreground">Lista de Usuários</CardTitle>
+            <CardDescription className="text-muted-foreground">
               Gerencie aprovações e permissões dos usuários
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {filteredUsers.map((user) => (
-                <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div key={user.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium">{user.email}</span>
+                      <span className="font-medium text-foreground">{user.email}</span>
                       {getRoleBadge(user.role)}
                       {getStatusBadge(user.status)}
                     </div>
@@ -403,12 +403,13 @@ export const UsersManager: React.FC = () => {
                           variant="outline"
                           size="sm"
                           onClick={() => updateUserStatus(user.id, 'approved')}
+                          className="bg-green-50 border-green-200 text-green-700 hover:bg-green-100 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400"
                         >
                           <UserCheck className="h-4 w-4 mr-1" />
                           Aprovar
                         </Button>
                         <Button
-                          variant="outline"
+                          variant="destructive"
                           size="sm"
                           onClick={() => updateUserStatus(user.id, 'rejected')}
                         >
@@ -423,6 +424,7 @@ export const UsersManager: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => updateUserRole(user.id, 'admin')}
+                        className="bg-background border-border text-foreground hover:bg-accent"
                       >
                         <Shield className="h-4 w-4 mr-1" />
                         Tornar Admin
@@ -434,16 +436,16 @@ export const UsersManager: React.FC = () => {
                          variant="outline"
                          size="sm"
                          onClick={() => updateUserRole(user.id, 'user')}
+                         className="bg-background border-border text-foreground hover:bg-accent"
                        >
                          Remover Admin
                        </Button>
                      )}
                      
                      <Button
-                       variant="outline"
+                       variant="destructive"
                        size="sm"
                        onClick={() => deleteUser(user.id, user.email)}
-                       className="text-red-600 hover:text-red-700 hover:border-red-300"
                      >
                        <Trash2 className="h-4 w-4 mr-1" />
                        Deletar

@@ -102,19 +102,20 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-card border-border">
         <DialogHeader>
-          <DialogTitle>Criar Novo Membro Exclusivo</DialogTitle>
+          <DialogTitle className="text-card-foreground">Criar Novo Membro Exclusivo</DialogTitle>
         </DialogHeader>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="clientName">Nome do Cliente</Label>
+            <Label htmlFor="clientName" className="text-card-foreground">Nome do Cliente</Label>
             <Input
               id="clientName"
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               placeholder="Ex: John Smith"
+              className="bg-background border-border text-foreground"
               disabled={isLoading}
               required
             />
@@ -124,13 +125,14 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Senha</Label>
+            <Label htmlFor="password" className="text-card-foreground">Senha</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Senha personalizada"
+              className="bg-background border-border text-foreground"
               disabled={isLoading}
               required
               minLength={6}
@@ -138,19 +140,19 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label>Data de Expiração (Opcional)</Label>
+            <Label className="text-card-foreground">Data de Expiração (Opcional)</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full justify-start text-left font-normal"
+                  className="w-full justify-start text-left font-normal bg-background border-border text-foreground hover:bg-accent"
                   disabled={isLoading}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {expiresAt ? format(expiresAt, 'dd/MM/yyyy') : 'Selecionar data'}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto p-0 bg-card border-border" align="start">
                 <Calendar
                   mode="single"
                   selected={expiresAt}
@@ -167,6 +169,7 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
                 size="sm"
                 onClick={() => setExpiresAt(undefined)}
                 disabled={isLoading}
+                className="text-foreground hover:bg-accent"
               >
                 Remover data de expiração
               </Button>
@@ -179,10 +182,15 @@ export const CreateMemberModal: React.FC<CreateMemberModalProps> = ({
               variant="outline" 
               onClick={handleClose}
               disabled={isLoading}
+              className="bg-background border-border text-foreground hover:bg-accent"
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isLoading}>
+            <Button 
+              type="submit" 
+              disabled={isLoading}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+            >
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Criar Membro
             </Button>

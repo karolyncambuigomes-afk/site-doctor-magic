@@ -49,14 +49,13 @@ export const useModels = () => {
       setLoading(true);
       setError(null);
 
-      // Data validation helper
+      // Data validation helper (filter out test/dummy names)
       const isValidModel = (model: any) => {
-        return model && 
-               model.id && 
-               model.name && 
-               model.name.trim() !== '' &&
-               model.name !== 'Teste' &&
-               !model.name.toLowerCase().includes('teste');
+        if (!model || !model.id || !model.name) return false;
+        const n = String(model.name).trim().toLowerCase();
+        if (n.length <= 2) return false;
+        if (n.includes('test') || n.includes('teste') || n === 'julia') return false;
+        return true;
       };
 
       console.log('useModels: Fetching models for user:', !!user, 'hasAccess:', hasAccess);

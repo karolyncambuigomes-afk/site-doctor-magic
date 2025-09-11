@@ -104,7 +104,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     face_visible: true,
     show_on_homepage: false,
     homepage_order: null,
-    all_photos_public: false
+    all_photos_public: true
   });
 
   const [newService, setNewService] = useState('');

@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuth } from '@/components/AuthProvider';
 import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
-import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle, Download, Save } from 'lucide-react';
+import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle, Download, Save, Upload } from 'lucide-react';
 
 interface GalleryImage {
   id: string;
@@ -71,6 +71,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   const [pendingImages, setPendingImages] = useState<PendingImage[]>([]);
   const [isProcessingBatch, setIsProcessingBatch] = useState(false);
   const [processingProgress, setProcessingProgress] = useState(0);
+  const [bulkUrls, setBulkUrls] = useState('');
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
 
   useEffect(() => {
     loadGalleryImages();
@@ -141,6 +143,71 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       title: "Foto Adicionada",
       description: "Foto adicionada à lista. Use 'Processar Todas' para baixar e otimizar.",
     });
+  };
+
+  const handleBulkUrls = () => {
+    if (!bulkUrls.trim()) return;
+    
+    const urls = bulkUrls
+      .split('\n')
+      .map(url => url.trim())
+      .filter(url => url && (url.startsWith('http') || url.startsWith('https')));
+    
+    urls.forEach(url => {
+      const newPendingImage: PendingImage = {
+        id: `pending-${Date.now()}-${Math.random()}`,
+        url: url,
+        caption: '',
+        status: 'pending'
+      };
+      setPendingImages(prev => [...prev, newPendingImage]);
+    });
+    
+    setBulkUrls('');
+    setShowBulkUpload(false);
+    toast({
+      title: "URLs Adicionadas",
+      description: `${urls.length} URLs adicionadas à lista`,
+    });
+  };
+
+  const handleMultipleFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files) return;
+
+    for (const file of Array.from(files)) {
+      if (file.type.startsWith('image/')) {
+        try {
+          const fileName = `${Date.now()}-${Math.random()}-${file.name}`;
+          const { data, error } = await supabase.storage
+            .from('model-images')
+            .upload(fileName, file);
+
+          if (error) throw error;
+
+          const { data: { publicUrl } } = supabase.storage
+            .from('model-images')
+            .getPublicUrl(fileName);
+
+          const newPendingImage: PendingImage = {
+            id: `pending-${Date.now()}-${Math.random()}`,
+            url: publicUrl,
+            caption: '',
+            status: 'pending'
+          };
+          setPendingImages(prev => [...prev, newPendingImage]);
+        } catch (error) {
+          console.error('Erro no upload:', error);
+          toast({
+            title: "Erro",
+            description: `Erro no upload de ${file.name}`,
+            variant: "destructive",
+          });
+        }
+      }
+    }
+    
+    event.target.value = '';
   };
 
   // NEW: Process all pending images
@@ -445,17 +512,11 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     return visibilityTypes.size > 1;
   }, [galleryImages]);
   
-  // NEW: More robust logic for showing tabs
+  // Simplified logic for showing tabs - only show if truly mixed
   const shouldShowTabs = useMemo(() => {
-    // Don't show tabs for exclusive models
-    if (model?.members_only) return false;
-    
-    // Always show for admin users (non-exclusive models)
-    if (isAdmin) return true;
-    
-    // Show if model has mixed configuration OR if gallery actually has mixed photos
-    return isMixedModel || hasMultipleVisibilityTypes;
-  }, [isAdmin, isMixedModel, hasMultipleVisibilityTypes, model?.members_only]);
+    // Only show tabs if model actually has photos with different visibility levels
+    return hasMultipleVisibilityTypes;
+  }, [hasMultipleVisibilityTypes]);
 
   console.log(`🎯 GALLERY TABS DEBUG:`, {
     modelId: modelId,
@@ -481,14 +542,24 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-medium">Galeria de Fotos ({galleryImages.length} fotos)</h3>
-        <Button
-          type="button"
-          onClick={() => setIsAdding(!isAdding)}
-          className="bg-foreground text-background hover:bg-foreground/90"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          {isAdding ? 'Fechar' : 'Adicionar Fotos'}
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline"
+            onClick={() => setShowBulkUpload(true)}
+            disabled={isLoading}
+          >
+            <Upload className="w-4 h-4 mr-2" />
+            Upload Múltiplo
+          </Button>
+          <Button
+            type="button"
+            onClick={() => setIsAdding(!isAdding)}
+            className="bg-foreground text-background hover:bg-foreground/90"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            {isAdding ? 'Fechar' : 'Adicionar Fotos'}
+          </Button>
+        </div>
       </div>
 
       {/* Banner para modelos exclusivos */}
@@ -521,8 +592,51 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Seletor de Visibilidade - Apenas para modelos mistas */}
-      {!model?.members_only && isMixedModel && (isAdding || (shouldShowTabs && isAdmin)) && (
+      {/* Bulk Upload Modal */}
+      {showBulkUpload && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
+            <h3 className="text-lg font-semibold mb-4">Upload Múltiplo</h3>
+            
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="bulk-urls">URLs das Imagens (uma por linha)</Label>
+                <textarea
+                  id="bulk-urls"
+                  value={bulkUrls}
+                  onChange={(e) => setBulkUrls(e.target.value)}
+                  placeholder="https://exemplo.com/imagem1.jpg&#10;https://exemplo.com/imagem2.jpg"
+                  className="w-full h-32 p-2 border rounded-md resize-none"
+                />
+              </div>
+              
+              <div>
+                <Label htmlFor="multiple-files">Ou selecione múltiplos arquivos:</Label>
+                <input
+                  id="multiple-files"
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleMultipleFiles}
+                  className="w-full p-2 border rounded-md"
+                />
+              </div>
+            </div>
+            
+            <div className="flex gap-2 mt-6">
+              <Button variant="outline" onClick={() => setShowBulkUpload(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={handleBulkUrls} disabled={!bulkUrls.trim()}>
+                Adicionar URLs
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Seletor de Visibilidade - Apenas para modelos com fotos realmente mistas */}
+      {!model?.members_only && hasMultipleVisibilityTypes && (isAdding || isAdmin) && (
         <div className="bg-background p-4 rounded-lg border border-border">
           <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
             🎯 {isAdding ? 'Tipo de Foto' : 'Configuração de Visibilidade'}
@@ -857,7 +971,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                 onRemove={removeImage}
                 onUpdateCaption={updateCaption}
                 onUpdateOrder={updateOrder}
-                onUpdateVisibility={updateVisibility}
+                onUpdateVisibility={hasMultipleVisibilityTypes ? updateVisibility : undefined}
                 onEdit={setEditingImage}
                 isAdmin={isAdmin}
                 isMobile={isMobile}

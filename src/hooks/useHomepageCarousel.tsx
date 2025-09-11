@@ -67,6 +67,7 @@ export const useHomepageCarousel = () => {
             .from('model_gallery')
             .select('image_url')
             .eq('model_id', model.id)
+            .eq('visibility', 'public')
             .order('order_index')
             .limit(1);
 

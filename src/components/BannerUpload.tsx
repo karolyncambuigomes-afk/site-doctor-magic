@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useId } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -24,6 +24,10 @@ export const BannerUpload: React.FC<BannerUploadProps> = ({
   const [uploading, setUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(value);
   const { toast } = useToast();
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const urlInputId = useId();
+  const fileInputId = useId();
 
   const uploadFile = async (file: File) => {
     try {
@@ -139,14 +143,14 @@ export const BannerUpload: React.FC<BannerUploadProps> = ({
 
   return (
     <div className="space-y-4">
-      <Label htmlFor="banner-input" className="text-sm font-medium">
+      <Label htmlFor={urlInputId} className="text-sm font-medium">
         {label}
       </Label>
       
       <div className="flex gap-2">
         <div className="flex-1">
           <Input
-            id="banner-input"
+            id={urlInputId}
             type="text"
             placeholder={placeholder}
             value={previewUrl}
@@ -172,13 +176,14 @@ export const BannerUpload: React.FC<BannerUploadProps> = ({
             variant="outline"
             disabled={uploading}
             className="whitespace-nowrap"
-            onClick={() => document.getElementById('banner-file-input')?.click()}
+            onClick={() => fileInputRef.current?.click()}
           >
             <Upload className="w-4 h-4 mr-2" />
             {uploading ? 'Uploading...' : 'Upload'}
           </Button>
           <input
-            id="banner-file-input"
+            id={fileInputId}
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             onChange={handleFileSelect}

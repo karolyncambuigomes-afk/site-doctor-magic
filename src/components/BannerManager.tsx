@@ -115,6 +115,9 @@ export const BannerManager: React.FC = () => {
 
   const updateBanner = async (bannerId: string, updates: Partial<SiteBanner>) => {
     try {
+      // Find current banner state
+      const current = banners.find(b => b.id === bannerId);
+
       const { error } = await supabase
         .from('site_banners')
         .update(updates)
@@ -125,6 +128,34 @@ export const BannerManager: React.FC = () => {
       setBanners(banners.map(banner => 
         banner.id === bannerId ? { ...banner, ...updates } : banner
       ));
+
+      // Enforce exclusivity: only one active per section + device_type
+      const willBeActive = updates.is_active ?? current?.is_active;
+      const newDeviceType = updates.device_type ?? current?.device_type;
+      const section = current?.section;
+      if (willBeActive && section && newDeviceType) {
+        const { error: deactivateError } = await supabase
+          .from('site_banners')
+          .update({ is_active: false })
+          .eq('section', section)
+          .eq('device_type', newDeviceType)
+          .neq('id', bannerId)
+          .eq('is_active', true);
+        if (deactivateError) {
+          console.warn('Failed to enforce banner exclusivity:', deactivateError);
+        } else {
+          // Update local state for others
+          setBanners(prev => prev.map(b => (
+            b.section === section && b.device_type === newDeviceType && b.id !== bannerId
+              ? { ...b, is_active: false }
+              : b
+          )));
+          toast({
+            title: 'Exclusivity applied',
+            description: 'Only one active banner per device type in this section.',
+          });
+        }
+      }
 
       refetch(); // Refresh the frontend cache
     } catch (error) {
@@ -211,7 +242,7 @@ export const BannerManager: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <GripVertical className="w-4 h-4 text-muted-foreground" />
-                          <CardTitle className="text-sm">Banner #{banner.order_index + 1}</CardTitle>
+                          <CardTitle className="text-sm">Banner #{banner.order_index + 1} • {banner.device_type}</CardTitle>
                         </div>
                         <div className="flex items-center gap-2">
                           <Switch

@@ -46,27 +46,37 @@ export const AdminDashboard: React.FC = () => {
 
   const loadDashboardData = async () => {
     try {
-      const [modelsRes, applicationsRes, blogsRes, usersRes] = await Promise.all([
+      const results = await Promise.allSettled([
         supabase.from('models').select('id'),
         supabase.from('model_applications').select('id').eq('status', 'pending'),
         supabase.from('blog_posts').select('id').eq('is_published', true),
-        supabase.from('profiles').select('id')
+        supabase.from('profiles').select('id'),
       ]);
 
+      const safeLength = (res: PromiseSettledResult<any>) => {
+        if (res.status !== 'fulfilled') return 0;
+        const { data, error } = res.value || {};
+        if (error) {
+          console.warn('Dashboard stat fetch error:', error);
+          return 0;
+        }
+        return Array.isArray(data) ? data.length : 0;
+      };
+
       setStats({
-        totalModels: modelsRes.data?.length || 0,
-        pendingApplications: applicationsRes.data?.length || 0,
-        publishedBlogs: blogsRes.data?.length || 0,
-        totalUsers: usersRes.data?.length || 0,
+        totalModels: safeLength(results[0]),
+        pendingApplications: safeLength(results[1]),
+        publishedBlogs: safeLength(results[2]),
+        totalUsers: safeLength(results[3]),
         seoScore: 85,
-        recentActivity: []
+        recentActivity: [],
       });
     } catch (error) {
       console.error('Error loading dashboard data:', error);
       toast({
-        title: "Error loading dashboard",
-        description: "Failed to load dashboard statistics",
-        variant: "destructive"
+        title: 'Error loading dashboard',
+        description: 'Failed to load dashboard statistics',
+        variant: 'destructive',
       });
     } finally {
       setLoading(false);

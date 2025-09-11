@@ -857,6 +857,19 @@ const ImageCard: React.FC<ImageCardProps> = ({
                 <Crown className="w-3 h-3 mr-1" />
                 Membros
               </Button>
+
+        {/* Info note for exclusive models */}
+        {!showVisibilityControls && (
+          <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+            <div className="flex items-start gap-2">
+              <Crown className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-amber-800">
+                <p className="font-medium mb-1">Modelo Exclusivo para Membros</p>
+                <p>Todas as fotos desta modelo serão automaticamente visíveis apenas para membros aprovados. Use os botões numerados para definir a ordem das imagens (1ª imagem = cartão principal, 2ª = hover).</p>
+              </div>
+            </div>
+          </div>
+        )}
               <Button
                 type="button"
                 variant={image.visibility === 'admin_only' ? 'default' : 'outline'}

@@ -102,7 +102,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       if (error) throw error;
 
       setGalleryImages(data || []);
-      trackPerformance('loadTime', Date.now());
+      trackPerformance(Date.now(), data?.length || 0);
     } catch (error) {
       console.error('Error loading gallery images:', error);
       toast({
@@ -871,6 +871,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             <div className="p-4">
               <LazyImageEditor
                 imageUrl={galleryImages.find(img => img.id === editingImage)?.image_url || ''}
+                isOpen={true}
+                onClose={() => setEditingImage(null)}
                 onSave={(blob) => handleImageEdited(editingImage, blob)}
               />
               <div className="flex gap-2 mt-4">

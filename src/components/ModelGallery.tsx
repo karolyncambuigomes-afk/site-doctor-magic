@@ -140,8 +140,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
 
           if (profile?.role === 'admin') {
-            // Admin can see all images
-            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+            // Admin follows same logic as members for mixed models (prevents duplication)
+            query = query.eq('visibility', 'members_only');
+            console.log('🖼️ SITE GALERIA: Admin - vendo apenas imagens exclusivas para membros (evita duplicação)');
           } else {
             // Check if user has subscription (is a member)
             const { data: subscription } = await supabase

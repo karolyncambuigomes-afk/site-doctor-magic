@@ -56,7 +56,7 @@ import { TechnicalSEO } from "./pages/admin/seo/TechnicalSEO";
 import { PerformanceAnalytics } from "./pages/admin/seo/PerformanceAnalytics";
 import { ContentManager } from "./pages/admin/content/ContentManager";
 import { BlogManager } from "./pages/admin/content/BlogManager";
-import { HomepageManagerPage } from "./pages/admin/content/HomepageManagerPage";
+import { BannerManagerPage } from "./pages/admin/content/BannerManagerPage";
 import { SiteContentManagerPage } from "./pages/admin/content/SiteContentManagerPage";
 import { FAQManagerPage } from "./pages/admin/content/FAQManagerPage";
 
@@ -254,6 +254,11 @@ const App = () => (
           <Route path="/admin/content/homepage" element={
             <AdminProtectedRoute>
               <ContentManager />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/content/banners" element={
+            <AdminProtectedRoute>
+              <BannerManagerPage />
             </AdminProtectedRoute>
           } />
           <Route path="/admin/content/blog" element={

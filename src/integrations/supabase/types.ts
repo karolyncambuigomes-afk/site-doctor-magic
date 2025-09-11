@@ -962,6 +962,45 @@ export type Database = {
         }
         Relationships: []
       }
+      site_banners: {
+        Row: {
+          alt_text: string | null
+          caption: string | null
+          created_at: string
+          device_type: string | null
+          id: string
+          image_url: string
+          is_active: boolean | null
+          order_index: number | null
+          section: string
+          visibility: string | null
+        }
+        Insert: {
+          alt_text?: string | null
+          caption?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          image_url: string
+          is_active?: boolean | null
+          order_index?: number | null
+          section: string
+          visibility?: string | null
+        }
+        Update: {
+          alt_text?: string | null
+          caption?: string | null
+          created_at?: string
+          device_type?: string | null
+          id?: string
+          image_url?: string
+          is_active?: boolean | null
+          order_index?: number | null
+          section?: string
+          visibility?: string | null
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           button_text: string | null
@@ -1134,6 +1173,10 @@ export type Database = {
           p_record_id?: string
           p_table_name?: string
         }
+        Returns: undefined
+      }
+      migrate_gallery_arrays_to_table: {
+        Args: Record<PropertyKey, never>
         Returns: undefined
       }
       update_user_role: {

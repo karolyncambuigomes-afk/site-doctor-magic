@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { HomepageManager } from '@/components/HomepageManager';
+import { BannerManager } from '@/components/BannerManager';
 import { SiteContentManager } from '@/components/SiteContentManager';
 import { FAQManager } from '@/components/FAQManager';
 
@@ -87,13 +87,13 @@ export const ContentManager: React.FC = () => {
           <TabsContent value="homepage" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Configuração da Homepage</CardTitle>
+                <CardTitle>Banner Management</CardTitle>
                 <CardDescription>
-                  Gerencie o conteúdo e configurações da página inicial
+                  Gerencie banners do site seguindo o padrão otimizado das modelos
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <HomepageManager />
+                <BannerManager />
               </CardContent>
             </Card>
           </TabsContent>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { useBannerContent } from './useBannerContent';
 
 export interface HeroContent {
   title: string;
@@ -42,6 +43,9 @@ export const useHomepageContent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  
+  // Get banners from new system
+  const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
 
   const loadHeroContent = async () => {
     console.log('useHomepageContent: Starting loadHeroContent');
@@ -63,25 +67,64 @@ export const useHomepageContent = () => {
         throw error;
       }
 
+      // Get banner images from new system if available
+      const getImageUrls = () => {
+        if (heroBanners?.length > 0) {
+          const banner = heroBanners[0];
+          console.log('useHomepageContent: Using image from site_banners:', banner.image_url);
+          return {
+            image_url: banner.image_url,
+            image_url_desktop: banner.image_url,
+            image_url_mobile: banner.image_url,
+            image_url_local_desktop: banner.image_url,
+            image_url_local_mobile: banner.image_url,
+            image_url_local_fallback: banner.image_url
+          };
+        }
+        
+        // Fallback to old system
+        if (data) {
+          console.log('useHomepageContent: Using images from site_content');
+          return {
+            image_url: data.image_url || heroContent.image_url,
+            image_url_desktop: data.image_url_desktop || heroContent.image_url_desktop,
+            image_url_mobile: data.image_url_mobile || heroContent.image_url_mobile,
+            image_url_local_desktop: data.image_url_local_desktop || heroContent.image_url_local_desktop,
+            image_url_local_mobile: data.image_url_local_mobile || heroContent.image_url_local_mobile,
+            image_url_local_fallback: data.image_url_local_fallback || heroContent.image_url_local_fallback
+          };
+        }
+        
+        return {
+          image_url: heroContent.image_url,
+          image_url_desktop: heroContent.image_url_desktop,
+          image_url_mobile: heroContent.image_url_mobile,
+          image_url_local_desktop: heroContent.image_url_local_desktop,
+          image_url_local_mobile: heroContent.image_url_local_mobile,
+          image_url_local_fallback: heroContent.image_url_local_fallback
+        };
+      };
+
+      const imageUrls = getImageUrls();
+
       if (data) {
         console.log('useHomepageContent: Setting hero content with data');
         setHeroContent({
           title: data.title || heroContent.title,
           subtitle: data.subtitle || heroContent.subtitle,
           content: data.content || heroContent.content,
-          image_url: data.image_url || heroContent.image_url,
-          image_url_desktop: data.image_url_desktop || heroContent.image_url_desktop,
-          image_url_mobile: data.image_url_mobile || heroContent.image_url_mobile,
-          image_url_local_desktop: data.image_url_local_desktop || heroContent.image_url_local_desktop,
-          image_url_local_mobile: data.image_url_local_mobile || heroContent.image_url_local_mobile,
-          image_url_local_fallback: data.image_url_local_fallback || heroContent.image_url_local_fallback,
+          ...imageUrls,
           button_primary_text: data.button_text || heroContent.button_primary_text,
           button_primary_url: data.button_url || heroContent.button_primary_url,
           button_secondary_text: heroContent.button_secondary_text,
           button_secondary_url: heroContent.button_secondary_url
         });
       } else {
-        console.log('useHomepageContent: No data found, using defaults');
+        console.log('useHomepageContent: No data found, using defaults with banner images');
+        setHeroContent(prev => ({
+          ...prev,
+          ...imageUrls
+        }));
       }
       
       setError(null);
@@ -173,9 +216,17 @@ export const useHomepageContent = () => {
     loadHeroContent();
   }, []);
 
+  // Reload when banners change
+  useEffect(() => {
+    if (!bannersLoading) {
+      console.log('useHomepageContent: Banner data updated, reloading content');
+      loadHeroContent();
+    }
+  }, [heroBanners, bannersLoading]);
+
   return {
     heroContent,
-    loading,
+    loading: loading || bannersLoading,
     error,
     updateHeroContent,
     refetch: loadHeroContent

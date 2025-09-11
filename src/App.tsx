@@ -126,7 +126,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
-                  <Route path="/admin-login" element={<AdminLogin />} />
+                  <Route path="/admin-login" element={<Navigate to="/auth" replace />} />
                   <Route path="/approval-status" element={<UserApprovalStatus />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />

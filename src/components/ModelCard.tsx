@@ -5,7 +5,7 @@ import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { useImagePreference } from '@/hooks/useImagePreference';
 import { EnhancedImage } from '@/components/EnhancedImage';
-
+import { useAuth } from '@/components/AuthProvider';
 interface ModelCardProps {
   model: Model;
   index?: number;
@@ -16,25 +16,28 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.2);
   const { preferLocalImages } = useImagePreference();
+  const { hasAccess } = useAuth() || {};
 
   // Enhanced image selection with robust fallback
   const imageConfig = useMemo(() => {
-    const fallbackFromGallery = model.gallery && Array.isArray(model.gallery)
-      ? model.gallery
-          .filter(img => img.visibility === 'public' || !img.visibility)
-          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
-      : undefined;
+    const gallerySorted = Array.isArray(model.gallery)
+      ? [...model.gallery].sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
+      : [];
 
-    // HOTFIX: Prioritize external URLs to fix missing local images
-    const external = model.image || fallbackFromGallery;
-    const local = model.image_url_local_main;
-    
+    const membersFirst = gallerySorted.find(img => img.visibility === 'members_only')?.image_url;
+    const publicFirst = gallerySorted.find(img => img.visibility === 'public' || !img.visibility)?.image_url;
+
+    // Prefer members-only as primary if user has access
+    const preferredExternal = hasAccess
+      ? (membersFirst || model.image || publicFirst)
+      : (model.image || publicFirst);
+
     return {
       local: null, // Temporarily disable local images
-      external: external,
+      external: preferredExternal,
       placeholder: '/images/placeholders/model.jpg'
     };
-  }, [model.image_url_local_main, model.image, model.gallery, preferLocalImages]);
+  }, [model.gallery, model.image, hasAccess, preferLocalImages]);
 
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {
@@ -44,7 +47,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
         .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
       const secondImg = publicImages[1] || publicImages[0];
-      const primarySrc = preferLocalImages ? imageConfig.local : imageConfig.external;
+      const primarySrc = imageConfig.external;
       return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
     }
     return null;

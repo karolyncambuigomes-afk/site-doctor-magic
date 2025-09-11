@@ -18,40 +18,41 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const { preferLocalImages } = useImagePreference();
   const { hasAccess } = useAuth() || {};
 
-  // Enhanced image selection with robust fallback
+  // Enhanced image selection with robust fallback (respect area visibility)
   const imageConfig = useMemo(() => {
     const gallerySorted = Array.isArray(model.gallery)
       ? [...model.gallery].sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
       : [];
 
-    const membersFirst = gallerySorted.find(img => img.visibility === 'members_only')?.image_url;
-    const publicFirst = gallerySorted.find(img => img.visibility === 'public' || !img.visibility)?.image_url;
+    const membersImages = gallerySorted.filter(img => img.visibility === 'members_only');
+    const publicImages = gallerySorted.filter(img => img.visibility === 'public' || !img.visibility);
 
-    // Prefer members-only as primary if user has access
-    const preferredExternal = hasAccess
-      ? (membersFirst || model.image || publicFirst)
-      : (model.image || publicFirst);
+    // In members area (hasAccess), use only members images if they exist; otherwise fall back to public
+    const subset = hasAccess && membersImages.length > 0 ? membersImages : publicImages;
+
+    const primaryUrl = subset[0]?.image_url || model.image || null;
 
     return {
       local: null, // Temporarily disable local images
-      external: preferredExternal,
+      external: primaryUrl,
       placeholder: '/images/placeholders/model.jpg'
     };
-  }, [model.gallery, model.image, hasAccess, preferLocalImages]);
+  }, [model.gallery, model.image, hasAccess]);
 
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {
     if (model.gallery && Array.isArray(model.gallery)) {
-      const publicImages = model.gallery
-        .filter(img => img.visibility === 'public' || !img.visibility)
-        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-      
-      const secondImg = publicImages[1] || publicImages[0];
+      const gallerySorted = [...model.gallery].sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+      const membersImages = gallerySorted.filter(img => img.visibility === 'members_only');
+      const publicImages = gallerySorted.filter(img => img.visibility === 'public' || !img.visibility);
+      const subset = hasAccess && membersImages.length > 0 ? membersImages : publicImages;
+
       const primarySrc = imageConfig.external;
-      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
+      const secondSrc = subset[1]?.image_url;
+      return secondSrc && secondSrc !== primarySrc ? secondSrc : null;
     }
     return null;
-  }, [model.gallery, imageConfig, preferLocalImages]);
+  }, [model.gallery, imageConfig.external, hasAccess]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {

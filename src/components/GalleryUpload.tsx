@@ -807,6 +807,22 @@ const ImageCard: React.FC<ImageCardProps> = ({
             </span>
           )}
         </div>
+
+        {/* Quick set order buttons */}
+        <div className="flex items-center gap-2 mt-2">
+          <Label className="text-sm font-medium">Definir como:</Label>
+          {[1, 2, 3, 4].map((n) => (
+            <Button
+              key={n}
+              type="button"
+              size="sm"
+              variant={image.order_index === n - 1 ? 'default' : 'outline'}
+              onClick={() => onUpdateOrder(image.id, n - 1, image.visibility || 'public')}
+            >
+              {n}
+            </Button>
+          ))}
+        </div>
         
         {/* Visibility controls for mixed access models */}
         {showVisibilityControls && (

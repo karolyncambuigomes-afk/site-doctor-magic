@@ -370,12 +370,15 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   
   // NEW: More robust logic for showing tabs
   const shouldShowTabs = useMemo(() => {
-    // Always show for admin users
+    // Don't show tabs for exclusive models
+    if (model?.members_only) return false;
+    
+    // Always show for admin users (non-exclusive models)
     if (isAdmin) return true;
     
     // Show if model has mixed configuration OR if gallery actually has mixed photos
     return isMixedModel || hasMultipleVisibilityTypes;
-  }, [isAdmin, isMixedModel, hasMultipleVisibilityTypes]);
+  }, [isAdmin, isMixedModel, hasMultipleVisibilityTypes, model?.members_only]);
 
   console.log(`🎯 GALLERY TABS DEBUG:`, {
     modelId: modelId,
@@ -435,9 +438,24 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Seletor de Visibilidade - Sempre visível para modelos mistas */}
-      {(isAdding || (shouldShowTabs && isAdmin)) && (
-        <div className="bg-white p-4 rounded-lg border-2 border-border mb-4">
+      {/* Banner para modelos exclusivos */}
+      {model?.members_only && isAdding && (
+        <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-4">
+          <div className="flex items-center gap-3">
+            <Crown className="h-5 w-5 text-primary" />
+            <div>
+              <h4 className="font-medium text-foreground">Modelo Exclusiva</h4>
+              <p className="text-sm text-muted-foreground">
+                Todas as fotos adicionadas serão automaticamente disponíveis apenas para membros
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Seletor de Visibilidade - Apenas para modelos mistas */}
+      {!model?.members_only && (isAdding || (shouldShowTabs && isAdmin)) && (
+        <div className="bg-background p-4 rounded-lg border border-border mb-4">
           <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
             🎯 {isAdding ? 'Tipo de Foto' : 'Configuração de Visibilidade'}
           </Label>
@@ -453,8 +471,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               onClick={() => setSelectedVisibility('public')}
               className={`flex-1 ${
                 selectedVisibility === 'public' 
-                  ? 'bg-green-500 hover:bg-green-600 text-white' 
-                  : 'text-green-600 border-green-200 hover:bg-green-50'
+                  ? 'bg-foreground text-background hover:bg-foreground/90' 
+                  : 'text-foreground border-border hover:bg-muted'
               }`}
             >
               <Globe className="w-4 h-4 mr-2" />
@@ -466,8 +484,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               onClick={() => setSelectedVisibility('members_only')}
               className={`flex-1 ${
                 selectedVisibility === 'members_only' 
-                  ? 'bg-amber-500 hover:bg-amber-600 text-white' 
-                  : 'text-amber-600 border-amber-200 hover:bg-amber-50'
+                  ? 'bg-foreground text-background hover:bg-foreground/90' 
+                  : 'text-foreground border-border hover:bg-muted'
               }`}
             >
               <Crown className="w-4 h-4 mr-2" />
@@ -479,8 +497,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
               onClick={() => setSelectedVisibility('admin_only')}
               className={`flex-1 ${
                 selectedVisibility === 'admin_only' 
-                  ? 'bg-red-500 hover:bg-red-600 text-white' 
-                  : 'text-red-600 border-red-200 hover:bg-red-50'
+                  ? 'bg-foreground text-background hover:bg-foreground/90' 
+                  : 'text-foreground border-border hover:bg-muted'
               }`}
             >
               <Lock className="w-4 h-4 mr-2" />
@@ -491,7 +509,7 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
       )}
 
       {isAdding && (
-        <div className="border-2 border-border rounded-lg p-6 space-y-4 bg-white">
+        <div className="border border-border rounded-lg p-6 space-y-4 bg-background">
           <div className="flex items-center justify-center gap-3 mb-4 bg-muted p-3 rounded-lg">
             <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-background" />

@@ -29,28 +29,6 @@ export const Membership: React.FC = () => {
   const navigate = useSafeNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        // Redirect authenticated users to models page
-        if (session?.user && navigate) {
-          setTimeout(() => {
-            navigate('/models');
-          }, 100);
-        }
-      }
-    );
-
-    // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user && navigate) {
-        navigate('/models');
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate]);
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {

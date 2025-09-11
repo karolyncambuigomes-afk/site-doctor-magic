@@ -40,15 +40,15 @@ export const HeroSection: React.FC = () => {
       image_url 
     } = heroContent;
     
-    // Local images (prioritized)
+    // Local images (prioritized) - strict separation (no cross-device fallback)
     const localImage = isMobile 
-      ? (image_url_local_mobile || image_url_local_desktop || image_url_local_fallback)
-      : (image_url_local_desktop || image_url_local_mobile || image_url_local_fallback);
+      ? (image_url_local_mobile || image_url_local_fallback)
+      : (image_url_local_desktop || image_url_local_fallback);
     
-    // External images (fallback)
+    // External images (fallback) - strict separation (no cross-device fallback)
     const externalImage = isMobile 
-      ? (image_url_mobile || image_url || image_url_desktop)
-      : (image_url_desktop || image_url || image_url_mobile);
+      ? (image_url_mobile || image_url)
+      : (image_url_desktop || image_url);
     
     // Static fallback
     const staticImage = isMobile ? heroElegantWoman : heroMainWebp;

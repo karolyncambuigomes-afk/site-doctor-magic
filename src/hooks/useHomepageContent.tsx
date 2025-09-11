@@ -70,15 +70,26 @@ export const useHomepageContent = () => {
       // Get banner images from new system if available
       const getImageUrls = () => {
         if (heroBanners?.length > 0) {
-          const banner = heroBanners[0];
-          console.log('useHomepageContent: Using image from site_banners:', banner.image_url);
+          // Find desktop banner: desktop -> all -> mobile fallback
+          const desktopBanner = heroBanners.find(b => b.device_type === 'desktop') || 
+                               heroBanners.find(b => b.device_type === 'all') ||
+                               heroBanners.find(b => b.device_type === 'mobile');
+          
+          // Find mobile banner: mobile -> all -> desktop fallback  
+          const mobileBanner = heroBanners.find(b => b.device_type === 'mobile') ||
+                              heroBanners.find(b => b.device_type === 'all') ||
+                              heroBanners.find(b => b.device_type === 'desktop');
+
+          console.log('useHomepageContent: Desktop banner:', desktopBanner?.device_type, desktopBanner?.image_url);
+          console.log('useHomepageContent: Mobile banner:', mobileBanner?.device_type, mobileBanner?.image_url);
+          
           return {
-            image_url: banner.image_url,
-            image_url_desktop: banner.image_url,
-            image_url_mobile: banner.image_url,
-            image_url_local_desktop: banner.image_url,
-            image_url_local_mobile: banner.image_url,
-            image_url_local_fallback: banner.image_url
+            image_url: desktopBanner?.image_url || mobileBanner?.image_url,
+            image_url_desktop: desktopBanner?.image_url,
+            image_url_mobile: mobileBanner?.image_url,
+            image_url_local_desktop: desktopBanner?.image_url,
+            image_url_local_mobile: mobileBanner?.image_url,
+            image_url_local_fallback: desktopBanner?.image_url || mobileBanner?.image_url
           };
         }
         

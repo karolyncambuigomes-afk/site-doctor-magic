@@ -28,6 +28,7 @@ interface DashboardStats {
 }
 
 export const AdminDashboard: React.FC = () => {
+  console.log('📊 AdminDashboard rendering');
   const [stats, setStats] = useState<DashboardStats>({
     totalModels: 0,
     pendingApplications: 0,

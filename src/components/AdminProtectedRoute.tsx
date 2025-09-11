@@ -16,6 +16,14 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
   const { user, loading, isAdmin } = auth || {};
   const location = useSafeLocation();
 
+  console.log('🔐 AdminProtectedRoute render:', { 
+    hasAuth: !!auth, 
+    user: !!user, 
+    loading, 
+    isAdmin, 
+    location: location?.pathname 
+  });
+
   // Safety check for router context
   if (!location) {
     console.warn('AdminProtectedRoute: useLocation returned undefined');

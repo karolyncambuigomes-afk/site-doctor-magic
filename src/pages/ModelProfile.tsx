@@ -11,18 +11,23 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ModelGallery } from '@/components/ModelGallery';
 export const ModelProfile: React.FC = () => {
-  const {
-    id
-  } = useSafeParams() as {
-    id?: string;
-  };
-  const {
-    getModelById,
-    models,
-    loading,
-    error
-  } = useModels();
-  const model = id ? getModelById(id) : null;
+  const { id } = useSafeParams() as { id?: string };
+  const { getModelById, models, loading, error } = useModels();
+
+  // Support both UUID id and SEO slug (e.g., /models/julia)
+  const slugify = (s: string) =>
+    s
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '');
+
+  let model = id ? getModelById(id) : null;
+  if (!model && id) {
+    const target = slugify(String(id));
+    model = models.find(m => slugify(m.name) === target) || null;
+  }
 
   // Debug logging
   console.log('🔍 ModelProfile - ID from URL:', id);

@@ -141,6 +141,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     const setupAuth = async () => {
       try {
+        // Ensure we start in loading state
+        setLoading(true);
+
         // First, check existing session
         const { data: { session }, error } = await supabase.auth.getSession();
         
@@ -148,13 +151,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (error) {
           console.error('AuthProvider - Session error:', error);
+          setSession(null);
+          setUser(null);
+          setHasAccess(false);
+          setIsApproved(false);
+          setUserStatus('error');
+          setIsAdmin(false);
           setLoading(false);
           return;
         }
         
         setSession(session);
         setUser(session?.user ?? null);
-        setLoading(false);
 
         if (session?.user) {
           try {
@@ -164,9 +172,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setHasAccess(false);
             setIsApproved(false);
             setUserStatus('error');
+            setIsAdmin(false);
+          } finally {
+            if (mounted) setLoading(false);
           }
+        } else {
+          // No active session
+          setHasAccess(false);
+          setIsApproved(false);
+          setUserStatus('unauthenticated');
+          setIsAdmin(false);
+          setLoading(false);
         }
       } catch (error) {
+        console.error('AuthProvider - Setup error:', error);
         console.error('AuthProvider - Setup error:', error);
         if (mounted) {
           setSession(null);
@@ -179,39 +198,39 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     };
 
-    // Simplified auth state listener
+    // Auth state listener - keep callback sync and defer Supabase calls
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_event, session) => {
         if (!mounted) return;
         
-        try {
-          setSession(session);
-          setUser(session?.user ?? null);
-          setLoading(false);
+        setSession(session);
+        setUser(session?.user ?? null);
 
-          if (session?.user) {
-            setCheckingAccess(true);
-            checkUserAccess(session.user.id)
+        if (session?.user) {
+          setLoading(true);
+          setCheckingAccess(true);
+          // Defer Supabase calls to avoid deadlocks in the callback
+          setTimeout(() => {
+            checkUserAccess(session.user!.id)
               .catch(error => {
                 console.error('AuthProvider - State change access check failed:', error);
                 setHasAccess(false);
                 setIsApproved(false);
                 setUserStatus('error');
+                setIsAdmin(false);
               })
               .finally(() => {
-                if (mounted) setCheckingAccess(false);
+                if (!mounted) return;
+                setCheckingAccess(false);
+                setLoading(false);
               });
-          } else {
-            setHasAccess(false);
-            setIsApproved(false);
-            setUserStatus('unauthenticated');
-          }
-        } catch (error) {
-          console.error('AuthProvider - Error in auth state change:', error);
-          if (mounted) {
-            setLoading(false);
-            setCheckingAccess(false);
-          }
+          }, 0);
+        } else {
+          setHasAccess(false);
+          setIsApproved(false);
+          setUserStatus('unauthenticated');
+          setIsAdmin(false);
+          setLoading(false);
         }
       }
     );

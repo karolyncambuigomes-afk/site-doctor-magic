@@ -506,8 +506,23 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
+      {/* Banner informativo - Todas as fotos são públicas */}
+      {!model?.members_only && !isMixedModel && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="flex items-center gap-2">
+            <Globe className="w-5 h-5 text-blue-600" />
+            <div>
+              <h4 className="font-medium text-blue-900">Fotos Públicas</h4>
+              <p className="text-sm text-blue-700">
+                Todas as fotos serão visíveis para todos (público e membros)
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Seletor de Visibilidade - Apenas para modelos mistas */}
-      {!model?.members_only && (isAdding || (shouldShowTabs && isAdmin)) && (
+      {!model?.members_only && isMixedModel && (isAdding || (shouldShowTabs && isAdmin)) && (
         <div className="bg-background p-4 rounded-lg border border-border">
           <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
             🎯 {isAdding ? 'Tipo de Foto' : 'Configuração de Visibilidade'}

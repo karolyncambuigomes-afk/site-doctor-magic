@@ -71,7 +71,11 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       // Get current user info to determine what images they can see
       const { data: { user } } = await supabase.auth.getUser();
       console.log(`📱 MODEL GALLERY DEBUG: Usuário:`, user ? 'logado' : 'não logado', user?.email);
-      
+
+      // Track access level for later fallback logic
+      let isAdmin = false;
+      let isMember = false;
+
       let query = supabase
         .from('model_gallery')
         .select('*')
@@ -100,8 +104,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
           console.log('🖼️ SITE GALERIA: Profile do usuário:', profile);
 
           if (profile?.role === 'admin') {
-            // Admin can see all images
-            console.log('🖼️ SITE GALERIA: Admin - pode ver todas as imagens');
+            // Admin - prefer only members-only images to avoid duplication
+            isAdmin = true;
+            query = query.eq('visibility', 'members_only');
+            console.log('🖼️ SITE GALERIA: Admin - vendo apenas imagens exclusivas para membros');
           } else {
             // Check if user has subscription (is a member)
             const { data: subscription } = await supabase
@@ -114,8 +120,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
             console.log('🖼️ SITE GALERIA: Subscription do usuário:', subscription);
 
             if (subscription) {
-              // Member can see all images of members-only model
-              console.log('🖼️ SITE GALERIA: Membro - pode ver todas as imagens do modelo exclusivo');
+              // Member - prefer only members-only images to avoid duplication
+              isMember = true;
+              query = query.eq('visibility', 'members_only');
+              console.log('🖼️ SITE GALERIA: Membro - vendo apenas imagens exclusivas para membros');
             } else {
               // Regular user - no images for members-only model
               query = query.eq('visibility', 'members_only_no_access'); // This will return empty
@@ -141,6 +149,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
           if (profile?.role === 'admin') {
             // Admin follows same logic as members for mixed models (prevents duplication)
+            isAdmin = true;
             query = query.eq('visibility', 'members_only');
             console.log('🖼️ SITE GALERIA: Admin - vendo apenas imagens exclusivas para membros (evita duplicação)');
           } else {
@@ -156,6 +165,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
             if (subscription) {
               // Member can see ONLY members_only images (prevents duplication for mixed models)
+              isMember = true;
               query = query.eq('visibility', 'members_only');
               console.log('🖼️ SITE GALERIA: Membro - pode ver apenas imagens exclusivas para membros');
             } else {
@@ -174,22 +184,48 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
         throw error;
       }
 
+      // Prefer members_only for members/admin; if none found, fallback to public
+      let finalData = data || [];
+      if ((isAdmin || isMember) && finalData.length === 0) {
+        console.log('🖼️ SITE GALERIA: Sem imagens exclusivas encontradas - fazendo fallback para públicas');
+        const { data: publicData, error: publicError } = await supabase
+          .from('model_gallery')
+          .select('*')
+          .eq('model_id', modelId)
+          .eq('visibility', 'public')
+          .order('order_index', { ascending: true });
+        if (publicError) {
+          console.error('🖼️ SITE GALERIA: Erro ao buscar fallback público:', publicError);
+        } else {
+          finalData = publicData || [];
+        }
+      }
+
+      // Deduplicate by image_url just in case
+      const uniqueMap = new Map<string, any>();
+      for (const img of finalData) {
+        if (img?.image_url && !uniqueMap.has(img.image_url)) {
+          uniqueMap.set(img.image_url, img);
+        }
+      }
+      finalData = Array.from(uniqueMap.values());
+
       const loadTime = performance.now() - startTime;
       console.log(`📱 MODEL GALLERY DEBUG: Galeria carregada em ${loadTime.toFixed(2)}ms`);
-      console.log(`📱 MODEL GALLERY DEBUG: ${data?.length || 0} imagens visíveis encontradas`);
+      console.log(`📱 MODEL GALLERY DEBUG: ${finalData?.length || 0} imagens visíveis encontradas`);
       
       // Track performance metrics
-      trackPerformance(startTime, data?.length || 0);
+      trackPerformance(startTime, finalData?.length || 0);
       
       if (isMobile && loadTime > 2000) {
         console.warn(`📱 MODEL GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
       }
       
-      if (data && data.length > 0) {
-        console.log(`📱 MODEL GALLERY DEBUG: Visibilidades:`, data.map(img => ({ order: img.order_index, visibility: img.visibility })));
+      if (finalData && finalData.length > 0) {
+        console.log(`📱 MODEL GALLERY DEBUG: Visibilidades:`, finalData.map(img => ({ order: img.order_index, visibility: img.visibility })));
       }
       
-      setGalleryImages(data || []);
+      setGalleryImages(finalData || []);
       console.log(`📱 MODEL GALLERY DEBUG: Estado atualizado, forçando re-render`);
     } catch (error) {
       console.error(`📱 MODEL GALLERY DEBUG: Erro ao carregar galeria:`, error);

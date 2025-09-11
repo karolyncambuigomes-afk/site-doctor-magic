@@ -15,15 +15,15 @@ export const useImagePreference = () => {
         const flags: FeatureFlags = JSON.parse(saved);
         setPreferLocalImages(flags.preferLocalImages !== false); // Default to true
       } else {
-        // Default to local images (system is now ready)
-        console.log('🏠 Setting preferLocalImages = true by default');
-        setPreferLocalImages(true);
-        localStorage.setItem('featureFlags', JSON.stringify({ preferLocalImages: true }));
+        // Default to external images (to fix missing local images)
+        console.log('🌐 Setting preferLocalImages = false by default (temporary fix)');
+        setPreferLocalImages(false);
+        localStorage.setItem('featureFlags', JSON.stringify({ preferLocalImages: false }));
       }
     } catch (error) {
       console.warn('Failed to load image preference:', error);
-      // Fallback to local images (system is now ready)
-      setPreferLocalImages(true);
+      // Fallback to external images (temporary fix)
+      setPreferLocalImages(false);
     }
   }, []);
 

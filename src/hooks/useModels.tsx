@@ -89,8 +89,15 @@ export const useModels = () => {
             })) || [];
           
           let mainImage = model.image;
-          if (!mainImage || mainImage.trim() === '') {
-            mainImage = galleryImages[0]?.image_url;
+          
+          // If main image is missing or is a local path that likely doesn't exist, try gallery
+          if (!mainImage || mainImage.trim() === '' || mainImage.startsWith('/')) {
+            const publicGalleryImage = galleryImages.find(g => g.visibility === 'public' || !g.visibility);
+            if (publicGalleryImage) {
+              mainImage = publicGalleryImage.image_url;
+            } else if (galleryImages[0]) {
+              mainImage = galleryImages[0].image_url;
+            }
           }
           
           mainImage = addCacheBusting(mainImage);

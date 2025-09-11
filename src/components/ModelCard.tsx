@@ -25,12 +25,12 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
           .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
       : undefined;
 
-    // HOTFIX: Robust fallback chain - always prefer external URLs for now
+    // HOTFIX: Prioritize external URLs to fix missing local images
     const external = model.image || fallbackFromGallery;
     const local = model.image_url_local_main;
     
     return {
-      local: preferLocalImages ? local : null,
+      local: null, // Temporarily disable local images
       external: external,
       placeholder: '/images/placeholders/model.jpg'
     };

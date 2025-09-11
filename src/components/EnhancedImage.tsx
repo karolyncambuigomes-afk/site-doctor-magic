@@ -32,17 +32,10 @@ export const EnhancedImage: React.FC<EnhancedImageProps> = ({
     // Create comprehensive fallback chain
     const allSources = [];
     
-    if (preferLocalImages) {
-      // Local first, then external, then placeholder
-      if (local) allSources.push(local);
-      if (external) allSources.push(external);
-      if (placeholder) allSources.push(placeholder);
-    } else {
-      // External first, then local, then placeholder
-      if (external) allSources.push(external);
-      if (local) allSources.push(local);
-      if (placeholder) allSources.push(placeholder);
-    }
+    // HOTFIX: Always prioritize external images first to fix missing local images
+    if (external) allSources.push(external);
+    if (local) allSources.push(local);
+    if (placeholder) allSources.push(placeholder);
     
     // Always ensure we have a fallback
     if (allSources.length === 0) {

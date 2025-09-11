@@ -59,8 +59,8 @@ export const useHomepageCarousel = () => {
       for (const model of homepageModels) {
         let imageUrl = model.image;
 
-        // Robust fallback: try main image, then first gallery image
-        if (!imageUrl || imageUrl.trim() === '') {
+        // Robust fallback: if main image is missing or is a local path, try gallery
+        if (!imageUrl || imageUrl.trim() === '' || imageUrl.startsWith('/')) {
           console.log(`🔍 [CAROUSEL] Model ${model.name} sem imagem principal, buscando na galeria`);
 
           const { data: galleryData } = await supabase

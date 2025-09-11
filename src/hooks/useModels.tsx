@@ -41,34 +41,11 @@ export const useModels = () => {
   const [models, setModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
   const auth = useAuth();
   const { user, hasAccess } = auth || {};
 
-  // Safety timeout to prevent infinite loading
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (loading && !models.length) {
-        console.log('useModels - Safety timeout triggered, stopping loading');
-        setLoading(false);
-        setError('Loading timeout - please refresh the page');
-        setIsInitialized(true);
-      }
-    }, 15000);
-
-    return () => clearTimeout(timeout);
-  }, [loading, models.length]);
-
   const fetchModels = async () => {
-    console.log('useModels: Starting fetchModels', { loading, isInitialized });
-    
-    if (loading && isInitialized) {
-      console.log('useModels: Preventing concurrent calls');
-      return; // Prevent concurrent calls
-    }
-    
     try {
-      console.log('useModels: Setting loading to true');
       setLoading(true);
       setError(null);
 
@@ -78,75 +55,22 @@ export const useModels = () => {
                model.id && 
                model.name && 
                model.name.trim() !== '' &&
-               model.name !== 'Teste';
+               model.name !== 'Teste' &&
+               !model.name.toLowerCase().includes('teste');
       };
 
-      console.log('useModels: Checking user state', { user: !!user });
+      console.log('useModels: Fetching models for user:', !!user, 'hasAccess:', hasAccess);
 
-      if (!user) {
-        console.log('useModels: User not authenticated, fetching public models');
-        // For non-authenticated users, use the public function (only non-exclusive models)
-        const { data, error: rpcError } = await supabase
-          .rpc('get_public_models');
-
-        if (rpcError) {
-          console.error('Error fetching public models:', rpcError);
-          setError('Failed to load models');
-          return;
-        }
-
-        console.log('Models Hook - Raw public models data:', data);
-
-        // Transform the public data to match our Model interface
-        const transformedModels = data?.filter(isValidModel).map((model: any) => {
-          console.log('Models Hook - Processing model:', model.name, 'price:', model.price);
-          
-          // Create pricing structure from base price
-          const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
-          const pricing = {
-            oneHour: `£${basePrice}`,
-            twoHours: `£${Math.round(basePrice * 1.8)}`,
-            threeHours: `£${Math.round(basePrice * 2.5)}`,
-            additionalHour: `£${Math.round(basePrice * 0.8)}`
-          };
-
-          return {
-            id: model.id,
-            name: model.name,
-            age: model.age, // Show age for public models
-            location: model.location,
-            price: model.price,
-            pricing: pricing, // Always provide pricing structure
-            image: getImageUrl(model.image),
-            gallery: [], // Limited data for public
-            services: model.services || [],
-            characteristics: model.characteristics || [],
-            availability: model.availability,
-            rating: model.rating,
-            reviews: model.reviews,
-            description: model.description, // Public description
-            height: null, // Limited data for public
-            measurements: null, // Limited data for public
-            hair: null, // Limited data for public
-            eyes: null, // Limited data for public
-            nationality: null, // Limited data for public
-            education: null, // Limited data for public
-            interests: [],
-            members_only: false // Public models are never exclusive
-          };
-        }) || [];
-
-        console.log('Models Hook - Transformed models:', transformedModels);
-        setModels(transformedModels);
-      } else if (hasAccess) {
-        // For premium users, get ALL models (both exclusive and non-exclusive)
+      // Simplified logic: if user has access, get all models, otherwise get public models
+      if (user && hasAccess) {
+        // Premium users get ALL models with full gallery data
         const { data, error: queryError } = await supabase
           .from('models')
           .select(`
             *,
-            model_gallery(image_url, order_index)
+            model_gallery(image_url, order_index, visibility, caption)
           `)
-          .order('members_only', { ascending: false }) // Show exclusive models first
+          .order('members_only', { ascending: false })
           .order('created_at', { ascending: false });
 
         if (queryError) {
@@ -155,38 +79,21 @@ export const useModels = () => {
           return;
         }
 
-        // Validation function to filter out invalid models
-        const isValidModel = (model: any) => {
-          if (!model.name || model.name.trim() === '') {
-            console.warn(`⚠️ [MODELS] Skipping model with empty name:`, model);
-            return false;
-          }
-          return true;
-        };
-
-        // Transform database data to match our Model interface
         const transformedModels = data?.filter(isValidModel).map((model: any) => {
-          // Sort gallery images by order_index and extract URLs
           const galleryImages = model.model_gallery
             ?.sort((a: any, b: any) => a.order_index - b.order_index)
-            ?.map((img: any) => img.image_url) || [];
+            ?.map((img: any) => ({
+              image_url: img.image_url,
+              visibility: img.visibility,
+              order_index: img.order_index,
+              caption: img.caption
+            })) || [];
           
-          // Robust fallback logic for main image
           let mainImage = model.image;
-          
           if (!mainImage || mainImage.trim() === '') {
-            console.log(`🔍 [MODELS] Model ${model.name} sem imagem principal, usando primeira da galeria`);
-            mainImage = galleryImages[0];
-            if (mainImage) {
-              console.log(`✅ [MODELS] Fallback image found for ${model.name}:`, mainImage);
-            } else {
-              console.warn(`⚠️ [MODELS] Nenhuma imagem encontrada para ${model.name}`);
-            }
-          } else {
-            console.log(`✅ [MODELS] Model ${model.name} tem imagem principal:`, mainImage);
+            mainImage = galleryImages[0]?.image_url;
           }
           
-          // Apply aggressive cache busting
           mainImage = addCacheBusting(mainImage);
           
           return {
@@ -201,8 +108,8 @@ export const useModels = () => {
               threeHours: '£1,300',
               additionalHour: '£400'
             },
-            image: mainImage ? getImageUrl(mainImage) : null, // Use processed main image with fallback
-            gallery: galleryImages, // All gallery images with metadata
+            image: mainImage ? getImageUrl(mainImage) : null,
+            gallery: galleryImages,
             services: model.services || [],
             characteristics: model.characteristics || [],
             availability: model.availability || 'available',
@@ -223,9 +130,8 @@ export const useModels = () => {
 
         setModels(transformedModels);
       } else {
-        // For authenticated but non-premium users, show limited data
-        const { data, error: rpcError } = await supabase
-          .rpc('get_public_models');
+        // All other users (no user or no access) get public models only
+        const { data, error: rpcError } = await supabase.rpc('get_public_models');
 
         if (rpcError) {
           console.error('Error fetching public models:', rpcError);
@@ -233,8 +139,9 @@ export const useModels = () => {
           return;
         }
 
+        console.log('Public models fetched:', data?.length || 0);
+
         const transformedModels = data?.filter(isValidModel).map((model: any) => {
-          // Create pricing structure from base price
           const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
           const pricing = {
             oneHour: `£${basePrice}`,
@@ -246,10 +153,10 @@ export const useModels = () => {
           return {
             id: model.id,
             name: model.name,
-            age: null,
+            age: model.age,
             location: model.location,
             price: model.price,
-            pricing: pricing, // Always provide pricing structure
+            pricing: pricing,
             image: getImageUrl(model.image),
             gallery: [],
             services: model.services || [],
@@ -258,36 +165,30 @@ export const useModels = () => {
             rating: model.rating,
             reviews: model.reviews,
             description: model.description,
-            height: null,
-            measurements: null,
-            hair: null,
-            eyes: null,
-            nationality: null,
-            education: null,
-            interests: []
+            height: '',
+            measurements: '',
+            hair: '',
+            eyes: '',
+            nationality: '',
+            education: '',
+            interests: [],
+            members_only: false
           };
         }) || [];
 
         setModels(transformedModels);
       }
-      
-      setIsInitialized(true);
     } catch (err) {
-      console.error('useModels: Unexpected error fetching models:', err);
+      console.error('useModels: Unexpected error:', err);
       setError('An unexpected error occurred');
-      setIsInitialized(true);
     } finally {
-      console.log('useModels: Setting loading to false in finally block');
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (!isInitialized) {
-      console.log('useModels - Initializing fetch, user:', user?.id, 'hasAccess:', hasAccess);
-      fetchModels();
-    }
-  }, [user?.id, hasAccess]); // Use stable IDs instead of object references
+    fetchModels();
+  }, [user?.id, hasAccess]);
 
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;

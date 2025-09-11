@@ -59,11 +59,11 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   // Minimal Layout Component
   const MinimalModelCard = ({ model }: { model: Model }) => (
     <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
-      <div className="relative overflow-hidden bg-white aspect-[3/4] rounded-none">
+      <div className="relative overflow-hidden bg-white aspect-[2/3] md:aspect-[3/4] rounded-none">
         <img 
           src={model.image} 
           alt={model.name}
-          className="w-full h-full object-cover object-[center_20%] transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
@@ -87,11 +87,11 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   // Elegant Layout Component  
   const ElegantModelCard = ({ model }: { model: Model }) => (
     <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="group block">
-      <div className="relative overflow-hidden aspect-[3/4] rounded-lg bg-muted">
+      <div className="relative overflow-hidden aspect-[2/3] md:aspect-[3/4] rounded-lg bg-muted">
         <img 
           src={model.image} 
           alt={model.name}
-          className="w-full h-full object-cover object-[center_20%] transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         
@@ -130,11 +130,11 @@ export const ModelsGallery: React.FC<ModelsGalleryProps> = ({ layoutStyle = 'min
   const ModernModelCard = ({ model }: { model: Model }) => (
     <div className="group relative">
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
-        <div className="relative overflow-hidden aspect-[3/4] rounded-2xl bg-muted">
+        <div className="relative overflow-hidden aspect-[2/3] md:aspect-[3/4] rounded-2xl bg-muted">
           <img 
             src={model.image} 
             alt={model.name}
-            className="w-full h-full object-cover object-[center_20%] transition-all duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover object-[center_30%] transition-all duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           

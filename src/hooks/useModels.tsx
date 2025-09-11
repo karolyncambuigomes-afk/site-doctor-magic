@@ -92,8 +92,13 @@ export const useModels = () => {
           
           // If main image is missing or is a local path that likely doesn't exist, try gallery
           if (!mainImage || mainImage.trim() === '' || mainImage.startsWith('/')) {
+            // For members, prioritize members_only images first, then public
+            const membersOnlyImage = galleryImages.find(g => g.visibility === 'members_only');
             const publicGalleryImage = galleryImages.find(g => g.visibility === 'public' || !g.visibility);
-            if (publicGalleryImage) {
+            
+            if (membersOnlyImage) {
+              mainImage = membersOnlyImage.image_url;
+            } else if (publicGalleryImage) {
               mainImage = publicGalleryImage.image_url;
             } else if (galleryImages[0]) {
               mainImage = galleryImages[0].image_url;

@@ -91,7 +91,6 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
           decoding="async"
           onLoad={handleLoad}
           onError={handleError}
-          style={{ aspectRatio: '4/3' }}
         />
       </picture>
     );
@@ -107,7 +106,6 @@ export const ResponsiveGalleryImage: React.FC<ResponsiveGalleryImageProps> = ({
       decoding="async"
       onLoad={handleLoad}
       onError={handleError}
-      style={{ aspectRatio: '4/3' }}
       sizes={sizes}
     />
   );

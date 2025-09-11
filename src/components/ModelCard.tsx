@@ -74,7 +74,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block group">
         <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container */}
-          <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[1/1] xl:aspect-[4/5] overflow-hidden bg-muted">
+          <div className="relative aspect-[3/4] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
               <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
@@ -99,7 +99,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   external={imageConfig.external}
                   placeholder={imageConfig.placeholder}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full transition-all duration-700 ${
+                  className={`w-full h-full object-cover object-[center_20%] transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
                   data-model-image="true"
@@ -111,7 +111,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   <EnhancedImage
                     external={secondaryImage}
                     alt={`${model.name} - alternate view`}
-                    className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
+                    className="w-full h-full object-cover object-[center_20%] transition-all duration-700 opacity-0 group-hover:opacity-100"
                     data-model-image="true"
                     data-model-name={`${model.name}-secondary`}
                   />

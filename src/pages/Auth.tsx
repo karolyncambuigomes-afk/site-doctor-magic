@@ -41,10 +41,9 @@ export const Auth: React.FC = () => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Redirect authenticated admins to admin panel
+        // Only redirect admins to admin panel, non-admins stay on page to see restriction message
         if (session?.user && navigate) {
           setTimeout(async () => {
-            // Check if user is admin and redirect to admin panel
             try {
               const { data: profile } = await supabase
                 .from('profiles')
@@ -54,18 +53,10 @@ export const Auth: React.FC = () => {
               
               if (profile?.role === 'admin') {
                 navigate('/admin');
-              } else {
-                // Non-admins should not be using this page
-                toast({
-                  title: "Access Denied",
-                  description: "This page is for administrators only. Please use the membership page.",
-                  variant: "destructive"
-                });
-                navigate('/membership');
               }
+              // Non-admins will see the restriction message in the render
             } catch (error) {
-              // If profile check fails, redirect to membership
-              navigate('/membership');
+              console.warn('Failed to check admin role:', error);
             }
           }, 100);
         }
@@ -78,7 +69,6 @@ export const Auth: React.FC = () => {
       setUser(session?.user ?? null);
       
       if (session?.user && navigate) {
-        // Check if user is admin and redirect to admin panel
         try {
           const { data: profile } = await supabase
             .from('profiles')
@@ -88,18 +78,10 @@ export const Auth: React.FC = () => {
           
           if (profile?.role === 'admin') {
             navigate('/admin');
-          } else {
-            // Non-admins should not be using this page
-            toast({
-              title: "Access Denied", 
-              description: "This page is for administrators only. Please use the membership page.",
-              variant: "destructive"
-            });
-            navigate('/membership');
           }
+          // Non-admins will see the restriction message in the render
         } catch (error) {
-          // If profile check fails, redirect to membership
-          navigate('/membership');
+          console.warn('Failed to check admin role:', error);
         }
       }
     });
@@ -206,9 +188,28 @@ export const Auth: React.FC = () => {
   if (user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="luxury-heading-md mb-4">Welcome back!</h2>
-          <p className="text-muted-foreground mb-6">Redirecting you to your account...</p>
+        <div className="text-center max-w-md mx-auto px-4">
+          <Card className="border border-border/50 shadow-luxury">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="luxury-heading-md text-destructive">
+                Administrator Access Only
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                This page is exclusively for administrators. If you need member access, please use the membership page.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <Button 
+                onClick={() => navigate('/membership')}
+                className="w-full five-london-button mb-4"
+              >
+                Go to Membership
+              </Button>
+              <p className="text-xs text-muted-foreground">
+                Logged in as: {user.email}
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     );

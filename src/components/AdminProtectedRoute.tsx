@@ -13,7 +13,7 @@ interface AdminProtectedRouteProps {
 
 export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ children }) => {
   const auth = useAuth();
-  const { user, loading, isAdmin } = auth || {};
+  const { user, loading, isAdmin, authReady } = auth || {};
   const location = useSafeLocation();
 
   // Safety check for router context
@@ -22,7 +22,7 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
     return <div>Loading...</div>;
   }
 
-  if (loading) {
+  if (loading || !authReady) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">

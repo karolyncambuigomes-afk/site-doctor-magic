@@ -14,6 +14,7 @@ interface AuthContextType {
   userStatus: 'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null;
   refreshAccess: () => Promise<void>;
   isAdmin: boolean;
+  authReady: boolean;
   getRedirectPath: () => string;
 }
 
@@ -34,6 +35,7 @@ export const useAuth = () => {
       userStatus: null,
       refreshAccess: async () => {},
       isAdmin: false,
+      authReady: false,
       getRedirectPath: () => '/models',
     };
   }
@@ -53,6 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [userStatus, setUserStatus] = useState<'pending' | 'approved' | 'rejected' | 'error' | 'unauthenticated' | 'timeout' | null>(null);
   const [checkingAccess, setCheckingAccess] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
 
   const checkUserStatus = async (userId: string) => {
     if (!userId) {
@@ -79,6 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsApproved(approved);
       setUserStatus(profile?.status || null);
       setIsAdmin(isAdminResult);
+      setAuthReady(true);
 
       return { approved, status: profile?.status, isAdmin: isAdminResult };
     } catch (error) {
@@ -115,6 +119,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsApproved(false);
       setUserStatus('error');
       setIsAdmin(false);
+      setAuthReady(true);
       return false;
     } finally {
       setCheckingAccess(false);
@@ -174,6 +179,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsApproved(false);
           setUserStatus('unauthenticated');
           setIsAdmin(false);
+          setAuthReady(true);
           setLoading(false);
         }
       } catch (error) {
@@ -185,6 +191,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setHasAccess(false);
           setIsApproved(false);
           setUserStatus('error');
+          setIsAdmin(false);
+          setAuthReady(true);
           setLoading(false);
         }
       }
@@ -210,6 +218,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 setIsApproved(false);
                 setUserStatus('error');
                 setIsAdmin(false);
+                setAuthReady(true);
               })
               .finally(() => {
                 if (!mounted) return;
@@ -222,6 +231,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsApproved(false);
           setUserStatus('unauthenticated');
           setIsAdmin(false);
+          setAuthReady(true);
           setLoading(false);
         }
       }
@@ -272,6 +282,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     userStatus: userStatus || null,
     refreshAccess,
     isAdmin: Boolean(isAdmin),
+    authReady: Boolean(authReady),
     getRedirectPath,
   };
 

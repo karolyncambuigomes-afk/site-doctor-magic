@@ -302,7 +302,8 @@ export const Membership: React.FC = () => {
                       {hasAccess ? 'Active Access' : 'Guest Access'}
                     </span>
                   </div>
-                   {hasAccess && <Button onClick={() => navigate('/models')} className="mt-4 px-6 py-2 font-light tracking-widest">
+                   {/* Temporarily hidden for debugging */}
+                   {false && hasAccess && <Button onClick={() => navigate('/models')} className="mt-4 px-6 py-2 font-light tracking-widest">
                       View All Models
                     </Button>}
                 </CardContent>

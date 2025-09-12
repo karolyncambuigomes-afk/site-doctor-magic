@@ -21,6 +21,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { RouteLogger } from "@/components/RouteLogger";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
 import Index from "./pages/Index";
@@ -113,6 +114,7 @@ const App = () => (
           <DegradedModeProvider>
             <AuthProvider>
               <BrowserRouter>
+                <RouteLogger />
                 <ConditionalFeatures />
                 <DataSyncInitializer />
                 <MobileOptimizer />

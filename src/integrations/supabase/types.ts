@@ -161,6 +161,171 @@ export type Database = {
         }
         Relationships: []
       }
+      content_items: {
+        Row: {
+          author_id: string | null
+          content: Json
+          content_type_id: string | null
+          created_at: string | null
+          id: string
+          meta_data: Json | null
+          published_at: string | null
+          seo_data: Json | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author_id?: string | null
+          content?: Json
+          content_type_id?: string | null
+          created_at?: string | null
+          id?: string
+          meta_data?: Json | null
+          published_at?: string | null
+          seo_data?: Json | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author_id?: string | null
+          content?: Json
+          content_type_id?: string | null
+          created_at?: string | null
+          id?: string
+          meta_data?: Json | null
+          published_at?: string | null
+          seo_data?: Json | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_items_content_type_id_fkey"
+            columns: ["content_type_id"]
+            isOneToOne: false
+            referencedRelation: "content_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_preview: {
+        Row: {
+          content_item_id: string | null
+          created_at: string | null
+          created_by: string | null
+          expires_at: string
+          id: string
+          preview_data: Json
+          preview_token: string
+        }
+        Insert: {
+          content_item_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          expires_at?: string
+          id?: string
+          preview_data?: Json
+          preview_token?: string
+        }
+        Update: {
+          content_item_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          expires_at?: string
+          id?: string
+          preview_data?: Json
+          preview_token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_preview_content_item_id_fkey"
+            columns: ["content_item_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_types: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+          schema: Json
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+          schema?: Json
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+          schema?: Json
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      content_versions: {
+        Row: {
+          change_summary: string | null
+          content: Json
+          content_item_id: string | null
+          created_at: string | null
+          created_by: string | null
+          id: string
+          meta_data: Json | null
+          seo_data: Json | null
+          title: string
+          version_number: number
+        }
+        Insert: {
+          change_summary?: string | null
+          content?: Json
+          content_item_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          meta_data?: Json | null
+          seo_data?: Json | null
+          title: string
+          version_number: number
+        }
+        Update: {
+          change_summary?: string | null
+          content?: Json
+          content_item_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          meta_data?: Json | null
+          seo_data?: Json | null
+          title?: string
+          version_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_versions_content_item_id_fkey"
+            columns: ["content_item_id"]
+            isOneToOne: false
+            referencedRelation: "content_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       faqs: {
         Row: {
           answer: string
@@ -618,6 +783,51 @@ export type Database = {
           services?: string[] | null
           show_on_homepage?: boolean | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      optimized_images: {
+        Row: {
+          alt_text: string | null
+          bucket_path: string
+          compression_ratio: number | null
+          created_at: string | null
+          dimensions: Json | null
+          id: string
+          optimized_filename: string
+          optimized_format: string
+          optimized_size: number
+          original_filename: string
+          original_format: string
+          original_size: number
+        }
+        Insert: {
+          alt_text?: string | null
+          bucket_path: string
+          compression_ratio?: number | null
+          created_at?: string | null
+          dimensions?: Json | null
+          id?: string
+          optimized_filename: string
+          optimized_format?: string
+          optimized_size: number
+          original_filename: string
+          original_format: string
+          original_size: number
+        }
+        Update: {
+          alt_text?: string | null
+          bucket_path?: string
+          compression_ratio?: number | null
+          created_at?: string | null
+          dimensions?: Json | null
+          id?: string
+          optimized_filename?: string
+          optimized_format?: string
+          optimized_size?: number
+          original_filename?: string
+          original_format?: string
+          original_size?: number
         }
         Relationships: []
       }

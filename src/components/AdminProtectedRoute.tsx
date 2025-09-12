@@ -16,6 +16,16 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
   const { user, loading, isAdmin, authReady } = auth || {};
   const location = useSafeLocation();
 
+  // Enhanced debugging
+  console.log('🔐 AdminProtectedRoute State:', {
+    user: user?.email || 'null',
+    loading,
+    isAdmin,
+    authReady,
+    hasAuth: !!auth,
+    pathname: location?.pathname
+  });
+
   // Safety check for router context
   if (!location) {
     console.warn('AdminProtectedRoute: useLocation returned undefined');
@@ -43,6 +53,9 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading admin access...</p>
+          <div className="mt-4 text-xs text-gray-500">
+            authReady: {String(authReady)}, isAdmin: {String(isAdmin)}
+          </div>
         </div>
       </div>
     );

@@ -21,6 +21,7 @@ interface ModelApplication {
   phone: string;
   age: number;
   date_of_birth: string;
+  birth_year?: string; // For non-admin users
   nationality: string;
   languages: string[];
   other_language?: string;
@@ -61,7 +62,7 @@ const ModelApplicationManager = () => {
   const loadApplications = async () => {
     try {
       let query = supabase
-        .from('model_applications')
+        .from('model_applications_secure')
         .select('*')
         .order('created_at', { ascending: false });
 
@@ -205,7 +206,15 @@ const ModelApplicationManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold">Model Applications</h3>
+        <div className="space-y-2">
+          <h3 className="text-2xl font-bold">Model Applications</h3>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Badge variant="secondary" className="bg-green-100 text-green-800">
+              🔒 Enhanced Security
+            </Badge>
+            <span>All sensitive data is encrypted and masked for additional protection</span>
+          </div>
+        </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-48">
             <SelectValue />

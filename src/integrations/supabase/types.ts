@@ -324,9 +324,11 @@ export type Database = {
           dress_size: string | null
           education: string | null
           email: string
+          email_encrypted: string | null
           escort_experience: string | null
           eye_color: string | null
           full_name: string
+          full_name_encrypted: string | null
           hair_color: string | null
           height: string | null
           id: string
@@ -339,6 +341,7 @@ export type Database = {
           motivation: string | null
           nationality: string | null
           phone: string | null
+          phone_encrypted: string | null
           photos: string[] | null
           piercings: string | null
           profession: string | null
@@ -359,9 +362,11 @@ export type Database = {
           dress_size?: string | null
           education?: string | null
           email: string
+          email_encrypted?: string | null
           escort_experience?: string | null
           eye_color?: string | null
           full_name: string
+          full_name_encrypted?: string | null
           hair_color?: string | null
           height?: string | null
           id?: string
@@ -374,6 +379,7 @@ export type Database = {
           motivation?: string | null
           nationality?: string | null
           phone?: string | null
+          phone_encrypted?: string | null
           photos?: string[] | null
           piercings?: string | null
           profession?: string | null
@@ -394,9 +400,11 @@ export type Database = {
           dress_size?: string | null
           education?: string | null
           email?: string
+          email_encrypted?: string | null
           escort_experience?: string | null
           eye_color?: string | null
           full_name?: string
+          full_name_encrypted?: string | null
           hair_color?: string | null
           height?: string | null
           id?: string
@@ -409,6 +417,7 @@ export type Database = {
           motivation?: string | null
           nationality?: string | null
           phone?: string | null
+          phone_encrypted?: string | null
           photos?: string[] | null
           piercings?: string | null
           profession?: string | null
@@ -1111,7 +1120,117 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      model_applications_secure: {
+        Row: {
+          admin_notes: string | null
+          age: number | null
+          availability: string | null
+          birth_year: string | null
+          created_at: string | null
+          date_of_birth: string | null
+          dress_size: string | null
+          education: string | null
+          email: string | null
+          escort_experience: string | null
+          eye_color: string | null
+          full_name: string | null
+          hair_color: string | null
+          height: string | null
+          id: string | null
+          instagram_handle: string | null
+          interests: string[] | null
+          languages: string[] | null
+          location_preference: string | null
+          measurements: string | null
+          modeling_experience: string | null
+          motivation: string | null
+          nationality: string | null
+          phone: string | null
+          photos: string[] | null
+          piercings: string | null
+          profession: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          shoe_size: string | null
+          status: string | null
+          tattoos: string | null
+          updated_at: string | null
+          videos: string[] | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          age?: number | null
+          availability?: never
+          birth_year?: never
+          created_at?: string | null
+          date_of_birth?: never
+          dress_size?: never
+          education?: never
+          email?: never
+          escort_experience?: never
+          eye_color?: never
+          full_name?: never
+          hair_color?: never
+          height?: never
+          id?: string | null
+          instagram_handle?: never
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: never
+          measurements?: never
+          modeling_experience?: never
+          motivation?: never
+          nationality?: never
+          phone?: never
+          photos?: never
+          piercings?: never
+          profession?: never
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          shoe_size?: never
+          status?: string | null
+          tattoos?: never
+          updated_at?: string | null
+          videos?: never
+        }
+        Update: {
+          admin_notes?: string | null
+          age?: number | null
+          availability?: never
+          birth_year?: never
+          created_at?: string | null
+          date_of_birth?: never
+          dress_size?: never
+          education?: never
+          email?: never
+          escort_experience?: never
+          eye_color?: never
+          full_name?: never
+          hair_color?: never
+          height?: never
+          id?: string | null
+          instagram_handle?: never
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: never
+          measurements?: never
+          modeling_experience?: never
+          motivation?: never
+          nationality?: never
+          phone?: never
+          photos?: never
+          piercings?: never
+          profession?: never
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          shoe_size?: never
+          status?: string | null
+          tattoos?: never
+          updated_at?: string | null
+          videos?: never
+        }
+        Relationships: []
+      }
     }
     Functions: {
       check_application_rate_limit: {
@@ -1121,6 +1240,14 @@ export type Database = {
       check_user_subscription: {
         Args: { user_uuid: string }
         Returns: boolean
+      }
+      decrypt_sensitive_field: {
+        Args: { encrypted_text: string; encryption_key?: string }
+        Returns: string
+      }
+      encrypt_sensitive_field: {
+        Args: { encryption_key?: string; plain_text: string }
+        Returns: string
       }
       fetch_migration_items: {
         Args: { query_text: string }
@@ -1174,6 +1301,10 @@ export type Database = {
           p_table_name?: string
         }
         Returns: undefined
+      }
+      mask_sensitive_data: {
+        Args: { data_text: string; mask_type?: string }
+        Returns: string
       }
       migrate_gallery_arrays_to_table: {
         Args: Record<PropertyKey, never>

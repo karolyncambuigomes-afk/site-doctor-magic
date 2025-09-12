@@ -84,6 +84,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUserStatus(profile?.status || null);
       setIsAdmin(isAdminResult);
 
+      // Log admin logins
+      if (isAdminResult && approved) {
+        try {
+          await supabase.rpc('log_admin_login');
+        } catch (logError) {
+          console.warn('Failed to log admin login:', logError);
+        }
+      }
+
       if (adminError) {
         console.error('Error checking admin status:', adminError);
       }

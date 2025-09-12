@@ -112,8 +112,8 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <DegradedModeProvider>
-            <AuthProvider>
-              <BrowserRouter>
+            <BrowserRouter>
+              <AuthProvider>
                 <ConditionalFeatures />
                 <DataSyncInitializer />
                 <MobileOptimizer />
@@ -387,8 +387,8 @@ const App = () => (
           
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </BrowserRouter>
-            </AuthProvider>
+              </AuthProvider>
+            </BrowserRouter>
           </DegradedModeProvider>
         </TooltipProvider>
       </QueryClientProvider>

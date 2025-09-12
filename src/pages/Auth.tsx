@@ -41,10 +41,9 @@ export const Auth: React.FC = () => {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Redirect authenticated admins to admin panel
+        // Redirect authenticated users appropriately
         if (session?.user && navigate) {
           setTimeout(async () => {
-            // Check if user is admin and redirect to admin panel
             try {
               const { data: profile } = await supabase
                 .from('profiles')
@@ -53,19 +52,13 @@ export const Auth: React.FC = () => {
                 .single();
               
               if (profile?.role === 'admin') {
-                navigate('/admin');
+                navigate('/admin', { replace: true });
               } else {
-                // Non-admins should not be using this page
-                toast({
-                  title: "Access Denied",
-                  description: "This page is for administrators only. Please use the membership page.",
-                  variant: "destructive"
-                });
-                navigate('/membership');
+                navigate('/models', { replace: true });
               }
             } catch (error) {
-              // If profile check fails, redirect to membership
-              navigate('/membership');
+              console.error('Profile check failed:', error);
+              navigate('/models', { replace: true });
             }
           }, 100);
         }
@@ -78,7 +71,6 @@ export const Auth: React.FC = () => {
       setUser(session?.user ?? null);
       
       if (session?.user && navigate) {
-        // Check if user is admin and redirect to admin panel
         try {
           const { data: profile } = await supabase
             .from('profiles')
@@ -87,19 +79,13 @@ export const Auth: React.FC = () => {
             .single();
           
           if (profile?.role === 'admin') {
-            navigate('/admin');
+            navigate('/admin', { replace: true });
           } else {
-            // Non-admins should not be using this page
-            toast({
-              title: "Access Denied", 
-              description: "This page is for administrators only. Please use the membership page.",
-              variant: "destructive"
-            });
-            navigate('/membership');
+            navigate('/models', { replace: true });
           }
         } catch (error) {
-          // If profile check fails, redirect to membership
-          navigate('/membership');
+          console.error('Profile check failed:', error);
+          navigate('/models', { replace: true });
         }
       }
     });

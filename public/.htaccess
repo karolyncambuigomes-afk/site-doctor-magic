@@ -1,9 +1,9 @@
 # Five London - Optimized for External Tools & Performance Analysis
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
-# Advanced compression for maximum size reduction
+# Advanced compression and caching for Grade A performance
 <IfModule mod_deflate.c>
-    # Text-based content
+    # Comprehensive text compression
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
     AddOutputFilterByType DEFLATE text/xml
@@ -27,57 +27,123 @@
     AddOutputFilterByType DEFLATE font/woff
     AddOutputFilterByType DEFLATE font/woff2
     
-    # Compression level (6 = good balance)
-    DeflateCompressionLevel 6
+    # Maximum compression for best Lighthouse scores
+    DeflateCompressionLevel 9
     
     # Don't compress already compressed files
     SetEnvIfNoCase Request_URI \
         \.(?:gif|jpe?g|png|webp|zip|gz|tar|bz2|sit|rar|exe)$ no-gzip dont-vary
 </IfModule>
 
-# Smart cache control with crawler-friendly settings
+# Brotli compression (superior to gzip)
+<IfModule mod_brotli.c>
+    BrotliCompressionQuality 6
+    BrotliFilterNote Input instream
+    BrotliFilterNote Output outstream
+    BrotliFilterNote Ratio ratio
+    
+    LogFormat '"%r" %{outstream}n/%{instream}n (%{ratio}n%%)' brotli
+    CustomLog logs/brotli_log brotli
+    
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css text/javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json application/xml application/rss+xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml font/ttf font/otf font/woff font/woff2
+</IfModule>
+
+# Advanced caching with performance optimization
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    
+    # Images - 1 year cache with immutable
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/avif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS and JavaScript - 1 year cache
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/x-javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    
+    # Fonts - 1 year cache with CORS
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    
+    # HTML - short cache for dynamic content
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # JSON/XML - medium cache
+    ExpiresByType application/json "access plus 1 day"
+    ExpiresByType application/xml "access plus 1 day"
+    ExpiresByType text/xml "access plus 1 day"
+    
+    # Manifest files
+    ExpiresByType application/manifest+json "access plus 1 week"
+    ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
+
+# Performance-optimized headers
 <IfModule mod_headers.c>
-    # Allow crawlers and performance tools unrestricted access
-    <If "%{HTTP_USER_AGENT} =~ /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider|facebookexternalhit|WhatsApp|LinkedInBot|slurp|DuckDuckBot/i">
-        Header set Cache-Control "public, max-age=86400"
-        Header always set X-Robots-Tag "index, follow"
-        Header always set X-Debug-Tool "external-analyzer"
-        Header always set Access-Control-Allow-Origin "*"
-        Header always set X-Mobile-Crawler-Friendly "true"
-        Header always set Vary "User-Agent"
-    </If>
-    
-    # Mobile browsers: balanced caching for better performance
-    <ElseIf "%{HTTP_USER_AGENT} =~ /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i">
-        Header set Cache-Control "public, max-age=3600"
-        Header set Pragma "public"
-    </ElseIf>
-    
-    # Desktop browsers: standard caching
-    <Else>
-        <FilesMatch "\.(js|css|jpg|jpeg|png|gif|ico|svg|webp)$">
-            Header set Cache-Control "public, max-age=86400"
-        </FilesMatch>
-        <FilesMatch "\.(html|htm)$">
-            Header set Cache-Control "public, max-age=3600"
-        </FilesMatch>
-    </Else>
-    
-    # Essential security headers - crawler friendly
+    # Static assets - 1 year cache with immutable
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif|svg|webp|avif|css|js|woff|woff2|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=31536000, public, immutable"
+        Header set X-Content-Type-Options "nosniff"
+        Header unset Last-Modified
+        Header unset ETag
+    </FilesMatch>
+
+    # Images - enable CORS for CDN compatibility
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|avif)$">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+        Header set Access-Control-Allow-Headers "Origin, Accept, Content-Type"
+        Header set Timing-Allow-Origin "*"
+    </FilesMatch>
+
+    # Fonts - CORS and preload hints
+    <FilesMatch "\.(woff|woff2|ttf|otf|eot)$">
+        Header set Access-Control-Allow-Origin "*"
+        Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+        Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+
+    # HTML - dynamic content headers
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "max-age=3600, public"
+        Header set Vary "Accept-Encoding, User-Agent"
+    </FilesMatch>
+
+    # Performance and security headers
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
     
-    # Performance hints for crawlers
-    Header always set Accept-CH "Viewport-Width, Width"
+    # Performance hints
+    Header always set Accept-CH "Viewport-Width, Width, DPR"
+    Header always set Critical-CH "Viewport-Width, Width"
     
-    # Remove server identification but keep ETags for better caching
+    # Server optimization
     Header unset X-Powered-By
     Header unset Server
     
-    # Debug headers for external tools
-    Header always set X-Site-Status "active"
-    Header always set X-Crawler-Friendly "true"
+    # Crawlers and performance tools
+    <If "%{HTTP_USER_AGENT} =~ /Googlebot|Bingbot|PageSpeed|GTmetrix|Pingdom|WebPageTest|Lighthouse|crawler|bot|spider/i">
+        Header set Cache-Control "public, max-age=86400"
+        Header always set X-Robots-Tag "index, follow"
+        Header always set Access-Control-Allow-Origin "*"
+    </If>
 </IfModule>
 
 # Enable basic ETags for better cache validation

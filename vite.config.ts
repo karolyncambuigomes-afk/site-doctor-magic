@@ -80,12 +80,46 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('embla-carousel')) {
             return 'carousel';
           }
-        }
+        },
+        // Add cache-busting and compression settings
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name?.split('.') || [];
+          const ext = info[info.length - 1];
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext || '')) {
+            return `assets/images/[name]-[hash][extname]`;
+          }
+          if (/css/i.test(ext || '')) {
+            return `assets/css/[name]-[hash][extname]`;
+          }
+          return `assets/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js'
       }
     },
     sourcemap: false,
-    assetsInlineLimit: 2048, // Reduced for smaller bundles
-    chunkSizeWarningLimit: 1000
+    assetsInlineLimit: 1024, // Smaller inline limit for better caching
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: mode === 'production',
+        pure_funcs: mode === 'production' ? ['console.log', 'console.info'] : [],
+        passes: 2
+      },
+      mangle: {
+        safari10: true
+      },
+      format: {
+        comments: false
+      }
+    },
+    cssMinify: true,
+    reportCompressedSize: true,
+    // Enable asset compression
+    assetsDir: 'assets',
+    emptyOutDir: true
   },
   plugins: [
     react(),

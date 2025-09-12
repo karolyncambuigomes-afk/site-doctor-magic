@@ -246,7 +246,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const getRedirectPath = () => {
-    // Always redirect to models for now, admin can navigate manually
+    // Smart post-login redirect based on user role
+    if (isAdmin) {
+      console.log('AuthProvider - Redirecting admin to /admin');
+      return '/admin';
+    }
+    console.log('AuthProvider - Redirecting user to /models');
     return '/models';
   };
 

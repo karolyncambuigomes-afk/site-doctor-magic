@@ -22,6 +22,7 @@ import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ErrorBoundaryWrapper } from "@/components/ErrorBoundaryWrapper";
+import { ChunkErrorCatcher } from "@/components/ChunkErrorCatcher";
 import { RouteLogger } from "@/components/RouteLogger";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
@@ -113,7 +114,8 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <DegradedModeProvider>
-            <AuthProvider>
+            <ChunkErrorCatcher>
+              <AuthProvider>
               <BrowserRouter>
                 <RouteLogger />
                 <ConditionalFeatures />
@@ -444,7 +446,8 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
-            </AuthProvider>
+              </AuthProvider>
+            </ChunkErrorCatcher>
           </DegradedModeProvider>
         </TooltipProvider>
       </QueryClientProvider>

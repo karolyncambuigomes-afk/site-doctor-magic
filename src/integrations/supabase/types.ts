@@ -681,6 +681,30 @@ export type Database = {
         }
         Relationships: []
       }
+      permissions: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       preference_categories: {
         Row: {
           created_at: string
@@ -835,6 +859,35 @@ export type Database = {
           service_type?: string | null
         }
         Relationships: []
+      }
+      role_permissions: {
+        Row: {
+          created_at: string | null
+          id: string
+          permission_id: string | null
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          permission_id?: string | null
+          role: Database["public"]["Enums"]["app_role"]
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          permission_id?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "role_permissions_permission_id_fkey"
+            columns: ["permission_id"]
+            isOneToOne: false
+            referencedRelation: "permissions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       security_audit_log: {
         Row: {
@@ -1073,6 +1126,42 @@ export type Database = {
           subtitle?: string | null
           title?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      user_management_audit: {
+        Row: {
+          action: string
+          admin_user_id: string | null
+          id: string
+          ip_address: unknown | null
+          new_values: Json | null
+          old_values: Json | null
+          target_user_id: string | null
+          timestamp: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          admin_user_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          target_user_id?: string | null
+          timestamp?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          admin_user_id?: string | null
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          target_user_id?: string | null
+          timestamp?: string | null
+          user_agent?: string | null
         }
         Relationships: []
       }
@@ -1316,7 +1405,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "team" | "member"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1443,6 +1532,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "team", "member"],
+    },
   },
 } as const

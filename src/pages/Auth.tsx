@@ -35,59 +35,12 @@ export const Auth: React.FC = () => {
   }
 
   useEffect(() => {
-    // Set up auth state listener first
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Only redirect admins to admin panel, non-admins stay on page to see restriction message
-        if (session?.user && navigate) {
-          setTimeout(async () => {
-            try {
-              const { data: profile } = await supabase
-                .from('profiles')
-                .select('role')
-                .eq('id', session.user.id)
-                .single();
-              
-              if (profile?.role === 'admin') {
-                navigate('/admin');
-              }
-              // Non-admins will see the restriction message in the render
-            } catch (error) {
-              console.warn('Failed to check admin role:', error);
-            }
-          }, 100);
-        }
-      }
-    );
-
-    // Then check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user && navigate) {
-        try {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', session.user.id)
-            .single();
-          
-          if (profile?.role === 'admin') {
-            navigate('/admin');
-          }
-          // Non-admins will see the restriction message in the render
-        } catch (error) {
-          console.warn('Failed to check admin role:', error);
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate, auth]);
+    // Redirect after global auth is ready and user exists
+    if (auth?.authReady && auth?.user && navigate) {
+      const path = auth.getRedirectPath?.() || '/';
+      navigate(path, { replace: true });
+    }
+  }, [auth?.authReady, auth?.user, navigate]);
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {
@@ -152,30 +105,10 @@ export const Auth: React.FC = () => {
       }
 
       if (data.user) {
-        // Verify user is admin before allowing access
-        try {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('role')
-            .eq('id', data.user.id)
-            .single();
-          
-          if (profile?.role !== 'admin') {
-            setError('Access denied. This page is for administrators only.');
-            await supabase.auth.signOut();
-            return;
-          }
-          
-          console.log('Admin sign in successful for user:', data.user.id);
-          toast({
-            title: "Welcome back, Administrator!",
-            description: "Login successful.",
-          });
-        } catch (profileError) {
-          setError('Unable to verify admin status. Please try again.');
-          await supabase.auth.signOut();
-          return;
-        }
+        toast({
+          title: "Welcome back!",
+          description: "Login successful.",
+        });
       }
     } catch (err: any) {
       console.error('Unexpected sign-in error:', err);

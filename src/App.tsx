@@ -431,11 +431,7 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-          <Route path="/admin/system" element={
-            <AdminProtectedRoute>
-              <Navigate to="/admin/settings/theme" replace />
-            </AdminProtectedRoute>
-          } />
+          <Route path="/admin/system" element={<Navigate to="/admin/settings/theme" replace />} />
           <Route path="/admin/system/settings" element={
             <AdminProtectedRoute>
               <SystemSettings />

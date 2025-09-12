@@ -50,3 +50,12 @@ verify_jwt = true
 
 [functions.sync-image-to-local]
 verify_jwt = true
+
+[functions.create-test-accounts]
+verify_jwt = false
+
+[functions.admin-health-check]
+verify_jwt = false
+
+[functions.admin-auth-validation]
+verify_jwt = false

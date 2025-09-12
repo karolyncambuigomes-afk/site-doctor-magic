@@ -1,6 +1,37 @@
 # Five London - Optimized for External Tools & Performance Analysis
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
+# Security Headers for Admin Protection
+<IfModule mod_headers.c>
+    # Strict Transport Security (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Content Security Policy
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://jiegopvbwpyfohhfvmwo.supabase.co https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; connect-src 'self' https://jiegopvbwpyfohhfvmwo.supabase.co wss://jiegopvbwpyfohhfvmwo.supabase.co https://vercel.live; font-src 'self' data:; media-src 'self' blob:; object-src 'none'; frame-src 'self' https://vercel.live; base-uri 'self'; form-action 'self'"
+    
+    # Admin-specific security for admin routes
+    <LocationMatch "^/admin">
+        Header always set X-Frame-Options "DENY"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Referrer-Policy "no-referrer"
+        Header always set Cache-Control "no-cache, no-store, must-revalidate, private"
+        Header always set Pragma "no-cache"
+        Header always set Expires "0"
+        Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://jiegopvbwpyfohhfvmwo.supabase.co wss://jiegopvbwpyfohhfvmwo.supabase.co; font-src 'self'; object-src 'none'; frame-ancestors 'none'"
+    </LocationMatch>
+    
+    # Auth pages security
+    <LocationMatch "^/auth">
+        Header always set X-Frame-Options "DENY"
+        Header always set Cache-Control "no-cache, no-store, must-revalidate, private"
+        Header always set Pragma "no-cache"
+        Header always set Expires "0"
+    </LocationMatch>
+    
+    # Secure cookie flags
+    Header always edit Set-Cookie ^(.*)$ "$1; HttpOnly; Secure; SameSite=Strict"
+</IfModule>
+
 # Advanced compression and caching for Grade A performance
 <IfModule mod_deflate.c>
     # Comprehensive text compression
@@ -82,6 +113,16 @@
     # HTML - short cache for dynamic content
     ExpiresByType text/html "access plus 1 hour"
     
+    # Admin pages - no cache
+    <LocationMatch "^/admin">
+        ExpiresActive Off
+    </LocationMatch>
+    
+    # Auth pages - no cache
+    <LocationMatch "^/auth">
+        ExpiresActive Off
+    </LocationMatch>
+    
     # JSON/XML - medium cache
     ExpiresByType application/json "access plus 1 day"
     ExpiresByType application/xml "access plus 1 day"
@@ -117,13 +158,13 @@
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
 
-    # HTML - dynamic content headers
+    # HTML - dynamic content headers (except admin)
     <FilesMatch "\.(html|htm)$">
         Header set Cache-Control "max-age=3600, public"
         Header set Vary "Accept-Encoding, User-Agent"
     </FilesMatch>
 
-    # Performance and security headers
+    # Performance and security headers (global)
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set X-XSS-Protection "1; mode=block"

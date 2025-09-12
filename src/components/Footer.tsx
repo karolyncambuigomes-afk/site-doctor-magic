@@ -49,15 +49,15 @@ export const Footer = () => {
                 Follow Us
               </h4>
               <div className="flex space-x-4">
-                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Instagram">
+                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Instagram">
                   <Instagram className="w-4 h-4" />
-                </a>
-                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Facebook">
+                </button>
+                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Facebook">
                   <Facebook className="w-4 h-4" />
-                </a>
-                <a href="#" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Twitter">
+                </button>
+                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Twitter">
                   <Twitter className="w-4 h-4" />
-                </a>
+                </button>
                 <a href="https://wa.me/447436190679" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>

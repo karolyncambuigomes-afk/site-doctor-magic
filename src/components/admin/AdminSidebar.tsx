@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/components/AuthProvider';
 import {
   Sidebar,
@@ -108,6 +108,7 @@ export const AdminSidebar: React.FC = () => {
   const { state } = useSidebar();
   const collapsed = state === 'collapsed';
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
   const { user, signOut } = useAuth();
 
@@ -120,7 +121,7 @@ export const AdminSidebar: React.FC = () => {
 
   const handleSignOut = async () => {
     await signOut();
-    window.location.href = '/auth';
+    navigate('/auth', { replace: true });
   };
 
   return (

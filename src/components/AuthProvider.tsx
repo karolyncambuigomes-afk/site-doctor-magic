@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 
 // Remove duplicate storage logic - using the one from supabase client now
@@ -45,6 +46,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
@@ -258,7 +260,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setIsAdmin(false);
       
       // Redirect to home page after logout
-      window.location.href = '/';
+      navigate('/', { replace: true });
     }
   };
 

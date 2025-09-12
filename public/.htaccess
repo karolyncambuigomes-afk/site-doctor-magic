@@ -86,14 +86,9 @@ FileETag MTime Size
 # SPA Routing and Image Proxy
 <IfModule mod_rewrite.c>
     RewriteEngine On
-
-    # Canonical domain: force www.exclusivefivelondon.com and HTTPS
-    RewriteCond %{HTTP_HOST} ^exclusivefivelondon\.com$ [NC]
-    RewriteRule ^(.*)$ https://www.exclusivefivelondon.com/$1 [L,R=301]
     
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.exclusivefivelondon\.com$ [NC]
-    RewriteRule ^(.*)$ https://www.exclusivefivelondon.com/$1 [L,R=301]
+    # HTTPS and WWW redirects disabled for maximum compatibility
+    # This ensures the site works in private browsers and internationally
     
     # Image proxy: /images/* → /api/i/*
     RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]

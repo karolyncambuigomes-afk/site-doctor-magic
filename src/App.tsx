@@ -21,9 +21,6 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { ErrorBoundaryWrapper } from "@/components/ErrorBoundaryWrapper";
-import { ChunkErrorCatcher } from "@/components/ChunkErrorCatcher";
-import { RouteLogger } from "@/components/RouteLogger";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
 import Index from "./pages/Index";
@@ -74,7 +71,7 @@ import { LocationsManager as LocationsManagerPage } from "./pages/admin/location
 import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
-
+import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
 import { SystemSettings } from "./pages/admin/settings/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
@@ -114,10 +111,8 @@ const App = () => (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <DegradedModeProvider>
-            <ChunkErrorCatcher>
-              <AuthProvider>
+            <AuthProvider>
               <BrowserRouter>
-                <RouteLogger />
                 <ConditionalFeatures />
                 <DataSyncInitializer />
                 <MobileOptimizer />
@@ -213,64 +208,9 @@ const App = () => (
                   <Route path="/join-us" element={<JoinUs />} />
           {/* New Admin Panel Routes */}
           <Route path="/admin" element={
-            <ErrorBoundaryWrapper
-              fallback={({ error }) => (
-                <div className="min-h-screen bg-red-50 p-8">
-                  <div className="max-w-2xl mx-auto">
-                    <h1 className="text-2xl font-bold text-red-800 mb-4">Admin Route Error</h1>
-                    <p className="text-red-700 mb-4">Error in admin route: {error?.message}</p>
-                    <pre className="bg-red-100 p-4 rounded text-sm overflow-auto text-red-900">
-                      {error?.stack}
-                    </pre>
-                    <button 
-                      onClick={() => window.location.reload()} 
-                      className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-                    >
-                      Reload
-                    </button>
-                  </div>
-                </div>
-              )}
-            >
-              <AdminProtectedRoute>
-                <AdminDashboard />
-              </AdminProtectedRoute>
-            </ErrorBoundaryWrapper>
-          } />
-          
-          {/* Isolation test routes */}
-          <Route path="/__admin_layout" element={
-            <ErrorBoundaryWrapper
-              fallback={({ error }) => (
-                <div className="min-h-screen bg-yellow-50 p-8">
-                  <h1 className="text-2xl font-bold text-yellow-800">Layout Test Error</h1>
-                  <p className="text-yellow-700">{error?.message}</p>
-                  <pre className="bg-yellow-100 p-4 rounded text-sm overflow-auto mt-4">
-                    {error?.stack}
-                  </pre>
-                </div>
-              )}
-            >
+            <AdminProtectedRoute>
               <AdminDashboard />
-            </ErrorBoundaryWrapper>
-          } />
-          
-          <Route path="/__admin_bare" element={
-            <ErrorBoundaryWrapper
-              fallback={({ error }) => (
-                <div className="min-h-screen bg-blue-50 p-8">
-                  <h1 className="text-2xl font-bold text-blue-800">Dashboard Test Error</h1>
-                  <p className="text-blue-700">{error?.message}</p>
-                  <pre className="bg-blue-100 p-4 rounded text-sm overflow-auto mt-4">
-                    {error?.stack}
-                  </pre>
-                </div>
-              )}
-            >
-              <div className="min-h-screen bg-background">
-                <AdminDashboard />
-              </div>
-            </ErrorBoundaryWrapper>
+            </AdminProtectedRoute>
           } />
           <Route path="/admin/dashboard" element={
             <AdminProtectedRoute>
@@ -431,7 +371,12 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-          <Route path="/admin/system" element={<Navigate to="/admin/settings/theme" replace />} />
+          {/* System Settings */}
+          <Route path="/admin/system" element={
+            <AdminProtectedRoute>
+              <SystemSettingsOld />
+            </AdminProtectedRoute>
+          } />
           <Route path="/admin/system/settings" element={
             <AdminProtectedRoute>
               <SystemSettings />
@@ -441,8 +386,7 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
-              </AuthProvider>
-            </ChunkErrorCatcher>
+            </AuthProvider>
           </DegradedModeProvider>
         </TooltipProvider>
       </QueryClientProvider>

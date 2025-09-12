@@ -104,7 +104,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     face_visible: true,
     show_on_homepage: false,
     homepage_order: null,
-    all_photos_public: true
+    all_photos_public: false
   });
 
   const [newService, setNewService] = useState('');
@@ -349,17 +349,17 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
             <div>
               <Label htmlFor="name" className="flex items-center gap-1">
                 Nome *
-                <AlertCircle className="w-3 h-3 text-muted-foreground" />
+                <AlertCircle className="w-3 h-3 text-gray-500" />
               </Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 required
-                className={!formData.name.trim() ? 'border-destructive focus:border-destructive' : ''}
+                className={!formData.name.trim() ? 'border-gray-300 focus:border-gray-500' : ''}
               />
               {!formData.name.trim() && (
-                <p className="text-xs text-muted-foreground mt-1">Nome é obrigatório</p>
+                <p className="text-xs text-gray-600 mt-1">Nome é obrigatório</p>
               )}
             </div>
 
@@ -416,9 +416,9 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
 
         {/* Access & Privacy Configuration Card */}
-        <Card>
+        <Card className="border-gray-200 bg-white">
           <CardHeader>
-            <CardTitle>⭐ Configurações de Acesso e Privacidade</CardTitle>
+            <CardTitle className="text-gray-900">⭐ Configurações de Acesso e Privacidade</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-4">
@@ -435,10 +435,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', true);
                       handleInputChange('all_photos_public', false);
                     }}
-                    className="h-4 w-4 text-foreground focus:ring-foreground"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="members-exclusive" className="flex items-center space-x-2 cursor-pointer">
-                    <Crown className="h-4 w-4 text-muted-foreground" />
+                    <Crown className="h-4 w-4 text-gray-600" />
                     <span>Esta modelo será <strong>EXCLUSIVA</strong> somente para membros</span>
                   </Label>
                 </div>
@@ -453,10 +453,10 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', false);
                       handleInputChange('all_photos_public', false);
                     }}
-                    className="h-4 w-4 text-foreground focus:ring-foreground"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="mixed-access" className="flex items-center space-x-2 cursor-pointer">
-                    <Globe className="h-4 w-4 text-muted-foreground" />
+                    <Globe className="h-4 w-4 text-gray-600" />
                     <span>Esta modelo terá fotos <strong>PÚBLICAS e EXCLUSIVAS</strong> para membros</span>
                   </Label>
                 </div>
@@ -471,18 +471,18 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                       handleInputChange('members_only', false);
                       handleInputChange('all_photos_public', true);
                     }}
-                    className="h-4 w-4 text-foreground focus:ring-foreground"
+                    className="h-4 w-4 text-gray-900 focus:ring-gray-900"
                   />
                   <Label htmlFor="all-public" className="flex items-center space-x-2 cursor-pointer">
-                    <Globe className="h-4 w-4 text-muted-foreground" />
+                    <Globe className="h-4 w-4 text-gray-600" />
                     <span>Todas as fotos serão <strong>VISÍVEIS PARA TODOS</strong> (público e membros)</span>
                   </Label>
                 </div>
               </div>
               
               {formData.members_only === false && formData.all_photos_public === false && (
-                <div className="mt-4 p-3 bg-background border border-border rounded-lg">
-                  <p className="text-sm text-muted-foreground">
+                <div className="mt-4 p-3 bg-white border border-gray-200 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <Info className="h-4 w-4 inline mr-2" />
                     Com esta opção, você poderá definir individualmente quais fotos são públicas e quais são exclusivas para membros na seção de galeria.
                   </p>
@@ -490,8 +490,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
               )}
               
               {formData.members_only === true && (
-                <div className="mt-4 p-3 bg-background border border-border rounded-lg">
-                  <p className="text-sm text-muted-foreground">
+                <div className="mt-4 p-3 bg-white border border-gray-200 rounded-lg">
+                  <p className="text-sm text-gray-700">
                     <Crown className="h-4 w-4 inline mr-2" />
                     Modelo exclusiva: todas as fotos serão visíveis apenas para membros.
                   </p>
@@ -942,12 +942,12 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Form Actions */}
       <div className="flex flex-col gap-4">
         {!formData.name.trim() && (
-          <div className="bg-background border border-border rounded-lg p-3">
-            <div className="flex items-center gap-2 text-foreground">
+          <div className="bg-white border border-gray-200 rounded-lg p-3">
+            <div className="flex items-center gap-2 text-gray-700">
               <AlertCircle className="w-4 h-4" />
               <span className="text-sm font-medium">Campos obrigatórios em falta</span>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-gray-600 mt-1">
               Preencha todos os campos marcados com (*) antes de salvar
             </p>
           </div>
@@ -960,6 +960,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <Button 
             type="submit" 
             disabled={loading || !formData.name.trim()}
+            className={`${!formData.name.trim() ? 'opacity-50 cursor-not-allowed' : ''} text-white`}
           >
             {loading ? 'Salvando...' : model?.id ? 'Atualizar' : 'Criar'} Modelo
           </Button>

@@ -5,7 +5,7 @@ import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { useImagePreference } from '@/hooks/useImagePreference';
 import { EnhancedImage } from '@/components/EnhancedImage';
-import { useAuth } from '@/components/AuthProvider';
+
 interface ModelCardProps {
   model: Model;
   index?: number;
@@ -16,43 +16,39 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const { ref, isVisible } = useScrollAnimation(0.2);
   const { preferLocalImages } = useImagePreference();
-  const { hasAccess } = useAuth() || {};
 
-  // Enhanced image selection with robust fallback (respect area visibility)
+  // Enhanced image selection with robust fallback
   const imageConfig = useMemo(() => {
-    const gallerySorted = Array.isArray(model.gallery)
-      ? [...model.gallery].sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
-      : [];
+    const fallbackFromGallery = model.gallery && Array.isArray(model.gallery)
+      ? model.gallery
+          .filter(img => img.visibility === 'public' || !img.visibility)
+          .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
+      : undefined;
 
-    const membersImages = gallerySorted.filter(img => img.visibility === 'members_only');
-    const publicImages = gallerySorted.filter(img => img.visibility === 'public' || !img.visibility);
-
-    // In members area (hasAccess), use only members images if they exist; otherwise fall back to public
-    const subset = hasAccess && membersImages.length > 0 ? membersImages : publicImages;
-
-    const primaryUrl = subset[0]?.image_url || model.image || null;
-
+    // HOTFIX: Prioritize external URLs to fix missing local images
+    const external = model.image || fallbackFromGallery;
+    const local = model.image_url_local_main;
+    
     return {
       local: null, // Temporarily disable local images
-      external: primaryUrl,
+      external: external,
       placeholder: '/images/placeholders/model.jpg'
     };
-  }, [model.gallery, model.image, hasAccess]);
+  }, [model.image_url_local_main, model.image, model.gallery, preferLocalImages]);
 
   // Secondary image for hover effect
   const secondaryImage = useMemo(() => {
     if (model.gallery && Array.isArray(model.gallery)) {
-      const gallerySorted = [...model.gallery].sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
-      const membersImages = gallerySorted.filter(img => img.visibility === 'members_only');
-      const publicImages = gallerySorted.filter(img => img.visibility === 'public' || !img.visibility);
-      const subset = hasAccess && membersImages.length > 0 ? membersImages : publicImages;
-
-      const primarySrc = imageConfig.external;
-      const secondSrc = subset[1]?.image_url;
-      return secondSrc && secondSrc !== primarySrc ? secondSrc : null;
+      const publicImages = model.gallery
+        .filter(img => img.visibility === 'public' || !img.visibility)
+        .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
+      
+      const secondImg = publicImages[1] || publicImages[0];
+      const primarySrc = preferLocalImages ? imageConfig.local : imageConfig.external;
+      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
     }
     return null;
-  }, [model.gallery, imageConfig.external, hasAccess]);
+  }, [model.gallery, imageConfig, preferLocalImages]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {
@@ -74,7 +70,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block group">
         <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container */}
-          <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+          <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[1/1] xl:aspect-[4/5] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
               <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
@@ -99,7 +95,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   external={imageConfig.external}
                   placeholder={imageConfig.placeholder}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full object-cover object-[center_30%] transition-all duration-700 ${
+                  className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
                   data-model-image="true"
@@ -111,7 +107,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   <EnhancedImage
                     external={secondaryImage}
                     alt={`${model.name} - alternate view`}
-                    className="w-full h-full object-cover object-[center_30%] transition-all duration-700 opacity-0 group-hover:opacity-100"
+                    className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
                     data-model-image="true"
                     data-model-name={`${model.name}-secondary`}
                   />

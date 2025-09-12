@@ -1,9 +1,9 @@
 // Five London - Service Worker for Caching and Offline Support
 // Optimized for private browsing compatibility
 
-const CACHE_NAME = 'five-london-v1.0.6';
-const STATIC_CACHE = 'five-london-static-v1.0.6';
-const RUNTIME_CACHE = 'five-london-runtime-v1.0.6';
+const CACHE_NAME = 'five-london-v1.2.0';
+const STATIC_CACHE = 'five-london-static-v1.2.0';
+const RUNTIME_CACHE = 'five-london-runtime-v1.2.0';
 
 // Essential assets to precache
 const PRECACHE_ASSETS = [

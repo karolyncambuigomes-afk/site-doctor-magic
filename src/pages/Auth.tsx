@@ -35,12 +35,77 @@ export const Auth: React.FC = () => {
   }
 
   useEffect(() => {
-    // Redirect after global auth is ready and user exists
-    if (auth?.authReady && auth?.user && navigate) {
-      const path = auth.getRedirectPath?.() || '/';
-      navigate(path, { replace: true });
-    }
-  }, [auth?.authReady, auth?.user, navigate]);
+    // Set up auth state listener first
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        // Redirect authenticated admins to admin panel
+        if (session?.user && navigate) {
+          setTimeout(async () => {
+            // Check if user is admin and redirect to admin panel
+            try {
+              const { data: profile } = await supabase
+                .from('profiles')
+                .select('role')
+                .eq('id', session.user.id)
+                .single();
+              
+              if (profile?.role === 'admin') {
+                navigate('/admin');
+              } else {
+                // Non-admins should not be using this page
+                toast({
+                  title: "Access Denied",
+                  description: "This page is for administrators only. Please use the membership page.",
+                  variant: "destructive"
+                });
+                navigate('/membership');
+              }
+            } catch (error) {
+              // If profile check fails, redirect to membership
+              navigate('/membership');
+            }
+          }, 100);
+        }
+      }
+    );
+
+    // Then check for existing session
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user && navigate) {
+        // Check if user is admin and redirect to admin panel
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', session.user.id)
+            .single();
+          
+          if (profile?.role === 'admin') {
+            navigate('/admin');
+          } else {
+            // Non-admins should not be using this page
+            toast({
+              title: "Access Denied", 
+              description: "This page is for administrators only. Please use the membership page.",
+              variant: "destructive"
+            });
+            navigate('/membership');
+          }
+        } catch (error) {
+          // If profile check fails, redirect to membership
+          navigate('/membership');
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate, auth]);
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {
@@ -105,10 +170,30 @@ export const Auth: React.FC = () => {
       }
 
       if (data.user) {
-        toast({
-          title: "Welcome back!",
-          description: "Login successful.",
-        });
+        // Verify user is admin before allowing access
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', data.user.id)
+            .single();
+          
+          if (profile?.role !== 'admin') {
+            setError('Access denied. This page is for administrators only.');
+            await supabase.auth.signOut();
+            return;
+          }
+          
+          console.log('Admin sign in successful for user:', data.user.id);
+          toast({
+            title: "Welcome back, Administrator!",
+            description: "Login successful.",
+          });
+        } catch (profileError) {
+          setError('Unable to verify admin status. Please try again.');
+          await supabase.auth.signOut();
+          return;
+        }
       }
     } catch (err: any) {
       console.error('Unexpected sign-in error:', err);
@@ -121,28 +206,9 @@ export const Auth: React.FC = () => {
   if (user) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-4">
-          <Card className="border border-border/50 shadow-luxury">
-            <CardHeader className="text-center pb-6">
-              <CardTitle className="luxury-heading-md text-destructive">
-                Administrator Access Only
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                This page is exclusively for administrators. If you need member access, please use the membership page.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <Button 
-                onClick={() => navigate('/membership')}
-                className="w-full five-london-button mb-4"
-              >
-                Go to Membership
-              </Button>
-              <p className="text-xs text-muted-foreground">
-                Logged in as: {user.email}
-              </p>
-            </CardContent>
-          </Card>
+        <div className="text-center">
+          <h2 className="luxury-heading-md mb-4">Welcome back!</h2>
+          <p className="text-muted-foreground mb-6">Redirecting you to your account...</p>
         </div>
       </div>
     );

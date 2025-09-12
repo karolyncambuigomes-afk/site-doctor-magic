@@ -1,16 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { MessageCircle } from 'lucide-react';
 
 export const BookNowButton = () => {
-  const location = useLocation();
   const [isVisible, setIsVisible] = useState(false);
-
-  // Hide button on admin pages
-  if (location.pathname.startsWith('/admin')) {
-    return null;
-  }
 
   useEffect(() => {
     const handleScroll = () => {

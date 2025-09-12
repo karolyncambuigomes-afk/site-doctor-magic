@@ -90,22 +90,14 @@ export const useModels = () => {
           
           let mainImage = model.image;
           
-          // Determine preferred members-only image (if any)
-          const preferredMembersImage = galleryImages.find(g => g.visibility === 'members_only');
-          
           // If main image is missing or is a local path that likely doesn't exist, try gallery
           if (!mainImage || mainImage.trim() === '' || mainImage.startsWith('/')) {
-            if (preferredMembersImage) {
-              mainImage = preferredMembersImage.image_url;
-            } else {
-              const publicGalleryImage = galleryImages.find(g => g.visibility === 'public' || !g.visibility) || galleryImages[0];
-              if (publicGalleryImage) {
-                mainImage = publicGalleryImage.image_url;
-              }
+            const publicGalleryImage = galleryImages.find(g => g.visibility === 'public' || !g.visibility);
+            if (publicGalleryImage) {
+              mainImage = publicGalleryImage.image_url;
+            } else if (galleryImages[0]) {
+              mainImage = galleryImages[0].image_url;
             }
-          } else if (preferredMembersImage) {
-            // Even if a main image exists, for members we prefer the members-only image when available
-            mainImage = preferredMembersImage.image_url;
           }
           
           mainImage = addCacheBusting(mainImage);

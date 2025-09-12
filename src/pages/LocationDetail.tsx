@@ -139,11 +139,11 @@ const LocationDetail = () => {
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
                 {galleryImages.map((image, index) => (
-                  <div key={index} className="group relative overflow-hidden rounded-lg aspect-[2/3] md:aspect-[3/4] bg-gray-100">
+                  <div key={index} className="group relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
                     <img 
                       src={image} 
                       alt={`Exclusive companion ${index + 1} in ${location.name}`}
-                      className="w-full h-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

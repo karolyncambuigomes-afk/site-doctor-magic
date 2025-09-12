@@ -40,47 +40,32 @@ export const AdminDashboard: React.FC = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Temporarily disable data loading to isolate the error
-    console.log('AdminDashboard: useEffect called, but data loading disabled for debugging');
-    setLoading(false);
-    // loadDashboardData();
+    loadDashboardData();
   }, []);
 
   const loadDashboardData = async () => {
     try {
-      const results = await Promise.allSettled([
+      const [modelsRes, applicationsRes, blogsRes, usersRes] = await Promise.all([
         supabase.from('models').select('id'),
         supabase.from('model_applications').select('id').eq('status', 'pending'),
         supabase.from('blog_posts').select('id').eq('is_published', true),
         supabase.from('profiles').select('id')
       ]);
 
-      const [modelsRes, applicationsRes, blogsRes, usersRes] = results;
-
       setStats({
-        totalModels: modelsRes.status === 'fulfilled' ? (modelsRes.value.data?.length || 0) : 0,
-        pendingApplications: applicationsRes.status === 'fulfilled' ? (applicationsRes.value.data?.length || 0) : 0,
-        publishedBlogs: blogsRes.status === 'fulfilled' ? (blogsRes.value.data?.length || 0) : 0,
-        totalUsers: usersRes.status === 'fulfilled' ? (usersRes.value.data?.length || 0) : 0,
+        totalModels: modelsRes.data?.length || 0,
+        pendingApplications: applicationsRes.data?.length || 0,
+        publishedBlogs: blogsRes.data?.length || 0,
+        totalUsers: usersRes.data?.length || 0,
         seoScore: 85,
         recentActivity: []
       });
-
-      // Only show a toast if ALL requests failed
-      const allRejected = results.every(r => r.status === 'rejected');
-      if (allRejected) {
-        toast({
-          title: 'Error loading dashboard',
-          description: 'Failed to load all dashboard statistics',
-          variant: 'destructive',
-        });
-      }
     } catch (error) {
       console.error('Error loading dashboard data:', error);
       toast({
-        title: 'Unexpected error',
-        description: 'An unexpected error occurred while loading the dashboard',
-        variant: 'destructive',
+        title: "Error loading dashboard",
+        description: "Failed to load dashboard statistics",
+        variant: "destructive"
       });
     } finally {
       setLoading(false);

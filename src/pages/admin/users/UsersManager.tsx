@@ -215,9 +215,9 @@ export const UsersManager: React.FC = () => {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge variant="pending">Pendente</Badge>;
+        return <Badge variant="secondary">Pendente</Badge>;
       case 'approved':
-        return <Badge variant="success">Aprovado</Badge>;
+        return <Badge variant="default">Aprovado</Badge>;
       case 'rejected':
         return <Badge variant="destructive">Rejeitado</Badge>;
       default:
@@ -230,7 +230,7 @@ export const UsersManager: React.FC = () => {
       case 'admin':
         return <Badge variant="default"><Shield className="h-3 w-3 mr-1" />Admin</Badge>;
       case 'user':
-        return <Badge variant="secondary">Usuário</Badge>;
+        return <Badge variant="outline">Usuário</Badge>;
       default:
         return <Badge variant="outline">{role}</Badge>;
     }
@@ -264,21 +264,51 @@ export const UsersManager: React.FC = () => {
         </div>
 
         {/* Estatísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="bg-card border-border">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-card-foreground">Total de Usuários</CardTitle>
+              <CardTitle className="text-sm font-medium">Total de Usuários</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-card-foreground">{stats.total_users}</div>
+              <div className="text-2xl font-bold">{stats.total_users}</div>
             </CardContent>
           </Card>
 
-          <Card className="bg-card border-border">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-card-foreground">Administradores</CardTitle>
-              <Shield className="h-4 w-4 text-blue-600" />
+              <CardTitle className="text-sm font-medium">Pendentes</CardTitle>
+              <Calendar className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-yellow-600">{stats.pending_users}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Aprovados</CardTitle>
+              <UserCheck className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">{stats.approved_users}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Rejeitados</CardTitle>
+              <UserX className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-600">{stats.rejected_users}</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Administradores</CardTitle>
+              <Shield className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-600">{stats.admin_users}</div>
@@ -286,7 +316,7 @@ export const UsersManager: React.FC = () => {
           </Card>
         </div>
 
-        {/* Ações Principais */}
+        {/* Filtros e Busca */}
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -302,39 +332,59 @@ export const UsersManager: React.FC = () => {
           
           <div className="flex flex-wrap gap-2">
             <Button
+              variant={filterStatus === 'all' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setFilterStatus('all')}
+            >
+              Todos
+            </Button>
+            <Button
+              variant={filterStatus === 'pending' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setFilterStatus('pending')}
+            >
+              Pendentes
+            </Button>
+            <Button
+              variant={filterStatus === 'approved' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setFilterStatus('approved')}
+            >
+              Aprovados
+            </Button>
+            <Button
+              variant={filterStatus === 'admin' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setFilterStatus('admin')}
+            >
+              Admins
+            </Button>
+            <Button
               onClick={() => setIsCreateMemberModalOpen(true)}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              className="bg-gradient-to-r from-primary to-primary-variant text-white"
               size="sm"
             >
               <Crown className="mr-2 h-4 w-4" />
-              Adicionar Membro
-            </Button>
-            <Button
-              onClick={() => {/* TODO: Implementar modal para criar admin */}}
-              variant="outline"
-              size="sm"
-            >
-              <Shield className="mr-2 h-4 w-4" />
-              Adicionar Admin
+              Criar Membro Exclusivo
             </Button>
           </div>
         </div>
 
-        <Card className="bg-card border-border">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-card-foreground">Lista de Usuários</CardTitle>
-            <CardDescription className="text-muted-foreground">
+            <CardTitle>Lista de Usuários</CardTitle>
+            <CardDescription>
               Gerencie aprovações e permissões dos usuários
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {filteredUsers.map((user) => (
-                <div key={user.id} className="flex items-center justify-between p-4 border border-border rounded-lg bg-background">
+                <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span className="font-medium text-foreground">{user.email}</span>
+                      <span className="font-medium">{user.email}</span>
                       {getRoleBadge(user.role)}
                       {getStatusBadge(user.status)}
                     </div>
@@ -347,12 +397,32 @@ export const UsersManager: React.FC = () => {
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    {user.role === 'user' && (
+                    {user.status === 'pending' && (
+                      <>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateUserStatus(user.id, 'approved')}
+                        >
+                          <UserCheck className="h-4 w-4 mr-1" />
+                          Aprovar
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => updateUserStatus(user.id, 'rejected')}
+                        >
+                          <UserX className="h-4 w-4 mr-1" />
+                          Rejeitar
+                        </Button>
+                      </>
+                    )}
+                    
+                    {user.role === 'user' && user.status === 'approved' && (
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => updateUserRole(user.id, 'admin')}
-                        className="bg-background border-border text-foreground hover:bg-accent"
                       >
                         <Shield className="h-4 w-4 mr-1" />
                         Tornar Admin
@@ -364,16 +434,16 @@ export const UsersManager: React.FC = () => {
                          variant="outline"
                          size="sm"
                          onClick={() => updateUserRole(user.id, 'user')}
-                         className="bg-background border-border text-foreground hover:bg-accent"
                        >
                          Remover Admin
                        </Button>
                      )}
                      
                      <Button
-                       variant="destructive"
+                       variant="outline"
                        size="sm"
                        onClick={() => deleteUser(user.id, user.email)}
+                       className="text-red-600 hover:text-red-700 hover:border-red-300"
                      >
                        <Trash2 className="h-4 w-4 mr-1" />
                        Deletar

@@ -307,10 +307,10 @@ const ModelApplicationManager = () => {
                                    <Label>Age</Label>
                                    <p>{selectedApplication.age}</p>
                                  </div>
-                                 <div>
-                                   <Label>Date of Birth</Label>
-                                   <p>{selectedApplication.date_of_birth ? format(new Date(selectedApplication.date_of_birth), "dd/MM/yyyy") : "Not provided"}</p>
-                                 </div>
+                                  <div>
+                                    <Label>Date of Birth</Label>
+                                    <p>{selectedApplication.date_of_birth ? format(new Date(selectedApplication.date_of_birth), "dd/MM/yyyy") : selectedApplication.birth_year || "Private"}</p>
+                                  </div>
                                  <div>
                                    <Label>Nationality</Label>
                                    <p>{selectedApplication.nationality}</p>
@@ -386,37 +386,49 @@ const ModelApplicationManager = () => {
                             </TabsContent>
                             
                             <TabsContent value="media" className="space-y-4">
-                              <div>
-                                <Label>Photos ({selectedApplication.photos.length})</Label>
-                                <div className="grid grid-cols-3 gap-2 mt-2">
-                                  {selectedApplication.photos.map((photo, index) => (
-                                    <img
-                                      key={index}
-                                      src={photo}
-                                      alt={`Photo ${index + 1}`}
-                                      className="w-full h-32 object-cover rounded cursor-pointer"
-                                      onClick={() => window.open(photo, '_blank')}
-                                    />
-                                  ))}
-                                </div>
-                              </div>
+                               <div>
+                                 <Label>Photos ({selectedApplication.photos.length})</Label>
+                                 {selectedApplication.photos[0]?.includes('admin access required') ? (
+                                   <div className="p-4 bg-muted rounded-lg text-center">
+                                     <p className="text-muted-foreground">{selectedApplication.photos[0]}</p>
+                                   </div>
+                                 ) : (
+                                   <div className="grid grid-cols-3 gap-2 mt-2">
+                                     {selectedApplication.photos.map((photo, index) => (
+                                       <img
+                                         key={index}
+                                         src={photo}
+                                         alt={`Photo ${index + 1}`}
+                                         className="w-full h-32 object-cover rounded cursor-pointer"
+                                         onClick={() => window.open(photo, '_blank')}
+                                       />
+                                     ))}
+                                   </div>
+                                 )}
+                               </div>
                               
-                              {selectedApplication.videos.length > 0 && (
-                                <div>
-                                  <Label>Videos ({selectedApplication.videos.length})</Label>
-                                  <div className="space-y-2 mt-2">
-                                    {selectedApplication.videos.map((video, index) => (
-                                      <div key={index} className="flex items-center justify-between p-2 border rounded">
-                                        <span>Video {index + 1}</span>
-                                        <Button size="sm" onClick={() => window.open(video, '_blank')}>
-                                          <Download className="h-4 w-4 mr-2" />
-                                          Download
-                                        </Button>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
+                               {selectedApplication.videos.length > 0 && (
+                                 <div>
+                                   <Label>Videos ({selectedApplication.videos.length})</Label>
+                                   {selectedApplication.videos[0]?.includes('admin access required') ? (
+                                     <div className="p-4 bg-muted rounded-lg text-center">
+                                       <p className="text-muted-foreground">{selectedApplication.videos[0]}</p>
+                                     </div>
+                                   ) : (
+                                     <div className="space-y-2 mt-2">
+                                       {selectedApplication.videos.map((video, index) => (
+                                         <div key={index} className="flex items-center justify-between p-2 border rounded">
+                                           <span>Video {index + 1}</span>
+                                           <Button size="sm" onClick={() => window.open(video, '_blank')}>
+                                             <Download className="h-4 w-4 mr-2" />
+                                             Download
+                                           </Button>
+                                         </div>
+                                       ))}
+                                     </div>
+                                   )}
+                                 </div>
+                               )}
                             </TabsContent>
                             
                             <TabsContent value="admin" className="space-y-4">

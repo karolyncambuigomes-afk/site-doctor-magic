@@ -116,12 +116,11 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       {/* Placeholder */}
       {!isLoaded && (
         <div 
-          className="absolute inset-0 bg-muted animate-pulse"
+          className="absolute inset-0 bg-muted animate-pulse backdrop-blur-sm"
           style={{
             backgroundImage: placeholder ? `url(${placeholder})` : undefined,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'blur(5px)'
+            backgroundPosition: 'center'
           }}
         />
       )}

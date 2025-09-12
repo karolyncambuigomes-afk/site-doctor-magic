@@ -40,7 +40,10 @@ export const AdminDashboard: React.FC = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    loadDashboardData();
+    // Temporarily disable data loading to isolate the error
+    console.log('AdminDashboard: useEffect called, but data loading disabled for debugging');
+    setLoading(false);
+    // loadDashboardData();
   }, []);
 
   const loadDashboardData = async () => {

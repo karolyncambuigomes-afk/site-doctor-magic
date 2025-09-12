@@ -37,6 +37,17 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
     return <Navigate to="/auth" state={{ from: location }} replace />;
   }
 
+  if (!authReady || isAdmin === undefined) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading admin access...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (isAdmin === false) {
     return (
       <>

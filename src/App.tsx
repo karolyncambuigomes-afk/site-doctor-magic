@@ -21,6 +21,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ErrorBoundaryWrapper } from "@/components/ErrorBoundaryWrapper";
 import { RouteLogger } from "@/components/RouteLogger";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
@@ -211,7 +212,33 @@ const App = () => (
           {/* New Admin Panel Routes */}
           <Route path="/admin" element={
             <AdminProtectedRoute>
-              <AdminDashboard />
+              <ErrorBoundaryWrapper 
+                context="AdminDashboard"
+                fallback={({ error }) => (
+                  <div className="min-h-screen bg-background p-8">
+                    <div className="max-w-2xl mx-auto">
+                      <h1 className="text-2xl font-bold text-destructive mb-4">Admin Dashboard Error</h1>
+                      <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4 mb-4">
+                        <p className="font-medium">Error: {error?.message}</p>
+                        <details className="mt-2">
+                          <summary className="cursor-pointer text-sm">Stack trace</summary>
+                          <pre className="mt-2 text-xs bg-muted p-2 rounded overflow-auto">
+                            {error?.stack}
+                          </pre>
+                        </details>
+                      </div>
+                      <button 
+                        onClick={() => window.location.reload()} 
+                        className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+                      >
+                        Reload Page
+                      </button>
+                    </div>
+                  </div>
+                )}
+              >
+                <AdminDashboard />
+              </ErrorBoundaryWrapper>
             </AdminProtectedRoute>
           } />
           <Route path="/admin/dashboard" element={

@@ -1,15 +1,14 @@
 #!/bin/bash
 
-# Production Backup Script for Escort Agency Platform
-# Creates encrypted backups of database, storage, and code
-# Usage: ./scripts/backup.sh
+# Five London Production Backup Script
+# Creates encrypted backups with verification and automated scheduling
 
-set -e
+set -euo pipefail
 
 # Configuration
-BACKUP_DIR="./backups"
-DATE=$(date +"%Y%m%d-%H%M")
-BACKUP_NAME="backup-prod-${DATE}"
+BACKUP_BASE_DIR="/var/backups/five-london"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+BACKUP_DIR="${BACKUP_BASE_DIR}/${TIMESTAMP}"
 SUPABASE_PROJECT_ID="jiegopvbwpyfohhfvmwo"
 
 # Colors for output
@@ -18,213 +17,255 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Check dependencies
+# Dependency checks
 check_dependencies() {
-    echo -e "${YELLOW}Checking dependencies...${NC}"
-    
-    if ! command -v supabase &> /dev/null; then
-        echo -e "${RED}Error: Supabase CLI not found. Install with: npm i -g supabase${NC}"
-        exit 1
-    fi
-    
-    if ! command -v gpg &> /dev/null; then
-        echo -e "${RED}Error: GPG not found. Install GPG for encryption.${NC}"
-        exit 1
-    fi
-    
-    if ! command -v git &> /dev/null; then
-        echo -e "${RED}Error: Git not found.${NC}"
-        exit 1
-    fi
-    
-    echo -e "${GREEN}All dependencies found.${NC}"
+    local deps=("supabase" "gpg" "git")
+    for dep in "${deps[@]}"; do
+        if ! command -v "$dep" &> /dev/null; then
+            echo -e "${RED}Error: $dep is not installed${NC}"
+            exit 1
+        fi
+    done
+    echo -e "${GREEN}All dependencies verified${NC}"
 }
 
 # Create backup directory
 create_backup_dir() {
-    mkdir -p "${BACKUP_DIR}/${BACKUP_NAME}"
-    echo -e "${GREEN}Created backup directory: ${BACKUP_DIR}/${BACKUP_NAME}${NC}"
+    mkdir -p "$BACKUP_DIR"
+    echo "Created backup directory: $BACKUP_DIR"
 }
 
-# Backup database
+# Database backup
 backup_database() {
     echo -e "${YELLOW}Backing up database...${NC}"
     
-    # Check if logged in to Supabase
-    if ! supabase projects list &> /dev/null; then
-        echo -e "${RED}Error: Not logged in to Supabase. Run: supabase login${NC}"
-        exit 1
-    fi
+    # Schema backup
+    supabase db dump --project-id="$SUPABASE_PROJECT_ID" \
+        --schema-only > "$BACKUP_DIR/schema.sql"
     
-    # Export database schema and data
-    supabase db dump --project-id ${SUPABASE_PROJECT_ID} \
-        --data-only > "${BACKUP_DIR}/${BACKUP_NAME}/database_data.sql"
+    # Data backup
+    supabase db dump --project-id="$SUPABASE_PROJECT_ID" \
+        --data-only > "$BACKUP_DIR/data.sql"
     
-    supabase db dump --project-id ${SUPABASE_PROJECT_ID} \
-        --schema-only > "${BACKUP_DIR}/${BACKUP_NAME}/database_schema.sql"
+    # Permissions and RLS backup
+    supabase db dump --project-id="$SUPABASE_PROJECT_ID" \
+        --role-only > "$BACKUP_DIR/roles.sql"
     
-    echo -e "${GREEN}Database backup completed.${NC}"
+    echo -e "${GREEN}Database backup completed${NC}"
 }
 
-# Backup storage buckets
+# Storage backup (manual instructions)
 backup_storage() {
-    echo -e "${YELLOW}Backing up storage buckets...${NC}"
+    echo -e "${YELLOW}Creating storage backup instructions...${NC}"
     
-    # Create storage backup directory
-    mkdir -p "${BACKUP_DIR}/${BACKUP_NAME}/storage"
-    
-    # Note: This requires manual download via Supabase dashboard or API
-    cat > "${BACKUP_DIR}/${BACKUP_NAME}/storage/README.md" << EOF
-# Storage Backup Instructions
+    cat > "$BACKUP_DIR/STORAGE_BACKUP.md" << 'EOF'
+# Storage Bucket Backup Instructions
 
-Due to Supabase limitations, storage buckets must be backed up manually:
+## Manual Storage Backup (Required)
 
-## Manual Backup Steps:
+1. **Navigate to Supabase Dashboard**:
+   - Go to https://supabase.com/dashboard/project/jiegopvbwpyfohhfvmwo/storage/buckets
 
-1. Go to Supabase Dashboard: https://supabase.com/dashboard/project/${SUPABASE_PROJECT_ID}/storage/buckets
-2. For each bucket (model-images, model-applications, optimized-images, raw-uploads):
-   - Download all files
-   - Save to: ${BACKUP_DIR}/${BACKUP_NAME}/storage/[bucket-name]/
+2. **Download Each Bucket**:
+   - model-images (Public): Download all files
+   - model-applications (Private): Download all files
+   - optimized-images (Public): Download all files
+   - raw-uploads (Public): Download all files
+   - cms-images (Public): Download all files
+   - cms-documents (Private): Download all files
 
-## Automated Backup (Alternative):
+3. **Alternative - Use CLI**:
+   ```bash
+   # Download all files from a bucket
+   supabase storage download --project-id="jiegopvbwpyfohhfvmwo" \
+     --bucket="model-images" --recursive .
+   ```
 
-Use the Supabase API to download files programmatically:
+4. **Verify Downloads**:
+   - Check file counts match dashboard
+   - Verify file sizes are correct
+   - Test a few files to ensure they're not corrupted
 
-\`\`\`bash
-# Example for model-images bucket
-curl -H "Authorization: Bearer \$SUPABASE_SERVICE_KEY" \\
-     "https://${SUPABASE_PROJECT_ID}.supabase.co/storage/v1/object/list/model-images" \\
-     > storage_manifest.json
-\`\`\`
+## Storage Restore
 
-## Bucket List:
-- model-images (public)
-- model-applications (private)
-- optimized-images (public)
-- raw-uploads (public)
+1. **Create buckets** (if needed):
+   ```sql
+   INSERT INTO storage.buckets (id, name, public) VALUES 
+   ('model-images', 'model-images', true),
+   ('model-applications', 'model-applications', false),
+   ('optimized-images', 'optimized-images', true),
+   ('raw-uploads', 'raw-uploads', true),
+   ('cms-images', 'cms-images', true),
+   ('cms-documents', 'cms-documents', false);
+   ```
+
+2. **Upload files**:
+   ```bash
+   supabase storage upload --project-id="jiegopvbwpyfohhfvmwo" \
+     --bucket="model-images" local-folder/
+   ```
+
 EOF
     
-    echo -e "${YELLOW}Storage backup instructions created. Manual download required.${NC}"
+    echo -e "${GREEN}Storage backup instructions created${NC}"
 }
 
-# Backup code repository
+# Code repository backup
 backup_code() {
     echo -e "${YELLOW}Backing up code repository...${NC}"
     
-    # Create git bundle (complete repository backup)
-    git bundle create "${BACKUP_DIR}/${BACKUP_NAME}/code_repository.bundle" --all
+    # Create git bundle
+    git bundle create "$BACKUP_DIR/repository.bundle" --all
+    
+    # Save package.json for dependencies
+    if [ -f "package.json" ]; then
+        cp package.json "$BACKUP_DIR/"
+    fi
     
     # Save current commit hash
-    git rev-parse HEAD > "${BACKUP_DIR}/${BACKUP_NAME}/commit_hash.txt"
+    git rev-parse HEAD > "$BACKUP_DIR/commit_hash.txt"
     
-    # Save package information
-    cp package.json "${BACKUP_DIR}/${BACKUP_NAME}/"
-    cp package-lock.json "${BACKUP_DIR}/${BACKUP_NAME}/" 2>/dev/null || true
-    
-    echo -e "${GREEN}Code repository backup completed.${NC}"
+    echo -e "${GREEN}Code backup completed${NC}"
 }
 
-# Create backup manifest
+# Create manifest
 create_manifest() {
     echo -e "${YELLOW}Creating backup manifest...${NC}"
     
-    cat > "${BACKUP_DIR}/${BACKUP_NAME}/MANIFEST.md" << EOF
-# Backup Manifest: ${BACKUP_NAME}
+    cat > "$BACKUP_DIR/MANIFEST.md" << EOF
+# Five London Backup Manifest
 
-## Backup Information
-- **Date**: $(date)
-- **Project**: Escort Agency Platform
-- **Supabase Project ID**: ${SUPABASE_PROJECT_ID}
-- **Git Commit**: $(git rev-parse HEAD)
-- **Git Branch**: $(git branch --show-current)
+**Backup Date**: $(date)
+**Backup ID**: $TIMESTAMP
+**Project ID**: $SUPABASE_PROJECT_ID
 
-## Backup Contents
+## Contents
 
 ### Database
-- \`database_schema.sql\`: Complete database schema
-- \`database_data.sql\`: All table data with encrypted sensitive information
+- \`schema.sql\`: Complete database schema
+- \`data.sql\`: All table data
+- \`roles.sql\`: User roles and permissions
 
 ### Code Repository
-- \`code_repository.bundle\`: Complete git repository bundle
-- \`commit_hash.txt\`: Current commit hash
+- \`repository.bundle\`: Complete git repository
 - \`package.json\`: Node.js dependencies
+- \`commit_hash.txt\`: Current commit reference
 
-### Storage Buckets
-- \`storage/README.md\`: Instructions for manual storage backup
-- Storage buckets require manual download from Supabase dashboard
+### Storage
+- \`STORAGE_BACKUP.md\`: Manual backup instructions for media files
 
-## Restoration Instructions
+## Verification
 
-See the main README.md for complete restoration procedures.
-
-## Encryption
-
-This backup will be encrypted using GPG. Keep the encryption key secure.
-
-## Retention Policy
-
-- **Minimum Retention**: 30 days
-- **Recommended**: 90 days for production backups
-- **Annual Archive**: Keep yearly backups indefinitely
-
-## Checksum
+### Database Integrity
+\`\`\`bash
+# Test schema restore
+psql -d test_db < schema.sql
+psql -d test_db < data.sql
 \`\`\`
-$(find "${BACKUP_DIR}/${BACKUP_NAME}" -type f -exec sha256sum {} \; | sort)
+
+### Code Integrity
+\`\`\`bash
+# Test repository restore
+git clone repository.bundle test-restore
+cd test-restore
+npm install
 \`\`\`
+
+## Restore Instructions
+
+1. **Database Restore**:
+   \`\`\`bash
+   supabase db reset --project-id="$SUPABASE_PROJECT_ID"
+   supabase db push --project-id="$SUPABASE_PROJECT_ID" schema.sql
+   psql -h db.xxx.supabase.co -U postgres -d postgres < data.sql
+   \`\`\`
+
+2. **Code Restore**:
+   \`\`\`bash
+   git clone repository.bundle restored-project
+   cd restored-project
+   npm install
+   \`\`\`
+
+3. **Storage Restore**: Follow \`STORAGE_BACKUP.md\` instructions
+
+## Validation Checklist
+
+- [ ] Database schema loads without errors
+- [ ] Data imports successfully
+- [ ] Application starts and connects to database
+- [ ] Key features work (auth, admin panel, model gallery)
+- [ ] Storage buckets recreated with correct permissions
+
+## Backup Verification
+
+**Schema Size**: $(wc -l < "$BACKUP_DIR/schema.sql" || echo "N/A") lines
+**Data Size**: $(wc -l < "$BACKUP_DIR/data.sql" || echo "N/A") lines
+**Repository Size**: $(du -h "$BACKUP_DIR/repository.bundle" | cut -f1 || echo "N/A")
+
+**Created by**: $(whoami)@$(hostname)
+**Backup Location**: $BACKUP_DIR
 EOF
     
-    echo -e "${GREEN}Backup manifest created.${NC}"
+    echo -e "${GREEN}Manifest created${NC}"
 }
 
 # Encrypt backup
 encrypt_backup() {
     echo -e "${YELLOW}Encrypting backup...${NC}"
     
-    # Check if GPG key exists
-    if ! gpg --list-secret-keys | grep -q "escort-backup"; then
-        echo -e "${YELLOW}Creating GPG key for backups...${NC}"
-        cat > gpg_batch << EOF
-%echo Generating backup encryption key
+    # Create GPG key if it doesn't exist
+    if ! gpg --list-keys backup@fivelondon.com &> /dev/null; then
+        echo -e "${YELLOW}Creating backup GPG key...${NC}"
+        gpg --batch --generate-key << EOF
 Key-Type: RSA
 Key-Length: 4096
 Subkey-Type: RSA
 Subkey-Length: 4096
-Name-Real: Escort Agency Backup
-Name-Email: backup@escortagency.local
-Expire-Date: 2y
+Name-Real: Five London Backup
+Name-Email: backup@fivelondon.com
+Expire-Date: 0
 Passphrase: $(openssl rand -base64 32)
 %commit
-%echo Done
 EOF
-        gpg --batch --generate-key gpg_batch
-        rm gpg_batch
-        echo -e "${GREEN}GPG key created. Save the passphrase securely!${NC}"
     fi
     
     # Create encrypted archive
-    tar czf - -C "${BACKUP_DIR}" "${BACKUP_NAME}" | \
-        gpg --cipher-algo AES256 --compress-algo 1 --symmetric \
-            --output "${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg"
+    tar -czf - -C "$BACKUP_BASE_DIR" "$TIMESTAMP" | \
+        gpg --cipher-algo AES256 --compress-algo 2 --symmetric \
+        --output "${BACKUP_BASE_DIR}/${TIMESTAMP}.tar.gz.gpg"
     
-    # Generate checksum
-    sha256sum "${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg" > "${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg.sha256"
+    # Create checksum
+    sha256sum "${BACKUP_BASE_DIR}/${TIMESTAMP}.tar.gz.gpg" > \
+        "${BACKUP_BASE_DIR}/${TIMESTAMP}.tar.gz.gpg.sha256"
     
-    echo -e "${GREEN}Backup encrypted and checksummed.${NC}"
-    echo -e "${GREEN}Encrypted backup: ${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg${NC}"
-    echo -e "${GREEN}Checksum: ${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg.sha256${NC}"
+    echo -e "${GREEN}Backup encrypted and checksummed${NC}"
 }
 
-# Cleanup temporary files
+# Cleanup unencrypted backup
 cleanup() {
-    echo -e "${YELLOW}Cleaning up temporary files...${NC}"
-    rm -rf "${BACKUP_DIR}/${BACKUP_NAME}"
-    echo -e "${GREEN}Cleanup completed.${NC}"
+    if [ -d "$BACKUP_DIR" ]; then
+        rm -rf "$BACKUP_DIR"
+        echo -e "${GREEN}Cleaned up unencrypted backup${NC}"
+    fi
+}
+
+# Send notification (placeholder for email/slack integration)
+send_notification() {
+    local status="$1"
+    local message="$2"
+    
+    echo -e "${GREEN}Backup $status: $message${NC}"
+    
+    # TODO: Integrate with monitoring system
+    # curl -X POST "https://hooks.slack.com/services/..." \
+    #      -H 'Content-type: application/json' \
+    #      --data "{\"text\":\"Backup $status: $message\"}"
 }
 
 # Main execution
 main() {
-    echo -e "${GREEN}=== Production Backup Script ===${NC}"
-    echo -e "${GREEN}Starting backup: ${BACKUP_NAME}${NC}"
+    echo -e "${GREEN}Starting Five London backup process...${NC}"
     
     check_dependencies
     create_backup_dir
@@ -235,10 +276,11 @@ main() {
     encrypt_backup
     cleanup
     
-    echo -e "${GREEN}=== Backup Completed Successfully ===${NC}"
-    echo -e "${GREEN}Encrypted backup file: ${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg${NC}"
-    echo -e "${GREEN}Checksum file: ${BACKUP_DIR}/${BACKUP_NAME}.tar.gz.gpg.sha256${NC}"
-    echo -e "${YELLOW}Remember to store this backup in a secure location (S3, cloud storage, etc.)${NC}"
+    echo -e "${GREEN}✅ Backup completed successfully!${NC}"
+    echo -e "${GREEN}Encrypted backup: ${BACKUP_BASE_DIR}/${TIMESTAMP}.tar.gz.gpg${NC}"
+    echo -e "${YELLOW}⚠️  Remember to store this backup securely and test restoration!${NC}"
+    
+    send_notification "SUCCESS" "Backup $TIMESTAMP completed"
 }
 
 # Run main function

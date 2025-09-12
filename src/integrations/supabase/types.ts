@@ -14,6 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          action_type: string
+          admin_user_id: string | null
+          created_at: string | null
+          id: string
+          ip_address: unknown | null
+          new_values: Json | null
+          old_values: Json | null
+          resource_id: string | null
+          resource_type: string | null
+          risk_level: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          action_type: string
+          admin_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null
+          resource_type?: string | null
+          risk_level?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          action_type?: string
+          admin_user_id?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown | null
+          new_values?: Json | null
+          old_values?: Json | null
+          resource_id?: string | null
+          resource_type?: string | null
+          risk_level?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      admin_login_attempts: {
+        Row: {
+          created_at: string | null
+          email: string
+          failure_reason: string | null
+          id: string
+          ip_address: unknown | null
+          success: boolean
+          two_factor_used: boolean | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          failure_reason?: string | null
+          id?: string
+          ip_address?: unknown | null
+          success?: boolean
+          two_factor_used?: boolean | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          failure_reason?: string | null
+          id?: string
+          ip_address?: unknown | null
+          success?: boolean
+          two_factor_used?: boolean | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      admin_rate_limits: {
+        Row: {
+          attempt_count: number | null
+          blocked_until: string | null
+          created_at: string | null
+          id: string
+          identifier: string
+          window_start: string | null
+        }
+        Insert: {
+          attempt_count?: number | null
+          blocked_until?: string | null
+          created_at?: string | null
+          id?: string
+          identifier: string
+          window_start?: string | null
+        }
+        Update: {
+          attempt_count?: number | null
+          blocked_until?: string | null
+          created_at?: string | null
+          id?: string
+          identifier?: string
+          window_start?: string | null
+        }
+        Relationships: []
+      }
+      admin_sessions: {
+        Row: {
+          created_at: string | null
+          expires_at: string
+          id: string
+          ip_address: unknown | null
+          is_active: boolean | null
+          last_activity: string | null
+          session_token: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string | null
+          session_token: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string | null
+          session_token?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      admin_two_factor: {
+        Row: {
+          backup_codes: string[] | null
+          created_at: string | null
+          id: string
+          is_enabled: boolean | null
+          last_used: string | null
+          secret_key: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          backup_codes?: string[] | null
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          last_used?: string | null
+          secret_key: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          backup_codes?: string[] | null
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          last_used?: string | null
+          secret_key?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       application_rate_limit: {
         Row: {
           created_at: string | null
@@ -1532,6 +1709,10 @@ export type Database = {
       }
     }
     Functions: {
+      check_admin_rate_limit: {
+        Args: { identifier_value: string }
+        Returns: Json
+      }
       check_application_rate_limit: {
         Args: { user_email: string; user_ip?: unknown }
         Returns: Json
@@ -1539,6 +1720,14 @@ export type Database = {
       check_user_subscription: {
         Args: { user_uuid: string }
         Returns: boolean
+      }
+      cleanup_admin_security_data: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      create_preview_token: {
+        Args: { content_id: string; preview_data?: Json }
+        Returns: string
       }
       decrypt_sensitive_field: {
         Args: { encrypted_text: string; encryption_key?: string }
@@ -1591,6 +1780,21 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
+      log_admin_action: {
+        Args: {
+          action_type_param: string
+          new_values_param?: Json
+          old_values_param?: Json
+          resource_id_param?: string
+          resource_type_param?: string
+          risk_level_param?: string
+        }
+        Returns: undefined
+      }
+      log_admin_login: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       log_security_event: {
         Args: {
           p_action: string
@@ -1608,6 +1812,18 @@ export type Database = {
       migrate_gallery_arrays_to_table: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      publish_content: {
+        Args: { change_summary?: string; content_id: string }
+        Returns: Json
+      }
+      rollback_content: {
+        Args: {
+          content_id: string
+          rollback_reason?: string
+          target_version: number
+        }
+        Returns: Json
       }
       update_user_role: {
         Args: { new_role: string; user_id: string }

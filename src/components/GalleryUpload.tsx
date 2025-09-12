@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ImageUpload } from '@/components/ImageUpload';
 import { LazyImageEditor } from '@/components/LazyImageEditor';
+import { MultipleImageUpload } from '@/components/MultipleImageUpload';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
@@ -57,6 +58,50 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   const [editingImage, setEditingImage] = useState<string | null>(null);
   const [selectedVisibility, setSelectedVisibility] = useState<'public' | 'members_only' | 'admin_only'>('public');
   const [activeTab, setActiveTab] = useState<'public' | 'members_only' | 'admin_only'>('public');
+
+  const handleMultipleImagesUploaded = async (urls: string[]) => {
+    try {
+      setLoading(true);
+      const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
+      const imagesWithSameVisibility = galleryImages.filter(img => img.visibility === selectedVisibility);
+      const nextOrderForVisibility = Math.max(...imagesWithSameVisibility.map(img => img.order_index), -1) + 1;
+
+      // Insert all images with sequential order indices
+      const insertData = urls.map((url, index) => ({
+        model_id: modelId,
+        image_url: url,
+        caption: null,
+        order_index: nextOrderForVisibility + index,
+        visibility: selectedVisibility
+      }));
+
+      const { error } = await supabase
+        .from('model_gallery')
+        .insert(insertData);
+
+      if (error) throw error;
+
+      toast({
+        title: "Sucesso",
+        description: `${urls.length} imagens adicionadas à galeria`,
+      });
+
+      setIsAdding(false);
+      loadGalleryImages();
+      
+      // Dispatch custom event to notify ModelGallery component
+      window.dispatchEvent(new CustomEvent('galleryUpdated'));
+    } catch (error) {
+      console.error('Error adding multiple images:', error);
+      toast({
+        title: "Erro",
+        description: "Erro ao adicionar imagens",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     loadGalleryImages();
@@ -496,60 +541,91 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
             <div className="w-8 h-8 bg-foreground rounded-full flex items-center justify-center">
               <Plus className="w-5 h-5 text-background" />
             </div>
-            <h4 className="font-bold text-foreground text-lg">Adicionar Nova Foto</h4>
-          </div>
-          
-          
-          <div className="bg-white p-4 rounded-lg border-2 border-border">
-            <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
-              📸 Upload da Foto
-            </Label>
-            <div className="space-y-3">
-              <div className="p-3 bg-muted rounded border border-border">
-                <ImageUpload
-                  value={newImageUrl}
-                  onChange={(url) => {
-                    console.log('🎭 GALERIA: ImageUpload onChange chamado com URL:', url);
-                    setNewImageUrl(url);
-                  }}
-                  label="Selecionar foto ou fazer upload"
-                  placeholder="URL da imagem ou faça upload"
-                />
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <Label htmlFor="caption">Legenda (opcional)</Label>
-            <Input
-              id="caption"
-              value={newImageCaption}
-              onChange={(e) => setNewImageCaption(e.target.value)}
-              placeholder="Adicione uma legenda para esta imagem"
-            />
+            <h4 className="font-bold text-foreground text-lg">Adicionar Fotos</h4>
           </div>
 
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              onClick={addImage}
-              disabled={loading || !newImageUrl}
-              className="bg-black text-white hover:bg-gray-800"
-            >
-              {loading ? 'Adicionando...' : `Adicionar à ${selectedVisibility === 'public' ? 'Públicas' : selectedVisibility === 'members_only' ? 'Membros' : 'Admin'}`}
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setIsAdding(false);
-                setNewImageUrl('');
-                setNewImageCaption('');
-              }}
-            >
-              Cancelar
-            </Button>
-          </div>
+          {/* Upload Mode Tabs */}
+          <Tabs defaultValue="single" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="single">Uma Foto</TabsTrigger>
+              <TabsTrigger value="multiple">Múltiplas Fotos</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="single" className="space-y-4">
+              <div className="bg-white p-4 rounded-lg border-2 border-border">
+                <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
+                  📸 Upload da Foto
+                </Label>
+                <div className="space-y-3">
+                  <div className="p-3 bg-muted rounded border border-border">
+                    <ImageUpload
+                      value={newImageUrl}
+                      onChange={(url) => {
+                        console.log('🎭 GALERIA: ImageUpload onChange chamado com URL:', url);
+                        setNewImageUrl(url);
+                      }}
+                      label="Selecionar foto ou fazer upload"
+                      placeholder="URL da imagem ou faça upload"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="caption">Legenda (opcional)</Label>
+                <Input
+                  id="caption"
+                  value={newImageCaption}
+                  onChange={(e) => setNewImageCaption(e.target.value)}
+                  placeholder="Adicione uma legenda para esta imagem"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  onClick={addImage}
+                  disabled={loading || !newImageUrl}
+                  className="bg-black text-white hover:bg-gray-800"
+                >
+                  {loading ? 'Adicionando...' : `Adicionar à ${selectedVisibility === 'public' ? 'Públicas' : selectedVisibility === 'members_only' ? 'Membros' : 'Admin'}`}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setIsAdding(false);
+                    setNewImageUrl('');
+                    setNewImageCaption('');
+                  }}
+                >
+                  Cancelar
+                </Button>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="multiple" className="space-y-4">
+              <MultipleImageUpload
+                visibility={selectedVisibility}
+                onImagesUploaded={handleMultipleImagesUploaded}
+                maxFiles={10}
+              />
+              
+              <div className="flex justify-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setIsAdding(false);
+                    setNewImageUrl('');
+                    setNewImageCaption('');
+                  }}
+                >
+                  Fechar
+                </Button>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       )}
 

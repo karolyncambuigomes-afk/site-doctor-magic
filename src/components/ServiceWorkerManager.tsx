@@ -1,119 +1,131 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from 'react';
+import { useServiceWorkerManager } from '@/hooks/useServiceWorkerManager';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Download, RefreshCw, AlertTriangle, CheckCircle } from 'lucide-react';
 
-// Ultra-simple sync private mode check
-const isPrivateMode = (): boolean => {
-  try {
-    localStorage.setItem('swtest', 'test');
-    localStorage.removeItem('swtest');
-    return false;
-  } catch {
-    return true;
-  }
-};
+export const ServiceWorkerManager: React.FC = () => {
+  const {
+    serviceWorker,
+    cacheStats,
+    clearAllCaches,
+    forceUpdate,
+    invalidateOnDeploy,
+    auditAdminCaching,
+    cacheHitRate,
+    isOptimal
+  } = useServiceWorkerManager();
 
-export const ServiceWorkerManager = () => {
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
+  const [auditResult, setAuditResult] = useState<any>(null);
 
+  // Run security audit on mount
   useEffect(() => {
-    // CRITICAL: Check private mode immediately and exit if detected
-    if (isPrivateMode()) {
-      console.log('Private mode detected, Service Worker completely disabled');
-      return;
-    }
+    const runAudit = async () => {
+      const result = await auditAdminCaching();
+      setAuditResult(result);
+    };
     
-    // Exit if offline or no SW support
-    if (!navigator.onLine || !('serviceWorker' in navigator)) {
-      console.log('ServiceWorker: Not available (offline or unsupported)');
-      return;
+    if (serviceWorker.isActive) {
+      runAudit();
     }
-    
-    // Only register if all checks pass
-    navigator.serviceWorker.register('/sw.js')
-      .then((reg) => {
-        console.log('Service Worker registered successfully');
-        setRegistration(reg);
+  }, [serviceWorker.isActive, auditAdminCaching]);
 
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          if (newWorker) {
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                setUpdateAvailable(true);
-                toast.info('Nova versão disponível! Clique para atualizar.', {
-                  duration: 10000,
-                  action: {
-                    label: 'Atualizar',
-                    onClick: () => handleUpdate()
-                  }
-                });
-              }
-            });
-          }
-        });
-      })
-      .catch((error) => {
-        console.log('Service Worker registration failed:', error);
-      });
-
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
-      window.location.reload();
-    });
-  }, []);
-
-  const handleUpdate = () => {
-    if (registration?.waiting) {
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
-      setUpdateAvailable(false);
-    } else {
-      console.warn('ServiceWorker: No waiting worker available for update');
-    }
-  };
-
-  const clearCache = () => {
-    if (registration) {
-      registration.active?.postMessage({ type: 'CLEAR_CACHE' });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    }
-  };
-
-  // Debug mode - only show in development
-  const isDev = import.meta.env.DEV;
+  // Don't render if service worker not supported
+  if (!serviceWorker.isSupported) {
+    return null;
+  }
 
   return (
-    <>
-      {updateAvailable && (
-        <div className="fixed top-4 right-4 z-50 bg-card border border-border rounded-lg p-4 shadow-luxury max-w-sm">
-          <div className="flex items-center space-x-3">
-            <div className="flex-1">
-              <h4 className="text-sm font-medium text-card-foreground">Atualização Disponível</h4>
-              <p className="text-xs text-muted-foreground mt-1">
-                Uma nova versão do site está pronta.
-              </p>
-            </div>
-            <button
-              onClick={handleUpdate}
-              className="bg-primary text-primary-foreground px-3 py-1 rounded text-xs hover:bg-primary/90 transition-smooth"
+    <div className="fixed bottom-4 left-4 z-50 max-w-md">
+      {/* Update Available Alert */}
+      {serviceWorker.updateAvailable && (
+        <Alert className="mb-4 bg-blue-50 border-blue-200">
+          <Download className="h-4 w-4" />
+          <AlertDescription className="flex items-center justify-between">
+            <span>App update available</span>
+            <Button onClick={forceUpdate} size="sm">
+              Update
+            </Button>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Cache Performance Alert */}
+      {cacheStats && !isOptimal && (
+        <Alert className="mb-4 bg-yellow-50 border-yellow-200">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription>
+            Cache hit rate: {(cacheHitRate * 100).toFixed(1)}% (Low)
+            <Button 
+              onClick={clearAllCaches} 
+              size="sm" 
+              variant="outline" 
+              className="ml-2"
             >
-              Atualizar
-            </button>
+              Clear Cache
+            </Button>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Security Alert */}
+      {auditResult && !auditResult.safe && (
+        <Alert className="mb-4 bg-red-50 border-red-200">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription>
+            Security issue: {auditResult.reason}
+            <Button 
+              onClick={clearAllCaches} 
+              size="sm" 
+              variant="destructive" 
+              className="ml-2"
+            >
+              Fix Now
+            </Button>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      {/* Development Controls */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="bg-white border rounded-lg p-3 shadow-lg">
+          <h4 className="font-medium mb-2">SW Controls</h4>
+          <div className="space-y-2 text-sm">
+            <div className="flex justify-between items-center">
+              <span>Status:</span>
+              <span className={serviceWorker.isActive ? 'text-green-600' : 'text-red-600'}>
+                {serviceWorker.isActive ? 'Active' : 'Inactive'}
+              </span>
+            </div>
+            
+            {cacheStats && (
+              <div className="flex justify-between items-center">
+                <span>Hit Rate:</span>
+                <span>{(cacheHitRate * 100).toFixed(1)}%</span>
+              </div>
+            )}
+            
+            <div className="flex gap-2 mt-3">
+              <Button 
+                onClick={() => invalidateOnDeploy()} 
+                size="sm" 
+                variant="outline"
+                className="flex-1"
+              >
+                Simulate Deploy
+              </Button>
+              <Button 
+                onClick={clearAllCaches} 
+                size="sm" 
+                variant="outline"
+                className="flex-1"
+              >
+                Clear Cache
+              </Button>
+            </div>
           </div>
         </div>
       )}
-      
-      {isDev && (
-        <div className="fixed bottom-4 left-4 z-50 bg-card border border-border rounded-lg p-2 shadow-luxury">
-          <button
-            onClick={clearCache}
-            className="bg-destructive text-destructive-foreground px-2 py-1 rounded text-xs hover:bg-destructive/90 transition-smooth"
-          >
-            Clear Cache
-          </button>
-        </div>
-      )}
-    </>
+    </div>
   );
 };

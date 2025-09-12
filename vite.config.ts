@@ -100,12 +100,12 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false,
     assetsInlineLimit: 1024, // Smaller inline limit for better caching
     chunkSizeWarningLimit: 1000,
-    minify: 'terser',
-    terserOptions: {
+    minify: mode === 'production' ? 'terser' : false,
+    terserOptions: mode === 'production' ? {
       compress: {
-        drop_console: mode === 'production',
-        drop_debugger: mode === 'production',
-        pure_funcs: mode === 'production' ? ['console.log', 'console.info'] : [],
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info'],
         passes: 2
       },
       mangle: {
@@ -114,7 +114,7 @@ export default defineConfig(({ mode }) => ({
       format: {
         comments: false
       }
-    },
+    } : undefined,
     cssMinify: true,
     reportCompressedSize: true,
     // Enable asset compression
@@ -123,10 +123,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    // Temporarily disable critical CSS plugin to avoid build issues
-    // criticalCSSPlugin({
-    //   criticalCSS: './src/styles/critical.css'
-    // }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),

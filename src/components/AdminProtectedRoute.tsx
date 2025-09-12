@@ -33,12 +33,14 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({ childr
     );
   }
 
+  // Fix: Redirect non-authenticated users to admin login instead of regular auth
   if (!user) {
-    return <Navigate to="/auth" state={{ from: location }} replace />;
+    return <Navigate to="/auth" state={{ from: location, adminLogin: true }} replace />;
   }
 
+  // Fix: Redirect non-admin users to appropriate page with clear error messaging
   if (!isAdmin) {
-    return <Navigate to="/models" replace />;
+    return <Navigate to="/admin-access-denied" replace />;
   }
 
   return <>{children}</>;

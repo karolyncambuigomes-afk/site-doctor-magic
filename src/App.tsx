@@ -46,6 +46,7 @@ import Reviews from "./pages/Reviews";
 
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
+import { AdminAccessDenied } from "./pages/AdminAccessDenied";
 
 // New Admin Panel Components
 import { AdminDashboard } from "./pages/admin/Dashboard";
@@ -127,6 +128,7 @@ const App = () => (
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/admin-login" element={<Navigate to="/auth" replace />} />
+                  <Route path="/admin-access-denied" element={<AdminAccessDenied />} />
                   <Route path="/approval-status" element={<UserApprovalStatus />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />

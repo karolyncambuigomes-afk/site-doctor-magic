@@ -74,7 +74,7 @@ import { LocationsManager as LocationsManagerPage } from "./pages/admin/location
 import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
-import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
+
 import { SystemSettings } from "./pages/admin/settings/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
 import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
@@ -431,10 +431,9 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-          {/* System Settings */}
           <Route path="/admin/system" element={
             <AdminProtectedRoute>
-              <SystemSettingsOld />
+              <Navigate to="/admin/settings/theme" replace />
             </AdminProtectedRoute>
           } />
           <Route path="/admin/system/settings" element={

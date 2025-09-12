@@ -251,10 +251,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.log('AuthProvider - Redirecting admin to /admin');
       return '/admin';
     }
-    console.log('AuthProvider - Redirecting user to /models');
-    return '/models';
+    console.log('AuthProvider - Redirecting member to /members');
+    return '/members';
   };
-
   const signOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();

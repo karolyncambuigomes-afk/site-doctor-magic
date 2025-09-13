@@ -81,7 +81,7 @@ import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
 
-
+ 
 const queryClient = new QueryClient();
 
 // Component to conditionally render features based on degraded mode

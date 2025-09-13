@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { SEO } from '@/components/SEO';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { 
-  Users, 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Search,
-  RefreshCw
-} from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { SEO } from "@/components/SEO";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Users, Plus, Edit, Trash2, Search, RefreshCw } from "lucide-react";
 
 interface Model {
   id: string;
@@ -37,7 +43,7 @@ interface Model {
 export const ModelsManagerContent: React.FC = () => {
   const [models, setModels] = useState<Model[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -48,18 +54,18 @@ export const ModelsManagerContent: React.FC = () => {
   const loadModels = async () => {
     try {
       const { data, error } = await supabase
-        .from('models')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .from("models")
+        .select("*")
+        .order("created_at", { ascending: false });
 
       if (error) throw error;
       setModels(data || []);
     } catch (error) {
-      console.error('Error loading models:', error);
+      console.error("Error loading models:", error);
       toast({
         title: "Error",
         description: "Failed to load models",
-        variant: "destructive"
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -67,35 +73,36 @@ export const ModelsManagerContent: React.FC = () => {
   };
 
   const handleDeleteModel = async (modelId: string) => {
-    if (!confirm('Are you sure you want to delete this model?')) return;
+    if (!confirm("Are you sure you want to delete this model?")) return;
 
     try {
       const { error } = await supabase
-        .from('models')
+        .from("models")
         .delete()
-        .eq('id', modelId);
+        .eq("id", modelId);
 
       if (error) throw error;
-      
+
       toast({
         title: "Success",
-        description: "Model deleted successfully"
+        description: "Model deleted successfully",
       });
-      
+
       loadModels();
     } catch (error) {
-      console.error('Error deleting model:', error);
+      console.error("Error deleting model:", error);
       toast({
         title: "Error",
         description: "Failed to delete model",
-        variant: "destructive"
+        variant: "destructive",
       });
     }
   };
 
-  const filteredModels = models.filter(model =>
-    model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    model.location?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredModels = models.filter(
+    (model) =>
+      model.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      model.location?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -116,12 +123,13 @@ export const ModelsManagerContent: React.FC = () => {
             Models Management
           </h1>
           <p className="text-muted-foreground">
-            Manage model profiles with complete form, gallery, and SEO optimization.
+            Manage model profiles with complete form, gallery, and SEO
+            optimization.
           </p>
         </div>
-        
-        <Button 
-          onClick={() => navigate('/admin/models/new')} 
+
+        <Button
+          onClick={() => navigate("/admin/models/new")}
           className="flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
@@ -158,7 +166,8 @@ export const ModelsManagerContent: React.FC = () => {
         <CardHeader>
           <CardTitle>Models</CardTitle>
           <CardDescription>
-            Manage your model profiles with complete information, gallery and SEO settings.
+            Manage your model profiles with complete information, gallery and
+            SEO settings.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -181,10 +190,11 @@ export const ModelsManagerContent: React.FC = () => {
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-2">
                       {model.image && (
-                        <img 
-                          src={model.image} 
+                        <img
+                          src={model.image}
                           alt={model.name}
                           className="h-8 w-8 rounded-full object-cover"
+                          loading="lazy"
                         />
                       )}
                       {model.name}
@@ -196,13 +206,19 @@ export const ModelsManagerContent: React.FC = () => {
                   <TableCell>{model.age}</TableCell>
                   <TableCell>{model.price}</TableCell>
                   <TableCell>
-                    <Badge variant={model.availability ? "default" : "secondary"}>
+                    <Badge
+                      variant={model.availability ? "default" : "secondary"}
+                    >
                       {model.availability || "Not Set"}
                     </Badge>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <Badge variant={model.members_only ? "destructive" : "secondary"}>
+                      <Badge
+                        variant={
+                          model.members_only ? "destructive" : "secondary"
+                        }
+                      >
                         {model.members_only ? "Members Only" : "Public"}
                       </Badge>
                       {!model.face_visible && (
@@ -220,7 +236,9 @@ export const ModelsManagerContent: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => navigate(`/admin/models/edit/${model.id}`)}
+                        onClick={() =>
+                          navigate(`/admin/models/edit/${model.id}`)
+                        }
                       >
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -246,7 +264,7 @@ export const ModelsManagerContent: React.FC = () => {
 export const ModelsManager: React.FC = () => {
   return (
     <>
-      <SEO 
+      <SEO
         title="Models Management - Admin"
         description="Manage models with complete form and SEO optimization"
         noIndex={true}

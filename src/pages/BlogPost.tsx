@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useSafeParams } from '@/hooks/useSafeRouter';
+import { useSafeParams } from "@/hooks/useSafeRouter";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
@@ -14,7 +14,7 @@ import NotFound from "./NotFound";
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
   const { getPostBySlug, getRelatedPosts, loading } = useBlogPosts();
-  
+
   if (!slug) {
     return <NotFound />;
   }
@@ -35,7 +35,7 @@ const BlogPost = () => {
   }
 
   const article = getPostBySlug(slug);
-  
+
   if (!article) {
     return <NotFound />;
   }
@@ -45,32 +45,32 @@ const BlogPost = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": article.title,
-    "description": article.excerpt,
-    "image": article.image,
-    "datePublished": article.published_at,
-    "dateModified": article.updated_at,
-    "author": {
+    headline: article.title,
+    description: article.excerpt,
+    image: article.image,
+    datePublished: article.published_at,
+    dateModified: article.updated_at,
+    author: {
       "@type": "Organization",
-      "name": article.author,
-      "url": "https://fivelondon.com"
+      name: article.author,
+      url: "https://fivelondon.com",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "Five London",
-      "logo": {
+      name: "Five London",
+      logo: {
         "@type": "ImageObject",
-        "url": "https://fivelondon.com/logo.png"
-      }
+        url: "https://fivelondon.com/logo.png",
+      },
     },
-    "mainEntityOfPage": {
+    mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://fivelondon.com/blog/${article.slug}`
+      "@id": `https://fivelondon.com/blog/${article.slug}`,
     },
-    "keywords": article.seo_keywords,
-    "articleSection": article.category,
-    "wordCount": article.content.length,
-    "timeRequired": `PT${article.read_time}M`
+    keywords: article.seo_keywords,
+    articleSection: article.category,
+    wordCount: article.content.length,
+    timeRequired: `PT${article.read_time}M`,
   };
 
   return (
@@ -83,16 +83,16 @@ const BlogPost = () => {
         ogImage={article.image}
         structuredData={structuredData}
       />
-      
+
       <div className="min-h-screen bg-white">
         <Navigation />
-        
+
         <main className="pt-0">
           {/* Breadcrumb */}
           <section className="py-8 border-b border-border">
             <div className="container-width">
-              <Link 
-                to="/blog" 
+              <Link
+                to="/blog"
                 className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -108,33 +108,32 @@ const BlogPost = () => {
                 <Badge variant="secondary" className="mb-4">
                   {article.category}
                 </Badge>
-                
+
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   {article.title}
                 </h1>
-                
-                <p className="luxury-body-lg text-black">
-                  {article.excerpt}
-                </p>
-                
+
+                <p className="luxury-body-lg text-black">{article.excerpt}</p>
+
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <time dateTime={article.published_at}>
-                      {new Date(article.published_at).toLocaleDateString('en-GB', {
-                         day: 'numeric',
-                         month: 'long',
-                         year: 'numeric'
-                       })}
-                     </time>
+                      {new Date(article.published_at).toLocaleDateString(
+                        "en-GB",
+                        {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        }
+                      )}
+                    </time>
                   </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>{article.read_time} minutes read</span>
-                      </div>
-                      <div>
-                        By {article.author}
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    <span>{article.read_time} minutes read</span>
                   </div>
+                  <div>By {article.author}</div>
                 </div>
               </div>
             </div>
@@ -147,10 +146,11 @@ const BlogPost = () => {
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
                 <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                  <img 
-                    src={article.image} 
+                  <img
+                    src={article.image}
                     alt={article.title}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -160,7 +160,10 @@ const BlogPost = () => {
           <section className="pb-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
-                <BlogContentRenderer content={article.content} slug={article.slug} />
+                <BlogContentRenderer
+                  content={article.content}
+                  slug={article.slug}
+                />
               </div>
             </div>
           </section>
@@ -170,39 +173,45 @@ const BlogPost = () => {
             <section className="py-16 bg-gray-50">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
-                   <h2 className="luxury-heading-xl mb-12 text-center text-black">
-                     Related Articles
-                   </h2>
-                  
+                  <h2 className="luxury-heading-xl mb-12 text-center text-black">
+                    Related Articles
+                  </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {relatedArticles.map((relatedArticle) => (
-                      <Card key={relatedArticle.id} className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden">
+                      <Card
+                        key={relatedArticle.id}
+                        className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
+                      >
                         <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                          <img 
-                            src={relatedArticle.image} 
+                          <img
+                            src={relatedArticle.image}
                             alt={relatedArticle.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
                           />
                           <div className="absolute top-4 left-4">
-                            <Badge variant="secondary" className="bg-background/90 text-foreground">
+                            <Badge
+                              variant="secondary"
+                              className="bg-background/90 text-foreground"
+                            >
                               {relatedArticle.category}
                             </Badge>
                           </div>
                         </div>
-                        
                         <CardHeader className="pb-4">
-                           <h3 className="luxury-heading-sm font-medium text-black group-hover:text-gray-700 transition-colors leading-tight">
-                             {relatedArticle.title}
-                           </h3>
+                          <h3 className="luxury-heading-sm font-medium text-black group-hover:text-gray-700 transition-colors leading-tight">
+                            {relatedArticle.title}
+                          </h3>
                         </CardHeader>
-                        
                         <CardContent className="pt-0">
-                           <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
-                             {relatedArticle.excerpt.substring(0, 120)}...
-                           </p>
-                          
+                          <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
+                            {relatedArticle.excerpt.substring(0, 120)}...
+                          </p>
                           <Link to={`/blog/${relatedArticle.slug}`}>
-                            <Button variant="ghost" className="group/btn p-0 h-auto font-medium text-gray-400 hover:text-gray-600">
+                            <Button
+                              variant="ghost"
+                              className="group/btn p-0 h-auto font-medium text-gray-400 hover:text-gray-600"
+                            >
                               Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                             </Button>
@@ -224,21 +233,27 @@ const BlogPost = () => {
                   Ready for Your London Experience?
                 </h2>
                 <p className="luxury-body-lg text-gray-700 mb-8">
-                  Contact us to plan your exclusive experience 
-                  in London with our luxury companion services.
+                  Contact us to plan your exclusive experience in London with
+                  our luxury companion services.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/contact">
-                    <Button 
-                      size="lg" 
+                    <Button
+                      size="lg"
                       className="five-london-button"
-                      onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                      onClick={() =>
+                        window.open("https://wa.me/447436190679", "_blank")
+                      }
                     >
                       Contact Us
                     </Button>
                   </Link>
                   <Link to="/services">
-                    <Button size="lg" variant="outline" className="five-london-button-outline">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="five-london-button-outline"
+                    >
                       Our Services
                     </Button>
                   </Link>
@@ -247,7 +262,7 @@ const BlogPost = () => {
             </div>
           </section>
         </main>
-        
+
         <Footer />
       </div>
     </>

@@ -32,8 +32,8 @@ export const Membership: React.FC = () => {
     // Test Supabase connection
     console.log('🔧 Testing Supabase connection...');
     console.log('🔧 Supabase client:', supabase);
-    console.log('🔧 Supabase URL:', supabase.supabaseUrl);
-    console.log('🔧 Supabase Key:', supabase.supabaseKey ? 'Present' : 'Missing');
+    console.log('🔧 Supabase URL:', import.meta.env.VITE_SUPABASE_URL);
+    console.log('🔧 Supabase Key:', import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ? 'Present' : 'Missing');
     
     // Test auth methods
     console.log('🔧 Supabase auth methods:', Object.keys(supabase.auth));

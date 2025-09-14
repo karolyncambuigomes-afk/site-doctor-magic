@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { Menu, X, User, LogOut, Settings } from '@/components/LazyLucideIcon';
+import { DarkModeToggle } from '@/components/DarkModeToggle';
 import { useAuth } from '@/components/AuthProvider';
 import { Button } from '@/components/ui/button';
 import { 
@@ -70,6 +71,7 @@ export const Navigation: React.FC = () => {
 
           {/* Contact & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
+            <DarkModeToggle />
             <a 
               href="tel:+447436190679"
               className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
@@ -146,12 +148,15 @@ export const Navigation: React.FC = () => {
                   </SafeLink>
                 ))}
                 <div className="pt-8 border-t border-border space-y-6">
-                  <a 
-                    href="tel:+447436190679" 
-                    className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    +44 7436 190679
-                  </a>
+                  <div className="flex items-center justify-between">
+                    <a 
+                      href="tel:+447436190679" 
+                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      +44 7436 190679
+                    </a>
+                    <DarkModeToggle />
+                  </div>
                   
                   {user ? (
                       <div className="space-y-4">

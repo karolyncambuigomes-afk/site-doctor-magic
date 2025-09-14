@@ -35,11 +35,6 @@ export const Auth: React.FC = () => {
   const { toast } = useToast();
   const auth = useAuth();
 
-  // Safety check for navigate function
-  if (!navigate) {
-    console.warn("Auth: useNavigate returned undefined");
-  }
-
   useEffect(() => {
     // Set up auth state listener first
     const {
@@ -48,7 +43,7 @@ export const Auth: React.FC = () => {
       setSession(session);
       setUser(session?.user ?? null);
 
-      // Redirect authenticated users appropriately
+      // Redirect authenticated admin users to admin panel
       if (session?.user && navigate) {
         setTimeout(async () => {
           try {
@@ -58,11 +53,15 @@ export const Auth: React.FC = () => {
               .eq("id", session.user.id)
               .single();
 
-            // Always redirect to /admin after login
-            navigate("/admin", { replace: true });
+            if (profile?.role === "admin") {
+              navigate("/admin", { replace: true });
+            } else {
+              // Non-admin users should go to membership page
+              navigate("/membership", { replace: true });
+            }
           } catch (error) {
             console.error("Profile check failed:", error);
-            navigate("/admin", { replace: true });
+            navigate("/membership", { replace: true });
           }
         }, 100);
       }
@@ -81,17 +80,20 @@ export const Auth: React.FC = () => {
             .eq("id", session.user.id)
             .single();
 
-          // Always redirect to /admin after login
-          navigate("/admin", { replace: true });
+          if (profile?.role === "admin") {
+            navigate("/admin", { replace: true });
+          } else {
+            navigate("/membership", { replace: true });
+          }
         } catch (error) {
           console.error("Profile check failed:", error);
-          navigate("/admin", { replace: true });
+          navigate("/membership", { replace: true });
         }
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate, auth]);
+  }, [navigate]);
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {

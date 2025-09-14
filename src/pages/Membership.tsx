@@ -11,13 +11,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Check, Lock, Mail, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Check, Lock, Mail, Eye, EyeOff, ArrowLeft, LogOut, User } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/hooks/use-toast';
-import { MobileAuthDebugger } from '@/components/MobileAuthDebugger';
 export const Membership: React.FC = () => {
   const auth = useAuth();
-  const { user, hasAccess } = auth || {};
+  const { user, hasAccess, signOut } = auth || {};
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -30,9 +29,19 @@ export const Membership: React.FC = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Test Supabase connection
+    console.log('🔧 Testing Supabase connection...');
+    console.log('🔧 Supabase client:', supabase);
+    console.log('🔧 Supabase URL:', supabase.supabaseUrl);
+    console.log('🔧 Supabase Key:', supabase.supabaseKey ? 'Present' : 'Missing');
+    
+    // Test auth methods
+    console.log('🔧 Supabase auth methods:', Object.keys(supabase.auth));
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        console.log('🔄 Auth state change:', { event, session: session ? 'Session exists' : 'No session' });
         // Redirect authenticated users to models page
         if (session?.user && navigate) {
           setTimeout(() => {
@@ -44,6 +53,7 @@ export const Membership: React.FC = () => {
 
     // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('🔍 Existing session check:', session ? 'Session exists' : 'No session');
       if (session?.user && navigate) {
         navigate('/models');
       }
@@ -67,58 +77,126 @@ export const Membership: React.FC = () => {
   };
 
   const validateForm = (isSignUp: boolean) => {
+    console.log('🔍 Validating form:', { isSignUp, formData });
+    
     if (!formData.email || !formData.password) {
+      console.log('❌ Missing required fields:', { 
+        email: !!formData.email, 
+        password: !!formData.password 
+      });
       setError('Please fill in all required fields');
       return false;
     }
 
     if (!formData.email.includes('@')) {
+      console.log('❌ Invalid email format:', formData.email);
       setError('Please enter a valid email address');
       return false;
     }
 
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long');
-      return false;
-    }
-
-    // Enhanced password validation for signup
+    // For sign in, only check minimum password length
     if (isSignUp) {
+      if (formData.password.length < 8) {
+        console.log('❌ Password too short:', formData.password.length);
+        setError('Password must be at least 8 characters long');
+        return false;
+      }
+
+      // Enhanced password validation for signup only
       const hasUppercase = /[A-Z]/.test(formData.password);
       const hasLowercase = /[a-z]/.test(formData.password);
       const hasNumbers = /\d/.test(formData.password);
 
+      console.log('🔍 Password validation:', {
+        hasUppercase,
+        hasLowercase,
+        hasNumbers,
+        password: formData.password
+      });
+
       if (!hasUppercase || !hasLowercase || !hasNumbers) {
+        console.log('❌ Password complexity failed');
         setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
         return false;
       }
 
       if (formData.password !== formData.confirmPassword) {
+        console.log('❌ Passwords do not match:', {
+          password: formData.password,
+          confirmPassword: formData.confirmPassword
+        });
         setError('Passwords do not match');
+        return false;
+      }
+    } else {
+      // For sign in, just check password is not empty
+      if (formData.password.length === 0) {
+        console.log('❌ Password is empty');
+        setError('Please enter your password');
         return false;
       }
     }
 
+    console.log('✅ Form validation passed');
     return true;
   };
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm(false)) return;
+    console.log('🚀 Sign in form submitted');
+    console.log('📝 Form data:', formData);
+    
+    // Check if form validation passes
+    const isValid = validateForm(false);
+    console.log('✅ Form validation result:', isValid);
+    
+    if (!isValid) {
+      console.log('❌ Form validation failed');
+      return;
+    }
 
+    console.log('🔄 Setting loading state to true');
     setLoading(true);
     setError('');
 
     try {
-      console.log('Attempting member sign in with:', { email: formData.email });
+      console.log('📧 Attempting member sign in with:', { 
+        email: formData.email,
+        passwordLength: formData.password.length
+      });
       
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // Check Supabase client
+      console.log('🔧 Supabase client:', supabase);
+      console.log('🔧 Supabase auth:', supabase.auth);
+      
+      const signInOptions = {
         email: formData.email.trim(),
         password: formData.password,
+      };
+      
+      console.log('📤 Sign in options:', signInOptions);
+      
+      const { data, error } = await supabase.auth.signInWithPassword(signInOptions);
+
+      console.log('📥 Supabase response:', { 
+        data: data ? {
+          user: data.user ? {
+            id: data.user.id,
+            email: data.user.email,
+            email_confirmed_at: data.user.email_confirmed_at,
+            created_at: data.user.created_at
+          } : null,
+          session: data.session ? 'Session exists' : 'No session'
+        } : null,
+        error: error ? {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        } : null
       });
 
       if (error) {
-        console.error('Sign in error:', error);
+        console.error('❌ Sign in error:', error);
         if (error.message.includes('Invalid login credentials')) {
           setError('Invalid email or password. Please check your credentials.');
         } else if (error.message.includes('Email not confirmed')) {
@@ -132,42 +210,93 @@ export const Membership: React.FC = () => {
       }
 
       if (data.user) {
-        console.log('Member sign in successful for user:', data.user.id);
+        console.log('✅ Member sign in successful for user:', data.user.id);
+        console.log('📧 User email confirmed:', data.user.email_confirmed_at);
+        
         toast({
           title: "Welcome back!",
           description: "Login successful.",
         });
+      } else {
+        console.log('❌ No user data returned from sign in');
+        setError('Sign in failed. Please try again.');
       }
     } catch (err: any) {
-      console.error('Unexpected sign-in error:', err);
+      console.error('💥 Unexpected sign-in error:', err);
+      console.error('💥 Error stack:', err.stack);
       setError('Unexpected error. Please reload the page.');
     } finally {
+      console.log('🔄 Setting loading state to false');
       setLoading(false);
     }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm(true)) return;
+    console.log('🚀 Sign up form submitted');
+    console.log('📝 Form data:', formData);
+    
+    // Check if form validation passes
+    const isValid = validateForm(true);
+    console.log('✅ Form validation result:', isValid);
+    
+    if (!isValid) {
+      console.log('❌ Form validation failed');
+      return;
+    }
 
+    console.log('🔄 Setting loading state to true');
     setLoading(true);
     setError('');
 
     try {
-      console.log('Attempting member sign up with:', { email: formData.email });
+      console.log('📧 Attempting member sign up with:', { 
+        email: formData.email,
+        passwordLength: formData.password.length,
+        confirmPasswordLength: formData.confirmPassword.length
+      });
       
       const redirectUrl = `${window.location.origin}/membership`;
+      console.log('🔗 Redirect URL:', redirectUrl);
       
-      const { data, error } = await supabase.auth.signUp({
+      // Check Supabase client
+      console.log('🔧 Supabase client:', supabase);
+      console.log('🔧 Supabase auth:', supabase.auth);
+      
+      const signUpOptions = {
         email: formData.email.trim(),
         password: formData.password,
         options: {
-          emailRedirectTo: redirectUrl
+          emailRedirectTo: redirectUrl,
+          data: {
+            role: 'user'
+          }
         }
+      };
+      
+      console.log('📤 Sign up options:', signUpOptions);
+      
+      const { data, error } = await supabase.auth.signUp(signUpOptions);
+
+      console.log('📥 Supabase response:', { 
+        data: data ? {
+          user: data.user ? {
+            id: data.user.id,
+            email: data.user.email,
+            email_confirmed_at: data.user.email_confirmed_at,
+            created_at: data.user.created_at
+          } : null,
+          session: data.session ? 'Session exists' : 'No session'
+        } : null,
+        error: error ? {
+          message: error.message,
+          status: error.status,
+          name: error.name
+        } : null
       });
 
       if (error) {
-        console.error('Sign up error:', error);
+        console.error('❌ Sign up error:', error);
         if (error.message.includes('User already registered')) {
           setError('This email is already registered. Please try signing in.');
         } else if (error.message.includes('JSON')) {
@@ -179,7 +308,9 @@ export const Membership: React.FC = () => {
       }
 
       if (data.user) {
-        console.log('Member sign up successful for user:', data.user.id);
+        console.log('✅ Member sign up successful for user:', data.user.id);
+        console.log('📧 User email confirmed:', data.user.email_confirmed_at);
+        
         toast({
           title: "Check your email",
           description: "We've sent you a confirmation link. Please check your email and click the link to activate your account.",
@@ -191,11 +322,16 @@ export const Membership: React.FC = () => {
           password: '',
           confirmPassword: ''
         });
+      } else {
+        console.log('❌ No user data returned from signup');
+        setError('Sign up failed. Please try again.');
       }
     } catch (err: any) {
-      console.error('Unexpected sign-up error:', err);
+      console.error('💥 Unexpected sign-up error:', err);
+      console.error('💥 Error stack:', err.stack);
       setError('Unexpected error. Please reload the page.');
     } finally {
+      console.log('🔄 Setting loading state to false');
       setLoading(false);
     }
   };
@@ -223,6 +359,71 @@ export const Membership: React.FC = () => {
           </section>
 
           <div className="container-width px-6">
+
+        {/* Logged In User Section */}
+        {user && (
+          <section className="py-16 bg-white">
+            <div className="max-w-md mx-auto">
+              {/* Back link */}
+              <Link 
+                to="/" 
+                className="inline-flex items-center luxury-body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to home
+              </Link>
+
+              <Card className="border border-border/50 shadow-luxury">
+                <CardHeader className="text-center pb-6">
+                  <CardTitle className="luxury-heading-md">
+                    Welcome Back!
+                  </CardTitle>
+                  <CardDescription className="text-muted-foreground">
+                    You are currently signed in as {user.email}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  <div className="text-center space-y-4">
+                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="flex items-center justify-center mb-2">
+                        <Check className="w-5 h-5 text-green-600 mr-2" />
+                        <span className="text-sm font-medium text-green-800">
+                          Successfully Signed In
+                        </span>
+                      </div>
+                      <p className="text-xs text-green-700">
+                        You have access to our exclusive content
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Link to="/models">
+                        <Button className="w-full five-london-button">
+                          <User className="w-4 h-4 mr-2" />
+                          Browse Models
+                        </Button>
+                      </Link>
+                      
+                      <Button 
+                        onClick={() => {
+                          if (window.confirm('Are you sure you want to sign out?')) {
+                            signOut();
+                          }
+                        }}
+                        variant="outline"
+                        className="w-full text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        )}
 
         {/* Authentication Section for Non-Logged In Users */}
         {!user && <section className="py-16 bg-white">
@@ -260,7 +461,15 @@ export const Membership: React.FC = () => {
                     )}
 
                     <TabsContent value="signin" className="space-y-4">
-                      <form onSubmit={handleSignIn} className="space-y-4">
+                      <form 
+                        onSubmit={(e) => {
+                          console.log('📝 Sign in form onSubmit triggered');
+                          console.log('📝 Event:', e);
+                          console.log('📝 Event target:', e.target);
+                          handleSignIn(e);
+                        }} 
+                        className="space-y-4"
+                      >
                         <div className="space-y-2">
                           <Label htmlFor="signin-email">Email</Label>
                           <Input
@@ -300,6 +509,12 @@ export const Membership: React.FC = () => {
                           type="submit" 
                           className="w-full five-london-button"
                           disabled={loading}
+                          onClick={(e) => {
+                            console.log('🖱️ Sign In button clicked');
+                            console.log('🖱️ Event:', e);
+                            console.log('🖱️ Loading state:', loading);
+                            console.log('🖱️ Form data at click:', formData);
+                          }}
                         >
                           {loading ? 'Signing In...' : 'Sign In'}
                         </Button>
@@ -307,7 +522,15 @@ export const Membership: React.FC = () => {
                     </TabsContent>
 
                     <TabsContent value="signup" className="space-y-4">
-                      <form onSubmit={handleSignUp} className="space-y-4">
+                      <form 
+                        onSubmit={(e) => {
+                          console.log('📝 Form onSubmit triggered');
+                          console.log('📝 Event:', e);
+                          console.log('📝 Event target:', e.target);
+                          handleSignUp(e);
+                        }} 
+                        className="space-y-4"
+                      >
                         <div className="space-y-2">
                           <Label htmlFor="signup-email">Email</Label>
                           <Input
@@ -363,6 +586,12 @@ export const Membership: React.FC = () => {
                           type="submit" 
                           className="w-full five-london-button"
                           disabled={loading}
+                          onClick={(e) => {
+                            console.log('🖱️ Create Account button clicked');
+                            console.log('🖱️ Event:', e);
+                            console.log('🖱️ Loading state:', loading);
+                            console.log('🖱️ Form data at click:', formData);
+                          }}
                         >
                           {loading ? 'Creating Account...' : 'Create Account'}
                         </Button>
@@ -371,6 +600,7 @@ export const Membership: React.FC = () => {
                   </Tabs>
 
                   <div className="mt-6 text-center space-y-4">
+                    
                     <div className="flex justify-center">
                       <div className="text-center space-y-2">
                         <Link 
@@ -522,7 +752,6 @@ export const Membership: React.FC = () => {
         </main>
         
         <Footer />
-        <MobileAuthDebugger />
       </div>
     </>;
 };

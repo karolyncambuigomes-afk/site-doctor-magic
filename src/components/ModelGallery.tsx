@@ -53,7 +53,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 MODEL GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Carregando galeria pública para modelo ${modelId}`);
     
     try {
       setLoading(true);
@@ -66,11 +65,9 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
         .eq('id', modelId)
         .single();
 
-      console.log(`📱 MODEL GALLERY DEBUG: Configuração do modelo:`, modelData);
       
       // Get current user info to determine what images they can see
       const { data: { user } } = await supabase.auth.getUser();
-      console.log(`📱 MODEL GALLERY DEBUG: Usuário:`, user ? 'logado' : 'não logado', user?.email);
 
       // Track access level for later fallback logic
       let isAdmin = false;
@@ -180,7 +177,7 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       const { data, error } = await query;
 
       if (error) {
-        console.error(`📱 MODEL GALLERY DEBUG: Erro na query Supabase:`, error);
+        console.error('Erro na query Supabase:', error);
         throw error;
       }
 
@@ -211,24 +208,20 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       finalData = Array.from(uniqueMap.values());
 
       const loadTime = performance.now() - startTime;
-      console.log(`📱 MODEL GALLERY DEBUG: Galeria carregada em ${loadTime.toFixed(2)}ms`);
-      console.log(`📱 MODEL GALLERY DEBUG: ${finalData?.length || 0} imagens visíveis encontradas`);
       
       // Track performance metrics
       trackPerformance(startTime, finalData?.length || 0);
       
       if (isMobile && loadTime > 2000) {
-        console.warn(`📱 MODEL GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
+        console.warn(`Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
       }
       
       if (finalData && finalData.length > 0) {
-        console.log(`📱 MODEL GALLERY DEBUG: Visibilidades:`, finalData.map(img => ({ order: img.order_index, visibility: img.visibility })));
       }
       
       setGalleryImages(finalData || []);
-      console.log(`📱 MODEL GALLERY DEBUG: Estado atualizado, forçando re-render`);
     } catch (error) {
-      console.error(`📱 MODEL GALLERY DEBUG: Erro ao carregar galeria:`, error);
+      console.error('Erro ao carregar galeria:', error);
       setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
     } finally {
       setLoading(false);
@@ -245,8 +238,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
     }
   ];
 
-  console.log(`📱 MODEL GALLERY DEBUG: allImages após processamento:`, allImages);
-  console.log(`📱 MODEL GALLERY DEBUG: galleryImages.length:`, galleryImages.length);
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % allImages.length);

@@ -6,7 +6,6 @@ import { OptimizedImage } from '@/components/OptimizedImage';
 import { OptimizedHeroImage } from '@/components/OptimizedHeroImage';
 import { EnhancedImage } from '@/components/EnhancedImage';
 import { resolveImage, getFeatureFlags } from '@/utils/imageResolver';
-import { DebugPanel } from '@/components/DebugPanel';
 import heroMainWebp from '@/assets/hero-main.webp';
 import heroElegantWoman from '@/assets/hero-elegant-woman.webp';
 
@@ -133,7 +132,6 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
       
-      <DebugPanel />
 
       {/* Hidden SEO Content - Invisible but indexable */}
       <div className="sr-only">

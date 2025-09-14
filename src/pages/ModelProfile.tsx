@@ -29,20 +29,6 @@ export const ModelProfile: React.FC = () => {
     model = models.find(m => slugify(m.name) === target) || null;
   }
 
-  // Debug logging
-  console.log('🔍 ModelProfile - ID from URL:', id);
-  console.log('🔍 ModelProfile - All models:', models.length);
-  console.log('🔍 ModelProfile - Found model:', model);
-  if (model) {
-    console.log('🔍 ModelProfile - Model data:', {
-      name: model.name,
-      age: model.age,
-      location: model.location,
-      price: model.price,
-      pricing: model.pricing,
-      members_only: model.members_only
-    });
-  }
 
   // Scroll to top when model changes
   useEffect(() => {

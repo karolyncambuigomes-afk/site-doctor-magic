@@ -1,6 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
@@ -9,9 +8,6 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { VersionManager } from "@/components/VersionManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
-import { MobileForceRefresh } from "@/components/MobileForceRefresh";
-import { MobileDebugPanel } from "@/components/MobileDebugPanel";
-import { MobileRefreshButton } from "@/components/MobileRefreshButton";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
@@ -23,6 +19,7 @@ import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
+import { AuthTest } from "./pages/AuthTest";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -80,9 +77,15 @@ import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPag
 import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
 import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
 import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
-
- 
-const queryClient = new QueryClient();
+// Create QueryClient instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // Component to conditionally render features based on degraded mode
 const ConditionalFeatures = () => {
@@ -110,16 +113,12 @@ const App = () => (
   <ErrorBoundary>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <DegradedModeProvider>
+        <DegradedModeProvider>
             <BrowserRouter>
               <AuthProvider>
                 <ConditionalFeatures />
                 <DataSyncInitializer />
                 <MobileOptimizer />
-                <MobileForceRefresh />
-                <MobileDebugPanel />
-                <MobileRefreshButton />
                 <Toaster />
                 <Sonner />
                 <BookNowButton />
@@ -127,7 +126,8 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
-                  <Route path="/admin-login" element={<Navigate to="/auth" replace />} />
+                  <Route path="/auth-test" element={<AuthTest />} />
+                  <Route path="/admin-login" element={<AdminLogin />} />
                   <Route path="/admin-access-denied" element={<AdminAccessDenied />} />
                   <Route path="/approval-status" element={<UserApprovalStatus />} />
                   <Route path="/about" element={<About />} />
@@ -390,7 +390,6 @@ const App = () => (
               </AuthProvider>
             </BrowserRouter>
           </DegradedModeProvider>
-        </TooltipProvider>
       </QueryClientProvider>
     </HelmetProvider>
   </ErrorBoundary>

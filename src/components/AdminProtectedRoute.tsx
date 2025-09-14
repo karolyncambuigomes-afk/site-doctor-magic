@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useSafeLocation } from '@/hooks/useSafeRouter';
 import { useAuth } from '@/components/AuthProvider';
-import { usePermissions } from '@/hooks/usePermissions';
 
 interface AdminProtectedRouteProps {
   children: React.ReactNode;
@@ -15,7 +14,6 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
 }) => {
   const auth = useAuth();
   const { user, loading, isAdmin } = auth || {};
-  const { hasPermission, loading: permissionsLoading } = usePermissions();
   const location = useSafeLocation();
 
   // Safety check for router context
@@ -24,7 +22,7 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
     return <div>Loading...</div>;
   }
 
-  if (loading || permissionsLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -35,18 +33,13 @@ export const AdminProtectedRoute: React.FC<AdminProtectedRouteProps> = ({
     );
   }
 
-  // Redirect non-authenticated users to auth page
+  // Redirect non-authenticated users to admin login page
   if (!user) {
-    return <Navigate to="/auth" state={{ from: location, adminLogin: true }} replace />;
+    return <Navigate to="/admin-login" state={{ from: location }} replace />;
   }
 
-  // Check specific permission or fallback to admin role check
-  const hasRequiredAccess = requiredPermission 
-    ? hasPermission(requiredPermission)
-    : isAdmin;
-
-  // Redirect users without proper permissions to access denied page
-  if (!hasRequiredAccess) {
+  // Check if user is admin - simplified check
+  if (!isAdmin) {
     return <Navigate to="/admin-access-denied" replace />;
   }
 

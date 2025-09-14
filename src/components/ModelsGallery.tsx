@@ -3,7 +3,6 @@ import { ModelCardWrapper } from '@/components/ModelCardWrapper';
 import { useModels } from '@/hooks/useModels';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { CategoryFilters } from './CategoryFilters';
-import { ModelsDebugPanel } from '@/components/ModelsDebugPanel';
 import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -141,7 +140,6 @@ export const ModelsGallery: React.FC = () => {
 
         {/* Category Filters Section */}
         <CategoryFilters />
-        <ModelsDebugPanel />
       </main>
     </div>
   );

@@ -109,7 +109,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
   const loadGalleryImages = async () => {
     const startTime = performance.now();
-    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Iniciando carregamento de galeria para modelo ${modelId}`);
     
     try {
       setLoading(true);
@@ -121,24 +120,22 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         .order('order_index', { ascending: true });
 
       if (error) {
-        console.error(`📱 GALLERY DEBUG: Erro na query Supabase:`, error);
+        console.error('Erro na query Supabase:', error);
         throw error;
       }
 
       const loadTime = performance.now() - startTime;
-      console.log(`📱 GALLERY DEBUG: Galeria carregada com sucesso em ${loadTime.toFixed(2)}ms`);
-      console.log(`📱 GALLERY DEBUG: ${data?.length || 0} imagens encontradas`);
       
       // Track performance metrics
       trackPerformance(startTime, data?.length || 0);
       
       if (isMobile && loadTime > 3000) {
-        console.warn(`📱 GALLERY DEBUG: Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
+        console.warn(`Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);
       }
 
       setGalleryImages(data || []);
     } catch (error) {
-      console.error(`📱 GALLERY DEBUG: Erro ao carregar galeria:`, error);
+      console.error('Erro ao carregar galeria:', error);
       setLoadingError(error instanceof Error ? error.message : 'Erro desconhecido');
       toast({
         title: "Erro",
@@ -152,10 +149,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
   const addImage = async () => {
     const addStartTime = performance.now();
-    console.log(`📱 GALLERY DEBUG [${isMobile ? 'MOBILE' : 'DESKTOP'}]: Adicionando imagem`);
-    console.log('📱 GALLERY DEBUG: URL =', newImageUrl);
-    console.log('📱 GALLERY DEBUG: Visibilidade =', selectedVisibility);
-    console.log('📱 GALLERY DEBUG: ModelId =', modelId);
     
     if (!newImageUrl) {
       console.log('🎭 GALERIA: Erro - sem URL de imagem');
@@ -422,23 +415,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
     return isMixedModel || hasMultipleVisibilityTypes;
   }, [isAdmin, isMixedModel, hasMultipleVisibilityTypes]);
 
-  console.log(`🎯 GALLERY TABS DEBUG:`, {
-    modelId: modelId,
-    modelName: model?.name,
-    isMixedModel,
-    hasMultipleVisibilityTypes,
-    shouldShowTabs,
-    isAdmin,
-    totalImages: galleryImages.length,
-    publicCount: publicImages.length,
-    membersCount: membersImages.length,
-    adminCount: adminImages.length,
-    modelConfig: {
-      members_only: model?.members_only,
-      all_photos_public: model?.all_photos_public
-    }
-  });
-
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
@@ -629,22 +605,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Debug Info */}
-      {isMobile && (
-        <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm">
-          <div className="font-medium text-yellow-800">Debug Info:</div>
-          <div className="text-yellow-700">
-            • Total de imagens: {galleryImages.length}<br/>
-            • Públicas: {publicImages.length}<br/>
-            • Membros: {membersImages.length}<br/>
-            • Admin: {adminImages.length}<br/>
-            • Modelo misto: {isMixedModel ? 'Sim' : 'Não'}<br/>
-            • Múltiplos tipos: {hasMultipleVisibilityTypes ? 'Sim' : 'Não'}<br/>
-            • Mostrar abas: {shouldShowTabs ? 'Sim' : 'Não'}<br/>
-            • É admin: {isAdmin ? 'Sim' : 'Não'}
-          </div>
-        </div>
-      )}
 
       {galleryImages.length > 0 ? (
         shouldShowTabs ? (

@@ -244,14 +244,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
+      console.log('🚪 Starting logout process...');
       const { error } = await supabase.auth.signOut();
       if (error) {
-        console.error('Error signing out:', error);
+        console.error('❌ Error signing out:', error);
+        // Still clear local state even if Supabase logout fails
+      } else {
+        console.log('✅ Successfully signed out from Supabase');
       }
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('❌ Error during logout:', error);
+      // Still clear local state even if logout fails
     } finally {
       // Clear local state regardless of success/failure
+      console.log('🧹 Clearing local state...');
       setUser(null);
       setSession(null);
       setHasAccess(false);
@@ -259,6 +265,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUserStatus(null);
       setIsAdmin(false);
       
+      // Clear any cached data
+      localStorage.removeItem('user_preferences');
+      localStorage.removeItem('mobile_optimization_cache');
+      
+      console.log('🏠 Redirecting to home page...');
       // Redirect to home page after logout
       navigate('/', { replace: true });
     }

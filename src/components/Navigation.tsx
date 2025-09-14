@@ -175,7 +175,11 @@ export const Navigation: React.FC = () => {
                            </SafeLink>
                          )}
                          <button
-                          onClick={signOut}
+                          onClick={() => {
+                            if (window.confirm('Are you sure you want to sign out?')) {
+                              signOut();
+                            }
+                          }}
                           className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
                         >
                           <LogOut className="w-4 h-4 mr-2 inline" />

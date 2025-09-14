@@ -51,16 +51,6 @@ export const ImageWithPreference: React.FC<ImageWithPreferenceProps> = ({
         onError={onError}
       />
       
-      {/* Debug indicator (only in development) */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute top-1 left-1 z-50">
-          <div className={`text-xs px-1 py-0.5 rounded text-white font-mono ${
-            preferLocalImages ? 'bg-emerald-600' : 'bg-blue-600'
-          }`}>
-            {preferLocalImages ? 'L' : 'E'}
-          </div>
-        </div>
-      )}
     </div>
   );
 };

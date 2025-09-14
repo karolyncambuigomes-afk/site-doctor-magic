@@ -3,7 +3,6 @@ import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { ModelsCarousel } from '@/components/ModelsCarousel';
 import { Footer } from '@/components/Footer';
-import { ImageDebugPanel } from '@/components/ImageDebugPanel';
 import { Link } from 'react-router-dom';
 import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
 import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema, generateFAQSchema } from '@/utils/structuredData';
@@ -190,7 +189,6 @@ const Index = () => {
       </main>
 
       <Footer />
-      <ImageDebugPanel />
     </>
   );
 };

@@ -1780,6 +1780,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
+      is_approved_user: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
       log_admin_action: {
         Args: {
           action_type_param: string

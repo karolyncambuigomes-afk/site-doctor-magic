@@ -7,23 +7,23 @@ export interface BlogImageMap {
 export const blogImages: BlogImageMap = {
   'dining': {
     'restaurants': [
-      '/images/sketch-restaurant.jpg',
-      '/images/model1.jpg',
-      '/images/kate1.jpg'
+  '/images/sketch-restaurant.webp',
+  '/images/model1.webp',
+  '/images/kate1.webp'
     ],
     'fine-dining': [
       '/images/sketch-restaurant.jpg',
-      '/images/model2.jpg',
-      '/images/luisa1.jpg'
+  '/images/model2.webp',
+  '/images/luisa1.webp'
     ],
     'michelin': [
       '/images/sketch-restaurant.jpg',
-      '/images/model3.jpg',
+  '/images/model3.webp',
       '/images/model1.jpg'
     ],
     'wine': [
       '/images/sketch-restaurant.jpg',
-      '/images/model4.jpg'
+  '/images/model4.webp'
     ],
     'cocktails': [
       '/images/sketch-restaurant.jpg',
@@ -32,7 +32,7 @@ export const blogImages: BlogImageMap = {
   },
   'events': {
     'exclusive': [
-      '/images/london-gala-event.jpg',
+  '/images/london-gala-event.webp',
       '/images/model1.jpg',
       '/images/model2.jpg'
     ],
@@ -69,12 +69,12 @@ export const blogImages: BlogImageMap = {
   },
   'culture': {
     'entertainment': [
-      '/images/blog-entertainment-culture.jpg',
+  '/images/blog-entertainment-culture.webp',
       '/images/model2.jpg',
       '/images/luisa1.jpg'
     ],
     'art': [
-      '/images/blog-entertainment-culture.jpg',
+  '/images/blog-entertainment-culture.webp',
       '/images/model3.jpg',
       '/images/kate1.jpg'
     ],
@@ -100,7 +100,7 @@ export const blogImages: BlogImageMap = {
       '/images/model3.jpg'
     ],
     'hotels': [
-      '/images/clariges-lobby.jpg',
+      '/images/clariges-lobby.webp',
       '/images/model2.jpg',
       '/images/luisa1.jpg',
       '/images/model4.jpg'

@@ -1,18 +1,18 @@
 <<<<<<< HEAD
-import React from "react";
-import { SafeLink } from "@/components/ui/safe-link";
-import { useSafeLocation } from "@/hooks/useSafeRouter";
-import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
+import React from 'react';
+import { SafeLink } from '@/components/ui/safe-link';
+import { useSafeLocation } from '@/hooks/useSafeRouter';
+import { Menu, X, User, LogOut, Settings } from '@/components/LazyLucideIcon';
 import { DarkModeToggle } from '@/components/DarkModeToggle';
-import { useAuth } from "@/components/AuthProvider";
-import { Button } from "@/components/ui/button";
-import {
-  LazyDropdownMenu as DropdownMenu,
-  LazyDropdownMenuContent as DropdownMenuContent,
-  LazyDropdownMenuItem as DropdownMenuItem,
-  LazyDropdownMenuSeparator as DropdownMenuSeparator,
-  LazyDropdownMenuTrigger as DropdownMenuTrigger,
-} from "@/components/LazyRadixComponents";
+import { useAuth } from '@/components/AuthProvider';
+import { Button } from '@/components/ui/button';
+import { 
+  LazyDropdownMenu as DropdownMenu, 
+  LazyDropdownMenuContent as DropdownMenuContent, 
+  LazyDropdownMenuItem as DropdownMenuItem, 
+  LazyDropdownMenuSeparator as DropdownMenuSeparator, 
+  LazyDropdownMenuTrigger as DropdownMenuTrigger 
+} from '@/components/LazyRadixComponents';
 =======
 import React from "react";
 import { SafeLink } from "@/components/ui/safe-link";
@@ -102,13 +102,13 @@ export const Navigation: React.FC = () => {
 =======
           {/* Contact & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
-            <DarkModeToggle />
-            <a 
+            <a
               href="tel:+447436190679"
               className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
             >
               +44 7436 190679
             </a>
+
 >>>>>>> fa8b72f (Update codebase)
             {user ? (
               <DropdownMenu>
@@ -200,15 +200,12 @@ export const Navigation: React.FC = () => {
                   
 =======
                 <div className="pt-8 border-t border-border space-y-6">
-                  <div className="flex items-center justify-between">
-                    <a 
-                      href="tel:+447436190679" 
-                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      +44 7436 190679
-                    </a>
-                    <DarkModeToggle />
-                  </div>
+                  <a
+                    href="tel:+447436190679"
+                    className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    +44 7436 190679
+                  </a>
 
 >>>>>>> fa8b72f (Update codebase)
                   {user ? (

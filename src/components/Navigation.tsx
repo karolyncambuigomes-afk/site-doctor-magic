@@ -1,25 +1,41 @@
-import React from 'react';
-import { SafeLink } from '@/components/ui/safe-link';
-import { useSafeLocation } from '@/hooks/useSafeRouter';
-import { Menu, X, User, LogOut, Settings } from '@/components/LazyLucideIcon';
+<<<<<<< HEAD
+import React from "react";
+import { SafeLink } from "@/components/ui/safe-link";
+import { useSafeLocation } from "@/hooks/useSafeRouter";
+import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
 import { DarkModeToggle } from '@/components/DarkModeToggle';
-import { useAuth } from '@/components/AuthProvider';
-import { Button } from '@/components/ui/button';
-import { 
-  LazyDropdownMenu as DropdownMenu, 
-  LazyDropdownMenuContent as DropdownMenuContent, 
-  LazyDropdownMenuItem as DropdownMenuItem, 
-  LazyDropdownMenuSeparator as DropdownMenuSeparator, 
-  LazyDropdownMenuTrigger as DropdownMenuTrigger 
-} from '@/components/LazyRadixComponents';
+import { useAuth } from "@/components/AuthProvider";
+import { Button } from "@/components/ui/button";
+import {
+  LazyDropdownMenu as DropdownMenu,
+  LazyDropdownMenuContent as DropdownMenuContent,
+  LazyDropdownMenuItem as DropdownMenuItem,
+  LazyDropdownMenuSeparator as DropdownMenuSeparator,
+  LazyDropdownMenuTrigger as DropdownMenuTrigger,
+} from "@/components/LazyRadixComponents";
+=======
+import React from "react";
+import { SafeLink } from "@/components/ui/safe-link";
+import { useSafeLocation } from "@/hooks/useSafeRouter";
+import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
+import { useAuth } from "@/components/AuthProvider";
+import { Button } from "@/components/ui/button";
+import {
+  LazyDropdownMenu as DropdownMenu,
+  LazyDropdownMenuContent as DropdownMenuContent,
+  LazyDropdownMenuItem as DropdownMenuItem,
+  LazyDropdownMenuSeparator as DropdownMenuSeparator,
+  LazyDropdownMenuTrigger as DropdownMenuTrigger,
+} from "@/components/LazyRadixComponents";
+>>>>>>> fa8b72f (Update codebase)
 
 const navItems = [
-  { href: '/about', label: 'About Us' },
-  { href: '/models', label: 'Models' },
-  { href: '/membership', label: 'Membership' },
-  { href: '/services', label: 'Services' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/join-us', label: 'Join Us' }
+  { href: "/about", label: "About Us" },
+  { href: "/models", label: "Models" },
+  { href: "/membership", label: "Membership" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/join-us", label: "Join Us" },
 ];
 
 export const Navigation: React.FC = () => {
@@ -33,23 +49,25 @@ export const Navigation: React.FC = () => {
       setIsOpen(false);
     }
   }, [location]);
-  
+
   if (!location) {
     return null;
   }
-  
-  const isHomepage = location.pathname === '/';
-  
+
+  const isHomepage = location.pathname === "/";
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-2 md:py-3 text-foreground">
-          <SafeLink 
-            to="/" 
+          <SafeLink
+            to="/"
             className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-600 text-black"
           >
             Five London
-            <span className="text-xs ml-2 font-normal text-muted-foreground">EST. 2020</span>
+            <span className="text-xs ml-2 font-normal text-muted-foreground">
+              EST. 2020
+            </span>
           </SafeLink>
 
           {/* Desktop Navigation */}
@@ -59,9 +77,10 @@ export const Navigation: React.FC = () => {
                 key={item.href}
                 to={item.href}
                 className={`luxury-body-sm font-medium transition-colors ${
-                  location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-                    ? 'text-foreground' 
-                    : 'text-muted-foreground hover:text-foreground'
+                  location.pathname === item.href ||
+                  location.pathname.startsWith(item.href + "/")
+                    ? "text-[#020817]"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
@@ -69,6 +88,7 @@ export const Navigation: React.FC = () => {
             ))}
           </div>
 
+<<<<<<< HEAD
           {/* Contact & Auth */}
           <div className="hidden lg:flex items-center space-x-4">
             <DarkModeToggle />
@@ -79,10 +99,25 @@ export const Navigation: React.FC = () => {
               +44 7436 190679
             </a>
             
+=======
+          {/* Contact & Auth */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <DarkModeToggle />
+            <a 
+              href="tel:+447436190679"
+              className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
+            >
+              +44 7436 190679
+            </a>
+>>>>>>> fa8b72f (Update codebase)
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="h-8 w-8 rounded-full text-foreground hover:text-muted-foreground">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 w-8 rounded-full text-foreground hover:text-muted-foreground"
+                  >
                     <User className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -114,9 +149,7 @@ export const Navigation: React.FC = () => {
               </DropdownMenu>
             ) : (
               <a href="https://wa.me/447436190679">
-                <Button variant="outline">
-                  Contact Us
-                </Button>
+                <Button variant="outline">Contact Us</Button>
               </a>
             )}
           </div>
@@ -127,7 +160,11 @@ export const Navigation: React.FC = () => {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6 text-black" /> : <Menu className="w-6 h-6 text-black" />}
+            {isOpen ? (
+              <X className="w-6 h-6 text-black" />
+            ) : (
+              <Menu className="w-6 h-6 text-black" />
+            )}
           </button>
         </div>
 
@@ -141,12 +178,15 @@ export const Navigation: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     className={`luxury-body-base font-medium transition-colors ${
-                      location.pathname === item.href ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+                      location.pathname === item.href
+                        ? "text-foreground"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {item.label}
                   </SafeLink>
                 ))}
+<<<<<<< HEAD
                 <div className="pt-8 border-t border-border space-y-6">
                   <div className="flex items-center justify-between">
                     <a 
@@ -158,46 +198,59 @@ export const Navigation: React.FC = () => {
                     <DarkModeToggle />
                   </div>
                   
+=======
+                <div className="pt-8 border-t border-border space-y-6">
+                  <div className="flex items-center justify-between">
+                    <a 
+                      href="tel:+447436190679" 
+                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      +44 7436 190679
+                    </a>
+                    <DarkModeToggle />
+                  </div>
+
+>>>>>>> fa8b72f (Update codebase)
                   {user ? (
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-muted-foreground">
-                            {user.email}
-                          </span>
-                         </div>
-                         <SafeLink to="/models">
-                           <Button variant="outline" className="w-full mb-2">
-                             <User className="w-4 h-4 mr-2" />
-                             Browse Models
-                           </Button>
-                         </SafeLink>
-                         {auth?.isAdmin && (
-                           <SafeLink to="/admin">
-                             <Button variant="outline" className="w-full mb-2">
-                               <Settings className="w-4 h-4 mr-2" />
-                               Admin Panel
-                             </Button>
-                           </SafeLink>
-                         )}
-                         <button
-                          onClick={() => {
-                            if (window.confirm('Are you sure you want to sign out?')) {
-                              signOut();
-                            }
-                          }}
-                          className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
-                        >
-                          <LogOut className="w-4 h-4 mr-2 inline" />
-                          Sign Out
-                        </button>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">
+                          {user.email}
+                        </span>
                       </div>
-                     ) : (
-                       <a href="https://wa.me/447436190679">
-                         <Button className="w-full">
-                           Contact Us
-                         </Button>
-                       </a>
-                   )}
+                      <SafeLink to="/models">
+                        <Button variant="outline" className="w-full mb-2">
+                          <User className="w-4 h-4 mr-2" />
+                          Browse Models
+                        </Button>
+                      </SafeLink>
+                      {auth?.isAdmin && (
+                        <SafeLink to="/admin">
+                          <Button variant="outline" className="w-full mb-2">
+                            <Settings className="w-4 h-4 mr-2" />
+                            Admin Panel
+                          </Button>
+                        </SafeLink>
+                      )}
+                      <button
+                        onClick={() => {
+                          if (
+                            window.confirm("Are you sure you want to sign out?")
+                          ) {
+                            signOut();
+                          }
+                        }}
+                        className="w-full text-left text-red-600 hover:text-red-700 transition-colors luxury-body-sm"
+                      >
+                        <LogOut className="w-4 h-4 mr-2 inline" />
+                        Sign Out
+                      </button>
+                    </div>
+                  ) : (
+                    <a href="https://wa.me/447436190679">
+                      <Button className="w-full">Contact Us</Button>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

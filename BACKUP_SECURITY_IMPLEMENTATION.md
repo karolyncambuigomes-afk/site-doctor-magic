@@ -206,3 +206,51 @@ cleanup_admin_security_data()
 - **Database Schema**: Admin security tables and functions
 
 **Implementation Status**: ✅ Complete - Production Ready
+
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export const UsersList: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const { data, error } = await supabase.from("users").select("*");
+        if (error) {
+          console.error("Supabase error:", error.message);
+          setErrorMsg("Failed to load users.");
+        } else if (!data || data.length === 0) {
+          setErrorMsg("No users found.");
+        } else {
+          setUsers(data);
+        }
+      } catch (err) {
+        console.error("Unexpected error:", err);
+        setErrorMsg("An unexpected error occurred.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  if (loading) return <div>Loading users...</div>;
+  if (errorMsg) return <div>{errorMsg}</div>;
+
+  return (
+    <ul>
+      {users.map((user) => (
+        <li key={user.id}>{user.name} ({user.email})</li>
+      ))}
+    </ul>
+  );
+};

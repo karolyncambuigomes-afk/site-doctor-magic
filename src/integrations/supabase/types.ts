@@ -122,6 +122,54 @@ export type Database = {
         }
         Relationships: []
       }
+      admin_security_sessions: {
+        Row: {
+          created_at: string | null
+          deactivated_reason: string | null
+          expires_at: string
+          id: string
+          idle_timeout_at: string | null
+          ip_address: unknown | null
+          is_active: boolean | null
+          last_activity: string | null
+          security_level: string | null
+          session_token: string
+          two_factor_verified: boolean | null
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          deactivated_reason?: string | null
+          expires_at: string
+          id?: string
+          idle_timeout_at?: string | null
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string | null
+          security_level?: string | null
+          session_token: string
+          two_factor_verified?: boolean | null
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          deactivated_reason?: string | null
+          expires_at?: string
+          id?: string
+          idle_timeout_at?: string | null
+          ip_address?: unknown | null
+          is_active?: boolean | null
+          last_activity?: string | null
+          security_level?: string | null
+          session_token?: string
+          two_factor_verified?: boolean | null
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       admin_sessions: {
         Row: {
           created_at: string | null
@@ -663,37 +711,46 @@ export type Database = {
           availability: string | null
           created_at: string
           date_of_birth: string | null
+          date_of_birth_encrypted: string | null
           dress_size: string | null
           education: string | null
           email: string
           email_encrypted: string | null
           escort_experience: string | null
+          escort_experience_encrypted: string | null
           eye_color: string | null
           full_name: string
           full_name_encrypted: string | null
           hair_color: string | null
           height: string | null
+          height_encrypted: string | null
           id: string
           instagram_handle: string | null
+          instagram_handle_encrypted: string | null
           interests: string[] | null
           languages: string[] | null
           location_preference: string | null
           measurements: string | null
+          measurements_encrypted: string | null
           modeling_experience: string | null
           motivation: string | null
           nationality: string | null
           phone: string | null
           phone_encrypted: string | null
           photos: string[] | null
+          photos_encrypted: string | null
           piercings: string | null
+          piercings_encrypted: string | null
           profession: string | null
           reviewed_at: string | null
           reviewed_by: string | null
           shoe_size: string | null
           status: string
           tattoos: string | null
+          tattoos_encrypted: string | null
           updated_at: string
           videos: string[] | null
+          videos_encrypted: string | null
         }
         Insert: {
           admin_notes?: string | null
@@ -701,37 +758,46 @@ export type Database = {
           availability?: string | null
           created_at?: string
           date_of_birth?: string | null
+          date_of_birth_encrypted?: string | null
           dress_size?: string | null
           education?: string | null
           email: string
           email_encrypted?: string | null
           escort_experience?: string | null
+          escort_experience_encrypted?: string | null
           eye_color?: string | null
           full_name: string
           full_name_encrypted?: string | null
           hair_color?: string | null
           height?: string | null
+          height_encrypted?: string | null
           id?: string
           instagram_handle?: string | null
+          instagram_handle_encrypted?: string | null
           interests?: string[] | null
           languages?: string[] | null
           location_preference?: string | null
           measurements?: string | null
+          measurements_encrypted?: string | null
           modeling_experience?: string | null
           motivation?: string | null
           nationality?: string | null
           phone?: string | null
           phone_encrypted?: string | null
           photos?: string[] | null
+          photos_encrypted?: string | null
           piercings?: string | null
+          piercings_encrypted?: string | null
           profession?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           shoe_size?: string | null
           status?: string
           tattoos?: string | null
+          tattoos_encrypted?: string | null
           updated_at?: string
           videos?: string[] | null
+          videos_encrypted?: string | null
         }
         Update: {
           admin_notes?: string | null
@@ -739,37 +805,46 @@ export type Database = {
           availability?: string | null
           created_at?: string
           date_of_birth?: string | null
+          date_of_birth_encrypted?: string | null
           dress_size?: string | null
           education?: string | null
           email?: string
           email_encrypted?: string | null
           escort_experience?: string | null
+          escort_experience_encrypted?: string | null
           eye_color?: string | null
           full_name?: string
           full_name_encrypted?: string | null
           hair_color?: string | null
           height?: string | null
+          height_encrypted?: string | null
           id?: string
           instagram_handle?: string | null
+          instagram_handle_encrypted?: string | null
           interests?: string[] | null
           languages?: string[] | null
           location_preference?: string | null
           measurements?: string | null
+          measurements_encrypted?: string | null
           modeling_experience?: string | null
           motivation?: string | null
           nationality?: string | null
           phone?: string | null
           phone_encrypted?: string | null
           photos?: string[] | null
+          photos_encrypted?: string | null
           piercings?: string | null
+          piercings_encrypted?: string | null
           profession?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           shoe_size?: string | null
           status?: string
           tattoos?: string | null
+          tattoos_encrypted?: string | null
           updated_at?: string
           videos?: string[] | null
+          videos_encrypted?: string | null
         }
         Relationships: []
       }
@@ -1411,6 +1486,39 @@ export type Database = {
         }
         Relationships: []
       }
+      session_timeout_policies: {
+        Row: {
+          created_at: string | null
+          force_logout_on_timeout: boolean | null
+          id: string
+          idle_timeout_minutes: number
+          max_concurrent_sessions: number
+          role_type: string
+          session_timeout_minutes: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          force_logout_on_timeout?: boolean | null
+          id?: string
+          idle_timeout_minutes?: number
+          max_concurrent_sessions?: number
+          role_type?: string
+          session_timeout_minutes?: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          force_logout_on_timeout?: boolean | null
+          id?: string
+          idle_timeout_minutes?: number
+          max_concurrent_sessions?: number
+          role_type?: string
+          session_timeout_minutes?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       site_banners: {
         Row: {
           alt_text: string | null
@@ -1596,69 +1704,7 @@ export type Database = {
       }
     }
     Views: {
-      model_applications_secure: {
-        Row: {
-          admin_notes: string | null
-          age: number | null
-          created_at: string | null
-          date_of_birth: string | null
-          email: string | null
-          eye_color: string | null
-          full_name: string | null
-          hair_color: string | null
-          height: string | null
-          id: string | null
-          languages: string[] | null
-          measurements: string | null
-          nationality: string | null
-          phone: string | null
-          reviewed_at: string | null
-          reviewed_by: string | null
-          status: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          admin_notes?: string | null
-          age?: number | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          email?: string | null
-          eye_color?: string | null
-          full_name?: string | null
-          hair_color?: string | null
-          height?: string | null
-          id?: string | null
-          languages?: string[] | null
-          measurements?: string | null
-          nationality?: string | null
-          phone?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          admin_notes?: string | null
-          age?: number | null
-          created_at?: string | null
-          date_of_birth?: string | null
-          email?: string | null
-          eye_color?: string | null
-          full_name?: string | null
-          hair_color?: string | null
-          height?: string | null
-          id?: string | null
-          languages?: string[] | null
-          measurements?: string | null
-          nationality?: string | null
-          phone?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       check_admin_rate_limit: {
@@ -1677,12 +1723,43 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      cleanup_expired_sessions: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      cleanup_plaintext_pii_data: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      create_admin_session: {
+        Args: {
+          p_ip_address?: unknown
+          p_security_level?: string
+          p_session_token: string
+          p_two_factor_verified?: boolean
+          p_user_agent?: string
+          p_user_id: string
+        }
+        Returns: Json
+      }
       create_preview_token: {
         Args: { content_id: string; preview_data?: Json }
         Returns: string
       }
+      decrypt_pii_data: {
+        Args: { encrypted_text: string; field_type?: string }
+        Returns: string
+      }
       decrypt_sensitive_field: {
         Args: { encrypted_text: string; encryption_key?: string }
+        Returns: string
+      }
+      encrypt_existing_application_data: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      encrypt_pii_data: {
+        Args: { field_type?: string; plain_text: string }
         Returns: string
       }
       encrypt_sensitive_field: {
@@ -1710,6 +1787,36 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_masked_application_data: {
+        Args: { application_id: string }
+        Returns: Json
+      }
+      get_model_applications_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          email: string
+          id: string
+          reviewed_at: string
+          status: string
+        }[]
+      }
+      get_model_applications_secure: {
+        Args: { include_encrypted?: boolean }
+        Returns: {
+          admin_notes: string
+          age: number
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          measurements: string
+          phone: string
+          photos: string[]
+          status: string
+          videos: string[]
+        }[]
+      }
       get_public_models: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -1727,6 +1834,36 @@ export type Database = {
           reviews: number
           services: string[]
         }[]
+      }
+      get_secure_model_application: {
+        Args: { application_id: string }
+        Returns: Json
+      }
+      get_secure_model_applications: {
+        Args: { include_sensitive?: boolean }
+        Returns: {
+          age: number
+          created_at: string
+          id: string
+          languages: string[]
+          masked_email: string
+          masked_full_name: string
+          masked_phone: string
+          measurements: string
+          nationality: string
+          photos: string[]
+          status: string
+          updated_at: string
+          videos: string[]
+        }[]
+      }
+      get_security_status: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      invalidate_admin_session: {
+        Args: { session_token: string }
+        Returns: boolean
       }
       is_admin: {
         Args: Record<PropertyKey, never>
@@ -1761,8 +1898,31 @@ export type Database = {
         }
         Returns: undefined
       }
+      log_sensitive_data_access: {
+        Args:
+          | {
+              access_reason?: string
+              accessed_fields: string[]
+              accessed_table: string
+            }
+          | {
+              access_type: string
+              field_accessed?: string
+              record_id: string
+              table_name: string
+            }
+        Returns: undefined
+      }
+      mask_sensitive_application_data: {
+        Args: { access_level?: string; data_text: string; field_type: string }
+        Returns: string
+      }
       mask_sensitive_data: {
         Args: { data_text: string; mask_type?: string }
+        Returns: string
+      }
+      migrate_existing_sensitive_data: {
+        Args: Record<PropertyKey, never>
         Returns: string
       }
       migrate_gallery_arrays_to_table: {
@@ -1784,6 +1944,14 @@ export type Database = {
       update_user_role: {
         Args: { new_role: string; user_id: string }
         Returns: undefined
+      }
+      validate_admin_session_security: {
+        Args: { session_token: string }
+        Returns: Json
+      }
+      validate_and_refresh_session: {
+        Args: { session_token: string }
+        Returns: Json
       }
     }
     Enums: {

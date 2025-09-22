@@ -92,6 +92,7 @@ const menuItems = [
     items: [
       { title: "Users", url: "/admin/users/list", icon: Users },
       { title: "Permissions", url: "/admin/users/permissions", icon: Shield },
+      { title: "Security Status", url: "/admin/users/security", icon: Shield },
     ],
   },
   {

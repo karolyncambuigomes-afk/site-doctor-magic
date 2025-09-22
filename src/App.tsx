@@ -69,6 +69,7 @@ import { LocationsManager as LocationsManagerPage } from "./pages/admin/location
 import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
+import { SecurityStatusPage } from "./pages/admin/users/SecurityStatusPage";
 import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
 import { SystemSettings } from "./pages/admin/settings/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
@@ -370,6 +371,11 @@ const App = () => (
           <Route path="/admin/users/permissions" element={
             <AdminProtectedRoute>
               <PermissionsManagerPage />
+            </AdminProtectedRoute>
+          } />
+          <Route path="/admin/users/security" element={
+            <AdminProtectedRoute>
+              <SecurityStatusPage />
             </AdminProtectedRoute>
           } />
           

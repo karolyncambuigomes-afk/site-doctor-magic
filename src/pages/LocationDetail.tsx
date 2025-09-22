@@ -265,35 +265,6 @@ const LocationDetail = () => {
             </section>
           )}
 
-          {/* SEO Content Section - Collapsible */}
-          <section className="py-10 md:py-14 bg-white">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-8">
-                <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                  <CollapsibleTrigger asChild>
-                     <Button 
-                       variant="outline" 
-                       size="lg"
-                       className="mx-auto flex items-center gap-2 text-white hover:text-white transition-colors border-black/20 hover:border-black/40"
-                     >
-                      Learn more about {location.name}
-                      {isContentOpen ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="mt-8 animate-accordion-down">
-                     <div 
-                       className="max-w-4xl mx-auto !text-black [&>*]:!text-black [&>h2]:luxury-heading-lg [&>h2]:!text-black [&>h3]:luxury-heading-md [&>h3]:!text-black [&>p]:luxury-body-base [&>p]:!text-black [&>p]:leading-relaxed [&>ul]:!text-black [&>li]:!text-black [&>strong]:!text-black [&>em]:!text-black [&>a]:!text-black"
-                       dangerouslySetInnerHTML={{ __html: location.content }}
-                     />
-                  </CollapsibleContent>
-                </Collapsible>
-              </div>
-            </div>
-          </section>
 
           {/* Other Locations */}
           <section className="py-10 md:py-14 bg-white">

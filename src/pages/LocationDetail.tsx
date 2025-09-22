@@ -192,7 +192,7 @@ const LocationDetail = () => {
             <div className="container-width mx-auto px-6">
                 <div className="text-center mb-8">
                 <h2 className="luxury-heading-lg text-black mb-4">
-                  Our Exclusive {location.name} Collection
+                  {location.name} Gallery
                 </h2>
                 <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
                 <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">

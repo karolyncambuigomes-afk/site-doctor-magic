@@ -199,26 +199,16 @@ const Blog = () => {
                     className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                      <picture>
-                        <source
-                          srcSet="image-mobile.webp"
-                          media="(max-width: 600px)"
-                        />
-                        <source
-                          srcSet="image-tablet.webp"
-                          media="(min-width: 601px) and (max-width: 1024px)"
-                        />
-                        <source
-                          srcSet="image-desktop.webp"
-                          media="(min-width: 1025px)"
-                        />
-                        <img
-                          src="image-desktop.webp"
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      </picture>
+                      <img
+                        src={getImageUrl(post.image)}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = getImageUrl('/src/assets/blog-restaurant-dining.webp');
+                        }}
+                      />
                       <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
                         <Badge
                           variant="secondary"

@@ -78,7 +78,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each of these restaurants offers a unique experience, perfect for creating special memories during your stay in London.</p>
     `,
-    image: "/src/assets/blog-restaurant-dining.jpg",
+    image: "/src/assets/blog-restaurant-dining.webp",
     publishedAt: "2024-01-15",
     author: "Five London Team",
     category: "Dining",
@@ -155,7 +155,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These events represent the best of London's social life and offer unique opportunities to experience British culture and traditions in their most refined form.</p>
     `,
-    image: "/src/assets/blog-london-events.jpg",
+    image: "/src/assets/blog-london-events.webp",
     publishedAt: "2024-01-10",
     author: "Five London Team",
     category: "Events",
@@ -253,7 +253,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These experiences represent the best London has to offer for visitors seeking something truly special and memorable, providing access to aspects of the city that few have the privilege to know.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.jpg",
+    image: "/src/assets/blog-exclusive-experiences.webp",
     publishedAt: "2024-01-05",
     author: "Five London Team",
     category: "Experiences",
@@ -392,7 +392,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each hotel offers a unique interpretation of London luxury, from centuries-old tradition to contemporary innovation. The right choice depends on personal style and desired experiences during your stay in the British capital.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.jpg",
+    image: "/src/assets/blog-luxury-hotels.webp",
     publishedAt: "2023-12-28",
     author: "Five London Team",
     category: "Accommodation",
@@ -471,7 +471,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Mayfair continues to set the standard for luxury living in London, offering unmatched experiences for those who appreciate the finest things in life.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.jpg",
+    image: "/src/assets/blog-luxury-hotels.webp",
     publishedAt: "2024-01-20",
     author: "Five London Team",
     category: "Lifestyle",
@@ -550,7 +550,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Knightsbridge after dark offers an unmatched combination of luxury, sophistication, and convenience, making it London's premier destination for discerning evening entertainment.</p>
     `,
-    image: "/src/assets/blog-entertainment-culture.jpg",
+    image: "/src/assets/blog-entertainment-culture.webp",
     publishedAt: "2024-01-18",
     author: "Five London Team",
     category: "Entertainment",
@@ -642,7 +642,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Canary Wharf's dining scene perfectly complements its status as a global financial center, offering world-class cuisine and service standards that meet the demands of international business.</p>
     `,
-    image: "/src/assets/blog-restaurant-dining.jpg",
+    image: "/src/assets/blog-restaurant-dining.webp",
     publishedAt: "2024-01-16",
     author: "Five London Team",
     category: "Business",
@@ -746,7 +746,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Chelsea's cultural scene offers an unmatched combination of historic significance and contemporary innovation, making it essential for anyone seeking sophisticated artistic experiences in London.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.jpg",
+    image: "/src/assets/blog-exclusive-experiences.webp",
     publishedAt: "2024-01-14",
     author: "Five London Team",
     category: "Culture",
@@ -850,7 +850,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Belgravia's combination of diplomatic prestige, architectural beauty, and exclusive venues makes it London's premier destination for those seeking the highest levels of sophistication and discretion.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.jpg",
+    image: "/src/assets/blog-luxury-hotels.webp",
     publishedAt: "2024-01-12",
     author: "Five London Team",
     category: "Luxury",
@@ -966,7 +966,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>South Kensington offers an unmatched combination of world-class culture and exceptional dining, making it essential for anyone seeking sophisticated intellectual and culinary experiences in London.</p>
     `,
-    image: "/src/assets/blog-entertainment-culture.jpg",
+    image: "/src/assets/blog-entertainment-culture.webp",
     publishedAt: "2024-01-10",
     author: "Five London Team",
     category: "Culture",

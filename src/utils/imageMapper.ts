@@ -16,6 +16,13 @@ const imageMap: Record<string, string> = {
   '/src/assets/blog-exclusive-experiences.webp': blogExclusiveExperiences,
   '/src/assets/blog-luxury-hotels.webp': blogLuxuryHotels,
   '/src/assets/blog-entertainment-culture.webp': blogEntertainmentCulture,
+  // Legacy .jpg mappings for compatibility
+  '/src/assets/blog-restaurant-dining.jpg': blogRestaurantDining,
+  '/src/assets/blog-london-events.jpg': blogLondonEvents,
+  '/src/assets/blog-exclusive-experiences.jpg': blogExclusiveExperiences,
+  '/src/assets/blog-luxury-hotels.jpg': blogLuxuryHotels,
+  '/src/assets/blog-entertainment-culture.jpg': blogEntertainmentCulture,
+  // Public paths
   '/images/blog/corporate-events.webp': blogLondonEvents,
   '/images/blog/london-theatre.webp': blogEntertainmentCulture,
   '/images/blog/michelin-dining.webp': blogRestaurantDining,

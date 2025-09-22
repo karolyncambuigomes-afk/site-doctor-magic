@@ -40,7 +40,23 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-const menuItems = [
+type MenuItemSingle = {
+  title: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string | null;
+};
+
+type MenuItemGroup = {
+  title: string;
+  items: {
+    title: string;
+    url: string;
+    icon: React.ComponentType<{ className?: string }>;
+  }[];
+};
+
+const menuItems: (MenuItemSingle | MenuItemGroup)[] = [
   {
     title: "Dashboard",
     url: "/admin",
@@ -148,7 +164,7 @@ export const AdminSidebar: React.FC = () => {
       <SidebarContent className="pt-4">
         {menuItems.map((section, index) => (
           <SidebarGroup key={section.title}>
-            {section.url ? (
+            {'url' in section ? (
               // Single item (Dashboard)
               <SidebarMenu>
                 <SidebarMenuItem>
@@ -173,7 +189,7 @@ export const AdminSidebar: React.FC = () => {
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {section.items?.map((item) => (
+                    {section.items.map((item) => (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild>
                           <NavLink to={item.url} className={getNavCls}>

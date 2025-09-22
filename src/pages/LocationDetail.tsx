@@ -235,8 +235,8 @@ const LocationDetail = () => {
           </section>
 
 
-          {/* Available Models - Only show if there are models for this location */}
-          {locationModels.length > 0 && (
+          {/* Available Models Section - Conditional based on model availability */}
+          {locationModels.length > 0 ? (
             <section className="py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white">
               <div className="container-width mx-auto px-6">
                 <div className="text-center mb-12">
@@ -261,6 +261,94 @@ const LocationDetail = () => {
                     ))}
                   </div>
                 )}
+              </div>
+            </section>
+          ) : (
+            // No models available section
+            <section className="py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white">
+              <div className="container-width mx-auto px-6">
+                <div className="text-center mb-12">
+                  <div className="max-w-3xl mx-auto">
+                    <h2 className="luxury-heading-lg text-primary mb-6">
+                      Discover Available Companions
+                    </h2>
+                    <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-8"></div>
+                    
+                    <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-100 mb-8">
+                      <p className="luxury-body-lg text-muted-foreground mb-6">
+                        While we don't currently have companions specifically based in {location.name}, 
+                        our exclusive models are available to meet you anywhere in London with advance notice.
+                      </p>
+                      
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Link 
+                          to="/models"
+                          className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                        >
+                          <Star className="w-4 h-4" />
+                          View All Available Companions
+                        </Link>
+                        
+                        <a
+                          href="https://wa.me/447436190679"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-lg hover:bg-primary/5 transition-colors font-medium"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                          Contact Our Concierge
+                        </a>
+                      </div>
+                    </div>
+                    
+                    {/* Suggest nearby locations with models */}
+                    <div className="text-left">
+                      <h3 className="luxury-heading-md text-black mb-6 text-center">
+                        Explore Nearby Areas with Available Companions
+                      </h3>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {(() => {
+                          // Get locations with models
+                          const locationsWithModels = locations
+                            .filter(loc => {
+                              const locationMatcher = createLocationMatcher(loc.name);
+                              return models.some(model => model.location && locationMatcher(model.location));
+                            })
+                            .filter(loc => loc.id !== location.id) // Exclude current location
+                            .slice(0, 4); // Show top 4
+                          
+                          return locationsWithModels.map((loc) => {
+                            const locationMatcher = createLocationMatcher(loc.name);
+                            const modelCount = models.filter(model => 
+                              model.location && locationMatcher(model.location)
+                            ).length;
+                            
+                            return (
+                              <Link 
+                                key={loc.id}
+                                to={`/${loc.slug}`}
+                                className="group p-4 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 hover:border-primary/30 transition-all duration-300"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h4 className="font-medium text-black group-hover:text-primary transition-colors">
+                                      {loc.name}
+                                    </h4>
+                                    <p className="text-sm text-muted-foreground">
+                                      {modelCount} companion{modelCount !== 1 ? 's' : ''} available
+                                    </p>
+                                  </div>
+                                  <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                                </div>
+                              </Link>
+                            );
+                          });
+                        })()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
           )}

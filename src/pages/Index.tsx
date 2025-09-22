@@ -27,7 +27,12 @@ import {
   serviceSchemaData,
   londonAreasData,
 } from "@/data/faq-schema";
+import TestConnection from "@/components/TestConnection";
+
 const Index = () => {
+  // Add connection test in development
+  const showConnectionTest = window.location.hostname.includes('lovableproject.com') || 
+                            window.location.hostname.includes('localhost');
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
   const { data: reviewData } = useReviews();
@@ -82,6 +87,8 @@ const Index = () => {
       />
 
       <Navigation />
+      
+      {showConnectionTest && <TestConnection />}
 
       <main className="pt-0">
         <HeroSection />

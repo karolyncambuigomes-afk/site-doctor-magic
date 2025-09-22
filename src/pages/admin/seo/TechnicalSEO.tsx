@@ -86,7 +86,7 @@ export const TechnicalSEO: React.FC = () => {
         .from('seo_settings')
         .select('*')
         .eq('key', 'robots_txt')
-        .single();
+        .maybeSingle();
 
       const { data: redirectsData } = await supabase
         .from('redirects')

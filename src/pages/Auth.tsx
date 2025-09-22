@@ -51,7 +51,7 @@ export const Auth: React.FC = () => {
               .from("profiles")
               .select("role")
               .eq("id", session.user.id)
-              .single();
+              .maybeSingle();
 
             if (profile?.role === "admin") {
               navigate("/admin", { replace: true });
@@ -78,7 +78,7 @@ export const Auth: React.FC = () => {
             .from("profiles")
             .select("role")
             .eq("id", session.user.id)
-            .single();
+            .maybeSingle();
 
           if (profile?.role === "admin") {
             navigate("/admin", { replace: true });
@@ -166,7 +166,7 @@ export const Auth: React.FC = () => {
             .from("profiles")
             .select("role")
             .eq("id", data.user.id)
-            .single();
+            .maybeSingle();
 
           if (profile?.role !== "admin") {
             setError("Access denied. This page is for administrators only.");

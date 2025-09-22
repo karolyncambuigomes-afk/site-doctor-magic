@@ -68,11 +68,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         .from('profiles')
         .select('status')
         .eq('id', userId)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
         console.error('Error checking user status:', profileError);
         return { approved: false, status: null, isAdmin: false };
+      }
+
+      if (!profile) {
+        console.warn('No profile found for user:', userId);
+        return { approved: false, status: 'unauthenticated', isAdmin: false };
       }
 
       // Check admin status using secure RPC function

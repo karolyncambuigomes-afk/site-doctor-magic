@@ -1733,6 +1733,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      cleanup_orphaned_records: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       cleanup_plaintext_2fa_data: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -1799,6 +1803,10 @@ export type Database = {
       }
       get_2fa_data_secure: {
         Args: { user_id_param: string }
+        Returns: Json
+      }
+      get_auth_security_status: {
+        Args: Record<PropertyKey, never>
         Returns: Json
       }
       get_current_user_role: {
@@ -1974,6 +1982,14 @@ export type Database = {
       validate_and_refresh_session: {
         Args: { session_token: string }
         Returns: Json
+      }
+      validate_profile_relationships: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          description: string
+          issue_count: number
+          table_name: string
+        }[]
       }
     }
     Enums: {

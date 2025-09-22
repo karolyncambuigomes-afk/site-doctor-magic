@@ -37,11 +37,11 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
 
     // For mobile or when specific table updates, apply minimal cache busting
     if (tableName && recordId && !isMobile) {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from(tableName)
         .select('updated_at')
         .eq('id', recordId)
-        .single();
+        .maybeSingle();
       
       if (data?.updated_at) {
         const timestamp = new Date(data.updated_at).getTime();

@@ -52,9 +52,12 @@ export const ModelFormPage: React.FC = () => {
         .from('models')
         .select('*')
         .eq('id', modelId)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
+      if (!data) {
+        throw new Error('Model not found');
+      }
       setModel(data);
     } catch (error) {
       console.error('Error loading model:', error);

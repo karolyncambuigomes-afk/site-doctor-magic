@@ -33,7 +33,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
       .select('*')
       .eq('section', 'homepage_hero_main')
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     if (heroContent) {
       const localUrl = heroContent.image_url_local_desktop || heroContent.image_url_local_fallback;

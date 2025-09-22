@@ -50,7 +50,7 @@ export const PhotoSelector: React.FC<PhotoSelectorProps> = ({
         .from('models')
         .select('image')
         .eq('id', modelId)
-        .single();
+        .maybeSingle();
 
       if (!modelError && model?.image) {
         photos.push({

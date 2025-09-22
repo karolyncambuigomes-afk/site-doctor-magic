@@ -59,14 +59,23 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       setLoadingError(null);
       
       // Get model info including gallery arrays
-      const { data: modelData } = await supabase
+      const { data: modelData, error: modelError } = await supabase
         .from('models')
         .select('members_only, all_photos_public, gallery_external_urls, gallery_local_urls')
         .eq('id', modelId)
-        .single();
+        .maybeSingle();
 
-      
-      // Get current user info to determine what images they can see
+      if (modelError) {
+        console.error('Error fetching model:', modelError);
+        setLoadingError('Failed to load model data');
+        return;
+      }
+
+      if (!modelData) {
+        console.warn('Model not found:', modelId);
+        setLoadingError('Model not found');
+        return;
+      }
       const { data: { user } } = await supabase.auth.getUser();
 
       // Track access level for later fallback logic

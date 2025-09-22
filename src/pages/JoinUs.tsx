@@ -91,9 +91,9 @@ const JoinUs = () => {
           .from('profiles')
           .select('*')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
         
-        setUserProfile(profile);
+        setUserProfile(profile || null);
       }
       setAuthChecked(true);
     };
@@ -109,9 +109,9 @@ const JoinUs = () => {
             .from('profiles')
             .select('*')
             .eq('id', session.user.id)
-            .single();
+            .maybeSingle();
           
-          setUserProfile(profile);
+          setUserProfile(profile || null);
         } else {
           setUserProfile(null);
         }

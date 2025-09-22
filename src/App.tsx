@@ -17,6 +17,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { SimpleErrorBoundary } from "@/components/SimpleErrorBoundary";
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AuthTest } from "./pages/AuthTest";
@@ -110,21 +111,28 @@ const DataSyncInitializer = () => {
   return null;
 };
 
-const App = () => (
-  <ErrorBoundary>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <DegradedModeProvider>
-            <BrowserRouter>
-              <AuthProvider>
-                <ConditionalFeatures />
-                <DataSyncInitializer />
-                <MobileOptimizer />
-                <Toaster />
-                <Sonner />
-                <BookNowButton />
-                <SkipToContent />
-                <Routes>
+const App = () => {
+  console.log('App: Starting App component render');
+  
+  return (
+    <SimpleErrorBoundary context="App Root">
+      <ErrorBoundary>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            <SimpleErrorBoundary context="DegradedModeProvider">
+              <DegradedModeProvider>
+                <SimpleErrorBoundary context="BrowserRouter">
+                  <BrowserRouter>
+                    <SimpleErrorBoundary context="AuthProvider">
+                      <AuthProvider>
+                        <ConditionalFeatures />
+                        <DataSyncInitializer />
+                        <MobileOptimizer />
+                        <Toaster />
+                        <Sonner />
+                        <BookNowButton />
+                        <SkipToContent />
+                        <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/auth-test" element={<AuthTest />} />
@@ -391,14 +399,19 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AuthProvider>
-            </BrowserRouter>
-          </DegradedModeProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
-  </ErrorBoundary>
-);
+                          <Route path="*" element={<NotFound />} />
+                        </Routes>
+                      </AuthProvider>
+                    </SimpleErrorBoundary>
+                  </BrowserRouter>
+                </SimpleErrorBoundary>
+              </DegradedModeProvider>
+            </SimpleErrorBoundary>
+          </QueryClientProvider>
+        </HelmetProvider>
+      </ErrorBoundary>
+    </SimpleErrorBoundary>
+  );
+};
 
 export default App;

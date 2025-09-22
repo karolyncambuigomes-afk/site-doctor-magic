@@ -40,21 +40,84 @@ const LocationDetail = () => {
     return <Navigate to="/404" replace />;
   }
 
-  // Filter models by location
+  // Create flexible location matching
+  const createLocationMatcher = (locationName: string) => {
+    const normalizedLocation = locationName.toLowerCase().trim();
+    
+    // Location aliases and variations
+    const locationAliases: { [key: string]: string[] } = {
+      'kensington': ['south kensington', 'kensington'],
+      'westminster': ['westminster', 'city of westminster', 'west minister'],
+      'mayfair': ['mayfair', 'may fair'],
+      'chelsea': ['chelsea'],
+      'belgravia': ['belgravia'],
+      'knightsbridge': ['knightsbridge', 'knights bridge'],
+      'canary wharf': ['canary wharf', 'canary-wharf'],
+      'notting hill': ['notting hill', 'notting-hill'],
+      'paddington': ['paddington'],
+      'marylebone': ['marylebone', 'marley bone'],
+      'fitzrovia': ['fitzrovia'],
+      'shoreditch': ['shoreditch'],
+      'covent garden': ['covent garden', 'covent-garden']
+    };
+
+    return (modelLocation: string) => {
+      if (!modelLocation) return false;
+      const normalizedModelLocation = modelLocation.toLowerCase().trim();
+      
+      // Direct match
+      if (normalizedModelLocation === normalizedLocation) return true;
+      
+      // Check aliases
+      for (const [key, aliases] of Object.entries(locationAliases)) {
+        if (aliases.includes(normalizedLocation)) {
+          return aliases.includes(normalizedModelLocation);
+        }
+      }
+      
+      // Partial match (for cases like "South Kensington" matching "Kensington")
+      return normalizedModelLocation.includes(normalizedLocation) || 
+             normalizedLocation.includes(normalizedModelLocation);
+    };
+  };
+
+  const locationMatcher = createLocationMatcher(location.name);
+  
+  // Filter models by location using flexible matching
   const locationModels = models.filter(model => 
-    model.location && model.location.toLowerCase() === location.name.toLowerCase()
+    model.location && locationMatcher(model.location)
   );
 
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
 
-  // Gallery images (using existing model images for demonstration)
-  const galleryImages = [
-    '/images/model1.jpg',
-    '/images/model2.jpg', 
-    '/images/model3.jpg',
-    '/images/model4.jpg'
+  // Create dynamic gallery from models in this location
+  const galleryImages = locationModels
+    .filter(model => model.image) // Only models with images
+    .slice(0, 4) // Take first 4 models
+    .map(model => ({
+      url: model.image,
+      name: model.name,
+      modelId: model.id
+    }));
+
+  // If we don't have enough models for gallery, add fallback images
+  const fallbackImages = [
+    '/images/model1.webp',
+    '/images/model2.webp', 
+    '/images/model3.webp',
+    '/images/model4.webp'
   ];
+
+  // Ensure we always have 4 gallery images
+  while (galleryImages.length < 4) {
+    const fallbackIndex = galleryImages.length;
+    galleryImages.push({
+      url: fallbackImages[fallbackIndex] || fallbackImages[0],
+      name: `Companion ${galleryImages.length + 1}`,
+      modelId: null
+    });
+  }
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -140,13 +203,31 @@ const LocationDetail = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
                 {galleryImages.map((image, index) => (
                   <div key={index} className="group relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
-                    <img 
-                      src={image} 
-                      alt={`Exclusive companion ${index + 1} in ${location.name}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {image.modelId ? (
+                      <Link to={`/models/${image.modelId}`} className="block w-full h-full">
+                        <img 
+                          src={image.url} 
+                          alt={`${image.name} - Exclusive companion in ${location.name}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <p className="font-medium text-sm">{image.name}</p>
+                          <p className="text-xs opacity-80">Available in {location.name}</p>
+                        </div>
+                      </Link>
+                    ) : (
+                      <>
+                        <img 
+                          src={image.url} 
+                          alt={`${image.name} in ${location.name}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </>
+                    )}
                   </div>
                 ))}
               </div>

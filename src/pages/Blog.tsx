@@ -13,6 +13,8 @@ import {
 } from "@/utils/structuredData";
 import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
 import { getImageUrl } from "@/utils/imageMapper";
+import { EnhancedImage } from "@/components/EnhancedImage";
+import { blogArticles } from "@/data/blog-articles";
 
 const Blog = () => {
   const { posts, loading, error, categories } = useBlogPosts();
@@ -199,15 +201,17 @@ const Blog = () => {
                     className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                      <img
-                        src={getImageUrl(post.image)}
+                      <EnhancedImage
+                        external={getImageUrl(
+                          post.image ||
+                          (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
+                          '/images/blog/michelin-dining.webp'
+                        )}
+                        placeholder="/images/placeholders/model.jpg"
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = getImageUrl('/src/assets/blog-restaurant-dining.webp');
-                        }}
+                        data-blog-image="card"
+                        data-post-title={post.title}
                       />
                       <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
                         <Badge

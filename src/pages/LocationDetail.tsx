@@ -144,127 +144,88 @@ const LocationDetail = () => {
         <Navigation />
         
         <main className="pt-0">
-          {/* Hero Section - Simplified */}
-          <section className="pt-20 pb-8 md:pt-24 md:pb-12 bg-white">
+          {/* Hero Section - Ultra Simplified */}
+          <section className="pt-20 pb-6 md:pt-24 md:pb-8 bg-white">
             <div className="container-width text-center">
               <div className="max-w-2xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-3 text-black">
-                  {location.name} Escorts
+                <h1 className="luxury-heading-xl text-black">
+                  {location.name}
                 </h1>
-                <p className="luxury-body-base text-muted-foreground">
-                  Exclusive companions in {location.name}
-                </p>
               </div>
             </div>
           </section>
 
 
 
-          {/* Available Models Section - Fotos Maiores */}
-          {locationModels.length > 0 ? (
-            <section className="py-8 md:py-12 bg-white">
-              <div className="container-width mx-auto px-6">
-                <div className="text-center mb-8">
-                  <h2 className="luxury-heading-lg text-primary mb-2">
+          {/* Available Models Section - Enhanced Loading */}
+          {loading ? (
+            <section className="py-6 md:py-10 bg-white">
+              <div className="container-width mx-auto px-4">
+                <div className="text-center mb-6">
+                  <h2 className="luxury-heading-lg text-primary">
                     Available in {location.name}
                   </h2>
                 </div>
-                
-                {loading ? (
-                  <div className="text-center py-16">
-                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">Loading companions...</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto">
-                    {locationModels.map((model) => (
-                      <ModelCard key={model.id} model={model} />
-                    ))}
-                  </div>
-                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+                  {[...Array(6)].map((_, i) => (
+                    <div key={i} className="space-y-3">
+                      <div className="aspect-[3/4] bg-gray-200 animate-pulse rounded-lg" />
+                      <div className="space-y-2">
+                        <div className="h-3 bg-gray-200 animate-pulse rounded" />
+                        <div className="h-3 bg-gray-200 animate-pulse rounded w-2/3" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : locationModels.length > 0 ? (
+            <section className="py-6 md:py-10 bg-white">
+              <div className="container-width mx-auto px-4">
+                <div className="text-center mb-6">
+                  <h2 className="luxury-heading-lg text-primary">
+                    Available in {location.name}
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+                  {locationModels.map((model) => (
+                    <ModelCard key={model.id} model={model} />
+                  ))}
+                </div>
               </div>
             </section>
           ) : (
-            // No models available section - Simplified
-            <section className="py-8 md:py-12 bg-white">
-              <div className="container-width mx-auto px-6">
-                <div className="text-center mb-8">
-                  <div className="max-w-2xl mx-auto">
-                    <h2 className="luxury-heading-lg text-primary mb-4">
-                      Available Companions
+            // No models available section - Ultra Simplified
+            <section className="py-6 md:py-10 bg-white">
+              <div className="container-width mx-auto px-4">
+                <div className="text-center">
+                  <div className="max-w-lg mx-auto space-y-4">
+                    <h2 className="luxury-heading-lg text-primary">
+                      No Models Currently Available in {location.name}
                     </h2>
                     
-                    <div className="bg-gray-50 p-6 rounded-lg mb-6">
-                      <p className="luxury-body-base text-muted-foreground mb-4">
-                        Our exclusive models are available throughout London
-                      </p>
-                      
-                      <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                        <Link 
-                          to="/models"
-                          className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors"
-                        >
-                          <Star className="w-4 h-4" />
-                          View All Companions
-                        </Link>
-                        
-                        <a
-                          href="https://wa.me/447436190679"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 border border-primary text-primary px-5 py-2.5 rounded-lg hover:bg-primary/5 transition-colors"
-                        >
-                          <MessageCircle className="w-4 h-4" />
-                          Contact Us
-                        </a>
-                      </div>
-                    </div>
+                    <p className="text-muted-foreground text-sm">
+                      Our exclusive models are available for outcalls to this area.
+                    </p>
                     
-                    {/* Suggest nearby locations with models */}
-                    <div className="text-left">
-                      <h3 className="luxury-heading-md text-black mb-6 text-center">
-                        Explore Nearby Areas with Available Companions
-                      </h3>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                      <Link 
+                        to="/models"
+                        className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors text-sm"
+                      >
+                        <Star className="w-4 h-4" />
+                        View All Companions
+                      </Link>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {(() => {
-                          // Get locations with models
-                          const locationsWithModels = locations
-                            .filter(loc => {
-                              const locationMatcher = createLocationMatcher(loc.name);
-                              return models.some(model => model.location && locationMatcher(model.location));
-                            })
-                            .filter(loc => loc.id !== location.id) // Exclude current location
-                            .slice(0, 4); // Show top 4
-                          
-                          return locationsWithModels.map((loc) => {
-                            const locationMatcher = createLocationMatcher(loc.name);
-                            const modelCount = models.filter(model => 
-                              model.location && locationMatcher(model.location)
-                            ).length;
-                            
-                            return (
-                              <Link 
-                                key={loc.id}
-                                to={`/${loc.slug}`}
-                                className="group p-4 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 hover:border-primary/30 transition-all duration-300"
-                              >
-                                <div className="flex items-center justify-between">
-                                  <div>
-                                    <h4 className="font-medium text-black group-hover:text-primary transition-colors">
-                                      {loc.name}
-                                    </h4>
-                                    <p className="text-sm text-muted-foreground">
-                                      {modelCount} companion{modelCount !== 1 ? 's' : ''} available
-                                    </p>
-                                  </div>
-                                  <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                                </div>
-                              </Link>
-                            );
-                          });
-                        })()}
-                      </div>
+                      <a
+                        href="https://wa.me/447436190679"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 border border-primary text-primary px-5 py-2.5 rounded-lg hover:bg-primary/5 transition-colors text-sm"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        Contact Us
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -273,45 +234,45 @@ const LocationDetail = () => {
           )}
 
 
-          {/* Other Locations - Simplified */}
-          <section className="py-8 md:py-10 bg-gray-50">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-6">
-                <h2 className="luxury-heading-lg text-black mb-2">
+          {/* Other Locations - Streamlined */}
+          <section className="py-6 md:py-8 bg-gray-50">
+            <div className="container-width mx-auto px-4">
+              <div className="text-center mb-4">
+                <h2 className="luxury-heading-md text-black">
                   Other Areas
                 </h2>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
-                {otherLocations.slice(0, 6).map((loc) => (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+                {otherLocations.slice(0, 4).map((loc) => (
                   <Link 
                     key={loc.id}
                     to={`/${loc.slug}`}
-                    className="group p-4 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 hover:shadow-md text-center"
+                    className="group p-3 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 text-center"
                   >
-                    <h3 className="font-medium text-black text-sm mb-1">
+                    <h3 className="font-medium text-black text-sm">
                       {loc.name}
                     </h3>
-                    <ArrowRight className="w-3 h-3 text-muted-foreground mx-auto" />
                   </Link>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Contact Section - Simplified */}
-          <section className="py-6 md:py-8 bg-white">
+          {/* Contact Section - Minimal */}
+          <section className="py-4 md:py-6 bg-white">
             <div className="container-width text-center">
-              <div className="max-w-2xl mx-auto px-4 sm:px-6">
-                <h2 className="luxury-heading-lg mb-3 text-black">
+              <div className="max-w-lg mx-auto px-4">
+                <h2 className="luxury-heading-md mb-3 text-black">
                   Book Now
                 </h2>
                 <a
                   href="https://wa.me/447436190679"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium text-sm"
+                  className="inline-flex items-center gap-2 bg-black text-white hover:bg-gray-800 px-5 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm"
                 >
+                  <Phone className="w-4 h-4" />
                   Contact Now
                 </a>
               </div>

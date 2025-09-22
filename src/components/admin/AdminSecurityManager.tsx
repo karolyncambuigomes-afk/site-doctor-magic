@@ -86,12 +86,13 @@ export const AdminSecurityManager: React.FC = () => {
         .order('created_at', { ascending: false })
         .limit(100);
 
-      // Check 2FA status
-      const { data: twoFactorData } = await supabase
-        .from('admin_two_factor')
-        .select('is_enabled')
-        .eq('user_id', auth?.user?.id)
-        .single();
+      // Check 2FA status using secure function
+      const { data: twoFactorData, error: twoFactorError } = await supabase
+        .rpc('get_2fa_data_secure', { user_id_param: auth?.user?.id });
+
+      if (twoFactorError) {
+        console.warn('Could not fetch 2FA data:', twoFactorError);
+      }
 
       setLoginAttempts(attempts || []);
       setSessions(activeSessions || []);
@@ -124,19 +125,34 @@ export const AdminSecurityManager: React.FC = () => {
           .join('')
       );
 
+      // Store encrypted 2FA data
+      const { error } = await supabase
+        .from('admin_two_factor')
+        .upsert({
+          user_id: auth?.user?.id,
+          secret_key: secret,
+          backup_codes: codes,
+          is_enabled: true
+        });
+
+      if (error) throw error;
+
       setTotpSecret(secret);
       setBackupCodes(codes);
       setShowSecret(true);
+      setTwoFactorEnabled(true);
+
+      await logAdminAction('enable_2fa', 'admin_two_factor');
 
       toast({
-        title: "2FA Secret Generated",
-        description: "Use your authenticator app to scan the QR code",
+        title: "2FA Enabled",
+        description: "Two-factor authentication has been enabled with encrypted storage",
       });
     } catch (error) {
-      console.error('Error generating 2FA secret:', error);
+      console.error('Error enabling 2FA:', error);
       toast({
         title: "Error",
-        description: "Failed to generate 2FA secret",
+        description: "Failed to enable 2FA",
         variant: "destructive"
       });
     }
@@ -151,6 +167,36 @@ export const AdminSecurityManager: React.FC = () => {
       });
     } catch (error) {
       console.error('Error logging admin action:', error);
+    }
+  };
+
+  const disableTwoFactor = async () => {
+    try {
+      const { error } = await supabase
+        .from('admin_two_factor')
+        .update({ is_enabled: false })
+        .eq('user_id', auth?.user?.id);
+
+      if (error) throw error;
+
+      setTwoFactorEnabled(false);
+      setShowSecret(false);
+      setTotpSecret('');
+      setBackupCodes([]);
+
+      await logAdminAction('disable_2fa', 'admin_two_factor');
+
+      toast({
+        title: "2FA Disabled",
+        description: "Two-factor authentication has been disabled",
+      });
+    } catch (error) {
+      console.error('Error disabling 2FA:', error);
+      toast({
+        title: "Error",
+        description: "Failed to disable 2FA",
+        variant: "destructive"
+      });
     }
   };
 
@@ -452,7 +498,7 @@ export const AdminSecurityManager: React.FC = () => {
                   <p className="text-muted-foreground">
                     Two-factor authentication is enabled and protecting your account
                   </p>
-                  <Button variant="outline" onClick={() => setTwoFactorEnabled(false)}>
+                  <Button variant="outline" onClick={disableTwoFactor}>
                     Disable 2FA
                   </Button>
                 </div>

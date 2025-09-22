@@ -209,31 +209,37 @@ export type Database = {
       admin_two_factor: {
         Row: {
           backup_codes: string[] | null
+          backup_codes_encrypted: string | null
           created_at: string | null
           id: string
           is_enabled: boolean | null
           last_used: string | null
           secret_key: string
+          secret_key_encrypted: string | null
           updated_at: string | null
           user_id: string
         }
         Insert: {
           backup_codes?: string[] | null
+          backup_codes_encrypted?: string | null
           created_at?: string | null
           id?: string
           is_enabled?: boolean | null
           last_used?: string | null
           secret_key: string
+          secret_key_encrypted?: string | null
           updated_at?: string | null
           user_id: string
         }
         Update: {
           backup_codes?: string[] | null
+          backup_codes_encrypted?: string | null
           created_at?: string | null
           id?: string
           is_enabled?: boolean | null
           last_used?: string | null
           secret_key?: string
+          secret_key_encrypted?: string | null
           updated_at?: string | null
           user_id?: string
         }
@@ -1727,6 +1733,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      cleanup_plaintext_2fa_data: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       cleanup_plaintext_pii_data: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -1746,12 +1756,20 @@ export type Database = {
         Args: { content_id: string; preview_data?: Json }
         Returns: string
       }
+      decrypt_2fa_data: {
+        Args: { encrypted_text: string }
+        Returns: string
+      }
       decrypt_pii_data: {
         Args: { encrypted_text: string; field_type?: string }
         Returns: string
       }
       decrypt_sensitive_field: {
         Args: { encrypted_text: string; encryption_key?: string }
+        Returns: string
+      }
+      encrypt_2fa_data: {
+        Args: { plain_text: string }
         Returns: string
       }
       encrypt_existing_application_data: {
@@ -1778,6 +1796,10 @@ export type Database = {
           slug: string
           title: string
         }[]
+      }
+      get_2fa_data_secure: {
+        Args: { user_id_param: string }
+        Returns: Json
       }
       get_current_user_role: {
         Args: Record<PropertyKey, never>

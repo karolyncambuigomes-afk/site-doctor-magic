@@ -234,19 +234,18 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div className="max-w-4xl mx-auto space-y-12 mb-16">
               {values.map((value, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <value.icon className="w-12 h-12 text-primary mb-6" />
-                  <h3 className="luxury-heading-sm mb-4 text-black">
-                    {value.title}
-                  </h3>
-                  <p className="luxury-body-md text-gray-800 leading-relaxed">
-                    {value.description}
-                  </p>
+                <div key={index} className="flex items-start gap-6">
+                  <value.icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="luxury-heading-sm mb-3 text-black">
+                      {value.title}
+                    </h3>
+                    <p className="luxury-body-md text-gray-800 leading-relaxed">
+                      {value.description}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -288,21 +287,20 @@ const About = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {achievements.map((achievement, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <achievement.icon className="w-10 h-10 text-primary mb-4" />
-                  <h3 className="luxury-heading-sm mb-3 text-black">
-                    {achievement.text}
-                  </h3>
-                  <p className="luxury-body-sm text-gray-800 leading-relaxed">
-                    {achievement.detail}
-                  </p>
-                </div>
-              ))}
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                {achievements.map((achievement, index) => (
+                  <div key={index} className="text-center">
+                    <achievement.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <h3 className="luxury-heading-sm mb-2 text-black">
+                      {achievement.text}
+                    </h3>
+                    <p className="luxury-body-sm text-gray-600 leading-relaxed">
+                      {achievement.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

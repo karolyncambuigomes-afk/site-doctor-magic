@@ -91,33 +91,6 @@ const LocationDetail = () => {
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
 
-  // Create dynamic gallery from models in this location
-  const galleryImages = locationModels
-    .filter(model => model.image) // Only models with images
-    .slice(0, 4) // Take first 4 models
-    .map(model => ({
-      url: model.image,
-      name: model.name,
-      modelId: model.id
-    }));
-
-  // If we don't have enough models for gallery, add fallback images
-  const fallbackImages = [
-    '/images/model1.webp',
-    '/images/model2.webp', 
-    '/images/model3.webp',
-    '/images/model4.webp'
-  ];
-
-  // Ensure we always have 4 gallery images
-  while (galleryImages.length < 4) {
-    const fallbackIndex = galleryImages.length;
-    galleryImages.push({
-      url: fallbackImages[fallbackIndex] || fallbackImages[0],
-      name: `Companion ${galleryImages.length + 1}`,
-      modelId: null
-    });
-  }
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -187,52 +160,6 @@ const LocationDetail = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
-          {/* Gallery Section */}
-          <section className="py-10 md:py-14 bg-white">
-            <div className="container-width mx-auto px-6">
-                <div className="text-center mb-8">
-                <h2 className="luxury-heading-lg text-black mb-4">
-                  {location.name} Gallery
-                </h2>
-                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
-                <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">
-                  Meet our sophisticated companions available in {location.name}
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-                {galleryImages.map((image, index) => (
-                  <div key={index} className="group relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
-                    {image.modelId ? (
-                      <Link to={`/models/${image.modelId}`} className="block w-full h-full">
-                        <img 
-                          src={image.url} 
-                          alt={`${image.name} - Exclusive companion in ${location.name}`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        <div className="absolute bottom-3 left-3 right-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <p className="font-medium text-sm">{image.name}</p>
-                          <p className="text-xs opacity-80">Available in {location.name}</p>
-                        </div>
-                      </Link>
-                    ) : (
-                      <>
-                        <img 
-                          src={image.url} 
-                          alt={`${image.name} in ${location.name}`}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
 
 
           {/* Available Models Section - Conditional based on model availability */}

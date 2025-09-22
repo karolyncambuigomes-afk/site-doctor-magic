@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { ModelsCarousel } from "@/components/ModelsCarousel";
 import { Footer } from "@/components/Footer";
+import { BuildStatus } from "@/components/BuildStatus";
 import { Link } from "react-router-dom";
 import { MessageCircle, Phone, MessageSquare, Send } from "lucide-react";
 import {
@@ -82,6 +83,7 @@ const Index = () => {
         ]}
       />
 
+      <BuildStatus />
       <Navigation />
 
       <main className="pt-0">

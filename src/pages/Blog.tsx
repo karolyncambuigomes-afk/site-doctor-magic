@@ -15,9 +15,11 @@ import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
 import { getImageUrl } from "@/utils/imageMapper";
 import { EnhancedImage } from "@/components/EnhancedImage";
 import { blogArticles } from "@/data/blog-articles";
+import { BlogLoadingSkeleton } from "@/components/BlogLoadingSkeleton";
+import { BlogErrorFallback } from "@/components/BlogErrorFallback";
 
 const Blog = () => {
-  const { posts, loading, error, categories } = useBlogPosts();
+  const { posts, loading, error, categories, refetch } = useBlogPosts();
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -73,16 +75,38 @@ const Blog = () => {
           <BlogMigrationTrigger />
           <Navigation />
           <main className="pt-0">
+            {/* Hero Section with Loading State */}
             <section className="py-16 md:py-24 bg-white">
               <div className="container-width text-center">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <div className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-6 w-6 animate-spin" />
-                    <span className="luxury-body-lg text-black">
-                      Loading articles...
-                    </span>
-                  </div>
+                  <h1 className="text-4xl font-bold mb-6 text-foreground">
+                    Discover London
+                  </h1>
+                  <p className="text-lg text-muted-foreground mb-12">
+                    Your exclusive guide to sophisticated experiences, exquisite
+                    restaurants, and London's best-kept secrets.
+                  </p>
                 </div>
+              </div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+            </section>
+
+            {/* Loading Categories */}
+            <section className="py-8 border-b border-border bg-muted/30">
+              <div className="container-width">
+                <div className="flex flex-wrap gap-3 justify-center px-4">
+                  <div className="h-8 bg-muted animate-pulse rounded-full w-24"></div>
+                  <div className="h-8 bg-muted animate-pulse rounded-full w-20"></div>
+                  <div className="h-8 bg-muted animate-pulse rounded-full w-28"></div>
+                  <div className="h-8 bg-muted animate-pulse rounded-full w-32"></div>
+                </div>
+              </div>
+            </section>
+
+            {/* Loading Articles */}
+            <section className="py-12 md:py-16 lg:py-20 bg-white">
+              <div className="container-width">
+                <BlogLoadingSkeleton />
               </div>
             </section>
           </main>
@@ -100,22 +124,10 @@ const Blog = () => {
           description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London."
           canonicalUrl="/blog"
         />
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-background">
           <Navigation />
           <main className="pt-0">
-            <section className="py-16 md:py-24 bg-white">
-              <div className="container-width text-center">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <h1 className="luxury-heading-xl mb-4 text-red-600">
-                    Error Loading Blog
-                  </h1>
-                  <p className="luxury-body-lg text-black mb-8">{error}</p>
-                  <Button onClick={() => window.location.reload()}>
-                    Try Again
-                  </Button>
-                </div>
-              </div>
-            </section>
+            <BlogErrorFallback error={error} onRetry={refetch} />
           </main>
           <Footer />
         </div>
@@ -163,13 +175,13 @@ const Blog = () => {
           </section>
 
           {/* Categories */}
-          <section className="py-6 sm:py-8 border-b border-border bg-gray-50">
+          <section className="py-8 border-b border-border bg-muted/30">
             <div className="container-width">
-              <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center px-4">
+              <div className="flex flex-wrap gap-3 justify-center px-4">
                 <Link to="/blog">
                   <Badge
                     variant="secondary"
-                    className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm"
+                    className="px-6 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
                     All Articles
                   </Badge>
@@ -181,7 +193,7 @@ const Blog = () => {
                   >
                     <Badge
                       variant="outline"
-                      className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm bg-black text-white hover:bg-gray-800 transition-colors"
+                      className="px-6 py-2 text-sm font-medium bg-background border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
                     >
                       {category}
                     </Badge>
@@ -198,7 +210,7 @@ const Blog = () => {
                 {posts.map((post) => (
                   <Card
                     key={post.id}
-                    className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
+                    className="group hover:shadow-elegant transition-all duration-300 border border-border/50 hover:border-primary/20 overflow-hidden bg-background"
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
                       <EnhancedImage
@@ -213,18 +225,18 @@ const Blog = () => {
                         data-blog-image="card"
                         data-post-title={post.title}
                       />
-                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+                      <div className="absolute top-4 left-4">
                         <Badge
                           variant="secondary"
-                          className="bg-background/90 text-black text-xs"
+                          className="bg-background/95 backdrop-blur-sm text-foreground text-xs font-medium border border-border/50 shadow-minimal"
                         >
                           {post.category}
                         </Badge>
                       </div>
                     </div>
 
-                    <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6 bg-white">
-                      <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
+                    <CardHeader className="pb-4 px-6 pt-6">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                           <time
@@ -259,23 +271,23 @@ const Blog = () => {
                         </div>
                       </div>
 
-                      <h2 className="luxury-heading-sm font-medium text-black group-hover:text-black/80 transition-colors leading-tight">
+                      <h2 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {post.title}
                       </h2>
                     </CardHeader>
 
-                    <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6 bg-white">
-                      <p className="luxury-body-xs text-black leading-relaxed mb-4 sm:mb-6">
+                    <CardContent className="pt-0 px-6 pb-6">
+                      <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
                         {post.excerpt}
                       </p>
 
                       <Link to={`/blog/${post.slug}`}>
                         <Button
                           variant="ghost"
-                          className="group/btn p-0 h-auto font-medium text-black hover:text-black/80 luxury-body-sm"
+                          className="group/btn p-0 h-auto font-medium text-foreground hover:text-primary text-sm"
                         >
                           Read full article
-                          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </Link>
                     </CardContent>

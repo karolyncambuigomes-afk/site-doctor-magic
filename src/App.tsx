@@ -104,6 +104,7 @@ const ConditionalFeatures = () => {
 };
 
 import { useDataSyncManager } from '@/hooks/useDataSyncManager';
+import { RealTimeDataProvider } from '@/components/RealTimeDataProvider';
 
 // Mobile Sync Component to initialize the sync manager
 const DataSyncInitializer = () => {
@@ -125,13 +126,14 @@ const App = () => {
                   <BrowserRouter>
                     <SimpleErrorBoundary context="AuthProvider">
                       <AuthProvider>
-                        <ConditionalFeatures />
-                        <DataSyncInitializer />
-                        <MobileOptimizer />
-                        <Toaster />
-                        <Sonner />
-                        <BookNowButton />
-                        <SkipToContent />
+                        <RealTimeDataProvider>
+                          <ConditionalFeatures />
+                          <DataSyncInitializer />
+                          <MobileOptimizer />
+                          <Toaster />
+                          <Sonner />
+                          <BookNowButton />
+                          <SkipToContent />
                         <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
@@ -401,6 +403,7 @@ const App = () => {
           
                           <Route path="*" element={<NotFound />} />
                         </Routes>
+                        </RealTimeDataProvider>
                       </AuthProvider>
                     </SimpleErrorBoundary>
                   </BrowserRouter>

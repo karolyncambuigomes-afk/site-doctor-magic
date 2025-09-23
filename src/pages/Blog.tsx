@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
+import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,13 @@ import { BlogLoadingSkeleton } from "@/components/BlogLoadingSkeleton";
 import { BlogErrorFallback } from "@/components/BlogErrorFallback";
 
 const Blog = () => {
+  // Enable real-time updates for blog page
+  useRealTimeDataSync({
+    enableNotifications: false,
+    enableCacheInvalidation: true,
+    enableImageRefresh: true
+  });
+  
   const { posts, loading, error, categories, refetch } = useBlogPosts();
 
   const structuredData = [

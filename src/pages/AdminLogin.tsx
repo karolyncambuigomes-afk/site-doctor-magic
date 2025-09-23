@@ -35,7 +35,7 @@ export const AdminLogin: React.FC = () => {
   if (auth?.user && !auth?.isAdmin) {
     return (
       <>
-        <SEO 
+        <SEOOptimized
           title="Access Denied - Five London"
           description="Admin access required"
           noIndex={true}
@@ -104,7 +104,7 @@ export const AdminLogin: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized
         title="Admin Login - Five London"
         description="Administrator access portal"
         noIndex={true}

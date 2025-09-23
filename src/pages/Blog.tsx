@@ -73,7 +73,7 @@ const Blog = () => {
   if (loading) {
     return (
       <>
-        <SEO
+        <SEOOptimized
           title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
           description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations."
           keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London"
@@ -127,7 +127,7 @@ const Blog = () => {
   if (error) {
     return (
       <>
-        <SEO
+        <SEOOptimized
           title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
           description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London."
           canonicalUrl="/blog"
@@ -145,7 +145,7 @@ const Blog = () => {
 
   return (
     <>
-      <SEO
+      <SEOOptimized
         title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
         description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations from luxury lifestyle experts covering Mayfair, Westminster, Kensington, Chelsea, and Central London."
         keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London, London experiences, sophisticated dining London, luxury travel London, London lifestyle guide, Mayfair restaurants, Westminster events, Kensington hotels, Chelsea lifestyle, Central London experiences"

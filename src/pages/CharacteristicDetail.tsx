@@ -92,7 +92,7 @@ const CharacteristicDetail = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title={characteristic.seoTitle}
         description={characteristic.seoDescription}
         keywords={characteristic.keywords.join(', ')}

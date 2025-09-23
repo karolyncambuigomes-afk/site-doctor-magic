@@ -9,7 +9,7 @@ import { Heart, ArrowRight } from 'lucide-react';
 const Characteristics = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Find Escorts by Characteristics | Five London"
         description="Browse our stunning escorts by their unique characteristics. Find high-class, bi-sexual, open-minded, sophisticated companions in London."
         keywords="escort characteristics, high class escorts, bi sexual escorts, open minded escorts, sophisticated escorts london"

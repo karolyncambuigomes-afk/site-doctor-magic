@@ -75,7 +75,7 @@ const BlogPost = () => {
 
   return (
     <>
-      <SEO
+      <SEOOptimized
         title={article.title}
         description={article.meta_description}
         keywords={article.seo_keywords}

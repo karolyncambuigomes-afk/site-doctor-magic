@@ -208,7 +208,7 @@ export const Auth: React.FC = () => {
 
   return (
     <>
-      <SEO
+      <SEOOptimized
         title="Administrator Login - Five London"
         description="Administrator access only. Login to manage Five London's exclusive companion services."
         keywords="admin login, administrator, five london management"

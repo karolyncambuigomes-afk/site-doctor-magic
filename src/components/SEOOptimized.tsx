@@ -9,6 +9,7 @@ interface SEOOptimizedProps {
   ogImage?: string;
   structuredData?: object;
   noIndex?: boolean;
+  additionalMeta?: Record<string, string>;
   children?: React.ReactNode;
 }
 
@@ -20,6 +21,7 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
   ogImage = "/og-image.jpg",
   structuredData,
   noIndex = false,
+  additionalMeta,
   children
 }) => {
   const fullTitle = title.includes('Five London') ? title : `${title} | Five London`;
@@ -62,6 +64,11 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
         <meta httpEquiv="Cache-Control" content="public, max-age=31536000" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+        {/* Additional custom meta tags */}
+        {additionalMeta && Object.entries(additionalMeta).map(([key, value]) => (
+          <meta key={key} name={key} content={value} />
+        ))}
 
         {/* Structured Data */}
         {structuredData && (

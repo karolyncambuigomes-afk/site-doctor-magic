@@ -256,7 +256,7 @@ export const useFAQs = () => {
   }, []);
 
   return {
-    faqs: [...faqs, ...geoFAQs],
+    faqs: faqs, // Only return database FAQs for real-time updates to work properly
     loading,
     error,
     fetchFAQs,

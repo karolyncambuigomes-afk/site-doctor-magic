@@ -230,6 +230,7 @@ export const useFAQs = () => {
   ];
 
   useEffect(() => {
+    console.log('useFAQs: Setting up real-time subscription and initial fetch');
     fetchFAQs(); // Fetch active FAQs for public website
     
     // Set up real-time subscription for database changes
@@ -244,13 +245,19 @@ export const useFAQs = () => {
         },
         (payload) => {
           console.log('FAQ database change detected:', payload);
-          // Refetch FAQs when any change occurs
-          fetchFAQs();
+          console.log('Refetching FAQs due to real-time update...');
+          // Add a small delay to ensure database transaction is complete
+          setTimeout(() => {
+            fetchFAQs();
+          }, 100);
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log('FAQ real-time subscription status:', status);
+      });
 
     return () => {
+      console.log('useFAQs: Cleaning up real-time subscription');
       supabase.removeChannel(channel);
     };
   }, []);

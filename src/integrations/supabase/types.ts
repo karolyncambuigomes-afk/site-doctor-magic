@@ -975,6 +975,7 @@ export type Database = {
           services: string[] | null
           show_on_homepage: boolean | null
           updated_at: string
+          visibility_type: string | null
         }
         Insert: {
           age?: number | null
@@ -1008,6 +1009,7 @@ export type Database = {
           services?: string[] | null
           show_on_homepage?: boolean | null
           updated_at?: string
+          visibility_type?: string | null
         }
         Update: {
           age?: number | null
@@ -1041,6 +1043,7 @@ export type Database = {
           services?: string[] | null
           show_on_homepage?: boolean | null
           updated_at?: string
+          visibility_type?: string | null
         }
         Relationships: []
       }
@@ -1972,6 +1975,14 @@ export type Database = {
           content_id: string
           rollback_reason?: string
           target_version: number
+        }
+        Returns: Json
+      }
+      sync_model_photo_visibility: {
+        Args: {
+          model_id_param: string
+          photo_visibilities_param?: Json
+          visibility_type_param: string
         }
         Returns: Json
       }

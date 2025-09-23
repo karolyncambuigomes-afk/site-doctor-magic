@@ -244,7 +244,7 @@ export const StructuredDataManager: React.FC = () => {
       console.error('Error saving structured data:', error);
       toast({
         title: "Erro",
-        description: "Erro ao salvar dados estruturados",
+        description: "Error saving structured data",
         variant: "destructive"
       });
     } finally {
@@ -543,11 +543,11 @@ export const StructuredDataManager: React.FC = () => {
                     </div>
                     {!data.is_valid && data.validation_errors && (
                       <div className="text-sm text-red-600">
-                        Erros: {data.validation_errors.join(', ')}
+                        Errors: {data.validation_errors.join(', ')}
                       </div>
                     )}
                     <p className="text-sm text-muted-foreground">
-                      Criado em: {new Date(data.created_at).toLocaleDateString('pt-BR')}
+                      Created on: {new Date(data.created_at).toLocaleDateString('en-GB')}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">

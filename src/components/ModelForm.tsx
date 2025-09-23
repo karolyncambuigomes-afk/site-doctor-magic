@@ -319,8 +319,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
         if (error) throw error;
 
         toast({
-          title: "Sucesso",
-          description: "Modelo criado com sucesso",
+          title: "Success",
+          description: "Model created successfully",
         });
       }
 
@@ -328,8 +328,8 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
     } catch (error) {
       console.error('Error saving model:', error);
       toast({
-        title: "Erro",
-        description: "Erro ao salvar modelo",
+        title: "Error",
+        description: "Error saving model",
         variant: "destructive",
       });
     } finally {
@@ -654,7 +654,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   className="mt-2 text-white"
                   disabled={!formData.name}
                 >
-                  {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
+                  {loading ? 'Saving...' : '💾 Save to Enable Gallery'}
                 </Button>
               </div>
             )}
@@ -666,7 +666,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <CardHeader>
             <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-gray-900' : 'text-muted-foreground'}`}>
               <Eye className="w-5 h-5" />
-              Prévia do Site Público
+              Public Site Preview
             </CardTitle>
             <div className="flex items-center justify-between">
               <p className={`text-sm ${model?.id ? 'text-gray-700' : 'text-muted-foreground'}`}>
@@ -684,7 +684,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   onClick={() => window.open(`/models/${model.id}`, '_blank')}
                 >
                   <ExternalLink className="w-4 h-4 mr-1" />
-                  Ver Página Pública
+                  View Public Page
                 </Button>
               )}
             </div>
@@ -799,7 +799,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
           {formData.characteristics && formData.characteristics.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
-              <strong>Selecionadas:</strong>
+              <strong>Selected:</strong>
               {formData.characteristics.map((characteristic) => (
                 <Badge key={characteristic} variant="default" className="gap-1">
                   {characteristic}
@@ -817,13 +817,13 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Services */}
       <Card>
         <CardHeader>
-          <CardTitle>Serviços</CardTitle>
+          <CardTitle>Services</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
             <Select value={newService} onValueChange={setNewService}>
               <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Selecione um serviço" />
+                <SelectValue placeholder="Select a service" />
               </SelectTrigger>
               <SelectContent>
                 {serviceOptions.map((service) => (
@@ -903,7 +903,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
             value={formData.description || ''}
             onChange={(e) => handleInputChange('description', e.target.value)}
             rows={4}
-            placeholder="Descrição detalhada da modelo..."
+            placeholder="Detailed model description..."
           />
         </CardContent>
       </Card>
@@ -911,11 +911,11 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Rating and Reviews */}
       <Card>
         <CardHeader>
-          <CardTitle>Avaliações</CardTitle>
+          <CardTitle>Reviews</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="rating">Nota (0-5)</Label>
+            <Label htmlFor="rating">Rating (0-5)</Label>
             <Input
               id="rating"
               type="number"
@@ -928,7 +928,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </div>
 
           <div>
-            <Label htmlFor="reviews">Número de Avaliações</Label>
+            <Label htmlFor="reviews">Number of Reviews</Label>
             <Input
               id="reviews"
               type="number"
@@ -945,7 +945,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <div className="bg-white border border-gray-200 rounded-lg p-3">
             <div className="flex items-center gap-2 text-gray-700">
               <AlertCircle className="w-4 h-4" />
-              <span className="text-sm font-medium">Campos obrigatórios em falta</span>
+              <span className="text-sm font-medium">Required fields missing</span>
             </div>
             <p className="text-xs text-gray-600 mt-1">
               Preencha todos os campos marcados com (*) antes de salvar

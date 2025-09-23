@@ -105,15 +105,15 @@ export const BlogManager: React.FC = () => {
     } catch (error) {
       console.error('Error saving blog post:', error);
       toast({
-        title: "Erro",
-        description: "Erro ao salvar post do blog",
+        title: "Error",
+        description: "Error saving blog post",
         variant: "destructive"
       });
     }
   };
 
   const handleDeletePost = async (postId: string) => {
-    if (!confirm('Tem certeza que deseja deletar este post?')) return;
+    if (!confirm('Are you sure you want to delete this post?')) return;
 
     try {
       const { error } = await supabase
@@ -124,16 +124,16 @@ export const BlogManager: React.FC = () => {
       if (error) throw error;
       
       toast({
-        title: "Sucesso",
-        description: "Post do blog deletado com sucesso"
+        title: "Success",
+        description: "Blog post deleted successfully"
       });
       
       loadBlogPosts();
     } catch (error) {
       console.error('Error deleting blog post:', error);
       toast({
-        title: "Erro",
-        description: "Erro ao deletar post do blog",
+        title: "Error",
+        description: "Error deleting blog post",
         variant: "destructive"
       });
     }
@@ -200,19 +200,19 @@ export const BlogManager: React.FC = () => {
         <CardContent>
           {posts.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              Nenhum post encontrado. Crie seu primeiro post para começar.
+              No posts found. Create your first post to get started.
             </div>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Título</TableHead>
-                  <TableHead>Categoria</TableHead>
+                  <TableHead>Title</TableHead>
+                  <TableHead>Category</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Score SEO</TableHead>
-                  <TableHead>Autor</TableHead>
-                  <TableHead>Criado</TableHead>
-                  <TableHead>Ações</TableHead>
+                  <TableHead>SEO Score</TableHead>
+                  <TableHead>Author</TableHead>
+                  <TableHead>Created</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -229,7 +229,7 @@ export const BlogManager: React.FC = () => {
                     </TableCell>
                     <TableCell>
                       <Badge variant={post.is_published ? "default" : "secondary"}>
-                        {post.is_published ? "Publicado" : "Rascunho"}
+                        {post.is_published ? "Published" : "Draft"}
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -448,16 +448,16 @@ const BlogPostDialog: React.FC<{
                   id="author"
                   value={formData.author}
                   onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
-                  placeholder="Nome do autor"
+                  placeholder="Author name"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="category">Categoria</Label>
+                <Label htmlFor="category">Category</Label>
                 <Input
                   id="category"
                   value={formData.category}
                   onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                  placeholder="Categoria do blog"
+                  placeholder="Blog category"
                 />
               </div>
             </div>
@@ -468,18 +468,18 @@ const BlogPostDialog: React.FC<{
                 checked={formData.is_published}
                 onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
               />
-              <Label htmlFor="is_published">Publicar imediatamente</Label>
+              <Label htmlFor="is_published">Publish immediately</Label>
             </div>
           </TabsContent>
         </Tabs>
 
         <div className="flex justify-end gap-2">
           <Button type="button" variant="outline" onClick={onClose}>
-            Cancelar
+            Cancel
           </Button>
           <Button type="submit">
             <Save className="h-4 w-4 mr-2" />
-            Salvar Post
+            Save Post
           </Button>
         </div>
       </form>

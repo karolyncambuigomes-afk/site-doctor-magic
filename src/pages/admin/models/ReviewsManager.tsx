@@ -472,11 +472,11 @@ export const ReviewsManager: React.FC = () => {
                     
                     <h3 className="font-semibold mb-1">{review.title}</h3>
                     <p className="text-sm text-muted-foreground mb-2">
-                      Por {review.reviewer_name}
+                      By {review.reviewer_name}
                     </p>
                     <p className="text-sm mb-2 line-clamp-2">{review.content}</p>
                     <p className="text-xs text-muted-foreground">
-                      {new Date(review.created_at).toLocaleDateString('pt-BR')}
+                      {new Date(review.created_at).toLocaleDateString('en-GB')}
                     </p>
                   </div>
                   

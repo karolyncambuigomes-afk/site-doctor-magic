@@ -230,7 +230,29 @@ export const useFAQs = () => {
   ];
 
   useEffect(() => {
-    fetchAllFAQs(); // Admin needs to see all FAQs, not just active ones
+    fetchFAQs(); // Fetch active FAQs for public website
+    
+    // Set up real-time subscription for database changes
+    const channel = supabase
+      .channel('faqs-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'faqs'
+        },
+        (payload) => {
+          console.log('FAQ database change detected:', payload);
+          // Refetch FAQs when any change occurs
+          fetchFAQs();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return {

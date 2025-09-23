@@ -222,12 +222,11 @@ const Blog = () => {
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
                       <EnhancedImage
+                        external={post.image}
                         local={getImageUrl(
-                          post.image ||
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
                           '/images/blog/michelin-dining.webp'
                         )}
-                        external={post.image}
                         placeholder="/images/placeholders/model.jpg"
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

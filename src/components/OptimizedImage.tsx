@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { generateImageSources, heroSizes, defaultSizes, createImageObserver } from '@/utils/imageOptimizer';
 import { useImagePreference } from '@/hooks/useImagePreference';
 import { resolveImage } from '@/utils/imageResolver';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface OptimizedImageProps {
   src?: string;
@@ -31,6 +32,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onLoad,
   onError
 }) => {
+  const isMobile = useIsMobile();
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(priority);
   const [error, setError] = useState(false);
@@ -142,14 +144,20 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             width={width}
             height={height}
             loading={priority ? 'eager' : 'lazy'}
-            decoding="async"
+            fetchPriority={priority ? 'high' : 'low'}
+            decoding={priority ? 'sync' : 'async'}
             onLoad={handleLoad}
             onError={handleError}
             className={cn(
               'w-full h-full object-cover transition-opacity duration-300',
               isLoaded ? 'opacity-100' : 'opacity-0',
-              error && 'bg-muted'
+              error && 'bg-muted',
+              isMobile && 'will-change-transform'
             )}
+            style={isMobile ? { 
+              contentVisibility: 'auto',
+              containIntrinsicSize: `${width || 300}px ${height || 200}px`
+            } : undefined}
           />
         </picture>
       )}

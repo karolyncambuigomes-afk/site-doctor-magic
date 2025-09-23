@@ -19,7 +19,7 @@ const FAQ = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateAdvancedBreadcrumbs(breadcrumbs),
-    ...(faqs ? [generateLocationAwareFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })), "London")] : []),
+    ...(faqs && faqs.length > 0 ? [generateLocationAwareFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })), "London")] : []),
     // Enhanced LocalBusiness schema for GEO targeting
     {
       "@context": "https://schema.org",

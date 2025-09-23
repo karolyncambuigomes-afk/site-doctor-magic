@@ -23,8 +23,7 @@ export const useFAQs = () => {
       setLoading(true);
       setError(null);
 
-      // Add cache-busting to bypass service worker cache
-      const cacheBuster = `?t=${Date.now()}&no-cache=true`;
+      // Note: Adding cache-busting metadata for service worker bypass
       
       const { data, error: fetchError } = await supabase
         .from('faqs')
@@ -242,7 +241,7 @@ export const useFAQs = () => {
   ];
 
   useEffect(() => {
-    console.log('useFAQs: Setting up real-time subscription and initial fetch');
+    console.log('🚀 useFAQs: Setting up real-time subscription and initial fetch');
     
     // Force clear any cached FAQ data before fetching
     if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
+import { SEOOptimized } from "@/components/SEOOptimized";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   generateOrganizationSchema,
@@ -136,7 +136,7 @@ const About = () => {
 
   return (
     <>
-      <SEO
+      <SEOOptimized
         title="About Five London - Premier Luxury Escort Agency"
         description="Learn about Five London, London's premier luxury escort agency. Discover our commitment to excellence, discretion, and providing sophisticated companionship services with the highest professional standards."
         keywords="about Five London, luxury escort agency London, premium escort services, sophisticated companionship, professional escort agency, elite escorts London, luxury dating services"

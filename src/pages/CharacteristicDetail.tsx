@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { characteristics } from '@/data/characteristics';

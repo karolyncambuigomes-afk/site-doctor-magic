@@ -1,4 +1,4 @@
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -43,7 +43,7 @@ const FAQ = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="FAQ - Luxury Escort Services Questions Answered | Five London"
         description="Get answers to frequently asked questions about Five London's premium escort services. Learn about booking, rates, discretion, safety, and our professional companion services in London including Mayfair, Westminster, Kensington, and Central London areas."
         keywords="luxury escort FAQ, escort booking questions, London escort agency FAQ, companion service questions, escort rates, booking process, discretion policy, escort safety, professional escort services FAQ, Mayfair escort services, Westminster escorts, Central London companions, Kensington escort agency, Chelsea escorts, City of London escort services"

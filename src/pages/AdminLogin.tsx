@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Shield, ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 export const AdminLogin: React.FC = () => {
   const [email, setEmail] = useState('');

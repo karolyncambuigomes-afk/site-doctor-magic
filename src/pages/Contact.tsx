@@ -1,4 +1,4 @@
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Card } from '@/components/ui/card';
@@ -60,7 +60,7 @@ const Contact = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Contact Five London - Luxury Escort Booking & Inquiries"
         description="Contact Five London for luxury escort bookings and inquiries. Available 24/7 via phone, email, or WhatsApp. Discreet and professional service guaranteed."
         keywords="contact five london, luxury escort booking, escort inquiries london, book escort london, escort agency contact"

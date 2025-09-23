@@ -5,12 +5,12 @@ import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
 import {
-  LazyDropdownMenu as DropdownMenu,
-  LazyDropdownMenuContent as DropdownMenuContent,
-  LazyDropdownMenuItem as DropdownMenuItem,
-  LazyDropdownMenuSeparator as DropdownMenuSeparator,
-  LazyDropdownMenuTrigger as DropdownMenuTrigger,
-} from "@/components/LazyRadixComponents";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { href: "/about", label: "About Us" },

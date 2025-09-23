@@ -4,13 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Shield, AlertTriangle, ArrowLeft, Settings } from 'lucide-react';
 
 export const AdminAccessDenied: React.FC = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Admin Access Denied - Five London"
         description="Administrative access is restricted to authorized personnel only"
         noIndex={true}

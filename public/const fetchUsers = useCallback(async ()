@@ -1,4 +1,0 @@
-const fetchUsers = useCallback(async () => {
-  // ...fetch logic
-}, []);
-useEffect(() => { fetchUsers(); }, [fetchUsers]);

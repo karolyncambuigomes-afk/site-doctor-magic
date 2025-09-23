@@ -18,7 +18,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
+import { SEOOptimized } from "@/components/SEOOptimized";
 import { Eye, EyeOff, ArrowLeft, Settings } from "lucide-react";
 
 export const Auth: React.FC = () => {

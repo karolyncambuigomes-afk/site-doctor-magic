@@ -1,12 +1,12 @@
 import React from 'react';
 import { ModelsGallery } from '@/components/ModelsGalleryLayouts';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 // Opção 1: Layout Minimalista (inspirado na Five London)
 export const ModelsMinimal: React.FC = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized
         title="Luxury Escort Models in London - Five London"
         description="Browse our exclusive collection of sophisticated escort models in London. Choose from elegant companions for dinner dates, social events, and private meetings."
         keywords="luxury escorts London, elite companions, sophisticated models, escort gallery, London escorts"
@@ -20,7 +20,7 @@ export const ModelsMinimal: React.FC = () => {
 export const ModelsElegant: React.FC = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized
         title="Luxury Escort Models in London - Five London"
         description="Browse our exclusive collection of sophisticated escort models in London. Choose from elegant companions for dinner dates, social events, and private meetings."
         keywords="luxury escorts London, elite companions, sophisticated models, escort gallery, London escorts"
@@ -34,7 +34,7 @@ export const ModelsElegant: React.FC = () => {
 export const ModelsModern: React.FC = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized
         title="Luxury Escort Models in London - Five London"
         description="Browse our exclusive collection of sophisticated escort models in London. Choose from elegant companions for dinner dates, social events, and private meetings."
         keywords="luxury escorts London, elite companions, sophisticated models, escort gallery, London escorts"

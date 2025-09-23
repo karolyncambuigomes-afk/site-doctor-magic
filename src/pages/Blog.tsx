@@ -1,6 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
+import { SEOOptimized } from "@/components/SEOOptimized";
 import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

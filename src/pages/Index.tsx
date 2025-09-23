@@ -1,10 +1,10 @@
-import { SEO } from "@/components/SEO";
+import { SEOOptimized } from "@/components/SEOOptimized";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { ModelsCarousel } from "@/components/ModelsCarousel";
 import { Footer } from "@/components/Footer";
 import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
-import { BuildStatus } from "@/components/BuildStatus";
+
 import { Link } from "react-router-dom";
 import { MessageCircle, Phone, MessageSquare, Send } from "lucide-react";
 import {
@@ -73,25 +73,16 @@ const Index = () => {
   return (
     // Updated mobile optimizations applied - v2.1
     <>
-      <SEO
+      <SEOOptimized
         title="Five London - Premium Luxury Escort Services in London"
         description="Elite escort agency in London offering sophisticated companions for discerning clients. Premium escort services with elegant, intelligent models for exclusive experiences."
         keywords="luxury escort London, premium escort agency, elite escorts London, high-class companions, VIP escort service London, sophisticated escorts, exclusive escort agency, professional companions London, Mayfair escorts, Knightsbridge companions, Chelsea escort services, Belgravia luxury escorts"
         canonicalUrl="/"
         ogImage="/og-image.jpg"
         structuredData={structuredData}
-        locationContext={{
-          area: "Central London",
-          postcode: "W1",
-          coordinates: { lat: 51.5074, lng: -0.1278 },
-        }}
-        hreflang={[
-          { lang: "en-gb", href: "https://fivelondon.com/" },
-          { lang: "en-us", href: "https://fivelondon.com/" },
-        ]}
       />
 
-      <BuildStatus />
+      
       <Navigation />
 
       <main className="pt-0">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { GalleryDiagnostics } from '@/components/GalleryDiagnostics';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const GalleryDiagnosticsPage: React.FC = () => {
@@ -31,7 +31,9 @@ export const GalleryDiagnosticsPage: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <GalleryDiagnostics />
+                <div className="text-muted-foreground text-center py-8">
+                  Gallery diagnostics functionality has been removed for better performance.
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

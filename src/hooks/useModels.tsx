@@ -194,6 +194,39 @@ export const useModels = () => {
 
   useEffect(() => {
     fetchModels();
+    
+    // Set up real-time subscription for models changes
+    const channel = supabase
+      .channel('models-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'models'
+        },
+        (payload) => {
+          console.log('Models database change detected:', payload);
+          fetchModels();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'model_gallery'
+        },
+        (payload) => {
+          console.log('Model gallery database change detected:', payload);
+          fetchModels();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [user?.id, hasAccess]);
 
   const getModelById = (id: string): Model | null => {

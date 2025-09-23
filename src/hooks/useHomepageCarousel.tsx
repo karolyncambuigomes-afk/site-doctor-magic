@@ -137,7 +137,51 @@ export const useHomepageCarousel = () => {
 
   useEffect(() => {
     fetchCarouselModels();
-    // Force refresh - 2025-09-05 17:36
+    
+    // Set up real-time subscription for homepage carousel changes
+    const channel = supabase
+      .channel('homepage-carousel-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'models'
+        },
+        (payload) => {
+          console.log('Homepage carousel models change detected:', payload);
+          fetchCarouselModels();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'homepage_carousel'
+        },
+        (payload) => {
+          console.log('Homepage carousel table change detected:', payload);
+          fetchCarouselModels();
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'model_gallery'
+        },
+        (payload) => {
+          console.log('Model gallery change affecting homepage detected:', payload);
+          fetchCarouselModels();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return {

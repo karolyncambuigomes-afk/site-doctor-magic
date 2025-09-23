@@ -102,6 +102,27 @@ export const useBlogPosts = () => {
 
   useEffect(() => {
     fetchPosts();
+    
+    // Set up real-time subscription for blog posts changes
+    const channel = supabase
+      .channel('blog-posts-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'blog_posts'
+        },
+        (payload) => {
+          console.log('Blog posts database change detected:', payload);
+          fetchPosts();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const getPostBySlug = (slug: string): BlogPost | undefined => {

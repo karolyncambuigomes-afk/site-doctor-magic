@@ -11,6 +11,7 @@ import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -126,14 +127,15 @@ const App = () => {
                   <BrowserRouter>
                     <SimpleErrorBoundary context="AuthProvider">
                       <AuthProvider>
-                        <RealTimeDataProvider>
-                          <ConditionalFeatures />
-                          <DataSyncInitializer />
-                          <MobileOptimizer />
-                          <Toaster />
-                          <Sonner />
-                          <BookNowButton />
-                          <SkipToContent />
+                         <RealTimeDataProvider>
+                           <ScrollToTop />
+                           <ConditionalFeatures />
+                           <DataSyncInitializer />
+                           <MobileOptimizer />
+                           <Toaster />
+                           <Sonner />
+                           <BookNowButton />
+                           <SkipToContent />
                         <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />

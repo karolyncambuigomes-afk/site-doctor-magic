@@ -15,20 +15,26 @@ export const MobilePerformanceOptimizer: React.FC = () => {
   useEffect(() => {
     if (!isMobile) return;
 
-    // Critical CSS inlining for mobile
+    // Ultra-aggressive critical CSS optimization
     const inlineCriticalCSS = () => {
       const criticalCSS = `
-        /* Critical mobile styles */
-        .mobile-optimized { will-change: transform; }
-        img { content-visibility: auto; }
-        .lazy-load { content-visibility: auto; contain-intrinsic-size: 300px; }
-        * { -webkit-font-smoothing: antialiased; }
-        .container { contain: layout style paint; }
-        .mobile-touch { touch-action: manipulation; }
+        /* Ultra-optimized mobile critical styles */
+        html { font-display: swap; scroll-behavior: auto; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        * { will-change: auto; contain: layout style paint; }
+        .hero-section, .navigation { will-change: transform; contain: layout style paint; }
+        img, picture, video { content-visibility: auto; contain-intrinsic-size: 400px 300px; max-width: 100%; height: auto; }
+        .container, .grid, .flex { contain: layout style paint; transform: translateZ(0); }
+        button, a, input { touch-action: manipulation; min-height: 44px; min-width: 44px; }
+        .mobile-touch { transform: translateZ(0); backface-visibility: hidden; }
+        .text-content { text-rendering: optimizeSpeed; }
+        .animation { animation-duration: 0.2s; transition-duration: 0.2s; }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
       `;
       
       const style = document.createElement('style');
       style.textContent = criticalCSS;
+      style.setAttribute('data-critical-mobile', 'true');
       document.head.insertBefore(style, document.head.firstChild);
     };
 
@@ -159,36 +165,44 @@ export const MobilePerformanceOptimizer: React.FC = () => {
       });
     };
 
-    // Apply all optimizations
-    const applyOptimizations = () => {
+    // Ultra-aggressive optimization bundle
+    const applyUltraOptimizations = () => {
+      inlineCriticalCSS();
       addCriticalCSS();
       addResourceHints();
       preloadCriticalResources();
       deferNonCriticalScripts();
+      optimizeRendering();
+      optimizeNetwork();
       
-      // Delay memory-intensive optimizations
-      setTimeout(() => {
+      // Immediate optimizations for critical path
+      requestAnimationFrame(() => {
         optimizeImages();
+        optimizeMemory();
+      });
+      
+      // Service worker after initial render
+      setTimeout(() => {
         enableServiceWorker();
-      }, 100);
+      }, 50);
     };
 
-    // Apply optimizations immediately and on load
-    applyOptimizations();
+    // Apply ultra-optimizations immediately
+    applyUltraOptimizations();
     
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', applyOptimizations);
+      document.addEventListener('DOMContentLoaded', applyUltraOptimizations);
     }
 
-    // Re-optimize on route changes
+    // Re-optimize on route changes with minimal delay
     const handleRouteChange = () => {
-      setTimeout(applyOptimizations, 100);
+      requestAnimationFrame(applyUltraOptimizations);
     };
 
     window.addEventListener('popstate', handleRouteChange);
     
     return () => {
-      document.removeEventListener('DOMContentLoaded', applyOptimizations);
+      document.removeEventListener('DOMContentLoaded', applyUltraOptimizations);
       window.removeEventListener('popstate', handleRouteChange);
     };
   }, [isMobile]);

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
@@ -40,17 +41,43 @@ const Index = () => {
   
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
+=======
+import { SEO } from '@/components/SEO';
+import { Navigation } from '@/components/Navigation';
+import { HeroSection } from '@/components/HeroSection';
+import { ModelsCarousel } from '@/components/ModelsCarousel';
+import { Footer } from '@/components/Footer';
+import { Link } from 'react-router-dom';
+import { MessageCircle, Phone, MessageSquare, Send } from 'lucide-react';
+import { generateOrganizationSchema, generateWebsiteSchema, generateServiceSchema, generateFAQSchema } from '@/utils/structuredData';
+import { generateLocalBusinessSchema } from '@/utils/geoTargeting';
+import { generateLocalBusinessByPostcode, generateServiceWithPricingSchema, generateContactPointSchema } from '@/utils/advancedStructuredData';
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
+import { useReviews } from '@/hooks/useReviews';
+import { useBookingContent } from '@/hooks/useBookingContent';
+import heroSecondBanner from '@/assets/hero-second-banner-new.jpg';
+import { CategoryFilters } from '@/components/CategoryFilters';
+import { faqSchemaData, serviceSchemaData, londonAreasData } from '@/data/faq-schema';
+const Index = () => {
+  
+  const { info: bookingInfo } = useBookingContent();
+  const breadcrumbs = useBreadcrumbs();
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   const { data: reviewData } = useReviews();
 
   // Generate comprehensive structured data for the homepage
   const structuredData = [
     generateOrganizationSchema(true),
     generateWebsiteSchema(),
+<<<<<<< HEAD
     generateServiceSchema(
       "Premium Companion Services",
       "Elite companions for discerning clients in London",
       "£300-£2000"
     ),
+=======
+    generateServiceSchema("Premium Companion Services", "Elite companions for discerning clients in London", "£300-£2000"),
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     generateServiceWithPricingSchema(
       serviceSchemaData.serviceName,
       serviceSchemaData.description,
@@ -59,8 +86,13 @@ const Index = () => {
     ),
     generateLocalBusinessSchema({
       name: "Central London",
+<<<<<<< HEAD
       postcode: "W1",
       description: "Premium companion services in Central London",
+=======
+      postcode: "W1", 
+      description: "Premium companion services in Central London"
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     }),
     generateContactPointSchema(),
     generateFAQSchema(faqSchemaData),
@@ -68,18 +100,27 @@ const Index = () => {
     generateLocalBusinessByPostcode("W1", "Mayfair", reviewData),
     generateLocalBusinessByPostcode("SW1", "Knightsbridge", reviewData),
     generateLocalBusinessByPostcode("SW3", "Chelsea", reviewData),
+<<<<<<< HEAD
     generateLocalBusinessByPostcode("SW1X", "Belgravia", reviewData),
+=======
+    generateLocalBusinessByPostcode("SW1X", "Belgravia", reviewData)
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   ];
   return (
     // Updated mobile optimizations applied - v2.1
     <>
+<<<<<<< HEAD
       <SEOOptimized
+=======
+      <SEO 
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="Five London - Premium Luxury Escort Services in London"
         description="Elite escort agency in London offering sophisticated companions for discerning clients. Premium escort services with elegant, intelligent models for exclusive experiences."
         keywords="luxury escort London, premium escort agency, elite escorts London, high-class companions, VIP escort service London, sophisticated escorts, exclusive escort agency, professional companions London, Mayfair escorts, Knightsbridge companions, Chelsea escort services, Belgravia luxury escorts"
         canonicalUrl="/"
         ogImage="/og-image.jpg"
         structuredData={structuredData}
+<<<<<<< HEAD
       />
 
       
@@ -94,12 +135,40 @@ const Index = () => {
             <ModelsCarousel />
           </div>
         </section>
+=======
+        locationContext={{
+          area: "Central London",
+          postcode: "W1",
+          coordinates: { lat: 51.5074, lng: -0.1278 }
+        }}
+        hreflang={[
+          { lang: "en-gb", href: "https://fivelondon.com/" },
+          { lang: "en-us", href: "https://fivelondon.com/" }
+        ]}
+      />
+      
+      <Navigation />
+      
+      <main className="pt-0">
+        <HeroSection />
+        
+        {/* Featured Models Section */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6">
+            <ModelsCarousel />
+          </div>
+        </section>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
         {/* Category Filters & About Section */}
         <section className="py-12 md:py-16 text-foreground bg-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <CategoryFilters />
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             {/* About Our Services - Integrated Design */}
             <div className="mt-12 max-w-4xl mx-auto">
               <details className="group bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300">
@@ -109,6 +178,7 @@ const Index = () => {
                       About Our Premium Services
                     </h2>
                     <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
+<<<<<<< HEAD
                       <svg
                         className="w-3 h-3 text-gray-600"
                         fill="none"
@@ -121,6 +191,10 @@ const Index = () => {
                           strokeWidth={2}
                           d="M19 9l-7 7-7-7"
                         />
+=======
+                      <svg className="w-3 h-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                       </svg>
                     </div>
                   </div>
@@ -129,6 +203,7 @@ const Index = () => {
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-6">
                       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+<<<<<<< HEAD
                         <h3 className="luxury-heading-md mb-4 text-gray-900">
                           Elite Escort Services London
                         </h3>
@@ -147,11 +222,20 @@ const Index = () => {
                           and intimate dinner dates. Each encounter is tailored
                           to exceed expectations while maintaining the highest
                           standards of professionalism and confidentiality.
+=======
+                        <h3 className="luxury-heading-md mb-4 text-gray-900">Elite Escort Services London</h3>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed mb-4">
+                          Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
+                        </p>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                         </p>
                       </div>
                     </div>
                     <div className="space-y-6">
                       <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+<<<<<<< HEAD
                         <h3 className="luxury-heading-md mb-4 text-gray-900">
                           Premium London Areas
                         </h3>
@@ -195,6 +279,25 @@ const Index = () => {
                               premium boutiques, and Michelin-starred dining
                               venues.
                             </p>
+=======
+                        <h3 className="luxury-heading-md mb-4 text-gray-900">Premium London Areas</h3>
+                        <div className="space-y-4">
+                          <div className="border-l-3 border-gray-300 pl-4">
+                            <h4 className="luxury-body-sm font-semibold text-gray-900">Mayfair W1</h4>
+                            <p className="luxury-body-xs text-gray-600 mt-1">Home to luxury shopping at Bond Street, exclusive dining, and world-class hotels including Claridge's and The Connaught.</p>
+                          </div>
+                          <div className="border-l-3 border-gray-300 pl-4">
+                            <h4 className="luxury-body-sm font-semibold text-gray-900">Knightsbridge SW1</h4>
+                            <p className="luxury-body-xs text-gray-600 mt-1">Prestigious area near Harrods, Hyde Park, and luxury hotels including The Berkeley and Mandarin Oriental.</p>
+                          </div>
+                          <div className="border-l-3 border-gray-300 pl-4">
+                            <h4 className="luxury-body-sm font-semibold text-gray-900">Chelsea SW3</h4>
+                            <p className="luxury-body-xs text-gray-600 mt-1">Sophisticated neighbourhood with world-class restaurants, galleries, and exclusive private members' clubs.</p>
+                          </div>
+                          <div className="border-l-3 border-gray-300 pl-4">
+                            <h4 className="luxury-body-sm font-semibold text-gray-900">Belgravia SW1</h4>
+                            <p className="luxury-body-xs text-gray-600 mt-1">Elite residential area with Georgian architecture, premium boutiques, and Michelin-starred dining venues.</p>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                           </div>
                         </div>
                       </div>
@@ -213,6 +316,7 @@ const Index = () => {
               Elite Companion Services
             </h2>
             <p className="luxury-body-base text-black mb-4">
+<<<<<<< HEAD
               Contact us through your preferred method for a discreet
               consultation
             </p>
@@ -231,6 +335,17 @@ const Index = () => {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
+=======
+              Contact us through your preferred method for a discreet consultation
+            </p>
+            <p className="luxury-body-sm text-gray-600 mb-16 md:mb-20">
+              Our dedicated team is available 24/7 to arrange exclusive companion services throughout London's premium districts. All communications are handled with complete confidentiality and professionalism.
+            </p>
+            
+            <div className="flex items-center justify-center gap-12 md:gap-16">
+              {/* WhatsApp */}
+              <a href="https://wa.me/447436190679" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 transition-all duration-500">
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
@@ -240,10 +355,14 @@ const Index = () => {
               </a>
 
               {/* Call */}
+<<<<<<< HEAD
               <a
                 href="tel:+447436190679"
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
+=======
+              <a href="tel:+447436190679" className="group flex flex-col items-center gap-4 transition-all duration-500">
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <Phone className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
@@ -253,12 +372,16 @@ const Index = () => {
               </a>
 
               {/* Telegram */}
+<<<<<<< HEAD
               <a
                 href="https://t.me/FiveLondon"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
+=======
+              <a href="https://t.me/FiveLondon" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-4 transition-all duration-500">
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <Send className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
@@ -275,4 +398,8 @@ const Index = () => {
     </>
   );
 };
+<<<<<<< HEAD
 export default Index;
+=======
+export default Index;
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)

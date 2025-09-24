@@ -192,6 +192,7 @@ export const useModels = () => {
     }
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     fetchModels();
     
@@ -228,6 +229,11 @@ export const useModels = () => {
       supabase.removeChannel(channel);
     };
   }, [user?.id, hasAccess]);
+=======
+  useEffect(() => {
+    fetchModels();
+  }, [user?.id, hasAccess]);
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;

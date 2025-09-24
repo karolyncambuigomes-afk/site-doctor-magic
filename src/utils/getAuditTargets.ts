@@ -28,6 +28,7 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
 
   try {
     // 1. Hero principal (site_content)
+<<<<<<< HEAD
     const { data: heroContent } = await supabase
       .from('site_content')
       .select('*')
@@ -37,6 +38,17 @@ export async function getAuditTargets(): Promise<AuditTargetsResponse> {
 
     if (heroContent) {
       const localUrl = heroContent.image_url_local_desktop || heroContent.image_url_local_fallback;
+=======
+    const { data: heroContent } = await supabase
+      .from('site_content')
+      .select('*')
+      .eq('section', 'homepage_hero_main')
+      .eq('is_active', true)
+      .single();
+
+    if (heroContent) {
+      const localUrl = heroContent.image_url_local_desktop || heroContent.image_url_local_fallback;
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       const externalUrl = heroContent.image_url_desktop || heroContent.image_url;
       
       targets.push({

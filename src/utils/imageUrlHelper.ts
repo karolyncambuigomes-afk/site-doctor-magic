@@ -37,6 +37,7 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
 
     // For mobile or when specific table updates, apply minimal cache busting
     if (tableName && recordId && !isMobile) {
+<<<<<<< HEAD
       const { data, error } = await supabase
         .from(tableName)
         .select('updated_at')
@@ -48,6 +49,19 @@ export const generateImageUrl = async (path: string | null, tableName?: string, 
         const separator = path.includes('?') ? '&' : '?';
         return `${path}${separator}v=${timestamp}`;
       }
+=======
+      const { data } = await supabase
+        .from(tableName)
+        .select('updated_at')
+        .eq('id', recordId)
+        .single();
+      
+      if (data?.updated_at) {
+        const timestamp = new Date(data.updated_at).getTime();
+        const separator = path.includes('?') ? '&' : '?';
+        return `${path}${separator}v=${timestamp}`;
+      }
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     }
 
     // Light cache busting for mobile

@@ -471,6 +471,7 @@ export const ReviewsManager: React.FC = () => {
                     </div>
                     
                     <h3 className="font-semibold mb-1">{review.title}</h3>
+<<<<<<< HEAD
                     <p className="text-sm text-muted-foreground mb-2">
                       By {review.reviewer_name}
                     </p>
@@ -478,6 +479,15 @@ export const ReviewsManager: React.FC = () => {
                     <p className="text-xs text-muted-foreground">
                       {new Date(review.created_at).toLocaleDateString('en-GB')}
                     </p>
+=======
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Por {review.reviewer_name}
+                    </p>
+                    <p className="text-sm mb-2 line-clamp-2">{review.content}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(review.created_at).toLocaleDateString('pt-BR')}
+                    </p>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                   </div>
                   
                   <div className="flex items-center gap-2 ml-4">

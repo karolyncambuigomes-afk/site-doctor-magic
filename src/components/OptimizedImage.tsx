@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { generateImageSources, heroSizes, defaultSizes, createImageObserver } from '@/utils/imageOptimizer';
 import { useImagePreference } from '@/hooks/useImagePreference';
 import { resolveImage } from '@/utils/imageResolver';
 import { useIsMobile } from '@/hooks/use-mobile';
+=======
+import React, { useState, useRef, useEffect } from 'react';
+import { cn } from '@/lib/utils';
+import { generateImageSources, heroSizes, defaultSizes, createImageObserver } from '@/utils/imageOptimizer';
+import { useImagePreference } from '@/hooks/useImagePreference';
+import { resolveImage } from '@/utils/imageResolver';
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
 interface OptimizedImageProps {
   src?: string;
@@ -19,6 +27,7 @@ interface OptimizedImageProps {
   onError?: (e?: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
+<<<<<<< HEAD
 export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   localSrc,
@@ -33,6 +42,21 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   onError
 }) => {
   const isMobile = useIsMobile();
+=======
+export const OptimizedImage: React.FC<OptimizedImageProps> = ({
+  src,
+  localSrc,
+  alt,
+  className,
+  width,
+  height,
+  priority = false,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+  placeholder,
+  onLoad,
+  onError
+}) => {
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(priority);
   const [error, setError] = useState(false);
@@ -143,6 +167,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
             alt={alt}
             width={width}
             height={height}
+<<<<<<< HEAD
             loading={priority ? 'eager' : 'lazy'}
             fetchPriority={priority ? 'high' : 'low'}
             decoding={priority ? 'sync' : 'async'}
@@ -158,6 +183,17 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
               contentVisibility: 'auto',
               containIntrinsicSize: `${width || 300}px ${height || 200}px`
             } : undefined}
+=======
+            loading={priority ? 'eager' : 'lazy'}
+            decoding="async"
+            onLoad={handleLoad}
+            onError={handleError}
+            className={cn(
+              'w-full h-full object-cover transition-opacity duration-300',
+              isLoaded ? 'opacity-100' : 'opacity-0',
+              error && 'bg-muted'
+            )}
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
           />
         </picture>
       )}

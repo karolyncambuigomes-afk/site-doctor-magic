@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useSafeParams } from "@/hooks/useSafeRouter";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+<<<<<<< HEAD
 import { SEOOptimized } from "@/components/SEOOptimized";
+=======
+import { SEO } from "@/components/SEO";
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -75,7 +79,11 @@ const BlogPost = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <SEOOptimized
+=======
+      <SEO
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title={article.title}
         description={article.meta_description}
         keywords={article.seo_keywords}

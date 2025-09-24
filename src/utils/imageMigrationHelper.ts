@@ -201,6 +201,7 @@ export const updateBlogImagesData = (): string[] => {
   console.log('🔄 Updating blog images data to use local paths...');
   
   const imagesToMove = [
+<<<<<<< HEAD
   '/src/assets/blog-entertainment-culture.webp',
   '/src/assets/blog-exclusive-experiences.webp', 
   '/src/assets/blog-restaurant-dining.webp',
@@ -214,6 +215,21 @@ export const updateBlogImagesData = (): string[] => {
   '/src/assets/about-luxury-1.webp',
   '/src/assets/about-luxury-2.webp',
   '/src/assets/about-luxury-3.webp'
+=======
+    '/src/assets/blog-entertainment-culture.jpg',
+    '/src/assets/blog-exclusive-experiences.jpg', 
+    '/src/assets/blog-restaurant-dining.jpg',
+    '/src/assets/blog-london-events.jpg',
+    '/src/assets/model1.jpg',
+    '/src/assets/model2.jpg',
+    '/src/assets/model3.jpg',
+    '/src/assets/model4.jpg',
+    '/src/assets/kate1.jpg',
+    '/src/assets/luisa1.jpg',
+    '/src/assets/about-luxury-1.jpg',
+    '/src/assets/about-luxury-2.jpg',
+    '/src/assets/about-luxury-3.jpg'
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   ];
 
   return imagesToMove;

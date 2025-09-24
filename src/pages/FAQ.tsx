@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { SEOOptimized } from '@/components/SEOOptimized';
+=======
+import { SEO } from '@/components/SEO';
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -19,7 +23,11 @@ const FAQ = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateAdvancedBreadcrumbs(breadcrumbs),
+<<<<<<< HEAD
     ...(faqs && faqs.length > 0 ? [generateLocationAwareFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })), "London")] : []),
+=======
+    ...(faqs ? [generateLocationAwareFAQSchema(faqs.map(faq => ({ question: faq.question, answer: faq.answer })), "London")] : []),
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     // Enhanced LocalBusiness schema for GEO targeting
     {
       "@context": "https://schema.org",
@@ -43,7 +51,11 @@ const FAQ = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <SEOOptimized 
+=======
+      <SEO 
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="FAQ - Luxury Escort Services Questions Answered | Five London"
         description="Get answers to frequently asked questions about Five London's premium escort services. Learn about booking, rates, discretion, safety, and our professional companion services in London including Mayfair, Westminster, Kensington, and Central London areas."
         keywords="luxury escort FAQ, escort booking questions, London escort agency FAQ, companion service questions, escort rates, booking process, discretion policy, escort safety, professional escort services FAQ, Mayfair escort services, Westminster escorts, Central London companions, Kensington escort agency, Chelsea escorts, City of London escort services"

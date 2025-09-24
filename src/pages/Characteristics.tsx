@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { SEOOptimized } from '@/components/SEOOptimized';
+=======
+import { SEO } from '@/components/SEO';
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { characteristics } from '@/data/characteristics';
@@ -9,7 +13,11 @@ import { Heart, ArrowRight } from 'lucide-react';
 const Characteristics = () => {
   return (
     <>
+<<<<<<< HEAD
       <SEOOptimized 
+=======
+      <SEO 
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="Find Escorts by Characteristics | Five London"
         description="Browse our stunning escorts by their unique characteristics. Find high-class, bi-sexual, open-minded, sophisticated companions in London."
         keywords="escort characteristics, high class escorts, bi sexual escorts, open minded escorts, sophisticated escorts london"

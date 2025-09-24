@@ -4,13 +4,21 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+<<<<<<< HEAD
 import { SEOOptimized } from '@/components/SEOOptimized';
+=======
+import { SEO } from '@/components/SEO';
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Shield, AlertTriangle, ArrowLeft, Settings } from 'lucide-react';
 
 export const AdminAccessDenied: React.FC = () => {
   return (
     <>
+<<<<<<< HEAD
       <SEOOptimized 
+=======
+      <SEO 
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="Admin Access Denied - Five London"
         description="Administrative access is restricted to authorized personnel only"
         noIndex={true}

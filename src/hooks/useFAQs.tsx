@@ -18,6 +18,7 @@ export const useFAQs = () => {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
+<<<<<<< HEAD
   const fetchFAQs = async () => {
     try {
       setLoading(true);
@@ -54,6 +55,33 @@ export const useFAQs = () => {
       setLoading(false);
     }
   };
+=======
+  const fetchFAQs = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const { data, error: fetchError } = await supabase
+        .from('faqs')
+        .select('*')
+        .eq('is_active', true)
+        .order('order_index');
+
+      if (fetchError) {
+        console.error('Error fetching FAQs:', fetchError);
+        setError('Failed to load FAQs');
+        return;
+      }
+
+      setFaqs(data || []);
+    } catch (err) {
+      console.error('Unexpected error fetching FAQs:', err);
+      setError('An unexpected error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const fetchAllFAQs = async () => {
     try {
@@ -240,6 +268,7 @@ export const useFAQs = () => {
     }
   ];
 
+<<<<<<< HEAD
   useEffect(() => {
     console.log('🚀 useFAQs: Setting up real-time subscription and initial fetch');
     
@@ -292,4 +321,21 @@ export const useFAQs = () => {
     deleteFAQ,
     refetch: fetchFAQs
   };
+=======
+  useEffect(() => {
+    fetchAllFAQs(); // Admin needs to see all FAQs, not just active ones
+  }, []);
+
+  return {
+    faqs: [...faqs, ...geoFAQs],
+    loading,
+    error,
+    fetchFAQs,
+    fetchAllFAQs,
+    createFAQ,
+    updateFAQ,
+    deleteFAQ,
+    refetch: fetchFAQs
+  };
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 };

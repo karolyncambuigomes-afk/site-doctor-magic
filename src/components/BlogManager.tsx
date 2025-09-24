@@ -104,16 +104,28 @@ export const BlogManager: React.FC = () => {
       loadBlogPosts();
     } catch (error) {
       console.error('Error saving blog post:', error);
+<<<<<<< HEAD
       toast({
         title: "Error",
         description: "Error saving blog post",
         variant: "destructive"
       });
+=======
+      toast({
+        title: "Erro",
+        description: "Erro ao salvar post do blog",
+        variant: "destructive"
+      });
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     }
   };
 
   const handleDeletePost = async (postId: string) => {
+<<<<<<< HEAD
     if (!confirm('Are you sure you want to delete this post?')) return;
+=======
+    if (!confirm('Tem certeza que deseja deletar este post?')) return;
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
     try {
       const { error } = await supabase
@@ -123,19 +135,34 @@ export const BlogManager: React.FC = () => {
 
       if (error) throw error;
       
+<<<<<<< HEAD
       toast({
         title: "Success",
         description: "Blog post deleted successfully"
       });
+=======
+      toast({
+        title: "Sucesso",
+        description: "Post do blog deletado com sucesso"
+      });
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       
       loadBlogPosts();
     } catch (error) {
       console.error('Error deleting blog post:', error);
+<<<<<<< HEAD
       toast({
         title: "Error",
         description: "Error deleting blog post",
         variant: "destructive"
       });
+=======
+      toast({
+        title: "Erro",
+        description: "Erro ao deletar post do blog",
+        variant: "destructive"
+      });
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     }
   };
 
@@ -200,12 +227,17 @@ export const BlogManager: React.FC = () => {
         <CardContent>
           {posts.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
+<<<<<<< HEAD
               No posts found. Create your first post to get started.
+=======
+              Nenhum post encontrado. Crie seu primeiro post para começar.
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             </div>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
+<<<<<<< HEAD
                   <TableHead>Title</TableHead>
                   <TableHead>Category</TableHead>
                   <TableHead>Status</TableHead>
@@ -213,6 +245,15 @@ export const BlogManager: React.FC = () => {
                   <TableHead>Author</TableHead>
                   <TableHead>Created</TableHead>
                   <TableHead>Actions</TableHead>
+=======
+                  <TableHead>Título</TableHead>
+                  <TableHead>Categoria</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Score SEO</TableHead>
+                  <TableHead>Autor</TableHead>
+                  <TableHead>Criado</TableHead>
+                  <TableHead>Ações</TableHead>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -229,7 +270,11 @@ export const BlogManager: React.FC = () => {
                     </TableCell>
                     <TableCell>
                       <Badge variant={post.is_published ? "default" : "secondary"}>
+<<<<<<< HEAD
                         {post.is_published ? "Published" : "Draft"}
+=======
+                        {post.is_published ? "Publicado" : "Rascunho"}
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                       </Badge>
                     </TableCell>
                     <TableCell>
@@ -448,16 +493,28 @@ const BlogPostDialog: React.FC<{
                   id="author"
                   value={formData.author}
                   onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
+<<<<<<< HEAD
                   placeholder="Author name"
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
+=======
+                  placeholder="Nome do autor"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="category">Categoria</Label>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 <Input
                   id="category"
                   value={formData.category}
                   onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+<<<<<<< HEAD
                   placeholder="Blog category"
+=======
+                  placeholder="Categoria do blog"
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 />
               </div>
             </div>
@@ -468,12 +525,17 @@ const BlogPostDialog: React.FC<{
                 checked={formData.is_published}
                 onCheckedChange={(checked) => setFormData(prev => ({ ...prev, is_published: checked }))}
               />
+<<<<<<< HEAD
               <Label htmlFor="is_published">Publish immediately</Label>
+=======
+              <Label htmlFor="is_published">Publicar imediatamente</Label>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             </div>
           </TabsContent>
         </Tabs>
 
         <div className="flex justify-end gap-2">
+<<<<<<< HEAD
           <Button type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
@@ -481,6 +543,15 @@ const BlogPostDialog: React.FC<{
             <Save className="h-4 w-4 mr-2" />
             Save Post
           </Button>
+=======
+          <Button type="button" variant="outline" onClick={onClose}>
+            Cancelar
+          </Button>
+          <Button type="submit">
+            <Save className="h-4 w-4 mr-2" />
+            Salvar Post
+          </Button>
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         </div>
       </form>
     </DialogContent>

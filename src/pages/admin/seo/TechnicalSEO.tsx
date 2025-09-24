@@ -82,6 +82,7 @@ export const TechnicalSEO: React.FC = () => {
   const loadTechnicalSEOSettings = async () => {
     try {
       // Carregar configurações do Supabase
+<<<<<<< HEAD
       const { data: robotsData } = await supabase
         .from('seo_settings')
         .select('*')
@@ -90,6 +91,16 @@ export const TechnicalSEO: React.FC = () => {
 
       const { data: redirectsData } = await supabase
         .from('redirects')
+=======
+      const { data: robotsData } = await supabase
+        .from('seo_settings')
+        .select('*')
+        .eq('key', 'robots_txt')
+        .single();
+
+      const { data: redirectsData } = await supabase
+        .from('redirects')
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         .select('*')
         .eq('is_active', true);
 

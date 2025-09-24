@@ -135,6 +135,7 @@ export const useHomepageCarousel = () => {
     }
   };
 
+<<<<<<< HEAD
   useEffect(() => {
     fetchCarouselModels();
     
@@ -183,6 +184,12 @@ export const useHomepageCarousel = () => {
       supabase.removeChannel(channel);
     };
   }, []);
+=======
+  useEffect(() => {
+    fetchCarouselModels();
+    // Force refresh - 2025-09-05 17:36
+  }, []);
+>>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   return {
     models,

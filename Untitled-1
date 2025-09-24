@@ -1,0 +1,9 @@
+// vite.config.ts
+import viteCompression from 'vite-plugin-compression';
+export default {
+  plugins: [viteCompression()],
+  build: {
+    minify: 'esbuild',
+    sourcemap: false,
+  },
+};

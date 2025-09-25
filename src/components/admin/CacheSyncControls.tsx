@@ -6,9 +6,11 @@ import { useCacheSyncContext } from '@/components/CacheSyncProvider';
 import { Loader2, RefreshCw, Trash2, Database, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { forceClearAllCaches, forceReloadWithCacheClear } from '@/utils/forceCacheClear';
+import { useNuclearCacheClear } from '@/hooks/useNuclearCacheClear';
 
 export const CacheSyncControls: React.FC = () => {
   const { manualSync, triggerCacheClear } = useCacheSyncContext();
+  const { nuclearClear, forceFreshBlogData } = useNuclearCacheClear();
   const [loading, setLoading] = useState<string | null>(null);
 
   const handleClearSpecific = async (table: string) => {
@@ -138,17 +140,6 @@ export const CacheSyncControls: React.FC = () => {
     }
   };
 
-  const cacheTargets = [
-    { key: 'models', label: 'Models' },
-    { key: 'blog_posts', label: 'Blog Posts' },
-    { key: 'hero_slides', label: 'Hero Banners' },
-    { key: 'reviews', label: 'Reviews' },
-    { key: 'faqs', label: 'FAQs' },
-    { key: 'characteristics', label: 'Characteristics' },
-    { key: 'locations', label: 'Locations' },
-    { key: 'homepage_carousel', label: 'Homepage Carousel' }
-  ];
-
   const handleEmergencyCacheClear = async () => {
     setLoading('emergency');
     try {
@@ -175,6 +166,39 @@ export const CacheSyncControls: React.FC = () => {
     }
   };
 
+  const handleNuclearClear = async () => {
+    setLoading('nuclear');
+    try {
+      await nuclearClear();
+    } catch (error) {
+      console.error('Nuclear clear failed:', error);
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleForceFreshBlogData = async () => {
+    setLoading('fresh-blog');
+    try {
+      await forceFreshBlogData();
+    } catch (error) {
+      console.error('Force fresh blog data failed:', error);
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const cacheTargets = [
+    { key: 'models', label: 'Models' },
+    { key: 'blog_posts', label: 'Blog Posts' },
+    { key: 'hero_slides', label: 'Hero Banners' },
+    { key: 'reviews', label: 'Reviews' },
+    { key: 'faqs', label: 'FAQs' },
+    { key: 'characteristics', label: 'Characteristics' },
+    { key: 'locations', label: 'Locations' },
+    { key: 'homepage_carousel', label: 'Homepage Carousel' }
+  ];
+
   return (
     <Card>
       <CardHeader>
@@ -187,6 +211,45 @@ export const CacheSyncControls: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Nuclear Options - When Nothing Else Works */}
+        <div className="p-3 border border-orange-200 rounded-lg bg-orange-50">
+          <h4 className="font-medium text-orange-800 mb-2 flex items-center gap-2">
+            ☢️ Nuclear Options
+          </h4>
+          <p className="text-sm text-orange-600 mb-3">
+            When normal cache clearing fails, these options bypass everything.
+          </p>
+          <div className="flex gap-2">
+            <Button
+              onClick={handleForceFreshBlogData}
+              disabled={loading !== null}
+              variant="outline"
+              size="sm"
+              className="border-orange-300 hover:bg-orange-100"
+            >
+              {loading === 'fresh-blog' ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <RefreshCw className="h-4 w-4 mr-2" />
+              )}
+              Force Fresh Blog Data
+            </Button>
+            <Button
+              onClick={handleNuclearClear}
+              disabled={loading !== null}
+              variant="destructive"
+              size="sm"
+            >
+              {loading === 'nuclear' ? (
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+              ) : (
+                <Zap className="h-4 w-4 mr-2" />
+              )}
+              ☢️ Nuclear Clear
+            </Button>
+          </div>
+        </div>
+
         {/* Emergency Cache Clear - Always Works */}
         <div className="p-3 border border-red-200 rounded-lg bg-red-50">
           <h4 className="font-medium text-red-800 mb-2 flex items-center gap-2">

@@ -10,6 +10,7 @@ import { VersionManager } from "@/components/VersionManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
+import { FixedRefreshButton } from "@/components/FixedRefreshButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
@@ -136,7 +137,8 @@ const App = () => {
                            <MobileOptimizer />
                            <Toaster />
                            <Sonner />
-                           <BookNowButton />
+                            <BookNowButton />
+                            <FixedRefreshButton />
                            <SkipToContent />
                         <Routes>
                   <Route path="/" element={<Index />} />

@@ -2,23 +2,27 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, Loader2 } from 'lucide-react';
 import { useNuclearCacheClear } from '@/hooks/useNuclearCacheClear';
-import { useBlogPosts } from '@/hooks/useBlogPosts';
 import { toast } from 'sonner';
 
 export const FixedRefreshButton = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { forceFreshBlogData } = useNuclearCacheClear();
-  const { refetch } = useBlogPosts();
+  const { nuclearClear } = useNuclearCacheClear();
 
   const handleGlobalRefresh = async () => {
     setRefreshing(true);
     try {
-      await forceFreshBlogData();
-      await refetch();
-      // Force page reload to refresh all content
-      window.location.reload();
+      toast.info('Clearing all caches and refreshing from database...', {
+        duration: 2000,
+      });
+      
+      // Use nuclear cache clear which clears everything and reloads
+      await nuclearClear();
+      
     } catch (error) {
+      console.error('Global refresh failed:', error);
       toast.error('Failed to refresh content');
+      // Force reload anyway if nuclear clear fails
+      window.location.reload();
     } finally {
       setRefreshing(false);
     }

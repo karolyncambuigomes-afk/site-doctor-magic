@@ -43,63 +43,75 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
     console.log(`🎯 [CACHE-SYNC] Cache keys to invalidate:`, cacheKeys);
 
     try {
-      // 1. Clear browser caches first
+      // 1. AGGRESSIVE: Clear ALL browser caches
       if ('caches' in window) {
         const cacheNames = await caches.keys();
-        for (const cacheName of cacheNames) {
-          if (cacheName.includes(table) || cacheName.includes('api') || cacheName.includes('images')) {
-            await caches.delete(cacheName);
-            console.log(`🗑️ [CACHE-SYNC] Deleted browser cache: ${cacheName}`);
+        await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
+        console.log(`🗑️ [CACHE-SYNC] Deleted ALL browser caches: ${cacheNames.length} caches`);
+      }
+
+      // 2. Clear service worker caches with force update
+      if ('serviceWorker' in navigator) {
+        const registration = await navigator.serviceWorker.getRegistration();
+        if (registration) {
+          await registration.update();
+          if (registration.waiting) {
+            registration.waiting.postMessage({ type: 'SKIP_WAITING' });
           }
+        }
+        
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'CLEAR_ALL_CACHE'
+          });
         }
       }
 
-      // 2. Clear service worker caches
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({
-          type: 'CLEAR_CACHE',
-          table: table
-        });
-      }
-
-      // 3. Force image cache refresh for image-related tables
-      if (['models', 'model_gallery', 'blog_posts', 'hero_slides'].includes(table)) {
-        // Force refresh all images by adding cache busting
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-          if (img.src && !img.src.includes('?v=')) {
-            const separator = img.src.includes('?') ? '&' : '?';
-            img.src = `${img.src}${separator}v=${Date.now()}`;
-          }
-        });
-      }
-
-      // 4. Clear localStorage entries related to the table
-      const keysToRemove = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && (key.includes(table) || key.includes('supabase-cache'))) {
-          keysToRemove.push(key);
+      // 3. AGGRESSIVE: Force refresh ALL images with unique cache busting
+      const timestamp = Date.now();
+      const randomSalt = Math.random().toString(36).substr(2, 9);
+      const images = document.querySelectorAll('img') as NodeListOf<HTMLImageElement>;
+      
+      images.forEach((img, index) => {
+        if (img.src) {
+          // Remove all existing query parameters and add aggressive cache busting
+          const baseUrl = img.src.split('?')[0].split('#')[0];
+          img.src = `${baseUrl}?cb=${timestamp}&salt=${randomSalt}&idx=${index}`;
+          console.log(`🔄 [CACHE-SYNC] Force refreshed image: ${baseUrl}`);
         }
-      }
-      keysToRemove.forEach(key => localStorage.removeItem(key));
-
-      // 5. Invalidate React Query cache
-      for (const key of cacheKeys) {
-        await queryClient.invalidateQueries({ queryKey: [key] });
-        console.log(`✅ [CACHE-SYNC] Invalidated cache key: ${key}`);
-      }
-
-      // 6. Force immediate refetch of active queries
-      await queryClient.refetchQueries({ 
-        type: 'active',
-        stale: true
       });
 
-      // 7. Clear and refetch all queries for critical tables
-      if (['blog_posts', 'models', 'hero_slides'].includes(table)) {
-        await queryClient.clear();
-        await queryClient.refetchQueries({ type: 'active' });
+      // 4. Clear ALL localStorage and sessionStorage
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+        console.log(`🗑️ [CACHE-SYNC] Cleared all localStorage and sessionStorage`);
+      } catch (e) {
+        console.warn('Could not clear storage:', e);
+      }
+
+      // 5. Clear ALL React Query cache
+      await queryClient.clear();
+      console.log(`🗑️ [CACHE-SYNC] Cleared ALL React Query cache`);
+
+      // 6. Force refresh CSS files to ensure styles are updated
+      const stylesheets = document.querySelectorAll('link[rel="stylesheet"]') as NodeListOf<HTMLLinkElement>;
+      stylesheets.forEach(link => {
+        const href = link.href.split('?')[0];
+        link.href = `${href}?v=${timestamp}`;
+      });
+
+      // 7. Wait a moment for caches to clear, then refetch everything
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await queryClient.refetchQueries({ type: 'all' });
+      console.log(`✅ [CACHE-SYNC] Refetched all queries`);
+
+      // 8. For blog posts and critical tables, force a page reload after a delay
+      if (['blog_posts', 'models', 'hero_slides', 'model_gallery'].includes(table)) {
+        setTimeout(() => {
+          console.log(`🔄 [CACHE-SYNC] Force reloading page for ${table} changes`);
+          window.location.reload();
+        }, 1000);
       }
 
       if (enableNotifications) {
@@ -151,7 +163,22 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
           },
           async (payload) => {
             console.log(`📡 [CACHE-SYNC] Database change detected in ${table}:`, payload.eventType);
-            await invalidateCache(table);
+            console.log(`📡 [CACHE-SYNC] Change payload:`, payload);
+            
+            // Add small delay to ensure database changes are committed
+            setTimeout(async () => {
+              await invalidateCache(table);
+              
+              // Show user notification for critical changes
+              if (['blog_posts', 'models', 'hero_slides'].includes(table)) {
+                if (enableNotifications) {
+                  toast.info(`Content Updated`, {
+                    description: `${table.replace('_', ' ')} has been updated. Page will refresh to show changes.`,
+                    duration: 3000,
+                  });
+                }
+              }
+            }, 500);
           }
         )
         .subscribe();

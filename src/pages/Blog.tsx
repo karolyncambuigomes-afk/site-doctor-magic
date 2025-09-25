@@ -6,12 +6,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Calendar, Clock, ArrowRight, Loader2 } from "lucide-react";
+import { Calendar, Clock, ArrowRight, Loader2, RefreshCw } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
 } from "@/utils/structuredData";
+import { useNuclearCacheClear } from "@/hooks/useNuclearCacheClear";
+import { toast } from "sonner";
+import { useState } from "react";
 import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
 import { getImageUrl } from "@/utils/imageMapper";
 import { EnhancedImage } from "@/components/EnhancedImage";
@@ -28,6 +31,8 @@ const Blog = () => {
   });
   
   const { posts, loading, error, categories, refetch } = useBlogPosts();
+  const { forceFreshBlogData } = useNuclearCacheClear();
+  const [refreshing, setRefreshing] = useState(false);
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -172,10 +177,35 @@ const Blog = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Discover London
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="luxury-body-lg text-black mb-8 md:mb-8">
                   Your exclusive guide to sophisticated experiences, exquisite
                   restaurants, and London's best-kept secrets.
                 </p>
+                <Button
+                  onClick={async () => {
+                    setRefreshing(true);
+                    try {
+                      await forceFreshBlogData();
+                      await refetch();
+                      toast.success('Blog content refreshed!');
+                    } catch (error) {
+                      toast.error('Failed to refresh content');
+                    } finally {
+                      setRefreshing(false);
+                    }
+                  }}
+                  disabled={refreshing}
+                  variant="outline"
+                  size="sm"
+                  className="mb-4"
+                >
+                  {refreshing ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                  )}
+                  Refresh Content
+                </Button>
               </div>
             </div>
             {/* Elegant separator */}

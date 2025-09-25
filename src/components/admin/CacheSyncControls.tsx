@@ -27,31 +27,76 @@ export const CacheSyncControls: React.FC = () => {
   const handleClearAll = async () => {
     setLoading('all');
     try {
-      await triggerCacheClear();
+      console.log('🧹 [ADMIN-CONTROLS] Starting aggressive cache clear');
       
-      // Also clear service worker cache
+      // 1. Clear all browser caches first
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        console.log('🔍 [ADMIN-CONTROLS] Found cache names:', cacheNames);
+        
+        for (const cacheName of cacheNames) {
+          try {
+            const deleted = await caches.delete(cacheName);
+            console.log(`🗑️ [ADMIN-CONTROLS] Browser cache '${cacheName}' deleted: ${deleted}`);
+          } catch (error) {
+            console.error(`❌ [ADMIN-CONTROLS] Failed to delete browser cache '${cacheName}':`, error);
+          }
+        }
+      }
+      
+      // 2. Send aggressive clear to service worker
       if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        // Send multiple clear commands to ensure all cache types are cleared
+        const commands = ['FORCE_CACHE_CLEAR', 'CLEAR_ALL_CACHES', 'CLEAR_ALL_CACHE'];
+        
+        for (const command of commands) {
+          navigator.serviceWorker.controller.postMessage({
+            type: command,
+            timestamp: Date.now(),
+            source: 'admin_panel'
+          });
+          console.log(`📤 [ADMIN-CONTROLS] Sent ${command} to service worker`);
+        }
+        
+        // Also use message channel for response
         const messageChannel = new MessageChannel();
         messageChannel.port1.onmessage = (event) => {
           console.log('SW cache clear response:', event.data);
         };
         
         navigator.serviceWorker.controller.postMessage(
-          { type: 'CLEAR_ALL_CACHES' },
+          { type: 'FORCE_CACHE_CLEAR', source: 'admin_panel_with_response' },
           [messageChannel.port2]
         );
       }
       
-      // Force page reload after a short delay to ensure fresh content
+      // 3. Clear storage
+      try {
+        localStorage.clear();
+        sessionStorage.clear();
+        console.log('🗑️ [ADMIN-CONTROLS] Cleared localStorage and sessionStorage');
+      } catch (e) {
+        console.warn('Could not clear storage:', e);
+      }
+      
+      // 4. Trigger cache clear through the provider
+      await triggerCacheClear();
+      
+      toast.success('All cache cleared aggressively!', {
+        description: 'Page will reload with completely fresh content.',
+      });
+      
+      // 5. Force page reload with cache bypass
       setTimeout(() => {
         toast.info('Reloading page with fresh content...', { duration: 2000 });
-        setTimeout(() => window.location.reload(), 1000);
+        setTimeout(() => {
+          // Force hard reload to bypass all caches
+          window.location.href = window.location.href + '?cache_cleared=' + Date.now();
+        }, 1500);
       }, 1000);
       
-      toast.success('All cache cleared', {
-        description: 'Page will reload with fresh content.',
-      });
     } catch (error) {
+      console.error('❌ [ADMIN-CONTROLS] Failed to clear all cache:', error);
       toast.error('Failed to clear all cache');
     } finally {
       setLoading(null);

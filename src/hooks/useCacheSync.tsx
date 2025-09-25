@@ -43,31 +43,72 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
     console.log(`🎯 [CACHE-SYNC] Cache keys to invalidate:`, cacheKeys);
 
     try {
-      // 1. AGGRESSIVE: Clear ALL browser caches
+      // 1. AGGRESSIVE: Clear ALL browser caches including specific cache names
       if ('caches' in window) {
         const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)));
-        console.log(`🗑️ [CACHE-SYNC] Deleted ALL browser caches: ${cacheNames.length} caches`);
+        console.log(`🔍 [CACHE-SYNC] Found cache names:`, cacheNames);
+        
+        // Clear all caches including the ones shown in browser DevTools
+        for (const cacheName of cacheNames) {
+          try {
+            const deleted = await caches.delete(cacheName);
+            console.log(`🗑️ [CACHE-SYNC] Cache '${cacheName}' deleted: ${deleted}`);
+          } catch (error) {
+            console.error(`❌ [CACHE-SYNC] Failed to delete cache '${cacheName}':`, error);
+          }
+        }
+        
+        // Also try to clear specific cache patterns that might exist
+        const commonCacheNames = [
+          'five-london-runtime-v2.0.0',
+          'five-london-static-v2.0.0', 
+          'five-london-cdn-v2.0.0',
+          'runtime-cache',
+          'static-cache',
+          'cdn-cache',
+          'assets-cache',
+          'images-cache'
+        ];
+        
+        for (const cacheName of commonCacheNames) {
+          try {
+            await caches.delete(cacheName);
+            console.log(`🗑️ [CACHE-SYNC] Attempted to delete common cache: ${cacheName}`);
+          } catch (error) {
+            // Ignore errors for non-existent caches
+          }
+        }
       }
 
-      // 2. Clear service worker caches with force update
+      // 2. Send aggressive clear message to service worker FIRST
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'FORCE_CACHE_CLEAR',
+          timestamp: Date.now()
+        });
+        
+        navigator.serviceWorker.controller.postMessage({
+          type: 'CLEAR_ALL_CACHES'
+        });
+        
+        console.log('📤 [CACHE-SYNC] Sent cache clear commands to service worker');
+      }
+
+      // 3. Update service worker registration
       if ('serviceWorker' in navigator) {
         const registration = await navigator.serviceWorker.getRegistration();
         if (registration) {
           await registration.update();
+          console.log('🔄 [CACHE-SYNC] Service worker registration updated');
+          
           if (registration.waiting) {
             registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+            console.log('⏭️ [CACHE-SYNC] Activated waiting service worker');
           }
-        }
-        
-        if (navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage({
-            type: 'CLEAR_ALL_CACHE'
-          });
         }
       }
 
-      // 3. AGGRESSIVE: Force refresh ALL images with unique cache busting
+      // 4. AGGRESSIVE: Force refresh ALL images with unique cache busting
       const timestamp = Date.now();
       const randomSalt = Math.random().toString(36).substr(2, 9);
       const images = document.querySelectorAll('img') as NodeListOf<HTMLImageElement>;
@@ -76,12 +117,26 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
         if (img.src) {
           // Remove all existing query parameters and add aggressive cache busting
           const baseUrl = img.src.split('?')[0].split('#')[0];
-          img.src = `${baseUrl}?cb=${timestamp}&salt=${randomSalt}&idx=${index}`;
+          img.src = `${baseUrl}?cb=${timestamp}&salt=${randomSalt}&idx=${index}&force=1`;
           console.log(`🔄 [CACHE-SYNC] Force refreshed image: ${baseUrl}`);
         }
       });
 
-      // 4. Clear ALL localStorage and sessionStorage
+      // 5. Force refresh CSS and JS files
+      const stylesheets = document.querySelectorAll('link[rel="stylesheet"]') as NodeListOf<HTMLLinkElement>;
+      stylesheets.forEach(link => {
+        const href = link.href.split('?')[0];
+        link.href = `${href}?v=${timestamp}&force=1`;
+      });
+      
+      const scripts = document.querySelectorAll('script[src]') as NodeListOf<HTMLScriptElement>;
+      scripts.forEach(script => {
+        if (script.src && !script.src.includes('?')) {
+          script.src = `${script.src}?v=${timestamp}`;
+        }
+      });
+
+      // 6. Clear ALL localStorage and sessionStorage
       try {
         localStorage.clear();
         sessionStorage.clear();
@@ -90,19 +145,12 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
         console.warn('Could not clear storage:', e);
       }
 
-      // 5. Clear ALL React Query cache
+      // 7. Clear ALL React Query cache
       await queryClient.clear();
       console.log(`🗑️ [CACHE-SYNC] Cleared ALL React Query cache`);
 
-      // 6. Force refresh CSS files to ensure styles are updated
-      const stylesheets = document.querySelectorAll('link[rel="stylesheet"]') as NodeListOf<HTMLLinkElement>;
-      stylesheets.forEach(link => {
-        const href = link.href.split('?')[0];
-        link.href = `${href}?v=${timestamp}`;
-      });
-
-      // 7. Wait a moment for caches to clear, then refetch everything
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // 8. Wait for caches to clear, then refetch everything
+      await new Promise(resolve => setTimeout(resolve, 500));
       await queryClient.refetchQueries({ type: 'all' });
       console.log(`✅ [CACHE-SYNC] Refetched all queries`);
 

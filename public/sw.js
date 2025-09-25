@@ -340,20 +340,61 @@ self.addEventListener('message', event => {
       break;
       
     case 'CLEAR_ALL_CACHES':
-      console.log('SW: Clearing all caches');
+    case 'CLEAR_ALL_CACHE':
+    case 'FORCE_CACHE_CLEAR':
+      console.log('SW: Aggressive cache clearing requested, type:', data.type);
       event.waitUntil(
-        caches.keys()
-          .then(names => Promise.all(names.map(name => caches.delete(name))))
-          .then(() => {
+        (async () => {
+          try {
+            // Get all cache names
+            const cacheNames = await caches.keys();
+            console.log('SW: Found cache names to delete:', cacheNames);
+            
+            // Delete all caches
+            const deletePromises = cacheNames.map(async (name) => {
+              try {
+                const deleted = await caches.delete(name);
+                console.log(`SW: Cache '${name}' deleted: ${deleted}`);
+                return { name, deleted };
+              } catch (error) {
+                console.error(`SW: Failed to delete cache '${name}':`, error);
+                return { name, deleted: false, error };
+              }
+            });
+            
+            const results = await Promise.all(deletePromises);
+            
+            // Reset cache stats
             cacheStats = { hits: 0, misses: 0, errors: 0, updates: 0, lastReset: Date.now() };
-            console.log('SW: All caches cleared');
-            // Notify client that cache was cleared
-            event.ports[0]?.postMessage({ success: true, message: 'All caches cleared' });
-          })
-          .catch(error => {
-            console.error('SW: Error clearing caches:', error);
-            event.ports[0]?.postMessage({ success: false, error: error.message });
-          })
+            
+            // Notify all clients that cache was cleared
+            const clients = await self.clients.matchAll();
+            clients.forEach(client => {
+              client.postMessage({ 
+                type: 'CACHE_CLEARED',
+                timestamp: Date.now(),
+                deletedCaches: results
+              });
+            });
+            
+            console.log('SW: All caches aggressively cleared, results:', results);
+            
+            // Also notify the requesting port if available
+            if (event.ports && event.ports[0]) {
+              event.ports[0].postMessage({ 
+                success: true, 
+                message: 'All caches cleared aggressively',
+                results 
+              });
+            }
+            
+          } catch (error) {
+            console.error('SW: Error in aggressive cache clearing:', error);
+            if (event.ports && event.ports[0]) {
+              event.ports[0].postMessage({ success: false, error: error.message });
+            }
+          }
+        })()
       );
       break;
       

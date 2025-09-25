@@ -9,25 +9,16 @@ import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { VersionManager } from "@/components/VersionManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
-<<<<<<< HEAD
 import { BookNowButton } from "@/components/BookNowButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
-=======
-import { BookNowButton } from "@/components/BookNowButton";
-import { SkipToContent } from "@/components/SkipToContent";
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
 import { UserApprovalStatus } from "@/components/UserApprovalStatus";
-<<<<<<< HEAD
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SimpleErrorBoundary } from "@/components/SimpleErrorBoundary";
-=======
-import { ErrorBoundary } from "@/components/ErrorBoundary";
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Auth } from "./pages/Auth";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AuthTest } from "./pages/AuthTest";
@@ -78,14 +69,9 @@ import { ServicesManagerPage } from "./pages/admin/models/ServicesManagerPage";
 import { ReviewsManagerPage } from "./pages/admin/models/ReviewsManagerPage";
 import { LocationsManager as LocationsManagerPage } from "./pages/admin/locations/LocationsManager";
 import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
-<<<<<<< HEAD
 import { UsersManager } from "./pages/admin/users/UsersManager";
 import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
 import { SecurityStatusPage } from "./pages/admin/users/SecurityStatusPage";
-=======
-import { UsersManager } from "./pages/admin/users/UsersManager";
-import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
 import { SystemSettings } from "./pages/admin/settings/SystemSettings";
 import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
@@ -118,7 +104,6 @@ const ConditionalFeatures = () => {
   );
 };
 
-<<<<<<< HEAD
 import { useDataSyncManager } from '@/hooks/useDataSyncManager';
 import { RealTimeDataProvider } from '@/components/RealTimeDataProvider';
 
@@ -152,31 +137,6 @@ const App = () => {
                            <BookNowButton />
                            <SkipToContent />
                         <Routes>
-=======
-import { useDataSyncManager } from '@/hooks/useDataSyncManager';
-
-// Mobile Sync Component to initialize the sync manager
-const DataSyncInitializer = () => {
-  useDataSyncManager();
-  return null;
-};
-
-const App = () => (
-  <ErrorBoundary>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <DegradedModeProvider>
-            <BrowserRouter>
-              <AuthProvider>
-                <ConditionalFeatures />
-                <DataSyncInitializer />
-                <MobileOptimizer />
-                <Toaster />
-                <Sonner />
-                <BookNowButton />
-                <SkipToContent />
-                <Routes>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                   <Route path="/" element={<Index />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/auth-test" element={<AuthTest />} />
@@ -420,7 +380,6 @@ const App = () => (
               <UsersManager />
             </AdminProtectedRoute>
           } />
-<<<<<<< HEAD
           <Route path="/admin/users/permissions" element={
             <AdminProtectedRoute>
               <PermissionsManagerPage />
@@ -432,14 +391,6 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-=======
-          <Route path="/admin/users/permissions" element={
-            <AdminProtectedRoute>
-              <PermissionsManagerPage />
-            </AdminProtectedRoute>
-          } />
-          
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
           {/* System Settings */}
           <Route path="/admin/system" element={
             <AdminProtectedRoute>
@@ -452,7 +403,6 @@ const App = () => (
             </AdminProtectedRoute>
           } />
           
-<<<<<<< HEAD
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                         </RealTimeDataProvider>
@@ -468,16 +418,5 @@ const App = () => (
     </SimpleErrorBoundary>
   );
 };
-=======
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AuthProvider>
-            </BrowserRouter>
-          </DegradedModeProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
-  </ErrorBoundary>
-);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
 export default App;

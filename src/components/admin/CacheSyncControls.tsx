@@ -13,11 +13,34 @@ export const CacheSyncControls: React.FC = () => {
   const handleClearSpecific = async (table: string) => {
     setLoading(table);
     try {
+      console.log(`🧹 [ADMIN-CONTROLS] Clearing cache for: ${table}`);
+      
+      // Force immediate cache invalidation for the specific table
       await triggerCacheClear(table);
+      
+      // For blog posts, also force immediate browser cache clear
+      if (table === 'blog_posts') {
+        if ('caches' in window) {
+          const cacheNames = await caches.keys();
+          for (const cacheName of cacheNames) {
+            if (cacheName.includes('blog') || cacheName.includes('runtime')) {
+              await caches.delete(cacheName);
+              console.log(`🗑️ [ADMIN-CONTROLS] Deleted blog-related cache: ${cacheName}`);
+            }
+          }
+        }
+        
+        // Force page reload for blog changes
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      
       toast.success(`${table} cache cleared`, {
         description: 'All clients will refresh this content automatically.',
       });
     } catch (error) {
+      console.error(`Failed to clear cache for ${table}:`, error);
       toast.error('Failed to clear cache');
     } finally {
       setLoading(null);

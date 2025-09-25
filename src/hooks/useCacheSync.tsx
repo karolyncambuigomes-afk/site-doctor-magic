@@ -156,10 +156,25 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
 
       // 8. For blog posts and critical tables, force a page reload after a delay
       if (['blog_posts', 'models', 'hero_slides', 'model_gallery'].includes(table)) {
-        setTimeout(() => {
-          console.log(`🔄 [CACHE-SYNC] Force reloading page for ${table} changes`);
-          window.location.reload();
-        }, 1000);
+        // For blog posts, immediately trigger cache invalidation and reload
+        if (table === 'blog_posts') {
+          console.log(`🔄 [CACHE-SYNC] Blog posts changed - forcing immediate cache clear and reload`);
+          
+          // Force immediate refresh of React Query cache for blog-related data
+          await queryClient.invalidateQueries({ queryKey: ['blog-posts'] });
+          await queryClient.invalidateQueries({ queryKey: ['featured-posts'] });
+          await queryClient.refetchQueries({ queryKey: ['blog-posts'] });
+          
+          setTimeout(() => {
+            console.log(`🔄 [CACHE-SYNC] Force reloading page for ${table} changes`);
+            window.location.reload();
+          }, 500); // Faster reload for blog changes
+        } else {
+          setTimeout(() => {
+            console.log(`🔄 [CACHE-SYNC] Force reloading page for ${table} changes`);
+            window.location.reload();
+          }, 1000);
+        }
       }
 
       if (enableNotifications) {
@@ -310,6 +325,14 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
   }, [invalidateCache, queryClient, enableNotifications]);
 
   const triggerCacheClear = useCallback(async (table?: string) => {
+    console.log('📢 [CACHE-SYNC] Manual cache clear triggered for:', table || 'all tables');
+    
+    // If it's specifically for blog posts, force aggressive clearing
+    if (table === 'blog_posts') {
+      await invalidateCache('blog_posts');
+      return;
+    }
+    
     // Broadcast cache clear to all connected clients
     const payload = table ? { table } : {};
     await supabase.channel('admin-cache-sync').send({
@@ -317,7 +340,7 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
       event: 'cache-clear',
       payload
     });
-  }, []);
+  }, [invalidateCache]);
 
   return {
     manualSync,

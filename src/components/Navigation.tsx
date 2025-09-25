@@ -2,7 +2,12 @@ import React from "react";
 import { SafeLink } from "@/components/ui/safe-link";
 import { useSafeLocation } from "@/hooks/useSafeRouter";
 import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
+import { RefreshCw, Loader2 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
+import { useNuclearCacheClear } from "@/hooks/useNuclearCacheClear";
+import { useBlogPosts } from "@/hooks/useBlogPosts";
+import { toast } from "sonner";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,9 +28,12 @@ const navItems = [
 
 export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const location = useSafeLocation();
   const auth = useAuth();
   const { user, signOut } = auth || {};
+  const { forceFreshBlogData } = useNuclearCacheClear();
+  const { refetch } = useBlogPosts();
 
   React.useEffect(() => {
     if (location) {
@@ -36,6 +44,20 @@ export const Navigation: React.FC = () => {
   if (!location) return null;
 
   const isHomepage = location.pathname === "/";
+
+  const handleGlobalRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await forceFreshBlogData();
+      await refetch();
+      // Force page reload to refresh all content
+      window.location.reload();
+    } catch (error) {
+      toast.error('Failed to refresh content');
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-border">
@@ -68,6 +90,24 @@ export const Navigation: React.FC = () => {
                 {item.label}
               </SafeLink>
             ))}
+          </div>
+
+          {/* Global Refresh Button */}
+          <div className="hidden md:flex items-center mr-4">
+            <Button
+              onClick={handleGlobalRefresh}
+              disabled={refreshing}
+              variant="ghost"
+              size="sm"
+              className="h-8 px-2 text-muted-foreground hover:text-foreground"
+              title="Refresh content from database"
+            >
+              {refreshing ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <RefreshCw className="h-4 w-4" />
+              )}
+            </Button>
           </div>
 
           {/* Contact & Auth (Desktop) */}
@@ -158,6 +198,22 @@ export const Navigation: React.FC = () => {
                   {item.label}
                 </SafeLink>
               ))}
+
+              {/* Mobile Refresh Button */}
+              <Button
+                onClick={handleGlobalRefresh}
+                disabled={refreshing}
+                variant="outline"
+                size="sm"
+                className="w-full"
+              >
+                {refreshing ? (
+                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                ) : (
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                )}
+                Refresh Content
+              </Button>
 
               <div className="pt-8 border-t border-border space-y-6">
                 <div className="flex items-center justify-between">

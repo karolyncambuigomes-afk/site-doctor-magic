@@ -17,6 +17,7 @@ import {
   Globe,
   Target
 } from 'lucide-react';
+import { CacheSyncControls } from '@/components/admin/CacheSyncControls';
 
 interface DashboardStats {
   totalModels: number;
@@ -244,6 +245,9 @@ export const AdminDashboard: React.FC = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Cache Synchronization Controls */}
+        <CacheSyncControls />
 
         {/* Recent Activity */}
         <Card>

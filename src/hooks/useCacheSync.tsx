@@ -35,7 +35,7 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
     return patterns[table] || [table];
   }, []);
 
-  // Invalidate specific cache keys
+  // Invalidate specific cache keys and clear all related caches
   const invalidateCache = useCallback(async (table: string) => {
     const cacheKeys = getCacheKeys(table);
     
@@ -43,21 +43,68 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
     console.log(`🎯 [CACHE-SYNC] Cache keys to invalidate:`, cacheKeys);
 
     try {
-      // Invalidate all related query keys
+      // 1. Clear browser caches first
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        for (const cacheName of cacheNames) {
+          if (cacheName.includes(table) || cacheName.includes('api') || cacheName.includes('images')) {
+            await caches.delete(cacheName);
+            console.log(`🗑️ [CACHE-SYNC] Deleted browser cache: ${cacheName}`);
+          }
+        }
+      }
+
+      // 2. Clear service worker caches
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'CLEAR_CACHE',
+          table: table
+        });
+      }
+
+      // 3. Force image cache refresh for image-related tables
+      if (['models', 'model_gallery', 'blog_posts', 'hero_slides'].includes(table)) {
+        // Force refresh all images by adding cache busting
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+          if (img.src && !img.src.includes('?v=')) {
+            const separator = img.src.includes('?') ? '&' : '?';
+            img.src = `${img.src}${separator}v=${Date.now()}`;
+          }
+        });
+      }
+
+      // 4. Clear localStorage entries related to the table
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.includes(table) || key.includes('supabase-cache'))) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+
+      // 5. Invalidate React Query cache
       for (const key of cacheKeys) {
         await queryClient.invalidateQueries({ queryKey: [key] });
         console.log(`✅ [CACHE-SYNC] Invalidated cache key: ${key}`);
       }
 
-      // Force immediate refetch of active queries
+      // 6. Force immediate refetch of active queries
       await queryClient.refetchQueries({ 
         type: 'active',
-        queryKey: cacheKeys.map(key => [key])
+        stale: true
       });
+
+      // 7. Clear and refetch all queries for critical tables
+      if (['blog_posts', 'models', 'hero_slides'].includes(table)) {
+        await queryClient.clear();
+        await queryClient.refetchQueries({ type: 'active' });
+      }
 
       if (enableNotifications) {
         toast.success(`Content updated`, {
-          description: `${table.replace('_', ' ')} has been refreshed.`,
+          description: `${table.replace('_', ' ')} cache cleared and data refreshed.`,
           duration: 3000,
         });
       }
@@ -148,13 +195,40 @@ export const useCacheSync = (options: CacheSyncOptions = {}) => {
     if (table) {
       await invalidateCache(table);
     } else {
-      // Invalidate all queries
-      await queryClient.invalidateQueries();
-      await queryClient.refetchQueries({ type: 'active' });
+      // Clear all browser caches
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(name => caches.delete(name)));
+        console.log('🗑️ [CACHE-SYNC] Cleared all browser caches');
+      }
+
+      // Clear all localStorage
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.includes('supabase') || key.includes('cache') || key.includes('query'))) {
+          keysToRemove.push(key);
+        }
+      }
+      keysToRemove.forEach(key => localStorage.removeItem(key));
+
+      // Force refresh all images
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        if (img.src) {
+          const url = new URL(img.src);
+          url.searchParams.set('v', Date.now().toString());
+          img.src = url.toString();
+        }
+      });
+
+      // Clear and refetch all React Query cache
+      await queryClient.clear();
+      await queryClient.refetchQueries({ type: 'all' });
       
       if (enableNotifications) {
         toast.success('All content synchronized', {
-          description: 'All data has been refreshed from the server.',
+          description: 'All caches cleared and data refreshed from server.',
         });
       }
     }

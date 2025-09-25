@@ -28,8 +28,28 @@ export const CacheSyncControls: React.FC = () => {
     setLoading('all');
     try {
       await triggerCacheClear();
+      
+      // Also clear service worker cache
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        const messageChannel = new MessageChannel();
+        messageChannel.port1.onmessage = (event) => {
+          console.log('SW cache clear response:', event.data);
+        };
+        
+        navigator.serviceWorker.controller.postMessage(
+          { type: 'CLEAR_ALL_CACHES' },
+          [messageChannel.port2]
+        );
+      }
+      
+      // Force page reload after a short delay to ensure fresh content
+      setTimeout(() => {
+        toast.info('Reloading page with fresh content...', { duration: 2000 });
+        setTimeout(() => window.location.reload(), 1000);
+      }, 1000);
+      
       toast.success('All cache cleared', {
-        description: 'All clients will refresh content automatically.',
+        description: 'Page will reload with fresh content.',
       });
     } catch (error) {
       toast.error('Failed to clear all cache');

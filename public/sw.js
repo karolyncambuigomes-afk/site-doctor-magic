@@ -347,7 +347,46 @@ self.addEventListener('message', event => {
           .then(() => {
             cacheStats = { hits: 0, misses: 0, errors: 0, updates: 0, lastReset: Date.now() };
             console.log('SW: All caches cleared');
+            // Notify client that cache was cleared
+            event.ports[0]?.postMessage({ success: true, message: 'All caches cleared' });
           })
+          .catch(error => {
+            console.error('SW: Error clearing caches:', error);
+            event.ports[0]?.postMessage({ success: false, error: error.message });
+          })
+      );
+      break;
+      
+    case 'CLEAR_CACHE':
+      console.log('SW: Clearing cache for table:', data.table);
+      event.waitUntil(
+        (async () => {
+          try {
+            if (data.table) {
+              // Clear specific table-related caches
+              const cacheNames = await caches.keys();
+              for (const cacheName of cacheNames) {
+                const cache = await caches.open(cacheName);
+                const requests = await cache.keys();
+                
+                for (const request of requests) {
+                  const url = request.url.toLowerCase();
+                  if (url.includes(data.table) || 
+                      (data.table === 'blog_posts' && url.includes('blog')) ||
+                      (data.table === 'models' && url.includes('model')) ||
+                      (data.table === 'hero_slides' && url.includes('hero'))) {
+                    await cache.delete(request);
+                    console.log('SW: Deleted cached request:', request.url);
+                  }
+                }
+              }
+            }
+            event.ports[0]?.postMessage({ success: true, message: `Cache cleared for ${data.table}` });
+          } catch (error) {
+            console.error('SW: Error clearing table cache:', error);
+            event.ports[0]?.postMessage({ success: false, error: error.message });
+          }
+        })()
       );
       break;
       

@@ -36,11 +36,6 @@ export {
   User, 
   LogOut,
   Settings,
-<<<<<<< HEAD
-=======
-  Moon,
-  Sun,
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   MessageCircle,
   Phone,
   Mail,

@@ -100,7 +100,6 @@ export const useBlogPosts = () => {
     }
   };
 
-<<<<<<< HEAD
   useEffect(() => {
     fetchPosts();
     
@@ -125,11 +124,6 @@ export const useBlogPosts = () => {
       supabase.removeChannel(channel);
     };
   }, []);
-=======
-  useEffect(() => {
-    fetchPosts();
-  }, []);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const getPostBySlug = (slug: string): BlogPost | undefined => {
     return posts.find(post => post.slug === slug);

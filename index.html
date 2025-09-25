@@ -56,10 +56,7 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <!-- Favicon -->
-    <link rel="icon" href="/images/fa.jpg" type="image/jpeg" />
-    <link rel="shortcut icon" href="/images/fa.jpg" type="image/jpeg" />
-    <link rel="apple-touch-icon" href="/images/fa.jpg" />
+    
     <!-- Ultra-fast font loading for all browsers -->
     <script>
       (function() {
@@ -176,22 +173,20 @@
     <meta property="og:title" content="Five London - Premier Luxury Companion Services" />
     <meta property="og:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/hero-elegant-woman.webp" />
+    <meta property="og:image" content="/hero-elegant-woman.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Five London - Premier Luxury Companion Services" />
     <meta name="twitter:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />
-    <meta name="twitter:image" content="/images/hero-elegant-woman.webp" />
+    <meta name="twitter:image" content="/hero-elegant-woman.jpg" />
     
-    <!-- Preload LCP hero image -->
-    <link
-      rel="preload"
-      as="image"
-      href="/images/hero-elegant-woman.webp"
-      imagesrcset="/images/hero-elegant-woman.webp 1600w, /images/hero-elegant-woman.webp 1200w"
-      imagesizes="(max-width: 768px) 100vw, 90vw"
-      fetchpriority="high"
-    />
+    <!-- Resource hints for non-critical CSS -->
+    <link rel="preload" href="/src/styles/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/src/styles/utilities.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="/src/styles/components.css">
+      <link rel="stylesheet" href="/src/styles/utilities.css">
+    </noscript>
   </head>
 
   <body>

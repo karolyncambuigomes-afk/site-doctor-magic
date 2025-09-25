@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { ModelsGallery } from '@/components/ModelsGallery';
 import { Navigation } from '@/components/Navigation';
@@ -16,17 +15,6 @@ export const Models: React.FC = () => {
   });
   
   const structuredData = [
-=======
-import React from 'react';
-import { ModelsGallery } from '@/components/ModelsGallery';
-import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
-import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
-
-export const Models: React.FC = () => {
-  const structuredData = [
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
       { name: "Home", url: "https://fivelondon.com/" },

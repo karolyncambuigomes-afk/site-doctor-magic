@@ -18,7 +18,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-<<<<<<< HEAD
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Eye, EyeOff, ArrowLeft, Settings } from "lucide-react";
 
@@ -95,82 +94,6 @@ export const Auth: React.FC = () => {
 
     return () => subscription.unsubscribe();
   }, [navigate]);
-=======
-import { SEO } from "@/components/SEO";
-import { Eye, EyeOff, ArrowLeft, Settings } from "lucide-react";
-
-export const Auth: React.FC = () => {
-  const [user, setUser] = useState(null);
-  const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState("");
-  const navigate = useSafeNavigate();
-  const { toast } = useToast();
-  const auth = useAuth();
-
-  // Safety check for navigate function
-  if (!navigate) {
-    console.warn("Auth: useNavigate returned undefined");
-  }
-
-  useEffect(() => {
-    // Set up auth state listener first
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-
-      // Redirect authenticated users appropriately
-      if (session?.user && navigate) {
-        setTimeout(async () => {
-          try {
-            const { data: profile } = await supabase
-              .from("profiles")
-              .select("role")
-              .eq("id", session.user.id)
-              .single();
-
-            // Always redirect to /admin after login
-            navigate("/admin", { replace: true });
-          } catch (error) {
-            console.error("Profile check failed:", error);
-            navigate("/admin", { replace: true });
-          }
-        }, 100);
-      }
-    });
-
-    // Then check for existing session
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-
-      if (session?.user && navigate) {
-        try {
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", session.user.id)
-            .single();
-
-          // Always redirect to /admin after login
-          navigate("/admin", { replace: true });
-        } catch (error) {
-          console.error("Profile check failed:", error);
-          navigate("/admin", { replace: true });
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, [navigate, auth]);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   // Sanitize input to prevent XSS attacks
   const sanitizeInput = (input: string): string => {
@@ -239,7 +162,6 @@ export const Auth: React.FC = () => {
       if (data.user) {
         // Verify user is admin before allowing access
         try {
-<<<<<<< HEAD
           const { data: profile } = await supabase
             .from("profiles")
             .select("role")
@@ -251,19 +173,6 @@ export const Auth: React.FC = () => {
             await supabase.auth.signOut();
             return;
           }
-=======
-          const { data: profile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", data.user.id)
-            .single();
-
-          if (profile?.role !== "admin") {
-            setError("Access denied. This page is for administrators only.");
-            await supabase.auth.signOut();
-            return;
-          }
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
           console.log("Admin sign in successful for user:", data.user.id);
           toast({
@@ -299,11 +208,7 @@ export const Auth: React.FC = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <SEOOptimized
-=======
-      <SEO
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="Administrator Login - Five London"
         description="Administrator access only. Login to manage Five London's exclusive companion services."
         keywords="admin login, administrator, five london management"

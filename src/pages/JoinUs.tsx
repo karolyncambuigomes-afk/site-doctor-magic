@@ -56,11 +56,6 @@ const JoinUs = () => {
   const [authChecked, setAuthChecked] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
   const [videos, setVideos] = useState<File[]>([]);
-<<<<<<< HEAD
-=======
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
   const [formData, setFormData] = useState<ApplicationData>({
     full_name: "",
     email: "",
@@ -92,7 +87,6 @@ const JoinUs = () => {
       
       if (session?.user) {
         // Check user profile status
-<<<<<<< HEAD
         const { data: profile } = await supabase
           .from('profiles')
           .select('*')
@@ -100,15 +94,6 @@ const JoinUs = () => {
           .maybeSingle();
         
         setUserProfile(profile || null);
-=======
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-        
-        setUserProfile(profile);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       }
       setAuthChecked(true);
     };
@@ -120,7 +105,6 @@ const JoinUs = () => {
         setUser(session?.user || null);
         
         if (session?.user) {
-<<<<<<< HEAD
           const { data: profile } = await supabase
             .from('profiles')
             .select('*')
@@ -128,15 +112,6 @@ const JoinUs = () => {
             .maybeSingle();
           
           setUserProfile(profile || null);
-=======
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-          
-          setUserProfile(profile);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         } else {
           setUserProfile(null);
         }
@@ -226,11 +201,6 @@ const JoinUs = () => {
     e.preventDefault();
     
     setLoading(true);
-<<<<<<< HEAD
-=======
-    setSuccessMessage(null);
-    setErrorMessage(null);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
     try {
       // Upload files
@@ -248,24 +218,12 @@ const JoinUs = () => {
 
       if (error) throw error;
 
-<<<<<<< HEAD
-=======
-      const successText = "Application submitted successfully! We will contact you soon.";
-      setSuccessMessage(successText);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       toast({
         title: "Application submitted successfully!",
         description: "We will contact you soon.",
       });
 
-<<<<<<< HEAD
       navigate('/');
-=======
-      // Brief delay to let users see the success message before navigating
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     } catch (error: any) {
       let errorMessage = error.message;
       
@@ -276,10 +234,6 @@ const JoinUs = () => {
         errorMessage = "You don't have permission to submit applications. Please ensure you're logged in with a verified account.";
       }
       
-<<<<<<< HEAD
-=======
-      setErrorMessage(errorMessage);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       toast({
         title: "Error submitting application",
         description: errorMessage,
@@ -345,20 +299,6 @@ const JoinUs = () => {
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
-<<<<<<< HEAD
-=======
-              {successMessage && (
-                <Alert className="mb-6">
-                  <AlertDescription>{successMessage}</AlertDescription>
-                </Alert>
-              )}
-              {errorMessage && (
-                <Alert variant="destructive" className="mb-6">
-                  <AlertDescription>{errorMessage}</AlertDescription>
-                </Alert>
-              )}
-
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               <form onSubmit={handleSubmit} className="space-y-8">
             {/* Personal Information */}
             <Card>

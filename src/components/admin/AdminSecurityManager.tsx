@@ -86,7 +86,6 @@ export const AdminSecurityManager: React.FC = () => {
         .order('created_at', { ascending: false })
         .limit(100);
 
-<<<<<<< HEAD
       // Check 2FA status using secure function
       const { data: twoFactorData, error: twoFactorError } = await supabase
         .rpc('get_2fa_data_secure', { user_id_param: auth?.user?.id });
@@ -99,19 +98,6 @@ export const AdminSecurityManager: React.FC = () => {
       setSessions(activeSessions || []);
       setAuditLogs(logs || []);
       setTwoFactorEnabled(twoFactorData?.is_enabled || false);
-=======
-      // Check 2FA status
-      const { data: twoFactorData } = await supabase
-        .from('admin_two_factor')
-        .select('is_enabled')
-        .eq('user_id', auth?.user?.id)
-        .single();
-
-      setLoginAttempts(attempts || []);
-      setSessions(activeSessions || []);
-      setAuditLogs(logs || []);
-      setTwoFactorEnabled(twoFactorData?.is_enabled || false);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     } catch (error) {
       console.error('Error fetching security data:', error);
       toast({
@@ -124,7 +110,6 @@ export const AdminSecurityManager: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
   const enableTwoFactor = async () => {
     try {
       // Generate TOTP secret
@@ -214,52 +199,6 @@ export const AdminSecurityManager: React.FC = () => {
       });
     }
   };
-=======
-  const enableTwoFactor = async () => {
-    try {
-      // Generate TOTP secret
-      const secret = Array.from(crypto.getRandomValues(new Uint8Array(32)))
-        .map(b => b.toString(36))
-        .join('')
-        .slice(0, 32);
-      
-      // Generate backup codes
-      const codes = Array.from({ length: 8 }, () =>
-        Array.from(crypto.getRandomValues(new Uint8Array(4)))
-          .map(b => b.toString(16).padStart(2, '0'))
-          .join('')
-      );
-
-      setTotpSecret(secret);
-      setBackupCodes(codes);
-      setShowSecret(true);
-
-      toast({
-        title: "2FA Secret Generated",
-        description: "Use your authenticator app to scan the QR code",
-      });
-    } catch (error) {
-      console.error('Error generating 2FA secret:', error);
-      toast({
-        title: "Error",
-        description: "Failed to generate 2FA secret",
-        variant: "destructive"
-      });
-    }
-  };
-
-  const logAdminAction = async (action: string, resourceType?: string) => {
-    try {
-      await supabase.rpc('log_admin_action', {
-        action_type_param: action,
-        resource_type_param: resourceType,
-        risk_level_param: 'medium'
-      });
-    } catch (error) {
-      console.error('Error logging admin action:', error);
-    }
-  };
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const terminateSession = async (sessionId: string) => {
     try {
@@ -559,15 +498,9 @@ export const AdminSecurityManager: React.FC = () => {
                   <p className="text-muted-foreground">
                     Two-factor authentication is enabled and protecting your account
                   </p>
-<<<<<<< HEAD
                   <Button variant="outline" onClick={disableTwoFactor}>
                     Disable 2FA
                   </Button>
-=======
-                  <Button variant="outline" onClick={() => setTwoFactorEnabled(false)}>
-                    Disable 2FA
-                  </Button>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 </div>
               )}
 

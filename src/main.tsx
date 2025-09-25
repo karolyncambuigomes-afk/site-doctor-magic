@@ -1,13 +1,24 @@
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
+import { ThemeProvider } from './components/ThemeProvider'
+import { MobilePerformanceOptimizer } from './components/MobilePerformanceOptimizer'
+import { AdvancedMobileOptimizer } from './components/AdvancedMobileOptimizer'
 
-// Defer non-critical initializations to idle time
-if ('requestIdleCallback' in window) {
-  (window as any).requestIdleCallback(() => {
-    import('./utils/performanceOptimizer').then(m => m.initializePerformanceOptimizations?.());
-    import('./utils/bundleOptimizer').then(m => m.initializeBundleOptimizations?.());
-  });
-}
+console.log('Main.tsx: Starting application initialization');
 
-createRoot(document.getElementById("root")!).render(<App />);
+console.log('Main.tsx: Creating root and rendering app');
+
+createRoot(document.getElementById("root")!).render(
+  <ThemeProvider
+    attribute="class"
+    defaultTheme="light"
+    enableSystem
+    disableTransitionOnChange
+  >
+    <AdvancedMobileOptimizer />
+    <MobilePerformanceOptimizer />
+    <App />
+  </ThemeProvider>
+);
+

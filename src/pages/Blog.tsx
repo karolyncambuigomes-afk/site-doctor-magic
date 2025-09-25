@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
-=======
-import { Navigation } from "@/components/Navigation";
-import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +12,6 @@ import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
 } from "@/utils/structuredData";
-<<<<<<< HEAD
 import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
 import { getImageUrl } from "@/utils/imageMapper";
 import { EnhancedImage } from "@/components/EnhancedImage";
@@ -35,13 +28,6 @@ const Blog = () => {
   });
   
   const { posts, loading, error, categories, refetch } = useBlogPosts();
-=======
-import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
-import { getImageUrl } from "@/utils/imageMapper";
-
-const Blog = () => {
-  const { posts, loading, error, categories } = useBlogPosts();
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -87,11 +73,7 @@ const Blog = () => {
   if (loading) {
     return (
       <>
-<<<<<<< HEAD
         <SEOOptimized
-=======
-        <SEO
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
           title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
           description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations."
           keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London"
@@ -101,7 +83,6 @@ const Blog = () => {
           <BlogMigrationTrigger />
           <Navigation />
           <main className="pt-0">
-<<<<<<< HEAD
             {/* Hero Section with Loading State */}
             <section className="py-16 md:py-24 bg-white">
               <div className="container-width text-center">
@@ -136,20 +117,6 @@ const Blog = () => {
                 <BlogLoadingSkeleton />
               </div>
             </section>
-=======
-            <section className="py-16 md:py-24 bg-white">
-              <div className="container-width text-center">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <div className="flex items-center justify-center gap-2">
-                    <Loader2 className="h-6 w-6 animate-spin" />
-                    <span className="luxury-body-lg text-black">
-                      Loading articles...
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
           </main>
           <Footer />
         </div>
@@ -157,7 +124,6 @@ const Blog = () => {
     );
   }
 
-<<<<<<< HEAD
   if (error) {
     return (
       <>
@@ -180,42 +146,6 @@ const Blog = () => {
   return (
     <>
       <SEOOptimized
-=======
-  if (error) {
-    return (
-      <>
-        <SEO
-          title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
-          description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London."
-          canonicalUrl="/blog"
-        />
-        <div className="min-h-screen bg-white">
-          <Navigation />
-          <main className="pt-0">
-            <section className="py-16 md:py-24 bg-white">
-              <div className="container-width text-center">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <h1 className="luxury-heading-xl mb-4 text-red-600">
-                    Error Loading Blog
-                  </h1>
-                  <p className="luxury-body-lg text-black mb-8">{error}</p>
-                  <Button onClick={() => window.location.reload()}>
-                    Try Again
-                  </Button>
-                </div>
-              </div>
-            </section>
-          </main>
-          <Footer />
-        </div>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <SEO
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title="Blog - Exclusive London Guide & Luxury Lifestyle | Five London"
         description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with insider recommendations from luxury lifestyle experts covering Mayfair, Westminster, Kensington, Chelsea, and Central London."
         keywords="London blog, London guide, luxury lifestyle London, best restaurants London, exclusive events London, luxury hotels London, London experiences, sophisticated dining London, luxury travel London, London lifestyle guide, Mayfair restaurants, Westminster events, Kensington hotels, Chelsea lifestyle, Central London experiences"
@@ -252,7 +182,6 @@ const Blog = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
-<<<<<<< HEAD
           {/* Categories */}
           <section className="py-8 border-b border-border bg-muted/30">
             <div className="container-width">
@@ -281,43 +210,12 @@ const Blog = () => {
               </div>
             </div>
           </section>
-=======
-          {/* Categories */}
-          <section className="py-6 sm:py-8 border-b border-border bg-gray-50">
-            <div className="container-width">
-              <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center px-4">
-                <Link to="/blog">
-                  <Badge
-                    variant="secondary"
-                    className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm"
-                  >
-                    All Articles
-                  </Badge>
-                </Link>
-                {categories.map((category) => (
-                  <Link
-                    key={category}
-                    to={`/blog?category=${category.toLowerCase()}`}
-                  >
-                    <Badge
-                      variant="outline"
-                      className="px-3 sm:px-4 md:px-6 py-1 sm:py-2 text-xs sm:text-sm bg-black text-white hover:bg-gray-800 transition-colors"
-                    >
-                      {category}
-                    </Badge>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
           {/* Articles Grid */}
           <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
                 {posts.map((post) => (
-<<<<<<< HEAD
                   <Card
                     key={post.id}
                     className="group hover:shadow-elegant transition-all duration-300 border border-border/50 hover:border-primary/20 overflow-hidden bg-background"
@@ -347,45 +245,6 @@ const Blog = () => {
 
                     <CardHeader className="pb-4 px-6 pt-6">
                       <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-=======
-                  <Card
-                    key={post.id}
-                    className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
-                  >
-                    <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                      <picture>
-                        <source
-                          srcSet="image-mobile.webp"
-                          media="(max-width: 600px)"
-                        />
-                        <source
-                          srcSet="image-tablet.webp"
-                          media="(min-width: 601px) and (max-width: 1024px)"
-                        />
-                        <source
-                          srcSet="image-desktop.webp"
-                          media="(min-width: 1025px)"
-                        />
-                        <img
-                          src="image-desktop.webp"
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      </picture>
-                      <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-                        <Badge
-                          variant="secondary"
-                          className="bg-background/90 text-black text-xs"
-                        >
-                          {post.category}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <CardHeader className="pb-3 sm:pb-4 px-3 sm:px-6 pt-3 sm:pt-6 bg-white">
-                      <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                           <time
@@ -420,7 +279,6 @@ const Blog = () => {
                         </div>
                       </div>
 
-<<<<<<< HEAD
                       <h2 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {post.title}
                       </h2>
@@ -441,28 +299,6 @@ const Blog = () => {
                         </Button>
                       </Link>
                     </CardContent>
-=======
-                      <h2 className="luxury-heading-sm font-medium text-black group-hover:text-black/80 transition-colors leading-tight">
-                        {post.title}
-                      </h2>
-                    </CardHeader>
-
-                    <CardContent className="pt-0 px-3 sm:px-6 pb-3 sm:pb-6 bg-white">
-                      <p className="luxury-body-xs text-black leading-relaxed mb-4 sm:mb-6">
-                        {post.excerpt}
-                      </p>
-
-                      <Link to={`/blog/${post.slug}`}>
-                        <Button
-                          variant="ghost"
-                          className="group/btn p-0 h-auto font-medium text-black hover:text-black/80 luxury-body-sm"
-                        >
-                          Read full article
-                          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                        </Button>
-                      </Link>
-                    </CardContent>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                   </Card>
                 ))}
               </div>

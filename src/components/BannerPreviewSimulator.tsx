@@ -30,19 +30,11 @@ export const BannerPreviewSimulator: React.FC<BannerPreviewSimulatorProps> = ({
 
   const getImageSource = () => {
     if (previewMode === 'mobile') {
-<<<<<<< HEAD
       return mobileImage ? 'Mobile specific' : 
              fallbackImage ? 'Fallback' : 'Default';
     } else {
       return desktopImage ? 'Desktop specific' : 
              fallbackImage ? 'Fallback' : 'Default';
-=======
-      return mobileImage ? 'Mobile específica' : 
-             fallbackImage ? 'Fallback' : 'Padrão';
-    } else {
-      return desktopImage ? 'Desktop específica' : 
-             fallbackImage ? 'Fallback' : 'Padrão';
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     }
   };
 
@@ -51,17 +43,10 @@ export const BannerPreviewSimulator: React.FC<BannerPreviewSimulatorProps> = ({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <RotateCcw className="h-5 w-5" />
-<<<<<<< HEAD
           Preview Simulator
         </CardTitle>
         <CardDescription>
           See how banners will appear on different devices
-=======
-          Simulador de Visualização
-        </CardTitle>
-        <CardDescription>
-          Veja como os banners aparecerão em diferentes dispositivos
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -114,11 +99,7 @@ export const BannerPreviewSimulator: React.FC<BannerPreviewSimulatorProps> = ({
               alt="Preview"
               className="w-full h-full object-cover"
               onError={(e) => {
-<<<<<<< HEAD
                 console.error('Error loading preview:', getImageForPreview());
-=======
-                console.error('Erro ao carregar preview:', getImageForPreview());
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 e.currentTarget.src = '/lovable-uploads/4b8ba540-676f-4e57-9771-9e3a6638f837.png';
               }}
             />
@@ -144,7 +125,6 @@ export const BannerPreviewSimulator: React.FC<BannerPreviewSimulatorProps> = ({
 
         {/* Info Panel */}
         <div className="text-xs space-y-1 p-3 bg-gray-50 rounded border">
-<<<<<<< HEAD
           <div className="font-semibold mb-2">Preview Information:</div>
           <div><strong>Mode:</strong> {previewMode === 'mobile' ? 'Mobile 📱' : 'Desktop 🖥️'}</div>
           <div><strong>Image used:</strong> {getImageForPreview()}</div>
@@ -155,18 +135,6 @@ export const BannerPreviewSimulator: React.FC<BannerPreviewSimulatorProps> = ({
                 ? 'This is how the banner will appear on mobile devices (max-width: 767px)'
                 : 'This is how the banner will appear on desktops (min-width: 1024px)'
               }
-=======
-          <div className="font-semibold mb-2">Informações do Preview:</div>
-          <div><strong>Modo:</strong> {previewMode === 'mobile' ? 'Mobile 📱' : 'Desktop 🖥️'}</div>
-          <div><strong>Imagem usada:</strong> {getImageForPreview()}</div>
-          <div><strong>Origem:</strong> {getImageSource()}</div>
-          <div className="mt-2 pt-2 border-t">
-            <div className="text-gray-600">
-              {previewMode === 'mobile' 
-                ? 'Este é como o banner aparecerá em dispositivos móveis (max-width: 767px)'
-                : 'Este é como o banner aparecerá em desktops (min-width: 1024px)'
-              }
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             </div>
           </div>
         </div>

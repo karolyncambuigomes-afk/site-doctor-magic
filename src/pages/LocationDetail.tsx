@@ -40,7 +40,6 @@ const LocationDetail = () => {
     return <Navigate to="/404" replace />;
   }
 
-<<<<<<< HEAD
   // Create flexible location matching
   const createLocationMatcher = (locationName: string) => {
     const normalizedLocation = locationName.toLowerCase().trim();
@@ -92,23 +91,6 @@ const LocationDetail = () => {
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
 
-=======
-  // Filter models by location
-  const locationModels = models.filter(model => 
-    model.location && model.location.toLowerCase() === location.name.toLowerCase()
-  );
-
-  // Get other locations for the "Explore also" section
-  const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
-
-  // Gallery images (using existing model images for demonstration)
-  const galleryImages = [
-    '/images/model1.jpg',
-    '/images/model2.jpg', 
-    '/images/model3.jpg',
-    '/images/model4.jpg'
-  ];
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -162,7 +144,6 @@ const LocationDetail = () => {
         <Navigation />
         
         <main className="pt-0">
-<<<<<<< HEAD
           {/* Hero Section - Ultra Simplified */}
           <section className="pt-20 pb-6 md:pt-24 md:pb-8 bg-white">
             <div className="container-width text-center">
@@ -297,168 +278,6 @@ const LocationDetail = () => {
               </div>
             </div>
           </section>
-=======
-          {/* Hero Section */}
-          <section className="pt-20 pb-16 md:py-24 bg-white">
-            <div className="container-width text-center">
-              <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                  Escorts in {location.name}
-                </h1>
-                <p className="luxury-body-lg text-black">
-                  Exclusive companions available in {location.name}. Elegant, sophisticated, and discreet.
-                </p>
-              </div>
-            </div>
-            {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
-          </section>
-
-          {/* Gallery Section */}
-          <section className="py-10 md:py-14 bg-white">
-            <div className="container-width mx-auto px-6">
-                <div className="text-center mb-8">
-                <h2 className="luxury-heading-lg text-black mb-4">
-                  Our Exclusive {location.name} Collection
-                </h2>
-                <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
-                <p className="luxury-body-base text-muted-foreground max-w-2xl mx-auto">
-                  Meet our sophisticated companions available in {location.name}
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-                {galleryImages.map((image, index) => (
-                  <div key={index} className="group relative overflow-hidden rounded-lg aspect-[3/4] bg-gray-100">
-                    <img 
-                      src={image} 
-                      alt={`Exclusive companion ${index + 1} in ${location.name}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-
-          {/* Available Models - Only show if there are models for this location */}
-          {locationModels.length > 0 && (
-            <section className="py-12 md:py-16 bg-gradient-to-b from-gray-50 to-white">
-              <div className="container-width mx-auto px-6">
-                <div className="text-center mb-12">
-                  <h2 className="luxury-heading-lg text-primary mb-4">
-                    Available Companions in {location.name}
-                  </h2>
-                  <div className="w-16 h-0.5 bg-gradient-primary mx-auto mb-6"></div>
-                  <p className="luxury-body-lg text-muted-foreground max-w-2xl mx-auto">
-                    Meet our exclusive selection of sophisticated companions available in {location.name}
-                  </p>
-                </div>
-                
-                {loading ? (
-                  <div className="text-center py-16">
-                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">Loading companions...</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {locationModels.map((model) => (
-                      <ModelCard key={model.id} model={model} />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
-
-          {/* SEO Content Section - Collapsible */}
-          <section className="py-10 md:py-14 bg-white">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-8">
-                <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                  <CollapsibleTrigger asChild>
-                     <Button 
-                       variant="outline" 
-                       size="lg"
-                       className="mx-auto flex items-center gap-2 text-white hover:text-white transition-colors border-black/20 hover:border-black/40"
-                     >
-                      Learn more about {location.name}
-                      {isContentOpen ? (
-                        <ChevronUp className="w-4 h-4" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent className="mt-8 animate-accordion-down">
-                     <div 
-                       className="max-w-4xl mx-auto !text-black [&>*]:!text-black [&>h2]:luxury-heading-lg [&>h2]:!text-black [&>h3]:luxury-heading-md [&>h3]:!text-black [&>p]:luxury-body-base [&>p]:!text-black [&>p]:leading-relaxed [&>ul]:!text-black [&>li]:!text-black [&>strong]:!text-black [&>em]:!text-black [&>a]:!text-black"
-                       dangerouslySetInnerHTML={{ __html: location.content }}
-                     />
-                  </CollapsibleContent>
-                </Collapsible>
-              </div>
-            </div>
-          </section>
-
-          {/* Other Locations */}
-          <section className="py-10 md:py-14 bg-white">
-            <div className="container-width mx-auto px-6">
-              <div className="text-center mb-8">
-                <h2 className="luxury-heading-lg text-black mb-4">
-                  Explore Other Locations
-                </h2>
-                <p className="text-gray-600 mb-6">
-                  Discover our premium escort services in London's most exclusive districts
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                {otherLocations.slice(0, 6).map((loc) => (
-                  <Link 
-                    key={loc.id}
-                    to={`/${loc.slug}`}
-                    className="group p-6 bg-white hover:bg-gray-50 rounded-lg border border-black transition-all duration-300 hover:shadow-lg"
-                  >
-                    <MapPin className="w-5 h-5 text-black mb-3" />
-                    <h3 className="font-semibold text-black transition-colors mb-2">
-                      {loc.name} Escorts
-                    </h3>
-                    <p className="text-sm text-black line-clamp-2">
-                      {loc.description}
-                    </p>
-                    <ArrowRight className="w-4 h-4 text-black group-hover:text-black transition-colors mt-3" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Contact Section */}
-          <section className="py-8 md:py-12 lg:py-16 bg-gray-50">
-            <div className="container-width text-center">
-              <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">
-                  Book Your {location.name} Experience
-                </h2>
-                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
-                  Contact our experienced concierge team to arrange your perfect companion in {location.name}.
-                </p>
-                <a
-                  href="https://wa.me/447436190679"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
-                >
-                  Contact Now
-                </a>
-              </div>
-            </div>
-          </section>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         </main>
         
         <Footer />

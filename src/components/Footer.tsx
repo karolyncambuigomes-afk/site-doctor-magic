@@ -12,24 +12,15 @@ export const Footer = () => {
     console.log('Newsletter subscription:', email);
     setEmail('');
   };
-<<<<<<< HEAD
   return <footer className="bg-white text-foreground relative z-50 w-full">
       <div className="container mx-auto px-4 py-16 bg-white">{" "}
-=======
-  return <footer className="bg-background text-foreground relative z-50 w-full">
-      <div className="container mx-auto px-4 py-16">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
             <div>
-<<<<<<< HEAD
               <h3 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
-=======
-              <h3 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 Subscribe to Our Newsletter
               </h3>
               <p className="luxury-body-xs text-muted-foreground mb-2 leading-relaxed">
@@ -54,11 +45,7 @@ export const Footer = () => {
 
             {/* Social Media */}
             <div>
-<<<<<<< HEAD
               <h4 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
-=======
-              <h4 className="luxury-body-sm font-medium text-foreground mb-4 tracking-wider uppercase">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 Follow Us
               </h4>
               <div className="flex space-x-4">
@@ -80,11 +67,7 @@ export const Footer = () => {
 
           {/* Services */}
           <div className="space-y-4">
-<<<<<<< HEAD
             <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">OUR SERVICES</h4>
-=======
-            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">OUR SERVICES</h4>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             <div className="space-y-3">
               <SafeLink to="/models" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Elite Companions
@@ -106,11 +89,7 @@ export const Footer = () => {
 
           {/* Support & Info */}
           <div className="space-y-4">
-<<<<<<< HEAD
             <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
-=======
-            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               Support & Information
             </h4>
             <div className="space-y-3">
@@ -140,11 +119,7 @@ export const Footer = () => {
 
           {/* Local Information - New GEO Section */}
           <div className="space-y-4">
-<<<<<<< HEAD
             <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
-=======
-            <h4 className="luxury-body-sm font-medium text-foreground tracking-wider uppercase">
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               Local Information
             </h4>
             <div className="space-y-3">

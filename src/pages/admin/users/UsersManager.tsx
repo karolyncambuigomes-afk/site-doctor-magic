@@ -389,15 +389,9 @@ export const UsersManager: React.FC = () => {
                       {getStatusBadge(user.status)}
                     </div>
                     <div className="text-sm text-muted-foreground">
-<<<<<<< HEAD
                       <div>Created on: {new Date(user.created_at).toLocaleDateString('en-GB')}</div>
                       {user.last_sign_in_at && (
                         <div>Last login: {new Date(user.last_sign_in_at).toLocaleDateString('en-GB')}</div>
-=======
-                      <div>Criado em: {new Date(user.created_at).toLocaleDateString('pt-BR')}</div>
-                      {user.last_sign_in_at && (
-                        <div>Último login: {new Date(user.last_sign_in_at).toLocaleDateString('pt-BR')}</div>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                       )}
                     </div>
                   </div>

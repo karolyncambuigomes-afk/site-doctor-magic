@@ -40,7 +40,6 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-<<<<<<< HEAD
 type MenuItemSingle = {
   title: string;
   url: string;
@@ -121,71 +120,6 @@ const menuItems: (MenuItemSingle | MenuItemGroup)[] = [
     ],
   },
 ];
-=======
-const menuItems = [
-  {
-    title: "Dashboard",
-    url: "/admin",
-    icon: BarChart3,
-    badge: null,
-  },
-  {
-    title: "SEO Management",
-    items: [
-      { title: "Global SEO", url: "/admin/seo/global", icon: Globe },
-      { title: "Meta Tags", url: "/admin/seo/meta-tags", icon: Target },
-      { title: "Structured Data", url: "/admin/seo/structured-data", icon: Database },
-      { title: "Technical SEO", url: "/admin/seo/technical", icon: Zap },
-      { title: "Performance", url: "/admin/seo/performance", icon: BarChart3 },
-    ],
-  },
-  {
-    title: "Content Management",
-    items: [
-      { title: "Homepage", url: "/admin/content/homepage", icon: Home },
-      { title: "Blog Posts", url: "/admin/content/blog", icon: BookOpen },
-      { title: "Site Content", url: "/admin/content/site", icon: FileText },
-      { title: "FAQ", url: "/admin/content/faq", icon: HelpCircle },
-      { title: "Gallery", url: "/admin/content/gallery", icon: Image },
-      { title: "Image Diagnostics", url: "/admin/content/image-diagnostics", icon: Search },
-      { title: "Image Audit Report", url: "/admin/content/image-audit-report", icon: BarChart3 },
-      { title: "Bulk Migration", url: "/admin/content/bulk-migration", icon: Image },
-    ],
-  },
-  {
-    title: "Models & Services",
-    items: [
-      { title: "Models", url: "/admin/models/list", icon: Users },
-      { title: "Applications", url: "/admin/models/applications", icon: UserCheck },
-      { title: "Characteristics", url: "/admin/models/characteristics", icon: Star },
-      { title: "Services", url: "/admin/models/services", icon: Settings },
-      { title: "Reviews", url: "/admin/models/reviews", icon: Star },
-    ],
-  },
-  {
-    title: "Locations & Geo",
-    items: [
-      { title: "Locations", url: "/admin/locations/list", icon: MapPin },
-      { title: "Local SEO", url: "/admin/locations/seo", icon: Search },
-    ],
-  },
-  {
-    title: "User Management",
-    items: [
-      { title: "Users", url: "/admin/users/list", icon: Users },
-      { title: "Permissions", url: "/admin/users/permissions", icon: Shield },
-    ],
-  },
-  {
-    title: "System Settings",
-    items: [
-      { title: "Theme", url: "/admin/settings/theme", icon: Palette },
-      { title: "Categories", url: "/admin/settings/categories", icon: Database },
-      { title: "Legal Pages", url: "/admin/settings/legal", icon: FileText },
-    ],
-  },
-];
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
 export const AdminSidebar: React.FC = () => {
   const { state } = useSidebar();
@@ -228,7 +162,6 @@ export const AdminSidebar: React.FC = () => {
       </SidebarHeader>
       
       <SidebarContent className="pt-4">
-<<<<<<< HEAD
         {menuItems.map((section, index) => (
           <SidebarGroup key={section.title}>
             {'url' in section ? (
@@ -272,51 +205,6 @@ export const AdminSidebar: React.FC = () => {
             )}
           </SidebarGroup>
         ))}
-=======
-        {menuItems.map((section, index) => (
-          <SidebarGroup key={section.title}>
-            {section.url ? (
-              // Single item (Dashboard)
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={section.url} className={getNavCls}>
-                      <section.icon className="h-4 w-4" />
-                      {!collapsed && <span>{section.title}</span>}
-                      {section.badge && !collapsed && (
-                        <span className="ml-auto text-xs bg-primary text-primary-foreground px-1.5 py-0.5 rounded">
-                          {section.badge}
-                        </span>
-                      )}
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            ) : (
-              // Group with sub-items
-              <>
-                <SidebarGroupLabel className={collapsed ? "sr-only" : ""}>
-                  {section.title}
-                </SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    {section.items?.map((item) => (
-                      <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                          <NavLink to={item.url} className={getNavCls}>
-                            <item.icon className="h-4 w-4" />
-                            {!collapsed && <span>{item.title}</span>}
-                          </NavLink>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </>
-            )}
-          </SidebarGroup>
-        ))}
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       </SidebarContent>
       
       <SidebarFooter className="p-4 border-t border-border bg-background/50 backdrop-blur-sm">

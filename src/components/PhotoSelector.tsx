@@ -46,7 +46,6 @@ export const PhotoSelector: React.FC<PhotoSelectorProps> = ({
       const photos: Photo[] = [];
 
       // Get model profile image
-<<<<<<< HEAD
       const { data: model, error: modelError } = await supabase
         .from('models')
         .select('image')
@@ -60,21 +59,6 @@ export const PhotoSelector: React.FC<PhotoSelectorProps> = ({
           source: 'profile'
         });
       }
-=======
-      const { data: model, error: modelError } = await supabase
-        .from('models')
-        .select('image')
-        .eq('id', modelId)
-        .single();
-
-      if (!modelError && model?.image) {
-        photos.push({
-          id: `profile-${modelId}`,
-          image_url: model.image,
-          source: 'profile'
-        });
-      }
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
       // Get model gallery images
       const { data: galleryImages, error: galleryError } = await supabase

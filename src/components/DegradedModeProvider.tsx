@@ -30,7 +30,6 @@ const detectPrivateMode = (): boolean => {
   }
 };
 
-<<<<<<< HEAD
 export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ children }) => {
   const [isPrivateMode, setIsPrivateMode] = useState<boolean | null>(null);
   const [hasConnectivity, setHasConnectivity] = useState(navigator.onLine);
@@ -65,42 +64,6 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
     if (detected) {
       clearTimeout(timeoutId);
     }
-=======
-export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ children }) => {
-  const [isPrivateMode, setIsPrivateMode] = useState<boolean | null>(null);
-  const [hasConnectivity, setHasConnectivity] = useState(navigator.onLine);
-
-  useEffect(() => {
-    // Ultra-fast detection with timeout
-    const startTime = Date.now();
-    const maxDetectionTime = 200; // 200ms max
-    
-    let detected = false;
-    
-    try {
-      // Primary sync check
-      const privateModeDetected = detectPrivateMode();
-      detected = true;
-      setIsPrivateMode(privateModeDetected);
-      console.log('DegradedModeProvider - Private mode detected (sync):', privateModeDetected);
-    } catch (error) {
-      console.log('DegradedModeProvider - Detection error, assuming private mode:', error);
-      detected = true;
-      setIsPrivateMode(true);
-    }
-    
-    // Fallback timeout
-    const timeoutId = setTimeout(() => {
-      if (!detected) {
-        console.log('DegradedModeProvider - Detection timeout, assuming private mode');
-        setIsPrivateMode(true);
-      }
-    }, maxDetectionTime);
-    
-    if (detected) {
-      clearTimeout(timeoutId);
-    }
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
     // Simple connectivity monitoring
     const updateConnectivity = () => {
@@ -119,7 +82,6 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
 
   const isDegradedMode = isPrivateMode || !hasConnectivity;
 
-<<<<<<< HEAD
   // Show simple loading only for a very short time, with shorter timeout
   if (isPrivateMode === null) {
     console.log('DegradedModeProvider: Still detecting private mode, showing minimal loading');
@@ -141,19 +103,6 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
       </div>
     );
   }
-=======
-  // Show simple loading only for a very short time
-  if (isPrivateMode === null) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary mx-auto mb-2"></div>
-          <p className="text-muted-foreground text-sm">Iniciando...</p>
-        </div>
-      </div>
-    );
-  }
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
   return (
     <DegradedModeContext.Provider value={{ 

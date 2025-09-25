@@ -1,10 +1,6 @@
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-<<<<<<< HEAD
 
-=======
-import { GalleryDiagnostics } from '@/components/GalleryDiagnostics';
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const GalleryDiagnosticsPage: React.FC = () => {
@@ -35,13 +31,9 @@ export const GalleryDiagnosticsPage: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-<<<<<<< HEAD
                 <div className="text-muted-foreground text-center py-8">
                   Gallery diagnostics functionality has been removed for better performance.
                 </div>
-=======
-                <GalleryDiagnostics />
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               </CardContent>
             </Card>
           </TabsContent>

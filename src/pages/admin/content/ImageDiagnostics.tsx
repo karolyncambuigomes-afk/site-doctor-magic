@@ -22,11 +22,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { purgeImageCache, refreshServiceWorker } from '@/utils/cacheManager';
-<<<<<<< HEAD
 
-=======
-import { ProductionImageValidator } from '@/components/ProductionImageValidator';
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { resolveImage } from '@/utils/imageResolver';
 import { useImagePreference } from '@/hooks/useImagePreference';
 
@@ -522,12 +518,7 @@ export const ImageDiagnostics: React.FC = () => {
         </Button>
       </div>
 
-<<<<<<< HEAD
       {/* Production Image Validator - Removed for performance */}
-=======
-      {/* Production Image Validator */}
-      <ProductionImageValidator />
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

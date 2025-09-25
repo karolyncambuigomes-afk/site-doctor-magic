@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
-<<<<<<< HEAD
 import { SEOOptimized } from '@/components/SEOOptimized';
-=======
-import { SEO } from '@/components/SEO';
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { characteristics } from '@/data/characteristics';
@@ -96,11 +92,7 @@ const CharacteristicDetail = () => {
 
   return (
     <>
-<<<<<<< HEAD
       <SEOOptimized 
-=======
-      <SEO 
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         title={characteristic.seoTitle}
         description={characteristic.seoDescription}
         keywords={characteristic.keywords.join(', ')}

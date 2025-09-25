@@ -318,31 +318,18 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
         if (error) throw error;
 
-<<<<<<< HEAD
         toast({
           title: "Success",
           description: "Model created successfully",
         });
-=======
-        toast({
-          title: "Sucesso",
-          description: "Modelo criado com sucesso",
-        });
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       }
 
       onSave();
     } catch (error) {
       console.error('Error saving model:', error);
-<<<<<<< HEAD
       toast({
         title: "Error",
         description: "Error saving model",
-=======
-      toast({
-        title: "Erro",
-        description: "Erro ao salvar modelo",
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         variant: "destructive",
       });
     } finally {
@@ -667,11 +654,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   className="mt-2 text-white"
                   disabled={!formData.name}
                 >
-<<<<<<< HEAD
                   {loading ? 'Saving...' : '💾 Save to Enable Gallery'}
-=======
-                  {loading ? 'Salvando...' : '💾 Salvar para Habilitar Galeria'}
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 </Button>
               </div>
             )}
@@ -683,11 +666,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <CardHeader>
             <CardTitle className={`flex items-center gap-2 ${model?.id ? 'text-gray-900' : 'text-muted-foreground'}`}>
               <Eye className="w-5 h-5" />
-<<<<<<< HEAD
               Public Site Preview
-=======
-              Prévia do Site Público
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             </CardTitle>
             <div className="flex items-center justify-between">
               <p className={`text-sm ${model?.id ? 'text-gray-700' : 'text-muted-foreground'}`}>
@@ -705,11 +684,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
                   onClick={() => window.open(`/models/${model.id}`, '_blank')}
                 >
                   <ExternalLink className="w-4 h-4 mr-1" />
-<<<<<<< HEAD
                   View Public Page
-=======
-                  Ver Página Pública
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
                 </Button>
               )}
             </div>
@@ -824,11 +799,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
 
           {formData.characteristics && formData.characteristics.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-4">
-<<<<<<< HEAD
               <strong>Selected:</strong>
-=======
-              <strong>Selecionadas:</strong>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               {formData.characteristics.map((characteristic) => (
                 <Badge key={characteristic} variant="default" className="gap-1">
                   {characteristic}
@@ -846,21 +817,13 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Services */}
       <Card>
         <CardHeader>
-<<<<<<< HEAD
           <CardTitle>Services</CardTitle>
-=======
-          <CardTitle>Serviços</CardTitle>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
             <Select value={newService} onValueChange={setNewService}>
               <SelectTrigger className="flex-1">
-<<<<<<< HEAD
                 <SelectValue placeholder="Select a service" />
-=======
-                <SelectValue placeholder="Selecione um serviço" />
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
               </SelectTrigger>
               <SelectContent>
                 {serviceOptions.map((service) => (
@@ -940,11 +903,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
             value={formData.description || ''}
             onChange={(e) => handleInputChange('description', e.target.value)}
             rows={4}
-<<<<<<< HEAD
             placeholder="Detailed model description..."
-=======
-            placeholder="Descrição detalhada da modelo..."
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
           />
         </CardContent>
       </Card>
@@ -952,19 +911,11 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
       {/* Rating and Reviews */}
       <Card>
         <CardHeader>
-<<<<<<< HEAD
           <CardTitle>Reviews</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
           <div>
             <Label htmlFor="rating">Rating (0-5)</Label>
-=======
-          <CardTitle>Avaliações</CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-4">
-          <div>
-            <Label htmlFor="rating">Nota (0-5)</Label>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             <Input
               id="rating"
               type="number"
@@ -977,11 +928,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           </div>
 
           <div>
-<<<<<<< HEAD
             <Label htmlFor="reviews">Number of Reviews</Label>
-=======
-            <Label htmlFor="reviews">Número de Avaliações</Label>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             <Input
               id="reviews"
               type="number"
@@ -998,11 +945,7 @@ export const ModelForm: React.FC<ModelFormProps> = ({ model, onSave, onCancel })
           <div className="bg-white border border-gray-200 rounded-lg p-3">
             <div className="flex items-center gap-2 text-gray-700">
               <AlertCircle className="w-4 h-4" />
-<<<<<<< HEAD
               <span className="text-sm font-medium">Required fields missing</span>
-=======
-              <span className="text-sm font-medium">Campos obrigatórios em falta</span>
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
             </div>
             <p className="text-xs text-gray-600 mt-1">
               Preencha todos os campos marcados com (*) antes de salvar

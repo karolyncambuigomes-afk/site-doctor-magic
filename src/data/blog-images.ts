@@ -7,7 +7,6 @@ export interface BlogImageMap {
 export const blogImages: BlogImageMap = {
   'dining': {
     'restaurants': [
-<<<<<<< HEAD
   '/images/sketch-restaurant.webp',
   '/images/model1.webp',
   '/images/kate1.webp'
@@ -20,29 +19,11 @@ export const blogImages: BlogImageMap = {
     'michelin': [
       '/images/sketch-restaurant.jpg',
   '/images/model3.webp',
-=======
-      '/images/sketch-restaurant.jpg',
-      '/images/model1.jpg',
-      '/images/kate1.jpg'
-    ],
-    'fine-dining': [
-      '/images/sketch-restaurant.jpg',
-      '/images/model2.jpg',
-      '/images/luisa1.jpg'
-    ],
-    'michelin': [
-      '/images/sketch-restaurant.jpg',
-      '/images/model3.jpg',
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       '/images/model1.jpg'
     ],
     'wine': [
       '/images/sketch-restaurant.jpg',
-<<<<<<< HEAD
   '/images/model4.webp'
-=======
-      '/images/model4.jpg'
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     ],
     'cocktails': [
       '/images/sketch-restaurant.jpg',
@@ -51,11 +32,7 @@ export const blogImages: BlogImageMap = {
   },
   'events': {
     'exclusive': [
-<<<<<<< HEAD
   '/images/london-gala-event.webp',
-=======
-      '/images/london-gala-event.jpg',
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       '/images/model1.jpg',
       '/images/model2.jpg'
     ],
@@ -92,20 +69,12 @@ export const blogImages: BlogImageMap = {
   },
   'culture': {
     'entertainment': [
-<<<<<<< HEAD
   '/images/blog-entertainment-culture.webp',
-=======
-      '/images/blog-entertainment-culture.jpg',
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       '/images/model2.jpg',
       '/images/luisa1.jpg'
     ],
     'art': [
-<<<<<<< HEAD
   '/images/blog-entertainment-culture.webp',
-=======
-      '/images/blog-entertainment-culture.jpg',
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       '/images/model3.jpg',
       '/images/kate1.jpg'
     ],
@@ -131,11 +100,7 @@ export const blogImages: BlogImageMap = {
       '/images/model3.jpg'
     ],
     'hotels': [
-<<<<<<< HEAD
       '/images/clariges-lobby.webp',
-=======
-      '/images/clariges-lobby.jpg',
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
       '/images/model2.jpg',
       '/images/luisa1.jpg',
       '/images/model4.jpg'

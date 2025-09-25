@@ -48,7 +48,6 @@ export const ModelFormPage: React.FC = () => {
 
   const loadModel = async (modelId: string) => {
     try {
-<<<<<<< HEAD
       const { data, error } = await supabase
         .from('models')
         .select('*')
@@ -60,16 +59,6 @@ export const ModelFormPage: React.FC = () => {
         throw new Error('Model not found');
       }
       setModel(data);
-=======
-      const { data, error } = await supabase
-        .from('models')
-        .select('*')
-        .eq('id', modelId)
-        .single();
-
-      if (error) throw error;
-      setModel(data);
->>>>>>> 4d6ac79 (Update all project files: bug fixes, new features, and improvements)
     } catch (error) {
       console.error('Error loading model:', error);
       toast({

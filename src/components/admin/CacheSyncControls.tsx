@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useCacheSyncContext } from '@/components/CacheSyncProvider';
-import { Loader2, RefreshCw, Trash2, Database } from 'lucide-react';
+import { Loader2, RefreshCw, Trash2, Database, Zap } from 'lucide-react';
 import { toast } from 'sonner';
+import { forceClearAllCaches, forceReloadWithCacheClear } from '@/utils/forceCacheClear';
 
 export const CacheSyncControls: React.FC = () => {
   const { manualSync, triggerCacheClear } = useCacheSyncContext();
@@ -148,6 +149,32 @@ export const CacheSyncControls: React.FC = () => {
     { key: 'homepage_carousel', label: 'Homepage Carousel' }
   ];
 
+  const handleEmergencyCacheClear = async () => {
+    setLoading('emergency');
+    try {
+      console.log('🚨 [EMERGENCY] Starting emergency cache clear');
+      
+      await forceClearAllCaches();
+      
+      toast.success('Emergency cache clear completed!', {
+        description: 'All caches cleared. Page will hard reload now.',
+        duration: 2000,
+      });
+      
+      // Force hard reload after 1 second
+      setTimeout(() => {
+        forceReloadWithCacheClear();
+      }, 1000);
+      
+    } catch (error) {
+      console.error('❌ [EMERGENCY] Emergency cache clear failed:', error);
+      toast.error('Emergency cache clear failed - trying hard reload');
+      setTimeout(() => forceReloadWithCacheClear(), 500);
+    } finally {
+      setLoading(null);
+    }
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -160,6 +187,31 @@ export const CacheSyncControls: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Emergency Cache Clear - Always Works */}
+        <div className="p-3 border border-red-200 rounded-lg bg-red-50">
+          <h4 className="font-medium text-red-800 mb-2 flex items-center gap-2">
+            <Zap className="h-4 w-4" />
+            Emergency Cache Clear
+          </h4>
+          <p className="text-sm text-red-600 mb-3">
+            Use this if normal cache clearing isn't working. Guaranteed to clear all caches and reload.
+          </p>
+          <Button
+            onClick={handleEmergencyCacheClear}
+            disabled={loading !== null}
+            variant="destructive"
+            size="sm"
+            className="w-full"
+          >
+            {loading === 'emergency' ? (
+              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+            ) : (
+              <Zap className="h-4 w-4 mr-2" />
+            )}
+            Emergency Cache Clear & Reload
+          </Button>
+        </div>
+
         {/* Global Actions */}
         <div className="flex gap-2">
           <Button

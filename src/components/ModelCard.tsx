@@ -4,7 +4,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { useImagePreference } from '@/hooks/useImagePreference';
-import { LazyImage } from '@/components/LazyImage';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface ModelCardProps {
   model: Model;
@@ -90,7 +90,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
             {imageConfig.local || imageConfig.external ? (
               <>
                 {/* Main Image */}
-                <LazyImage
+                <OptimizedImage
                   src={imageConfig.external || imageConfig.local || imageConfig.placeholder || '/images/placeholders/model.jpg'}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
@@ -102,7 +102,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Second Image (from gallery) - only if available */}
                 {secondaryImage && (
-                  <LazyImage
+                  <OptimizedImage
                     src={secondaryImage}
                     alt={`${model.name} - alternate view`}
                     className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"

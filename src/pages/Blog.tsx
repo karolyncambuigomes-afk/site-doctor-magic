@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 import { getImageUrl } from "@/utils/imageMapper";
-import { LazyImage } from "@/components/LazyImage";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import { blogArticles } from "@/data/blog-articles";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -248,7 +248,7 @@ const Blog = () => {
                     className="group hover:shadow-elegant transition-all duration-300 border border-border/50 hover:border-primary/20 overflow-hidden bg-background"
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                      <LazyImage
+                      <OptimizedImage
                         src={post.image || getImageUrl(
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
                           '/images/blog/michelin-dining.webp'

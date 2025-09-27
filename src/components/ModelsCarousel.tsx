@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { ChevronLeft, ChevronRight, Crown } from 'lucide-react';
 import { useHomepageCarousel } from '@/hooks/useHomepageCarousel';
-import { LazyImage } from '@/components/LazyImage';
+import { OptimizedImage } from '@/components/OptimizedImage';
 // import {
 //   Carousel,
 //   CarouselContent,
@@ -64,7 +64,7 @@ export const ModelsCarousel = () => {
                   )}
                   
                   {/* Main Image */}
-                  <LazyImage
+                  <OptimizedImage
                     src={model.image || '/images/placeholders/model.jpg'}
                     alt={`${model.name} - elite companion in London`}
                     className="w-full aspect-[3/4] object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105"

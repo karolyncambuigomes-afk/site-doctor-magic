@@ -9,7 +9,6 @@ export const Footer = () => {
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle newsletter subscription
-    console.log('Newsletter subscription:', email);
     setEmail('');
   };
   return <footer className="bg-white text-foreground relative z-50 w-full">

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-export const ServiceWorkerManager: React.FC = () => {
+export const SimpleServiceWorker: React.FC = () => {
   useEffect(() => {
     if ('serviceWorker' in navigator && import.meta.env.PROD) {
       navigator.serviceWorker.register('/sw.js')

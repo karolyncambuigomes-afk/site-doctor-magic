@@ -23,7 +23,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    console.warn('useAuth must be used within an AuthProvider');
     // Return a safe default instead of throwing
     return {
       user: null,
@@ -58,7 +57,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkUserStatus = async (userId: string) => {
     if (!userId) {
-      console.log('AuthProvider - No userId provided');
       return { approved: false, status: null };
     }
     
@@ -76,7 +74,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       if (!profile) {
-        console.warn('No profile found for user:', userId);
         return { approved: false, status: 'unauthenticated', isAdmin: false };
       }
 
@@ -96,12 +93,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         try {
           await supabase.rpc('log_admin_login');
         } catch (logError) {
-          console.warn('Failed to log admin login:', logError);
+          // Silent error handling for admin login logging
         }
       }
 
       if (adminError) {
-        console.error('Error checking admin status:', adminError);
+        // Silent error handling for admin status check
       }
 
       return { approved, status: profile?.status, isAdmin: isAdminResult };
@@ -113,25 +110,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const checkUserAccess = async (userId: string) => {
     if (checkingAccess) {
-      console.log('AuthProvider - Already checking access, skipping...');
       return hasAccess;
     }
     
     setCheckingAccess(true);
-    console.log('AuthProvider - Checking user access for:', userId);
     
     try {
       const result = await checkUserStatus(userId);
       
       if (result.isAdmin) {
-        console.log('AuthProvider - User is admin, granting access');
         setHasAccess(true);
         return true;
       }
 
       // For regular users, check manual approval status only
       const approved = result.approved;
-      console.log('AuthProvider - User approval status:', approved);
       
       setHasAccess(approved);
       return approved;
@@ -249,20 +242,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
-      console.log('🚪 Starting logout process...');
       const { error } = await supabase.auth.signOut();
-      if (error) {
-        console.error('❌ Error signing out:', error);
-        // Still clear local state even if Supabase logout fails
-      } else {
-        console.log('✅ Successfully signed out from Supabase');
-      }
+      // Continue with logout process regardless of error
     } catch (error) {
-      console.error('❌ Error during logout:', error);
-      // Still clear local state even if logout fails
+      // Continue with logout process regardless of error
     } finally {
       // Clear local state regardless of success/failure
-      console.log('🧹 Clearing local state...');
       setUser(null);
       setSession(null);
       setHasAccess(false);
@@ -274,7 +259,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem('user_preferences');
       localStorage.removeItem('mobile_optimization_cache');
       
-      console.log('🏠 Redirecting to home page...');
       // Redirect to home page after logout
       navigate('/', { replace: true });
     }

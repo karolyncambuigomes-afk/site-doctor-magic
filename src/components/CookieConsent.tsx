@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
-import { safeStorage } from '@/lib/utils';
+
+const safeStorage = {
+  getItem: (key: string) => {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  setItem: (key: string, value: string) => {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Silent error handling
+    }
+  }
+};
 
 export const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
@@ -17,13 +31,6 @@ export const CookieConsent = () => {
   const acceptCookies = () => {
     safeStorage.setItem('cookieConsent', 'accepted');
     setShowConsent(false);
-    // Initialize analytics here
-    if (window.gtag) {
-      window.gtag('consent', 'update', {
-        analytics_storage: 'granted',
-        ad_storage: 'granted'
-      });
-    }
   };
 
   const declineCookies = () => {
@@ -34,33 +41,27 @@ export const CookieConsent = () => {
   if (!showConsent) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border p-4 shadow-lg z-50">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex-1">
-          <p className="text-sm text-muted-foreground">
-            We use cookies to enhance your experience and analyze our traffic. 
-            By continuing to use our site, you consent to our use of cookies.{' '}
-            <SafeLink to="/privacy-policy" className="text-foreground underline hover:no-underline">
-              Privacy Policy
-            </SafeLink>
-          </p>
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50 p-4">
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="text-sm text-gray-600 flex-1">
+          We use cookies to enhance your experience and analyze site usage. By continuing to browse, you agree to our{' '}
+          <SafeLink to="/privacy-policy" className="underline text-primary">
+            Privacy Policy
+          </SafeLink>.
         </div>
-        <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
+        <div className="flex gap-2">
+          <button
             onClick={declineCookies}
-            className="text-muted-foreground border-border"
+            className="px-4 py-2 text-sm border border-gray-300 rounded hover:bg-gray-50"
           >
             Decline
-          </Button>
-          <Button
-            size="sm"
+          </button>
+          <button
             onClick={acceptCookies}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            className="px-4 py-2 text-sm bg-primary text-white rounded hover:bg-primary/90"
           >
             Accept
-          </Button>
+          </button>
         </div>
       </div>
     </div>

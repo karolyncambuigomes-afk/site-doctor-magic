@@ -7,7 +7,8 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { EnhancedImageUpload } from './EnhancedImageUpload';
+import { ImageUpload } from '@/components/ImageUpload';
+
 import { RichTextEditor } from './RichTextEditor';
 import { 
   Save, 
@@ -344,12 +345,11 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({
         </TabsContent>
 
         <TabsContent value="media" className="space-y-6">
-          <EnhancedImageUpload
+          <ImageUpload
             value={formData.image || ''}
             onChange={(url) => setFormData(prev => ({ ...prev, image: url }))}
-            label="Imagem de Destaque"
-            placeholder="Imagem principal do post"
-            aspectRatio={16/9}
+            label="Featured Image"
+            placeholder="Main post image"
           />
         </TabsContent>
 

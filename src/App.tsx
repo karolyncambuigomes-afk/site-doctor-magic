@@ -6,7 +6,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
-import { VersionManager } from "@/components/VersionManager";
 import { MobileOptimizer } from "@/components/MobileOptimizer";
 import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
 import { BookNowButton } from "@/components/BookNowButton";
@@ -16,12 +15,9 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { AdminProtectedRoute } from "@/components/AdminProtectedRoute";
-import { UserApprovalStatus } from "@/components/UserApprovalStatus";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { SimpleErrorBoundary } from "@/components/SimpleErrorBoundary";
 import { Auth } from "./pages/Auth";
-import { AdminLogin } from "./pages/AdminLogin";
 import { AuthTest } from "./pages/AuthTest";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -46,41 +42,6 @@ import Reviews from "./pages/Reviews";
 
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
-import { AdminAccessDenied } from "./pages/AdminAccessDenied";
-
-// New Admin Panel Components
-import { AdminDashboard } from "./pages/admin/Dashboard";
-import { GlobalSEO } from "./pages/admin/seo/GlobalSEO";
-import { MetaTagsManager } from "./pages/admin/seo/MetaTagsManager";
-import { StructuredDataManager } from "./pages/admin/seo/StructuredDataManager";
-import { TechnicalSEO } from "./pages/admin/seo/TechnicalSEO";
-import { PerformanceAnalytics } from "./pages/admin/seo/PerformanceAnalytics";
-import { ContentManager } from "./pages/admin/content/ContentManager";
-import { BlogManager } from "./pages/admin/content/BlogManager";
-
-import { SiteContentManagerPage } from "./pages/admin/content/SiteContentManagerPage";
-import { FAQManagerPage } from "./pages/admin/content/FAQManagerPage";
-
-import { ModelsManager } from "./pages/admin/models/ModelsManager";
-import { ModelsListManager } from "./pages/admin/models/ModelsListManager";
-import { ModelFormPage } from "./pages/admin/models/ModelFormPage";
-import { ApplicationsManager } from "./pages/admin/models/ApplicationsManager";
-import { CharacteristicsManagerPage } from "./pages/admin/models/CharacteristicsManagerPage";
-import { ServicesManagerPage } from "./pages/admin/models/ServicesManagerPage";
-import { ReviewsManagerPage } from "./pages/admin/models/ReviewsManagerPage";
-import { LocationsManager as LocationsManagerPage } from "./pages/admin/locations/LocationsManager";
-import { LocalSEOManagerPage } from "./pages/admin/locations/LocalSEOManagerPage";
-import { UsersManager } from "./pages/admin/users/UsersManager";
-import { PermissionsManagerPage } from "./pages/admin/users/PermissionsManagerPage";
-import { SecurityStatusPage } from "./pages/admin/users/SecurityStatusPage";
-import { SystemSettings as SystemSettingsOld } from "./pages/admin/system/SystemSettings";
-import { SystemSettings } from "./pages/admin/settings/SystemSettings";
-import { ThemeManagerPage } from "./pages/admin/system/ThemeManagerPage";
-import { CategoriesManagerPage } from "./pages/admin/system/CategoriesManagerPage";
-import { LegalPagesManagerPage } from "./pages/admin/system/LegalPagesManagerPage";
-import { ImageDiagnostics } from "./pages/admin/content/ImageDiagnostics";
-import { BulkImageMigrationPage } from "./pages/admin/content/BulkImageMigrationPage";
-import { ImageAuditReport } from "./pages/admin/content/ImageAuditReport";
 // Create QueryClient instance
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -99,7 +60,6 @@ const ConditionalFeatures = () => {
     <>
       {!isPrivateMode && <Analytics />}
       <ServiceWorkerManager />
-      <VersionManager />
       {!isDegradedMode && <CookieConsent />}
     </>
   );
@@ -141,12 +101,9 @@ const App = () => {
                             <FixedRefreshButton />
                            <SkipToContent />
                         <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/auth-test" element={<AuthTest />} />
-                  <Route path="/admin-login" element={<AdminLogin />} />
-                  <Route path="/admin-access-denied" element={<AdminAccessDenied />} />
-                  <Route path="/approval-status" element={<UserApprovalStatus />} />
+                   <Route path="/" element={<Index />} />
+                   <Route path="/auth" element={<Auth />} />
+                   <Route path="/auth-test" element={<AuthTest />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/blog" element={<Blog />} />
@@ -225,189 +182,7 @@ const App = () => {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/reviews" element={<Reviews />} />
                   <Route path="/join-us" element={<JoinUs />} />
-          {/* New Admin Panel Routes */}
-          <Route path="/admin" element={
-            <AdminProtectedRoute>
-              <AdminDashboard />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/dashboard" element={
-            <AdminProtectedRoute>
-              <AdminDashboard />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* SEO Management */}
-          <Route path="/admin/seo/global" element={
-            <AdminProtectedRoute>
-              <GlobalSEO />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/seo/meta-tags" element={
-            <AdminProtectedRoute>
-              <MetaTagsManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/seo/structured-data" element={
-            <AdminProtectedRoute>
-              <StructuredDataManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/seo/technical" element={
-            <AdminProtectedRoute>
-              <TechnicalSEO />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/seo/performance" element={
-            <AdminProtectedRoute>
-              <PerformanceAnalytics />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* Content Management */}
-          <Route path="/admin/content" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/homepage" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/blog" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/site" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/faq" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/gallery" element={
-            <AdminProtectedRoute>
-              <ContentManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/image-diagnostics" element={
-            <AdminProtectedRoute>
-              <ImageDiagnostics />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/image-audit-report" element={
-            <AdminProtectedRoute>
-              <ImageAuditReport />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/content/bulk-migration" element={
-            <AdminProtectedRoute>
-              <BulkImageMigrationPage />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* Models & Services */}
-          <Route path="/admin/models" element={<Navigate to="/admin/models/list" replace />} />
-          <Route path="/admin/models/list" element={
-            <AdminProtectedRoute>
-              <ModelsListManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/new" element={
-            <AdminProtectedRoute>
-              <ModelFormPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/edit/:id" element={
-            <AdminProtectedRoute>
-              <ModelFormPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/applications" element={
-            <AdminProtectedRoute>
-              <ApplicationsManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/characteristics" element={
-            <AdminProtectedRoute>
-              <CharacteristicsManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/services" element={
-            <AdminProtectedRoute>
-              <ServicesManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/models/reviews" element={
-            <AdminProtectedRoute>
-              <ReviewsManagerPage />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* Locations & Geo */}
-          <Route path="/admin/locations/list" element={
-            <AdminProtectedRoute>
-              <LocationsManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/locations/seo" element={
-            <AdminProtectedRoute>
-              <LocalSEOManagerPage />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* System Settings */}
-          <Route path="/admin/settings/theme" element={
-            <AdminProtectedRoute>
-              <ThemeManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/settings/categories" element={
-            <AdminProtectedRoute>
-              <CategoriesManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/settings/legal" element={
-            <AdminProtectedRoute>
-              <LegalPagesManagerPage />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* User Management */}
-          <Route path="/admin/users/list" element={
-            <AdminProtectedRoute>
-              <UsersManager />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/users/permissions" element={
-            <AdminProtectedRoute>
-              <PermissionsManagerPage />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/users/security" element={
-            <AdminProtectedRoute>
-              <SecurityStatusPage />
-            </AdminProtectedRoute>
-          } />
-          
-          {/* System Settings */}
-          <Route path="/admin/system" element={
-            <AdminProtectedRoute>
-              <SystemSettingsOld />
-            </AdminProtectedRoute>
-          } />
-          <Route path="/admin/system/settings" element={
-            <AdminProtectedRoute>
-              <SystemSettings />
-            </AdminProtectedRoute>
-          } />
-          
-                          <Route path="*" element={<NotFound />} />
+                           <Route path="*" element={<NotFound />} />
                          </Routes>
                            </CacheSyncProvider>
                          </RealTimeDataProvider>

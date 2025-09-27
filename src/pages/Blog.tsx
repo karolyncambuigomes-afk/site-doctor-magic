@@ -15,7 +15,7 @@ import {
 import { useNuclearCacheClear } from "@/hooks/useNuclearCacheClear";
 import { toast } from "sonner";
 import { useState } from "react";
-import { BlogMigrationTrigger } from "@/components/BlogMigrationTrigger";
+
 import { getImageUrl } from "@/utils/imageMapper";
 import { EnhancedImage } from "@/components/EnhancedImage";
 import { blogArticles } from "@/data/blog-articles";
@@ -85,7 +85,6 @@ const Blog = () => {
           canonicalUrl="/blog"
         />
         <div className="min-h-screen bg-white">
-          <BlogMigrationTrigger />
           <Navigation />
           <main className="pt-0">
             {/* Hero Section with Loading State */}
@@ -166,7 +165,7 @@ const Blog = () => {
       />
 
       <div className="min-h-screen bg-white">
-        <BlogMigrationTrigger />
+        
         <Navigation />
 
         <main className="pt-0">

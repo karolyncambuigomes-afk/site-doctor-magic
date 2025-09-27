@@ -100,14 +100,6 @@ export const Navigation: React.FC = () => {
                       Browse Models
                     </SafeLink>
                   </DropdownMenuItem>
-                  {auth?.isAdmin && (
-                    <DropdownMenuItem asChild>
-                      <SafeLink to="/admin" className="flex items-center">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Admin Panel
-                      </SafeLink>
-                    </DropdownMenuItem>
-                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={signOut}
@@ -157,7 +149,7 @@ export const Navigation: React.FC = () => {
                 >
                   {item.label}
                 </SafeLink>
-              ))})
+              ))}
 
               <div className="pt-8 border-t border-border space-y-6">
                 <div className="flex items-center justify-between">
@@ -181,14 +173,6 @@ export const Navigation: React.FC = () => {
                         Browse Models
                       </Button>
                     </SafeLink>
-                    {auth?.isAdmin && (
-                      <SafeLink to="/admin">
-                        <Button variant="outline" className="w-full mb-2">
-                          <Settings className="w-4 h-4 mr-2" />
-                          Admin Panel
-                        </Button>
-                      </SafeLink>
-                    )}
                     <button
                       onClick={() => {
                         if (window.confirm("Are you sure you want to sign out?")) {

@@ -7,7 +7,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { BookNowButton } from "@/components/BookNowButton";
-import { FixedRefreshButton } from "@/components/FixedRefreshButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
@@ -15,6 +14,7 @@ import { AuthProvider } from "@/components/AuthProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { removeConsoleLogsInProduction } from "@/utils/performanceOptimizer";
+import { cleanConsoleOutput } from "@/utils/cleanConsole";
 // Lazy load pages for better performance
 const Auth = lazy(() => import("./pages/Auth").then(m => ({ default: m.Auth })));
 const Index = lazy(() => import("./pages/Index"));
@@ -68,9 +68,9 @@ const ConditionalFeatures = () => {
 
 
 const App = () => {
-  // Remove console logs in production for better performance
+  // Remove console logs for better performance
   React.useEffect(() => {
-    removeConsoleLogsInProduction();
+    cleanConsoleOutput();
   }, []);
   
   return (
@@ -85,7 +85,6 @@ const App = () => {
                 <Toaster />
                 <Sonner />
                 <BookNowButton />
-                <FixedRefreshButton />
                 <SkipToContent />
                 
                 <Suspense fallback={<LoadingSpinner />}>

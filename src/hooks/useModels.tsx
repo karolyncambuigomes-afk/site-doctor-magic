@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/AuthProvider';
-import { getImageUrl } from '@/utils/imageMapper';
-import { addCacheBusting } from '@/utils/imageCacheBuster';
+// Removed heavy utilities for better performance
 
 export interface Model {
   id: string;
@@ -100,8 +99,6 @@ export const useModels = () => {
             }
           }
           
-          mainImage = addCacheBusting(mainImage);
-          
           return {
             id: model.id,
             name: model.name,
@@ -114,7 +111,7 @@ export const useModels = () => {
               threeHours: '£1,300',
               additionalHour: '£400'
             },
-            image: mainImage ? getImageUrl(mainImage) : null,
+            image: mainImage || '/images/placeholders/model.jpg',
             gallery: galleryImages,
             services: model.services || [],
             characteristics: model.characteristics || [],
@@ -163,7 +160,7 @@ export const useModels = () => {
             location: model.location,
             price: model.price,
             pricing: pricing,
-            image: getImageUrl(model.image),
+            image: model.image || '/images/placeholders/model.jpg',
             gallery: [],
             services: model.services || [],
             characteristics: model.characteristics || [],

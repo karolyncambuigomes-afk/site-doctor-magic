@@ -16,7 +16,7 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 
-import { getImageUrl } from "@/utils/imageMapper";
+// Removed image mapper import for better performance
 import { OptimizedImage } from "@/components/OptimizedImage";
 import { blogArticles } from "@/data/blog-articles";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
@@ -249,10 +249,10 @@ const Blog = () => {
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
                       <OptimizedImage
-                        src={post.image || getImageUrl(
+                        src={post.image || 
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
                           '/images/blog/michelin-dining.webp'
-                        )}
+                        }
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         data-blog-image="card"

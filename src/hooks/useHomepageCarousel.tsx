@@ -1,9 +1,7 @@
 // UPDATED 2025: Homepage carousel with age and characteristics
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { getImageUrl } from '@/utils/imageMapper';
-import { addCacheBusting } from '@/utils/imageCacheBuster';
-import { purgeImageCache } from '@/utils/cacheManager';
+// Removed heavy utilities for better performance
 
 export interface CarouselModel {
   id: string;
@@ -75,13 +73,10 @@ export const useHomepageCarousel = () => {
           }
         }
 
-        // Apply aggressive cache busting
-        imageUrl = addCacheBusting(imageUrl);
-
         transformedModels.push({
           id: model.id,
           name: model.name.split(' ')[0],
-          image: getImageUrl(imageUrl),
+          image: imageUrl || '/images/placeholders/model.jpg',
           location: model.location || '',
           price: model.price || '',
           age: model.age || null,
@@ -99,7 +94,7 @@ export const useHomepageCarousel = () => {
             .map((m: any) => ({
               id: m.id,
               name: String(m.name).split(' ')[0],
-              image: getImageUrl(addCacheBusting(m.image)),
+              image: m.image || '/images/placeholders/model.jpg',
               location: m.location || '',
               price: m.price || '',
               age: m.age || null,
@@ -137,8 +132,6 @@ export const useHomepageCarousel = () => {
           table: 'models'
         },
         (payload) => {
-          // Clear image cache when models change
-          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )
@@ -150,8 +143,6 @@ export const useHomepageCarousel = () => {
           table: 'homepage_carousel'
         },
         (payload) => {
-          // Clear cache when homepage carousel config changes
-          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )
@@ -163,8 +154,6 @@ export const useHomepageCarousel = () => {
           table: 'model_gallery'
         },
         (payload) => {
-          // Clear image cache when gallery images change
-          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )

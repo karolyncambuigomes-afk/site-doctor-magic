@@ -1,12 +1,12 @@
 // Performance optimization utilities
 
-// Remove console logs in production
+// Remove console logs in production and development for better performance
 export const removeConsoleLogsInProduction = () => {
-  if (import.meta.env.PROD) {
-    console.log = () => {};
-    console.warn = () => {};
-    console.debug = () => {};
-  }
+  // Always remove console logs for better performance
+  console.log = () => {};
+  console.warn = () => {};
+  console.debug = () => {};
+  console.info = () => {};
 };
 
 // Debounce function for performance

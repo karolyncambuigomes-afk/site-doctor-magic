@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { purgeImageCache } from '@/utils/cacheManager';
+// Removed cache manager for better performance
 
 interface SiteBanner {
   id: string;
@@ -71,8 +71,6 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
           table: 'site_banners'
         },
         (payload) => {
-          // Clear image cache when banners change
-          purgeImageCache(['hero-banner-*', '*']).catch(console.error);
           fetchBanners();
         }
       )

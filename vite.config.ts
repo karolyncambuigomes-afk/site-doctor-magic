@@ -98,15 +98,17 @@ export default defineConfig(({ mode }) => ({
       }
     },
     sourcemap: false,
-    assetsInlineLimit: 1024, // Smaller inline limit for better caching
-    chunkSizeWarningLimit: 1000,
+    assetsInlineLimit: 512, // Even smaller inline limit for better caching
+    chunkSizeWarningLimit: 800,
     minify: mode === 'production' ? 'terser' : false,
     terserOptions: mode === 'production' ? {
       compress: {
         drop_console: true,
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info'],
-        passes: 2
+        pure_funcs: ['console.log', 'console.info', 'console.warn', 'console.error'],
+        passes: 3,
+        unsafe_arrows: true,
+        unsafe_methods: true
       },
       mangle: {
         safari10: true

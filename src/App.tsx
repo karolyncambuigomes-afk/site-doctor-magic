@@ -6,8 +6,8 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
-import { MobileOptimizer } from "@/components/MobileOptimizer";
-import { useMobileSyncManager } from "@/hooks/useMobileSyncManager";
+
+
 import { BookNowButton } from "@/components/BookNowButton";
 import { FixedRefreshButton } from "@/components/FixedRefreshButton";
 import { SkipToContent } from "@/components/SkipToContent";
@@ -65,15 +65,8 @@ const ConditionalFeatures = () => {
   );
 };
 
-import { useDataSyncManager } from '@/hooks/useDataSyncManager';
-import { RealTimeDataProvider } from '@/components/RealTimeDataProvider';
-import { CacheSyncProvider } from '@/components/CacheSyncProvider';
 
-// Mobile Sync Component to initialize the sync manager
-const DataSyncInitializer = () => {
-  useDataSyncManager();
-  return null;
-};
+
 
 const App = () => {
   
@@ -87,17 +80,14 @@ const App = () => {
                   <BrowserRouter>
                     <SimpleErrorBoundary context="AuthProvider">
                        <AuthProvider>
-                         <RealTimeDataProvider>
-                           <CacheSyncProvider>
-                             <ScrollToTop />
-                           <ConditionalFeatures />
-                           <DataSyncInitializer />
-                           <MobileOptimizer />
-                           <Toaster />
-                           <Sonner />
-                            <BookNowButton />
-                            <FixedRefreshButton />
-                           <SkipToContent />
+                              <ScrollToTop />
+                            <ConditionalFeatures />
+                            
+                            <Toaster />
+                            <Sonner />
+                             <BookNowButton />
+                             <FixedRefreshButton />
+                            <SkipToContent />
                         <Routes>
                    <Route path="/" element={<Index />} />
                    <Route path="/auth" element={<Auth />} />
@@ -182,9 +172,7 @@ const App = () => {
                   <Route path="/join-us" element={<JoinUs />} />
                            <Route path="*" element={<NotFound />} />
                          </Routes>
-                           </CacheSyncProvider>
-                         </RealTimeDataProvider>
-                      </AuthProvider>
+                       </AuthProvider>
                     </SimpleErrorBoundary>
                   </BrowserRouter>
                 </SimpleErrorBoundary>

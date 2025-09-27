@@ -3,16 +3,10 @@ import { ModelsGallery } from '@/components/ModelsGallery';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
-import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
+
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 export const Models: React.FC = () => {
-  // Enable real-time updates for models page
-  useRealTimeDataSync({
-    enableNotifications: false,
-    enableCacheInvalidation: true,
-    enableImageRefresh: true
-  });
   
   const structuredData = [
     generateOrganizationSchema(),

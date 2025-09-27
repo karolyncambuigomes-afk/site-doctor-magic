@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { RefreshCw, Loader2 } from 'lucide-react';
-import { useNuclearCacheClear } from '@/hooks/useNuclearCacheClear';
+
 import { toast } from 'sonner';
 
 export const FixedRefreshButton = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { nuclearClear } = useNuclearCacheClear();
-
   const handleGlobalRefresh = async () => {
     setRefreshing(true);
     try {
@@ -15,8 +13,8 @@ export const FixedRefreshButton = () => {
         duration: 2000,
       });
       
-      // Use nuclear cache clear which clears everything and reloads
-      await nuclearClear();
+      // Simple refresh fallback
+      window.location.reload();
       
     } catch (error) {
       console.error('Global refresh failed:', error);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, ZoomIn, AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
+
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 interface GalleryImage {
@@ -24,12 +24,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   modelName 
 }) => {
   const isMobile = useIsMobile();
-  const { 
-    optimizations, 
-    trackPerformance, 
-    getOptimizedImageUrl, 
-    getOptimizedClasses 
-  } = useMobileGalleryOptimizer();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -218,8 +212,6 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
       const loadTime = performance.now() - startTime;
       
-      // Track performance metrics
-      trackPerformance(startTime, finalData?.length || 0);
       
       if (isMobile && loadTime > 2000) {
         console.warn(`Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);

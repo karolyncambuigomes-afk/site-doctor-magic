@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOOptimized } from "@/components/SEOOptimized";
-import { useRealTimeDataSync } from '@/hooks/useRealTimeDataSync';
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
 } from "@/utils/structuredData";
-import { useNuclearCacheClear } from "@/hooks/useNuclearCacheClear";
+
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -23,15 +23,9 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Blog = () => {
-  // Enable real-time updates for blog page
-  useRealTimeDataSync({
-    enableNotifications: false,
-    enableCacheInvalidation: true,
-    enableImageRefresh: true
-  });
   
   const { posts, loading, error, categories, refetch } = useBlogPosts();
-  const { forceFreshBlogData } = useNuclearCacheClear();
+  
   const [refreshing, setRefreshing] = useState(false);
 
   const structuredData = [
@@ -188,7 +182,7 @@ const Blog = () => {
                   onClick={async () => {
                     setRefreshing(true);
                     try {
-                      await forceFreshBlogData();
+                      // Simple refresh fallback
                       await refetch();
                       toast.success('Blog content refreshed!');
                     } catch (error) {

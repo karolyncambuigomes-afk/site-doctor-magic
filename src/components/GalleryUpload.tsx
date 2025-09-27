@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useAuth } from '@/components/AuthProvider';
-import { useMobileGalleryOptimizer } from '@/hooks/useMobileGalleryOptimizer';
+
 import { Trash2, Plus, Edit3, Globe, Crown, Lock, Info, AlertCircle } from 'lucide-react';
 
 interface GalleryImage {
@@ -43,13 +43,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   const isMobile = useIsMobile();
   const auth = useAuth();
   const isAdmin = auth?.isAdmin || false;
-  const { 
-    optimizations, 
-    metrics, 
-    trackPerformance, 
-    getOptimizedImageUrl, 
-    getOptimizedClasses 
-  } = useMobileGalleryOptimizer();
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingError, setLoadingError] = useState<string | null>(null);
@@ -84,8 +77,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
 
       const loadTime = performance.now() - startTime;
       
-      // Track performance metrics
-      trackPerformance(startTime, data?.length || 0);
       
       if (isMobile && loadTime > 3000) {
         console.warn(`Carregamento lento detectado (${loadTime.toFixed(2)}ms) - otimização necessária`);

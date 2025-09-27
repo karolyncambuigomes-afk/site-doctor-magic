@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeLink } from "@/components/ui/safe-link";
 import { useSafeLocation } from "@/hooks/useSafeRouter";
-import { Menu, X, User, LogOut, Settings } from "@/components/LazyLucideIcon";
+import { Menu, X, User, LogOut, Settings } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
 import {

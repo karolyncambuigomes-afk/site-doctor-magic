@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { getImageUrl } from '@/utils/imageMapper';
 import { addCacheBusting } from '@/utils/imageCacheBuster';
+import { purgeImageCache } from '@/utils/cacheManager';
 
 export interface CarouselModel {
   id: string;
@@ -150,6 +151,8 @@ export const useHomepageCarousel = () => {
         },
         (payload) => {
           console.log('Homepage carousel models change detected:', payload);
+          // Clear image cache when models change
+          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )
@@ -162,6 +165,8 @@ export const useHomepageCarousel = () => {
         },
         (payload) => {
           console.log('Homepage carousel table change detected:', payload);
+          // Clear cache when homepage carousel config changes
+          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )
@@ -174,6 +179,8 @@ export const useHomepageCarousel = () => {
         },
         (payload) => {
           console.log('Model gallery change affecting homepage detected:', payload);
+          // Clear image cache when gallery images change
+          purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
         }
       )

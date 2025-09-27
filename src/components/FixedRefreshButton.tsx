@@ -13,13 +13,31 @@ export const FixedRefreshButton = () => {
         duration: 2000,
       });
       
-      // Simple refresh fallback
+      // Clear all browser caches
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(name => caches.delete(name)));
+      }
+      
+      // Clear localStorage and sessionStorage
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Dispatch cache clear event for real-time components
+      window.dispatchEvent(new CustomEvent('manual-cache-clear', { 
+        detail: { timestamp: Date.now() } 
+      }));
+      
+      // Wait a moment for cache clearing to complete
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Force reload to refetch everything
       window.location.reload();
       
     } catch (error) {
       console.error('Global refresh failed:', error);
       toast.error('Failed to refresh content');
-      // Force reload anyway if nuclear clear fails
+      // Force reload anyway if cache clear fails
       window.location.reload();
     } finally {
       setRefreshing(false);

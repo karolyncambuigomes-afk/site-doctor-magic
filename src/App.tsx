@@ -16,6 +16,7 @@ import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedMode
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { useRealTimeCacheManager } from "@/hooks/useRealTimeCacheManager";
 import { SimpleErrorBoundary } from "@/components/SimpleErrorBoundary";
 import { Auth } from "./pages/Auth";
 import { AuthTest } from "./pages/AuthTest";
@@ -69,6 +70,8 @@ const ConditionalFeatures = () => {
 
 
 const App = () => {
+  // Initialize real-time cache management
+  useRealTimeCacheManager();
   
   return (
       <ErrorBoundary>

@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { BookNowButton } from "@/components/BookNowButton";
+import { CacheClearButton } from "@/components/CacheClearButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
@@ -86,6 +87,7 @@ const App = () => {
                 <Sonner />
                 <BookNowButton />
                 <SkipToContent />
+                {import.meta.env.DEV && <CacheClearButton />}
                 
                 <Suspense fallback={<LoadingSpinner />}>
                   <Routes>

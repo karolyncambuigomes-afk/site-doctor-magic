@@ -76,10 +76,10 @@ const DataSyncInitializer = () => {
 };
 
 const App = () => {
+  console.log('🚀 [App] Starting App component render');
   console.log('App: Starting App component render');
   
   return (
-    <SimpleErrorBoundary context="App Root">
       <ErrorBoundary>
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>

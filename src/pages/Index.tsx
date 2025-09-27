@@ -31,6 +31,7 @@ import {
 } from "@/data/faq-schema";
 
 const Index = () => {
+  console.log('🏠 [Index] Starting Index page render');
   // Enable real-time updates for homepage
   useRealTimeDataSync({
     enableNotifications: false, // Don't show notifications on main site

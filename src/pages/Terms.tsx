@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 const Terms = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Terms of Service - Five London"
         description="Terms of service for Five London luxury escort services. Read our terms and conditions."
         canonicalUrl="/terms"

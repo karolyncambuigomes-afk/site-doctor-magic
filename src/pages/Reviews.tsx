@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
 import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
@@ -84,7 +84,7 @@ export const Reviews: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Client Reviews - Five London | Premium Escort Testimonials"
         description="Read authentic reviews from our satisfied clients about their experiences with Five London's premium escort services. Discover why discerning gentlemen choose us for exceptional companionship."
         keywords="escort reviews London, client testimonials, luxury companionship reviews, Five London reviews, premium escort testimonials"

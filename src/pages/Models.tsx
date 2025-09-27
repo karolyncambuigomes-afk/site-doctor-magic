@@ -2,7 +2,7 @@ import React from 'react';
 import { ModelsGallery } from '@/components/ModelsGallery';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
@@ -18,7 +18,7 @@ export const Models: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Elite Escort Models in London - Sophisticated Companions | Five London"
         description="Browse our exclusive collection of sophisticated escort models in London. Elite companions for dinner dates, social events, business functions, and private meetings. Professional, discreet, and elegant."
         keywords="luxury escorts London, elite escort models, sophisticated companions London, high-class escorts, VIP escort models, premium escort gallery, London escort models, professional companions, exclusive escorts London, elite escort agency"

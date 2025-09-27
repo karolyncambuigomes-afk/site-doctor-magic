@@ -1,4 +1,4 @@
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,7 +32,7 @@ const LondonEscortGuide = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="London Escort Guide | Complete Guide to Elite Companionship Services | Five London"
         description="Complete guide to London escort services. Learn about premium areas, booking process, etiquette, and safety for elite companionship in London. Expert advice from Five London."
         keywords="london escort guide, escort services london, elite companionship guide, premium escort advice, london escort areas, escort booking guide, companion services london"

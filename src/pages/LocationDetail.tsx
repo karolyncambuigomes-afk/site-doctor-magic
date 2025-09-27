@@ -1,7 +1,7 @@
 import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
 import { useState } from 'react';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { locations } from '@/data/locations';
@@ -132,7 +132,7 @@ const LocationDetail = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title={location.seoTitle}
         description={location.seoDescription}
         keywords={location.keywords.join(", ")}

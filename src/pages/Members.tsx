@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 export const Members: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const Members: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Members Area - Redirecting to Models | Five London"
         description="Redirecting to our main models gallery where exclusive models are displayed for premium members."
         canonicalUrl="/models"

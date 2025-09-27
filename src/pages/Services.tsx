@@ -1,4 +1,4 @@
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -157,7 +157,7 @@ const Services = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Elite London Escort Services | High-Class Companions | Dinner Dates & Travel"
         description="Premium escort services in London. Elite companions for dinner dates, business events, travel, intimate encounters. Beautiful, intelligent, sophisticated. Available 24/7 across Mayfair, Knightsbridge, Chelsea."
         keywords="luxury escort services London, premium companion services, dinner date escorts, business event companions, travel companion services, cultural event escorts, professional escort services, VIP companion services London, elite escort agency services"

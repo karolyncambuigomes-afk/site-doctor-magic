@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Check, Lock, Mail, Eye, EyeOff, ArrowLeft, LogOut, User } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { useToast } from '@/hooks/use-toast';
 
 export const Membership: React.FC = () => {
@@ -203,7 +203,7 @@ export const Membership: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Members Area - Exclusive Access | Five London" 
         description="Exclusive membership area for Five London. Access requires approval from our team." 
         keywords="members area, exclusive access, VIP membership, Five London" 

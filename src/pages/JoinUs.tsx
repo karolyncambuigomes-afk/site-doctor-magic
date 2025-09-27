@@ -16,7 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { SEO } from "@/components/SEO";
+import { SEOOptimized } from "@/components/SEOOptimized";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ApplicationData {
@@ -270,7 +270,7 @@ const JoinUs = () => {
   // Show authentication required screen for non-authenticated users
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Join Our Agency - Model Application"
         description="Be part of our luxury escort agency. Apply now and start your career as an elite model."
         keywords="model application, escort agency, work as escort, elite model"

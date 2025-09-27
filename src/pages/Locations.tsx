@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { locations } from '@/data/locations';
@@ -10,7 +10,7 @@ import { MapPin, ArrowRight } from 'lucide-react';
 const Locations = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Escort Services by Location in London | Five London"
         description="Find premium escort services in your preferred London location. We serve Mayfair, Knightsbridge, Chelsea, Belgravia, Kensington, and Canary Wharf."
         keywords="london escort locations, area specific escorts, mayfair escorts, knightsbridge escorts, chelsea escorts"

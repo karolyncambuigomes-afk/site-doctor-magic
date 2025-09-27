@@ -1,5 +1,5 @@
 import React from 'react';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { generateLocalBusinessSchema, generateGeoTargetingSchema } from '@/utils/geoTargeting';
 import { generateBreadcrumbSchema } from '@/utils/structuredData';
 import { locations } from '@/data/locations';
@@ -18,7 +18,7 @@ export const Locations: React.FC = () => {
 
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Elite Escorts Across London | All Areas Covered | Five London"
         description="Premium escort services across all London areas. Mayfair, Knightsbridge, Chelsea, Canary Wharf & more. Elite companions available 24/7 in your postcode."
         keywords="london escorts, london areas, mayfair escorts, knightsbridge escorts, chelsea escorts, canary wharf escorts, kensington escorts, central london escorts"

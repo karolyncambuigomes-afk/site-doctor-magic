@@ -6,7 +6,7 @@ import { BlogContentIndex } from './BlogContentIndex';
 import { BlogProgressBar } from './BlogProgressBar';
 import { BlogShareButtons } from './BlogShareButtons';
 import { getImageForContent } from '@/data/blog-images';
-import { processContentWithEntityLinks } from '@/utils/entityLinker';
+
 
 interface BlogSection {
   title: string;
@@ -20,8 +20,8 @@ interface BlogContentLayoutProps {
 }
 
 export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, slug }) => {
-  // Process content with entity links for SEO
-  const processedContent = processContentWithEntityLinks(content);
+  // Process content directly without entity links
+  const processedContent = content;
   
   // Add section IDs to content for navigation
   useEffect(() => {

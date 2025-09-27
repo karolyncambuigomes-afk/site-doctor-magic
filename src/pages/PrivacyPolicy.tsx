@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 
 const PrivacyPolicy = () => {
   return (
     <>
-      <SEO 
+      <SEOOptimized 
         title="Privacy Policy - Five London"
         description="Privacy policy for Five London luxury escort services. Learn how we protect your personal information and data."
         canonicalUrl="/privacy-policy"

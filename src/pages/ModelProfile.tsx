@@ -6,7 +6,7 @@ import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, MapPin, Clock, Star, MessageCircle, Phone, ChevronLeft, ChevronRight } from 'lucide-react';
-import { SEO } from '@/components/SEO';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ModelGallery } from '@/components/ModelGallery';
@@ -107,7 +107,7 @@ export const ModelProfile: React.FC = () => {
     }
   };
   return <>
-      <SEO title={`${model.name} - Luxury Escort in ${model.location}`} description={`Meet ${model.name}, an elegant ${model.age}-year-old companion in ${model.location}. ${model.description}`} keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`} />
+      <SEOOptimized title={`${model.name} - Luxury Escort in ${model.location}`} description={`Meet ${model.name}, an elegant ${model.age}-year-old companion in ${model.location}. ${model.description}`} keywords={`${model.name}, luxury escort, ${model.location}, companion, ${model.nationality}`} />
       
       <Navigation />
 

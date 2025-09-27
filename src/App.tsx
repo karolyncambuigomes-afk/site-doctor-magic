@@ -16,6 +16,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { removeConsoleLogsInProduction } from "@/utils/performanceOptimizer";
 import { cleanConsoleOutput } from "@/utils/cleanConsole";
+import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // Lazy load pages for better performance
 const Auth = lazy(() => import("./pages/Auth").then(m => ({ default: m.Auth })));
 const Index = lazy(() => import("./pages/Index"));
@@ -56,6 +57,9 @@ const queryClient = new QueryClient({
 // Optimized conditional features
 const ConditionalFeatures = () => {
   const { isDegradedMode } = useDegradedMode();
+  
+  // Initialize auto-refresh functionality
+  useAutoRefresh();
   
   return (
     <>

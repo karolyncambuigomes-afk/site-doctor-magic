@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Check, Lock, Mail, Eye, EyeOff, ArrowLeft, LogOut, User } from 'lucide-react';
 import { SEOOptimized } from '@/components/SEOOptimized';
@@ -22,8 +21,7 @@ export const Membership: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
   const [error, setError] = useState('');
   const navigate = useSafeNavigate();
@@ -66,7 +64,7 @@ export const Membership: React.FC = () => {
     setError('');
   };
 
-  const validateForm = (isSignUp: boolean) => {
+  const validateForm = () => {
     if (!formData.email || !formData.password) {
       setError('Please fill in all required fields');
       return false;
@@ -77,32 +75,9 @@ export const Membership: React.FC = () => {
       return false;
     }
 
-    if (isSignUp) {
-      if (formData.password.length < 8) {
-        setError('Password must be at least 8 characters long');
-        return false;
-      }
-
-      // Enhanced password validation for signup only
-      const hasUppercase = /[A-Z]/.test(formData.password);
-      const hasLowercase = /[a-z]/.test(formData.password);
-      const hasNumbers = /\d/.test(formData.password);
-
-      if (!hasUppercase || !hasLowercase || !hasNumbers) {
-        setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
-        return false;
-      }
-
-      if (formData.password !== formData.confirmPassword) {
-        setError('Passwords do not match');
-        return false;
-      }
-    } else {
-      // For sign in, just check password is not empty
-      if (formData.password.length === 0) {
-        setError('Please enter your password');
-        return false;
-      }
+    if (formData.password.length === 0) {
+      setError('Please enter your password');
+      return false;
     }
 
     return true;
@@ -111,7 +86,7 @@ export const Membership: React.FC = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm(false)) {
+    if (!validateForm()) {
       return;
     }
 
@@ -140,58 +115,11 @@ export const Membership: React.FC = () => {
           title: "Welcome back!",
           description: "Login successful.",
         });
-      }
-    } catch (err: any) {
-      setError('Unexpected error. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm(true)) {
-      return;
-    }
-
-    setLoading(true);
-    setError('');
-
-    try {
-      const redirectUrl = `${window.location.origin}/membership`;
-      
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email.trim(),
-        password: formData.password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
-            role: 'user'
-          }
-        }
-      });
-
-      if (error) {
-        if (error.message.includes('User already registered')) {
-          setError('This email is already registered. Please try signing in.');
-        } else {
-          setError(`Error: ${error.message}`);
-        }
-        return;
-      }
-
-      if (data.user) {
-        toast({
-          title: "Check your email",
-          description: "We've sent you a confirmation link. Please check your email and click the link to activate your account.",
-        });
-
+        
         // Clear form
         setFormData({
           email: '',
-          password: '',
-          confirmPassword: ''
+          password: ''
         });
       }
     } catch (err: any) {
@@ -316,144 +244,73 @@ export const Membership: React.FC = () => {
                         Member Access
                       </CardTitle>
                       <CardDescription className="text-muted-foreground">
-                        Sign in to your membership account or create a new one
+                        Sign in to your membership account
                       </CardDescription>
                     </CardHeader>
                     
                     <CardContent>
-                      <Tabs defaultValue="signin" className="space-y-6">
-                        <TabsList className="grid w-full grid-cols-2">
-                          <TabsTrigger value="signin">Sign In</TabsTrigger>
-                          <TabsTrigger value="signup">Sign Up</TabsTrigger>
-                        </TabsList>
-
+                      <div className="space-y-6">
                         {error && (
                           <Alert variant="destructive">
                             <AlertDescription>{error}</AlertDescription>
                           </Alert>
                         )}
 
-                        <TabsContent value="signin" className="space-y-4">
-                          <form onSubmit={handleSignIn} className="space-y-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="signin-email">Email Address</Label>
-                              <Input
-                                id="signin-email"
-                                type="email"
-                                placeholder="your@email.com"
-                                value={formData.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                                disabled={loading}
-                                required
-                              />
-                            </div>
-
-                            <div className="space-y-2">
-                              <Label htmlFor="signin-password">Password</Label>
-                              <div className="relative">
-                                <Input
-                                  id="signin-password"
-                                  type={showPassword ? "text" : "password"}
-                                  placeholder="••••••••"
-                                  value={formData.password}
-                                  onChange={(e) => handleInputChange('password', e.target.value)}
-                                  disabled={loading}
-                                  className="pr-10"
-                                  required
-                                />
-                                <button
-                                  type="button"
-                                  onClick={() => setShowPassword(!showPassword)}
-                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                                >
-                                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                </button>
-                              </div>
-                            </div>
-
-                            <Button
-                              type="submit"
-                              className="w-full five-london-button"
+                        <form onSubmit={handleSignIn} className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="signin-email">Email Address</Label>
+                            <Input
+                              id="signin-email"
+                              type="email"
+                              placeholder="your@email.com"
+                              value={formData.email}
+                              onChange={(e) => handleInputChange('email', e.target.value)}
                               disabled={loading}
-                            >
-                              {loading ? 'Signing In...' : 'Sign In'}
-                            </Button>
-                          </form>
-                        </TabsContent>
+                              required
+                            />
+                          </div>
 
-                        <TabsContent value="signup" className="space-y-4">
-                          <form onSubmit={handleSignUp} className="space-y-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="signup-email">Email Address</Label>
+                          <div className="space-y-2">
+                            <Label htmlFor="signin-password">Password</Label>
+                            <div className="relative">
                               <Input
-                                id="signup-email"
-                                type="email"
-                                placeholder="your@email.com"
-                                value={formData.email}
-                                onChange={(e) => handleInputChange('email', e.target.value)}
-                                disabled={loading}
-                                required
-                              />
-                            </div>
-
-                            <div className="space-y-2">
-                              <Label htmlFor="signup-password">Password</Label>
-                              <div className="relative">
-                                <Input
-                                  id="signup-password"
-                                  type={showPassword ? "text" : "password"}
-                                  placeholder="••••••••"
-                                  value={formData.password}
-                                  onChange={(e) => handleInputChange('password', e.target.value)}
-                                  disabled={loading}
-                                  className="pr-10"
-                                  required
-                                />
-                                <button
-                                  type="button"
-                                  onClick={() => setShowPassword(!showPassword)}
-                                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                                >
-                                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                </button>
-                              </div>
-                              <p className="text-xs text-muted-foreground">
-                                Must be 8+ characters with uppercase, lowercase, and numbers
-                              </p>
-                            </div>
-
-                            <div className="space-y-2">
-                              <Label htmlFor="signup-confirm-password">Confirm Password</Label>
-                              <Input
-                                id="signup-confirm-password"
-                                type="password"
+                                id="signin-password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="••••••••"
-                                value={formData.confirmPassword}
-                                onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                                value={formData.password}
+                                onChange={(e) => handleInputChange('password', e.target.value)}
                                 disabled={loading}
+                                className="pr-10"
                                 required
                               />
+                              <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                              >
+                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              </button>
                             </div>
+                          </div>
 
-                            <Button
-                              type="submit"
-                              className="w-full five-london-button"
-                              disabled={loading}
-                            >
-                              {loading ? 'Creating Account...' : 'Create Account'}
-                            </Button>
-                          </form>
-                        </TabsContent>
-                      </Tabs>
-
-                      <div className="mt-6 pt-6 border-t border-border">
-                        <div className="text-center">
-                          <p className="text-xs text-muted-foreground mb-4">
-                            Need help accessing your account?
-                          </p>
-                          <Button variant="outline" size="sm" asChild>
-                            <Link to="/contact">Contact Support</Link>
+                          <Button
+                            type="submit"
+                            className="w-full five-london-button"
+                            disabled={loading}
+                          >
+                            {loading ? 'Signing In...' : 'Sign In'}
                           </Button>
+                        </form>
+                        
+                        <div className="mt-6 pt-6 border-t border-border">
+                          <div className="text-center">
+                            <p className="text-xs text-muted-foreground mb-4">
+                              Need help accessing your account?
+                            </p>
+                            <Button variant="outline" size="sm" asChild>
+                              <Link to="/contact">Contact Support</Link>
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -516,7 +373,7 @@ export const Membership: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">1</div>
-                        <span className="text-sm">Create your account with valid email</span>
+                        <span className="text-sm">Contact us for membership inquiry</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">

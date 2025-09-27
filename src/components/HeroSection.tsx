@@ -5,37 +5,20 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useBannerContent } from '@/hooks/useBannerContent';
 
 export const HeroSection: React.FC = () => {
-  console.log('🎯 [HeroSection] Component rendering started');
-  
   const { heroContent, loading } = useHomepageContent();
-  const { banners: heroBanners, loading: bannersLoading, refetch: refetchBanners } = useBannerContent('hero');
+  const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
   const isMobile = useIsMobile();
 
   // Get image from Supabase banners
   const heroImage = useMemo(() => {
-    console.log('🎯 [HeroSection] Banner data:', { heroBanners, loading: bannersLoading });
+    if (!heroBanners || heroBanners.length === 0) return null;
     
-    if (!heroBanners || heroBanners.length === 0) {
-      console.log('🎯 [HeroSection] No banners found');
-      return null;
-    }
-    
-    // Find the active banner for current device type
     const allBanner = heroBanners.find(b => b.device_type === 'all' && b.is_active);
     const deviceBanner = heroBanners.find(b => 
       b.device_type === (isMobile ? 'mobile' : 'desktop') && b.is_active
     );
     
-    // Prefer device-specific banner, fallback to 'all' banner
     const activeBanner = deviceBanner || allBanner;
-    
-    console.log('🎯 [HeroSection] Active banner:', {
-      isMobile,
-      deviceBanner: deviceBanner?.image_url,
-      allBanner: allBanner?.image_url,
-      selected: activeBanner?.image_url
-    });
-
     return activeBanner?.image_url || null;
   }, [heroBanners, isMobile]);
 
@@ -95,26 +78,17 @@ export const HeroSection: React.FC = () => {
   }
 
   // Render hero section with image
-  console.log('🎯 [HeroSection] Rendering with image:', heroImage);
-  
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
-        {/* Hero Image from Supabase */}
         <img
           src={heroImage}
           alt={heroContent?.title || 'Elegant companion services'}
           className="w-full h-full object-cover object-center"
           data-hero-image="true"
           data-image-type={isMobile ? 'mobile' : 'desktop'}
-          onError={(e) => {
-            console.error('🎯 [HeroSection] Image failed to load:', heroImage);
-            e.currentTarget.style.display = 'none';
-          }}
-          onLoad={() => {
-            console.log('🎯 [HeroSection] Image loaded successfully:', heroImage);
-          }}
+          onError={(e) => e.currentTarget.style.display = 'none'}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>

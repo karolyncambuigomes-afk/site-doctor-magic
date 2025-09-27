@@ -1,25 +1,20 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
-
-
 import { BookNowButton } from "@/components/BookNowButton";
 import { FixedRefreshButton } from "@/components/FixedRefreshButton";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { useRealTimeCacheManager } from "@/hooks/useRealTimeCacheManager";
-import { SimpleErrorBoundary } from "@/components/SimpleErrorBoundary";
 import { Auth } from "./pages/Auth";
-import { AuthTest } from "./pages/AuthTest";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -40,20 +35,21 @@ import LondonEscortGuide from "./pages/LondonEscortGuide";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Reviews from "./pages/Reviews";
-
 import JoinUs from "./pages/JoinUs";
 import NotFound from "./pages/NotFound";
-// Create QueryClient instance
+
+// Optimized QueryClient
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
+      retry: 1,
       refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
     },
   },
 });
 
-// Component to conditionally render features based on degraded mode
+// Optimized conditional features
 const ConditionalFeatures = () => {
   const { isDegradedMode, isPrivateMode } = useDegradedMode();
   
@@ -70,31 +66,26 @@ const ConditionalFeatures = () => {
 
 
 const App = () => {
-  // Initialize real-time cache management
   useRealTimeCacheManager();
   
   return (
-      <ErrorBoundary>
-        <HelmetProvider>
-          <QueryClientProvider client={queryClient}>
-            <SimpleErrorBoundary context="DegradedModeProvider">
-              <DegradedModeProvider>
-                <SimpleErrorBoundary context="BrowserRouter">
-                  <BrowserRouter>
-                    <SimpleErrorBoundary context="AuthProvider">
-                       <AuthProvider>
-                              <ScrollToTop />
-                            <ConditionalFeatures />
-                            
-                            <Toaster />
-                            <Sonner />
-                             <BookNowButton />
-                             <FixedRefreshButton />
-                            <SkipToContent />
-                        <Routes>
-                   <Route path="/" element={<Index />} />
-                   <Route path="/auth" element={<Auth />} />
-                   <Route path="/auth-test" element={<AuthTest />} />
+    <ErrorBoundary>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <DegradedModeProvider>
+            <BrowserRouter>
+              <AuthProvider>
+                <ScrollToTop />
+                <ConditionalFeatures />
+                <Toaster />
+                <Sonner />
+                <BookNowButton />
+                <FixedRefreshButton />
+                <SkipToContent />
+                
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={<Auth />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/blog" element={<Blog />} />
@@ -106,7 +97,8 @@ const App = () => {
                   <Route path="/payment-success" element={<PaymentSuccess />} />
                   <Route path="/locations" element={<Locations />} />
                   <Route path="/locations/:locationSlug" element={<LocationDetail />} />
-                  {/* Specific location routes for SEO */}
+                  
+                  {/* SEO Location routes */}
                   <Route path="/escorts-in-mayfair" element={<LocationDetail />} />
                   <Route path="/escorts-in-knightsbridge" element={<LocationDetail />} />
                   <Route path="/escorts-in-chelsea" element={<LocationDetail />} />
@@ -129,9 +121,11 @@ const App = () => {
                   <Route path="/escorts-in-battersea" element={<LocationDetail />} />
                   <Route path="/escorts-in-bermondsey" element={<LocationDetail />} />
                   <Route path="/escorts-in-blackfriars" element={<LocationDetail />} />
+                  
                   <Route path="/characteristics" element={<Characteristics />} />
                   <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />
-                  {/* Specific characteristic routes for SEO */}
+                  
+                  {/* SEO Characteristic routes */}
                   <Route path="/blonde-escorts-london" element={<CharacteristicDetail />} />
                   <Route path="/brunette-escorts-london" element={<CharacteristicDetail />} />
                   <Route path="/busty-escorts-london" element={<CharacteristicDetail />} />
@@ -166,6 +160,7 @@ const App = () => {
                   <Route path="/bisexual-escorts-london" element={<CharacteristicDetail />} />
                   <Route path="/couples-escorts-london" element={<CharacteristicDetail />} />
                   <Route path="/outcalls-escorts-london" element={<CharacteristicDetail />} />
+                  
                   <Route path="/london-escort-guide" element={<LondonEscortGuide />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/contact" element={<Contact />} />
@@ -173,18 +168,15 @@ const App = () => {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/reviews" element={<Reviews />} />
                   <Route path="/join-us" element={<JoinUs />} />
-                           <Route path="*" element={<NotFound />} />
-                         </Routes>
-                       </AuthProvider>
-                    </SimpleErrorBoundary>
-                  </BrowserRouter>
-                </SimpleErrorBoundary>
-              </DegradedModeProvider>
-            </SimpleErrorBoundary>
-          </QueryClientProvider>
-        </HelmetProvider>
-      </ErrorBoundary>
-   );
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </AuthProvider>
+            </BrowserRouter>
+          </DegradedModeProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
+  );
 };
 
 export default App;

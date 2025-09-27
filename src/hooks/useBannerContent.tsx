@@ -71,7 +71,6 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
           table: 'site_banners'
         },
         (payload) => {
-          console.log('Site banners change detected:', payload);
           // Clear image cache when banners change
           purgeImageCache(['hero-banner-*', '*']).catch(console.error);
           fetchBanners();

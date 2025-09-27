@@ -62,8 +62,6 @@ export const useHomepageCarousel = () => {
 
         // Robust fallback: if main image is missing or is a local path, try gallery
         if (!imageUrl || imageUrl.trim() === '' || imageUrl.startsWith('/')) {
-          console.log(`🔍 [CAROUSEL] Model ${model.name} sem imagem principal, buscando na galeria`);
-
           const { data: galleryData } = await supabase
             .from('model_gallery')
             .select('image_url')
@@ -74,12 +72,7 @@ export const useHomepageCarousel = () => {
 
           if (galleryData && galleryData.length > 0) {
             imageUrl = galleryData[0].image_url;
-            console.log(`✅ [CAROUSEL] Encontrada imagem de fallback para ${model.name}:`, imageUrl);
-          } else {
-            console.warn(`⚠️ [CAROUSEL] Nenhuma imagem encontrada para ${model.name}`);
           }
-        } else {
-          console.log(`✅ [CAROUSEL] Model ${model.name} tem imagem principal:`, imageUrl);
         }
 
         // Apply aggressive cache busting
@@ -99,11 +92,8 @@ export const useHomepageCarousel = () => {
 
       // Fallback: if too few homepage models, append from public models RPC
       if (transformedModels.length < 4) {
-        console.log('⚠️ [CAROUSEL] Few homepage models, fetching public models as fallback');
         const { data: publicData, error: rpcError } = await supabase.rpc('get_public_models');
-        if (rpcError) {
-          console.warn('RPC get_public_models error (fallback):', rpcError);
-        } else if (publicData) {
+        if (!rpcError && publicData) {
           const fallback = publicData
             .filter((m: any) => isValidName(m.name))
             .map((m: any) => ({
@@ -117,16 +107,13 @@ export const useHomepageCarousel = () => {
               members_only: false,
             } as CarouselModel));
           const byId = new Map<string, CarouselModel>();
-          // Keep homepage order first
           for (const item of transformedModels) byId.set(item.id, item);
           for (const item of fallback) if (!byId.has(item.id)) byId.set(item.id, item);
           setModels(Array.from(byId.values()));
-          console.log('Homepage Carousel - Combined models (with fallback):', Array.from(byId.values()));
           return;
         }
       }
 
-      console.log('Homepage Carousel - Models from database:', transformedModels);
       setModels(transformedModels);
     } catch (err) {
       console.error('Unexpected error fetching carousel:', err);
@@ -150,7 +137,6 @@ export const useHomepageCarousel = () => {
           table: 'models'
         },
         (payload) => {
-          console.log('Homepage carousel models change detected:', payload);
           // Clear image cache when models change
           purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
@@ -164,7 +150,6 @@ export const useHomepageCarousel = () => {
           table: 'homepage_carousel'
         },
         (payload) => {
-          console.log('Homepage carousel table change detected:', payload);
           // Clear cache when homepage carousel config changes
           purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();
@@ -178,7 +163,6 @@ export const useHomepageCarousel = () => {
           table: 'model_gallery'
         },
         (payload) => {
-          console.log('Model gallery change affecting homepage detected:', payload);
           // Clear image cache when gallery images change
           purgeImageCache(['*']).catch(console.error);
           fetchCarouselModels();

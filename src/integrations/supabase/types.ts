@@ -1875,12 +1875,66 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      model_applications_summary: {
+        Row: {
+          age: number | null
+          availability: string | null
+          created_at: string | null
+          education: string | null
+          email_display: string | null
+          full_name_display: string | null
+          id: string | null
+          interests: string[] | null
+          languages: string[] | null
+          location_preference: string | null
+          nationality: string | null
+          profession: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          age?: number | null
+          availability?: string | null
+          created_at?: string | null
+          education?: string | null
+          email_display?: never
+          full_name_display?: never
+          id?: string | null
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: string | null
+          nationality?: string | null
+          profession?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          age?: number | null
+          availability?: string | null
+          created_at?: string | null
+          education?: string | null
+          email_display?: never
+          full_name_display?: never
+          id?: string | null
+          interests?: string[] | null
+          languages?: string[] | null
+          location_preference?: string | null
+          nationality?: string | null
+          profession?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       check_admin_rate_limit: {
         Args: { identifier_value: string }
         Returns: Json
+      }
+      check_application_access_permissions: {
+        Args: { application_id?: string; requested_action: string }
+        Returns: boolean
       }
       check_application_rate_limit: {
         Args: { user_email: string; user_ip?: unknown }

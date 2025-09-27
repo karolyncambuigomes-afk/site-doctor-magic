@@ -2,15 +2,12 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { OptimizedImage } from '@/components/OptimizedImage';
-import { OptimizedHeroImage } from '@/components/OptimizedHeroImage';
 import { EnhancedImage } from '@/components/EnhancedImage';
-import { resolveImage, getFeatureFlags } from '@/utils/imageResolver';
-import heroMainWebp from '@/assets/hero-main.webp';
-import heroElegantWoman from '@/assets/hero-elegant-woman.webp';
+import { useBannerContent } from '@/hooks/useBannerContent';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
+  const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
   const isMobile = useIsMobile();
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -26,54 +23,37 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  // Enhanced image resolution with feature flags
-  const { primaryImage, fallbackImage, placeholderImage } = useMemo(() => {
-    if (!heroContent) return { primaryImage: null, fallbackImage: null, placeholderImage: null };
-
-    const { 
-      image_url_local_desktop, 
-      image_url_local_mobile, 
-      image_url_local_fallback,
-      image_url_desktop, 
-      image_url_mobile, 
-      image_url 
-    } = heroContent;
+  // Get image from Supabase banners
+  const heroImage = useMemo(() => {
+    if (!heroBanners || heroBanners.length === 0) return null;
     
-    // Local images (prioritized) - strict separation (no cross-device fallback)
-    const localImage = isMobile 
-      ? (image_url_local_mobile || image_url_local_fallback)
-      : (image_url_local_desktop || image_url_local_fallback);
+    // Find the active banner for current device type
+    const allBanner = heroBanners.find(b => b.device_type === 'all' && b.is_active);
+    const deviceBanner = heroBanners.find(b => 
+      b.device_type === (isMobile ? 'mobile' : 'desktop') && b.is_active
+    );
     
-    // External images (fallback) - strict separation (no cross-device fallback)
-    const externalImage = isMobile 
-      ? (image_url_mobile || image_url)
-      : (image_url_desktop || image_url);
+    // Prefer device-specific banner, fallback to 'all' banner
+    const activeBanner = deviceBanner || allBanner;
     
-    // Static fallback
-    const staticImage = isMobile ? heroElegantWoman : heroMainWebp;
-    
-    console.log('🎯 [HeroSection] Image resolution:', {
+    console.log('🎯 [HeroSection] Active banner:', {
       isMobile,
-      localImage,
-      externalImage,
-      staticImage
+      deviceBanner: deviceBanner?.image_url,
+      allBanner: allBanner?.image_url,
+      selected: activeBanner?.image_url
     });
 
-    return {
-      primaryImage: localImage,
-      fallbackImage: externalImage,
-      placeholderImage: staticImage
-    };
-  }, [heroContent, isMobile]);
+    return activeBanner?.image_url || null;
+  }, [heroBanners, isMobile]);
 
 
-  if (loading) {
+  if (loading || bannersLoading) {
     return (
       <section className="relative h-screen w-full flex items-end snap-start">
         <div className="absolute inset-0 z-0 bg-gray-900">
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-            <div className="text-white text-sm">Loading banner...</div>
+            <div className="text-white text-sm">Loading hero content...</div>
           </div>
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
@@ -88,15 +68,46 @@ export const HeroSection: React.FC = () => {
     );
   }
 
+  if (!heroImage) {
+    return (
+      <section className="relative h-screen w-full flex items-end snap-start">
+        <div className="absolute inset-0 z-0 bg-gray-900">
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
+            <div className="text-white text-sm">No hero image configured. Please add one in the admin panel.</div>
+          </div>
+        </div>
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
+          <div className="max-w-2xl mx-auto">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
+              {heroContent.title}
+            </h1>
+            <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
+              {heroContent.subtitle}
+            </h2>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <SafeLink to={heroContent.button_primary_url || "/models"} className="inline-block">
+                <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+                  {heroContent.button_primary_text || "View Models"}
+                </button>
+              </SafeLink>
+              <a href={heroContent.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+                {heroContent.button_secondary_text || "Book Now"}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 bg-gray-900">
-        {/* Hero Image with Enhanced Fallback */}
-        <EnhancedImage
-          local={primaryImage || undefined}
-          external={fallbackImage || undefined}
-          placeholder={placeholderImage || undefined}
+        {/* Hero Image from Supabase */}
+        <img
+          src={heroImage}
           alt={heroContent.title || 'Elegant companion services'}
           className="w-full h-full object-cover object-center"
           data-hero-image="true"

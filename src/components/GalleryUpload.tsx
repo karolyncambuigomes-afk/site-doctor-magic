@@ -3,8 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ImageUpload } from '@/components/ImageUpload';
-import { LazyImageEditor } from '@/components/LazyImageEditor';
-import { MultipleImageUpload } from '@/components/MultipleImageUpload';
+
+
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
@@ -59,49 +60,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
   const [selectedVisibility, setSelectedVisibility] = useState<'public' | 'members_only' | 'admin_only'>('public');
   const [activeTab, setActiveTab] = useState<'public' | 'members_only' | 'admin_only'>('public');
 
-  const handleMultipleImagesUploaded = async (urls: string[]) => {
-    try {
-      setLoading(true);
-      const nextOrderIndex = Math.max(...galleryImages.map(img => img.order_index), -1) + 1;
-      const imagesWithSameVisibility = galleryImages.filter(img => img.visibility === selectedVisibility);
-      const nextOrderForVisibility = Math.max(...imagesWithSameVisibility.map(img => img.order_index), -1) + 1;
-
-      // Insert all images with sequential order indices
-      const insertData = urls.map((url, index) => ({
-        model_id: modelId,
-        image_url: url,
-        caption: null,
-        order_index: nextOrderForVisibility + index,
-        visibility: selectedVisibility
-      }));
-
-      const { error } = await supabase
-        .from('model_gallery')
-        .insert(insertData);
-
-      if (error) throw error;
-
-      toast({
-        title: "Sucesso",
-        description: `${urls.length} imagens adicionadas à galeria`,
-      });
-
-      setIsAdding(false);
-      loadGalleryImages();
-      
-      // Dispatch custom event to notify ModelGallery component
-      window.dispatchEvent(new CustomEvent('galleryUpdated'));
-    } catch (error) {
-      console.error('Error adding multiple images:', error);
-      toast({
-        title: "Erro",
-        description: "Erro ao adicionar imagens",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     loadGalleryImages();
@@ -521,13 +479,9 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
           </div>
 
           {/* Upload Mode Tabs */}
-          <Tabs defaultValue="single" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="single">Uma Foto</TabsTrigger>
-              <TabsTrigger value="multiple">Múltiplas Fotos</TabsTrigger>
-            </TabsList>
+          <div className="w-full">
             
-            <TabsContent value="single" className="space-y-4">
+            <div className="space-y-4">
               <div className="bg-white p-4 rounded-lg border-2 border-border">
                 <Label className="text-foreground font-bold text-lg flex items-center gap-2 mb-3">
                   📸 Upload da Foto
@@ -578,30 +532,8 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
                   Cancelar
                 </Button>
               </div>
-            </TabsContent>
-
-            <TabsContent value="multiple" className="space-y-4">
-              <MultipleImageUpload
-                visibility={selectedVisibility}
-                onImagesUploaded={handleMultipleImagesUploaded}
-                maxFiles={10}
-              />
-              
-              <div className="flex justify-end">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => {
-                    setIsAdding(false);
-                    setNewImageUrl('');
-                    setNewImageCaption('');
-                  }}
-                >
-                  Fechar
-                </Button>
-              </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
       )}
 
@@ -762,21 +694,6 @@ export const GalleryUpload: React.FC<GalleryUploadProps> = ({ modelId, model }) 
         </div>
       )}
 
-      {/* Image Editor */}
-      {editingImage && (
-        <LazyImageEditor
-          imageUrl={editingImage}
-          isOpen={true}
-          onClose={() => setEditingImage(null)}
-          onSave={(blob) => {
-            const imageToEdit = galleryImages.find(img => img.image_url === editingImage);
-            if (imageToEdit) {
-              handleImageEdited(imageToEdit.id, blob);
-            }
-          }}
-          aspectRatio={1} // Square aspect ratio
-        />
-      )}
     </div>
   );
 };

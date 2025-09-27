@@ -17,10 +17,10 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 import { getImageUrl } from "@/utils/imageMapper";
-import { EnhancedImage } from "@/components/EnhancedImage";
+import { LazyImage } from "@/components/LazyImage";
 import { blogArticles } from "@/data/blog-articles";
-import { BlogLoadingSkeleton } from "@/components/BlogLoadingSkeleton";
-import { BlogErrorFallback } from "@/components/BlogErrorFallback";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Blog = () => {
   // Enable real-time updates for blog page
@@ -118,7 +118,7 @@ const Blog = () => {
             {/* Loading Articles */}
             <section className="py-12 md:py-16 lg:py-20 bg-white">
               <div className="container-width">
-                <BlogLoadingSkeleton />
+                <LoadingSpinner size="lg" />
               </div>
             </section>
           </main>
@@ -139,7 +139,11 @@ const Blog = () => {
         <div className="min-h-screen bg-background">
           <Navigation />
           <main className="pt-0">
-            <BlogErrorFallback error={error} onRetry={refetch} />
+            <Alert>
+              <AlertDescription>
+                Error loading blog posts. <button onClick={refetch} className="underline">Try again</button>
+              </AlertDescription>
+            </Alert>
           </main>
           <Footer />
         </div>
@@ -250,13 +254,11 @@ const Blog = () => {
                     className="group hover:shadow-elegant transition-all duration-300 border border-border/50 hover:border-primary/20 overflow-hidden bg-background"
                   >
                     <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                      <EnhancedImage
-                        external={post.image}
-                        local={getImageUrl(
+                      <LazyImage
+                        src={post.image || getImageUrl(
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
                           '/images/blog/michelin-dining.webp'
                         )}
-                        placeholder="/images/placeholders/model.jpg"
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         data-blog-image="card"

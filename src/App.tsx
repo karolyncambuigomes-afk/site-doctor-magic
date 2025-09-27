@@ -76,8 +76,6 @@ const DataSyncInitializer = () => {
 };
 
 const App = () => {
-  console.log('🚀 [App] Starting App component render');
-  console.log('App: Starting App component render');
   
   return (
       <ErrorBoundary>

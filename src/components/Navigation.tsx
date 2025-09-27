@@ -22,7 +22,7 @@ const navItems = [
 ];
 
 export const Navigation: React.FC = () => {
-  console.log('🧭 [Navigation] Starting Navigation component render');
+  
   const [isOpen, setIsOpen] = React.useState(false);
   const location = useSafeLocation();
   const auth = useAuth();

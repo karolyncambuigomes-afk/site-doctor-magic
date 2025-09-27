@@ -4,7 +4,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Star, Clock, MapPin, Crown } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { useImagePreference } from '@/hooks/useImagePreference';
-import { EnhancedImage } from '@/components/EnhancedImage';
+import { LazyImage } from '@/components/LazyImage';
 
 interface ModelCardProps {
   model: Model;
@@ -90,10 +90,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
             {imageConfig.local || imageConfig.external ? (
               <>
                 {/* Main Image */}
-                <EnhancedImage
-                  local={imageConfig.local}
-                  external={imageConfig.external}
-                  placeholder={imageConfig.placeholder}
+                <LazyImage
+                  src={imageConfig.external || imageConfig.local || imageConfig.placeholder || '/images/placeholders/model.jpg'}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
@@ -104,8 +102,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Second Image (from gallery) - only if available */}
                 {secondaryImage && (
-                  <EnhancedImage
-                    external={secondaryImage}
+                  <LazyImage
+                    src={secondaryImage}
                     alt={`${model.name} - alternate view`}
                     className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
                     data-model-image="true"

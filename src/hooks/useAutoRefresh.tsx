@@ -11,14 +11,24 @@ export const useAutoRefresh = () => {
     // Clear cache storage on page load/refresh
     const clearCacheOnLoad = async () => {
       try {
-        // Clear all React Query caches to refetch data from Supabase
-        await queryClient.invalidateQueries();
-        await queryClient.refetchQueries();
-
-        // Send message to Service Worker to clear all caches
-        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-          navigator.serviceWorker.controller.postMessage({
-            type: 'CLEAR_ALL_CACHES'
+        // Wait for Service Worker to be ready before clearing caches
+        if ('serviceWorker' in navigator) {
+          await navigator.serviceWorker.ready;
+          
+          // Send message to Service Worker to clear all caches
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'CLEAR_ALL_CACHES'
+            });
+          }
+          
+          // Also register a message handler to ensure SW is available
+          navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'SW_READY') {
+              navigator.serviceWorker.controller?.postMessage({
+                type: 'CLEAR_ALL_CACHES'
+              });
+            }
           });
         }
 
@@ -26,6 +36,13 @@ export const useAutoRefresh = () => {
         localStorage.removeItem('user_preferences');
         localStorage.removeItem('mobile_optimization_cache');
         localStorage.removeItem('featureFlags');
+        
+        // Clear session storage as well
+        sessionStorage.clear();
+
+        // Clear all React Query caches to refetch data from Supabase
+        await queryClient.invalidateQueries();
+        await queryClient.refetchQueries();
 
         console.log('Cache cleared on page load');
       } catch (error) {

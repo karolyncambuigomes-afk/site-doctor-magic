@@ -7,10 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Upload, X, Shield, Lock } from "lucide-react";
-import { format } from "date-fns";
+import { Upload, X, Shield, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -345,31 +342,16 @@ const JoinUs = () => {
                       onChange={(e) => handleInputChange('age', e.target.value ? parseInt(e.target.value) : null)}
                     />
                   </div>
-                  <div>
-                    <Label>Date of Birth</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !formData.date_of_birth && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.date_of_birth ? format(formData.date_of_birth, "dd/MM/yyyy") : "Select date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={formData.date_of_birth || undefined}
-                          onSelect={(date) => handleInputChange('date_of_birth', date)}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+                   <div>
+                     <Label>Date of Birth</Label>
+                     <Input
+                       type="date"
+                       value={formData.date_of_birth ? new Date(formData.date_of_birth).toISOString().split('T')[0] : ""}
+                       onChange={(e) => handleInputChange('date_of_birth', e.target.value ? new Date(e.target.value) : null)}
+                       max={new Date().toISOString().split('T')[0]}
+                       min="1900-01-01"
+                     />
+                   </div>
                   <div>
                     <Label htmlFor="nationality">Nationality</Label>
                     <Input

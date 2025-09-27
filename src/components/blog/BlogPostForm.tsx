@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ImageUpload } from '@/components/ImageUpload';
 
-import { RichTextEditor } from './RichTextEditor';
+// import { RichTextEditor } from './RichTextEditor';
 import { 
   Save, 
   Eye, 
@@ -276,12 +276,18 @@ export const BlogPostForm: React.FC<BlogPostFormProps> = ({
             </div>
           </div>
 
-          {/* Rich Text Content */}
-          <RichTextEditor
-            value={formData.content || ''}
-            onChange={(content) => setFormData(prev => ({ ...prev, content }))}
-            onReadTimeUpdate={(readTime) => setFormData(prev => ({ ...prev, read_time: readTime }))}
-          />
+          {/* Content */}
+          <div className="space-y-2">
+            <Label htmlFor="content">Conteúdo</Label>
+            <Textarea
+              id="content"
+              value={formData.content || ''}
+              onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+              placeholder="Escreva o conteúdo do seu post..."
+              rows={15}
+              className="font-mono text-sm"
+            />
+          </div>
         </TabsContent>
 
         <TabsContent value="seo" className="space-y-6">

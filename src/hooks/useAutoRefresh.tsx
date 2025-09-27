@@ -8,6 +8,34 @@ export const useAutoRefresh = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    // Clear cache storage on page load/refresh
+    const clearCacheOnLoad = async () => {
+      try {
+        // Clear all React Query caches to refetch data from Supabase
+        await queryClient.invalidateQueries();
+        await queryClient.refetchQueries();
+
+        // Send message to Service Worker to clear all caches
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'CLEAR_ALL_CACHES'
+          });
+        }
+
+        // Clear localStorage cache items
+        localStorage.removeItem('user_preferences');
+        localStorage.removeItem('mobile_optimization_cache');
+        localStorage.removeItem('featureFlags');
+
+        console.log('Cache cleared on page load');
+      } catch (error) {
+        console.error('Error clearing cache on load:', error);
+      }
+    };
+
+    // Clear cache immediately on component mount (page load/refresh)
+    clearCacheOnLoad();
+
     // Listen to changes across all key tables that affect the website
     const channel = supabase
       .channel('auto-refresh-changes')

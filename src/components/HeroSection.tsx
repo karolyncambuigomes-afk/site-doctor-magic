@@ -1,31 +1,24 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { EnhancedImage } from '@/components/EnhancedImage';
 import { useBannerContent } from '@/hooks/useBannerContent';
 
 export const HeroSection: React.FC = () => {
+  console.log('🎯 [HeroSection] Component rendering started');
+  
   const { heroContent, loading } = useHomepageContent();
   const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
   const isMobile = useIsMobile();
-  const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Validate if URL is accessible
-  const isValidUrl = (url: string): boolean => {
-    if (!url || url.trim() === '') return false;
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
-  };
 
   // Get image from Supabase banners
   const heroImage = useMemo(() => {
-    if (!heroBanners || heroBanners.length === 0) return null;
+    console.log('🎯 [HeroSection] Banner data:', { heroBanners, loading: bannersLoading });
+    
+    if (!heroBanners || heroBanners.length === 0) {
+      console.log('🎯 [HeroSection] No banners found');
+      return null;
+    }
     
     // Find the active banner for current device type
     const allBanner = heroBanners.find(b => b.device_type === 'all' && b.is_active);
@@ -80,19 +73,19 @@ export const HeroSection: React.FC = () => {
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
-              {heroContent.title}
+              {heroContent?.title || "Premium London Escort Agency"}
             </h1>
             <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
-              {heroContent.subtitle}
+              {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <SafeLink to={heroContent.button_primary_url || "/models"} className="inline-block">
+              <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
                 <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
-                  {heroContent.button_primary_text || "View Models"}
+                  {heroContent?.button_primary_text || "View Models"}
                 </button>
               </SafeLink>
-              <a href={heroContent.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
-                {heroContent.button_secondary_text || "Book Now"}
+              <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+                {heroContent?.button_secondary_text || "Book Now"}
               </a>
             </div>
           </div>
@@ -101,6 +94,9 @@ export const HeroSection: React.FC = () => {
     );
   }
 
+  // Render hero section with image
+  console.log('🎯 [HeroSection] Rendering with image:', heroImage);
+  
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image with Overlay */}
@@ -108,10 +104,17 @@ export const HeroSection: React.FC = () => {
         {/* Hero Image from Supabase */}
         <img
           src={heroImage}
-          alt={heroContent.title || 'Elegant companion services'}
+          alt={heroContent?.title || 'Elegant companion services'}
           className="w-full h-full object-cover object-center"
           data-hero-image="true"
           data-image-type={isMobile ? 'mobile' : 'desktop'}
+          onError={(e) => {
+            console.error('🎯 [HeroSection] Image failed to load:', heroImage);
+            e.currentTarget.style.display = 'none';
+          }}
+          onLoad={() => {
+            console.log('🎯 [HeroSection] Image loaded successfully:', heroImage);
+          }}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
@@ -119,25 +122,25 @@ export const HeroSection: React.FC = () => {
       {/* Content - Minimalist and positioned at bottom */}
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
         <div className="max-w-2xl mx-auto">
-          {/* H1 - Título principal */}
+          {/* H1 - Main Title */}
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
-            {heroContent.title}
+            {heroContent?.title || "Premium London Escort Agency"}
           </h1>
           
-          {/* H2 - Subtítulo */}
+          {/* H2 - Subtitle */}
           <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
-            {heroContent.subtitle}
+            {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
           </h2>
           
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <SafeLink to={heroContent.button_primary_url || "/models"} className="inline-block">
+            <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
               <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
-                {heroContent.button_primary_text || "View Models"}
+                {heroContent?.button_primary_text || "View Models"}
               </button>
             </SafeLink>
             
-            <a href={heroContent.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
-              {heroContent.button_secondary_text || "Book Now"}
+            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+              {heroContent?.button_secondary_text || "Book Now"}
             </a>
           </div>
         </div>

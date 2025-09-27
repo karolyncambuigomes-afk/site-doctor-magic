@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Trash2, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const CacheClearButton: React.FC = () => {
-  const [isClearing, setIsClearing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
-  const clearCache = async () => {
-    setIsClearing(true);
+  const refreshData = async () => {
+    setIsRefreshing(true);
     
     try {
+      // Clear all React Query caches to refetch data from Supabase
+      await queryClient.invalidateQueries();
+      await queryClient.refetchQueries();
+
       // Send message to Service Worker to clear all caches
       if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
@@ -21,54 +27,46 @@ export const CacheClearButton: React.FC = () => {
         navigator.serviceWorker.addEventListener('message', (event) => {
           if (event.data.type === 'CACHE_CLEARED') {
             toast({
-              title: "Cache Cleared",
-              description: "All caches have been successfully cleared.",
+              title: "Data Refreshed",
+              description: "All data has been refreshed from the database.",
             });
           }
         });
       }
 
-      // Also clear localStorage cache items
+      // Clear localStorage cache items
       localStorage.removeItem('user_preferences');
       localStorage.removeItem('mobile_optimization_cache');
       localStorage.removeItem('featureFlags');
 
       toast({
-        title: "Cache Cleared",
-        description: "Browser and service worker caches cleared successfully.",
+        title: "Data Refreshed",
+        description: "All data has been refreshed from the database.",
       });
 
-      // Refresh the page after a short delay
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-
     } catch (error) {
-      console.error('Error clearing cache:', error);
+      console.error('Error refreshing data:', error);
       toast({
-        title: "Cache Clear Failed",
-        description: "There was an error clearing the cache.",
+        title: "Refresh Failed",
+        description: "There was an error refreshing the data.",
         variant: "destructive",
       });
     } finally {
-      setIsClearing(false);
+      setIsRefreshing(false);
     }
   };
 
   return (
     <Button
-      onClick={clearCache}
-      disabled={isClearing}
+      onClick={refreshData}
+      disabled={isRefreshing}
       variant="outline"
       size="sm"
-      className="fixed bottom-4 left-4 z-50 bg-background/80 backdrop-blur-sm"
+      className="fixed bottom-4 left-4 z-50 bg-background/80 backdrop-blur-sm border-primary/20 hover:bg-primary/10"
+      title="Refresh data from database"
     >
-      {isClearing ? (
-        <RefreshCw className="h-4 w-4 animate-spin mr-2" />
-      ) : (
-        <Trash2 className="h-4 w-4 mr-2" />
-      )}
-      {isClearing ? 'Clearing...' : 'Clear Cache'}
+      <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+      {isRefreshing ? 'Refreshing...' : 'Refresh'}
     </Button>
   );
 };

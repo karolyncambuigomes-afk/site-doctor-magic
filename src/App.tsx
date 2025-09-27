@@ -87,7 +87,7 @@ const App = () => {
                 <Sonner />
                 <BookNowButton />
                 <SkipToContent />
-                {import.meta.env.DEV && <CacheClearButton />}
+                <CacheClearButton />
                 
                 <Suspense fallback={<LoadingSpinner />}>
                   <Routes>

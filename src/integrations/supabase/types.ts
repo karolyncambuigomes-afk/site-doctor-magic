@@ -2076,17 +2076,6 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
-      log_admin_action: {
-        Args: {
-          action_type: string
-          new_values?: Json
-          old_values?: Json
-          resource_id: string
-          resource_type: string
-          risk_level?: string
-        }
-        Returns: undefined
-      }
       log_admin_login: {
         Args: Record<PropertyKey, never>
         Returns: undefined

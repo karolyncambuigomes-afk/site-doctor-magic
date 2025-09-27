@@ -71,6 +71,27 @@ export const useBookingContent = (): BookingData => {
 
   useEffect(() => {
     fetchBookingContent();
+    
+    // Set up real-time subscription for site content changes
+    const channel = supabase
+      .channel('site-content-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'site_content'
+        },
+        (payload) => {
+          console.log('Site content change detected:', payload);
+          fetchBookingContent();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   return data;

@@ -58,6 +58,27 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
 
   useEffect(() => {
     fetchBanners();
+    
+    // Set up real-time subscription for banner changes
+    const channel = supabase
+      .channel('site-banners-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'site_banners'
+        },
+        (payload) => {
+          console.log('Site banners change detected:', payload);
+          fetchBanners();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [section]);
 
   return {

@@ -20,7 +20,7 @@ import {
   generateContactPointSchema,
 } from "@/utils/advancedStructuredData";
 import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
-import { useReviews } from "@/hooks/useReviews";
+import { useRealTimeReviews } from "@/hooks/useRealTimeReviews";
 import { useBookingContent } from "@/hooks/useBookingContent";
 import heroSecondBanner from "@/assets/hero-second-banner-new.webp";
 import { CategoryFilters } from "@/components/CategoryFilters";
@@ -35,7 +35,7 @@ const Index = () => {
   
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
-  const { data: reviewData } = useReviews();
+  const { data: reviewData } = useRealTimeReviews();
 
   // Generate comprehensive structured data for the homepage
   const structuredData = [

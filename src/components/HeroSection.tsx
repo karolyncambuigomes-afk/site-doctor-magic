@@ -8,7 +8,7 @@ export const HeroSection: React.FC = () => {
   console.log('🎯 [HeroSection] Component rendering started');
   
   const { heroContent, loading } = useHomepageContent();
-  const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
+  const { banners: heroBanners, loading: bannersLoading, refetch: refetchBanners } = useBannerContent('hero');
   const isMobile = useIsMobile();
 
   // Get image from Supabase banners

@@ -332,6 +332,7 @@ export type Database = {
       blog_posts: {
         Row: {
           author: string | null
+          blocks: Json | null
           category: string | null
           content: string | null
           created_at: string
@@ -352,6 +353,7 @@ export type Database = {
         }
         Insert: {
           author?: string | null
+          blocks?: Json | null
           category?: string | null
           content?: string | null
           created_at?: string
@@ -372,6 +374,7 @@ export type Database = {
         }
         Update: {
           author?: string | null
+          blocks?: Json | null
           category?: string | null
           content?: string | null
           created_at?: string
@@ -388,6 +391,84 @@ export type Database = {
           service_keywords?: string[] | null
           slug?: string
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      button_texts: {
+        Row: {
+          book_now: string
+          contact_us: string
+          created_at: string
+          cta_primary: string
+          cta_secondary: string
+          get_started: string
+          id: string
+          learn_more: string
+          read_more: string
+          updated_at: string
+          view_models: string
+        }
+        Insert: {
+          book_now?: string
+          contact_us?: string
+          created_at?: string
+          cta_primary?: string
+          cta_secondary?: string
+          get_started?: string
+          id?: string
+          learn_more?: string
+          read_more?: string
+          updated_at?: string
+          view_models?: string
+        }
+        Update: {
+          book_now?: string
+          contact_us?: string
+          created_at?: string
+          cta_primary?: string
+          cta_secondary?: string
+          get_started?: string
+          id?: string
+          learn_more?: string
+          read_more?: string
+          updated_at?: string
+          view_models?: string
+        }
+        Relationships: []
+      }
+      characteristics: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          order_index: number
+          seo_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          order_index?: number
+          seo_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          order_index?: number
+          seo_path?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -557,6 +638,51 @@ export type Database = {
           },
         ]
       }
+      design_settings: {
+        Row: {
+          accent_color: string
+          background_color: string
+          button_primary_bg: string
+          button_primary_text: string
+          button_secondary_bg: string
+          button_secondary_text: string
+          created_at: string
+          id: string
+          primary_color: string
+          secondary_color: string
+          text_color: string
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string
+          background_color?: string
+          button_primary_bg?: string
+          button_primary_text?: string
+          button_secondary_bg?: string
+          button_secondary_text?: string
+          created_at?: string
+          id?: string
+          primary_color?: string
+          secondary_color?: string
+          text_color?: string
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string
+          background_color?: string
+          button_primary_bg?: string
+          button_primary_text?: string
+          button_secondary_bg?: string
+          button_secondary_text?: string
+          created_at?: string
+          id?: string
+          primary_color?: string
+          secondary_color?: string
+          text_color?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       faqs: {
         Row: {
           answer: string
@@ -590,28 +716,28 @@ export type Database = {
       hero_settings: {
         Row: {
           auto_play: boolean | null
+          description: string | null
           id: string
           overlay_opacity: number | null
           show_dots: boolean | null
-          show_scroll_indicator: boolean | null
           slide_duration: number | null
           updated_at: string
         }
         Insert: {
           auto_play?: boolean | null
+          description?: string | null
           id?: string
           overlay_opacity?: number | null
           show_dots?: boolean | null
-          show_scroll_indicator?: boolean | null
           slide_duration?: number | null
           updated_at?: string
         }
         Update: {
           auto_play?: boolean | null
+          description?: string | null
           id?: string
           overlay_opacity?: number | null
           show_dots?: boolean | null
-          show_scroll_indicator?: boolean | null
           slide_duration?: number | null
           updated_at?: string
         }
@@ -625,16 +751,11 @@ export type Database = {
           created_at: string
           id: string
           image_url: string
-          image_url_local: string | null
-          image_url_local_desktop: string | null
-          image_url_local_fallback: string | null
-          image_url_local_mobile: string | null
-          media_type: string | null
+          image_url_mobile: string | null
           order_index: number
           subtitle: string | null
           title: string
           updated_at: string
-          video_url: string | null
         }
         Insert: {
           active?: boolean | null
@@ -643,16 +764,11 @@ export type Database = {
           created_at?: string
           id?: string
           image_url: string
-          image_url_local?: string | null
-          image_url_local_desktop?: string | null
-          image_url_local_fallback?: string | null
-          image_url_local_mobile?: string | null
-          media_type?: string | null
+          image_url_mobile?: string | null
           order_index?: number
           subtitle?: string | null
           title: string
           updated_at?: string
-          video_url?: string | null
         }
         Update: {
           active?: boolean | null
@@ -661,51 +777,97 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string
-          image_url_local?: string | null
-          image_url_local_desktop?: string | null
-          image_url_local_fallback?: string | null
-          image_url_local_mobile?: string | null
-          media_type?: string | null
+          image_url_mobile?: string | null
           order_index?: number
           subtitle?: string | null
           title?: string
           updated_at?: string
-          video_url?: string | null
         }
         Relationships: []
       }
       homepage_carousel: {
         Row: {
+          background_color: string | null
+          caption: string | null
           created_at: string
           id: string
           image_url: string
           image_url_local: string | null
           is_active: boolean
+          link_text: string | null
+          link_url: string | null
           model_id: string
           model_name: string
           order_index: number
+          overlay_opacity: number | null
+          text_color: string | null
           updated_at: string
         }
         Insert: {
+          background_color?: string | null
+          caption?: string | null
           created_at?: string
           id?: string
           image_url: string
           image_url_local?: string | null
           is_active?: boolean
+          link_text?: string | null
+          link_url?: string | null
           model_id: string
           model_name: string
           order_index?: number
+          overlay_opacity?: number | null
+          text_color?: string | null
           updated_at?: string
         }
         Update: {
+          background_color?: string | null
+          caption?: string | null
           created_at?: string
           id?: string
           image_url?: string
           image_url_local?: string | null
           is_active?: boolean
+          link_text?: string | null
+          link_url?: string | null
           model_id?: string
           model_name?: string
           order_index?: number
+          overlay_opacity?: number | null
+          text_color?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      locations: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          order_index: number
+          seo_path: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          order_index?: number
+          seo_path?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          order_index?: number
+          seo_path?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1748,6 +1910,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      convert_html_content_to_blocks: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       create_admin_session: {
         Args: {
           p_ip_address?: unknown
@@ -1910,17 +2076,6 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: boolean
       }
-      log_admin_action: {
-        Args: {
-          action_type_param: string
-          new_values_param?: Json
-          old_values_param?: Json
-          resource_id_param?: string
-          resource_type_param?: string
-          risk_level_param?: string
-        }
-        Returns: undefined
-      }
       log_admin_login: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -1989,6 +2144,10 @@ export type Database = {
       update_user_role: {
         Args: { new_role: string; user_id: string }
         Returns: undefined
+      }
+      update_user_role_secure: {
+        Args: { new_role: string; target_user_id: string }
+        Returns: Json
       }
       validate_admin_session_security: {
         Args: { session_token: string }

@@ -1875,57 +1875,7 @@ export type Database = {
       }
     }
     Views: {
-      model_applications_summary: {
-        Row: {
-          age: number | null
-          availability: string | null
-          created_at: string | null
-          education: string | null
-          email_display: string | null
-          full_name_display: string | null
-          id: string | null
-          interests: string[] | null
-          languages: string[] | null
-          location_preference: string | null
-          nationality: string | null
-          profession: string | null
-          status: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          age?: number | null
-          availability?: string | null
-          created_at?: string | null
-          education?: string | null
-          email_display?: never
-          full_name_display?: never
-          id?: string | null
-          interests?: string[] | null
-          languages?: string[] | null
-          location_preference?: string | null
-          nationality?: string | null
-          profession?: string | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          age?: number | null
-          availability?: string | null
-          created_at?: string | null
-          education?: string | null
-          email_display?: never
-          full_name_display?: never
-          id?: string | null
-          interests?: string[] | null
-          languages?: string[] | null
-          location_preference?: string | null
-          nationality?: string | null
-          profession?: string | null
-          status?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       check_admin_rate_limit: {
@@ -2068,6 +2018,25 @@ export type Database = {
           photos: string[]
           status: string
           videos: string[]
+        }[]
+      }
+      get_model_applications_summary: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          age: number
+          availability: string
+          created_at: string
+          education: string
+          email_display: string
+          full_name_display: string
+          id: string
+          interests: string[]
+          languages: string[]
+          location_preference: string
+          nationality: string
+          profession: string
+          status: string
+          updated_at: string
         }[]
       }
       get_public_models: {

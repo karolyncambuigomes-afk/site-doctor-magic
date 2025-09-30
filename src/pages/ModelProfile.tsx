@@ -165,19 +165,19 @@ export const ModelProfile: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.oneHour}</span>
+                    <span className="text-base font-semibold text-white">{model.pricing.oneHour}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">2 horas</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.twoHours}</span>
+                    <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">3 horas</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.threeHours}</span>
+                    <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground text-sm">Hora adicional</span>
-                    <span className="text-base font-semibold text-accent">{model.pricing.additionalHour}</span>
+                    <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
                   </div>
                 </div>
               </div>}

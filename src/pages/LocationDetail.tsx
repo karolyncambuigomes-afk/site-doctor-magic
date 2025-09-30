@@ -155,7 +155,44 @@ const LocationDetail = () => {
             </div>
           </section>
 
-
+          {/* Rich Content Section */}
+          {location?.content && (
+            <section className="py-8 md:py-12 bg-gray-50">
+              <div className="container-width mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+                  <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                      <CollapsibleTrigger className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <h2 className="luxury-heading-md text-black text-left">
+                          About {location.name} Escorts
+                        </h2>
+                        {isContentOpen ? (
+                          <ChevronUp className="w-5 h-5 text-primary" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5 text-primary" />
+                        )}
+                      </CollapsibleTrigger>
+                      
+                      <CollapsibleContent>
+                        <div className="px-6 pb-6">
+                          <div 
+                            className="location-content
+                              [&>div>p]:text-muted-foreground [&>div>p]:leading-relaxed [&>div>p]:mb-4 [&>div>p]:text-sm
+                              [&>div>h2]:text-2xl [&>div>h2]:font-bold [&>div>h2]:text-black [&>div>h2]:mb-4 [&>div>h2]:mt-6 [&>div>h2]:first:mt-0
+                              [&>div>ul]:text-muted-foreground [&>div>ul]:my-4 [&>div>ul]:ml-6 [&>div>ul]:list-disc [&>div>ul]:text-sm
+                              [&>div>li]:my-2
+                              [&>div>a]:text-primary [&>div>a]:font-medium [&>div>a]:underline [&>div>a]:underline-offset-2
+                              hover:[&>div>a]:text-primary/80"
+                            dangerouslySetInnerHTML={{ __html: location.content }}
+                          />
+                        </div>
+                      </CollapsibleContent>
+                    </div>
+                  </Collapsible>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Available Models Section - Enhanced Loading */}
           {loading ? (

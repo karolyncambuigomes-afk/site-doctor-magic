@@ -161,23 +161,23 @@ export const ModelProfile: React.FC = () => {
                   <p className="text-sm text-muted-foreground mt-1">Base rate</p>
                 </div>
               </div>}
-            {model.pricing && <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 shadow-lg">
+            {model.pricing && <div className="bg-card border border-border rounded-lg p-4 text-white">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-300 text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-amber-400">{model.pricing.oneHour}</span>
+                    <span className="text-muted-foreground text-sm">1 hora</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.oneHour}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-300 text-sm">2 horas</span>
-                    <span className="text-base font-semibold text-amber-400">{model.pricing.twoHours}</span>
+                    <span className="text-muted-foreground text-sm">2 horas</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.twoHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-300 text-sm">3 horas</span>
-                    <span className="text-base font-semibold text-amber-400">{model.pricing.threeHours}</span>
+                    <span className="text-muted-foreground text-sm">3 horas</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.threeHours}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-300 text-sm">Hora adicional</span>
-                    <span className="text-base font-semibold text-amber-400">{model.pricing.additionalHour}</span>
+                    <span className="text-muted-foreground text-sm">Hora adicional</span>
+                    <span className="text-base font-semibold text-accent">{model.pricing.additionalHour}</span>
                   </div>
                 </div>
               </div>}

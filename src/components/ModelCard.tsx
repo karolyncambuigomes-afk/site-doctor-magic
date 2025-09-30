@@ -93,7 +93,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 <OptimizedImage
                   src={imageConfig.external || imageConfig.local || imageConfig.placeholder || '/images/placeholders/model.jpg'}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
-                  className={`w-full h-full transition-all duration-700 ${
+                  className={`w-full h-full object-cover object-center transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
                   data-model-image="true"
@@ -105,7 +105,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   <OptimizedImage
                     src={secondaryImage}
                     alt={`${model.name} - alternate view`}
-                    className="w-full h-full transition-all duration-700 opacity-0 group-hover:opacity-100"
+                    className="w-full h-full object-cover object-center transition-all duration-700 opacity-0 group-hover:opacity-100"
                     data-model-image="true"
                     data-model-name={`${model.name}-secondary`}
                   />

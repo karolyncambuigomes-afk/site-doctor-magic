@@ -91,6 +91,27 @@ const LocationDetail = () => {
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
 
+  // Extract first paragraph from content
+  const extractFirstParagraph = (htmlContent: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const firstP = doc.querySelector('p');
+    return firstP ? firstP.outerHTML : '';
+  };
+
+  const extractRestOfContent = (htmlContent: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const firstP = doc.querySelector('p');
+    if (firstP) {
+      firstP.remove();
+    }
+    return doc.body.innerHTML;
+  };
+
+  const firstParagraph = location?.content ? extractFirstParagraph(location.content) : '';
+  const restOfContent = location?.content ? extractRestOfContent(location.content) : '';
+
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -173,35 +194,48 @@ const LocationDetail = () => {
             <section className="py-12 md:py-16 bg-white">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
-                  <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                      <CollapsibleTrigger className="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors">
-                        <h2 className="text-xl md:text-2xl font-semibold text-black text-left">
-                          About {location.name} Escorts
-                        </h2>
-                        {isContentOpen ? (
-                          <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
-                        ) : (
-                          <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
-                        )}
-                      </CollapsibleTrigger>
-                      
-                      <CollapsibleContent>
-                        <div className="px-6 py-6 bg-gray-50/50">
-                          <div 
-                            className="location-content
-                              [&>div>p]:text-muted-foreground [&>div>p]:leading-relaxed [&>div>p]:mb-4 [&>div>p]:text-sm
-                              [&>div>h2]:text-2xl [&>div>h2]:font-bold [&>div>h2]:text-black [&>div>h2]:mb-4 [&>div>h2]:mt-6 [&>div>h2]:first:mt-0
-                              [&>div>ul]:text-muted-foreground [&>div>ul]:my-4 [&>div>ul]:ml-6 [&>div>ul]:list-disc [&>div>ul]:text-sm
-                              [&>div>li]:my-2
-                              [&>div>a]:text-primary [&>div>a]:font-medium [&>div>a]:underline [&>div>a]:underline-offset-2
-                              hover:[&>div>a]:text-primary/80"
-                            dangerouslySetInnerHTML={{ __html: location.content }}
-                          />
-                        </div>
-                      </CollapsibleContent>
+                  {/* First Paragraph - Always Visible */}
+                  {firstParagraph && (
+                    <div className="mb-6">
+                      <div 
+                        className="text-center [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:text-base"
+                        dangerouslySetInnerHTML={{ __html: firstParagraph }}
+                      />
                     </div>
-                  </Collapsible>
+                  )}
+
+                  {/* Rest of Content - Collapsible */}
+                  {restOfContent && (
+                    <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
+                      <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <CollapsibleTrigger className="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors">
+                          <h2 className="text-xl md:text-2xl font-semibold text-black text-left">
+                            Read More About {location.name} Escorts
+                          </h2>
+                          {isContentOpen ? (
+                            <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
+                          ) : (
+                            <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
+                          )}
+                        </CollapsibleTrigger>
+                        
+                        <CollapsibleContent>
+                          <div className="px-6 py-6 bg-gray-50/50">
+                            <div 
+                              className="location-content
+                                [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-4 [&>p]:text-sm
+                                [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-black [&>h2]:mb-4 [&>h2]:mt-6 [&>h2]:first:mt-0
+                                [&>ul]:text-muted-foreground [&>ul]:my-4 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-sm
+                                [&>li]:my-2
+                                [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
+                                hover:[&>a]:text-primary/80"
+                              dangerouslySetInnerHTML={{ __html: restOfContent }}
+                            />
+                          </div>
+                        </CollapsibleContent>
+                      </div>
+                    </Collapsible>
+                  )}
                 </div>
               </div>
             </section>

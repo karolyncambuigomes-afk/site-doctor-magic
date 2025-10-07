@@ -144,37 +144,50 @@ const LocationDetail = () => {
         <Navigation />
         
         <main className="pt-0">
-          {/* Hero Section - Ultra Simplified */}
-          <section className="pt-20 pb-6 md:pt-24 md:pb-8 bg-white">
-            <div className="container-width text-center">
-              <div className="max-w-2xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl text-black">
+          {/* Hero Section */}
+          <section className="pt-20 md:pt-24 bg-white border-b border-gray-100">
+            <div className="container-width">
+              {/* Breadcrumbs */}
+              <div className="px-4 sm:px-6 pt-6 pb-4">
+                <nav className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+                  <span>/</span>
+                  <Link to="/locations" className="hover:text-primary transition-colors">Locations</Link>
+                  <span>/</span>
+                  <span className="text-foreground">{location.name}</span>
+                </nav>
+              </div>
+              
+              {/* Title */}
+              <div className="text-center px-4 sm:px-6 pb-12">
+                <h1 className="luxury-heading-xl text-black mb-4">
                   {location.name}
                 </h1>
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
               </div>
             </div>
           </section>
 
           {/* Rich Content Section */}
           {location?.content && (
-            <section className="py-8 md:py-12 bg-gray-50">
+            <section className="py-12 md:py-16 bg-white">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
                   <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                      <CollapsibleTrigger className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                        <h2 className="luxury-heading-md text-black text-left">
+                    <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                      <CollapsibleTrigger className="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors">
+                        <h2 className="text-xl md:text-2xl font-semibold text-black text-left">
                           About {location.name} Escorts
                         </h2>
                         {isContentOpen ? (
-                          <ChevronUp className="w-5 h-5 text-primary" />
+                          <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
                         ) : (
-                          <ChevronDown className="w-5 h-5 text-primary" />
+                          <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
                         )}
                       </CollapsibleTrigger>
                       
                       <CollapsibleContent>
-                        <div className="px-6 pb-6">
+                        <div className="px-6 py-6 bg-gray-50/50">
                           <div 
                             className="location-content
                               [&>div>p]:text-muted-foreground [&>div>p]:leading-relaxed [&>div>p]:mb-4 [&>div>p]:text-sm

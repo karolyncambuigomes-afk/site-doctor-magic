@@ -182,24 +182,24 @@ export const ModelProfile: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-luxury-cream text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-white">{formatPrice(model.pricing.oneHour)}</span>
+                    <span className="text-base font-semibold text-white">{model.pricing.oneHour}</span>
                   </div>
                   {model.pricing.twoHours && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">2 horas</span>
-                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.twoHours)}</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
                     </div>
                   )}
                   {model.pricing.threeHours && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">3 horas</span>
-                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.threeHours)}</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
                     </div>
                   )}
                   {model.pricing.additionalHour && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">Hora adicional</span>
-                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.additionalHour)}</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
                     </div>
                   )}
                 </div>
@@ -210,14 +210,20 @@ export const ModelProfile: React.FC = () => {
             {model.pricing?.rates && !model.pricing.oneHour && (
               <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">
-                  {model.pricing.rates.map((rateItem: any, index: number) => (
-                    <div key={index} className="flex justify-between items-center">
-                      <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
-                      <span className="text-base font-semibold text-white">
-                        {formatPrice(rateItem.rate)}
-                      </span>
-                    </div>
-                  ))}
+                  {model.pricing.rates.map((rateItem: any, index: number) => {
+                    const displayRate = typeof rateItem.rate === 'number' 
+                      ? `£${rateItem.rate}`
+                      : rateItem.rate;
+                    
+                    return (
+                      <div key={index} className="flex justify-between items-center">
+                        <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
+                        <span className="text-base font-semibold text-white">
+                          {displayRate}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

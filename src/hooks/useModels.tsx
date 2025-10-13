@@ -9,11 +9,12 @@ export interface Model {
   age: number;
   location: string;
   price: string;
-  pricing: {
-    oneHour: string;
-    twoHours: string;
-    threeHours: string;
-    additionalHour: string;
+  pricing?: {
+    oneHour?: string;
+    twoHours?: string;
+    threeHours?: string;
+    additionalHour?: string;
+    rates?: Array<{ duration: string; rate: string | number }>;
   };
   image: string;
   image_url_local_main?: string;

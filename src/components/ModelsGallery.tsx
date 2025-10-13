@@ -9,10 +9,9 @@ import { Input } from '@/components/ui/input';
 
 // Extract numeric price value for sorting
 const extractPriceValue = (model: Model): number => {
-  // Priority 1: pricing.oneHour (most common rate)
+  // Priority 1: pricing.oneHour (new format)
   if (model.pricing?.oneHour) {
     const rate = model.pricing.oneHour;
-    // Remove £, thousand separators and "/hour" (£1.000/hour → 1000)
     const numericRate = typeof rate === 'string' 
       ? parseFloat(rate.replace(/£/g, '').replace(/\./g, '').replace(/,/g, '').replace(/\/hour/g, '').trim())
       : rate;
@@ -21,9 +20,19 @@ const extractPriceValue = (model: Model): number => {
     }
   }
   
-  // Priority 2: Fallback to price field
+  // Priority 2: pricing.rates[0].rate (old format - Barbara uses this)
+  if (model.pricing?.rates?.[0]?.rate) {
+    const rate = model.pricing.rates[0].rate;
+    const numericRate = typeof rate === 'string'
+      ? parseFloat(rate.replace(/\./g, '').replace(/,/g, ''))
+      : rate;
+    if (!isNaN(numericRate)) {
+      return numericRate;
+    }
+  }
+  
+  // Priority 3: Fallback to price field
   if (model.price) {
-    // Remove £, dots, "/hour" and convert to number (£750/hour → 750)
     const match = model.price.match(/(\d+\.?\d*)/);
     if (match) {
       const numericPrice = parseFloat(match[1].replace(/\./g, ''));
@@ -33,7 +42,6 @@ const extractPriceValue = (model: Model): number => {
     }
   }
   
-  // No price = goes to the end
   return 0;
 };
 

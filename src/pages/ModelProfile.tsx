@@ -155,35 +155,69 @@ export const ModelProfile: React.FC = () => {
           {/* Pricing Section */}
           <div className="mb-6">
             <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
-            {model.price && !model.pricing && <div className="bg-card border border-border rounded-lg p-4">
+            
+            {/* Simple price display (no pricing object) */}
+            {model.price && !model.pricing && (
+              <div className="bg-card border border-border rounded-lg p-4">
                 <div className="text-center">
                   <span className="text-lg font-semibold text-accent">{model.price}</span>
                   <p className="text-sm text-muted-foreground mt-1">Base rate</p>
                 </div>
-              </div>}
-            {model.pricing && <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
+              </div>
+            )}
+            
+            {/* New format pricing (oneHour, twoHours, etc.) */}
+            {model.pricing?.oneHour && (
+              <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-luxury-cream text-sm">1 hora</span>
                     <span className="text-base font-semibold text-white">{model.pricing.oneHour}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-luxury-cream text-sm">2 horas</span>
-                    <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-luxury-cream text-sm">3 horas</span>
-                    <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-luxury-cream text-sm">Hora adicional</span>
-                    <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
-                  </div>
+                  {model.pricing.twoHours && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-luxury-cream text-sm">2 horas</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
+                    </div>
+                  )}
+                  {model.pricing.threeHours && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-luxury-cream text-sm">3 horas</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
+                    </div>
+                  )}
+                  {model.pricing.additionalHour && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-luxury-cream text-sm">Hora adicional</span>
+                      <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
+                    </div>
+                  )}
                 </div>
-              </div>}
-            {!model.price && !model.pricing && <div className="bg-card border border-border rounded-lg p-4 text-center">
+              </div>
+            )}
+            
+            {/* Old format pricing (rates array) - Barbara uses this */}
+            {model.pricing?.rates && !model.pricing.oneHour && (
+              <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
+                <div className="space-y-3">
+                  {model.pricing.rates.map((rateItem: any, index: number) => (
+                    <div key={index} className="flex justify-between items-center">
+                      <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
+                      <span className="text-base font-semibold text-white">
+                        £{typeof rateItem.rate === 'number' ? rateItem.rate : rateItem.rate}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* No pricing info */}
+            {!model.price && !model.pricing && (
+              <div className="bg-card border border-border rounded-lg p-4 text-center">
                 <p className="text-muted-foreground">Pricing available upon request</p>
-              </div>}
+              </div>
+            )}
           </div>
 
 

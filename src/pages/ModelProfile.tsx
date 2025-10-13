@@ -30,6 +30,16 @@ export const ModelProfile: React.FC = () => {
   }
 
 
+  // Helper to normalize and format prices
+  const formatPrice = (value: string | number | null | undefined): string => {
+    if (value == null) return '';
+    const num = typeof value === 'number' 
+      ? value 
+      : parseFloat(value.replace(/[^0-9]/g, ''));
+    if (isNaN(num)) return '';
+    return '£' + num.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+  };
+
   // Scroll to top when model changes
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -172,24 +182,24 @@ export const ModelProfile: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-luxury-cream text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-white">{model.pricing.oneHour}</span>
+                    <span className="text-base font-semibold text-white">{formatPrice(model.pricing.oneHour)}</span>
                   </div>
                   {model.pricing.twoHours && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">2 horas</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
+                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.twoHours)}</span>
                     </div>
                   )}
                   {model.pricing.threeHours && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">3 horas</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
+                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.threeHours)}</span>
                     </div>
                   )}
                   {model.pricing.additionalHour && (
                     <div className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">Hora adicional</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
+                      <span className="text-base font-semibold text-white">{formatPrice(model.pricing.additionalHour)}</span>
                     </div>
                   )}
                 </div>
@@ -204,7 +214,7 @@ export const ModelProfile: React.FC = () => {
                     <div key={index} className="flex justify-between items-center">
                       <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
                       <span className="text-base font-semibold text-white">
-                        £{typeof rateItem.rate === 'number' ? rateItem.rate : rateItem.rate}
+                        {formatPrice(rateItem.rate)}
                       </span>
                     </div>
                   ))}

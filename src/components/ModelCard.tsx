@@ -17,6 +17,33 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
   const { ref, isVisible } = useScrollAnimation(0.2);
   const { preferLocalImages } = useImagePreference();
 
+  // Helper to normalize price to number
+  const normalizeToNumber = (value: string | number | null | undefined): number | null => {
+    if (value == null) return null;
+    if (typeof value === 'number') return value;
+    const onlyDigits = value.replace(/[^0-9]/g, '');
+    if (!onlyDigits) return null;
+    return parseFloat(onlyDigits);
+  };
+
+  // Helper to format price as GBP
+  const formatGBP = (num: number): string => {
+    return '£' + num.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+  };
+
+  // Get card price with fallback chain
+  const cardPrice = useMemo(() => {
+    if (model.price) return model.price;
+    
+    const oneHour = normalizeToNumber(model.pricing?.oneHour);
+    if (oneHour) return formatGBP(oneHour);
+    
+    const firstRate = normalizeToNumber(model.pricing?.rates?.[0]?.rate);
+    if (firstRate) return formatGBP(firstRate);
+    
+    return null;
+  }, [model.price, model.pricing]);
+
   // Enhanced image selection with robust fallback
   const imageConfig = useMemo(() => {
     const fallbackFromGallery = model.gallery && Array.isArray(model.gallery)
@@ -112,11 +139,11 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 )}
                 
                 {/* Price - Top Left */}
-                {model.price && (
+                {cardPrice && (
                   <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                     <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                       <span className="text-white text-xs sm:text-sm font-medium">
-                        {model.price}
+                        {cardPrice}
                       </span>
                     </div>
                   </div>

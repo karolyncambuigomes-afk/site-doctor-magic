@@ -146,13 +146,19 @@ export const useModels = () => {
         console.log('Public models fetched:', data?.length || 0);
 
         const transformedModels = data?.filter(isValidModel).map((model: any) => {
-          const basePrice = model.price ? parseFloat(model.price.replace(/[£,]/g, '')) : 500;
-          const pricing = {
-            oneHour: `£${basePrice}`,
-            twoHours: `£${Math.round(basePrice * 1.8)}`,
-            threeHours: `£${Math.round(basePrice * 2.5)}`,
-            additionalHour: `£${Math.round(basePrice * 0.8)}`
-          };
+          const rawPrice = typeof model.price === 'string' ? model.price : String(model.price ?? '');
+          const baseParsed = parseInt(rawPrice.replace(/[^0-9]/g, ''), 10);
+          const basePrice = Number.isFinite(baseParsed) && baseParsed > 0 ? baseParsed : 500;
+
+          const pricing =
+            (model.pricing && Object.keys(model.pricing).length > 0)
+              ? model.pricing
+              : {
+                  oneHour: `£${basePrice}`,
+                  twoHours: `£${Math.round(basePrice * 1.8)}`,
+                  threeHours: `£${Math.round(basePrice * 2.5)}`,
+                  additionalHour: `£${Math.round(basePrice * 0.8)}`
+                };
 
           return {
             id: model.id,

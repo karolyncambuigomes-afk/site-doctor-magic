@@ -176,8 +176,30 @@ export const ModelProfile: React.FC = () => {
               </div>
             )}
             
+            {/* Old format pricing (rates array) - Barbara uses this - PRIORITY */}
+            {model.pricing?.rates && model.pricing.rates.length > 0 && (
+              <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
+                <div className="space-y-3">
+                  {model.pricing.rates.map((rateItem: any, index: number) => {
+                    const displayRate = typeof rateItem.rate === 'number' 
+                      ? `£${rateItem.rate}`
+                      : rateItem.rate;
+                    
+                    return (
+                      <div key={index} className="flex justify-between items-center">
+                        <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
+                        <span className="text-base font-semibold text-white">
+                          {displayRate}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            
             {/* New format pricing (oneHour, twoHours, etc.) */}
-            {model.pricing?.oneHour && (
+            {model.pricing?.oneHour && !model.pricing?.rates && (
               <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
@@ -206,7 +228,7 @@ export const ModelProfile: React.FC = () => {
               </div>
             )}
             
-            {/* Old format pricing (rates array) - Barbara uses this */}
+            {/* Continuation of old format block */}
             {model.pricing?.rates && !model.pricing.oneHour && (
               <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">

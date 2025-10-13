@@ -1,11 +1,41 @@
 import React, { useMemo, useState } from 'react';
 import { ModelCardWrapper } from '@/components/ModelCardWrapper';
-import { useModels } from '@/hooks/useModels';
+import { useModels, Model } from '@/hooks/useModels';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { CategoryFilters } from './CategoryFilters';
 import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+
+// Extract numeric price value for sorting
+const extractPriceValue = (model: Model): number => {
+  // Priority 1: pricing.oneHour (most common rate)
+  if (model.pricing?.oneHour) {
+    const rate = model.pricing.oneHour;
+    // Remove £, thousand separators and "/hour" (£1.000/hour → 1000)
+    const numericRate = typeof rate === 'string' 
+      ? parseFloat(rate.replace(/£/g, '').replace(/\./g, '').replace(/,/g, '').replace(/\/hour/g, '').trim())
+      : rate;
+    if (!isNaN(numericRate)) {
+      return numericRate;
+    }
+  }
+  
+  // Priority 2: Fallback to price field
+  if (model.price) {
+    // Remove £, dots, "/hour" and convert to number (£750/hour → 750)
+    const match = model.price.match(/(\d+\.?\d*)/);
+    if (match) {
+      const numericPrice = parseFloat(match[1].replace(/\./g, ''));
+      if (!isNaN(numericPrice)) {
+        return numericPrice;
+      }
+    }
+  }
+  
+  // No price = goes to the end
+  return 0;
+};
 
 export const ModelsGallery: React.FC = () => {
   const { models, loading, error } = useModels();
@@ -22,7 +52,7 @@ export const ModelsGallery: React.FC = () => {
   const filteredModels = useMemo(() => {
     if (!models.length) return [];
     
-    return models.filter(model => {
+    let filtered = models.filter(model => {
       // Search term filter (includes location)
       const matchesSearch = !searchTerm || 
         model.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,6 +65,15 @@ export const ModelsGallery: React.FC = () => {
 
       return matchesSearch && matchesCategory;
     });
+
+    // Sort from most expensive to cheapest
+    filtered.sort((a, b) => {
+      const priceA = extractPriceValue(a);
+      const priceB = extractPriceValue(b);
+      return priceB - priceA; // Descending order
+    });
+
+    return filtered;
   }, [models, searchTerm, selectedCharacteristics]);
 
   return (

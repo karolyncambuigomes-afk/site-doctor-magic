@@ -201,11 +201,26 @@ const JoinUs = () => {
       const photoUrls = photos.length > 0 ? await uploadFiles(photos, 'photos') : [];
       const videoUrls = videos.length > 0 ? await uploadFiles(videos, 'videos') : [];
 
+      // Process languages before sending
+      const { other_language, ...restFormData } = formData;
+
+      // Create final languages array
+      let finalLanguages = [...formData.languages];
+
+      // If "Other Language" was selected and a specific language was provided
+      if (formData.languages.includes("Other Language") && other_language?.trim()) {
+        // Remove generic "Other Language"
+        finalLanguages = finalLanguages.filter(lang => lang !== "Other Language");
+        // Add the specific language
+        finalLanguages.push(other_language.trim());
+      }
+
       // Submit application
       const { error } = await supabase
         .from('model_applications')
         .insert({
-          ...formData,
+          ...restFormData,
+          languages: finalLanguages,
           photos: photoUrls,
           videos: videoUrls
         });

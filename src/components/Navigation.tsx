@@ -14,7 +14,6 @@ import {
 
 const navItems = [
   { href: "/about", label: "About Us" },
-  { href: "/models", label: "Models" },
   { href: "/membership", label: "Membership" },
   { href: "/services", label: "Services" },
   { href: "/blog", label: "Blog" },
@@ -96,9 +95,9 @@ export const Navigation: React.FC = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <SafeLink to="/models" className="flex items-center">
+                    <SafeLink to="/" className="flex items-center">
                       <User className="w-4 h-4 mr-2" />
-                      Browse Models
+                      View Companions
                     </SafeLink>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -168,10 +167,10 @@ export const Navigation: React.FC = () => {
                         {user.email}
                       </span>
                     </div>
-                    <SafeLink to="/models">
+                    <SafeLink to="/">
                       <Button variant="outline" className="w-full mb-2">
                         <User className="w-4 h-4 mr-2" />
-                        Browse Models
+                        View Companions
                       </Button>
                     </SafeLink>
                     <button

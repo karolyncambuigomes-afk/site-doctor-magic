@@ -1,7 +1,7 @@
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
-import { ModelsCarousel } from "@/components/ModelsCarousel";
+import { ModelsGallery } from "@/components/ModelsGallery";
 import { Footer } from "@/components/Footer";
 
 
@@ -83,10 +83,16 @@ const Index = () => {
       <main className="pt-0">
         <HeroSection />
 
-        {/* Featured Models Section */}
+        {/* All Models Gallery Section */}
         <section className="py-12 md:py-16 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <ModelsCarousel />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="luxury-heading-xl text-black mb-4">Our Elite Companions</h2>
+              <p className="luxury-body-base text-gray-600 max-w-2xl mx-auto">
+                Discover our exclusive selection of sophisticated companions available throughout London
+              </p>
+            </div>
+            <ModelsGallery />
           </div>
         </section>
 

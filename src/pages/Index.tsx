@@ -23,7 +23,6 @@ import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
 import { useRealTimeReviews } from "@/hooks/useRealTimeReviews";
 import { useBookingContent } from "@/hooks/useBookingContent";
 import heroSecondBanner from "@/assets/hero-second-banner-new.webp";
-import { CategoryFilters } from "@/components/CategoryFilters";
 import {
   faqSchemaData,
   serviceSchemaData,
@@ -96,13 +95,11 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Category Filters & About Section */}
+        {/* About Section */}
         <section className="py-12 md:py-16 text-foreground bg-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <CategoryFilters />
-
             {/* About Our Services - Integrated Design */}
-            <div className="mt-12 max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto">
               <details className="group bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300">
                 <summary className="cursor-pointer p-6 md:p-8 list-none">
                   <div className="flex items-center justify-between">

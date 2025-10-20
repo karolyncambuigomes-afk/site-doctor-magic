@@ -89,26 +89,6 @@ const LocationDetail = () => {
   // Get other locations for the "Explore also" section
   const otherLocations = locations.filter(loc => loc.id !== location.id).slice(0, 6);
 
-  // Extract first paragraph from content
-  const extractFirstParagraph = (htmlContent: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, 'text/html');
-    const firstP = doc.querySelector('p');
-    return firstP ? firstP.outerHTML : '';
-  };
-
-  const extractRestOfContent = (htmlContent: string) => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlContent, 'text/html');
-    const firstP = doc.querySelector('p');
-    if (firstP) {
-      firstP.remove();
-    }
-    return doc.body.innerHTML;
-  };
-
-  const firstParagraph = location?.content ? extractFirstParagraph(location.content) : '';
-  const restOfContent = location?.content ? extractRestOfContent(location.content) : '';
 
 
   const structuredData = [
@@ -187,21 +167,6 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* First Paragraph Preview */}
-          {location?.content && firstParagraph && (
-            <section className="py-12 md:py-16 bg-white">
-              <div className="container-width mx-auto px-4">
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-center">
-                    <div 
-                      className="[&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:text-base"
-                      dangerouslySetInnerHTML={{ __html: firstParagraph }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          )}
 
           {/* Available Models Section - Enhanced Loading */}
           {loading ? (
@@ -305,13 +270,13 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* SEO Content Section - Always Visible */}
-          {location?.content && restOfContent && (
+          {/* SEO Content Section - Complete Content */}
+          {location?.content && (
             <section className="py-12 md:py-16 bg-gray-50">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-8">
-                    <h2 className="luxury-heading-lg text-black mb-4">
+                    <h2 className="luxury-heading-lg text-gray-900 mb-4">
                       About {location.name} Escorts
                     </h2>
                     <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
@@ -320,14 +285,14 @@ const LocationDetail = () => {
                   <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
                     <div 
                       className="location-content
-                        [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
-                        [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-black [&>h2]:mb-6 [&>h2]:mt-8 [&>h2]:first:mt-0
-                        [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:text-black [&>h3]:mb-4 [&>h3]:mt-6
-                        [&>ul]:text-muted-foreground [&>ul]:my-6 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
-                        [&>li]:my-2 [&>li]:leading-relaxed
+                        [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
+                        [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-6 [&>h2]:mt-8 [&>h2]:first:mt-0
+                        [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:text-gray-900 [&>h3]:mb-4 [&>h3]:mt-6
+                        [&>ul]:text-gray-700 [&>ul]:my-6 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
+                        [&>li]:text-gray-700 [&>li]:my-2 [&>li]:leading-relaxed
                         [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
                         hover:[&>a]:text-primary/80"
-                      dangerouslySetInnerHTML={{ __html: restOfContent }}
+                      dangerouslySetInnerHTML={{ __html: location.content }}
                     />
                   </div>
                 </div>

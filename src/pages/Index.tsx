@@ -100,106 +100,85 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             {/* About Our Services - Integrated Design */}
             <div className="max-w-4xl mx-auto">
-              <details className="group bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300">
-                <summary className="cursor-pointer p-6 md:p-8 list-none">
-                  <div className="flex items-center justify-between">
-                    <h2 className="luxury-heading-lg text-gray-800 group-hover:text-gray-900 transition-colors">
-                      About Our Premium Services
-                    </h2>
-                    <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
-                      <svg
-                        className="w-3 h-3 text-gray-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
+          <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+                <h2 className="luxury-heading-lg text-gray-800 mb-6">
+                  About Our Premium Services
+                </h2>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h3 className="luxury-heading-md mb-4 text-gray-900">
+                        Elite Escort Services London
+                      </h3>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed mb-4">
+                        Five London represents the pinnacle of luxury escort
+                        services in the capital, offering sophisticated
+                        companions for discerning gentlemen who appreciate
+                        excellence, discretion, and uncompromising quality.
+                        Our carefully selected international models embody
+                        elegance, intelligence, and cultural refinement.
+                      </p>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        Available 24/7 throughout London's most prestigious
+                        districts, our elite companions specialize in business
+                        accompaniment, social events, cultural experiences,
+                        and intimate dinner dates. Each encounter is tailored
+                        to exceed expectations while maintaining the highest
+                        standards of professionalism and confidentiality.
+                      </p>
                     </div>
                   </div>
-                </summary>
-                <div className="px-6 md:px-8 pb-6 md:pb-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                        <h3 className="luxury-heading-md mb-4 text-gray-900">
-                          Elite Escort Services London
-                        </h3>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed mb-4">
-                          Five London represents the pinnacle of luxury escort
-                          services in the capital, offering sophisticated
-                          companions for discerning gentlemen who appreciate
-                          excellence, discretion, and uncompromising quality.
-                          Our carefully selected international models embody
-                          elegance, intelligence, and cultural refinement.
-                        </p>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          Available 24/7 throughout London's most prestigious
-                          districts, our elite companions specialize in business
-                          accompaniment, social events, cultural experiences,
-                          and intimate dinner dates. Each encounter is tailored
-                          to exceed expectations while maintaining the highest
-                          standards of professionalism and confidentiality.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="space-y-6">
-                      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                        <h3 className="luxury-heading-md mb-4 text-gray-900">
-                          Premium London Areas
-                        </h3>
-                        <div className="space-y-4">
-                          <div className="border-l-3 border-gray-300 pl-4">
-                            <h4 className="luxury-body-sm font-semibold text-gray-900">
-                              Mayfair W1
-                            </h4>
-                            <p className="luxury-body-xs text-gray-600 mt-1">
-                              Home to luxury shopping at Bond Street, exclusive
-                              dining, and world-class hotels including
-                              Claridge's and The Connaught.
-                            </p>
-                          </div>
-                          <div className="border-l-3 border-gray-300 pl-4">
-                            <h4 className="luxury-body-sm font-semibold text-gray-900">
-                              Knightsbridge SW1
-                            </h4>
-                            <p className="luxury-body-xs text-gray-600 mt-1">
-                              Prestigious area near Harrods, Hyde Park, and
-                              luxury hotels including The Berkeley and Mandarin
-                              Oriental.
-                            </p>
-                          </div>
-                          <div className="border-l-3 border-gray-300 pl-4">
-                            <h4 className="luxury-body-sm font-semibold text-gray-900">
-                              Chelsea SW3
-                            </h4>
-                            <p className="luxury-body-xs text-gray-600 mt-1">
-                              Sophisticated neighbourhood with world-class
-                              restaurants, galleries, and exclusive private
-                              members' clubs.
-                            </p>
-                          </div>
-                          <div className="border-l-3 border-gray-300 pl-4">
-                            <h4 className="luxury-body-sm font-semibold text-gray-900">
-                              Belgravia SW1
-                            </h4>
-                            <p className="luxury-body-xs text-gray-600 mt-1">
-                              Elite residential area with Georgian architecture,
-                              premium boutiques, and Michelin-starred dining
-                              venues.
-                            </p>
-                          </div>
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                      <h3 className="luxury-heading-md mb-4 text-gray-900">
+                        Premium London Areas
+                      </h3>
+                      <div className="space-y-4">
+                        <div className="border-l-3 border-gray-300 pl-4">
+                          <h4 className="luxury-body-sm font-semibold text-gray-900">
+                            Mayfair W1
+                          </h4>
+                          <p className="luxury-body-xs text-gray-600 mt-1">
+                            Home to luxury shopping at Bond Street, exclusive
+                            dining, and world-class hotels including
+                            Claridge's and The Connaught.
+                          </p>
+                        </div>
+                        <div className="border-l-3 border-gray-300 pl-4">
+                          <h4 className="luxury-body-sm font-semibold text-gray-900">
+                            Knightsbridge SW1
+                          </h4>
+                          <p className="luxury-body-xs text-gray-600 mt-1">
+                            Prestigious area near Harrods, Hyde Park, and
+                            luxury hotels including The Berkeley and Mandarin
+                            Oriental.
+                          </p>
+                        </div>
+                        <div className="border-l-3 border-gray-300 pl-4">
+                          <h4 className="luxury-body-sm font-semibold text-gray-900">
+                            Chelsea SW3
+                          </h4>
+                          <p className="luxury-body-xs text-gray-600 mt-1">
+                            Sophisticated neighbourhood with world-class
+                            restaurants, galleries, and exclusive private
+                            members' clubs.
+                          </p>
+                        </div>
+                        <div className="border-l-3 border-gray-300 pl-4">
+                          <h4 className="luxury-body-sm font-semibold text-gray-900">
+                            Belgravia SW1
+                          </h4>
+                          <p className="luxury-body-xs text-gray-600 mt-1">
+                            Elite residential area with Georgian architecture,
+                            premium boutiques, and Michelin-starred dining
+                            venues.
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </details>
+              </div>
             </div>
           </div>
         </section>

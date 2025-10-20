@@ -143,10 +143,8 @@ export const Reviews: React.FC = () => {
         {/* SEO Content Section */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
-                <h2>What Our Clients Say</h2>
-              </summary>
+            <div className="mb-8">
+              <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">What Our Clients Say</h2>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Service Quality Reviews</h3>
@@ -181,7 +179,7 @@ export const Reviews: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </details>
+            </div>
           </div>
         </section>
 

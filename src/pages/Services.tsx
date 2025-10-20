@@ -188,7 +188,7 @@ const Services = () => {
         <section className="py-12 md:py-16 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2"]} className="space-y-3 sm:space-y-4">
                 {services.map((service, index) => (
                   <AccordionItem 
                     key={service.title} 

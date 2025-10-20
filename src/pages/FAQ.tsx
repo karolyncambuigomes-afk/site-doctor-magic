@@ -92,18 +92,20 @@ const FAQ = () => {
                 <p className="text-gray-600">No FAQs available at the moment.</p>
               </div>
             ) : (
-              <Accordion type="single" collapsible className="space-y-4">
+              <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4"]} className="space-y-4">
                 {faqs.map((faq, index) => (
                   <AccordionItem 
                     key={faq.id} 
                     value={`item-${index}`}
                     className="bg-white border border-gray-200 rounded-lg shadow-sm"
+                    itemScope
+                    itemType="https://schema.org/Question"
                   >
                     <AccordionTrigger className="text-left font-medium text-gray-900 hover:text-black transition-colors px-6 py-4">
-                      {faq.question}
+                      <span itemProp="name">{faq.question}</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed px-6 pb-4">
-                      {faq.answer}
+                    <AccordionContent className="text-gray-600 leading-relaxed px-6 pb-4" itemScope itemType="https://schema.org/Answer">
+                      <div itemProp="text">{faq.answer}</div>
                     </AccordionContent>
                   </AccordionItem>
                 ))}
@@ -175,10 +177,8 @@ const FAQ = () => {
         {/* SEO Content Section */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
-                <h2>Common Questions About Our Services</h2>
-              </summary>
+            <div className="mb-8">
+              <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Booking Process</h3>
@@ -213,7 +213,7 @@ const FAQ = () => {
                   </div>
                 </div>
               </div>
-            </details>
+            </div>
           </div>
         </section>
 

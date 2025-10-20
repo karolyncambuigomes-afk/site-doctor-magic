@@ -8,15 +8,13 @@ import { locations } from '@/data/locations';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star } from 'lucide-react';
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const LocationDetail = () => {
   const params = useSafeParams();
   const { locationSlug } = params;
   const { models, loading, error } = useModels();
-  const [isContentOpen, setIsContentOpen] = useState(false);
   
   // Safety check for router context
   if (!params) {
@@ -189,53 +187,17 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* Rich Content Section */}
-          {location?.content && (
+          {/* First Paragraph Preview */}
+          {location?.content && firstParagraph && (
             <section className="py-12 md:py-16 bg-white">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
-                  {/* First Paragraph - Always Visible */}
-                  {firstParagraph && (
-                    <div className="mb-6">
-                      <div 
-                        className="text-center [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:text-base"
-                        dangerouslySetInnerHTML={{ __html: firstParagraph }}
-                      />
-                    </div>
-                  )}
-
-                  {/* Rest of Content - Collapsible */}
-                  {restOfContent && (
-                    <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                      <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                        <CollapsibleTrigger className="w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors">
-                          <h2 className="text-xl md:text-2xl font-semibold text-black text-left">
-                            Read More About {location.name} Escorts
-                          </h2>
-                          {isContentOpen ? (
-                            <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
-                          ) : (
-                            <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
-                          )}
-                        </CollapsibleTrigger>
-                        
-                        <CollapsibleContent>
-                          <div className="px-6 py-6 bg-gray-50/50">
-                            <div 
-                              className="location-content
-                                [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-4 [&>p]:text-sm
-                                [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-black [&>h2]:mb-4 [&>h2]:mt-6 [&>h2]:first:mt-0
-                                [&>ul]:text-muted-foreground [&>ul]:my-4 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-sm
-                                [&>li]:my-2
-                                [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
-                                hover:[&>a]:text-primary/80"
-                              dangerouslySetInnerHTML={{ __html: restOfContent }}
-                            />
-                          </div>
-                        </CollapsibleContent>
-                      </div>
-                    </Collapsible>
-                  )}
+                  <div className="text-center">
+                    <div 
+                      className="[&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:text-base"
+                      dangerouslySetInnerHTML={{ __html: firstParagraph }}
+                    />
+                  </div>
                 </div>
               </div>
             </section>
@@ -342,6 +304,36 @@ const LocationDetail = () => {
               </div>
             </div>
           </section>
+
+          {/* SEO Content Section - Always Visible */}
+          {location?.content && restOfContent && (
+            <section className="py-12 md:py-16 bg-gray-50">
+              <div className="container-width mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+                  <div className="text-center mb-8">
+                    <h2 className="luxury-heading-lg text-black mb-4">
+                      About {location.name} Escorts
+                    </h2>
+                    <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+                  </div>
+                  
+                  <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
+                    <div 
+                      className="location-content
+                        [&>p]:text-muted-foreground [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
+                        [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-black [&>h2]:mb-6 [&>h2]:mt-8 [&>h2]:first:mt-0
+                        [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:text-black [&>h3]:mb-4 [&>h3]:mt-6
+                        [&>ul]:text-muted-foreground [&>ul]:my-6 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
+                        [&>li]:my-2 [&>li]:leading-relaxed
+                        [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
+                        hover:[&>a]:text-primary/80"
+                      dangerouslySetInnerHTML={{ __html: restOfContent }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Contact Section - Minimal */}
           <section className="py-4 md:py-6 bg-white">

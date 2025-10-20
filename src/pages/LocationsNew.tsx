@@ -147,14 +147,16 @@ export const Locations: React.FC = () => {
             </div>
           </section>
 
-          {/* SEO Content Section */}
+          {/* SEO Content Section - Always Visible */}
           <section className="mt-16 py-16 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <details className="mb-8">
-                <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
-                  <h2>Elite Escorts Across London</h2>
-                </summary>
-                <div className="grid md:grid-cols-2 gap-8 mt-8">
+              <div className="text-center mb-12">
+                <h2 className="luxury-heading-lg text-gray-800 mb-4">Elite Escorts Across London</h2>
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+              </div>
+              
+              <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
+                <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-4">
                     <h3 className="luxury-heading-md">Central London Areas</h3>
                     <p className="luxury-body-md text-muted-foreground leading-relaxed">
@@ -188,7 +190,7 @@ export const Locations: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </details>
+              </div>
             </div>
           </section>
 

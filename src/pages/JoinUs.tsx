@@ -619,13 +619,13 @@ const JoinUs = () => {
           <p>London's position as a global financial and cultural capital creates exceptional opportunities in the luxury companionship industry. The city attracts sophisticated international visitors, business leaders, and cultural enthusiasts who seek exceptional companionship experiences. From exclusive events in Mayfair to business functions in the City, from cultural experiences in Kensington to social gatherings in Chelsea, London offers diverse opportunities for elite models to build successful careers while experiencing the finest aspects of the city's sophisticated lifestyle.</p>
         </div>
         
-        {/* About Career Opportunities - Collapsible Rich Content */}
+        {/* About Career Opportunities - Always Visible for SEO */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
-                <h2>About Career Opportunities</h2>
-              </summary>
+            <div className="mb-8">
+              <h2 className="luxury-heading-lg text-center mb-6 text-gray-900">
+                About Career Opportunities
+              </h2>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Professional Development and Training</h3>
@@ -654,7 +654,7 @@ const JoinUs = () => {
                   </div>
                 </div>
               </div>
-            </details>
+            </div>
           </div>
         </section>
       </main>

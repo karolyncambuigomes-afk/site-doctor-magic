@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { ModelCardWrapper } from '@/components/ModelCardWrapper';
 import { useModels, Model } from '@/hooks/useModels';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { CategoryFilters } from './CategoryFilters';
 import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -184,9 +183,6 @@ export const ModelsGallery: React.FC = () => {
             )}
           </div>
         </section>
-
-        {/* Category Filters Section */}
-        <CategoryFilters />
       </main>
     </div>
   );

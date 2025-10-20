@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-// Removed cache manager for better performance
+import { getBannerCache, setBannerCache, clearBannerCache, preloadImage } from '@/utils/performanceOptimizer';
 
 interface SiteBanner {
   id: string;
@@ -32,6 +32,20 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
       setLoading(true);
       setError(null);
 
+      // Try cache first
+      const cached = getBannerCache();
+      if (cached && cached.section === section) {
+        setBanners(cached.data);
+        setLoading(false);
+        // Preload images from cache
+        cached.data.forEach((banner: SiteBanner) => {
+          if (banner.image_url) {
+            preloadImage(banner.image_url).catch(() => {});
+          }
+        });
+        return;
+      }
+
       let query = supabase
         .from('site_banners')
         .select('*')
@@ -48,9 +62,19 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
         throw fetchError;
       }
 
-      setBanners(data || []);
+      const bannerData = data || [];
+      setBanners(bannerData);
+      
+      // Save to cache
+      setBannerCache({ section, data: bannerData });
+      
+      // Preload images
+      bannerData.forEach((banner) => {
+        if (banner.image_url) {
+          preloadImage(banner.image_url).catch(() => {});
+        }
+      });
     } catch (err) {
-      console.error('Error fetching banners:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch banners');
     } finally {
       setLoading(false);
@@ -70,7 +94,8 @@ export const useBannerContent = (section?: string): UseBannerContentReturn => {
           schema: 'public',
           table: 'site_banners'
         },
-        (payload) => {
+        () => {
+          clearBannerCache();
           fetchBanners();
         }
       )

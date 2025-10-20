@@ -48,10 +48,8 @@ export const useHomepageContent = () => {
   const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
 
   const loadHeroContent = async () => {
-    console.log('useHomepageContent: Starting loadHeroContent');
     try {
       setLoading(true);
-      console.log('useHomepageContent: Loading set to true');
       
       const { data, error } = await supabase
         .from('site_content')
@@ -60,24 +58,14 @@ export const useHomepageContent = () => {
         .eq('is_active', true)
         .maybeSingle();
 
-      console.log('useHomepageContent: Query completed', { data, error });
+      if (error) throw error;
 
-      if (error) {
-        console.error('useHomepageContent: Database error:', error);
-        throw error;
-      }
-
-      // Get banner images from new system if available
+      // Get banner images from new system
       const getImageUrls = () => {
         if (heroBanners?.length > 0) {
-          // Strict device separation: only use 'all' as fallback, never cross-device
           const allBanner = heroBanners.find(b => b.device_type === 'all');
           const desktopBanner = heroBanners.find(b => b.device_type === 'desktop') || allBanner;
           const mobileBanner = heroBanners.find(b => b.device_type === 'mobile') || allBanner;
-
-          console.log('useHomepageContent: Desktop banner (strict):', desktopBanner?.device_type, desktopBanner?.image_url);
-          console.log('useHomepageContent: Mobile banner (strict):', mobileBanner?.device_type, mobileBanner?.image_url);
-          console.log('useHomepageContent: All banner (fallback):', allBanner?.device_type, allBanner?.image_url);
           
           return {
             image_url: allBanner?.image_url,
@@ -91,7 +79,6 @@ export const useHomepageContent = () => {
 
         // Fallback to old system
         if (data) {
-          console.log('useHomepageContent: Using images from site_content');
           return {
             image_url: data.image_url || heroContent.image_url,
             image_url_desktop: data.image_url_desktop || heroContent.image_url_desktop,
@@ -102,20 +89,12 @@ export const useHomepageContent = () => {
           };
         }
         
-        return {
-          image_url: heroContent.image_url,
-          image_url_desktop: heroContent.image_url_desktop,
-          image_url_mobile: heroContent.image_url_mobile,
-          image_url_local_desktop: heroContent.image_url_local_desktop,
-          image_url_local_mobile: heroContent.image_url_local_mobile,
-          image_url_local_fallback: heroContent.image_url_local_fallback
-        };
+        return {};
       };
 
       const imageUrls = getImageUrls();
 
       if (data) {
-        console.log('useHomepageContent: Setting hero content with data');
         setHeroContent({
           title: data.title || heroContent.title,
           subtitle: data.subtitle || heroContent.subtitle,
@@ -127,7 +106,6 @@ export const useHomepageContent = () => {
           button_secondary_url: heroContent.button_secondary_url
         });
       } else {
-        console.log('useHomepageContent: No data found, using defaults with banner images');
         setHeroContent(prev => ({
           ...prev,
           ...imageUrls
@@ -136,27 +114,14 @@ export const useHomepageContent = () => {
       
       setError(null);
     } catch (err) {
-      console.error('useHomepageContent: Error in loadHeroContent:', err);
       setError('Erro ao carregar conteúdo da hero section');
-      // Keep default values on error
     } finally {
-      console.log('useHomepageContent: Setting loading to false');
       setLoading(false);
     }
   };
 
   const updateHeroContent = async (updates: Partial<HeroContent>) => {
     try {
-      console.log('🔄 [HOOK] updateHeroContent iniciado');
-      console.log('🔄 [HOOK] Updates recebidos:', updates);
-      console.log('🔄 [HOOK] HeroContent atual:', heroContent);
-      
-      // Validação específica dos campos de imagem
-      console.log('🖼️ [HOOK] Validando imagens:');
-      console.log('🖼️ [HOOK] - Desktop:', updates.image_url_desktop);
-      console.log('🖼️ [HOOK] - Mobile:', updates.image_url_mobile);
-      console.log('🖼️ [HOOK] - Fallback:', updates.image_url);
-      
       const updateData = {
         section: 'homepage_hero_main',
         title: updates.title || heroContent.title,
@@ -173,14 +138,8 @@ export const useHomepageContent = () => {
         is_active: true,
         updated_at: new Date().toISOString()
       };
-
-      console.log('💾 [HOOK] Dados preparados para Supabase:', updateData);
-      console.log('💾 [HOOK] Verificação final:');
-      console.log('💾 [HOOK] - image_url_desktop:', updateData.image_url_desktop);
-      console.log('💾 [HOOK] - image_url_mobile:', updateData.image_url_mobile);
-      console.log('💾 [HOOK] - image_url (fallback):', updateData.image_url);
       
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('site_content')
         .upsert(updateData, {
           onConflict: 'section'
@@ -188,16 +147,7 @@ export const useHomepageContent = () => {
         .select()
         .maybeSingle();
 
-      if (error) {
-        console.error('❌ [HOOK] Erro do Supabase:', error);
-        throw error;
-      }
-
-      console.log('✅ [HOOK] Dados salvos no Supabase:', data);
-      console.log('✅ [HOOK] Verificação pós-salvamento:');
-      console.log('✅ [HOOK] - Desktop salvo:', data?.image_url_desktop);
-      console.log('✅ [HOOK] - Mobile salvo:', data?.image_url_mobile);
-      console.log('✅ [HOOK] - Fallback salvo:', data?.image_url);
+      if (error) throw error;
 
       setHeroContent(prev => ({ ...prev, ...updates }));
       
@@ -208,7 +158,6 @@ export const useHomepageContent = () => {
 
       return true;
     } catch (err) {
-      console.error('❌ [HOOK] Erro ao atualizar hero content:', err);
       toast({
         title: "Erro",
         description: "Erro ao atualizar configuração de banners",
@@ -219,17 +168,10 @@ export const useHomepageContent = () => {
   };
 
   useEffect(() => {
-    console.log('useHomepageContent: useEffect triggered');
-    loadHeroContent();
-  }, []);
-
-  // Reload when banners change
-  useEffect(() => {
     if (!bannersLoading) {
-      console.log('useHomepageContent: Banner data updated, reloading content');
       loadHeroContent();
     }
-  }, [heroBanners, bannersLoading]);
+  }, [bannersLoading]);
 
   return {
     heroContent,

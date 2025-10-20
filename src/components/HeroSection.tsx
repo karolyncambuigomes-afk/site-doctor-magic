@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -6,11 +6,12 @@ import { useBannerContent } from '@/hooks/useBannerContent';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
-  const { banners: heroBanners, loading: bannersLoading } = useBannerContent('hero');
+  const { banners: heroBanners } = useBannerContent('hero');
   const isMobile = useIsMobile();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Get image from Supabase banners
-  const heroImage = useMemo(() => {
+  // Get the appropriate hero image
+  const heroImage = React.useMemo(() => {
     if (!heroBanners || heroBanners.length === 0) return null;
     
     const allBanner = heroBanners.find(b => b.device_type === 'all' && b.is_active);
@@ -22,38 +23,23 @@ export const HeroSection: React.FC = () => {
     return activeBanner?.image_url || null;
   }, [heroBanners, isMobile]);
 
+  // Preload image
+  useEffect(() => {
+    if (heroImage) {
+      const img = new Image();
+      img.onload = () => setImageLoaded(true);
+      img.src = heroImage;
+    }
+  }, [heroImage]);
 
-  if (loading || bannersLoading) {
-    return (
-      <section className="relative h-screen w-full flex items-end snap-start">
-        <div className="absolute inset-0 z-0 bg-gray-900">
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-            <div className="text-white text-sm">Loading hero content...</div>
-          </div>
-        </div>
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
-          <div className="max-w-2xl mx-auto">
-            <div className="animate-pulse">
-              <div className="h-12 bg-white/20 rounded mb-4"></div>
-              <div className="h-6 bg-white/20 rounded mb-6"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
+  // Progressive loading: Show image immediately if available, text fades in after
   if (!heroImage) {
     return (
       <section className="relative h-screen w-full flex items-end snap-start">
         <div className="absolute inset-0 z-0 bg-gray-900">
           <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gray-900 flex items-center justify-center">
-            <div className="text-white text-sm">No hero image configured. Please add one in the admin panel.</div>
-          </div>
         </div>
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-8 md:pb-16 text-center text-white">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
               {heroContent?.title || "Premium London Escort Agency"}
@@ -77,31 +63,34 @@ export const HeroSection: React.FC = () => {
     );
   }
 
-  // Render hero section with image
+  // Render hero section with image - show image immediately, fade in text
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
-      {/* Background Image with Overlay */}
+      {/* Background Image - loads immediately */}
       <div className="absolute inset-0 z-0 bg-gray-900">
         <img
           src={heroImage}
           alt={heroContent?.title || 'Elegant companion services'}
           className="w-full h-full object-cover object-center"
-          data-hero-image="true"
-          data-image-type={isMobile ? 'mobile' : 'desktop'}
+          loading="eager"
+          fetchPriority="high"
+          onLoad={() => setImageLoaded(true)}
           onError={(e) => e.currentTarget.style.display = 'none'}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* Content - Minimalist and positioned at bottom */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
+      {/* Content - fades in after image loads or after loading completes */}
+      <div 
+        className={`relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white transition-opacity duration-500 ${
+          imageLoaded || !loading ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="max-w-2xl mx-auto">
-          {/* H1 - Main Title */}
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
             {heroContent?.title || "Premium London Escort Agency"}
           </h1>
           
-          {/* H2 - Subtitle */}
           <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
             {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
           </h2>
@@ -119,9 +108,8 @@ export const HeroSection: React.FC = () => {
           </div>
         </div>
       </div>
-      
 
-      {/* Hidden SEO Content - Invisible but indexable */}
+      {/* Hidden SEO Content */}
       <div className="sr-only">
         <p>Five London offers exclusive escort services with sophisticated companions available throughout London's most prestigious districts including Mayfair W1, Knightsbridge SW1, Chelsea SW3, and Belgravia. Our elite escort agency provides discreet, professional companion services for business events, social occasions, dinner dates, and cultural experiences.</p>
         <p>Available 24/7 for outcall services to luxury hotels including The Ritz London, Claridge's, The Savoy, and Shangri-La at The Shard. Our carefully vetted international models offer uncompromising quality, intelligence, and elegance for discerning clients seeking premium escort services in Central London.</p>

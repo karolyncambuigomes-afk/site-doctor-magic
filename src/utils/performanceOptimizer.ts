@@ -69,3 +69,39 @@ export const measurePerformance = (name: string, fn: () => void) => {
     fn();
   }
 };
+
+// Cache utilities for banner data
+const BANNER_CACHE_KEY = 'hero_banners_cache';
+const BANNER_CACHE_TIMESTAMP_KEY = 'hero_banners_timestamp';
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+export const getBannerCache = () => {
+  try {
+    const timestamp = sessionStorage.getItem(BANNER_CACHE_TIMESTAMP_KEY);
+    if (!timestamp || Date.now() - parseInt(timestamp) > CACHE_DURATION) {
+      return null;
+    }
+    const cached = sessionStorage.getItem(BANNER_CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+};
+
+export const setBannerCache = (data: any) => {
+  try {
+    sessionStorage.setItem(BANNER_CACHE_KEY, JSON.stringify(data));
+    sessionStorage.setItem(BANNER_CACHE_TIMESTAMP_KEY, Date.now().toString());
+  } catch {
+    // Ignore cache errors
+  }
+};
+
+export const clearBannerCache = () => {
+  try {
+    sessionStorage.removeItem(BANNER_CACHE_KEY);
+    sessionStorage.removeItem(BANNER_CACHE_TIMESTAMP_KEY);
+  } catch {
+    // Ignore cache errors
+  }
+};

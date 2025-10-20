@@ -250,7 +250,7 @@ export type Database = {
           created_at: string | null
           email: string
           id: string
-          ip_address: unknown
+          ip_address: unknown | null
           last_submission: string | null
           submission_count: number | null
         }
@@ -258,7 +258,7 @@ export type Database = {
           created_at?: string | null
           email: string
           id?: string
-          ip_address: unknown
+          ip_address?: unknown | null
           last_submission?: string | null
           submission_count?: number | null
         }
@@ -266,7 +266,7 @@ export type Database = {
           created_at?: string | null
           email?: string
           id?: string
-          ip_address?: unknown
+          ip_address?: unknown | null
           last_submission?: string | null
           submission_count?: number | null
         }

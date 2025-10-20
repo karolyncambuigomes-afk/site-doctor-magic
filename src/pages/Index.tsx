@@ -82,6 +82,23 @@ const Index = () => {
       <main className="pt-0">
         <HeroSection />
 
+        {/* Elite Escort Services Introduction - Text 1 */}
+        <section className="py-12 md:py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <h2 className="luxury-heading-lg text-gray-900 mb-6 text-center">
+              Elite Escort Services London
+            </h2>
+            <div className="space-y-4 text-center">
+              <p className="luxury-body-md text-gray-700 leading-relaxed">
+                Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
+              </p>
+              <p className="luxury-body-md text-gray-700 leading-relaxed">
+                Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* All Models Gallery Section */}
         <section className="py-12 md:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -108,24 +125,25 @@ const Index = () => {
                   <div className="space-y-6">
                     <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
                       <h3 className="luxury-heading-md mb-4 text-gray-900">
-                        Elite Escort Services London
+                        Finest High Class Escorts London
                       </h3>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed mb-4">
-                        Five London represents the pinnacle of luxury escort
-                        services in the capital, offering sophisticated
-                        companions for discerning gentlemen who appreciate
-                        excellence, discretion, and uncompromising quality.
-                        Our carefully selected international models embody
-                        elegance, intelligence, and cultural refinement.
-                      </p>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        Available 24/7 throughout London's most prestigious
-                        districts, our elite companions specialize in business
-                        accompaniment, social events, cultural experiences,
-                        and intimate dinner dates. Each encounter is tailored
-                        to exceed expectations while maintaining the highest
-                        standards of professionalism and confidentiality.
-                      </p>
+                      <div className="space-y-4">
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          At Exclusive Five London, excellence is not just a promise — it's a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.
+                        </p>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.
+                        </p>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          We believe in quality over quantity. That's why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.
+                        </p>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.
+                        </p>
+                        <p className="luxury-body-md text-gray-700 leading-relaxed">
+                          Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-6">

@@ -76,46 +76,15 @@ const JoinUs = () => {
     location_preference: ""
   });
 
-  // Check authentication status
+  // Formulário é público - auth check opcional apenas para possível prefill
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user || null);
-      
-      if (session?.user) {
-        // Check user profile status
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', session.user.id)
-          .maybeSingle();
-        
-        setUserProfile(profile || null);
-      }
       setAuthChecked(true);
     };
 
     checkAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user || null);
-        
-        if (session?.user) {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session.user.id)
-            .maybeSingle();
-          
-          setUserProfile(profile || null);
-        } else {
-          setUserProfile(null);
-        }
-      }
-    );
-
-    return () => subscription.unsubscribe();
   }, []);
 
   const handleInputChange = (field: keyof ApplicationData, value: any) => {
@@ -197,6 +166,34 @@ const JoinUs = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validações básicas no frontend
+    if (!formData.email || !formData.full_name) {
+      toast({
+        title: "Required fields missing",
+        description: "Please fill in your name and email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      toast({
+        title: "Invalid email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    if (photos.length === 0) {
+      toast({
+        title: "Photos required",
+        description: "Please upload at least one photo.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -222,17 +219,24 @@ const JoinUs = () => {
 
       navigate('/');
     } catch (error: any) {
-      let errorMessage = error.message;
+      console.error('Application submission error:', error);
       
-      // Provide more helpful error messages for security-related errors
-      if (error.message.includes('row-level security')) {
-        errorMessage = "Your account needs to be verified before you can submit an application. Please contact support.";
-      } else if (error.message.includes('policy')) {
-        errorMessage = "You don't have permission to submit applications. Please ensure you're logged in with a verified account.";
+      let errorMessage = "Failed to submit application. Please try again.";
+      
+      if (error.message?.includes('Too many applications')) {
+        errorMessage = "You've already submitted multiple applications recently. Please wait 24 hours before trying again.";
+      } else if (error.message?.includes('duplicate key')) {
+        errorMessage = "An application with this email already exists.";
+      } else if (error.message?.includes('storage')) {
+        errorMessage = "Error uploading files. Please check file sizes (max 10MB per file) and formats (JPG, PNG for photos; MP4 for videos).";
+      } else if (error.message?.includes('invalid')) {
+        errorMessage = "Please check that all required fields are filled correctly.";
+      } else if (error.message) {
+        errorMessage = error.message;
       }
       
       toast({
-        title: "Error submitting application",
+        title: "Submission Failed",
         description: errorMessage,
         variant: "destructive"
       });
@@ -248,21 +252,7 @@ const JoinUs = () => {
     navigate('/auth');
   };
 
-  // Show loading state while checking authentication
-  if (!authChecked) {
-    return (
-      <>
-        <Navigation />
-        <main className="pt-0 min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-            <p>Loading...</p>
-          </div>
-        </main>
-        <Footer />
-      </>
-    );
-  }
+  // Formulário é público - não requer loading de auth
 
   // Show authentication required screen for non-authenticated users
   return (

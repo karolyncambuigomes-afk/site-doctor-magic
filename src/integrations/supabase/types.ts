@@ -1126,6 +1126,8 @@ export type Database = {
           image_url_local_main: string | null
           interests: string[] | null
           location: string | null
+          main_image_members: string | null
+          main_image_public: string | null
           measurements: string | null
           members_only: boolean | null
           name: string
@@ -1160,6 +1162,8 @@ export type Database = {
           image_url_local_main?: string | null
           interests?: string[] | null
           location?: string | null
+          main_image_members?: string | null
+          main_image_public?: string | null
           measurements?: string | null
           members_only?: boolean | null
           name: string
@@ -1194,6 +1198,8 @@ export type Database = {
           image_url_local_main?: string | null
           interests?: string[] | null
           location?: string | null
+          main_image_members?: string | null
+          main_image_public?: string | null
           measurements?: string | null
           members_only?: boolean | null
           name?: string

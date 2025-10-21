@@ -130,11 +130,11 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    vike({
+    // Only use Vike in production builds for SSG
+    mode === 'production' && vike({
       prerender: true
     }),
-    mode === 'development' &&
-    componentTagger(),
+    mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {

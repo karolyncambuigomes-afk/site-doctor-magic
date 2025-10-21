@@ -53,10 +53,10 @@ export const Models: React.FC = () => {
         {/* About Our Elite Models - Collapsible Rich Content */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-foreground hover:text-muted-foreground transition-colors">
-                <h2>About Our Elite Models</h2>
-              </summary>
+            <div className="mb-8">
+              <div className="text-center mb-6">
+                <h2 className="luxury-heading-lg text-foreground">About Our Elite Models</h2>
+              </div>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Sophisticated Companions for Elite Clients</h3>
@@ -85,7 +85,7 @@ export const Models: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </details>
+            </div>
           </div>
         </section>
 

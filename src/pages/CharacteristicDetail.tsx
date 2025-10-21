@@ -8,15 +8,12 @@ import { characteristics } from '@/data/characteristics';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
   const params = useSafeParams();
   const { characteristicSlug } = params;
   const { models, loading, error } = useModels();
-  const [isContentOpen, setIsContentOpen] = useState(false);
   const currentPath = window.location.pathname;
   
   // Safety check for router context
@@ -167,34 +164,19 @@ const CharacteristicDetail = () => {
             </div>
           </section>
 
-          {/* SEO Content Section - Collapsible */}
+          {/* SEO Content Section - Always Expanded */}
           {characteristic.content && (
             <section className="py-16 md:py-20 bg-white">
               <div className="container-width mx-auto px-6">
                 <div className="text-center mb-8">
-                  <Collapsible open={isContentOpen} onOpenChange={setIsContentOpen}>
-                    <CollapsibleTrigger asChild>
-                      <Button 
-                        variant="outline" 
-                        size="lg"
-                        className="mx-auto flex items-center gap-2 text-foreground hover:text-primary transition-colors border-primary/20 hover:border-primary/40"
-                      >
-                        Learn more about {characteristic.name} Escorts
-                        {isContentOpen ? (
-                          <ChevronUp className="w-4 h-4" />
-                        ) : (
-                          <ChevronDown className="w-4 h-4" />
-                        )}
-                      </Button>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="mt-12 animate-accordion-down">
-                      <div 
-                        className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
-                        dangerouslySetInnerHTML={{ __html: characteristic.content }}
-                      />
-                    </CollapsibleContent>
-                  </Collapsible>
+                  <h2 className="luxury-heading-lg text-foreground mb-4">
+                    About {characteristic.name} Escorts
+                  </h2>
                 </div>
+                <div 
+                  className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: characteristic.content }}
+                />
               </div>
             </section>
           )}

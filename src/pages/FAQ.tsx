@@ -92,7 +92,7 @@ const FAQ = () => {
                 <p className="text-gray-600">No FAQs available at the moment.</p>
               </div>
             ) : (
-              <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4"]} className="space-y-4">
+              <Accordion type="multiple" defaultValue={faqs.map((_, index) => `item-${index}`)} className="space-y-4">
                 {faqs.map((faq, index) => (
                   <AccordionItem 
                     key={faq.id} 

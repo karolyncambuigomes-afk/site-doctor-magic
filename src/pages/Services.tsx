@@ -188,7 +188,7 @@ const Services = () => {
         <section className="py-12 md:py-16 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2"]} className="space-y-3 sm:space-y-4">
+              <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4", "item-5", "item-6", "item-7"]} className="space-y-3 sm:space-y-4">
                 {services.map((service, index) => (
                   <AccordionItem 
                     key={service.title} 
@@ -336,10 +336,10 @@ const Services = () => {
         {/* About Our Premium Services - Collapsible Rich Content */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-foreground hover:text-muted-foreground transition-colors">
-                <h2>About Our Premium Services</h2>
-              </summary>
+            <div className="mb-8">
+              <div className="text-center mb-6">
+                <h2 className="luxury-heading-lg text-foreground">About Our Premium Services</h2>
+              </div>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Dinner Date and Social Companionship</h3>
@@ -368,7 +368,7 @@ const Services = () => {
                   </div>
                 </div>
               </div>
-            </details>
+            </div>
           </div>
         </section>
 

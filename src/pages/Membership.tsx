@@ -146,16 +146,16 @@ export const Membership: React.FC = () => {
           <section className="pt-20 pb-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Members Area
                 </h1>
-                <p className="luxury-body-lg text-muted-foreground mb-12 md:mb-12">
+                <p className="luxury-body-lg text-black mb-12 md:mb-12">
                   Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
                 </p>
               </div>
             </div>
             {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
           <div className="container-width px-6">
@@ -167,7 +167,7 @@ export const Membership: React.FC = () => {
                   {/* Back link */}
                   <Link 
                     to="/" 
-                    className="inline-flex items-center luxury-body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+                    className="inline-flex items-center luxury-body-sm text-gray-600 hover:text-black mb-8 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to home
@@ -175,10 +175,10 @@ export const Membership: React.FC = () => {
 
                   <Card className="border border-border/50 shadow-luxury">
                     <CardHeader className="text-center pb-6">
-                      <CardTitle className="luxury-heading-md">
+                      <CardTitle className="luxury-heading-md text-black">
                         Welcome Back!
                       </CardTitle>
-                      <CardDescription className="text-muted-foreground">
+                      <CardDescription className="text-gray-600">
                         You are currently signed in as {user.email}
                       </CardDescription>
                     </CardHeader>
@@ -232,7 +232,7 @@ export const Membership: React.FC = () => {
                   {/* Back link */}
                   <Link 
                     to="/" 
-                    className="inline-flex items-center luxury-body-sm text-muted-foreground hover:text-foreground mb-8 transition-colors"
+                    className="inline-flex items-center luxury-body-sm text-gray-600 hover:text-black mb-8 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to home
@@ -240,10 +240,10 @@ export const Membership: React.FC = () => {
 
                   <Card className="border border-border/50 shadow-luxury">
                     <CardHeader className="text-center pb-6">
-                      <CardTitle className="luxury-heading-md">
+                      <CardTitle className="luxury-heading-md text-black">
                         Member Access
                       </CardTitle>
-                      <CardDescription className="text-muted-foreground">
+                      <CardDescription className="text-gray-600">
                         Sign in to your membership account
                       </CardDescription>
                     </CardHeader>
@@ -286,7 +286,7 @@ export const Membership: React.FC = () => {
                               <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-black transition-colors"
                               >
                                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                               </button>
@@ -304,7 +304,7 @@ export const Membership: React.FC = () => {
                         
                         <div className="mt-6 pt-6 border-t border-border">
                           <div className="text-center">
-                            <p className="luxury-body-xs text-muted-foreground mb-4">
+                            <p className="luxury-body-xs text-gray-600 mb-4">
                               Need help accessing your account?
                             </p>
                             <Button variant="outline" size="sm" asChild>
@@ -323,16 +323,16 @@ export const Membership: React.FC = () => {
             <section className="py-16 bg-gray-50">
               <div className="max-w-4xl mx-auto px-4 sm:px-6">
                 <div className="text-center mb-12">
-                  <h2 className="luxury-heading-lg mb-4">VIP Membership Benefits</h2>
-                  <p className="luxury-body-lg text-muted-foreground">
+                  <h2 className="luxury-heading-lg mb-4 text-black">VIP Membership Benefits</h2>
+                  <p className="luxury-body-lg text-gray-700">
                     Discover the exclusive advantages of Five London membership
                   </p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8">
                   <div className="space-y-6">
-                    <h3 className="luxury-heading-md">Premium Access</h3>
-                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    <h3 className="luxury-heading-md text-black">Premium Access</h3>
+                    <p className="luxury-body-md text-gray-700 leading-relaxed">
                       VIP membership provides exclusive access to our most sophisticated companions and premium services. 
                       Members enjoy priority booking, extended availability, and access to our elite model gallery.
                     </p>
@@ -341,49 +341,49 @@ export const Membership: React.FC = () => {
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium">Exclusive Gallery Access</h4>
-                          <p className="text-sm text-muted-foreground">Private viewing of our premium model portfolio</p>
+                          <h4 className="font-medium text-black">Exclusive Gallery Access</h4>
+                          <p className="text-sm text-gray-600">Private viewing of our premium model portfolio</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium">Priority Booking</h4>
-                          <p className="text-sm text-muted-foreground">24/7 concierge service with priority scheduling</p>
+                          <h4 className="font-medium text-black">Priority Booking</h4>
+                          <p className="text-sm text-gray-600">24/7 concierge service with priority scheduling</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium">Exclusive Events</h4>
-                          <p className="text-sm text-muted-foreground">Access to special events and experiences</p>
+                          <h4 className="font-medium text-black">Exclusive Events</h4>
+                          <p className="text-sm text-gray-600">Access to special events and experiences</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-6">
-                    <h3 className="luxury-heading-md">Membership Process</h3>
-                    <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                    <h3 className="luxury-heading-md text-black">Membership Process</h3>
+                    <p className="luxury-body-md text-gray-700 leading-relaxed">
                       Our membership approval process ensures the highest standards of discretion and quality for all members.
                     </p>
                     
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">1</div>
-                        <span className="text-sm">Contact us for membership inquiry</span>
+                        <span className="text-sm text-black">Contact us for membership inquiry</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">2</div>
-                        <span className="text-sm">Account review and verification process</span>
+                        <span className="text-sm text-black">Account review and verification process</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">3</div>
-                        <span className="text-sm">Membership approval and full access granted</span>
+                        <span className="text-sm text-black">Membership approval and full access granted</span>
                       </div>
                     </div>
                   </div>

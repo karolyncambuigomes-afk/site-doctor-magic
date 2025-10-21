@@ -174,7 +174,7 @@ const Blog = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Discover London
                 </h1>
-                <p className="luxury-body-lg text-black mb-8 md:mb-8">
+                <p className="luxury-body-lg text-black mb-12 md:mb-12">
                   Your exclusive guide to sophisticated experiences, exquisite
                   restaurants, and London's best-kept secrets.
                 </p>

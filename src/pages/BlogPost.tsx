@@ -238,7 +238,7 @@ const BlogPost = () => {
                   <Link to="/contact">
                     <Button
                       size="lg"
-                      className="five-london-button"
+                      className="bg-black text-white hover:bg-gray-800"
                       onClick={() =>
                         window.open("https://wa.me/447436190679", "_blank")
                       }
@@ -250,7 +250,7 @@ const BlogPost = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="five-london-button-outline"
+                      className="border-black text-black hover:bg-black hover:text-white"
                     >
                       Our Services
                     </Button>

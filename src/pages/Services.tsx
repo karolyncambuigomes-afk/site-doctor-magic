@@ -347,7 +347,7 @@ const Services = () => {
                   <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Experience London's finest dining venues with sophisticated companions who excel in creating memorable social experiences. From intimate dinners at Michelin-starred restaurants to elegant cocktail receptions, our elite escorts provide engaging conversation and refined companionship.
                   </p>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Perfect for business entertainment, special celebrations, or romantic evenings at prestigious venues including The Ritz, Sketch, and exclusive private dining rooms throughout Mayfair and Knightsbridge.
                   </p>
                 </div>
@@ -356,15 +356,15 @@ const Services = () => {
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Corporate Events</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Professional accompaniment for business functions, networking events, and corporate entertainment in the City and Canary Wharf.</p>
+                      <p className="luxury-body-xs text-gray-600">Professional accompaniment for business functions, networking events, and corporate entertainment in the City and Canary Wharf.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Travel Companionship</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Sophisticated travel companions for business trips, weekend getaways, and luxury holidays worldwide.</p>
+                      <p className="luxury-body-xs text-gray-600">Sophisticated travel companions for business trips, weekend getaways, and luxury holidays worldwide.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Cultural Experiences</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Elegant companions for theatre evenings, gallery openings, and exclusive cultural events throughout London.</p>
+                      <p className="luxury-body-xs text-gray-600">Elegant companions for theatre evenings, gallery openings, and exclusive cultural events throughout London.</p>
                     </div>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ const Services = () => {
                 Most companions available same day. Call now for instant booking confirmation.
               </p>
               <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base"
+                className="bg-black text-white hover:bg-gray-800 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Call Now - Same Day Available

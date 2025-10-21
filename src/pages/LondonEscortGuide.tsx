@@ -191,24 +191,25 @@ const LondonEscortGuide = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-12 md:py-20 bg-background">
+        <section className="py-12 md:py-20 bg-white">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4">
               <h2 className="luxury-heading-xl mb-4">
                 Ready to Book Your Perfect Companion?
               </h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-gray-600 mb-8">
                 Our experienced booking coordinators are available 24/7 to help you find the ideal companion.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg"
+                  className="bg-black text-white hover:bg-gray-800"
                   onClick={() => window.open('https://wa.me/447436190679', '_blank')}
                 >
                   Call Now - Same Day Available
                 </Button>
                 <Link to="/models">
-                  <Button variant="outline" size="lg">
+                  <Button variant="outline" size="lg" className="border-black text-black hover:bg-black hover:text-white">
                     Browse All Companions
                   </Button>
                 </Link>

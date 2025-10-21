@@ -148,12 +148,12 @@ const LocationDetail = () => {
             <div className="container-width">
               {/* Breadcrumbs */}
               <div className="px-4 sm:px-6 pt-6 pb-4">
-                <nav className="flex items-center gap-2 luxury-body-sm text-muted-foreground">
-                  <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+                <nav className="flex items-center gap-2 luxury-body-sm text-gray-600">
+                  <Link to="/" className="hover:text-black transition-colors">Home</Link>
                   <span>/</span>
-                  <Link to="/locations" className="hover:text-primary transition-colors">Locations</Link>
+                  <Link to="/locations" className="hover:text-black transition-colors">Locations</Link>
                   <span>/</span>
-                  <span className="text-foreground">{location.name}</span>
+                  <span className="text-black">{location.name}</span>
                 </nav>
               </div>
               
@@ -215,7 +215,7 @@ const LocationDetail = () => {
                       No Models Currently Available in {location.name}
                     </h2>
                     
-                    <p className="text-muted-foreground luxury-body-sm">
+                    <p className="text-gray-600 luxury-body-sm">
                       Our exclusive models are available for outcalls to this area.
                     </p>
                     

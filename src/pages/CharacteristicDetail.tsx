@@ -97,7 +97,7 @@ const CharacteristicDetail = () => {
         structuredData={structuredData}
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-0">
@@ -170,12 +170,12 @@ const CharacteristicDetail = () => {
               <div className="container-width mx-auto px-6">
                 <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
                   <div className="text-center mb-8">
-                    <h2 className="luxury-heading-lg text-foreground mb-4">
+                    <h2 className="luxury-heading-lg text-black mb-4">
                       About {characteristic.name} Escorts
                     </h2>
                   </div>
                   <div 
-                    className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
+                    className="prose prose-lg max-w-4xl mx-auto text-black [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: characteristic.content }}
                   />
                 </div>
@@ -188,7 +188,7 @@ const CharacteristicDetail = () => {
             <div className="container-width">
               <div className="text-center mb-8">
                 <h2 className="luxury-heading-lg mb-4">Explore Other Characteristics</h2>
-                <p className="luxury-body-lg text-muted-foreground">
+                <p className="luxury-body-lg text-gray-600">
                   Discover more companions with different unique traits
                 </p>
               </div>

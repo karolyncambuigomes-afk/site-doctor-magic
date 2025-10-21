@@ -192,7 +192,7 @@ export const Membership: React.FC = () => {
                               Successfully Signed In
                             </span>
                           </div>
-                          <p className="text-xs text-green-700 dark:text-green-300">
+                          <p className="luxury-body-xs text-green-700 dark:text-green-300">
                             You have access to our exclusive content
                           </p>
                         </div>
@@ -304,7 +304,7 @@ export const Membership: React.FC = () => {
                         
                         <div className="mt-6 pt-6 border-t border-border">
                           <div className="text-center">
-                            <p className="text-xs text-muted-foreground mb-4">
+                            <p className="luxury-body-xs text-muted-foreground mb-4">
                               Need help accessing your account?
                             </p>
                             <Button variant="outline" size="sm" asChild>

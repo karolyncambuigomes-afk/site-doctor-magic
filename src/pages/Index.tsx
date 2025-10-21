@@ -157,7 +157,7 @@ const Index = () => {
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   WhatsApp
                 </span>
               </a>
@@ -170,7 +170,7 @@ const Index = () => {
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <Phone className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   Call
                 </span>
               </a>
@@ -185,7 +185,7 @@ const Index = () => {
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
                   <Send className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
                 </div>
-                <span className="text-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
                   Telegram
                 </span>
               </a>

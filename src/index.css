@@ -151,7 +151,7 @@
   }
 
   .luxury-body-xs {
-    @apply luxury-body text-xs leading-relaxed font-medium;
+    @apply luxury-body text-xs sm:text-sm leading-relaxed font-medium;
   }
   
   .caption {

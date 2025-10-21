@@ -308,13 +308,13 @@ export const Auth: React.FC = () => {
                         <Settings className="w-4 h-4 mr-2" />
                         Member Login
                       </Link>
-                      <p className="text-xs text-muted-foreground/70">
+                      <p className="luxury-body-xs text-muted-foreground/70">
                         Not an administrator? Use the member login page instead.
                       </p>
                     </div>
                   </div>
                   <Alert className="text-left">
-                    <AlertDescription className="text-xs">
+                    <AlertDescription className="luxury-body-xs">
                       <strong>Security Notice:</strong> This page is monitored
                       and restricted to authorized personnel only. Unauthorized
                       access attempts will be logged and may result in legal

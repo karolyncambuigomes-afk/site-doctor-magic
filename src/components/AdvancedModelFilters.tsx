@@ -77,29 +77,29 @@ export const AdvancedModelFilters: React.FC<AdvancedModelFiltersProps> = ({
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
       {/* Search Bar */}
-      <div className="p-4 border-b border-gray-200">
+      <div className="p-3 sm:p-4 border-b border-gray-200">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search className="absolute left-2 sm:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-3.5 w-3.5 sm:h-4 sm:w-4" />
           <Input
             type="text"
-            placeholder="Search models by name..."
+            placeholder="Search models..."
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-10 pr-4"
+            className="pl-8 sm:pl-10 pr-3 sm:pr-4 h-9 sm:h-10 text-xs sm:text-sm"
           />
         </div>
       </div>
 
       {/* Filter Toggle Button */}
-      <div className="px-4 py-3 border-b border-gray-200">
-        <div className="flex items-center justify-between">
+      <div className="px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-200">
+        <div className="flex items-center justify-between gap-2">
           <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
             <CollapsibleTrigger asChild>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Filter className="h-4 w-4" />
-                Advanced Filters
+              <Button variant="outline" className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4">
+                <Filter className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden xs:inline">Advanced </span>Filters
                 {totalActiveFilters > 0 && (
-                  <Badge variant="secondary" className="ml-1 text-xs">
+                  <Badge variant="secondary" className="ml-0.5 sm:ml-1 text-[10px] sm:text-xs h-4 sm:h-5 px-1 sm:px-2">
                     {totalActiveFilters}
                   </Badge>
                 )}
@@ -187,8 +187,8 @@ export const AdvancedModelFilters: React.FC<AdvancedModelFiltersProps> = ({
           </Collapsible>
 
           {totalActiveFilters > 0 && (
-            <Button variant="ghost" size="sm" onClick={onClearAll} className="text-gray-500">
-              Clear All
+            <Button variant="ghost" size="sm" onClick={onClearAll} className="text-gray-500 text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-4">
+              Clear
             </Button>
           )}
         </div>
@@ -196,41 +196,41 @@ export const AdvancedModelFilters: React.FC<AdvancedModelFiltersProps> = ({
 
       {/* Active Filters Display */}
       {totalActiveFilters > 0 && (
-        <div className="px-4 py-3">
-          <div className="flex flex-wrap gap-2">
+        <div className="px-3 sm:px-4 py-2 sm:py-3">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {selectedLocations.map((location) => (
-              <Badge key={`location-${location}`} variant="secondary" className="flex items-center gap-1">
-                <MapPin className="h-3 w-3" />
-                {location}
+              <Badge key={`location-${location}`} variant="secondary" className="flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs h-6 sm:h-7 px-1.5 sm:px-2">
+                <MapPin className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                <span className="max-w-[100px] sm:max-w-none truncate">{location}</span>
                 <button
                   onClick={() => removeFilter('location', location)}
-                  className="ml-1 hover:bg-gray-200 rounded-full p-0.5"
+                  className="ml-0.5 sm:ml-1 hover:bg-gray-200 rounded-full p-0.5"
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 </button>
               </Badge>
             ))}
             {selectedCharacteristics.map((characteristic) => (
-              <Badge key={`characteristic-${characteristic}`} variant="secondary" className="flex items-center gap-1">
-                <Heart className="h-3 w-3" />
-                {characteristic}
+              <Badge key={`characteristic-${characteristic}`} variant="secondary" className="flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs h-6 sm:h-7 px-1.5 sm:px-2">
+                <Heart className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                <span className="max-w-[100px] sm:max-w-none truncate">{characteristic}</span>
                 <button
                   onClick={() => removeFilter('characteristic', characteristic)}
-                  className="ml-1 hover:bg-gray-200 rounded-full p-0.5"
+                  className="ml-0.5 sm:ml-1 hover:bg-gray-200 rounded-full p-0.5"
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 </button>
               </Badge>
             ))}
             {selectedServices.map((service) => (
-              <Badge key={`service-${service}`} variant="secondary" className="flex items-center gap-1">
-                <Briefcase className="h-3 w-3" />
-                {service}
+              <Badge key={`service-${service}`} variant="secondary" className="flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs h-6 sm:h-7 px-1.5 sm:px-2">
+                <Briefcase className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
+                <span className="max-w-[100px] sm:max-w-none truncate">{service}</span>
                 <button
                   onClick={() => removeFilter('service', service)}
-                  className="ml-1 hover:bg-gray-200 rounded-full p-0.5"
+                  className="ml-0.5 sm:ml-1 hover:bg-gray-200 rounded-full p-0.5"
                 >
-                  <X className="h-3 w-3" />
+                  <X className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                 </button>
               </Badge>
             ))}

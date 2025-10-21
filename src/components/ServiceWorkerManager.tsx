@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 
 export const ServiceWorkerManager: React.FC = () => {
   useEffect(() => {
-    if ('serviceWorker' in navigator && import.meta.env.PROD) {
+    if ('serviceWorker' in navigator) {
       // Check for manual force update trigger
       const urlHasForce = window.location.search.includes('forceUpdate=1') || 
                           window.location.hash.includes('forceupdate');
       
       (async () => {
         try {
-          // If manual trigger detected, execute nuclear cleanup immediately
+          // If manual trigger detected, execute nuclear cleanup immediately (regardless of env)
           if (urlHasForce) {
             console.log('SW: Manual force update detected, executing nuclear cleanup');
             
@@ -32,6 +32,12 @@ export const ServiceWorkerManager: React.FC = () => {
               sessionStorage.setItem('sw_hard_refreshed', '1');
               window.location.reload();
             }
+            return;
+          }
+          
+          // Only register SW in production
+          if (!import.meta.env.PROD) {
+            console.log('SW: Skipping registration in dev/preview mode');
             return;
           }
           

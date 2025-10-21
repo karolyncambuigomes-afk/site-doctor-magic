@@ -1,7 +1,7 @@
 // Enhanced Service Worker with CDN and Cache Optimization
 // Version: 2.0.0 - Production-ready with cache invalidation
 
-const VERSION = '2.1.2';
+const VERSION = '2.1.3';
 const CACHE_NAME = `five-london-v${VERSION}`;
 const STATIC_CACHE = `five-london-static-v${VERSION}`;
 const RUNTIME_CACHE = `five-london-runtime-v${VERSION}`;
@@ -43,7 +43,16 @@ const NEVER_CACHE_PATTERNS = [
   '/logout',
   '.map',
   'hot-update',
-  '/index.html'
+  '/index.html',
+  '/src/',
+  '/@vite',
+  '/@id',
+  '/vite',
+  '/node_modules',
+  '/@react-refresh',
+  '/hard-reset',
+  '/reset',
+  '/version.json'
 ];
 
 // Admin/dynamic patterns (must be fresh)
@@ -78,6 +87,12 @@ function shouldBypassCache(request) {
   
   // Never cache patterns
   if (NEVER_CACHE_PATTERNS.some(pattern => pathname.includes(pattern))) {
+    return true;
+  }
+  
+  // CRITICAL: Never cache dev server modules (preview/dev environments)
+  if (request.destination === 'script' && pathname.startsWith('/src/')) {
+    console.log(`SW: Bypassing cache for dev module: ${pathname}`);
     return true;
   }
   

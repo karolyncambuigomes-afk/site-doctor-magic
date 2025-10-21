@@ -175,11 +175,12 @@ const FAQ = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="mb-8">
-              <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
-              <div className="grid md:grid-cols-2 gap-8 mt-8">
+            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+              <div className="mb-8">
+                <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
+                <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Booking Process</h3>
                   <p className="luxury-body-md text-muted-foreground leading-relaxed">
@@ -213,6 +214,7 @@ const FAQ = () => {
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </section>

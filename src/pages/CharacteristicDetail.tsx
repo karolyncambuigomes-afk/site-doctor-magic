@@ -166,17 +166,19 @@ const CharacteristicDetail = () => {
 
           {/* SEO Content Section - Always Expanded */}
           {characteristic.content && (
-            <section className="py-16 md:py-20 bg-white">
+            <section className="py-16 md:py-20 bg-gray-100">
               <div className="container-width mx-auto px-6">
-                <div className="text-center mb-8">
-                  <h2 className="luxury-heading-lg text-foreground mb-4">
-                    About {characteristic.name} Escorts
-                  </h2>
+                <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+                  <div className="text-center mb-8">
+                    <h2 className="luxury-heading-lg text-foreground mb-4">
+                      About {characteristic.name} Escorts
+                    </h2>
+                  </div>
+                  <div 
+                    className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: characteristic.content }}
+                  />
                 </div>
-                <div 
-                  className="prose prose-lg max-w-4xl mx-auto text-foreground [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: characteristic.content }}
-                />
               </div>
             </section>
           )}

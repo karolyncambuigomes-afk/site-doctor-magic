@@ -100,9 +100,9 @@ const Contact = () => {
                     <div className="inline-flex items-center justify-center w-12 h-12 text-black">
                       <method.icon className="w-8 h-8" />
                     </div>
-                    <h3 className="text-lg font-medium text-black">{method.title}</h3>
-                    <p className="text-black break-all text-sm px-2">{method.details}</p>
-                    <p className="text-sm text-black">{method.description}</p>
+                    <h3 className="luxury-heading-sm text-black">{method.title}</h3>
+                    <p className="text-black break-all luxury-body-sm px-2">{method.details}</p>
+                    <p className="luxury-body-sm text-black">{method.description}</p>
                     <Button 
                       className="w-full bg-black text-white hover:bg-gray-800"
                       onClick={() => {
@@ -128,7 +128,7 @@ const Contact = () => {
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-foreground hover:text-muted-foreground transition-colors">
                 <h2>Contact Our London Team</h2>
               </summary>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
@@ -173,8 +173,8 @@ const Contact = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
-              <h2 className="text-2xl sm:text-3xl font-extralight mb-4">Need Immediate Assistance?</h2>
-              <p className="text-sm sm:text-base text-muted-foreground mb-8">
+              <h2 className="luxury-heading-lg mb-4">Need Immediate Assistance?</h2>
+              <p className="luxury-body-base text-muted-foreground mb-8">
                 For urgent bookings or questions, contact us directly.
               </p>
               <Button 

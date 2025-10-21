@@ -131,9 +131,9 @@ export const ModelProfile: React.FC = () => {
         <div className="max-w-4xl mx-auto p-4 md:p-6">
           {/* Model Header */}
           <div className="text-center space-y-4 pb-8 mb-8 border-b border-border">
-            <h1 className="text-3xl md:text-4xl font-light tracking-wide text-black">{model.name}</h1>
+            <h1 className="luxury-heading-xl text-black">{model.name}</h1>
             
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-base">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 luxury-body-base">
               {model.age && (
                 <span className="font-medium text-gray-900 bg-gray-100 px-3 py-1 rounded-full">
                   {model.age} years
@@ -156,22 +156,22 @@ export const ModelProfile: React.FC = () => {
 
           {/* About Section */}
           <div className="mb-8">
-            <h2 className="text-xl font-light text-black mb-4">About {model.name}</h2>
-            <p className="text-muted-foreground leading-relaxed text-base">
+            <h2 className="luxury-heading-lg text-black mb-4">About {model.name}</h2>
+            <p className="text-muted-foreground leading-relaxed luxury-body-base">
               {model.description}
             </p>
           </div>
 
           {/* Pricing Section */}
           <div className="mb-6">
-            <h3 className="text-lg font-light text-foreground mb-3">Preços</h3>
+            <h3 className="luxury-heading-md text-foreground mb-3">Pricing</h3>
             
             {/* Simple price display (no pricing object) */}
             {model.price && !model.pricing && (
               <div className="bg-card border border-border rounded-lg p-4">
                 <div className="text-center">
-                  <span className="text-lg font-semibold text-accent">{model.price}</span>
-                  <p className="text-sm text-muted-foreground mt-1">Base rate</p>
+                  <span className="luxury-heading-md text-accent">{model.price}</span>
+                  <p className="luxury-body-sm text-muted-foreground mt-1">Base rate</p>
                 </div>
               </div>
             )}
@@ -187,8 +187,8 @@ export const ModelProfile: React.FC = () => {
                     
                     return (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
-                        <span className="text-base font-semibold text-white">
+                        <span className="text-luxury-cream luxury-body-sm">{rateItem.duration}</span>
+                        <span className="luxury-body-base font-semibold text-white">
                           {displayRate}
                         </span>
                       </div>
@@ -203,25 +203,25 @@ export const ModelProfile: React.FC = () => {
               <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-luxury-cream text-sm">1 hora</span>
-                    <span className="text-base font-semibold text-white">{model.pricing.oneHour}</span>
+                    <span className="text-luxury-cream luxury-body-sm">1 hour</span>
+                    <span className="luxury-body-base font-semibold text-white">{model.pricing.oneHour}</span>
                   </div>
                   {model.pricing.twoHours && (
                     <div className="flex justify-between items-center">
-                      <span className="text-luxury-cream text-sm">2 horas</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.twoHours}</span>
+                      <span className="text-luxury-cream luxury-body-sm">2 hours</span>
+                      <span className="luxury-body-base font-semibold text-white">{model.pricing.twoHours}</span>
                     </div>
                   )}
                   {model.pricing.threeHours && (
                     <div className="flex justify-between items-center">
-                      <span className="text-luxury-cream text-sm">3 horas</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.threeHours}</span>
+                      <span className="text-luxury-cream luxury-body-sm">3 hours</span>
+                      <span className="luxury-body-base font-semibold text-white">{model.pricing.threeHours}</span>
                     </div>
                   )}
                   {model.pricing.additionalHour && (
                     <div className="flex justify-between items-center">
-                      <span className="text-luxury-cream text-sm">Hora adicional</span>
-                      <span className="text-base font-semibold text-white">{model.pricing.additionalHour}</span>
+                      <span className="text-luxury-cream luxury-body-sm">Additional hour</span>
+                      <span className="luxury-body-base font-semibold text-white">{model.pricing.additionalHour}</span>
                     </div>
                   )}
                 </div>
@@ -239,8 +239,8 @@ export const ModelProfile: React.FC = () => {
                     
                     return (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-luxury-cream text-sm">{rateItem.duration}</span>
-                        <span className="text-base font-semibold text-white">
+                        <span className="text-luxury-cream luxury-body-sm">{rateItem.duration}</span>
+                        <span className="luxury-body-base font-semibold text-white">
                           {displayRate}
                         </span>
                       </div>
@@ -262,19 +262,19 @@ export const ModelProfile: React.FC = () => {
 
           {/* Characteristics Section - Only show if data exists */}
           {model.characteristics && model.characteristics.length > 0 && <div className="mb-8">
-              <h3 className="text-lg font-light text-foreground mb-4">Características</h3>
+              <h3 className="luxury-heading-md text-foreground mb-4">Characteristics</h3>
               <div className="flex flex-wrap gap-2">
                 {model.characteristics.map(characteristic => {
               // Find the corresponding characteristic object to get the slug
               const characteristicData = characteristics.find(char => char.name.toLowerCase() === characteristic.toLowerCase());
               if (characteristicData) {
                 return <Link key={characteristic} to={`/${characteristicData.slug}`}>
-                        <Badge variant="outline" className="text-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
+                        <Badge variant="outline" className="luxury-body-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
                           {characteristic}
                         </Badge>
                       </Link>;
               } else {
-                return <Badge key={characteristic} variant="outline" className="text-sm px-3 py-1">
+                return <Badge key={characteristic} variant="outline" className="luxury-body-sm px-3 py-1">
                         {characteristic}
                       </Badge>;
               }
@@ -284,8 +284,8 @@ export const ModelProfile: React.FC = () => {
 
           {/* Contact Section */}
           <div id="book-section" className="bg-white rounded-lg p-8 text-center">
-            <h3 className="text-2xl md:text-3xl font-light text-black mb-2">Book {model.name}</h3>
-            <p className="text-muted-foreground mb-8">Get in touch to arrange your appointment</p>
+            <h3 className="luxury-heading-xl text-black mb-2">Book {model.name}</h3>
+            <p className="text-muted-foreground luxury-body-base mb-8">Get in touch to arrange your appointment</p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Button className="five-london-button flex-1 py-3">
                 <Phone className="mr-2 h-4 w-4" />
@@ -302,15 +302,15 @@ export const ModelProfile: React.FC = () => {
         {/* You Might Also Like Section */}
         <div className="border-t border-border/30 bg-white">
           <div className="max-w-4xl mx-auto p-4 md:p-6">
-            <h3 className="text-xl font-light text-black mb-6 text-center">Yocou Might Also Like</h3>
+            <h3 className="luxury-heading-lg text-black mb-6 text-center">You Might Also Like</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {models.filter(m => m.id !== model.id).slice(0, 6).map(suggestedModel => <Link key={suggestedModel.id} to={`/models/${suggestedModel.id}`} className="group">
                     <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-muted">
                       <img src={suggestedModel.image} alt={suggestedModel.name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <div className="absolute bottom-0 left-0 right-0 p-3 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        <h4 className="font-medium text-sm">{suggestedModel.name}</h4>
-                        <p className="text-xs opacity-90">{suggestedModel.age} • {suggestedModel.location}</p>
+                        <h4 className="font-medium luxury-body-sm">{suggestedModel.name}</h4>
+                        <p className="luxury-body-xs opacity-90">{suggestedModel.age} • {suggestedModel.location}</p>
                       </div>
                     </div>
                   </Link>)}

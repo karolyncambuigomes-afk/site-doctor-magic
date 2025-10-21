@@ -306,7 +306,7 @@ const Services = () => {
 
                         {/* Ideal for */}
                         <div>
-                          <p className="text-xs sm:text-sm text-muted-foreground italic">
+                          <p className="luxury-body-xs sm:luxury-body-sm text-muted-foreground italic">
                             {service.ideal}
                           </p>
                         </div>
@@ -315,7 +315,7 @@ const Services = () => {
                         <div className="pt-3 sm:pt-4 border-t border-border/30">
                           <Link 
                             to={service.blogLink}
-                            className="inline-flex items-center text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors"
+                            className="inline-flex items-center luxury-body-xs sm:luxury-body-sm text-primary hover:text-primary/80 transition-colors"
                             title={`Read more about ${service.title.toLowerCase()} - ${service.blogTitle}`}
                             aria-label={`Learn more about ${service.title.toLowerCase()} experiences in London`}
                           >
@@ -337,7 +337,7 @@ const Services = () => {
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <details className="mb-8">
-              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-gray-800 hover:text-muted-foreground transition-colors">
+              <summary className="cursor-pointer luxury-heading-lg text-center mb-6 text-foreground hover:text-muted-foreground transition-colors">
                 <h2>About Our Premium Services</h2>
               </summary>
               <div className="grid md:grid-cols-2 gap-8 mt-8">

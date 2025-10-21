@@ -80,7 +80,7 @@ export const PaymentSuccess: React.FC = () => {
                 <div className="mx-auto w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-3xl font-light tracking-wide">
+                <CardTitle className="luxury-heading-xl">
                   Welcome to Premium!
                 </CardTitle>
               </CardHeader>
@@ -91,16 +91,16 @@ export const PaymentSuccess: React.FC = () => {
                     <div className="flex items-center justify-center">
                       <Loader2 className="w-8 h-8 animate-spin text-primary" />
                     </div>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="luxury-body-lg text-muted-foreground">
                       Processing your payment and setting up your access...
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="luxury-body-sm text-muted-foreground">
                       This may take a few moments
                     </p>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <p className="text-lg text-muted-foreground">
+                    <p className="luxury-body-lg text-muted-foreground">
                       Your payment has been processed successfully. You now have full access to our premium features.
                     </p>
                     
@@ -145,7 +145,7 @@ export const PaymentSuccess: React.FC = () => {
                 </div>
 
                 <div className="pt-4 border-t border-border">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="luxury-body-sm text-muted-foreground">
                     You will receive a confirmation email shortly. Your subscription will renew automatically each month.
                   </p>
                 </div>

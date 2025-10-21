@@ -148,7 +148,7 @@ const LocationDetail = () => {
             <div className="container-width">
               {/* Breadcrumbs */}
               <div className="px-4 sm:px-6 pt-6 pb-4">
-                <nav className="flex items-center gap-2 text-sm text-muted-foreground">
+                <nav className="flex items-center gap-2 luxury-body-sm text-muted-foreground">
                   <Link to="/" className="hover:text-primary transition-colors">Home</Link>
                   <span>/</span>
                   <Link to="/locations" className="hover:text-primary transition-colors">Locations</Link>
@@ -215,14 +215,14 @@ const LocationDetail = () => {
                       No Models Currently Available in {location.name}
                     </h2>
                     
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground luxury-body-sm">
                       Our exclusive models are available for outcalls to this area.
                     </p>
                     
                     <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                       <Link 
                         to="/models"
-                        className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors text-sm"
+                        className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors luxury-body-sm"
                       >
                         <Star className="w-4 h-4" />
                         View All Companions
@@ -232,7 +232,7 @@ const LocationDetail = () => {
                         href="https://wa.me/447436190679"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-primary text-primary px-5 py-2.5 rounded-lg hover:bg-primary/5 transition-colors text-sm"
+                        className="inline-flex items-center gap-2 border border-primary text-primary px-5 py-2.5 rounded-lg hover:bg-primary/5 transition-colors luxury-body-sm"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Contact Us
@@ -261,7 +261,7 @@ const LocationDetail = () => {
                     to={`/${loc.slug}`}
                     className="group p-3 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 text-center"
                   >
-                    <h3 className="font-medium text-black text-sm">
+                    <h3 className="font-medium text-black luxury-body-sm">
                       {loc.name}
                     </h3>
                   </Link>
@@ -307,15 +307,15 @@ const LocationDetail = () => {
                 <h2 className="luxury-heading-md mb-3 text-black">
                   Book Now
                 </h2>
-                <a
-                  href="https://wa.me/447436190679"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white hover:bg-gray-800 px-5 py-2.5 rounded-lg transition-all duration-300 font-medium text-sm"
-                >
-                  <Phone className="w-4 h-4" />
-                  Contact Now
-                </a>
+                  <a
+                    href="https://wa.me/447436190679"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-black text-white hover:bg-gray-800 px-5 py-2.5 rounded-lg transition-all duration-300 font-medium luxury-body-sm"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Contact Now
+                  </a>
               </div>
             </div>
           </section>

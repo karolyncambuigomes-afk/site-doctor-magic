@@ -1,6 +1,7 @@
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { QuickContactCTA } from "@/components/QuickContactCTA";
 import { ModelsGallery } from "@/components/ModelsGallery";
 import { Footer } from "@/components/Footer";
 
@@ -81,6 +82,8 @@ const Index = () => {
 
       <main className="pt-0">
         <HeroSection />
+        
+        <QuickContactCTA />
 
         {/* Elite Escort Services Introduction - Text 1 */}
         <section className="py-12 md:py-16 bg-gray-50">

@@ -97,7 +97,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
       <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block group">
         <div className="hover-lift overflow-hidden relative bg-card shadow-luxury rounded-lg transition-luxury hover:shadow-elegant">
           {/* Image Container - Aspect Ratio Otimizado */}
-          <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+          <div className="relative aspect-[2/3] sm:aspect-[3/4] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
               <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
@@ -138,9 +138,9 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                   />
                 )}
                 
-                {/* Price - Top Left */}
+                {/* Price - Top Left - Desktop Only */}
                 {cardPrice && (
-                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
+                  <div className="hidden sm:block absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                     <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                       <span className="text-white text-xs sm:text-sm font-medium">
                         {cardPrice}
@@ -153,8 +153,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 {/* Subtle Overlay */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
-                {/* Info overlay that appears on hover - with age below name */}
-                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
+                {/* Info overlay that appears on hover - Desktop Only */}
+                <div className="hidden sm:block absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
                   <div className="space-y-1.5">
                      <h3 className="luxury-heading-sm tracking-normal text-white">
                        {model.name}
@@ -183,6 +183,51 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                    <p className="luxury-body-sm">{model.name}</p>
                    <div className="text-xs mt-1 opacity-70">Imagem não disponível</div>
                 </div>
+              </div>
+            )}
+          </div>
+          
+          {/* Mobile Info Section - Below Image */}
+          <div className="sm:hidden p-3 bg-card">
+            {/* Name and Age */}
+            <div className="mb-2">
+              <h3 className="text-sm font-medium text-foreground mb-0.5 line-clamp-1">
+                {model.name}
+              </h3>
+              {model.age && (
+                <p className="text-xs text-muted-foreground">
+                  {model.age} anos
+                </p>
+              )}
+            </div>
+            
+            {/* Price and Characteristic */}
+            <div className="flex items-center justify-between gap-2">
+              {/* Price */}
+              {cardPrice && (
+                <div className="flex-shrink-0">
+                  <span className="text-sm font-semibold text-foreground">
+                    {cardPrice}
+                  </span>
+                  <span className="text-xs text-muted-foreground ml-1">
+                    /hora
+                  </span>
+                </div>
+              )}
+              
+              {/* First Characteristic */}
+              {model.characteristics?.[0] && (
+                <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full line-clamp-1 flex-shrink min-w-0">
+                  {model.characteristics[0]}
+                </span>
+              )}
+            </div>
+            
+            {/* Location */}
+            {model.location && (
+              <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+                <MapPin size={12} />
+                <span className="line-clamp-1">{model.location}</span>
               </div>
             )}
           </div>

@@ -19,11 +19,11 @@ export const ContactBar = () => {
   return (
     <div
       className={`
-        fixed top-0 left-0 right-0 z-50
+        fixed bottom-0 left-0 right-0 z-50
         bg-black/95 backdrop-blur-md
-        border-b border-white/10
+        border-t border-white/10
         transform transition-transform duration-300
-        ${isVisible ? 'translate-y-0' : '-translate-y-full'}
+        ${isVisible ? 'translate-y-0' : 'translate-y-full'}
       `}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6">

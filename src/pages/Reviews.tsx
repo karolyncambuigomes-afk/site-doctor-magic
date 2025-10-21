@@ -124,7 +124,7 @@ export const Reviews: React.FC = () => {
                   <div className="space-y-4 h-full flex flex-col">
                     <div className="flex items-center space-x-1">
                       {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-gray-400 text-gray-400" />
+                        <Star key={i} className="w-4 h-4 fill-gray-600 text-gray-600" />
                       ))}
                     </div>
                     <p className="luxury-body-md text-gray-800 italic flex-grow leading-relaxed">"{testimonial.content}"</p>

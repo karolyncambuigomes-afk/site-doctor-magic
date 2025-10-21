@@ -1,7 +1,7 @@
 // Enhanced Service Worker with CDN and Cache Optimization
 // Version: 2.0.0 - Production-ready with cache invalidation
 
-const VERSION = '2.0.0';
+const VERSION = '2.1.0';
 const CACHE_NAME = `five-london-v${VERSION}`;
 const STATIC_CACHE = `five-london-static-v${VERSION}`;
 const RUNTIME_CACHE = `five-london-runtime-v${VERSION}`;
@@ -45,7 +45,9 @@ const NEVER_CACHE_PATTERNS = [
   '/login',
   '/logout',
   '.map',
-  'hot-update'
+  'hot-update',
+  '/index.html',
+  '/'
 ];
 
 // Admin/dynamic patterns (must be fresh)

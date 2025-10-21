@@ -85,16 +85,16 @@ const Blog = () => {
             <section className="py-16 md:py-24 bg-white">
               <div className="container-width text-center">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <h1 className="text-4xl font-bold mb-6 text-foreground">
+                  <h1 className="text-4xl font-bold mb-6 text-black">
                     Discover London
                   </h1>
-                  <p className="text-lg text-muted-foreground mb-12">
+                  <p className="text-lg text-gray-600 mb-12">
                     Your exclusive guide to sophisticated experiences, exquisite
                     restaurants, and London's best-kept secrets.
                   </p>
                 </div>
               </div>
-              <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
+              <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
             </section>
 
             {/* Loading Categories */}
@@ -130,7 +130,7 @@ const Blog = () => {
           description="Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London."
           canonicalUrl="/blog"
         />
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-white">
           <Navigation />
           <main className="pt-0">
             <Alert>

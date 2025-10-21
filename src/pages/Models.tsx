@@ -56,7 +56,7 @@ export const Models: React.FC = () => {
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-foreground">About Our Elite Models</h2>
+                  <h2 className="luxury-heading-lg text-black">About Our Elite Models</h2>
                 </div>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">

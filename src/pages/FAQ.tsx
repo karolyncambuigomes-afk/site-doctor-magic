@@ -220,45 +220,37 @@ const FAQ = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 md:py-24 bg-black text-white">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="luxury-heading-xl mb-6">
+        <section className="py-16 bg-gray-50">
+          <div className="container-width text-center">
+            <h2 className="luxury-heading-xl mb-6 text-black">
               Still Have Questions?
             </h2>
-            <p className="luxury-body-lg text-white/80 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Our experienced concierge team is available 24/7 to answer any additional questions 
-              and assist with your booking.
+            <p className="luxury-body-lg text-gray-700 mb-8 max-w-2xl mx-auto">
+              Our dedicated concierge team is available 24/7 to assist you with any inquiries.
             </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <a 
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
                 href="tel:+447436190679"
-                className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-gray-800 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
-                <Phone className="w-8 h-8 text-white mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">Call Us</h3>
-                <p className="text-white/70 mb-3">Speak directly with our team</p>
-                <span className="text-white font-medium">+44 7436 190679</span>
+                <Phone className="h-5 w-5" />
+                Call Us
               </a>
-
-              <a 
+              <a
                 href="https://wa.me/447436190679"
-                className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
-                <MessageCircle className="w-8 h-8 text-white mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">WhatsApp</h3>
-                <p className="text-white/70 mb-3">Quick and discreet messaging</p>
-                <span className="text-white font-medium">Send Message</span>
+                <MessageCircle className="h-5 w-5" />
+                WhatsApp
               </a>
-
-              <a 
+              <a
                 href="mailto:models@exclusivefivelondon.com"
-                className="bg-white/10 hover:bg-white/20 border border-white/20 p-6 rounded-lg transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
-                <Mail className="w-8 h-8 text-white mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">Email Us</h3>
-                <p className="text-white/70 mb-3">Get detailed information</p>
-                <span className="text-white font-medium">models@exclusivefivelondon.com</span>
+                <Mail className="h-5 w-5" />
+                Email
               </a>
             </div>
           </div>

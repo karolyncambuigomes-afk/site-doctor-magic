@@ -21,7 +21,7 @@ const Locations = () => {
       
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="py-16 md:py-24 bg-white">
+          <section className="pt-20 pb-12 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
@@ -37,7 +37,7 @@ const Locations = () => {
           </section>
 
           {/* Locations Grid */}
-          <section className="py-16 bg-white">
+          <section className="py-12 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 px-4 sm:px-6">
                 {locations.map((location) => (
@@ -61,7 +61,7 @@ const Locations = () => {
           </section>
 
           {/* Contact Section */}
-          <section className="py-12 md:py-20 lg:py-24 bg-gray-50">
+          <section className="py-16 bg-gray-50">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">

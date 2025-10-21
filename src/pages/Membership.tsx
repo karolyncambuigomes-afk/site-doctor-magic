@@ -138,12 +138,12 @@ export const Membership: React.FC = () => {
         canonicalUrl="/membership" 
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="pt-20 pb-16 md:py-24 bg-background">
+          <section className="pt-20 pb-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6">
@@ -162,7 +162,7 @@ export const Membership: React.FC = () => {
 
             {/* Logged In User Section */}
             {user && (
-              <section className="py-16 bg-background">
+              <section className="py-16 bg-white">
                 <div className="max-w-md mx-auto">
                   {/* Back link */}
                   <Link 
@@ -199,7 +199,7 @@ export const Membership: React.FC = () => {
 
                         <div className="space-y-3">
                           <Link to="/models">
-                            <Button className="w-full five-london-button">
+                            <Button className="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
                               <User className="w-4 h-4 mr-2" />
                               Browse Models
                             </Button>
@@ -227,7 +227,7 @@ export const Membership: React.FC = () => {
 
             {/* Authentication Section for Non-Logged In Users */}
             {!user && (
-              <section className="py-16 bg-background">
+              <section className="py-16 bg-white">
                 <div className="max-w-md mx-auto">
                   {/* Back link */}
                   <Link 
@@ -295,7 +295,7 @@ export const Membership: React.FC = () => {
 
                           <Button
                             type="submit"
-                            className="w-full five-london-button"
+                            className="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm disabled:opacity-50"
                             disabled={loading}
                           >
                             {loading ? 'Signing In...' : 'Sign In'}
@@ -320,7 +320,7 @@ export const Membership: React.FC = () => {
             )}
 
             {/* VIP Membership Benefits */}
-            <section className="py-16 bg-muted/30">
+            <section className="py-16 bg-gray-50">
               <div className="max-w-4xl mx-auto px-4 sm:px-6">
                 <div className="text-center mb-12">
                   <h2 className="luxury-heading-lg mb-4">VIP Membership Benefits</h2>

@@ -16,7 +16,7 @@ const Characteristics = () => {
         canonicalUrl="/characteristics"
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <Navigation />
         
         <main className="pt-0">
@@ -37,9 +37,9 @@ const Characteristics = () => {
           </section>
 
           {/* Characteristics Grid */}
-          <section className="py-8 sm:py-12 md:py-16 bg-gray-50">
+          <section className="py-12 bg-white">
             <div className="container-width">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 sm:px-6">
                 {characteristics.map((characteristic) => (
                   <Link 
                     key={characteristic.id} 
@@ -47,19 +47,12 @@ const Characteristics = () => {
                     className="group"
                   >
                     <Button 
-                      variant="ghost" 
-                      className="w-full h-auto p-4 sm:p-6 flex flex-col items-center gap-2 sm:gap-3 hover:shadow-lg transition-all duration-300 bg-white border border-black text-black hover:bg-gray-50"
+                      variant="outline" 
+                      className="w-full h-12 sm:h-14 md:h-16 px-3 sm:px-4 md:px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary text-xs sm:text-sm md:text-base"
                     >
-                      <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-black group-hover:scale-110 transition-transform" />
-                      <div className="text-center">
-                        <h3 className="luxury-heading-sm font-medium mb-1 text-black transition-colors">
-                          {characteristic.name}
-                        </h3>
-                        <p className="luxury-body-xs text-black">
-                          {characteristic.description}
-                        </p>
-                      </div>
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 mt-1 sm:mt-2 text-black group-hover:translate-x-1 transition-transform" />
+                      <span className="luxury-body-md font-medium group-hover:text-primary transition-colors leading-tight text-center">
+                        {characteristic.name}
+                      </span>
                     </Button>
                   </Link>
                 ))}

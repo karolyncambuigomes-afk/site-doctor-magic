@@ -47,7 +47,7 @@ export const ModelProfile: React.FC = () => {
   if (loading) {
     return <>
         <Navigation />
-        <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
+        <div className="min-h-screen bg-white pt-20 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-muted-foreground">Loading companion profile...</p>
@@ -59,7 +59,7 @@ export const ModelProfile: React.FC = () => {
   if (error) {
     return <>
         <Navigation />
-        <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
+        <div className="min-h-screen bg-white pt-20 flex items-center justify-center">
           <div className="text-center">
             <h2 className="text-2xl font-light mb-4">Unable to load profile</h2>
             <p className="text-muted-foreground mb-6">{error}</p>
@@ -74,12 +74,12 @@ export const ModelProfile: React.FC = () => {
   if (!model) {
     return <>
         <Navigation />
-        <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center space-y-8">
-            <h1 className="luxury-heading-lg text-foreground">Model Not Found</h1>
-            <p className="body-minimal text-muted-foreground">The model you're looking for doesn't exist.</p>
+            <h1 className="luxury-heading-lg text-black">Model Not Found</h1>
+            <p className="body-minimal text-gray-700">The model you're looking for doesn't exist.</p>
             <Link to="/models">
-              <Button className="five-london-button-outline">
+              <Button className="border border-black text-black hover:bg-black hover:text-white px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Gallery
               </Button>
@@ -286,12 +286,12 @@ export const ModelProfile: React.FC = () => {
           <div id="book-section" className="bg-white rounded-lg p-8 text-center">
             <h3 className="luxury-heading-xl text-black mb-2">Book {model.name}</h3>
             <p className="text-muted-foreground luxury-body-base mb-8">Get in touch to arrange your appointment</p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Button className="five-london-button flex-1 py-3">
+          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Button className="bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm flex-1">
                 <Phone className="mr-2 h-4 w-4" />
                 Call Now
               </Button>
-              <Button variant="outline" className="flex-1 py-3" onClick={() => window.open('https://wa.me/447436190679', '_blank')}>
+              <Button className="border border-black text-black hover:bg-black hover:text-white px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm flex-1" onClick={() => window.open('https://wa.me/447436190679', '_blank')}>
                 <MessageCircle className="mr-2 h-4 w-4" />
                 WhatsApp
               </Button>

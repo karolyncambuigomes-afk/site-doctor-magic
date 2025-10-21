@@ -42,7 +42,7 @@ export const ModelsCarousel = () => {
       <div className="max-w-7xl mx-auto px-4">
         
         {/* Models Grid */}
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {models.map((model) => (
             <div key={model.id} className="group relative">
               <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
@@ -67,16 +67,16 @@ export const ModelsCarousel = () => {
                   <OptimizedImage
                     src={model.image || '/images/placeholders/model.jpg'}
                     alt={`${model.name} - elite companion in London`}
-                    className="w-full aspect-[2/3] sm:aspect-[3/4] object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105"
+                    className="w-full aspect-[3/4] object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105"
                     data-carousel-image={model.id}
                   />
                   
                   {/* Elegant overlay that appears on hover */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 z-[1]"></div>
                   
-                  {/* Price overlay - Top Left - Desktop Only */}
+                  {/* Price overlay - Top Left */}
                   {model.price && (
-                    <div className="hidden sm:block absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
+                    <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                       <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                         <span className="text-white text-xs sm:text-sm font-medium">
                           {model.price}
@@ -85,8 +85,8 @@ export const ModelsCarousel = () => {
                     </div>
                   )}
                   
-                  {/* Info overlay that appears on hover - Desktop Only */}
-                  <div className="hidden sm:block absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
+                  {/* Info overlay that appears on hover */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
                     <div className="space-y-1.5">
                        <h3 className="luxury-heading-sm tracking-normal">
                          {model.name}
@@ -105,52 +105,8 @@ export const ModelsCarousel = () => {
                   </div>
                 </div>
                 
-                {/* Mobile Info Section - Below Image */}
-                <div className="sm:hidden p-3 bg-card">
-                  {/* Name and Age */}
-                  <div className="mb-2">
-                    <h3 className="text-sm font-medium text-foreground mb-0.5 line-clamp-1">
-                      {model.name}
-                    </h3>
-                    {model.age && (
-                      <p className="text-xs text-muted-foreground">
-                        {model.age} anos
-                      </p>
-                    )}
-                  </div>
-                  
-                  {/* Price and Characteristic */}
-                  <div className="flex items-center justify-between gap-2">
-                    {/* Price */}
-                    {model.price && (
-                      <div className="flex-shrink-0">
-                        <span className="text-sm font-semibold text-foreground">
-                          {model.price}
-                        </span>
-                        <span className="text-xs text-muted-foreground ml-1">
-                          /hora
-                        </span>
-                      </div>
-                    )}
-                    
-                    {/* First Characteristic */}
-                    {model.characteristics?.[0] && (
-                      <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full line-clamp-1 flex-shrink min-w-0">
-                        {model.characteristics[0]}
-                      </span>
-                    )}
-                  </div>
-                  
-                  {/* Location */}
-                  {model.location && (
-                    <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                      <span className="line-clamp-1">{model.location}</span>
-                    </div>
-                  )}
-                </div>
-                
-                {/* Desktop Info - Static info below - minimal and elegant */}
-                <div className="hidden sm:block text-center px-1">
+                {/* Static info below - minimal and elegant */}
+                <div className="text-center px-1">
                    <h3 className="luxury-body-md text-black mb-0.5 tracking-normal group-hover:text-gray-600 transition-colors duration-300">
                      {model.name}
                    </h3>

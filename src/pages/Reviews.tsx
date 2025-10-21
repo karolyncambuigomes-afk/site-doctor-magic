@@ -147,33 +147,33 @@ export const Reviews: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Service Quality Reviews</h3>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Our clients consistently praise Five London for exceptional service quality, professionalism, and attention to detail. From business executives to international visitors, discerning gentlemen trust us for their most important occasions across London.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Professional Excellence</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Clients appreciate our companions' sophistication, intelligence, and ability to adapt to any social or business setting.</p>
+                      <p className="luxury-body-xs text-gray-600">Clients appreciate our companions' sophistication, intelligence, and ability to adapt to any social or business setting.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Discretion Guaranteed</h4>
-                      <p className="luxury-body-xs text-muted-foreground">100% confidentiality maintained for all bookings across London's most exclusive venues and private locations.</p>
+                      <p className="luxury-body-xs text-gray-600">100% confidentiality maintained for all bookings across London's most exclusive venues and private locations.</p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Companion Experiences</h3>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Reviews consistently highlight the exceptional quality of our companions, from their elegance and conversation skills to their professional demeanor at high-profile events, cultural occasions, and intimate dinner settings.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Cultural Sophistication</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Companions well-versed in arts, business, and current affairs, perfect for London's cultural scene and business environment.</p>
+                      <p className="luxury-body-xs text-gray-600">Companions well-versed in arts, business, and current affairs, perfect for London's cultural scene and business environment.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">International Appeal</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Multilingual companions experienced with international clientele visiting London for business and leisure.</p>
+                      <p className="luxury-body-xs text-gray-600">Multilingual companions experienced with international clientele visiting London for business and leisure.</p>
                     </div>
                   </div>
                 </div>

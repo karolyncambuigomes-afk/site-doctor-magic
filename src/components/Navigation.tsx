@@ -18,6 +18,7 @@ const navItems = [
   { href: "/membership", label: "Membership" },
   { href: "/services", label: "Services" },
   { href: "/blog", label: "Blog" },
+  { href: "/faq", label: "FAQ" },
   { href: "/join-us", label: "Join Us" },
 ];
 

@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navItems = [
-  { href: "/about", label: "About Us" },
   { href: "/locations", label: "Locations" },
   { href: "/characteristics", label: "Companion Types" },
   { href: "/membership", label: "Membership" },

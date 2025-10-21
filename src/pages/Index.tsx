@@ -144,18 +144,9 @@ const Index = () => {
         {/* Contact Section */}
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
-            <h2 className="luxury-heading-xl text-black mb-6">
-              Elite Companion Services
-            </h2>
-            <p className="luxury-body-base text-black mb-4">
+            <p className="luxury-body-base text-black mb-16 md:mb-20">
               Contact us through your preferred method for a discreet
               consultation
-            </p>
-            <p className="luxury-body-sm text-gray-600 mb-16 md:mb-20">
-              Our dedicated team is available 24/7 to arrange exclusive
-              companion services throughout London's premium districts. All
-              communications are handled with complete confidentiality and
-              professionalism.
             </p>
 
             <div className="flex items-center justify-center gap-12 md:gap-16">

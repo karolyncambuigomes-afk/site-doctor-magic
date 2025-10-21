@@ -41,8 +41,9 @@ export const ServiceWorkerManager: React.FC = () => {
             return;
           }
           
-          // Register with cache-busting to ensure fresh SW
-          const registration = await navigator.serviceWorker.register(`/sw.js?ts=${Date.now()}`);
+          // Register with NEW NAME to force fresh registration (sw-v3.js)
+          // This bypasses iOS sticky cache for one deployment cycle
+          const registration = await navigator.serviceWorker.register(`/sw-v3.js?ts=${Date.now()}`);
           
           // Force immediate update check
           await registration.update();

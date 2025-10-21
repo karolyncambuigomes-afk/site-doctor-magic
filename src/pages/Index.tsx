@@ -85,9 +85,6 @@ const Index = () => {
         {/* Elite Escort Services Introduction - Text 1 */}
         <section className="py-12 md:py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <h2 className="luxury-heading-lg text-gray-900 mb-6 text-center">
-              Elite Escort Services London
-            </h2>
             <div className="space-y-4 text-center">
               <p className="luxury-body-md text-gray-700 leading-relaxed">
                 Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.

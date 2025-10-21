@@ -7,7 +7,6 @@ import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/st
 import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useReviews } from '@/hooks/useReviews';
-import { BookNowButton } from '@/components/BookNowButton';
 import { Star } from 'lucide-react';
 
 const testimonials = [
@@ -190,7 +189,6 @@ export const Reviews: React.FC = () => {
             <p className="luxury-body-lg text-gray-800 mb-8 max-w-2xl mx-auto leading-relaxed">
               Join our satisfied clients and discover the Five London difference. Contact us today to experience the finest luxury companionship services in London.
             </p>
-            <BookNowButton />
           </div>
         </section>
       </main>

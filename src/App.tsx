@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
-import { BookNowButton } from "@/components/BookNowButton";
+import { ContactBar } from "@/components/ContactBar";
 
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -89,7 +89,7 @@ const App = () => {
                 <ConditionalFeatures />
                 <Toaster />
                 <Sonner />
-                <BookNowButton />
+                <ContactBar />
                 <SkipToContent />
                 
                 

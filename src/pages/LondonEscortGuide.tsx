@@ -141,11 +141,11 @@ const LondonEscortGuide = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
               <Card className="text-center">
                 <CardHeader>
-                  <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <MapPin className="w-8 h-8 text-black mx-auto mb-2" />
                   <CardTitle className="luxury-heading-sm">Best Areas</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="luxury-body-base text-muted-foreground">
+                  <p className="luxury-body-base text-gray-600">
                     Mayfair, Knightsbridge, Chelsea, Belgravia - London's premium districts
                   </p>
                 </CardContent>
@@ -153,11 +153,11 @@ const LondonEscortGuide = () => {
               
               <Card className="text-center">
                 <CardHeader>
-                  <Clock className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <Clock className="w-8 h-8 text-black mx-auto mb-2" />
                   <CardTitle className="luxury-heading-sm">Booking</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="luxury-body-base text-muted-foreground">
+                  <p className="luxury-body-base text-gray-600">
                     24/7 service, same-day available, advance booking recommended
                   </p>
                 </CardContent>
@@ -165,11 +165,11 @@ const LondonEscortGuide = () => {
               
               <Card className="text-center">
                 <CardHeader>
-                  <Shield className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <Shield className="w-8 h-8 text-black mx-auto mb-2" />
                   <CardTitle className="luxury-heading-sm">Safety</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="luxury-body-base text-muted-foreground">
+                  <p className="luxury-body-base text-gray-600">
                     Complete discretion, verified companions, secure processes
                   </p>
                 </CardContent>
@@ -177,11 +177,11 @@ const LondonEscortGuide = () => {
               
               <Card className="text-center">
                 <CardHeader>
-                  <Star className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <Star className="w-8 h-8 text-black mx-auto mb-2" />
                   <CardTitle className="luxury-heading-sm">Premium</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="luxury-body-base text-muted-foreground">
+                  <p className="luxury-body-base text-gray-600">
                     Elite companions, luxury experiences, exceptional service
                   </p>
                 </CardContent>

@@ -157,7 +157,7 @@ export const ModelProfile: React.FC = () => {
           {/* About Section */}
           <div className="mb-8">
             <h2 className="luxury-heading-lg text-black mb-4">About {model.name}</h2>
-            <p className="text-muted-foreground leading-relaxed luxury-body-base">
+            <p className="text-gray-700 leading-relaxed luxury-body-base">
               {model.description}
             </p>
           </div>
@@ -269,7 +269,7 @@ export const ModelProfile: React.FC = () => {
               const characteristicData = characteristics.find(char => char.name.toLowerCase() === characteristic.toLowerCase());
               if (characteristicData) {
                 return <Link key={characteristic} to={`/${characteristicData.slug}`}>
-                        <Badge variant="outline" className="luxury-body-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
+                        <Badge variant="outline" className="luxury-body-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground hover:border-black transition-luxury cursor-pointer">
                           {characteristic}
                         </Badge>
                       </Link>;
@@ -285,7 +285,7 @@ export const ModelProfile: React.FC = () => {
           {/* Contact Section */}
           <div id="book-section" className="bg-white rounded-lg p-8 text-center">
             <h3 className="luxury-heading-xl text-black mb-2">Book {model.name}</h3>
-            <p className="text-muted-foreground luxury-body-base mb-8">Get in touch to arrange your appointment</p>
+            <p className="text-gray-600 luxury-body-base mb-8">Get in touch to arrange your appointment</p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <Button className="bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm flex-1">
                 <Phone className="mr-2 h-4 w-4" />

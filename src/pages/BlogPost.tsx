@@ -92,7 +92,7 @@ const BlogPost = () => {
             <div className="container-width">
               <Link
                 to="/blog"
-                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Blog
@@ -114,7 +114,7 @@ const BlogPost = () => {
 
                 <p className="luxury-body-lg text-black">{article.excerpt}</p>
 
-                <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
+                <div className="flex items-center justify-center gap-6 text-sm text-gray-600 mt-6">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <time dateTime={article.published_at}>
@@ -190,7 +190,7 @@ const BlogPost = () => {
                           <div className="absolute top-4 left-4">
                             <Badge
                               variant="secondary"
-                              className="bg-background/90 text-foreground"
+                              className="bg-background/90 text-black"
                             >
                               {relatedArticle.category}
                             </Badge>

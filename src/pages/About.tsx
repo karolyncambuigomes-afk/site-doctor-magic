@@ -238,7 +238,7 @@ const About = () => {
             <div className="max-w-4xl mx-auto space-y-12 mb-16">
               {values.map((value, index) => (
                 <div key={index} className="flex items-start gap-6">
-                  <value.icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
+                  <value.icon className="w-8 h-8 text-black mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="luxury-heading-sm mb-3 text-black">
                       {value.title}
@@ -292,7 +292,7 @@ const About = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                 {achievements.map((achievement, index) => (
                   <div key={index} className="text-center">
-                    <achievement.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <achievement.icon className="w-8 h-8 text-black mx-auto mb-4" />
                     <h3 className="luxury-heading-sm mb-2 text-black">
                       {achievement.text}
                     </h3>
@@ -345,14 +345,14 @@ const About = () => {
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-foreground">About Five London Premium Agency</h2>
+                  <h2 className="luxury-heading-lg text-black">About Five London Premium Agency</h2>
                 </div>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">
                     Elite Escort Services Since 2020
                   </h3>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Five London has established itself as London's premier
                     luxury escort agency, serving discerning clients across
                     Mayfair, Knightsbridge, Belgravia, and Central London. Our
@@ -365,7 +365,7 @@ const About = () => {
                       <h4 className="luxury-body-sm font-medium">
                         Professional Standards
                       </h4>
-                      <p className="luxury-body-xs text-muted-foreground">
+                      <p className="luxury-body-xs text-gray-600">
                         Every companion undergoes rigorous screening to ensure
                         they meet our exceptional standards of beauty,
                         intelligence, and social grace.
@@ -375,7 +375,7 @@ const About = () => {
                       <h4 className="luxury-body-sm font-medium">
                         Discreet Service
                       </h4>
-                      <p className="luxury-body-xs text-muted-foreground">
+                      <p className="luxury-body-xs text-gray-600">
                         Complete confidentiality guaranteed for all our
                         prestigious clients throughout London's most exclusive
                         areas.
@@ -387,7 +387,7 @@ const About = () => {
                   <h3 className="luxury-heading-md">
                     London's Most Trusted Agency
                   </h3>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Operating in London's most prestigious locations including
                     The Ritz, Claridge's, The Shard, and exclusive private
                     venues, we provide unparalleled companionship services for
@@ -399,7 +399,7 @@ const About = () => {
                       <h4 className="luxury-body-sm font-medium">
                         Premium Locations
                       </h4>
-                      <p className="luxury-body-xs text-muted-foreground">
+                      <p className="luxury-body-xs text-gray-600">
                         Serving Mayfair, Kensington, Chelsea, Westminster, and
                         the City of London with 24/7 availability.
                       </p>
@@ -408,7 +408,7 @@ const About = () => {
                       <h4 className="luxury-body-sm font-medium">
                         International Clientele
                       </h4>
-                      <p className="luxury-body-xs text-muted-foreground">
+                      <p className="luxury-body-xs text-gray-600">
                         Trusted by business executives, entrepreneurs, and
                         discerning gentlemen from around the world visiting
                         London.

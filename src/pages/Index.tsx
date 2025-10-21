@@ -105,7 +105,7 @@ const Index = () => {
         </section>
 
         {/* About Section */}
-        <section className="py-12 md:py-16 text-foreground bg-gray-100">
+        <section className="py-12 md:py-16 text-black bg-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             {/* About Our Services - Integrated Design */}
             <div className="max-w-4xl mx-auto">

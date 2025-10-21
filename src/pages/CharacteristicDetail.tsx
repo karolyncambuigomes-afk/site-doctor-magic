@@ -198,11 +198,11 @@ const CharacteristicDetail = () => {
                   .filter(char => char.id !== characteristic.id)
                   .slice(0, 4)
                   .map((char) => (
-                    <Link key={char.id} to={`/characteristics/${char.slug}`}>
+                     <Link key={char.id} to={`/characteristics/${char.slug}`}>
                        <Button variant="outline" className="w-full p-4 h-auto">
                          <div className="text-center">
                            <div className="font-medium">{char.name}</div>
-                           <div className="luxury-body-xs text-muted-foreground mt-1">
+                           <div className="luxury-body-xs text-gray-600 mt-1">
                              {models.filter(m => m.characteristics && m.characteristics.some(c => c.toLowerCase() === char.name.toLowerCase())).length} models
                            </div>
                          </div>

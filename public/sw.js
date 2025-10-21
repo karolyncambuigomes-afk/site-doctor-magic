@@ -46,8 +46,7 @@ const NEVER_CACHE_PATTERNS = [
   '/logout',
   '.map',
   'hot-update',
-  '/index.html',
-  '/'
+  '/index.html'
 ];
 
 // Admin/dynamic patterns (must be fresh)
@@ -253,6 +252,12 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
+  
+  // Always serve navigation requests fresh from network
+  if (request.mode === 'navigate') {
+    console.log(`SW: Navigation request, serving fresh: ${url.pathname}`);
+    return;
+  }
   
   // Skip non-GET requests and bypass patterns
   if (shouldBypassCache(request)) {

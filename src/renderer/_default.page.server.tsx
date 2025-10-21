@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from '../App';
 
 export { render };
-export { prerender };
+export { onBeforePrerenderStart };
 
 async function render(pageContext: any) {
   const { urlPathname } = pageContext;
@@ -57,8 +57,39 @@ async function render(pageContext: any) {
   };
 }
 
-// Define which routes to prerender
-const prerender = [
+// Function called by Vike before prerendering starts
+async function onBeforePrerenderStart() {
+  console.log('🚀 Starting prerender route generation...')
+  
+  // Fetch dynamic model routes from Supabase
+  let modelRoutes: string[] = []
+  try {
+    const { createClient } = await import('@supabase/supabase-js')
+    const supabaseUrl = process.env.VITE_SUPABASE_URL
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY
+    
+    if (supabaseUrl && supabaseKey) {
+      const supabase = createClient(supabaseUrl, supabaseKey)
+      const { data: models, error } = await supabase
+        .from('models')
+        .select('id')
+        .order('created_at', { ascending: false })
+      
+      if (error) {
+        console.warn('⚠️ Error fetching models for prerender:', error.message)
+      } else if (models && models.length > 0) {
+        modelRoutes = models.map(model => `/models/${model.id}`)
+        console.log(`✅ Generated ${modelRoutes.length} dynamic model routes`)
+      }
+    } else {
+      console.warn('⚠️ Supabase credentials not found. Skipping dynamic model routes.')
+    }
+  } catch (error) {
+    console.warn('⚠️ Could not fetch dynamic model routes:', error)
+  }
+  
+  // Static routes that should be prerendered
+  const staticRoutes = [
   '/',
   '/about',
   '/services',
@@ -201,4 +232,14 @@ const prerender = [
   '/blog/london-annual-events-luxury-experiences',
   '/blog/exclusive-experiences-london-luxury',
   '/blog/london-entertainment-culture-guide',
-];
+  ]
+  
+  // Combine static and dynamic routes
+  const allRoutes = [...staticRoutes, ...modelRoutes]
+  
+  console.log(`\n📋 Total routes to prerender: ${allRoutes.length}`)
+  console.log(`   - Static routes: ${staticRoutes.length}`)
+  console.log(`   - Dynamic model routes: ${modelRoutes.length}\n`)
+  
+  return allRoutes
+}

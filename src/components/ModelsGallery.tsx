@@ -104,11 +104,11 @@ export const ModelsGallery: React.FC = () => {
             </div>
 
             {/* Category Filter Buttons */}
-            <div className="flex flex-wrap justify-center gap-2 mb-4">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-4">
               <Button
                 variant={selectedCharacteristics.length === 0 ? 'default' : 'outline'}
                 onClick={() => setSelectedCharacteristics([])}
-                className="text-sm"
+                className="text-xs sm:text-sm h-8 sm:h-9 px-2.5 sm:px-4"
               >
                 All Models
               </Button>
@@ -123,7 +123,7 @@ export const ModelsGallery: React.FC = () => {
                         : [...prev, category]
                     );
                   }}
-                  className="text-sm"
+                  className="text-xs sm:text-sm h-8 sm:h-9 px-2.5 sm:px-4"
                 >
                   {category}
                 </Button>

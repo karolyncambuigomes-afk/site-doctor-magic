@@ -102,12 +102,6 @@ const Index = () => {
         {/* All Models Gallery Section */}
         <section className="py-12 md:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-8 md:mb-12">
-              <h2 className="luxury-heading-xl text-black mb-4">Our Elite Companions</h2>
-              <p className="luxury-body-base text-gray-600 max-w-2xl mx-auto">
-                Discover our exclusive selection of sophisticated companions available throughout London
-              </p>
-            </div>
             <ModelsGallery />
           </div>
         </section>
@@ -121,78 +115,27 @@ const Index = () => {
                 <h2 className="luxury-heading-lg text-gray-800 mb-6">
                   About Our Premium Services
                 </h2>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                      <h3 className="luxury-heading-md mb-4 text-gray-900">
-                        Finest High Class Escorts London
-                      </h3>
-                      <div className="space-y-4">
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          At Exclusive Five London, excellence is not just a promise — it's a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.
-                        </p>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.
-                        </p>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          We believe in quality over quantity. That's why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.
-                        </p>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.
-                        </p>
-                        <p className="luxury-body-md text-gray-700 leading-relaxed">
-                          Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="space-y-6">
-                    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                      <h3 className="luxury-heading-md mb-4 text-gray-900">
-                        Premium London Areas
-                      </h3>
-                      <div className="space-y-4">
-                        <div className="border-l-3 border-gray-300 pl-4">
-                          <h4 className="luxury-body-sm font-semibold text-gray-900">
-                            Mayfair W1
-                          </h4>
-                          <p className="luxury-body-xs text-gray-600 mt-1">
-                            Home to luxury shopping at Bond Street, exclusive
-                            dining, and world-class hotels including
-                            Claridge's and The Connaught.
-                          </p>
-                        </div>
-                        <div className="border-l-3 border-gray-300 pl-4">
-                          <h4 className="luxury-body-sm font-semibold text-gray-900">
-                            Knightsbridge SW1
-                          </h4>
-                          <p className="luxury-body-xs text-gray-600 mt-1">
-                            Prestigious area near Harrods, Hyde Park, and
-                            luxury hotels including The Berkeley and Mandarin
-                            Oriental.
-                          </p>
-                        </div>
-                        <div className="border-l-3 border-gray-300 pl-4">
-                          <h4 className="luxury-body-sm font-semibold text-gray-900">
-                            Chelsea SW3
-                          </h4>
-                          <p className="luxury-body-xs text-gray-600 mt-1">
-                            Sophisticated neighbourhood with world-class
-                            restaurants, galleries, and exclusive private
-                            members' clubs.
-                          </p>
-                        </div>
-                        <div className="border-l-3 border-gray-300 pl-4">
-                          <h4 className="luxury-body-sm font-semibold text-gray-900">
-                            Belgravia SW1
-                          </h4>
-                          <p className="luxury-body-xs text-gray-600 mt-1">
-                            Elite residential area with Georgian architecture,
-                            premium boutiques, and Michelin-starred dining
-                            venues.
-                          </p>
-                        </div>
-                      </div>
+                <div className="space-y-6">
+                  <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+                    <h3 className="luxury-heading-md mb-4 text-gray-900">
+                      Finest High Class Escorts London
+                    </h3>
+                    <div className="space-y-4">
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        At Exclusive Five London, excellence is not just a promise — it's a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.
+                      </p>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.
+                      </p>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        We believe in quality over quantity. That's why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.
+                      </p>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.
+                      </p>
+                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                        Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.
+                      </p>
                     </div>
                   </div>
                 </div>

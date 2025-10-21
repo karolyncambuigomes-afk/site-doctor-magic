@@ -1,7 +1,7 @@
 // Enhanced Service Worker with CDN and Cache Optimization
 // Version: 2.0.0 - Production-ready with cache invalidation
 
-const VERSION = '2.1.0';
+const VERSION = '2.1.1';
 const CACHE_NAME = `five-london-v${VERSION}`;
 const STATIC_CACHE = `five-london-static-v${VERSION}`;
 const RUNTIME_CACHE = `five-london-runtime-v${VERSION}`;
@@ -19,14 +19,11 @@ const CACHE_CONFIG = {
   DYNAMIC_MAX_AGE: 0 // No cache
 };
 
-// Assets to precache on install
+// Assets to precache on install (only safe, always-existing files)
 const PRECACHE_ASSETS = [
   '/',
   '/manifest.json',
-  '/favicon.ico',
-  // Add critical CSS and JS files
-  '/assets/css/index.css',
-  '/assets/js/main.js'
+  '/favicon.ico'
 ];
 
 // CDN domains to cache

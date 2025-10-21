@@ -5,7 +5,8 @@ export const ServiceWorkerManager: React.FC = () => {
     if ('serviceWorker' in navigator && import.meta.env.PROD) {
       (async () => {
         try {
-          const registration = await navigator.serviceWorker.register('/sw.js');
+          // Register with cache-busting to ensure fresh SW
+          const registration = await navigator.serviceWorker.register(`/sw.js?ts=${Date.now()}`);
           
           // Force immediate update check
           await registration.update();
@@ -42,15 +43,34 @@ export const ServiceWorkerManager: React.FC = () => {
             console.log('SW: CLEAR_ALL_CACHES sent');
           }
 
-          // Safety timeout: force reload if not refreshed after 2 seconds
-          setTimeout(() => {
+          // Nuclear fallback: if controller doesn't change within 2.5s, force complete cleanup
+          setTimeout(async () => {
             const hasRefreshed = sessionStorage.getItem('sw_hard_refreshed');
             if (!hasRefreshed) {
-              console.log('SW: Safety timeout triggered, forcing reload');
-              sessionStorage.setItem('sw_hard_refreshed', '1');
-              window.location.reload();
+              console.log('SW: Nuclear fallback - unregistering all SWs and clearing caches');
+              
+              try {
+                // Unregister all service workers
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                await Promise.all(registrations.map(reg => reg.unregister()));
+                console.log('SW: All service workers unregistered');
+                
+                // Clear all caches via window.caches
+                const cacheNames = await window.caches.keys();
+                await Promise.all(cacheNames.map(name => window.caches.delete(name)));
+                console.log('SW: All caches cleared via window.caches');
+                
+                // Set flag and reload
+                sessionStorage.setItem('sw_hard_refreshed', '1');
+                window.location.reload();
+              } catch (error) {
+                console.error('SW: Nuclear fallback failed:', error);
+                // Force reload anyway
+                sessionStorage.setItem('sw_hard_refreshed', '1');
+                window.location.reload();
+              }
             }
-          }, 2000);
+          }, 2500);
 
         } catch (error) {
           console.error('SW: Registration failed:', error);

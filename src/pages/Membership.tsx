@@ -372,17 +372,17 @@ export const Membership: React.FC = () => {
                     
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">1</div>
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-black">1</div>
                         <span className="text-sm text-black">Contact us for membership inquiry</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">2</div>
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-black">2</div>
                         <span className="text-sm text-black">Account review and verification process</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">3</div>
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-black">3</div>
                         <span className="text-sm text-black">Membership approval and full access granted</span>
                       </div>
                     </div>

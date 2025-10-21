@@ -109,9 +109,6 @@ const Index = () => {
             {/* About Our Services - Integrated Design */}
             <div className="max-w-4xl mx-auto">
           <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
-                <h2 className="luxury-heading-lg text-gray-800 mb-6">
-                  About Our Premium Services
-                </h2>
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
                     <h3 className="luxury-heading-md mb-4 text-gray-900">

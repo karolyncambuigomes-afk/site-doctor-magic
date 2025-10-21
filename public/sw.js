@@ -1,7 +1,7 @@
 // Enhanced Service Worker with CDN and Cache Optimization
 // Version: 2.0.0 - Production-ready with cache invalidation
 
-const VERSION = '2.1.1';
+const VERSION = '2.1.2';
 const CACHE_NAME = `five-london-v${VERSION}`;
 const STATIC_CACHE = `five-london-static-v${VERSION}`;
 const RUNTIME_CACHE = `five-london-runtime-v${VERSION}`;
@@ -20,8 +20,8 @@ const CACHE_CONFIG = {
 };
 
 // Assets to precache on install (only safe, always-existing files)
+// Do NOT precache '/' to avoid serving stale HTML
 const PRECACHE_ASSETS = [
-  '/',
   '/manifest.json',
   '/favicon.ico'
 ];
@@ -250,9 +250,35 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
   
-  // Always serve navigation requests fresh from network
+  // Always serve navigation requests fresh from network with cache bypass
   if (request.mode === 'navigate') {
-    console.log(`SW: Navigation request, serving fresh: ${url.pathname}`);
+    console.log(`SW: Navigation request, forcing fresh fetch: ${url.pathname}`);
+    event.respondWith(
+      (async () => {
+        try {
+          // Force bypass of HTTP/CDN caches with cache: 'reload'
+          const fresh = await fetch(new Request(request.url, { cache: 'reload' }));
+          console.log(`SW: Fresh navigation response for: ${url.pathname}`);
+          return fresh;
+        } catch (error) {
+          console.error('SW: Navigation fetch failed:', error);
+          // Fallback offline page
+          return new Response(`
+            <!DOCTYPE html>
+            <html>
+              <head><title>Offline</title></head>
+              <body>
+                <h1>You're offline</h1>
+                <p>Please check your connection and try again.</p>
+                <button onclick="location.reload()">Retry</button>
+              </body>
+            </html>
+          `, {
+            headers: { 'Content-Type': 'text/html' }
+          });
+        }
+      })()
+    );
     return;
   }
   

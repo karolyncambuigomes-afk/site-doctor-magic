@@ -3,8 +3,38 @@ import React, { useEffect } from 'react';
 export const ServiceWorkerManager: React.FC = () => {
   useEffect(() => {
     if ('serviceWorker' in navigator && import.meta.env.PROD) {
+      // Check for manual force update trigger
+      const urlHasForce = window.location.search.includes('forceUpdate=1') || 
+                          window.location.hash.includes('forceupdate');
+      
       (async () => {
         try {
+          // If manual trigger detected, execute nuclear cleanup immediately
+          if (urlHasForce) {
+            console.log('SW: Manual force update detected, executing nuclear cleanup');
+            
+            try {
+              // Unregister all service workers
+              const registrations = await navigator.serviceWorker.getRegistrations();
+              await Promise.all(registrations.map(reg => reg.unregister()));
+              console.log('SW: All service workers unregistered');
+              
+              // Clear all caches
+              const cacheNames = await window.caches.keys();
+              await Promise.all(cacheNames.map(name => window.caches.delete(name)));
+              console.log('SW: All caches cleared');
+              
+              // Set flag and reload without query params
+              sessionStorage.setItem('sw_hard_refreshed', '1');
+              window.location.replace(window.location.pathname);
+            } catch (error) {
+              console.error('SW: Manual force update failed:', error);
+              sessionStorage.setItem('sw_hard_refreshed', '1');
+              window.location.reload();
+            }
+            return;
+          }
+          
           // Register with cache-busting to ensure fresh SW
           const registration = await navigator.serviceWorker.register(`/sw.js?ts=${Date.now()}`);
           

@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ContactBar } from "@/components/ContactBar";
 import {
   generateOrganizationSchema,
   generateBreadcrumbSchema,
@@ -445,6 +446,7 @@ const About = () => {
         </section>
       </main>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

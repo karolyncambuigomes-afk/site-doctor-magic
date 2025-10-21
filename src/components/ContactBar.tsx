@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Phone, Send } from 'lucide-react';
 
-export const ContactBar = () => {
-  const [isVisible, setIsVisible] = useState(false);
+interface ContactBarProps {
+  showOnScroll?: boolean; // true = aparece após scroll (Index), false = sempre visível (outras páginas)
+}
+
+export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
+  const [isVisible, setIsVisible] = useState(!showOnScroll); // Se não precisa scroll, já começa visível
 
   useEffect(() => {
+    if (!showOnScroll) {
+      setIsVisible(true);
+      return;
+    }
+
     const handleScroll = () => {
       // Show bar after scrolling past the hero section (approximately 700px)
       setIsVisible(window.scrollY > 700);
@@ -14,7 +23,7 @@ export const ContactBar = () => {
     handleScroll(); // Check initial state
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [showOnScroll]);
 
   return (
     <div

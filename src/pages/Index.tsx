@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { ModelsGallery } from "@/components/ModelsGallery";
 import { Footer } from "@/components/Footer";
+import { ContactBar } from "@/components/ContactBar";
 
 
 import { Link } from "react-router-dom";
@@ -194,6 +195,7 @@ const Index = () => {
         </section>
       </main>
 
+      <ContactBar showOnScroll={true} />
       <Footer />
     </>
   );

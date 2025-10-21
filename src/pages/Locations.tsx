@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { locations } from '@/data/locations';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -83,6 +84,7 @@ const Locations = () => {
           </section>
         </main>
         
+        <ContactBar showOnScroll={false} />
         <Footer />
     </>
   );

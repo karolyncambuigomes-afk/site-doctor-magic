@@ -3,6 +3,7 @@ import { ModelsGallery } from '@/components/ModelsGallery';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { SEOOptimized } from '@/components/SEOOptimized';
+import { ContactBar } from '@/components/ContactBar';
 
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
@@ -114,6 +115,7 @@ export const Models: React.FC = () => {
         </section>
       </main>
       
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

@@ -1,6 +1,7 @@
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -190,6 +191,7 @@ const Contact = () => {
         </section>
       </main>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

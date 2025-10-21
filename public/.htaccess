@@ -136,7 +136,7 @@
 # Performance-optimized headers
 <IfModule mod_headers.c>
     # Service Worker - NEVER cache (critical for updates)
-    <FilesMatch "^sw(\.v?\d+)?\.js$">
+    <FilesMatch "^(sw.*|service-worker.*)\.js$">
         Header set Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
         Header unset ETag
         Header unset Last-Modified

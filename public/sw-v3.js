@@ -1,7 +1,7 @@
 // Enhanced Service Worker with CDN and Cache Optimization
 // Version: 2.0.0 - Production-ready with cache invalidation
 
-const VERSION = '2.1.3';
+const VERSION = '2.1.4';
 const CACHE_NAME = `five-london-v${VERSION}`;
 const STATIC_CACHE = `five-london-static-v${VERSION}`;
 const RUNTIME_CACHE = `five-london-runtime-v${VERSION}`;

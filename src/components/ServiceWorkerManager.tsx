@@ -72,42 +72,9 @@ export const ServiceWorkerManager: React.FC = () => {
           // If there's a waiting SW, activate it immediately
           handleNewSW();
 
-          // Wait for SW to be ready and clear all caches
+          // Wait for SW to be ready
           await navigator.serviceWorker.ready;
-          
-          if (navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_ALL_CACHES' });
-            console.log('SW: CLEAR_ALL_CACHES sent');
-          }
-
-          // Nuclear fallback: if controller doesn't change within 2.5s, force complete cleanup
-          setTimeout(async () => {
-            const hasRefreshed = sessionStorage.getItem('sw_hard_refreshed');
-            if (!hasRefreshed) {
-              console.log('SW: Nuclear fallback - unregistering all SWs and clearing caches');
-              
-              try {
-                // Unregister all service workers
-                const registrations = await navigator.serviceWorker.getRegistrations();
-                await Promise.all(registrations.map(reg => reg.unregister()));
-                console.log('SW: All service workers unregistered');
-                
-                // Clear all caches via window.caches
-                const cacheNames = await window.caches.keys();
-                await Promise.all(cacheNames.map(name => window.caches.delete(name)));
-                console.log('SW: All caches cleared via window.caches');
-                
-                // Set flag and reload
-                sessionStorage.setItem('sw_hard_refreshed', '1');
-                window.location.reload();
-              } catch (error) {
-                console.error('SW: Nuclear fallback failed:', error);
-                // Force reload anyway
-                sessionStorage.setItem('sw_hard_refreshed', '1');
-                window.location.reload();
-              }
-            }
-          }, 2500);
+          console.log('SW: Service worker ready');
 
         } catch (error) {
           console.error('SW: Registration failed:', error);

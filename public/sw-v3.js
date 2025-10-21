@@ -265,18 +265,24 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
   
-  // Always serve navigation requests fresh from network with cache bypass
+  // Network-first for navigation requests with cache fallback
   if (request.mode === 'navigate') {
-    console.log(`SW: Navigation request, forcing fresh fetch: ${url.pathname}`);
     event.respondWith(
       (async () => {
         try {
-          // Force bypass of HTTP/CDN caches with cache: 'reload'
-          const fresh = await fetch(new Request(request.url, { cache: 'reload' }));
+          // Try network first without aggressive cache reload
+          const fresh = await fetch(request);
           console.log(`SW: Fresh navigation response for: ${url.pathname}`);
           return fresh;
         } catch (error) {
-          console.error('SW: Navigation fetch failed:', error);
+          console.error('SW: Navigation fetch failed, trying cache:', error);
+          // Try cache fallback
+          const cache = await caches.open(RUNTIME_CACHE);
+          const cached = await cache.match('/');
+          if (cached) {
+            console.log('SW: Serving cached index for navigation');
+            return cached;
+          }
           // Fallback offline page
           return new Response(`
             <!DOCTYPE html>

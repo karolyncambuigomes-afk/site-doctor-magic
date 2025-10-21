@@ -38,7 +38,7 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
     console.log('DegradedModeProvider: Starting private mode detection');
     
     // Ultra-fast detection with reduced timeout
-    const maxDetectionTime = 50; // Reduced to 50ms max
+    const maxDetectionTime = 50;
     let detected = false;
     
     try {
@@ -50,14 +50,14 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
     } catch (error) {
       console.log('DegradedModeProvider - Detection error, assuming normal mode:', error);
       detected = true;
-      setIsPrivateMode(false); // Assume normal mode on error
+      setIsPrivateMode(false);
     }
     
     // Aggressive fallback timeout
     const timeoutId = setTimeout(() => {
       if (!detected) {
         console.log('DegradedModeProvider - Detection timeout, assuming normal mode');
-        setIsPrivateMode(false); // Assume normal mode to prevent blocking
+        setIsPrivateMode(false);
       }
     }, maxDetectionTime);
     
@@ -80,20 +80,21 @@ export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ chil
     };
   }, []);
 
-  const isDegradedMode = isPrivateMode || !hasConnectivity;
-
-  // Show simple loading only for a very short time, with shorter timeout
-  if (isPrivateMode === null) {
-    console.log('DegradedModeProvider: Still detecting private mode, showing minimal loading');
-    
-    // Force resolve after 100ms to prevent blocking
-    setTimeout(() => {
-      if (isPrivateMode === null) {
+  // Force resolve detection if still null after mount
+  useEffect(() => {
+    if (isPrivateMode === null) {
+      const forceResolve = setTimeout(() => {
         console.log('DegradedModeProvider: Force resolving private mode detection');
         setIsPrivateMode(false);
-      }
-    }, 100);
-    
+      }, 100);
+      return () => clearTimeout(forceResolve);
+    }
+  }, [isPrivateMode]);
+
+  const isDegradedMode = isPrivateMode || !hasConnectivity;
+
+  // Show simple loading only for a very short time
+  if (isPrivateMode === null) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-background">
         <div className="text-center">

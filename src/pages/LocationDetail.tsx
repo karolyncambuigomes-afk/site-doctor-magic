@@ -162,7 +162,7 @@ const LocationDetail = () => {
                 <h1 className="luxury-heading-xl text-black mb-4">
                   {location.name}
                 </h1>
-                <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent mx-auto"></div>
               </div>
             </div>
           </section>
@@ -173,7 +173,7 @@ const LocationDetail = () => {
             <section className="py-6 md:py-10 bg-white">
               <div className="container-width mx-auto px-4">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-primary">
+                  <h2 className="luxury-heading-lg text-black">
                     Available in {location.name}
                   </h2>
                 </div>
@@ -194,7 +194,7 @@ const LocationDetail = () => {
             <section className="py-6 md:py-10 bg-white">
               <div className="container-width mx-auto px-4">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-primary">
+                  <h2 className="luxury-heading-lg text-black">
                     Available in {location.name}
                   </h2>
                 </div>
@@ -211,7 +211,7 @@ const LocationDetail = () => {
               <div className="container-width mx-auto px-4">
                 <div className="text-center">
                   <div className="max-w-lg mx-auto space-y-4">
-                    <h2 className="luxury-heading-lg text-primary">
+                    <h2 className="luxury-heading-lg text-black">
                       No Models Currently Available in {location.name}
                     </h2>
                     
@@ -222,7 +222,7 @@ const LocationDetail = () => {
                     <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                       <Link 
                         to="/models"
-                        className="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-colors luxury-body-sm"
+                        className="inline-flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-lg hover:bg-gray-800 transition-colors luxury-body-sm"
                       >
                         <Star className="w-4 h-4" />
                         View All Companions
@@ -232,7 +232,7 @@ const LocationDetail = () => {
                         href="https://wa.me/447436190679"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border border-primary text-primary px-5 py-2.5 rounded-lg hover:bg-primary/5 transition-colors luxury-body-sm"
+                        className="inline-flex items-center gap-2 border border-black text-black hover:bg-black hover:text-white px-5 py-2.5 rounded-lg transition-colors luxury-body-sm"
                       >
                         <MessageCircle className="w-4 h-4" />
                         Contact Us
@@ -279,7 +279,7 @@ const LocationDetail = () => {
                     <h2 className="luxury-heading-lg text-gray-900 mb-4">
                       About {location.name} Escorts
                     </h2>
-                    <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
+                    <div className="w-24 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent mx-auto"></div>
                   </div>
                   
                   <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">

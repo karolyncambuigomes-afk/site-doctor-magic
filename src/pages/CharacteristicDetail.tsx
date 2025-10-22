@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useLocation } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
@@ -14,7 +14,8 @@ const CharacteristicDetail = () => {
   const params = useSafeParams();
   const { characteristicSlug } = params;
   const { models, loading, error } = useModels();
-  const currentPath = window.location.pathname;
+  const routerLocation = useLocation();
+  const currentPath = routerLocation.pathname;
   
   // Safety check for router context
   if (!params) {

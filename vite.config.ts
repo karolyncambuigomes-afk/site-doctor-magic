@@ -2,15 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import vike from 'vike/plugin';
-// Removed critical CSS plugin for better performance
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // SSG configuration
-  ssr: {
-    noExternal: ['react-helmet-async', '@supabase/supabase-js'],
-  },
   server: {
     host: "::",
     port: 8080,
@@ -23,7 +17,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      input: mode === 'production' ? 'index.html' : 'index.dev.html',
+      input: 'index.html',
       output: {
         manualChunks: (id) => {
           // Heavy admin libraries in separate chunks
@@ -116,10 +110,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    // Only use Vike in production builds for SSG
-    mode === 'production' && vike({
-      prerender: true
-    }),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   resolve: {

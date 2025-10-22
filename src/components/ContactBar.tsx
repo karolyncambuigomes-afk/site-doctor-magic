@@ -9,9 +9,6 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
   const [isVisible, setIsVisible] = useState(!showOnScroll); // Se não precisa scroll, já começa visível
 
   useEffect(() => {
-    // SSR guard - exit immediately on server
-    if (typeof window === 'undefined') return;
-    
     if (!showOnScroll) {
       setIsVisible(true);
       return;

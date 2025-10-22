@@ -1,17 +1,16 @@
 import React, { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
-
+import { Routes, Route } from "react-router-dom";
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedModeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { removeConsoleLogsInProduction } from "@/utils/performanceOptimizer";
-import { cleanConsoleOutput } from "@/utils/cleanConsole";
+import { ContactBar } from "@/components/ContactBar";
+import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
+import { CookieConsent } from "@/components/CookieConsent";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // Lazy load pages for better performance
 const Auth = lazy(() => import("./pages/Auth").then(m => ({ default: m.Auth })));
@@ -38,10 +37,6 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const JoinUs = lazy(() => import("./pages/JoinUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Lazy load client-only components
-const ContactBar = lazy(() => import("@/components/ContactBar").then(m => ({ default: m.ContactBar })));
-const ServiceWorkerManager = lazy(() => import("@/components/ServiceWorkerManager").then(m => ({ default: m.ServiceWorkerManager })));
-const CookieConsent = lazy(() => import("@/components/CookieConsent").then(m => ({ default: m.CookieConsent })));
 
 // Optimized conditional features
 const ConditionalFeatures = () => {
@@ -50,15 +45,10 @@ const ConditionalFeatures = () => {
   // Initialize auto-refresh functionality
   useAutoRefresh();
   
-  // SSR guard - exit immediately on server
-  if (typeof window === 'undefined') return null;
-  
   return (
     <>
-      <Suspense fallback={null}>
-        <ServiceWorkerManager />
-        {!isDegradedMode && <CookieConsent />}
-      </Suspense>
+      <ServiceWorkerManager />
+      {!isDegradedMode && <CookieConsent />}
     </>
   );
 };
@@ -67,25 +57,16 @@ const ConditionalFeatures = () => {
 
 
 const App = () => {
-  
-  // SSR-safe check for window
-  const isClient = typeof window !== 'undefined';
-  
   return (
     <ErrorBoundary>
-      <HelmetProvider>
-        <DegradedModeProvider>
-          <AuthProvider>
-            <ScrollToTop />
-            {isClient && <ConditionalFeatures />}
-            <Toaster />
-            <Sonner />
-            {isClient && (
-              <Suspense fallback={null}>
-                <ContactBar />
-              </Suspense>
-            )}
-            <SkipToContent />
+      <DegradedModeProvider>
+        <AuthProvider>
+          <ScrollToTop />
+          <ConditionalFeatures />
+          <Toaster />
+          <Sonner />
+          <ContactBar />
+          <SkipToContent />
             
             
             <Suspense fallback={<LoadingSpinner />}>
@@ -176,9 +157,8 @@ const App = () => {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
-            </AuthProvider>
-          </DegradedModeProvider>
-      </HelmetProvider>
+          </AuthProvider>
+        </DegradedModeProvider>
     </ErrorBoundary>
   );
 };

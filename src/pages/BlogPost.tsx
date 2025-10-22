@@ -20,7 +20,7 @@ const BlogPost = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <Navigation />
         <div className="container-width py-16 text-center">
           <div className="flex items-center justify-center gap-2">
@@ -83,16 +83,16 @@ const BlogPost = () => {
         structuredData={structuredData}
       />
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-background">
         <Navigation />
 
         <main className="pt-0">
           {/* Breadcrumb */}
-          <section className="py-8 border-b border-border">
+          <section className="py-8 border-b">
             <div className="container-width">
               <Link
                 to="/blog"
-                className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Blog
@@ -101,20 +101,20 @@ const BlogPost = () => {
           </section>
 
           {/* Article Header */}
-          <section className="pt-20 pb-16 md:py-24 bg-white">
+          <section className="pt-20 pb-16 md:py-24 bg-background">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <Badge variant="secondary" className="mb-4">
                   {article.category}
                 </Badge>
 
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6">
                   {article.title}
                 </h1>
 
-                <p className="luxury-body-lg text-black">{article.excerpt}</p>
+                <p className="luxury-body-lg text-foreground">{article.excerpt}</p>
 
-                <div className="flex items-center justify-center gap-6 text-sm text-gray-600 mt-6">
+                <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
                     <time dateTime={article.published_at}>
@@ -137,11 +137,11 @@ const BlogPost = () => {
               </div>
             </div>
             {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
           </section>
 
           {/* Featured Image */}
-          <section className="py-8 bg-white">
+          <section className="py-8 bg-background">
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
                 <div className="aspect-video bg-muted rounded-lg overflow-hidden">
@@ -156,7 +156,7 @@ const BlogPost = () => {
             </div>
           </section>
 
-          <section className="pb-20 bg-white">
+          <section className="pb-20 bg-background">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
                 <div className="prose prose-lg max-w-none">
@@ -168,17 +168,17 @@ const BlogPost = () => {
 
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
-            <section className="py-16 bg-gray-50">
+            <section className="py-16 bg-muted">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
-                  <h2 className="luxury-heading-xl mb-12 text-center text-black">
+                  <h2 className="luxury-heading-xl mb-12 text-center">
                     Related Articles
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {relatedArticles.map((relatedArticle) => (
                       <Card
                         key={relatedArticle.id}
-                        className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
+                        className="group hover:shadow-luxury transition-all duration-300 overflow-hidden"
                       >
                         <div className="aspect-video bg-muted/50 relative overflow-hidden">
                           <img
@@ -190,25 +190,25 @@ const BlogPost = () => {
                           <div className="absolute top-4 left-4">
                             <Badge
                               variant="secondary"
-                              className="bg-background/90 text-black"
+                              className="bg-background/90"
                             >
                               {relatedArticle.category}
                             </Badge>
                           </div>
                         </div>
                         <CardHeader className="pb-4">
-                          <h3 className="luxury-heading-sm font-medium text-black group-hover:text-gray-700 transition-colors leading-tight">
+                          <h3 className="luxury-heading-sm font-medium group-hover:text-muted-foreground transition-colors leading-tight">
                             {relatedArticle.title}
                           </h3>
                         </CardHeader>
                         <CardContent className="pt-0">
-                          <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
+                          <p className="luxury-body-sm text-muted-foreground leading-relaxed mb-6">
                             {relatedArticle.excerpt.substring(0, 120)}...
                           </p>
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button
                               variant="ghost"
-                              className="group/btn p-0 h-auto font-medium text-gray-600 hover:text-gray-800"
+                              className="group/btn p-0 h-auto font-medium"
                             >
                               Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -224,13 +224,13 @@ const BlogPost = () => {
           )}
 
           {/* CTA Section */}
-          <section className="py-16 bg-white">
+          <section className="py-16 bg-background">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="luxury-heading-xl mb-6 text-black">
+                <h2 className="luxury-heading-xl mb-6">
                   Ready for Your London Experience?
                 </h2>
-                <p className="luxury-body-lg text-gray-700 mb-8">
+                <p className="luxury-body-lg text-muted-foreground mb-8">
                   Contact us to plan your exclusive experience in London with
                   our luxury companion services.
                 </p>
@@ -238,7 +238,7 @@ const BlogPost = () => {
                   <Link to="/contact">
                     <Button
                       size="lg"
-                      className="bg-black text-white hover:bg-gray-800"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
                       onClick={() =>
                         window.open("https://wa.me/447436190679", "_blank")
                       }
@@ -250,7 +250,6 @@ const BlogPost = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-black text-black hover:bg-black hover:text-white"
                     >
                       Our Services
                     </Button>

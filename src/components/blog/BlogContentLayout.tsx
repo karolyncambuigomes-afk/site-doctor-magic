@@ -130,14 +130,14 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
                   )}
                   
                   {index < sections.length - 1 && (
-                    <Separator className="my-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent h-px max-w-2xl mx-auto" />
+                    <Separator className="my-16 bg-gradient-to-r from-transparent via-border to-transparent h-px max-w-2xl mx-auto" />
                   )}
                 </React.Fragment>
               );
             })}
 
             {/* Share Section */}
-            <div className="mt-16 pt-8 border-t border-gray-200">
+            <div className="mt-16 pt-8 border-t">
               <BlogShareButtons 
                 title={firstSection?.title || 'Luxury London Experience'}
                 url={currentUrl}

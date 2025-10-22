@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+// Force rebuild - 2025-01-22
 export default {
 	darkMode: ["class"],
 	content: [

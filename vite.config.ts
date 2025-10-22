@@ -23,6 +23,7 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
+      input: mode === 'production' ? 'index.html' : 'index.dev.html',
       output: {
         manualChunks: (id) => {
           // Heavy admin libraries in separate chunks

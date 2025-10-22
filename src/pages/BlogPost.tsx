@@ -207,8 +207,8 @@ const BlogPost = () => {
                           </p>
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button
-                              variant="ghost"
-                              className="group/btn p-0 h-auto font-medium"
+                              variant="link"
+                              className="group/btn p-0 h-auto font-medium text-primary"
                             >
                               Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />

@@ -1,9 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
+import { Routes, Route } from "react-router-dom";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { ContactBar } from "@/components/ContactBar";
@@ -14,7 +12,6 @@ import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedMode
 import { AuthProvider } from "@/components/AuthProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { removeConsoleLogsInProduction } from "@/utils/performanceOptimizer";
 import { cleanConsoleOutput } from "@/utils/cleanConsole";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // Lazy load pages for better performance
@@ -42,18 +39,6 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const JoinUs = lazy(() => import("./pages/JoinUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Optimized QueryClient
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-      staleTime: 10 * 60 * 1000, // 10 minutes
-      gcTime: 15 * 60 * 1000, // 15 minutes
-    },
-  },
-});
-
 // Optimized conditional features
 const ConditionalFeatures = () => {
   const { isDegradedMode } = useDegradedMode();
@@ -75,26 +60,24 @@ const ConditionalFeatures = () => {
 const App = () => {
   // Remove console logs for better performance
   React.useEffect(() => {
-    cleanConsoleOutput();
+    if (typeof window !== 'undefined') {
+      cleanConsoleOutput();
+    }
   }, []);
   
   return (
     <ErrorBoundary>
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <DegradedModeProvider>
-            <BrowserRouter>
-              <AuthProvider>
-                <ScrollToTop />
-                <ConditionalFeatures />
-                <Toaster />
-                <Sonner />
-                <ContactBar />
-                <SkipToContent />
-                
-                
-                <Suspense fallback={<LoadingSpinner />}>
-                  <Routes>
+      <DegradedModeProvider>
+        <AuthProvider>
+          <ScrollToTop />
+          <ConditionalFeatures />
+          <Toaster />
+          <Sonner />
+          <ContactBar />
+          <SkipToContent />
+          
+          <Suspense fallback={<LoadingSpinner />}>
+            <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/auth" element={<Auth />} />
                     <Route path="/about" element={<About />} />
@@ -178,16 +161,13 @@ const App = () => {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/reviews" element={<Reviews />} />
                     <Route path="/join-us" element={<JoinUs />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </AuthProvider>
-            </BrowserRouter>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </AuthProvider>
           </DegradedModeProvider>
-        </QueryClientProvider>
-      </HelmetProvider>
-    </ErrorBoundary>
-  );
-};
+        </ErrorBoundary>
+      );
+    };
 
 export default App;

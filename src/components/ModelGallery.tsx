@@ -36,6 +36,8 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
 
   // Listen for gallery updates using a custom event
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleGalleryUpdate = () => {
       console.log('🖼️ SITE GALERIA: Recebido evento de atualização da galeria');
       loadGalleryImages();
@@ -249,12 +251,16 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
   };
 
   const openLightbox = (index: number) => {
+    if (typeof document === 'undefined') return;
+    
     setCurrentImageIndex(index);
     setIsLightboxOpen(true);
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
+    if (typeof document === 'undefined') return;
+    
     setIsLightboxOpen(false);
     document.body.style.overflow = 'unset';
   };

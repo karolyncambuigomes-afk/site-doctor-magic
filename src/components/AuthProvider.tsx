@@ -147,6 +147,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Simplified auth setup - avoid concurrent Supabase calls
     let mounted = true;
     

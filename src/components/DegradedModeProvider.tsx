@@ -32,9 +32,14 @@ const detectPrivateMode = (): boolean => {
 
 export const DegradedModeProvider: React.FC<DegradedModeProviderProps> = ({ children }) => {
   const [isPrivateMode, setIsPrivateMode] = useState<boolean | null>(null);
-  const [hasConnectivity, setHasConnectivity] = useState(navigator.onLine);
+  const [hasConnectivity, setHasConnectivity] = useState(() => {
+    if (typeof navigator === 'undefined') return true;
+    return navigator.onLine;
+  });
 
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+    
     console.log('DegradedModeProvider: Starting private mode detection');
     
     // Ultra-fast detection with reduced timeout

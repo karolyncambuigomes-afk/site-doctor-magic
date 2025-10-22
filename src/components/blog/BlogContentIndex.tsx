@@ -20,6 +20,8 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = content;
     
@@ -34,6 +36,8 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
   }, [content]);
 
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -54,6 +58,8 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
   }, [indexItems]);
 
   const scrollToSection = (id: string) => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 100;

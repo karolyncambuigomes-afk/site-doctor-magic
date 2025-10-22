@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 
 export const ServiceWorkerManager: React.FC = () => {
   useEffect(() => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+    
     if ('serviceWorker' in navigator) {
       // Check for manual force update trigger
       const urlHasForce = window.location.search.includes('forceUpdate=1') || 

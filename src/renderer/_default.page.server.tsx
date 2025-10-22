@@ -65,8 +65,8 @@ async function onBeforePrerenderStart() {
   let modelRoutes: string[] = []
   try {
     const { createClient } = await import('@supabase/supabase-js')
-    const supabaseUrl = process.env.VITE_SUPABASE_URL
-    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY
+    const supabaseUrl = process.env.VITE_SUPABASE_URL || 'https://jiegopvbwpyfohhfvmwo.supabase.co'
+    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppZWdvcHZid3B5Zm9oaGZ2bXdvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcwMjUxNzMsImV4cCI6MjA3MjYwMTE3M30.WJQz8B9y5IEHQMtWtH_Xpmg9_1cym4xEMW_rhqCtIcs'
     
     if (supabaseUrl && supabaseKey) {
       const supabase = createClient(supabaseUrl, supabaseKey)
@@ -80,9 +80,11 @@ async function onBeforePrerenderStart() {
       } else if (models && models.length > 0) {
         modelRoutes = models.map(model => `/models/${model.id}`)
         console.log(`✅ Generated ${modelRoutes.length} dynamic model routes`)
+      } else {
+        console.log('ℹ️ No models found for prerender.')
       }
     } else {
-      console.warn('⚠️ Supabase credentials not found. Skipping dynamic model routes.')
+      console.warn('⚠️ Supabase credentials missing even after fallback. Skipping dynamic model routes.')
     }
   } catch (error) {
     console.warn('⚠️ Could not fetch dynamic model routes:', error)

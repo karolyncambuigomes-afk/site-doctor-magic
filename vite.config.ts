@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import vike from 'vike/plugin';
 // Removed critical CSS plugin for better performance
 
 // https://vitejs.dev/config/
@@ -125,14 +124,10 @@ export default defineConfig(({ mode }) => ({
     emptyOutDir: true
   },
   plugins: [
-    vike({ prerender: true }),
     react(),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
-  ssr: {
-    noExternal: ['react-helmet-async', '@radix-ui/react-*']
-  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

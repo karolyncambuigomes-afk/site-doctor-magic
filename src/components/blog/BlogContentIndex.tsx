@@ -70,17 +70,17 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
   if (indexItems.length === 0) return null;
 
   return (
-    <Card className="p-6 border border-gray-200 bg-white/80 backdrop-blur-sm shadow-lg sticky top-24 z-10">
+    <Card className="p-6 bg-card/80 backdrop-blur-sm shadow-lg sticky top-24 z-10">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <List className="w-5 h-5 text-gray-600" />
-          <h3 className="luxury-heading-sm text-black">Content Index</h3>
+          <List className="w-5 h-5 text-muted-foreground" />
+          <h3 className="luxury-heading-sm text-foreground">Content Index</h3>
         </div>
         <Button
           variant="ghost"
           size="sm"
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-gray-600 hover:text-black"
+          className="text-muted-foreground hover:text-foreground"
         >
           <ChevronRight className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
         </Button>
@@ -94,8 +94,8 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
               onClick={() => scrollToSection(item.id)}
               className={`w-full text-left p-3 rounded-lg transition-all duration-200 ${
                 activeSection === item.id
-                  ? 'bg-gray-100 text-black font-medium border-l-4 border-gray-600'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-black'
+                  ? 'bg-muted text-foreground font-medium border-l-4 border-primary'
+                  : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
               } ${item.level === 3 ? 'ml-4 text-sm' : 'text-base'}`}
             >
               <div className="flex items-center gap-2">
@@ -107,8 +107,8 @@ export const BlogContentIndex: React.FC<BlogContentIndexProps> = ({ content }) =
         </div>
       )}
       
-      <div className="mt-4 pt-4 border-t border-gray-200">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+      <div className="mt-4 pt-4 border-t">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Clock className="w-4 h-4" />
           <span>Estimated read: {Math.ceil(content.length / 1000)} min</span>
         </div>

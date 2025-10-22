@@ -23,9 +23,9 @@ export const BlogProgressBar: React.FC = () => {
   }, []);
 
   return (
-    <div className="fixed top-16 left-0 right-0 z-50 h-1 bg-gray-200">
+    <div className="fixed top-16 left-0 right-0 z-50 h-1 bg-muted">
       <div 
-        className="h-full bg-gradient-to-r from-gray-600 to-black transition-all duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-primary to-primary/80 transition-all duration-150 ease-out"
         style={{ width: `${scrollProgress}%` }}
       />
     </div>

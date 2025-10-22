@@ -67,10 +67,6 @@ const ConditionalFeatures = () => {
 
 
 const App = () => {
-  // Remove console logs for better performance
-  React.useEffect(() => {
-    cleanConsoleOutput();
-  }, []);
   
   // SSR-safe check for window
   const isClient = typeof window !== 'undefined';

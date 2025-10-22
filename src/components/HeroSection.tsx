@@ -82,9 +82,7 @@ export const HeroSection: React.FC = () => {
 
       {/* Content - fades in after image loads or after loading completes */}
       <div 
-        className={`relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white transition-opacity duration-500 ${
-          imageLoaded || !loading ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white transition-opacity duration-500 opacity-100`}
       >
         <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">

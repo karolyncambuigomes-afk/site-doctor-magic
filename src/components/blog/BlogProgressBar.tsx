@@ -5,6 +5,7 @@ export const BlogProgressBar: React.FC = () => {
 
   useEffect(() => {
     const calculateProgress = () => {
+      if (typeof window === 'undefined' || typeof document === 'undefined') return;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight - windowHeight;
       const scrollTop = window.scrollY;

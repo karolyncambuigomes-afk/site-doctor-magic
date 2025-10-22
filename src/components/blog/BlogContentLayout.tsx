@@ -43,6 +43,11 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
   }, [processedContent]);
 
   const parseContent = (htmlContent: string): BlogSection[] => {
+    // SSR guard: fallback to single section during build
+    if (typeof document === 'undefined') {
+      return [{ title: '', content: htmlContent, type: 'text' }];
+    }
+    
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
     

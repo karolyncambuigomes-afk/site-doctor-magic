@@ -52,13 +52,17 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.create-test-accounts]
-verify_jwt = false
+verify_jwt = true
+# SECURITY: Requires admin authentication to prevent unauthorized account creation
 
 [functions.admin-health-check]
-verify_jwt = false
+verify_jwt = true
+# SECURITY: Requires authentication to prevent information disclosure
 
 [functions.admin-auth-validation]
-verify_jwt = false
+verify_jwt = true
+# SECURITY: Requires authentication for token validation
 
 [functions.validate-file-upload]
-verify_jwt = false
+verify_jwt = true
+# SECURITY: Requires authentication to prevent storage abuse

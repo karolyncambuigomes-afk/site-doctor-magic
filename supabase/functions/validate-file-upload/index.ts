@@ -69,6 +69,34 @@ serve(async (req) => {
   }
 
   try {
+    // SECURITY: Verify user is authenticated
+    const authHeader = req.headers.get('Authorization')
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ error: 'Authentication required' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Initialize Supabase clients
+    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    
+    // Verify JWT token
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
+      global: { headers: { Authorization: authHeader } }
+    })
+
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser()
+
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid authentication token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
     const formData = await req.formData()
     const file = formData.get('file') as File
     const fileType = formData.get('type') as string // 'photo' or 'video'
@@ -138,9 +166,7 @@ serve(async (req) => {
     const randomId = crypto.randomUUID().split('-')[0]
     const safePath = `${fileType}s/${timestamp}-${randomId}.${fileExt}`
 
-    // 5. Upload to Supabase Storage with validated file
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+    // 5. Upload to Supabase Storage with validated file (using service role)
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
     const { data: uploadData, error: uploadError } = await supabase.storage

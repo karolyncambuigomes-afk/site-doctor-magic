@@ -3,6 +3,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 
 const safeStorage = {
   getItem: (key: string) => {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') return null;
     try {
       return localStorage.getItem(key);
     } catch {
@@ -10,6 +11,7 @@ const safeStorage = {
     }
   },
   setItem: (key: string, value: string) => {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') return;
     try {
       localStorage.setItem(key, value);
     } catch {

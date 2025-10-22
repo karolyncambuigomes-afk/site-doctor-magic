@@ -3,9 +3,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import { CookieConsent } from "@/components/CookieConsent";
-import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
-import { ContactBar } from "@/components/ContactBar";
 
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -41,6 +38,11 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const JoinUs = lazy(() => import("./pages/JoinUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+// Lazy load client-only components
+const ContactBar = lazy(() => import("@/components/ContactBar").then(m => ({ default: m.ContactBar })));
+const ServiceWorkerManager = lazy(() => import("@/components/ServiceWorkerManager").then(m => ({ default: m.ServiceWorkerManager })));
+const CookieConsent = lazy(() => import("@/components/CookieConsent").then(m => ({ default: m.CookieConsent })));
+
 // Optimized conditional features
 const ConditionalFeatures = () => {
   const { isDegradedMode } = useDegradedMode();
@@ -48,10 +50,15 @@ const ConditionalFeatures = () => {
   // Initialize auto-refresh functionality
   useAutoRefresh();
   
+  // SSR guard - exit immediately on server
+  if (typeof window === 'undefined') return null;
+  
   return (
     <>
-      <ServiceWorkerManager />
-      {!isDegradedMode && <CookieConsent />}
+      <Suspense fallback={null}>
+        <ServiceWorkerManager />
+        {!isDegradedMode && <CookieConsent />}
+      </Suspense>
     </>
   );
 };
@@ -77,7 +84,11 @@ const App = () => {
             {isClient && <ConditionalFeatures />}
             <Toaster />
             <Sonner />
-            <ContactBar />
+            {isClient && (
+              <Suspense fallback={null}>
+                <ContactBar />
+              </Suspense>
+            )}
             <SkipToContent />
             
             

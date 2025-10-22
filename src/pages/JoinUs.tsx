@@ -144,20 +144,19 @@ const JoinUs = () => {
 
   const uploadFiles = async (files: File[], folder: string): Promise<string[]> => {
     const uploadPromises = files.map(async (file) => {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${folder}/${Date.now()}-${Math.random()}.${fileExt}`;
+      // Use server-side validation edge function for security
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', folder === 'photos' ? 'photo' : 'video');
       
-      const { data, error } = await supabase.storage
-        .from('model-applications')
-        .upload(fileName, file);
+      const { data, error } = await supabase.functions.invoke('validate-file-upload', {
+        body: formData
+      });
 
-      if (error) throw error;
+      if (error) throw new Error(error.message || 'File upload validation failed');
+      if (!data?.success) throw new Error(data?.error || 'File validation failed');
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('model-applications')
-        .getPublicUrl(data.path);
-
-      return publicUrl;
+      return data.url;
     });
 
     return Promise.all(uploadPromises);

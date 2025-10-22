@@ -89,7 +89,9 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
 
   const sections = parseContent(processedContent);
 
-  const currentUrl = `${window.location.origin}/blog/${slug}`;
+  const currentUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}/blog/${slug}`
+    : `https://fivelondon.com/blog/${slug}`;
   const firstSection = sections[0];
 
   return (

@@ -68,6 +68,12 @@ export const Footer = () => {
           <div className="space-y-4">
             <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">OUR SERVICES</h4>
             <div className="space-y-3">
+              <SafeLink to="/" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Elite Companions
+              </SafeLink>
+              <SafeLink to="/services" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Premium Services
+              </SafeLink>
               <SafeLink to="/locations" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 London Locations
               </SafeLink>
@@ -100,6 +106,9 @@ export const Footer = () => {
               </div>
               <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 FAQ
+              </SafeLink>
+              <SafeLink to="/about" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                About Us
               </SafeLink>
               <SafeLink to="/reviews" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Reviews

@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
-              <h2 className="luxury-heading-lg text-black mb-4">1. Information We Collect</h2>
+              <h2 className="luxury-heading-lg text-foreground mb-4">1. Information We Collect</h2>
               <p className="text-gray-600 mb-4">
                 We collect information you provide directly to us, such as when you contact us, 
                 request our services, or subscribe to our communications.

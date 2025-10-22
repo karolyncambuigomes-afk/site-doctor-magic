@@ -1,4 +1,4 @@
-import { Navigate, Link, useLocation } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
 import { useState } from 'react';
 import { SEOOptimized } from '@/components/SEOOptimized';
@@ -15,7 +15,6 @@ const LocationDetail = () => {
   const params = useSafeParams();
   const { locationSlug } = params;
   const { models, loading, error } = useModels();
-  const routerLocation = useLocation();
   
   // Safety check for router context
   if (!params) {
@@ -24,7 +23,7 @@ const LocationDetail = () => {
   }
   
   // Get current path to determine the slug format
-  const currentPath = routerLocation.pathname;
+  const currentPath = window.location.pathname;
   
   // Find the location by matching either format: /locations/slug or /escorts-in-location
   let location = locations.find(loc => loc.slug === locationSlug);

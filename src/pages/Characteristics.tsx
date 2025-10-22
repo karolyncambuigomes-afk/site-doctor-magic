@@ -27,7 +27,7 @@ const Characteristics = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Escorts by Characteristics
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="luxury-body-lg text-black">
                   Discover companions with specific traits that match your preferences.
                 </p>
               </div>
@@ -37,7 +37,7 @@ const Characteristics = () => {
           </section>
 
           {/* Characteristics Grid */}
-          <section className="py-12 md:py-16 bg-white">
+          <section className="py-12 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 sm:px-6">
                 {characteristics.map((characteristic) => (
@@ -69,33 +69,33 @@ const Characteristics = () => {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Physical Characteristics</h3>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Our diverse selection of companions includes sophisticated ladies with varying physical attributes, from elegant brunettes to stunning blondes, petite companions to statuesque beauties, ensuring the perfect match for your preferences.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Elegant Sophistication</h4>
-                      <p className="luxury-body-xs text-gray-600">High-class companions with refined appearance and impeccable presentation for London's most exclusive venues.</p>
+                      <p className="luxury-body-xs text-muted-foreground">High-class companions with refined appearance and impeccable presentation for London's most exclusive venues.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Diverse Selection</h4>
-                      <p className="luxury-body-xs text-gray-600">Wide range of ethnicities, ages, and physical types to match your specific preferences and requirements.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Wide range of ethnicities, ages, and physical types to match your specific preferences and requirements.</p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Personality Traits</h3>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Beyond physical beauty, our companions are selected for their intelligence, sophistication, and engaging personalities. Whether you prefer vivacious conversation or quiet elegance, we have the perfect companion for your occasion.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Intellectual Companions</h4>
-                      <p className="luxury-body-xs text-gray-600">Well-educated companions capable of engaging conversation on diverse topics from business to arts and culture.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Well-educated companions capable of engaging conversation on diverse topics from business to arts and culture.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Social Adaptability</h4>
-                      <p className="luxury-body-xs text-gray-600">Companions skilled in various social settings, from intimate dinners to high-profile business events across London.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Companions skilled in various social settings, from intimate dinners to high-profile business events across London.</p>
                     </div>
                   </div>
                 </div>

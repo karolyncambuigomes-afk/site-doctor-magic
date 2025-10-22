@@ -32,33 +32,33 @@ export const BlogShareButtons: React.FC<BlogShareButtonsProps> = ({ title, url, 
       name: 'Twitter',
       icon: Twitter,
       url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
-      color: 'hover:bg-muted hover:text-foreground'
+      color: 'hover:bg-blue-50 hover:text-blue-600'
     },
     {
       name: 'Facebook',
       icon: Facebook,
       url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
-      color: 'hover:bg-muted hover:text-foreground'
+      color: 'hover:bg-blue-50 hover:text-blue-800'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
       url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
-      color: 'hover:bg-muted hover:text-foreground'
+      color: 'hover:bg-blue-50 hover:text-blue-700'
     },
     {
       name: 'Email',
       icon: Mail,
       url: `mailto:?subject=${encodedTitle}&body=${encodedDescription}%0A%0A${encodedUrl}`,
-      color: 'hover:bg-muted hover:text-foreground'
+      color: 'hover:bg-gray-50 hover:text-gray-700'
     }
   ];
 
   return (
-    <div className="flex items-center gap-3 p-6 bg-muted rounded-xl border">
+    <div className="flex items-center gap-3 p-6 bg-gray-50 rounded-xl border border-gray-200">
       <div className="flex items-center gap-2">
-        <Share2 className="w-5 h-5 text-muted-foreground" />
-        <span className="luxury-body-md font-medium text-foreground">Share this article:</span>
+        <Share2 className="w-5 h-5 text-gray-600" />
+        <span className="luxury-body-md font-medium text-gray-800">Share this article:</span>
       </div>
       
       <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export const BlogShareButtons: React.FC<BlogShareButtonsProps> = ({ title, url, 
             variant="ghost"
             size="sm"
             onClick={() => window.open(link.url, '_blank', 'noopener,noreferrer')}
-            className={`text-muted-foreground transition-colors ${link.color}`}
+            className={`text-gray-600 transition-colors ${link.color}`}
             aria-label={`Share on ${link.name}`}
           >
             <link.icon className="w-4 h-4" />
@@ -79,7 +79,7 @@ export const BlogShareButtons: React.FC<BlogShareButtonsProps> = ({ title, url, 
           variant="ghost"
           size="sm"
           onClick={copyToClipboard}
-          className="text-muted-foreground hover:bg-muted hover:text-foreground"
+          className="text-gray-600 hover:bg-gray-100 hover:text-gray-800"
           aria-label="Copy link"
         >
           <Link2 className="w-4 h-4" />

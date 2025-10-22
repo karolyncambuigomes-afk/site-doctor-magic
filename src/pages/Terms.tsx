@@ -37,7 +37,7 @@ const Terms = () => {
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>
             
             <section className="mb-8">
-              <h2 className="luxury-heading-lg text-black mb-4">1. Acceptance of Terms</h2>
+              <h2 className="luxury-heading-lg text-foreground mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-600 mb-4">
                 By accessing and using Five London services, you accept and agree to be bound by 
                 the terms and provision of this agreement.

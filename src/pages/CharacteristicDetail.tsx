@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate, Link, useLocation } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
@@ -14,8 +14,7 @@ const CharacteristicDetail = () => {
   const params = useSafeParams();
   const { characteristicSlug } = params;
   const { models, loading, error } = useModels();
-  const routerLocation = useLocation();
-  const currentPath = routerLocation.pathname;
+  const currentPath = window.location.pathname;
   
   // Safety check for router context
   if (!params) {
@@ -199,11 +198,11 @@ const CharacteristicDetail = () => {
                   .filter(char => char.id !== characteristic.id)
                   .slice(0, 4)
                   .map((char) => (
-                     <Link key={char.id} to={`/characteristics/${char.slug}`}>
+                    <Link key={char.id} to={`/characteristics/${char.slug}`}>
                        <Button variant="outline" className="w-full p-4 h-auto">
                          <div className="text-center">
                            <div className="font-medium">{char.name}</div>
-                           <div className="luxury-body-xs text-gray-600 mt-1">
+                           <div className="luxury-body-xs text-muted-foreground mt-1">
                              {models.filter(m => m.characteristics && m.characteristics.some(c => c.toLowerCase() === char.name.toLowerCase())).length} models
                            </div>
                          </div>

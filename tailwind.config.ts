@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// Force rebuild - 2025-01-22
 export default {
 	darkMode: ["class"],
 	content: [
@@ -41,10 +40,6 @@ export default {
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
-				},
-				success: {
-					DEFAULT: 'hsl(var(--success))',
-					foreground: 'hsl(var(--success-foreground))'
 				},
 				muted: {
 					DEFAULT: 'hsl(var(--muted))',

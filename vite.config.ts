@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+// Removed critical CSS plugin for better performance
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -17,7 +18,6 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      input: 'index.html',
       output: {
         manualChunks: (id) => {
           // Heavy admin libraries in separate chunks
@@ -100,8 +100,23 @@ export default defineConfig(({ mode }) => ({
     sourcemap: false,
     assetsInlineLimit: 512, // Even smaller inline limit for better caching
     chunkSizeWarningLimit: 800,
-    minify: mode === 'production' ? 'esbuild' : false,
-    // terserOptions removed to avoid build issues
+    minify: mode === 'production' ? 'terser' : false,
+    terserOptions: mode === 'production' ? {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.warn', 'console.error'],
+        passes: 3,
+        unsafe_arrows: true,
+        unsafe_methods: true
+      },
+      mangle: {
+        safari10: true
+      },
+      format: {
+        comments: false
+      }
+    } : undefined,
     cssMinify: true,
     reportCompressedSize: true,
     // Enable asset compression
@@ -110,7 +125,8 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' && componentTagger(),
+    mode === 'development' &&
+    componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {

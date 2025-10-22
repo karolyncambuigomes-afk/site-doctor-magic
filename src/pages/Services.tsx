@@ -194,7 +194,7 @@ const Services = () => {
                   <AccordionItem 
                     key={service.title} 
                     value={`item-${index}`}
-                    className="border border-border/30 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-1 sm:py-2 hover:border-black/30 transition-all duration-300 data-[state=open]:border-black/50"
+                    className="border border-border/30 rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-1 sm:py-2 hover:border-primary/30 transition-all duration-300 data-[state=open]:border-primary/50"
                   >
                     <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
@@ -307,7 +307,7 @@ const Services = () => {
 
                         {/* Ideal for */}
                         <div>
-                          <p className="luxury-body-xs sm:luxury-body-sm text-gray-600 italic">
+                          <p className="luxury-body-xs sm:luxury-body-sm text-muted-foreground italic">
                             {service.ideal}
                           </p>
                         </div>
@@ -340,12 +340,12 @@ const Services = () => {
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-black">About Our Premium Services</h2>
+                  <h2 className="luxury-heading-lg text-foreground">About Our Premium Services</h2>
                 </div>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Dinner Date and Social Companionship</h3>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
                     Experience London's finest dining venues with sophisticated companions who excel in creating memorable social experiences. From intimate dinners at Michelin-starred restaurants to elegant cocktail receptions, our elite escorts provide engaging conversation and refined companionship.
                   </p>
                   <p className="luxury-body-md text-gray-700 leading-relaxed">

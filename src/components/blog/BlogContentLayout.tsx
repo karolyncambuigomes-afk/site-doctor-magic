@@ -43,11 +43,6 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
   }, [processedContent]);
 
   const parseContent = (htmlContent: string): BlogSection[] => {
-    // SSR guard: fallback to single section during build
-    if (typeof document === 'undefined') {
-      return [{ title: '', content: htmlContent, type: 'text' }];
-    }
-    
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = htmlContent;
     
@@ -94,9 +89,7 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
 
   const sections = parseContent(processedContent);
 
-  const currentUrl = typeof window !== 'undefined' 
-    ? `${window.location.origin}/blog/${slug}`
-    : `https://fivelondon.com/blog/${slug}`;
+  const currentUrl = `${window.location.origin}/blog/${slug}`;
   const firstSection = sections[0];
 
   return (
@@ -137,14 +130,14 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
                   )}
                   
                   {index < sections.length - 1 && (
-                    <Separator className="my-16 bg-gradient-to-r from-transparent via-border to-transparent h-px max-w-2xl mx-auto" />
+                    <Separator className="my-16 bg-gradient-to-r from-transparent via-gray-300 to-transparent h-px max-w-2xl mx-auto" />
                   )}
                 </React.Fragment>
               );
             })}
 
             {/* Share Section */}
-            <div className="mt-16 pt-8 border-t">
+            <div className="mt-16 pt-8 border-t border-gray-200">
               <BlogShareButtons 
                 title={firstSection?.title || 'Luxury London Experience'}
                 url={currentUrl}

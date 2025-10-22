@@ -3,6 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from '../App';
+import '../index.css';
+import '../styles/utilities.css';
 
 export { render };
 

@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App';
 import './index.css';
+import './styles/utilities.css';
 import './utils/cleanConsole.ts';
 
 // Create QueryClient for development

@@ -10,10 +10,3 @@ createRoot(document.getElementById("root")!).render(
   </React.StrictMode>,
 );
 
-// Trigger prerender event after app is mounted
-if (typeof window !== 'undefined') {
-  window.addEventListener('load', () => {
-    document.dispatchEvent(new Event('render-event'));
-  });
-}
-

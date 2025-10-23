@@ -4,5 +4,11 @@
       "source": "/(.*)",
       "destination": "/api/prerender"
     }
-  ]
+  ],
+  "functions": {
+    "api/prerender.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
 }

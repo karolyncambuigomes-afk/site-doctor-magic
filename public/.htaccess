@@ -2,8 +2,7 @@
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
 # Prerender.io Token Configuration
-# Replace YOUR_PRERENDER_TOKEN with your actual token from prerender.io dashboard
-SetEnv PRERENDER_TOKEN YOUR_PRERENDER_TOKEN
+SetEnv PRERENDER_TOKEN fBgWp4mlMc6fTWbH2aTf
 
 # Security Headers for Admin Protection
 <IfModule mod_headers.c>

@@ -1,9 +1,6 @@
 # Five London - Optimized for External Tools & Performance Analysis
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
-# Set Prerender.io token (stored in Supabase Secrets)
-SetEnv PRERENDER_TOKEN ${PRERENDER_TOKEN}
-
 # Security Headers for Admin Protection
 <IfModule mod_headers.c>
     # Strict Transport Security (HSTS)
@@ -228,26 +225,6 @@ SetEnv PRERENDER_TOKEN ${PRERENDER_TOKEN}
 
 # Enable basic ETags for better cache validation
 FileETag MTime Size
-
-# Prerender.io Middleware for SEO
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    
-    # Prerender.io: Bot detection and proxy
-    # Check if request is from a bot/crawler
-    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator|redditbot|applebot|whatsapp|flipboard|tumblr|bitlybot|skypeuripreview|nuzzel|discordbot|qwantify|pinterestbot|bitrix\ link\ preview|xing-contenttabreceiver|chrome-lighthouse|telegrambot [NC,OR]
-    RewriteCond %{QUERY_STRING} _escaped_fragment_
-    
-    # Don't proxy if already proxied or if it's a static file
-    RewriteCond %{HTTP:X-Prerender} !^1$
-    RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|doc|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|eot)$ [NC]
-    
-    # Proxy to Prerender.io
-    RewriteRule ^(.*)$ https://service.prerender.io/https://%{HTTP_HOST}/$1 [P,L]
-    
-    # Set Prerender token header
-    RequestHeader set X-Prerender-Token "%{PRERENDER_TOKEN}e" env=PRERENDER_TOKEN
-</IfModule>
 
 # SPA Routing and Image Proxy
 <IfModule mod_rewrite.c>

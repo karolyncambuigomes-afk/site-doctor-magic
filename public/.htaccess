@@ -146,6 +146,9 @@ SetEnv PRERENDER_TOKEN fBgWp4mlMc6fTWbH2aTf
         Header set Pragma "no-cache"
         Header set Expires "0"
     </FilesMatch>
+    
+    # Prerender.io - Add token header for all proxy requests
+    RequestHeader set X-Prerender-Token "fBgWp4mlMc6fTWbH2aTf" env=PRERENDER_REQUEST
 
     # Index HTML - short cache only
     <FilesMatch "^index\.html$">
@@ -248,10 +251,8 @@ FileETag MTime Size
     RewriteCond %{REQUEST_URI} !^/api/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{HTTP:X-Prerender} !1
-    # Proxy to Prerender.io
-    RewriteRule ^(.*)$ https://service.prerender.io/https://%{HTTP_HOST}/$1 [P,L]
-    # Add Prerender token header
-    RequestHeader set X-Prerender-Token %{PRERENDER_TOKEN}e
+    # Proxy to Prerender.io with token
+    RewriteRule ^(.*)$ https://service.prerender.io/https://%{HTTP_HOST}/$1 [P,E=PRERENDER_TOKEN:fBgWp4mlMc6fTWbH2aTf,L]
     
     # Image proxy: /images/* → /api/i/*
     RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]

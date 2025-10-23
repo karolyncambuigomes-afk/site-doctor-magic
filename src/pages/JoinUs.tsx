@@ -144,20 +144,20 @@ const JoinUs = () => {
 
   const uploadFiles = async (files: File[], folder: string): Promise<string[]> => {
     const uploadPromises = files.map(async (file) => {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${folder}/${Date.now()}-${Math.random()}.${fileExt}`;
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+      uploadFormData.append('type', folder === 'photos' ? 'photo' : 'video');
+      uploadFormData.append('email', formData.email);
       
-      const { data, error } = await supabase.storage
-        .from('model-applications')
-        .upload(fileName, file);
+      const { data, error } = await supabase.functions.invoke('upload-application-file', {
+        body: uploadFormData,
+      });
 
       if (error) throw error;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('model-applications')
-        .getPublicUrl(data.path);
-
-      return publicUrl;
+      if (data?.error) throw new Error(data.error);
+      
+      // Return the storage path (not public URL since bucket is private)
+      return data.path;
     });
 
     return Promise.all(uploadPromises);

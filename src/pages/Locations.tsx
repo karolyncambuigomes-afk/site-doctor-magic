@@ -22,23 +22,23 @@ const Locations = () => {
       
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="pt-20 pb-12 md:py-24 bg-white">
+          <section className="section-padding-lg bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="heading-1 title-margin-md text-primary-content">
                   Escorts by Location
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="body-lead text-primary-content mb-12 md:mb-12">
                   Find sophisticated companions across London's most exclusive districts.
                 </p>
               </div>
             </div>
             {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+            <div className="separator-elegant"></div>
           </section>
 
           {/* Locations Grid */}
-          <section className="py-12 bg-white">
+          <section className="section-padding-md bg-white">
             <div className="container-width">
               <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6 px-4 sm:px-6">
                 {locations.map((location) => (
@@ -62,13 +62,13 @@ const Locations = () => {
           </section>
 
           {/* Contact Section */}
-          <section className="py-16 bg-gray-50">
+          <section className="section-padding-md bg-secondary-surface">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">
+                <h2 className="heading-2 title-margin-md text-primary-content">
                   Looking for a Specific Location?
                 </h2>
-                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
+                <p className="body-lead text-primary-content mb-6 sm:mb-8">
                   Our elite companions provide services throughout Greater London. Contact us to arrange an appointment in your preferred area.
                 </p>
                 <a

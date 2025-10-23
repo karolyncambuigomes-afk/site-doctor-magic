@@ -143,39 +143,39 @@ export const Membership: React.FC = () => {
         
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="pt-20 pb-16 md:py-24 bg-white">
+          <section className="section-padding-lg bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="heading-1 title-margin-md text-primary-content">
                   Members Area
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="body-lead text-primary-content mb-12 md:mb-12">
                   Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
                 </p>
               </div>
             </div>
             {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+            <div className="separator-elegant"></div>
           </section>
 
           <div className="container-width px-6">
 
             {/* Logged In User Section */}
             {user && (
-              <section className="py-16 bg-white">
+              <section className="section-padding-md bg-white">
                 <div className="max-w-md mx-auto">
                   {/* Back link */}
                   <Link 
                     to="/" 
-                    className="inline-flex items-center luxury-body-sm text-gray-600 hover:text-black mb-8 transition-colors"
+                    className="inline-flex items-center body-sm text-secondary-content hover:text-primary-content mb-8 transition-smooth"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to home
                   </Link>
 
-                  <Card className="border border-border/50 shadow-luxury">
+                  <Card variant="elegant" className="shadow-luxury">
                     <CardHeader className="text-center pb-6">
-                      <CardTitle className="luxury-heading-md text-black">
+                      <CardTitle className="heading-3 text-primary-content">
                         Welcome Back!
                       </CardTitle>
                       <CardDescription className="text-gray-600">
@@ -320,19 +320,19 @@ export const Membership: React.FC = () => {
             )}
 
             {/* VIP Membership Benefits */}
-            <section className="py-16 bg-gray-50">
+            <section className="section-padding-md bg-secondary-surface">
               <div className="max-w-4xl mx-auto px-4 sm:px-6">
-                <div className="text-center mb-12">
-                  <h2 className="luxury-heading-lg mb-4 text-black">VIP Membership Benefits</h2>
-                  <p className="luxury-body-lg text-gray-700">
+                <div className="text-center title-margin-lg">
+                  <h2 className="heading-2 title-margin-md text-primary-content">VIP Membership Benefits</h2>
+                  <p className="body-lead text-secondary-content">
                     Discover the exclusive advantages of Five London membership
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <h3 className="luxury-heading-md text-black">Premium Access</h3>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                <div className="grid md:grid-cols-2 gap-content">
+                  <div className="flex flex-col gap-element">
+                    <h3 className="heading-3 text-primary-content">Premium Access</h3>
+                    <p className="body-base text-secondary-content">
                       VIP membership provides exclusive access to our most sophisticated companions and premium services. 
                       Members enjoy priority booking, extended availability, and access to our elite model gallery.
                     </p>

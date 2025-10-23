@@ -149,13 +149,13 @@ const About = () => {
 
       <main className="pt-0 bg-white">
         {/* Hero Section */}
-        <section className="pt-20 pb-16 md:py-24 bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+              <h1 className="heading-1 title-margin-md text-primary-content">
                 About Five London
               </h1>
-              <p className="luxury-body-lg text-black mb-12 md:mb-12">
+              <p className="body-lead text-primary-content mb-12 md:mb-12">
                 London's premier luxury escort agency. Discover our commitment
                 to excellence, discretion, and sophisticated companionship
                 services.
@@ -163,11 +163,11 @@ const About = () => {
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          <div className="separator-elegant"></div>
         </section>
 
         {/* Image Section */}
-        <section className="py-12">
+        <section className="section-padding-md">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <img
@@ -181,9 +181,9 @@ const About = () => {
         </section>
 
         {/* Our Story Section */}
-        <section className="py-16 md:py-20 bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-content items-center">
               <div className="order-2 lg:order-1">
                 <img
                   src={aboutLuxury2}
@@ -192,9 +192,9 @@ const About = () => {
                   loading="lazy"
                 />
               </div>
-              <div className="order-1 lg:order-2">
-                <h2 className="luxury-heading-lg mb-6 text-black">Our Story</h2>
-                <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
+              <div className="order-1 lg:order-2 flex flex-col gap-element">
+                <h2 className="heading-2 text-primary-content">Our Story</h2>
+                <p className="body-base text-secondary-content">
                   Five London was born from a vision to redefine the luxury
                   companionship industry in London. Recognizing the need for a
                   service that truly understands the discerning tastes of

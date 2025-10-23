@@ -9,17 +9,18 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-elegant hover:shadow-luxury",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-elegant hover:shadow-luxury transition-luxury",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-elegant",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-elegant transition-luxury",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-minimal hover:shadow-elegant",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground shadow-minimal hover:shadow-elegant transition-smooth",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-minimal hover:shadow-elegant",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
-        luxury: "btn-luxury",
-        "outline-luxury": "btn-outline-luxury",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-minimal hover:shadow-elegant transition-smooth",
+        ghost: "hover:bg-accent hover:text-accent-foreground transition-smooth",
+        link: "text-primary underline-offset-4 hover:underline transition-smooth",
+        luxury: "bg-foreground text-background hover:bg-foreground/90 shadow-elegant hover:shadow-luxury transition-luxury font-medium tracking-wider uppercase",
+        "luxury-outline": "border-2 border-foreground text-foreground bg-transparent hover:bg-foreground hover:text-background transition-luxury font-medium tracking-wider uppercase",
+        "luxury-ghost": "text-foreground hover:bg-foreground/5 transition-luxury font-medium tracking-wider uppercase",
       },
       size: {
         default: "h-10 px-4 py-2",

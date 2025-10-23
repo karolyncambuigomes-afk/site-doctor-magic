@@ -31,19 +31,19 @@ export const Models: React.FC = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="pt-20 pb-16 md:py-24 bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+              <h1 className="heading-1 title-margin-md text-primary-content">
                 Elite Escort Models
               </h1>
-              <p className="luxury-body-lg text-black mb-12 md:mb-12">
+              <p className="body-lead text-primary-content mb-12 md:mb-12">
                 Discover London's most sophisticated companions. Available for dinner dates, business events, and exclusive experiences.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          <div className="separator-elegant"></div>
         </section>
 
         {/* Models Gallery */}
@@ -52,17 +52,17 @@ export const Models: React.FC = () => {
         </section>
 
         {/* About Our Elite Models - Collapsible Rich Content */}
-        <section className="py-16 bg-gray-100">
+        <section className="section-padding-md bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+            <div className="bg-card-surface backdrop-blur-sm rounded-xl border-secondary-line shadow-sm p-6 md:p-8">
               <div className="mb-8">
-                <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-black">About Our Elite Models</h2>
+                <div className="text-center title-margin-lg">
+                  <h2 className="heading-2 text-primary-content">About Our Elite Models</h2>
                 </div>
-                <div className="grid md:grid-cols-2 gap-8 mt-8">
-                <div className="space-y-4">
-                  <h3 className="luxury-heading-md">Sophisticated Companions for Elite Clients</h3>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                <div className="grid md:grid-cols-2 gap-content mt-8">
+                <div className="flex flex-col gap-tight">
+                  <h3 className="heading-3">Sophisticated Companions for Elite Clients</h3>
+                  <p className="body-base text-secondary-content">
                     Our exclusive gallery features carefully selected international models who embody sophistication, intelligence, and natural beauty. Each companion represents the highest standards of elegance and cultural refinement, providing discerning gentlemen with exceptional experiences across London's most prestigious venues.
                   </p>
                   <p className="luxury-body-md text-gray-700 leading-relaxed">
@@ -93,13 +93,13 @@ export const Models: React.FC = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-12 md:py-20 lg:py-24 bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">
+              <h2 className="heading-2 title-margin-md text-primary-content">
                 Ready to Meet Your Perfect Companion?
               </h2>
-              <p className="luxury-body-lg text-black mb-6 sm:mb-8">
+              <p className="body-lead text-primary-content mb-6 sm:mb-8">
                 Contact our concierge team to arrange your exclusive experience with one of our elite models.
               </p>
               <a

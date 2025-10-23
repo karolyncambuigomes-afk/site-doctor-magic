@@ -153,9 +153,162 @@
   .luxury-body-xs {
     @apply luxury-body text-xs sm:text-sm leading-relaxed font-medium;
   }
+
+  .body-minimal {
+    @apply luxury-body text-xs leading-tight font-medium;
+  }
   
   .caption {
     @apply luxury-body text-xs uppercase tracking-wider font-medium;
+  }
+
+  /* Heading Variants - Semantic System */
+  .heading-hero {
+    @apply luxury-heading text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light tracking-wide leading-tight;
+  }
+
+  .heading-1 {
+    @apply luxury-heading text-2xl sm:text-3xl lg:text-4xl font-light tracking-wide leading-tight;
+  }
+
+  .heading-2 {
+    @apply luxury-heading text-xl sm:text-2xl lg:text-3xl font-normal tracking-wide leading-snug;
+  }
+
+  .heading-3 {
+    @apply luxury-heading text-lg sm:text-xl lg:text-2xl font-medium tracking-wide leading-snug;
+  }
+
+  .heading-4 {
+    @apply luxury-heading text-base sm:text-lg lg:text-xl font-medium tracking-normal;
+  }
+
+  /* Body Text Variants - Semantic System */
+  .body-lead {
+    @apply luxury-body text-lg sm:text-xl leading-relaxed font-normal;
+  }
+
+  .body-base {
+    @apply luxury-body text-base sm:text-lg leading-relaxed font-normal;
+  }
+
+  .body-sm {
+    @apply luxury-body text-sm sm:text-base leading-relaxed font-normal;
+  }
+
+  .body-xs {
+    @apply luxury-body text-xs sm:text-sm leading-relaxed font-medium;
+  }
+
+  /* Section Spacing System */
+  .section-padding-xl {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .section-padding-lg {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-padding-md {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  .section-padding-sm {
+    @apply py-8 md:py-12 lg:py-16;
+  }
+
+  .section-padding-xs {
+    @apply py-6 md:py-8 lg:py-10;
+  }
+
+  /* Content Spacing - Gaps */
+  .gap-section {
+    @apply gap-12 md:gap-16 lg:gap-20;
+  }
+
+  .gap-content {
+    @apply gap-8 md:gap-10 lg:gap-12;
+  }
+
+  .gap-element {
+    @apply gap-6 md:gap-8;
+  }
+
+  .gap-tight {
+    @apply gap-4 md:gap-6;
+  }
+
+  .gap-minimal {
+    @apply gap-2 md:gap-3;
+  }
+
+  /* Title Margins */
+  .title-margin-xl {
+    @apply mb-8 md:mb-12 lg:mb-16;
+  }
+
+  .title-margin-lg {
+    @apply mb-6 md:mb-8 lg:mb-10;
+  }
+
+  .title-margin-md {
+    @apply mb-4 md:mb-6;
+  }
+
+  .title-margin-sm {
+    @apply mb-3 md:mb-4;
+  }
+
+  /* Semantic Text Colors */
+  .text-primary-content {
+    @apply text-foreground;
+  }
+
+  .text-secondary-content {
+    @apply text-muted-foreground;
+  }
+
+  .text-accent-content {
+    @apply text-primary;
+  }
+
+  .text-inverse {
+    @apply text-primary-foreground;
+  }
+
+  /* Semantic Background Colors */
+  .bg-primary-surface {
+    @apply bg-background;
+  }
+
+  .bg-secondary-surface {
+    @apply bg-muted;
+  }
+
+  .bg-accent-surface {
+    @apply bg-primary;
+  }
+
+  .bg-card-surface {
+    @apply bg-card;
+  }
+
+  /* Semantic Border Colors */
+  .border-primary-line {
+    @apply border-border;
+  }
+
+  .border-secondary-line {
+    @apply border-border/50;
+  }
+
+  .border-accent-line {
+    @apply border-primary/30;
+  }
+
+  /* Elegant Separator */
+  .separator-elegant {
+    @apply w-full h-px bg-gradient-to-r from-transparent via-border/40 to-transparent;
   }
   
   /* Shadow utilities */

@@ -84,13 +84,13 @@ const Index = () => {
         <HeroSection />
 
         {/* Elite Escort Services Introduction - Text 1 */}
-        <section className="py-12 md:py-16 bg-gray-50">
+        <section className="section-padding-md bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="space-y-4 text-center">
-              <p className="luxury-body-md text-gray-700 leading-relaxed">
+            <div className="flex flex-col gap-tight text-center">
+              <p className="body-base text-secondary-content">
                 Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
               </p>
-              <p className="luxury-body-md text-gray-700 leading-relaxed">
+              <p className="body-base text-secondary-content">
                 Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
               </p>
             </div>
@@ -98,37 +98,37 @@ const Index = () => {
         </section>
 
         {/* All Models Gallery Section */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="section-padding-md bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <ModelsGallery />
           </div>
         </section>
 
         {/* About Section */}
-        <section className="py-12 md:py-16 text-foreground bg-gray-100">
+        <section className="section-padding-md text-foreground bg-secondary-surface">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             {/* About Our Services - Integrated Design */}
             <div className="max-w-4xl mx-auto">
-          <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
-                <div className="space-y-6">
-                  <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-                    <h3 className="luxury-heading-md mb-4 text-gray-900">
+          <div className="bg-card-surface backdrop-blur-sm rounded-xl border-secondary-line shadow-sm p-6 md:p-8">
+                <div className="flex flex-col gap-element">
+                  <div className="bg-card rounded-lg p-6 shadow-sm border-secondary-line">
+                    <h3 className="heading-3 title-margin-md text-primary-content">
                       Finest High Class Escorts London
                     </h3>
-                    <div className="space-y-4">
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <div className="flex flex-col gap-tight">
+                      <p className="body-base text-secondary-content">
                         At Exclusive Five London, excellence is not just a promise — it's a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.
                       </p>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                      <p className="body-base text-secondary-content">
                         As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.
                       </p>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                      <p className="body-base text-secondary-content">
                         We believe in quality over quantity. That's why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.
                       </p>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                      <p className="body-base text-secondary-content">
                         With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.
                       </p>
-                      <p className="luxury-body-md text-gray-700 leading-relaxed">
+                      <p className="body-base text-secondary-content">
                         Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.
                       </p>
                     </div>
@@ -140,25 +140,25 @@ const Index = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="py-24 md:py-40 bg-white">
+        <section className="section-padding-xl bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
-            <p className="luxury-body-base text-black mb-16 md:mb-20">
+            <p className="body-base text-primary-content mb-16 md:mb-20">
               Contact us through your preferred method for a discreet
               consultation
             </p>
 
-            <div className="flex items-center justify-center gap-12 md:gap-16">
+            <div className="flex items-center justify-center gap-content">
               {/* WhatsApp */}
               <a
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-4 transition-all duration-500"
+                className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
-                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                  <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
-                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">
                   WhatsApp
                 </span>
               </a>
@@ -166,12 +166,12 @@ const Index = () => {
               {/* Call */}
               <a
                 href="tel:+447436190679"
-                className="group flex flex-col items-center gap-4 transition-all duration-500"
+                className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
-                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                  <Phone className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
-                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">
                   Call
                 </span>
               </a>
@@ -181,12 +181,12 @@ const Index = () => {
                 href="https://t.me/FiveLondon"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col items-center gap-4 transition-all duration-500"
+                className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
-                  <Send className="w-7 h-7 md:w-8 md:h-8 text-black group-hover:text-black transition-colors duration-500" />
+                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                  <Send className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
-                <span className="luxury-body-xs text-black group-hover:text-black transition-colors uppercase tracking-widest font-light">
+                <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">
                   Telegram
                 </span>
               </a>

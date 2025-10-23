@@ -170,23 +170,23 @@ const Services = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="pt-20 pb-16 md:py-24 bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+              <h1 className="heading-1 title-margin-md text-primary-content">
                 Elite Companion Services
               </h1>
-              <p className="luxury-body-lg text-black mb-12 md:mb-12">
+              <p className="body-lead text-primary-content mb-12 md:mb-12">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          <div className="separator-elegant"></div>
         </section>
 
         {/* Minimal Services Accordion */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="section-padding-md bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4", "item-5", "item-6", "item-7"]} className="space-y-3 sm:space-y-4">

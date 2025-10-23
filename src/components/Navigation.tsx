@@ -46,10 +46,10 @@ export const Navigation: React.FC = () => {
           {/* Logo */}
           <SafeLink
             to="/"
-            className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-600 text-black"
+            className="heading-4 font-medium uppercase transition-smooth hover:text-secondary-content text-primary-content"
           >
             Five London
-            <span className="text-xs ml-2 font-normal text-muted-foreground">
+            <span className="body-xs ml-2 font-normal text-secondary-content">
               EST. 2020
             </span>
           </SafeLink>
@@ -60,11 +60,11 @@ export const Navigation: React.FC = () => {
               <SafeLink
                 key={item.href}
                 to={item.href}
-                className={`luxury-body-sm font-medium transition-colors ${
+                className={`body-sm font-medium transition-smooth ${
                   location.pathname === item.href ||
                   location.pathname.startsWith(item.href + "/")
-                    ? "text-[#020817]"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary-content"
+                    : "text-secondary-content hover:text-primary-content"
                 }`}
               >
                 {item.label}
@@ -76,7 +76,7 @@ export const Navigation: React.FC = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <a
               href="tel:+447436190679"
-              className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
+              className="body-sm transition-smooth text-secondary-content hover:text-primary-content"
             >
               +44 7436 190679
             </a>
@@ -121,14 +121,14 @@ export const Navigation: React.FC = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 transition-colors text-black hover:text-gray-600"
+            className="lg:hidden p-2 transition-smooth text-primary-content hover:text-secondary-content"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-black" />
+              <X className="w-6 h-6" />
             ) : (
-              <Menu className="w-6 h-6 text-black" />
+              <Menu className="w-6 h-6" />
             )}
           </button>
         </div>
@@ -136,28 +136,28 @@ export const Navigation: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden border-t border-border bg-white">
+        <div className="lg:hidden border-t border-primary-line bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col space-y-8">
+            <div className="flex flex-col gap-content">
               {navItems.map((item) => (
                 <SafeLink
                   key={item.href}
                   to={item.href}
-                  className={`luxury-body-base font-medium transition-colors ${
+                  className={`body-base font-medium transition-smooth ${
                     location.pathname === item.href
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "text-primary-content"
+                      : "text-secondary-content hover:text-primary-content"
                   }`}
                 >
                   {item.label}
                 </SafeLink>
               ))}
 
-              <div className="pt-8 border-t border-border space-y-6">
+              <div className="pt-8 border-t border-primary-line flex flex-col gap-element">
                 <div className="flex items-center justify-between">
                   <a
                     href="tel:+447436190679"
-                    className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="block body-sm text-secondary-content hover:text-primary-content transition-smooth"
                   >
                     +44 7436 190679
                   </a>

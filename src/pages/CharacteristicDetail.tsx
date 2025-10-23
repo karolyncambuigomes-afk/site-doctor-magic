@@ -8,6 +8,7 @@ import { characteristics } from '@/data/characteristics';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
+import { SafeHTML } from '@/components/ui/safe-html';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const CharacteristicDetail = () => {
@@ -174,9 +175,9 @@ const CharacteristicDetail = () => {
                       About {characteristic.name} Escorts
                     </h2>
                   </div>
-                  <div 
+                  <SafeHTML 
+                    html={characteristic.content}
                     className="prose prose-lg max-w-4xl mx-auto text-black [&>h2]:luxury-heading-lg [&>h3]:luxury-heading-md [&>p]:luxury-body-base [&>p]:leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: characteristic.content }}
                   />
                 </div>
               </div>

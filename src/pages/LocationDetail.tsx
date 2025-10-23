@@ -9,6 +9,7 @@ import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star } from 'lucide-react';
+import { SafeHTML } from '@/components/ui/safe-html';
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 
 const LocationDetail = () => {
@@ -283,7 +284,8 @@ const LocationDetail = () => {
                   </div>
                   
                   <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
-                    <div 
+                    <SafeHTML 
+                      html={location.content}
                       className="location-content
                         [&>p]:text-gray-700 [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
                         [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mb-6 [&>h2]:mt-8 [&>h2]:first:mt-0
@@ -292,7 +294,6 @@ const LocationDetail = () => {
                         [&>li]:text-gray-700 [&>li]:my-2 [&>li]:leading-relaxed
                         [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
                         hover:[&>a]:text-primary/80"
-                      dangerouslySetInnerHTML={{ __html: location.content }}
                     />
                   </div>
                 </div>

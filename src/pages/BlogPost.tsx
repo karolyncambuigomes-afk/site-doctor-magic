@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
+import { SafeHTML } from "@/components/ui/safe-html";
 import NotFound from "./NotFound";
 
 const BlogPost = () => {
@@ -159,9 +160,10 @@ const BlogPost = () => {
           <section className="pb-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
-                <div className="prose prose-lg max-w-none">
-                  <div dangerouslySetInnerHTML={{ __html: article.content }} />
-                </div>
+                <SafeHTML 
+                  html={article.content}
+                  className="prose prose-lg max-w-none"
+                />
               </div>
             </div>
           </section>

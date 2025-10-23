@@ -1,4 +1,5 @@
 import React from 'react';
+import { SafeHTML } from '@/components/ui/safe-html';
 
 interface BlogTextImageSectionProps {
   title: string;
@@ -32,7 +33,8 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
       {imageSrc ? (
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-start ${imagePosition === 'left' ? 'lg:grid-flow-col-dense' : ''}`}>
           <div className={`space-y-8 ${imagePosition === 'left' ? 'lg:col-start-2' : ''}`}>
-            <div 
+            <SafeHTML 
+              html={content}
               className="prose prose-lg max-w-none
                 [&>h3]:luxury-heading-md [&>h3]:text-gray-900 [&>h3]:mt-10 [&>h3]:mb-8 [&>h3]:font-medium [&>h3]:leading-tight
                 [&>h4]:luxury-heading-sm [&>h4]:text-gray-800 [&>h4]:mt-8 [&>h4]:mb-6 [&>h4]:font-medium
@@ -43,7 +45,6 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
                 [&>blockquote]:border-l-4 [&>blockquote]:border-gray-600 [&>blockquote]:pl-8 [&>blockquote]:pr-6
                 [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-gray-50 [&>blockquote]:to-gray-100/30 [&>blockquote]:py-8 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-10 [&>blockquote]:shadow-sm
                 [&>em]:text-gray-700 [&>em]:font-medium"
-              dangerouslySetInnerHTML={{ __html: content }}
             />
           </div>
           
@@ -66,7 +67,8 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
         </div>
       ) : (
         <div className="max-w-5xl mx-auto">
-          <div 
+          <SafeHTML 
+            html={content}
             className="prose prose-xl max-w-none
               [&>h3]:luxury-heading-md [&>h3]:text-gray-900 [&>h3]:mt-12 [&>h3]:mb-8 [&>h3]:font-medium [&>h3]:text-center [&>h3]:leading-tight
               [&>h4]:luxury-heading-sm [&>h4]:text-gray-800 [&>h4]:mt-10 [&>h4]:mb-6 [&>h4]:font-medium
@@ -77,7 +79,6 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
               [&>blockquote]:border-l-4 [&>blockquote]:border-gray-600 [&>blockquote]:pl-10 [&>blockquote]:pr-8
               [&>blockquote]:italic [&>blockquote]:text-gray-700 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-gray-50 [&>blockquote]:to-gray-100/30 [&>blockquote]:py-10 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-12 [&>blockquote]:shadow-lg [&>blockquote]:text-xl
               [&>em]:text-gray-700 [&>em]:font-medium"
-            dangerouslySetInnerHTML={{ __html: content }}
           />
         </div>
       )}

@@ -19,7 +19,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Bot detected - use Prerender.io
-  const PRERENDER_TOKEN = process.env.PRERENDER_TOKEN;
+  const PRERENDER_TOKEN = "fBgWp4mlMc6fTWbH2aTf";
   if (!PRERENDER_TOKEN) {
     console.error("[Prerender] PRERENDER_TOKEN environment variable not configured");
     // Fallback: serve basic HTML for SEO

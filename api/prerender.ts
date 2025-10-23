@@ -36,6 +36,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       headers: {
         "X-Prerender-Token": PRERENDER_TOKEN,
         "User-Agent": userAgent,
+        "X-Original-URL": targetUrl,
+        "Referer": targetUrl,
       },
     });
 
@@ -45,7 +47,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const html = await response.text();
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600");
+    res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
     console.log(`[Prerender] Success: ${html.length} bytes`);
     return res.status(200).send(html);
   } catch (err) {
@@ -97,7 +99,7 @@ function serveBasicSeoHtml(req: VercelRequest, res: VercelResponse) {
   `;
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600");
+  res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
   res.send(html);
 }
 

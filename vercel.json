@@ -1,14 +1,36 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/:path((?!.*\\.).*)",
-      "destination": "/api/prerender"
+      "src": "/_next/static/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/assets/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|css|js|woff|woff2|ttf|eot))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/prerender.ts",
+      "methods": ["GET"]
     }
   ],
   "functions": {
     "api/prerender.ts": {
-      "memory": 1024,
-      "maxDuration": 10
+      "maxDuration": 30
     }
   }
 }

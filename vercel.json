@@ -1,44 +1,24 @@
-{
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "has": [
-        {
-          "type": "header",
-          "key": "user-agent",
-          "value": ".*(googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest/0\\.|pinterestbot|slackbot|vkshare|w3c_validator|whatsapp|duckduckbot).*"
-        }
-      ],
-      "destination": "/api/prerender/$1"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    },
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ]
+export default async function handler(req, res) {
+  const userAgent = req.headers['user-agent'] || '';
+  const isBot = /bot|crawler|spider|crawling/i.test(userAgent);
+
+  if (!isBot) {
+    return res.status(404).send('Not a bot');
+  }
+
+  const PRERENDER_TOKEN = 'YOUR_PRERENDER_TOKEN'; // replace with your real token
+  const targetUrl = `https://${req.headers.host}${req.url}`;
+  const prerenderUrl = `https://service.prerender.io/${targetUrl}`;
+
+  try {
+    const response = await fetch(prerenderUrl, {
+      headers: { 'X-Prerender-Token': PRERENDER_TOKEN },
+    });
+    const html = await response.text();
+    res.setHeader('Content-Type', 'text/html');
+    return res.status(200).send(html);
+  } catch (err) {
+    console.error('Prerender error:', err.message);
+    return res.status(500).send('Prerender failed');
+  }
 }

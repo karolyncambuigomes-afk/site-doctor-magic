@@ -12,9 +12,9 @@ export const Footer = () => {
     setEmail('');
   };
   return <footer className="bg-white text-foreground relative z-50 w-full">
-      <div className="container mx-auto px-4 py-16 bg-white">{" "}
+      <div className="container mx-auto px-4 py-12 md:py-16 lg:py-20 bg-white">{" "}
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           
           {/* Newsletter Section */}
           <div className="lg:col-span-2 space-y-6">
@@ -47,7 +47,7 @@ export const Footer = () => {
               <h4 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
                 Follow Us
               </h4>
-              <div className="flex space-x-4">
+              <div className="flex space-x-3 sm:space-x-4">
                 <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Instagram">
                   <Instagram className="w-4 h-4" />
                 </button>

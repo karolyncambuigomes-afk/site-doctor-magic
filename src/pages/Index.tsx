@@ -84,7 +84,7 @@ const Index = () => {
         <HeroSection />
 
         {/* Elite Escort Services Introduction - Text 1 */}
-        <section className="section-padding-md bg-secondary-surface">
+        <section className="section-padding-lg bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="flex flex-col gap-tight text-center">
               <p className="body-base text-secondary-content">
@@ -98,7 +98,7 @@ const Index = () => {
         </section>
 
         {/* All Models Gallery Section */}
-        <section className="section-padding-md bg-white">
+        <section className="pt-20 md:pt-28 section-padding-md bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <ModelsGallery />
           </div>
@@ -140,14 +140,14 @@ const Index = () => {
         </section>
 
         {/* Contact Section */}
-        <section className="section-padding-xl bg-white">
+        <section className="section-padding-lg bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
             <p className="body-base text-primary-content mb-16 md:mb-20">
               Contact us through your preferred method for a discreet
               consultation
             </p>
 
-            <div className="flex items-center justify-center gap-content">
+            <div className="flex items-center justify-center gap-8 md:gap-12">
               {/* WhatsApp */}
               <a
                 href="https://wa.me/447436190679"
@@ -155,7 +155,7 @@ const Index = () => {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
                   <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
                 <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">
@@ -168,7 +168,7 @@ const Index = () => {
                 href="tel:+447436190679"
                 className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
                   <Phone className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
                 <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">
@@ -183,7 +183,7 @@ const Index = () => {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-tight transition-luxury"
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 border border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
+                <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-primary-line rounded-full flex items-center justify-center group-hover:border-foreground transition-luxury">
                   <Send className="w-7 h-7 md:w-8 md:h-8 text-primary-content group-hover:text-foreground transition-luxury" />
                 </div>
                 <span className="body-xs text-primary-content group-hover:text-foreground transition-smooth uppercase tracking-widest font-light">

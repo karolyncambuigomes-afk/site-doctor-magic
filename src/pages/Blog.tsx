@@ -168,13 +168,13 @@ const Blog = () => {
 
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="py-16 md:py-24 bg-white">
+          <section className="section-padding-lg bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                   Discover London
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="luxury-body-lg text-primary-content mb-16 md:mb-20">
                   Your exclusive guide to sophisticated experiences, exquisite
                   restaurants, and London's best-kept secrets.
                 </p>
@@ -210,13 +210,13 @@ const Blog = () => {
           </section>
 
           {/* Categories */}
-          <section className="py-8 border-b border-gray-200 bg-gray-50">
+          <section className="py-6 md:py-8 border-b border-primary-line bg-secondary-surface">
             <div className="container-width">
               <div className="flex flex-wrap gap-3 justify-center px-4">
                 <Link to="/blog">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-2 text-sm font-medium hover:bg-black hover:text-white transition-colors"
+                    className="px-6 py-2 text-sm font-medium hover:bg-foreground hover:text-background transition-colors"
                   >
                     All Articles
                   </Badge>
@@ -228,7 +228,7 @@ const Blog = () => {
                   >
                     <Badge
                       variant="outline"
-                      className="px-6 py-2 text-sm font-medium bg-white border-gray-200 hover:bg-black hover:text-white hover:border-black transition-all"
+                      className="px-6 py-2 text-sm font-medium bg-card border-primary-line hover:bg-foreground hover:text-background hover:border-foreground transition-all"
                     >
                       {category}
                     </Badge>
@@ -239,15 +239,15 @@ const Blog = () => {
           </section>
 
           {/* Articles Grid */}
-          <section className="py-12 md:py-16 lg:py-20 bg-white">
+          <section className="section-padding-lg bg-white">
             <div className="container-width">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 sm:px-6">
                 {posts.map((post) => (
                   <Card
                     key={post.id}
-                    className="group hover:shadow-elegant transition-all duration-300 border border-gray-200 hover:border-gray-400 overflow-hidden bg-white"
+                    className="group hover:shadow-elegant transition-all duration-300 border border-primary-line hover:border-foreground overflow-hidden bg-card"
                   >
-                    <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                    <div className="aspect-video bg-muted relative overflow-hidden">
                       <OptimizedImage
                         src={post.image || 
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
@@ -261,15 +261,15 @@ const Blog = () => {
                       <div className="absolute top-4 left-4">
                         <Badge
                           variant="secondary"
-                          className="bg-white/95 backdrop-blur-sm text-black text-xs font-medium border border-gray-200 shadow-minimal"
+                          className="bg-card-surface backdrop-blur-sm text-primary-content text-xs font-medium border border-secondary-line shadow-minimal"
                         >
                           {post.category}
                         </Badge>
                       </div>
                     </div>
 
-                    <CardHeader className="pb-4 px-6 pt-6">
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                    <CardHeader className="pb-4 px-5 pt-5 sm:px-6 sm:pt-6">
+                      <div className="flex items-center gap-4 text-sm text-secondary-content mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                           <time
@@ -304,20 +304,20 @@ const Blog = () => {
                         </div>
                       </div>
 
-                      <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
+                      <h2 className="text-xl font-semibold text-primary-content group-hover:text-foreground transition-colors leading-tight">
                         {post.title}
                       </h2>
                     </CardHeader>
 
-                    <CardContent className="pt-0 px-6 pb-6">
-                      <p className="text-gray-600 leading-relaxed mb-6 text-sm">
+                    <CardContent className="pt-0 px-5 pb-5 sm:px-6 sm:pb-6">
+                      <p className="text-secondary-content leading-relaxed mb-6 text-sm">
                         {post.excerpt}
                       </p>
 
                       <Link to={`/blog/${post.slug}`}>
                         <Button
                           variant="ghost"
-                          className="group/btn p-0 h-auto font-medium text-black hover:text-gray-700 text-sm"
+                          className="group/btn p-0 h-auto font-medium text-primary-content hover:text-foreground text-sm"
                         >
                           Read full article
                           <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -331,26 +331,26 @@ const Blog = () => {
           </section>
 
           {/* About London Lifestyle Guide - Collapsible Rich Content */}
-          <section className="py-16 bg-gray-100">
+          <section className="section-padding-lg bg-secondary-surface">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+              <div className="bg-card-surface backdrop-blur-sm rounded-xl border border-secondary-line shadow-sm p-6 md:p-8">
                 <div className="mb-8">
                   <div className="text-center mb-6">
-                    <h2 className="luxury-heading-lg text-black">About London Luxury Lifestyle Guide</h2>
+                    <h2 className="luxury-heading-lg text-primary-content">About London Luxury Lifestyle Guide</h2>
                   </div>
                   <div className="grid md:grid-cols-2 gap-8 mt-8">
                   <div className="space-y-4">
-                    <h3 className="luxury-heading-md text-black">
+                    <h3 className="luxury-heading-md text-primary-content">
                       Exclusive Restaurants and Dining Experiences
                     </h3>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       Discover London's most prestigious dining venues, from
                       Michelin-starred establishments in Mayfair to exclusive
                       private dining rooms in Knightsbridge. Our curated guide
                       features insider recommendations for romantic dinners,
                       business lunches, and special celebrations.
                     </p>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       Experience world-class cuisine at venues like Sketch,
                       Hakkasan, and The Ritz Restaurant, where exceptional
                       service meets culinary artistry. Perfect for sophisticated
@@ -358,35 +358,35 @@ const Blog = () => {
                     </p>
                   </div>
                   <div className="space-y-4">
-                    <h3 className="luxury-heading-md text-black">
+                    <h3 className="luxury-heading-md text-primary-content">
                       Premium Hotels and Cultural Events
                     </h3>
                     <div className="space-y-3">
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Luxury Accommodations
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-secondary-content">
                           Five-star hotels including Claridge's, The Langham,
                           and The Ned, offering world-class amenities and
                           impeccable service.
                         </p>
                       </div>
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Cultural Attractions
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-secondary-content">
                           Premium experiences at Royal Opera House, Tate Modern,
                           and exclusive gallery openings in Chelsea and
                           Shoreditch.
                         </p>
                       </div>
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Entertainment Venues
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-secondary-content">
                           Sophisticated nightlife at exclusive members' clubs,
                           rooftop bars, and luxury entertainment venues across
                           Central London.

@@ -236,6 +236,10 @@ FileETag MTime Size
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
     
+    # Whitelist Prerender.io service IPs
+    SetEnvIf X-Prerender-Token .+ PRERENDER_REQUEST
+    Allow from env=PRERENDER_REQUEST
+    
     # Prerender.io Middleware for SEO
     # Detect bots and crawlers
     RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot [NC,OR]

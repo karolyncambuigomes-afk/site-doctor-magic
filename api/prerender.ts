@@ -1,15 +1,16 @@
 // Prerender.io Middleware for Vercel
 // Only intercepts HTML page requests, lets assets pass through
 
-export default async function handler(req, res) {
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   const userAgent = req.headers["user-agent"] || "";
   const isBot = /bot|crawler|spider|crawling|googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|developers\.google\.com/i.test(userAgent);
 
   // If not a bot, redirect to index.html and let Vercel's SPA handling take over
   if (!isBot) {
-    // Return a redirect to let Vercel serve the SPA normally
     res.setHeader("Location", "/index.html");
-    return res.status(200).redirect("/index.html");
+    return res.status(302).redirect("/index.html");
   }
 
   // Bot detected - use Prerender.io
@@ -38,7 +39,7 @@ export default async function handler(req, res) {
     console.log(`[Prerender] Success: ${html.length} bytes`);
     return res.status(200).send(html);
   } catch (err) {
-    console.error("[Prerender] Error:", err.message);
+    console.error("[Prerender] Error:", (err as Error).message);
     // Fallback: redirect to normal page
     res.setHeader("Location", "/index.html");
     return res.status(302).redirect("/index.html");

@@ -6,7 +6,7 @@
     }
   ],
   "functions": {
-    "api/prerender.js": {
+    "api/prerender.ts": {
       "memory": 1024,
       "maxDuration": 10
     }

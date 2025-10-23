@@ -1,4 +1,4 @@
-// Prerender.io Middleware for Vercel
+// Prerender.io Middleware for Lovable
 // Only intercepts HTML page requests, lets assets pass through
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
@@ -12,14 +12,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   // If not a bot, let the request continue to your React app
   if (!isBot) {
-    // Instead of redirecting to index.html, we should let Vercel handle the request normally
-    // This allows your React app to handle the routing
-    res.status(404).end(); // Let Vercel continue to the static files
+    // For Lovable, we should return a 404 to let the platform handle the request
+    res.status(404).end();
     return;
   }
 
   // Bot detected - use Prerender.io
-  const PRERENDER_TOKEN = "fBgWp4mlMc6fTWbH2aTf";
+  const PRERENDER_TOKEN = process.env.PRERENDER_TOKEN;
   if (!PRERENDER_TOKEN) {
     console.error("[Prerender] PRERENDER_TOKEN environment variable not configured");
     // Fallback: serve basic HTML for SEO

@@ -1,9 +1,6 @@
 # Five London - Optimized for External Tools & Performance Analysis
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
-# Prerender.io Token Configuration
-SetEnv PRERENDER_TOKEN fBgWp4mlMc6fTWbH2aTf
-
 # Security Headers for Admin Protection
 <IfModule mod_headers.c>
     # Strict Transport Security (HSTS)
@@ -236,16 +233,6 @@ FileETag MTime Size
     
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
-    
-    # Prerender.io Middleware - Routes through /api/prerender
-    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot [NC,OR]
-    RewriteCond %{QUERY_STRING} _escaped_fragment_
-    # Don't prerender if already being handled or if it's a static file
-    RewriteCond %{REQUEST_URI} !^/api/
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_URI} !\.(js|css|xml|less|png|jpg|jpeg|gif|pdf|doc|txt|ico|rss|zip|mp3|rar|exe|wmv|doc|avi|ppt|mpg|mpeg|tif|wav|mov|psd|ai|xls|mp4|m4a|swf|dat|dmg|iso|flv|m4v|torrent|ttf|woff|woff2|svg|eot)$ [NC]
-    # Route bot traffic through the /api/prerender middleware
-    RewriteRule ^(.*)$ /api/prerender/$1 [L]
     
     # Image proxy: /images/* → /api/i/*
     RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]

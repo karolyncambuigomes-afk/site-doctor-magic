@@ -1,25 +1,27 @@
+import { BUSINESS_INFO } from '@/constants/businessInfo';
+
 // Enhanced Organization Schema with Multiple Locations
 export const generateOrganizationSchema = (includeLocations: boolean = true) => {
   const baseSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Five London",
-  "description": "Premium luxury escort services in London offering sophisticated companionship for discerning clients.",
-  "url": "https://fivelondon.com",
-  "logo": "https://fivelondon.com/logo.png",
-  "image": "https://fivelondon.com/og-image.jpg",
-  "telephone": "+447436190679",
+  "name": BUSINESS_INFO.name,
+  "description": BUSINESS_INFO.description,
+  "url": BUSINESS_INFO.domain,
+  "logo": BUSINESS_INFO.logo,
+  "image": BUSINESS_INFO.ogImage,
+  "telephone": BUSINESS_INFO.phone,
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": "GB",
-    "addressLocality": "London",
-    "addressRegion": "England",
-    "postalCode": "W1K 6DJ"
+    "addressCountry": BUSINESS_INFO.address.country,
+    "addressLocality": BUSINESS_INFO.address.locality,
+    "addressRegion": BUSINESS_INFO.address.region,
+    "postalCode": BUSINESS_INFO.address.postalCode
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": "51.5074",
-    "longitude": "-0.1278"
+    "latitude": BUSINESS_INFO.coordinates.lat.toString(),
+    "longitude": BUSINESS_INFO.coordinates.lng.toString()
   },
   "areaServed": [
     {
@@ -33,11 +35,11 @@ export const generateOrganizationSchema = (includeLocations: boolean = true) => 
       "addressCountry": "GB"
     }
   ],
-  "serviceType": "Luxury Companion Services",
-  "priceRange": "£500-£1000",
+  "serviceType": BUSINESS_INFO.serviceType,
+  "priceRange": BUSINESS_INFO.priceRange,
   "sameAs": [],
   "hasMap": "https://www.google.com/maps/place/London,+UK",
-  "openingHours": "Mo-Su 00:00-23:59"
+  "openingHours": BUSINESS_INFO.openingHours
   };
 
   if (includeLocations) {
@@ -74,9 +76,9 @@ export const generateOrganizationSchema = (includeLocations: boolean = true) => 
 export const generateWebsiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Five London",
-  "description": "Premium luxury escort services in London",
-  "url": "https://fivelondon.com",
+  "name": BUSINESS_INFO.name,
+  "description": BUSINESS_INFO.description,
+  "url": BUSINESS_INFO.domain,
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://fivelondon.com/models?search={search_term_string}",
@@ -95,12 +97,12 @@ export const generateServiceSchema = (serviceName: string, description: string, 
   "description": description,
   "provider": {
     "@type": "Organization",
-    "name": "Five London",
-    "telephone": "+447436190679",
+    "name": BUSINESS_INFO.name,
+    "telephone": BUSINESS_INFO.phone,
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": "GB",
-      "addressLocality": "London"
+      "addressCountry": BUSINESS_INFO.address.country,
+      "addressLocality": BUSINESS_INFO.address.locality
     }
   },
   "areaServed": {
@@ -176,10 +178,10 @@ export const generateBlogSchema = (article: any) => ({
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Five London",
+    "name": BUSINESS_INFO.name,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://fivelondon.com/logo.png"
+      "url": BUSINESS_INFO.logo
     }
   },
   "mainEntityOfPage": {
@@ -218,9 +220,9 @@ export const generateLocalBusinessSchemaForArea = (area: any) => ({
   "@type": "LocalBusiness",
   "name": `Five London - ${area.name}`,
   "description": `Premium luxury escort services in ${area.name}, offering sophisticated companionship for discerning clients in the ${area.postcode} area.`,
-  "url": "https://fivelondon.com",
-  "telephone": "+447436190679",
-  "priceRange": "£500-£1000",
+  "url": BUSINESS_INFO.domain,
+  "telephone": BUSINESS_INFO.phone,
+  "priceRange": BUSINESS_INFO.priceRange,
   "currenciesAccepted": "GBP",
   "paymentAccepted": "Cash, Credit Card, Bank Transfer",
   "address": {

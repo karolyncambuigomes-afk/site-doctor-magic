@@ -1,5 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { BUSINESS_INFO } from '@/constants/businessInfo';
+import { getCanonicalUrl, getAssetUrl } from '@/utils/urlHelpers';
 
 interface SEOOptimizedProps {
   title?: string;
@@ -14,19 +16,20 @@ interface SEOOptimizedProps {
 }
 
 export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
-  title = "Five London - Elite Escort Agency | Premium Companionship Services",
-  description = "Five London offers exclusive escort services with sophisticated companions for discerning clients. Professional, discreet, and elegant experiences in London's finest locations.",
+  title = `${BUSINESS_INFO.name} - Elite Escort Agency | Premium Companionship Services`,
+  description = BUSINESS_INFO.description,
   keywords = "elite escort london, premium companionship, luxury escort services, london escort agency, high-class escorts",
   canonicalUrl,
-  ogImage = "/og-image.jpg",
+  ogImage = BUSINESS_INFO.ogImage,
   structuredData,
   noIndex = false,
   additionalMeta,
   children
 }) => {
-  const fullTitle = title.includes('Five London') ? title : `${title} | Five London`;
+  const fullTitle = title.includes(BUSINESS_INFO.name) ? title : `${title} | ${BUSINESS_INFO.name}`;
   const optimizedDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
-  const fullCanonicalUrl = canonicalUrl ? `https://fivelondon.com${canonicalUrl}` : undefined;
+  const fullCanonicalUrl = canonicalUrl ? getCanonicalUrl(canonicalUrl) : undefined;
+  const absoluteOgImage = ogImage.startsWith('http') ? ogImage : getAssetUrl(ogImage);
 
   return (
     <>
@@ -43,18 +46,18 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={fullTitle} />
         <meta property="og:description" content={optimizedDescription} />
-        <meta property="og:image" content={ogImage} />
+        <meta property="og:image" content={absoluteOgImage} />
         {fullCanonicalUrl && <meta property="og:url" content={fullCanonicalUrl} />}
-        <meta property="og:site_name" content="Five London" />
+        <meta property="og:site_name" content={BUSINESS_INFO.name} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={fullTitle} />
         <meta name="twitter:description" content={optimizedDescription} />
-        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image" content={absoluteOgImage} />
 
         {/* Additional SEO */}
-        <meta name="author" content="Five London" />
+        <meta name="author" content={BUSINESS_INFO.name} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="content-language" content="en-GB" />
         <meta name="geo.region" content="GB-LND" />

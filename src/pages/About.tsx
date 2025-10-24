@@ -23,9 +23,6 @@ import {
   Diamond,
   Crown,
 } from "lucide-react";
-import aboutLuxury1 from "@/assets/about-luxury-1.webp";
-import aboutLuxury2 from "@/assets/about-luxury-2.webp";
-import aboutLuxury3 from "@/assets/about-luxury-3.webp";
 
 const About = () => {
   const structuredData = [
@@ -172,7 +169,7 @@ const About = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <img
-                src={aboutLuxury1}
+                src="/images/about-luxury-1.webp"
                 alt="Luxury lifestyle and elegance representing Five London's premium services"
                 className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
                 loading="lazy"
@@ -187,7 +184,7 @@ const About = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-content items-center">
               <div className="order-2 lg:order-1">
                 <img
-                  src={aboutLuxury2}
+                  src="/images/about-luxury-2.webp"
                   alt="Sophisticated dining and entertainment experiences in London"
                   className="rounded-2xl shadow-xl w-full h-[450px] object-cover"
                   loading="lazy"
@@ -254,7 +251,7 @@ const About = () => {
 
             <div className="relative">
               <img
-                src={aboutLuxury3}
+                src="/images/about-luxury-3.webp"
                 alt="Exclusive events and premium lifestyle experiences in London"
                 className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
                 loading="lazy"

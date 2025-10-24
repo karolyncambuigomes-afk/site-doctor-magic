@@ -43,7 +43,7 @@ export const ModelsCarousel = () => {
         
         {/* Models Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {models.map((model) => (
+          {models.map((model, index) => (
             <div key={model.id} className="group relative">
               <SafeLink to={model?.id ? `/models/${model.id}` : undefined} className="block">
                 <div className="relative overflow-hidden mb-3 rounded-lg shadow-lg">
@@ -69,6 +69,7 @@ export const ModelsCarousel = () => {
                     alt={`${model.name} - elite companion in London`}
                     className="w-full aspect-[3/4] object-cover object-[center_30%] transition-all duration-700 group-hover:scale-105"
                     data-carousel-image={model.id}
+                    priority={index < 3}
                   />
                   
                   {/* Elegant overlay that appears on hover */}

@@ -23,7 +23,6 @@ import {
 import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
 import { useRealTimeReviews } from "@/hooks/useRealTimeReviews";
 import { useBookingContent } from "@/hooks/useBookingContent";
-import heroSecondBanner from "@/assets/hero-second-banner-new.webp";
 import {
   faqSchemaData,
   serviceSchemaData,

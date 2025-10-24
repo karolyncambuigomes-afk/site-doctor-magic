@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface OptimizedImageProps {
@@ -25,32 +25,6 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(src);
-  const [isVisible, setIsVisible] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
-
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (priority || !imgRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        rootMargin: '50px',
-        threshold: 0.01,
-      }
-    );
-
-    observer.observe(imgRef.current);
-
-    return () => observer.disconnect();
-  }, [priority]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -87,14 +61,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
         </div>
       ) : (
         <img
-          ref={imgRef}
-          src={isVisible ? currentSrc : undefined}
+          src={currentSrc}
           alt={alt}
           className={`w-full h-full object-cover transition-opacity duration-300 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
           onLoad={handleLoad}
           onError={handleError}
         />

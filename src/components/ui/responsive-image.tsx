@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -32,28 +32,6 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   const [currentSrc, setCurrentSrc] = useState(src);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [isVisible, setIsVisible] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  // Intersection Observer for lazy loading
-  useEffect(() => {
-    if (priority || !imgRef.current) return;
-
-    observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observerRef.current?.disconnect();
-        }
-      },
-      { rootMargin: '50px' }
-    );
-
-    observerRef.current.observe(imgRef.current);
-
-    return () => observerRef.current?.disconnect();
-  }, [priority]);
 
   // Handle image load
   const handleLoad = () => {
@@ -122,9 +100,8 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
       )}
       
       <img
-        ref={imgRef}
-        src={isVisible ? currentSrc : undefined}
-        srcSet={isVisible ? generateSrcSet(currentSrc) : undefined}
+        src={currentSrc}
+        srcSet={generateSrcSet(currentSrc)}
         sizes={sizes}
         alt={alt}
         className={cn(
@@ -135,6 +112,7 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
         width={width}
         height={height}
         loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
         onLoad={handleLoad}
         onError={handleError}
         decoding="async"

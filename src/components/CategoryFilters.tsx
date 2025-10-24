@@ -42,7 +42,8 @@ export const CategoryFilters: React.FC = () => {
                 src={category.image_url}
                 alt={category.image_alt || `${category.name} companions in London`} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                loading="eager"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors duration-300" />
               <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 lg:p-4">

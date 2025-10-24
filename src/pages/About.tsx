@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactBar } from "@/components/ContactBar";
+import { OptimizedImage } from "@/components/OptimizedImage";
 import {
   generateOrganizationSchema,
   generateBreadcrumbSchema,
@@ -168,11 +169,12 @@ const About = () => {
         <section className="section-padding-md">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <img
+              <OptimizedImage
                 src="/images/about-luxury-1.webp"
                 alt="Luxury lifestyle and elegance representing Five London's premium services"
-                className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
-                loading="lazy"
+                className="rounded-2xl shadow-2xl w-full"
+                aspectRatio="auto"
+                priority={true}
               />
             </div>
           </div>
@@ -183,11 +185,11 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-content items-center">
               <div className="order-2 lg:order-1">
-                <img
+                <OptimizedImage
                   src="/images/about-luxury-2.webp"
                   alt="Sophisticated dining and entertainment experiences in London"
-                  className="rounded-2xl shadow-xl w-full h-[450px] object-cover"
-                  loading="lazy"
+                  className="rounded-2xl shadow-xl w-full"
+                  aspectRatio="auto"
                 />
               </div>
               <div className="order-1 lg:order-2 flex flex-col gap-element">
@@ -250,11 +252,11 @@ const About = () => {
             </div>
 
             <div className="relative">
-              <img
+              <OptimizedImage
                 src="/images/about-luxury-3.webp"
                 alt="Exclusive events and premium lifestyle experiences in London"
-                className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
-                loading="lazy"
+                className="rounded-2xl shadow-2xl w-full"
+                aspectRatio="auto"
               />
               <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center">
                 <div className="text-center text-white p-8">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeHTML } from '@/components/ui/safe-html';
+import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface BlogTextImageSectionProps {
   title: string;
@@ -51,11 +52,11 @@ export const BlogTextImageSection: React.FC<BlogTextImageSectionProps> = ({
           <div className={`${imagePosition === 'left' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
             <div className="relative group sticky top-8">
               <div className={`${currentAspect} rounded-3xl overflow-hidden shadow-2xl bg-gray-100 transform hover:scale-105 transition-all duration-500`}>
-                <img 
+                <OptimizedImage 
                   src={imageSrc}
                   alt={`${title || 'Content'} - Luxury experience ${index + 1}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
+                  aspectRatio="auto"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

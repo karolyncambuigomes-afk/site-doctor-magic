@@ -1,4 +1,5 @@
 import { BUSINESS_INFO } from '@/constants/businessInfo';
+import { getBlogPostUrl } from '@/utils/urlHelpers';
 
 // Enhanced Organization Schema with Multiple Locations
 export const generateOrganizationSchema = (includeLocations: boolean = true) => {
@@ -81,7 +82,7 @@ export const generateWebsiteSchema = () => ({
   "url": BUSINESS_INFO.domain,
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://fivelondon.com/models?search={search_term_string}",
+    "target": `${BUSINESS_INFO.domain}/models?search={search_term_string}`,
     "query-input": "required name=search_term_string"
   },
   "publisher": {
@@ -186,7 +187,7 @@ export const generateBlogSchema = (article: any) => ({
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://fivelondon.com/blog/${article.slug}`
+    "@id": getBlogPostUrl(article.slug)
   },
   // Enhanced GEO data for location-based articles
   ...(article.coordinates && {
@@ -284,7 +285,7 @@ export const generateEventSchema = (eventData: any) => ({
   "organizer": {
     "@type": "Organization",
     "name": "Five London",
-    "url": "https://fivelondon.com"
+    "url": BUSINESS_INFO.domain
   }
 });
 

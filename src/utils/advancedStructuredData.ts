@@ -1,6 +1,6 @@
 import { ReviewAggregateData } from '@/hooks/useReviews';
 import { BUSINESS_INFO } from '@/constants/businessInfo';
-import { getLocationUrl } from '@/utils/urlHelpers';
+import { getLocationUrl, getCanonicalUrl } from '@/utils/urlHelpers';
 
 // Advanced Review Schema Generator
 export const generateReviewAggregateSchema = (
@@ -248,7 +248,7 @@ export const generateServiceAvailabilityEventSchema = (areaName: string, postcod
       "price": "0",
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
-      "url": "https://fivelondon.com/contact"
+      "url": getCanonicalUrl('/contact')
     },
     "eventStatus": "https://schema.org/EventScheduled",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"

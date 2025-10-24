@@ -100,7 +100,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
           <div className="relative aspect-[3/4] overflow-hidden bg-muted">
             {/* Exclusive Members Badge */}
             {model.members_only && (
-              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
+              <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
                 <div className="bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg shadow-lg border border-yellow-400/30 backdrop-blur-sm">
                   <div className="flex items-center gap-2">
                     <Crown size={14} className="fill-current text-yellow-100" />
@@ -140,7 +140,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 
                 {/* Price - Top Left */}
                 {cardPrice && (
-                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-10">
                     <div className="bg-black/70 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/10">
                       <span className="text-white text-xs sm:text-sm font-medium">
                         {cardPrice}
@@ -154,8 +154,8 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 z-[1]"></div>
                 
                 {/* Info overlay that appears on hover - with age below name */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
-                  <div className="space-y-2">
+                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out z-10">
+                  <div className="space-y-1.5">
                      <h3 className="luxury-heading-sm tracking-normal text-white">
                        {model.name}
                      </h3>

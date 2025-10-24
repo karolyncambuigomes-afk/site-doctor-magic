@@ -12,178 +12,178 @@ export const blogImages: BlogImageMap = {
   '/images/kate1.webp'
     ],
     'fine-dining': [
-      '/images/sketch-restaurant.jpg',
+      '/images/sketch-restaurant.webp',
   '/images/model2.webp',
   '/images/luisa1.webp'
     ],
     'michelin': [
-      '/images/sketch-restaurant.jpg',
+      '/images/sketch-restaurant.webp',
   '/images/model3.webp',
-      '/images/model1.jpg'
+      '/images/model1.webp'
     ],
     'wine': [
-      '/images/sketch-restaurant.jpg',
+      '/images/sketch-restaurant.webp',
   '/images/model4.webp'
     ],
     'cocktails': [
-      '/images/sketch-restaurant.jpg',
-      '/images/kate1.jpg'
+      '/images/sketch-restaurant.webp',
+      '/images/kate1.webp'
     ]
   },
   'events': {
     'exclusive': [
   '/images/london-gala-event.webp',
-      '/images/model1.jpg',
-      '/images/model2.jpg'
+      '/images/model1.webp',
+      '/images/model2.webp'
     ],
     'fashion': [
-      '/images/london-gala-event.jpg',
-      '/images/luisa1.jpg',
-      '/images/kate1.jpg'
+      '/images/london-gala-event.webp',
+      '/images/luisa1.webp',
+      '/images/kate1.webp'
     ],
     'parties': [
-      '/images/london-gala-event.jpg',
-      '/images/model3.jpg',
-      '/images/model4.jpg'
+      '/images/london-gala-event.webp',
+      '/images/model3.webp',
+      '/images/model4.webp'
     ],
     'galas': [
-      '/images/london-gala-event.jpg',
-      '/images/model1.jpg'
+      '/images/london-gala-event.webp',
+      '/images/model1.webp'
     ],
     'premieres': [
-      '/images/london-gala-event.jpg',
-      '/images/kate1.jpg'
+      '/images/london-gala-event.webp',
+      '/images/kate1.webp'
     ],
     'royal': [
-      '/images/london-gala-event.jpg',
-      '/images/model2.jpg'
+      '/images/london-gala-event.webp',
+      '/images/model2.webp'
     ],
     'sports': [
-      '/images/london-gala-event.jpg',
-      '/images/model4.jpg'
+      '/images/london-gala-event.webp',
+      '/images/model4.webp'
     ],
     'culture': [
-      '/images/london-gala-event.jpg',
-      '/images/luisa1.jpg'
+      '/images/london-gala-event.webp',
+      '/images/luisa1.webp'
     ]
   },
   'culture': {
     'entertainment': [
   '/images/blog-entertainment-culture.webp',
-      '/images/model2.jpg',
-      '/images/luisa1.jpg'
+      '/images/model2.webp',
+      '/images/luisa1.webp'
     ],
     'art': [
   '/images/blog-entertainment-culture.webp',
-      '/images/model3.jpg',
-      '/images/kate1.jpg'
+      '/images/model3.webp',
+      '/images/kate1.webp'
     ],
     'theater': [
-      '/images/blog-entertainment-culture.jpg',
-      '/images/model1.jpg',
-      '/images/model4.jpg'
+      '/images/blog-entertainment-culture.webp',
+      '/images/model1.webp',
+      '/images/model4.webp'
     ],
     'museums': [
-      '/images/blog-entertainment-culture.jpg',
-      '/images/luisa1.jpg'
+      '/images/blog-entertainment-culture.webp',
+      '/images/luisa1.webp'
     ],
     'concerts': [
-      '/images/blog-entertainment-culture.jpg',
-      '/images/model2.jpg'
+      '/images/blog-entertainment-culture.webp',
+      '/images/model2.webp'
     ]
   },
   'luxury': {
     'experiences': [
-      '/images/luxury-spa-treatment.jpg',
-      '/images/model1.jpg',
-      '/images/kate1.jpg',
-      '/images/model3.jpg'
+      '/images/luxury-spa-treatment.webp',
+      '/images/model1.webp',
+      '/images/kate1.webp',
+      '/images/model3.webp'
     ],
     'hotels': [
       '/images/clariges-lobby.webp',
-      '/images/model2.jpg',
-      '/images/luisa1.jpg',
-      '/images/model4.jpg'
+      '/images/model2.webp',
+      '/images/luisa1.webp',
+      '/images/model4.webp'
     ],
     'shopping': [
-      '/images/luxury-spa-treatment.jpg',
-      '/images/kate1.jpg',
-      '/images/model1.jpg'
+      '/images/luxury-spa-treatment.webp',
+      '/images/kate1.webp',
+      '/images/model1.webp'
     ],
     'spas': [
-      '/images/luxury-spa-treatment.jpg',
-      '/images/luisa1.jpg'
+      '/images/luxury-spa-treatment.webp',
+      '/images/luisa1.webp'
     ],
     'travel': [
-      '/images/luxury-spa-treatment.jpg',
-      '/images/model2.jpg'
+      '/images/luxury-spa-treatment.webp',
+      '/images/model2.webp'
     ]
   },
   'lifestyle': {
     'wellness': [
-      '/images/model1.jpg',
-      '/images/kate1.jpg'
+      '/images/model1.webp',
+      '/images/kate1.webp'
     ],
     'fitness': [
-      '/images/model2.jpg',
-      '/images/luisa1.jpg'
+      '/images/model2.webp',
+      '/images/luisa1.webp'
     ],
     'fashion': [
-      '/images/model3.jpg',
-      '/images/model4.jpg'
+      '/images/model3.webp',
+      '/images/model4.webp'
     ]
   },
   'experiences': {
     'private': [
-      '/images/blog-exclusive-experiences.jpg',
-      '/images/model1.jpg'
+      '/images/blog-exclusive-experiences.webp',
+      '/images/model1.webp'
     ],
     'gastronomic': [
-      '/images/blog-restaurant-dining.jpg',
-      '/images/model2.jpg'
+      '/images/blog-restaurant-dining.webp',
+      '/images/model2.webp'
     ],
     'cultural': [
-      '/images/blog-entertainment-culture.jpg',
-      '/images/model3.jpg'
+      '/images/blog-entertainment-culture.webp',
+      '/images/model3.webp'
     ],
     wellness: [
-      '/images/model4.jpg',
-      '/images/luisa1.jpg'
+      '/images/model4.webp',
+      '/images/luisa1.webp'
     ],
     nightlife: [
-      '/images/kate1.jpg',
-      '/images/model1.jpg'
+      '/images/kate1.webp',
+      '/images/model1.webp'
     ]
   },
   hotels: {
     classic: [
-      '/images/clariges-lobby.jpg',
-      '/images/ritz-london-exterior.jpg',
-      '/images/savoy-thames-foyer.jpg'
+      '/images/clariges-lobby.webp',
+      '/images/ritz-london-exterior.webp',
+      '/images/savoy-thames-foyer.webp'
     ],
     contemporary: [
-      '/images/ned-banking-hall.jpg',
-      '/images/shangri-la-shard-view.jpg',
-      '/images/model3.jpg'
+      '/images/ned-banking-hall.webp',
+      '/images/shangri-la-shard-view.webp',
+      '/images/model3.webp'
     ],
     boutique: [
-      '/images/clariges-lobby.jpg',
-      '/images/luisa1.jpg',
-      '/images/kate1.jpg'
+      '/images/clariges-lobby.webp',
+      '/images/luisa1.webp',
+      '/images/kate1.webp'
     ]
   },
   entertainment: {
     culture: [
-      '/images/blog-entertainment-culture.jpg',
-      '/images/model1.jpg'
+      '/images/blog-entertainment-culture.webp',
+      '/images/model1.webp'
     ],
     nightlife: [
-      '/images/model2.jpg',
-      '/images/model3.jpg'
+      '/images/model2.webp',
+      '/images/model3.webp'
     ],
     events: [
-      '/images/blog-london-events.jpg',
-      '/images/model4.jpg'
+      '/images/blog-london-events.webp',
+      '/images/model4.webp'
     ]
   }
 };

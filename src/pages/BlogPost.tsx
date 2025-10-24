@@ -10,6 +10,8 @@ import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { SafeHTML } from "@/components/ui/safe-html";
 import NotFound from "./NotFound";
+import { getBlogPostUrl } from "@/utils/urlHelpers";
+import { BUSINESS_INFO } from "@/constants/businessInfo";
 
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
@@ -53,19 +55,19 @@ const BlogPost = () => {
     author: {
       "@type": "Organization",
       name: article.author,
-      url: "https://fivelondon.com",
+      url: BUSINESS_INFO.domain,
     },
     publisher: {
       "@type": "Organization",
       name: "Five London",
       logo: {
         "@type": "ImageObject",
-        url: "https://fivelondon.com/logo.png",
+        url: BUSINESS_INFO.logo,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://fivelondon.com/blog/${article.slug}`,
+      "@id": getBlogPostUrl(article.slug),
     },
     keywords: article.seo_keywords,
     articleSection: article.category,

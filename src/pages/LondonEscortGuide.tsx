@@ -6,13 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { MapPin, Clock, Phone, Star, Shield, Crown, Heart, Users } from 'lucide-react';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
+import { getCanonicalUrl } from '@/utils/urlHelpers';
 
 const LondonEscortGuide = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "London Escort Guide", url: "https://fivelondon.com/london-escort-guide" }
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "London Escort Guide", url: getCanonicalUrl('/london-escort-guide') }
     ]),
     {
       "@context": "https://schema.org",

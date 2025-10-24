@@ -12,6 +12,8 @@ import {
   generateBreadcrumbSchema,
   generateOrganizationSchema,
 } from "@/utils/structuredData";
+import { getCanonicalUrl, getBlogPostUrl } from "@/utils/urlHelpers";
+import { BUSINESS_INFO } from "@/constants/businessInfo";
 
 import { toast } from "sonner";
 import { useState } from "react";
@@ -31,8 +33,8 @@ const Blog = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "Blog", url: "https://fivelondon.com/blog" },
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "Blog", url: getCanonicalUrl('/blog') },
     ]),
     {
       "@context": "https://schema.org",
@@ -40,19 +42,19 @@ const Blog = () => {
       name: "Five London Blog - Exclusive London Guide",
       description:
         "Discover the best restaurants, exclusive events, unique experiences and sophisticated hotels in London. Your complete guide to living London in style with luxury recommendations.",
-      url: "https://fivelondon.com/blog",
+      url: getCanonicalUrl('/blog'),
       inLanguage: "en-GB",
       publisher: {
         "@type": "Organization",
         name: "Five London",
-        url: "https://fivelondon.com",
-        logo: "https://fivelondon.com/logo.png",
+        url: BUSINESS_INFO.domain,
+        logo: BUSINESS_INFO.logo,
       },
       blogPost: posts.map((post) => ({
         "@type": "BlogPosting",
         headline: post.title,
         description: post.excerpt,
-        url: `https://fivelondon.com/blog/${post.slug}`,
+        url: getBlogPostUrl(post.slug),
         datePublished: post.published_at,
         dateModified: post.updated_at,
         author: {
@@ -63,7 +65,7 @@ const Blog = () => {
         keywords: post.seo_keywords,
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://fivelondon.com/blog/${post.slug}`,
+          "@id": getBlogPostUrl(post.slug),
         },
       })),
     },

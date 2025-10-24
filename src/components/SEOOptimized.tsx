@@ -28,7 +28,7 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
 }) => {
   const fullTitle = title.includes(BUSINESS_INFO.name) ? title : `${title} | ${BUSINESS_INFO.name}`;
   const optimizedDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
-  const fullCanonicalUrl = canonicalUrl ? getCanonicalUrl(canonicalUrl) : undefined;
+  const fullCanonicalUrl = canonicalUrl ? (canonicalUrl.startsWith('http') ? canonicalUrl : getCanonicalUrl(canonicalUrl)) : undefined;
   const absoluteOgImage = ogImage.startsWith('http') ? ogImage : getAssetUrl(ogImage);
 
   return (

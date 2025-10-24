@@ -10,6 +10,7 @@ import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { SafeHTML } from '@/components/ui/safe-html';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { getCanonicalUrl } from '@/utils/urlHelpers';
 
 const CharacteristicDetail = () => {
   const params = useSafeParams();
@@ -82,9 +83,9 @@ const CharacteristicDetail = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "Characteristics", url: "https://fivelondon.com/characteristics" },
-      { name: characteristic.name, url: `https://fivelondon.com/characteristics/${characteristic.slug}` }
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "Characteristics", url: getCanonicalUrl('/characteristics') },
+      { name: characteristic.name, url: getCanonicalUrl(`/characteristics/${characteristic.slug}`) }
     ])
   ];
 

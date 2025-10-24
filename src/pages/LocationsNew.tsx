@@ -3,6 +3,7 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { generateLocalBusinessSchema, generateGeoTargetingSchema } from '@/utils/geoTargeting';
 import { generateBreadcrumbSchema } from '@/utils/structuredData';
 import { locations } from '@/data/locations';
+import { getCanonicalUrl } from '@/utils/urlHelpers';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Clock, Star } from 'lucide-react';
 
@@ -10,8 +11,8 @@ export const Locations: React.FC = () => {
   const structuredData = [
     generateGeoTargetingSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "London Locations", url: "https://fivelondon.com/locations" }
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "London Locations", url: getCanonicalUrl('/locations') }
     ]),
     ...locations.slice(0, 5).map(location => generateLocalBusinessSchema(location))
   ];

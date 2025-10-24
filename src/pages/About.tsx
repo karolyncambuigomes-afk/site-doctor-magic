@@ -8,6 +8,7 @@ import {
   generateOrganizationSchema,
   generateBreadcrumbSchema,
 } from "@/utils/structuredData";
+import { getCanonicalUrl } from "@/utils/urlHelpers";
 import {
   Shield,
   Award,
@@ -30,8 +31,8 @@ const About = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "About Us", url: "https://fivelondon.com/about" },
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "About Us", url: getCanonicalUrl('/about') },
     ]),
     {
       "@context": "https://schema.org",

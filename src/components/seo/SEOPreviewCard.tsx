@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Globe, Twitter, Facebook, Search } from 'lucide-react';
+import { BUSINESS_INFO } from '@/constants/businessInfo';
 
 interface SEOPreviewCardProps {
   title: string;
@@ -14,7 +15,7 @@ interface SEOPreviewCardProps {
 export const SEOPreviewCard: React.FC<SEOPreviewCardProps> = ({
   title,
   description,
-  url = 'https://fivelondon.com',
+  url = BUSINESS_INFO.domain,
   image,
   type = 'google'
 }) => {

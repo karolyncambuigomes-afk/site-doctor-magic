@@ -6,14 +6,15 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { ContactBar } from '@/components/ContactBar';
 
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { getCanonicalUrl } from '@/utils/urlHelpers';
 
 export const Models: React.FC = () => {
   
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "Our Models", url: "https://fivelondon.com/models" }
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "Our Models", url: getCanonicalUrl('/models') }
     ])
   ];
 

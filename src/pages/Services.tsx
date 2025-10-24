@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ChevronRight, Clock } from 'lucide-react';
 import { useBlogLinks } from '@/hooks/useBlogLinks';
 import { generateServiceSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { getCanonicalUrl } from '@/utils/urlHelpers';
 
 const Services = () => {
   const { getBlogLinkForKeyword, getBlogTitleForKeyword } = useBlogLinks();
@@ -15,8 +16,8 @@ const Services = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: "https://fivelondon.com/" },
-      { name: "Services", url: "https://fivelondon.com/services" }
+      { name: "Home", url: getCanonicalUrl('/') },
+      { name: "Services", url: getCanonicalUrl('/services') }
     ]),
     {
       "@context": "https://schema.org",

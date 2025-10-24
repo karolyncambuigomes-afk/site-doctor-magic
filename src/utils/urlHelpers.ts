@@ -60,3 +60,24 @@ export const getAssetUrl = (assetPath: string): string => {
 export const getGoogleMapsUrl = (lat: number, lng: number): string => {
   return `https://www.google.com/maps?q=${lat},${lng}`;
 };
+
+/**
+ * Get WhatsApp contact URL
+ */
+export const getWhatsAppUrl = (): string => {
+  return BUSINESS_INFO.whatsapp;
+};
+
+/**
+ * Get Telegram contact URL
+ */
+export const getTelegramUrl = (): string => {
+  return BUSINESS_INFO.telegram;
+};
+
+/**
+ * Get phone call URL
+ */
+export const getPhoneUrl = (): string => {
+  return BUSINESS_INFO.phoneLink;
+};

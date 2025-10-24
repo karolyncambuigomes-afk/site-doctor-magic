@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Phone, Send } from 'lucide-react';
+import { getWhatsAppUrl, getTelegramUrl, getPhoneUrl } from '@/utils/urlHelpers';
+import { BUSINESS_INFO } from '@/constants/businessInfo';
 
 interface ContactBarProps {
   showOnScroll?: boolean; // true = aparece após scroll (Index), false = sempre visível (outras páginas)
@@ -39,7 +41,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
         {/* Mobile version */}
         <div className="flex sm:hidden items-center justify-around py-3">
           <a
-            href="https://wa.me/447436190679"
+            href={getWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-1 text-white hover:text-gray-300 transition-colors"
@@ -49,7 +51,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           </a>
 
           <a
-            href="tel:+447436190679"
+            href={getPhoneUrl()}
             className="flex flex-col items-center gap-1 text-white hover:text-gray-300 transition-colors"
           >
             <Phone className="w-5 h-5" />
@@ -57,7 +59,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           </a>
 
           <a
-            href="https://t.me/FiveLondon"
+            href={getTelegramUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-col items-center gap-1 text-white hover:text-gray-300 transition-colors"
@@ -70,7 +72,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
         {/* Desktop version */}
         <div className="hidden sm:flex items-center justify-center gap-8 py-3">
           <a
-            href="https://wa.me/447436190679"
+            href={getWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
@@ -82,17 +84,17 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           <div className="h-4 w-px bg-white/20" />
 
           <a
-            href="tel:+447436190679"
+            href={getPhoneUrl()}
             className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
           >
             <Phone className="w-4 h-4" />
-            <span className="text-sm font-light tracking-wide">+44 7436 190679</span>
+            <span className="text-sm font-light tracking-wide">{BUSINESS_INFO.phoneFormatted}</span>
           </a>
 
           <div className="h-4 w-px bg-white/20" />
 
           <a
-            href="https://t.me/FiveLondon"
+            href={getTelegramUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"

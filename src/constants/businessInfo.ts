@@ -11,7 +11,11 @@ export const BUSINESS_INFO = {
   // Contact Information
   phone: "+44 7436 190679",
   phoneFormatted: "+44 7436 190679",
+  phoneLink: "tel:+447436190679",
   email: "models@exclusivefivelondon.com",
+  whatsapp: "https://wa.me/447436190679",
+  whatsappFormatted: "+44 7436 190679",
+  telegram: "https://t.me/FiveLondon",
   
   // URLs
   domain: "https://fivelondon.com",

@@ -3,6 +3,8 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { getWhatsAppUrl, getPhoneUrl } from '@/utils/urlHelpers';
+import { BUSINESS_INFO } from '@/constants/businessInfo';
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
@@ -57,7 +59,7 @@ export const Footer = () => {
                 <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Twitter">
                   <Twitter className="w-4 h-4" />
                 </button>
-                <a href="https://wa.me/447436190679" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
+                <a href={getWhatsAppUrl()} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
@@ -92,9 +94,9 @@ export const Footer = () => {
               Support & Information
             </h4>
             <div className="space-y-3">
-              <a href="tel:+447436190679" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href={getPhoneUrl()} className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>+44 7436 190679</span>
+                <span>{BUSINESS_INFO.phoneFormatted}</span>
               </a>
               <SafeLink to="/contact" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" />

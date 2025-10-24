@@ -11,6 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getWhatsAppUrl, getPhoneUrl } from '@/utils/urlHelpers';
+import { BUSINESS_INFO } from '@/constants/businessInfo';
 
 const navItems = [
   { href: "/locations", label: "Locations" },
@@ -75,10 +77,10 @@ export const Navigation: React.FC = () => {
           {/* Contact & Auth (Desktop) */}
           <div className="hidden lg:flex items-center space-x-4">
             <a
-              href="tel:+447436190679"
+              href={getPhoneUrl()}
               className="body-sm transition-smooth text-secondary-content hover:text-primary-content"
             >
-              +44 7436 190679
+              {BUSINESS_INFO.phoneFormatted}
             </a>
             {user ? (
               <DropdownMenu>
@@ -113,7 +115,7 @@ export const Navigation: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <a href="https://wa.me/447436190679">
+              <a href={getWhatsAppUrl()}>
                 <Button variant="outline">Contact Us</Button>
               </a>
             )}
@@ -156,10 +158,10 @@ export const Navigation: React.FC = () => {
               <div className="pt-8 border-t border-primary-line flex flex-col gap-element">
                 <div className="flex items-center justify-between">
                   <a
-                    href="tel:+447436190679"
+                    href={getPhoneUrl()}
                     className="block body-sm text-secondary-content hover:text-primary-content transition-smooth"
                   >
-                    +44 7436 190679
+                    {BUSINESS_INFO.phoneFormatted}
                   </a>
                 </div>
                 {user ? (
@@ -188,7 +190,7 @@ export const Navigation: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <a href="https://wa.me/447436190679">
+                  <a href={getWhatsAppUrl()}>
                     <Button className="w-full">Contact Us</Button>
                   </a>
                 )}

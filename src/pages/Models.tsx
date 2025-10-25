@@ -65,7 +65,7 @@ export const Models: React.FC = () => {
                   <p className="body-base text-secondary-content">
                     Our exclusive gallery features carefully selected international models who embody sophistication, intelligence, and natural beauty. Each companion represents the highest standards of elegance and cultural refinement, providing discerning gentlemen with exceptional experiences across London's most prestigious venues.
                   </p>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                  <p className="luxury-body-md text-secondary-content leading-relaxed">
                     From intimate dinner dates at Michelin-starred restaurants to prestigious social events, our elite models excel in creating memorable experiences. Each companion is multilingual, well-educated, and possesses the social grace necessary for any sophisticated occasion.
                   </p>
                 </div>
@@ -74,15 +74,15 @@ export const Models: React.FC = () => {
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Business Companionship</h4>
-                      <p className="luxury-body-xs text-gray-600">Professional accompaniment for corporate events, business dinners, and networking functions throughout the City and Canary Wharf.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Professional accompaniment for corporate events, business dinners, and networking functions throughout the City and Canary Wharf.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Cultural Experiences</h4>
-                      <p className="luxury-body-xs text-gray-600">Sophisticated companions for theatre evenings, gallery openings, and exclusive cultural events in Covent Garden and South Bank.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Sophisticated companions for theatre evenings, gallery openings, and exclusive cultural events in Covent Garden and South Bank.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Luxury Hotel Services</h4>
-                      <p className="luxury-body-xs text-gray-600">Discreet and professional services at London's finest hotels including The Ritz, The Savoy, and Shangri-La at The Shard.</p>
+                      <p className="luxury-body-xs text-muted-foreground">Discreet and professional services at London's finest hotels including The Ritz, The Savoy, and Shangri-La at The Shard.</p>
                     </div>
                   </div>
                 </div>

@@ -85,10 +85,10 @@ const Blog = () => {
             <section className="py-16 md:py-24 bg-white">
               <div className="container-width text-center">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <h1 className="text-4xl font-bold mb-6 text-black">
-                    Discover London
-                  </h1>
-                  <p className="text-lg text-gray-600 mb-12">
+                <h1 className="text-4xl font-bold mb-6 text-primary-content">
+                  Discover London
+                </h1>
+                <p className="text-lg text-muted-foreground mb-12">
                     Your exclusive guide to sophisticated experiences, exquisite
                     restaurants, and London's best-kept secrets.
                   </p>
@@ -171,10 +171,10 @@ const Blog = () => {
           <section className="py-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                   Discover London
                 </h1>
-                <p className="luxury-body-lg text-black mb-12 md:mb-12">
+                <p className="luxury-body-lg text-secondary-content mb-12 md:mb-12">
                   Your exclusive guide to sophisticated experiences, exquisite
                   restaurants, and London's best-kept secrets.
                 </p>
@@ -210,7 +210,7 @@ const Blog = () => {
           </section>
 
           {/* Categories */}
-          <section className="py-8 border-b border-gray-200 bg-gray-50">
+          <section className="py-8 border-b border-border bg-secondary-surface">
             <div className="container-width">
               <div className="flex flex-wrap gap-3 justify-center px-4">
                 <Link to="/blog">
@@ -336,21 +336,21 @@ const Blog = () => {
               <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
                 <div className="mb-8">
                   <div className="text-center mb-6">
-                    <h2 className="luxury-heading-lg text-black">About London Luxury Lifestyle Guide</h2>
+                    <h2 className="luxury-heading-lg text-primary-content">About London Luxury Lifestyle Guide</h2>
                   </div>
                   <div className="grid md:grid-cols-2 gap-8 mt-8">
                   <div className="space-y-4">
-                    <h3 className="luxury-heading-md text-black">
+                    <h3 className="luxury-heading-md text-primary-content">
                       Exclusive Restaurants and Dining Experiences
                     </h3>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       Discover London's most prestigious dining venues, from
                       Michelin-starred establishments in Mayfair to exclusive
                       private dining rooms in Knightsbridge. Our curated guide
                       features insider recommendations for romantic dinners,
                       business lunches, and special celebrations.
                     </p>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       Experience world-class cuisine at venues like Sketch,
                       Hakkasan, and The Ritz Restaurant, where exceptional
                       service meets culinary artistry. Perfect for sophisticated
@@ -358,12 +358,12 @@ const Blog = () => {
                     </p>
                   </div>
                   <div className="space-y-4">
-                    <h3 className="luxury-heading-md text-black">
+                    <h3 className="luxury-heading-md text-primary-content">
                       Premium Hotels and Cultural Events
                     </h3>
                     <div className="space-y-3">
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Luxury Accommodations
                         </h4>
                         <p className="luxury-body-xs text-gray-600">
@@ -373,17 +373,17 @@ const Blog = () => {
                         </p>
                       </div>
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Cultural Attractions
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-muted-foreground">
                           Premium experiences at Royal Opera House, Tate Modern,
                           and exclusive gallery openings in Chelsea and
                           Shoreditch.
                         </p>
                       </div>
                       <div>
-                        <h4 className="luxury-body-sm font-medium text-black">
+                        <h4 className="luxury-body-sm font-medium text-primary-content">
                           Entertainment Venues
                         </h4>
                         <p className="luxury-body-xs text-gray-600">

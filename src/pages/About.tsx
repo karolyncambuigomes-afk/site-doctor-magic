@@ -202,7 +202,7 @@ const About = () => {
                   would set new standards in elegance, discretion, and
                   personalized service.
                 </p>
-                <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
+                <p className="luxury-body-md text-secondary-content mb-6 leading-relaxed">
                   Over the years, we have carefully curated a portfolio of
                   exceptional companions who embody the qualities our clients
                   value most: intelligence, elegance, sophistication, and
@@ -210,7 +210,7 @@ const About = () => {
                   beauty but for their ability to engage in meaningful
                   conversations and adapt to any social setting.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-secondary-content leading-relaxed">
                   Today, Five London is recognized as London's most exclusive
                   luxury escort agency, serving clients from around the world
                   who seek unparalleled companionship experiences in one of the
@@ -225,10 +225,10 @@ const About = () => {
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="luxury-heading-lg mb-6 text-black">
+              <h2 className="luxury-heading-lg mb-6 text-primary-content">
                 Why Choose Five London
               </h2>
-              <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
+              <p className="luxury-body-lg text-secondary-content max-w-3xl mx-auto leading-relaxed">
                 We distinguish ourselves through our unwavering commitment to
                 excellence, attention to detail, and understanding of what truly
                 matters to our discerning clientele.
@@ -240,10 +240,10 @@ const About = () => {
                 <div key={index} className="flex items-start gap-6">
                   <value.icon className="w-8 h-8 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="luxury-heading-sm mb-3 text-black">
+                    <h3 className="luxury-heading-sm mb-3 text-primary-content">
                       {value.title}
                     </h3>
-                    <p className="luxury-body-md text-gray-800 leading-relaxed">
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       {value.description}
                     </p>
                   </div>
@@ -278,10 +278,10 @@ const About = () => {
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="luxury-heading-lg mb-6 text-black">
+              <h2 className="luxury-heading-lg mb-6 text-primary-content">
                 Our Achievements
               </h2>
-              <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
+              <p className="luxury-body-lg text-secondary-content max-w-3xl mx-auto leading-relaxed">
                 Our track record speaks for itself. These milestones represent
                 our commitment to excellence and the trust our clients place in
                 us.
@@ -293,10 +293,10 @@ const About = () => {
                 {achievements.map((achievement, index) => (
                   <div key={index} className="text-center">
                     <achievement.icon className="w-8 h-8 text-primary mx-auto mb-4" />
-                    <h3 className="luxury-heading-sm mb-2 text-black">
+                    <h3 className="luxury-heading-sm mb-2 text-primary-content">
                       {achievement.text}
                     </h3>
-                    <p className="luxury-body-sm text-gray-600 leading-relaxed">
+                    <p className="luxury-body-sm text-muted-foreground leading-relaxed">
                       {achievement.detail}
                     </p>
                   </div>
@@ -310,24 +310,24 @@ const About = () => {
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="luxury-heading-lg mb-8 text-black">
+              <h2 className="luxury-heading-lg mb-8 text-primary-content">
                 Our Commitment to Excellence
               </h2>
               <div className="space-y-8">
-                <p className="luxury-body-lg text-gray-800 leading-relaxed">
+                <p className="luxury-body-lg text-secondary-content leading-relaxed">
                   At Five London, we understand that our clients are successful,
                   sophisticated individuals who expect nothing less than
                   perfection. This understanding drives every aspect of our
                   service, from the initial consultation to the final farewell.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-secondary-content leading-relaxed">
                   We continuously invest in training our team, refining our
                   processes, and staying ahead of industry trends to ensure that
                   we always exceed expectations. Our commitment extends beyond
                   just providing companionship – we create experiences that are
                   truly unforgettable.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-secondary-content leading-relaxed">
                   Whether you're attending a business function, exploring
                   London's cultural offerings, or simply seeking sophisticated
                   company for an evening out, Five London provides the perfect

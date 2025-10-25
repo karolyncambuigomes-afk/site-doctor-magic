@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSafeParams } from "@/hooks/useSafeRouter";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ContactBar } from "@/components/ContactBar";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -260,7 +261,8 @@ const BlogPost = () => {
           </section>
         </main>
 
-        <Footer />
+      <ContactBar showOnScroll={false} />
+      <Footer />
       </div>
     </>
   );

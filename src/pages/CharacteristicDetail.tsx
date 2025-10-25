@@ -4,6 +4,7 @@ import { useSafeParams } from '@/hooks/useSafeRouter';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { characteristics } from '@/data/characteristics';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
@@ -214,6 +215,7 @@ const CharacteristicDetail = () => {
           </section>
         </main>
         
+        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

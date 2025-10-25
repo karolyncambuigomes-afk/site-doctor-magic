@@ -1,6 +1,7 @@
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MessageCircle, Phone, Mail, Shield, Clock, Users, Star } from 'lucide-react';
 import { generateFAQSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
@@ -257,6 +258,7 @@ const FAQ = () => {
         </section>
       </main>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

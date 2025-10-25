@@ -229,24 +229,26 @@ const BlogPost = () => {
                 <p className="luxury-body-lg text-gray-700 font-light">{article.excerpt}</p>
 
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    <time dateTime={article.published_at} className="text-gray-600">
-                      {new Date(article.published_at).toLocaleDateString(
-                        "en-GB",
-                        {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        }
-                      )}
-                    </time>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    <span className="text-gray-600">{article.read_time} minutes read</span>
-                  </div>
-                  <div className="text-gray-900 font-medium">By {article.author}</div>
+                  {article.published_at && !isNaN(new Date(article.published_at as string).getTime()) && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" />
+                      <time dateTime={article.published_at} className="text-gray-600">
+                        {new Date(article.published_at as string).toLocaleDateString(
+                          "en-GB",
+                          { day: "numeric", month: "long", year: "numeric" }
+                        )}
+                      </time>
+                    </div>
+                  )}
+                  {Number(article.read_time) > 0 && (
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
+                      <span className="text-gray-600">{article.read_time} minutes read</span>
+                    </div>
+                  )}
+                  {article.author && (
+                    <div className="text-gray-900 font-medium">By {article.author}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -341,7 +343,7 @@ const BlogPost = () => {
                         </CardHeader>
                         <CardContent className="pt-0">
                           <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
-                            {relatedArticle.excerpt.substring(0, 120)}...
+                            {(relatedArticle.excerpt || '').substring(0, 120)}...
                           </p>
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button

@@ -36,7 +36,7 @@ export const HeroSection: React.FC = () => {
   if (!heroImage) {
     return (
       <section className="relative h-screen w-full flex items-end snap-start">
-      <div className="absolute inset-0 z-0 bg-white">
+        <div className="absolute inset-0 z-0 bg-gray-900">
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
@@ -48,14 +48,14 @@ export const HeroSection: React.FC = () => {
               {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
-              <button className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
-                {heroContent?.button_primary_text || "View Models"}
-              </button>
-            </SafeLink>
-            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
-              {heroContent?.button_secondary_text || "Book Now"}
-            </a>
+              <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
+                <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+                  {heroContent?.button_primary_text || "View Models"}
+                </button>
+              </SafeLink>
+              <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+                {heroContent?.button_secondary_text || "Book Now"}
+              </a>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image - loads immediately */}
-      <div className="absolute inset-0 z-0 bg-white">
+      <div className="absolute inset-0 z-0 bg-gray-900">
         <img
           src={heroImage}
           alt={heroContent?.title || 'Elegant companion services'}
@@ -97,21 +97,23 @@ export const HeroSection: React.FC = () => {
           
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
-              <button className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+              <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
                 {heroContent?.button_primary_text || "View Models"}
               </button>
             </SafeLink>
             
-            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
               {heroContent?.button_secondary_text || "Book Now"}
             </a>
           </div>
         </div>
       </div>
 
+      {/* Hidden SEO Content */}
       <div className="sr-only">
         <p>Five London offers exclusive escort services with sophisticated companions available throughout London's most prestigious districts including Mayfair W1, Knightsbridge SW1, Chelsea SW3, and Belgravia. Our elite escort agency provides discreet, professional companion services for business events, social occasions, dinner dates, and cultural experiences.</p>
-        {heroContent?.content && <div dangerouslySetInnerHTML={{ __html: heroContent.content }} />}
+        <p>Available 24/7 for outcall services to luxury hotels including The Ritz London, Claridge's, The Savoy, and Shangri-La at The Shard. Our carefully vetted international models offer uncompromising quality, intelligence, and elegance for discerning clients seeking premium escort services in Central London.</p>
+        <p>Specializing in high-class entertainment, business accompaniment, social events, and cultural experiences throughout London's exclusive areas. Complete discretion guaranteed with professional, sophisticated companions fluent in multiple languages and experienced in international business and social etiquette.</p>
       </div>
     </section>
   );

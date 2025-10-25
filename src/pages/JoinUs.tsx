@@ -144,20 +144,20 @@ const JoinUs = () => {
 
   const uploadFiles = async (files: File[], folder: string): Promise<string[]> => {
     const uploadPromises = files.map(async (file) => {
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', file);
-      uploadFormData.append('type', folder === 'photos' ? 'photo' : 'video');
-      uploadFormData.append('email', formData.email);
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${folder}/${Date.now()}-${Math.random()}.${fileExt}`;
       
-      const { data, error } = await supabase.functions.invoke('upload-application-file', {
-        body: uploadFormData,
-      });
+      const { data, error } = await supabase.storage
+        .from('model-applications')
+        .upload(fileName, file);
 
       if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      
-      // Return the storage path (not public URL since bucket is private)
-      return data.path;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('model-applications')
+        .getPublicUrl(data.path);
+
+      return publicUrl;
     });
 
     return Promise.all(uploadPromises);
@@ -284,10 +284,10 @@ const JoinUs = () => {
       <section className="pt-20 pb-12 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Join Our Agency
               </h1>
-              <p className="luxury-body-lg text-primary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Be part of a prestigious agency and build a successful career
               </p>
             </div>

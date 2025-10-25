@@ -94,8 +94,8 @@ export const Locations: React.FC = () => {
             ))}
           </section>
 
-        {/* Coverage Area */}
-        <section className="mt-20 bg-secondary-surface p-8 md:p-12 text-center">
+          {/* Coverage Area */}
+          <section className="mt-20 bg-muted/30 p-8 md:p-12 text-center">
             <h2 className="luxury-heading-xl text-foreground mb-6">
               Complete London Coverage
             </h2>
@@ -147,11 +147,11 @@ export const Locations: React.FC = () => {
             </div>
           </section>
 
-        {/* SEO Content Section - Always Visible */}
-        <section className="mt-16 py-16 bg-secondary-surface">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-12">
-              <h2 className="luxury-heading-lg text-primary-content mb-4">Elite Escorts Across London</h2>
+          {/* SEO Content Section - Always Visible */}
+          <section className="mt-16 py-16 bg-gray-50">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <div className="text-center mb-12">
+                <h2 className="luxury-heading-lg text-gray-800 mb-4">Elite Escorts Across London</h2>
                 <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
               </div>
               

@@ -64,32 +64,32 @@ const FAQ = () => {
         <section className="pt-20 pb-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Frequently Asked Questions
               </h1>
-              <p className="luxury-body-lg text-secondary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Find answers to the most common questions about our luxury companion services.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="separator-elegant"></div>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* FAQ Accordion */}
-        <section className="py-16 md:py-24 bg-secondary-surface">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
             {loading ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">Loading FAQs...</p>
+                <p className="text-gray-600">Loading FAQs...</p>
               </div>
             ) : error ? (
               <div className="text-center py-12">
-                <p className="text-destructive">Error loading FAQs: {error}</p>
+                <p className="text-red-600">Error loading FAQs: {error}</p>
               </div>
             ) : faqs.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No FAQs available at the moment.</p>
+                <p className="text-gray-600">No FAQs available at the moment.</p>
               </div>
             ) : (
               <Accordion type="multiple" defaultValue={faqs.map((_, index) => `item-${index}`)} className="space-y-4">
@@ -97,14 +97,14 @@ const FAQ = () => {
                   <AccordionItem 
                     key={faq.id} 
                     value={`item-${index}`}
-                    className="bg-card border border-border rounded-lg shadow-sm"
+                    className="bg-white border border-gray-200 rounded-lg shadow-sm"
                     itemScope
                     itemType="https://schema.org/Question"
                   >
-                    <AccordionTrigger className="text-left font-medium text-primary-content hover:text-primary-content transition-colors px-6 py-4">
+                    <AccordionTrigger className="text-left font-medium text-gray-900 hover:text-black transition-colors px-6 py-4">
                       <span itemProp="name">{faq.question}</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground leading-relaxed px-6 pb-4" itemScope itemType="https://schema.org/Answer">
+                    <AccordionContent className="text-gray-600 leading-relaxed px-6 pb-4" itemScope itemType="https://schema.org/Answer">
                       <div itemProp="text">{faq.answer}</div>
                     </AccordionContent>
                   </AccordionItem>
@@ -117,15 +117,15 @@ const FAQ = () => {
         {/* Important Information Section */}
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-secondary-surface p-8 rounded-lg">
-              <h2 className="luxury-heading-lg text-primary-content mb-8 text-center">
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <h2 className="luxury-heading-lg text-black mb-8 text-center">
                 Important Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {bookingInfo.map((info, index) => (
-                  <div key={index} className="bg-card p-6 rounded-lg shadow-sm border border-border/50">
-                    <h3 className="luxury-heading-sm text-primary-content mb-3">{info.title}</h3>
-                    <p className="luxury-body-sm text-muted-foreground leading-relaxed">
+                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 className="luxury-heading-sm text-black mb-3">{info.title}</h3>
+                    <p className="luxury-body-sm text-gray-600 leading-relaxed">
                       {info.content}
                     </p>
                   </div>
@@ -136,50 +136,50 @@ const FAQ = () => {
         </section>
 
         {/* Trust Indicators */}
-        <section className="py-16 bg-secondary-surface">
+        <section className="py-16 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
-                  <Shield className="w-8 h-8 text-primary-content" />
+                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                  <Shield className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="luxury-heading-sm text-primary-content mb-2">100% Discrete</h3>
-                <p className="luxury-body-xs text-muted-foreground">Complete confidentiality guaranteed</p>
+                <h3 className="luxury-heading-sm text-black mb-2">100% Discrete</h3>
+                <p className="luxury-body-xs text-gray-600">Complete confidentiality guaranteed</p>
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
-                  <Clock className="w-8 h-8 text-primary-content" />
+                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                  <Clock className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="luxury-heading-sm text-primary-content mb-2">24/7 Available</h3>
-                <p className="luxury-body-xs text-muted-foreground">Round-the-clock service</p>
+                <h3 className="luxury-heading-sm text-black mb-2">24/7 Available</h3>
+                <p className="luxury-body-xs text-gray-600">Round-the-clock service</p>
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
-                  <Users className="w-8 h-8 text-primary-content" />
+                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                  <Users className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="luxury-heading-sm text-primary-content mb-2">Elite Companions</h3>
-                <p className="luxury-body-xs text-muted-foreground">Carefully selected professionals</p>
+                <h3 className="luxury-heading-sm text-black mb-2">Elite Companions</h3>
+                <p className="luxury-body-xs text-gray-600">Carefully selected professionals</p>
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
-                  <Star className="w-8 h-8 text-primary-content" />
+                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                  <Star className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="luxury-heading-sm text-primary-content mb-2">Premium Service</h3>
-                <p className="luxury-body-xs text-muted-foreground">Exceptional experiences delivered</p>
+                <h3 className="luxury-heading-sm text-black mb-2">Premium Service</h3>
+                <p className="luxury-body-xs text-gray-600">Exceptional experiences delivered</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-secondary-surface">
+        <section className="py-16 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm p-6 md:p-8">
+            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
-                <h2 className="luxury-heading-lg text-center mb-6 text-secondary-content">Common Questions About Our Services</h2>
+                <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Booking Process</h3>
@@ -220,18 +220,18 @@ const FAQ = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 bg-secondary-surface">
+        <section className="py-16 bg-gray-50">
           <div className="container-width text-center">
-            <h2 className="luxury-heading-xl mb-6 text-primary-content">
+            <h2 className="luxury-heading-xl mb-6 text-black">
               Still Have Questions?
             </h2>
-            <p className="luxury-body-lg text-secondary-content mb-8 max-w-2xl mx-auto">
+            <p className="luxury-body-lg text-gray-700 mb-8 max-w-2xl mx-auto">
               Our dedicated concierge team is available 24/7 to assist you with any inquiries.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+447436190679"
-                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-gray-800 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <Phone className="h-5 w-5" />
                 Call Us
@@ -240,14 +240,14 @@ const FAQ = () => {
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-primary text-primary-content hover:bg-primary hover:text-primary-foreground px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <MessageCircle className="h-5 w-5" />
                 WhatsApp
               </a>
               <a
                 href="mailto:models@exclusivefivelondon.com"
-                className="inline-flex items-center justify-center gap-2 border border-primary text-primary-content hover:bg-primary hover:text-primary-foreground px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <Mail className="h-5 w-5" />
                 Email

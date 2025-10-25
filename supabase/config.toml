@@ -59,6 +59,3 @@ verify_jwt = false
 
 [functions.admin-auth-validation]
 verify_jwt = false
-
-[functions.upload-application-file]
-verify_jwt = false

@@ -170,23 +170,23 @@ const Services = () => {
       
       <main className="pt-0">
         {/* Hero Section */}
-        <section className="section-padding-lg bg-white">
+        <section className="pt-20 pb-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="heading-1 title-margin-md text-primary-content">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Elite Companion Services
               </h1>
-              <p className="body-lead text-primary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Premium services from £500/hour. London's finest companions ready now.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="separator-elegant"></div>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* Minimal Services Accordion */}
-        <section className="section-padding-md bg-white">
+        <section className="py-12 md:py-16 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4", "item-5", "item-6", "item-7"]} className="space-y-3 sm:space-y-4">
@@ -199,14 +199,14 @@ const Services = () => {
                     <AccordionTrigger className="hover:no-underline py-4 sm:py-6 text-left">
                       <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 w-full">
                         <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-primary-content" />
+                          <service.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-black" />
                         </div>
                         <div className="flex-1 text-left">
-                          <h3 className="luxury-heading-sm mb-1 text-primary-content">{service.title}</h3>
-                          <p className="luxury-body-xs text-primary-content hidden sm:block">{service.description}</p>
+                          <h3 className="luxury-heading-sm mb-1 text-black">{service.title}</h3>
+                          <p className="luxury-body-xs text-black hidden sm:block">{service.description}</p>
                         </div>
-                        <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-xs sm:luxury-body-sm text-primary-content">
-                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-primary-content" />
+                        <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-xs sm:luxury-body-sm text-black">
+                          <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
                           <span className="hidden sm:inline">{service.duration}</span>
                           <span className="sm:hidden">{service.duration.split('-')[0]}</span>
                         </div>
@@ -216,7 +216,7 @@ const Services = () => {
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                          {/* Mobile description */}
                           <div className="sm:hidden">
-                            <p className="luxury-body-xs text-primary-content">{service.description}</p>
+                            <p className="luxury-body-xs text-black">{service.description}</p>
                           </div>
                         
                         {/* Extended Content (Hidden SEO) */}
@@ -229,7 +229,7 @@ const Services = () => {
                         
                          {/* Features */}
                          <div>
-                           <h4 className="luxury-body-xs sm:luxury-body-sm font-medium text-primary-content mb-2 sm:mb-3">What's Included</h4>
+                           <h4 className="luxury-body-xs sm:luxury-body-sm font-medium text-black mb-2 sm:mb-3">What's Included</h4>
                           <div className="grid grid-cols-1 gap-1 sm:gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
@@ -270,8 +270,8 @@ const Services = () => {
                               const linkConfig = linkableFeatures[feature];
                               
                                return (
-                                 <div key={i} className="flex items-center luxury-body-xs sm:luxury-body-sm text-primary-content">
-                                   <div className="w-1 h-1 bg-primary-content rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
+                                 <div key={i} className="flex items-center luxury-body-xs sm:luxury-body-sm text-black">
+                                   <div className="w-1 h-1 bg-black rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {
                                       const dynamicLink = getBlogLinkForKeyword(feature);
@@ -279,7 +279,7 @@ const Services = () => {
                                       return dynamicLink ? (
                                         <Link 
                                           to={dynamicLink}
-                                          className="text-primary-content hover:text-secondary-content transition-colors underline"
+                                          className="text-black hover:text-gray-600 transition-colors underline"
                                           title={dynamicTitle || linkConfig.title}
                                           aria-label={dynamicTitle || linkConfig.title}
                                         >
@@ -288,7 +288,7 @@ const Services = () => {
                                       ) : (
                                         <Link 
                                           to={service.blogLink}
-                                          className="text-primary-content hover:text-secondary-content transition-colors underline"
+                                          className="text-black hover:text-gray-600 transition-colors underline"
                                           title={linkConfig.title}
                                           aria-label={linkConfig.title}
                                         >

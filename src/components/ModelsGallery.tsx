@@ -91,9 +91,9 @@ export const ModelsGallery: React.FC = () => {
           <div className="container-width">
             {/* Search Bar */}
             <div className="max-w-md mx-auto mb-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
                   type="text"
                   placeholder="Search models by name, location..."
                   value={searchTerm}
@@ -130,10 +130,10 @@ export const ModelsGallery: React.FC = () => {
               ))}
             </div>
 
-          {/* Results Counter */}
-          <div className="text-center text-sm text-secondary-content">
-            {filteredModels.length} companion{filteredModels.length !== 1 ? 's' : ''} available
-          </div>
+            {/* Results Counter */}
+            <div className="text-center text-sm text-gray-600">
+              {filteredModels.length} companion{filteredModels.length !== 1 ? 's' : ''} available
+            </div>
           </div>
         </section>
 

@@ -3,18 +3,12 @@ import type { Config } from "tailwindcss";
 export default {
 	darkMode: ["class"],
 	content: [
+		"./pages/**/*.{ts,tsx}",
+		"./components/**/*.{ts,tsx}",
+		"./app/**/*.{ts,tsx}",
 		"./src/**/*.{ts,tsx}",
-		"./index.html",
 	],
 	prefix: "",
-	safelist: [
-		'bg-white',
-		'bg-secondary-surface',
-		'bg-card',
-		'text-primary-content',
-		'text-secondary-content',
-		'text-muted-foreground',
-	],
 	theme: {
 		container: {
 			center: true,

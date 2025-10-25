@@ -28,7 +28,7 @@ Allow: /
 Crawl-delay: 0
 
 # Sitemap
-Sitemap: https://www.fivelondon.com/sitemap.xml
+Sitemap: https://fivelondon.co.uk/sitemap.xml
 
 # Allow all content for better international accessibility
 # Optimized for external performance testing tools

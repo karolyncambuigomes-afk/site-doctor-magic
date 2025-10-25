@@ -76,16 +76,16 @@ const Contact = () => {
         <section className="pt-20 pb-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                 Contact for Same Day Booking
               </h1>
-              <p className="luxury-body-lg text-secondary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-black mb-12 md:mb-12">
                 Most companions available today. Call now for instant confirmation.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="separator-elegant"></div>
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
 
         {/* Contact Methods */}
@@ -98,14 +98,14 @@ const Contact = () => {
                     key={method.title}
                     className="text-center space-y-4 p-6 border border-border rounded-xl hover:border-primary/30 transition-all"
                   >
-                    <div className="inline-flex items-center justify-center w-12 h-12 text-primary-content">
+                    <div className="inline-flex items-center justify-center w-12 h-12 text-black">
                       <method.icon className="w-8 h-8" />
                     </div>
-                    <h3 className="luxury-heading-sm text-primary-content">{method.title}</h3>
-                    <p className="text-primary-content break-all luxury-body-sm px-2">{method.details}</p>
-                    <p className="luxury-body-sm text-primary-content">{method.description}</p>
+                    <h3 className="luxury-heading-sm text-black">{method.title}</h3>
+                    <p className="text-black break-all luxury-body-sm px-2">{method.details}</p>
+                    <p className="luxury-body-sm text-black">{method.description}</p>
                     <Button 
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                      className="w-full bg-black text-white hover:bg-gray-800"
                       onClick={() => {
                         if (method.title === 'WhatsApp') {
                           window.open('https://wa.me/447436190679', '_blank');
@@ -126,43 +126,43 @@ const Contact = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-secondary-surface">
+        <section className="py-16 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm p-6 md:p-8">
+            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-primary-content">Contact Our London Team</h2>
+                  <h2 className="luxury-heading-lg text-black">Contact Our London Team</h2>
                 </div>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">24/7 Availability</h3>
-                  <p className="luxury-body-md text-secondary-content leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Our dedicated concierge team is available around the clock to handle your booking requests, whether you need same-day arrangements or advance planning for special occasions across London's premier venues.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Instant Booking</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Most companions available for same-day bookings throughout Central London, Mayfair, and Knightsbridge.</p>
+                      <p className="luxury-body-xs text-gray-600">Most companions available for same-day bookings throughout Central London, Mayfair, and Knightsbridge.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Emergency Contact</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Urgent assistance available via WhatsApp for last-minute requests and special arrangements.</p>
+                      <p className="luxury-body-xs text-gray-600">Urgent assistance available via WhatsApp for last-minute requests and special arrangements.</p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Booking Methods</h3>
-                  <p className="luxury-body-md text-secondary-content leading-relaxed">
+                  <p className="luxury-body-md text-gray-700 leading-relaxed">
                     Choose your preferred method to contact Five London. We offer multiple channels to ensure discreet and efficient communication for all your luxury companionship needs in London.
                   </p>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">WhatsApp Preferred</h4>
-                      <p className="luxury-body-xs text-muted-foreground">Fastest response times with instant confirmations and real-time availability updates.</p>
+                      <p className="luxury-body-xs text-gray-600">Fastest response times with instant confirmations and real-time availability updates.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Secure Communication</h4>
-                      <p className="luxury-body-xs text-muted-foreground">All communications encrypted and handled with complete discretion and confidentiality.</p>
+                      <p className="luxury-body-xs text-gray-600">All communications encrypted and handled with complete discretion and confidentiality.</p>
                     </div>
                   </div>
                 </div>
@@ -177,11 +177,11 @@ const Contact = () => {
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
               <h2 className="luxury-heading-lg mb-4">Need Immediate Assistance?</h2>
-              <p className="luxury-body-base text-muted-foreground mb-8">
+              <p className="luxury-body-base text-gray-600 mb-8">
                 For urgent bookings or questions, contact us directly.
               </p>
               <Button 
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-full"
+                className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Contact Us Now

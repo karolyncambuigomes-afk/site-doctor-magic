@@ -1,7 +1,6 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { ContactBar } from '@/components/ContactBar';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
@@ -194,7 +193,6 @@ export const Reviews: React.FC = () => {
         </section>
       </main>
 
-      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

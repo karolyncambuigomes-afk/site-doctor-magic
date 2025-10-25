@@ -16,7 +16,7 @@ const ModelCardFallback = ({ error }: { error: Error }) => (
     <p className="text-sm text-muted-foreground">
       Unable to load model card
     </p>
-    {import.meta.env.DEV && (
+    {process.env.NODE_ENV === 'development' && (
       <details className="mt-2 text-xs text-left">
         <summary className="cursor-pointer">Error details</summary>
         <pre className="mt-1 text-xs bg-muted p-2 rounded overflow-auto">

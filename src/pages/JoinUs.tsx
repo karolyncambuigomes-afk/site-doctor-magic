@@ -13,7 +13,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { ContactBar } from "@/components/ContactBar";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -675,7 +674,6 @@ const JoinUs = () => {
         </section>
       </main>
 
-      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

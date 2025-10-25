@@ -66,6 +66,6 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     autoRefreshToken: true,
     detectSessionInUrl: true,
     flowType: 'pkce',
-    debug: import.meta.env.DEV
+    debug: process.env.NODE_ENV === 'development'
   }
 });

@@ -44,9 +44,19 @@ export const HeroSection: React.FC = () => {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
               {heroContent?.title || "Premium London Escort Agency"}
             </h1>
-            <h2 className="text-lg sm:text-xl md:text-2xl text-white/90 font-light">
+            <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
               {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
             </h2>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
+                <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+                  {heroContent?.button_primary_text || "View Models"}
+                </button>
+              </SafeLink>
+              <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+                {heroContent?.button_secondary_text || "Book Now"}
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -81,10 +91,21 @@ export const HeroSection: React.FC = () => {
             {heroContent?.title || "Premium London Escort Agency"}
           </h1>
           
-          <h2 className="text-lg sm:text-xl md:text-2xl text-white/90 font-light">
+          <h2 className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 font-light">
             {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
           </h2>
           
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
+              <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
+                {heroContent?.button_primary_text || "View Models"}
+              </button>
+            </SafeLink>
+            
+            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+              {heroContent?.button_secondary_text || "Book Now"}
+            </a>
+          </div>
         </div>
       </div>
 

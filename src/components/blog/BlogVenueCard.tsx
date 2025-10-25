@@ -52,72 +52,43 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
         </CardHeader>
         
         <CardContent className="px-10 pb-10">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-4 sm:p-8 shadow-inner">
-            {/* Mobile View - Cards */}
-            <div className="block sm:hidden space-y-4">
-              {Object.entries(venueInfo).map(([key, value]) => (
-                <div 
-                  key={key}
-                  className="bg-white rounded-xl p-4 shadow-sm border border-gray-200"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    {key === 'Specialty' && <Star className="w-4 h-4 text-amber-500" />}
-                    {key === 'Average price' && <DollarSign className="w-4 h-4 text-green-600" />}
-                    {key === 'Atmosphere' && <Clock className="w-4 h-4 text-blue-500" />}
-                    {key === 'Location' && <MapPin className="w-4 h-4 text-red-500" />}
-                    <span className="font-semibold text-sm text-gray-900">{key}</span>
-                  </div>
-                  {key === 'Average price' ? (
-                    <Badge variant="secondary" className="font-semibold bg-green-100 text-green-800 px-3 py-1">
-                      {value}
-                    </Badge>
-                  ) : (
-                    <p className="text-sm text-gray-700 leading-relaxed">{value}</p>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Desktop View - Table */}
-            <div className="hidden sm:block overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="border-gray-200">
-                    <TableHead className="luxury-body-md font-semibold text-black border-r border-gray-200">
-                      Aspect
-                    </TableHead>
-                    <TableHead className="luxury-body-md font-semibold text-black">
-                      Details
-                    </TableHead>
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl p-8 shadow-inner">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-gray-200">
+                  <TableHead className="luxury-body-md font-semibold text-black border-r border-gray-200">
+                    Aspect
+                  </TableHead>
+                  <TableHead className="luxury-body-md font-semibold text-black">
+                    Details
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Object.entries(venueInfo).map(([key, value], index) => (
+                  <TableRow 
+                    key={key} 
+                    className={`hover:bg-white transition-colors border-gray-200 ${index % 2 === 0 ? 'bg-white/50' : ''}`}
+                  >
+                    <TableCell className="font-semibold text-black flex items-center gap-3 border-r border-gray-200 py-4">
+                      {key === 'Specialty' && <Star className="w-5 h-5 text-amber-500" />}
+                      {key === 'Average price' && <DollarSign className="w-5 h-5 text-green-600" />}
+                      {key === 'Atmosphere' && <Clock className="w-5 h-5 text-blue-500" />}
+                      <span className="luxury-body-md">{key}</span>
+                    </TableCell>
+                    <TableCell className="text-black py-4">
+                      {key === 'Average price' ? (
+                        <Badge variant="secondary" className="font-semibold bg-green-100 text-green-800 px-4 py-2">
+                          {value}
+                        </Badge>
+                      ) : (
+                        <span className="luxury-body-md leading-relaxed">{value}</span>
+                      )}
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {Object.entries(venueInfo).map(([key, value], index) => (
-                    <TableRow 
-                      key={key} 
-                      className={`hover:bg-white transition-colors border-gray-200 ${index % 2 === 0 ? 'bg-white/50' : ''}`}
-                    >
-                      <TableCell className="font-semibold text-black flex items-center gap-3 border-r border-gray-200 py-4">
-                        {key === 'Specialty' && <Star className="w-5 h-5 text-amber-500" />}
-                        {key === 'Average price' && <DollarSign className="w-5 h-5 text-green-600" />}
-                        {key === 'Atmosphere' && <Clock className="w-5 h-5 text-blue-500" />}
-                        {key === 'Location' && <MapPin className="w-5 h-5 text-red-500" />}
-                        <span className="luxury-body-md">{key}</span>
-                      </TableCell>
-                      <TableCell className="text-black py-4">
-                        {key === 'Average price' ? (
-                          <Badge variant="secondary" className="font-semibold bg-green-100 text-green-800 px-4 py-2">
-                            {value}
-                          </Badge>
-                        ) : (
-                          <span className="luxury-body-md leading-relaxed">{value}</span>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         </CardContent>
       </Card>

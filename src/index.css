@@ -213,32 +213,6 @@
     @apply transition-luxury hover:-translate-y-1 hover:shadow-luxury;
   }
 
-  /* Blog Typography Improvements */
-  .blog-content {
-    color: #1f2937; /* gray-800 */
-    line-height: 1.8;
-  }
-
-  .blog-content h2 {
-    color: #111827; /* gray-900 */
-    font-weight: 300;
-    letter-spacing: -0.025em;
-  }
-
-  .blog-content h3 {
-    color: #1f2937; /* gray-800 */
-    font-weight: 400;
-  }
-
-  .blog-content p {
-    color: #374151; /* gray-700 */
-  }
-
-  .blog-content strong {
-    color: #111827; /* gray-900 */
-    font-weight: 600;
-  }
-
   /* Footer mobile fix */
   footer {
     display: block !important;

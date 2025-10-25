@@ -30,75 +30,21 @@ export const useBlogPosts = () => {
       setLoading(true);
       setError(null);
 
-      // Helper: timeout wrapper to avoid hanging requests
-      const withTimeout = <T,>(promise: PromiseLike<T>, ms = 4000): Promise<T> => {
-        return new Promise((resolve, reject) => {
-          const id = setTimeout(() => reject(new Error(`supabase_timeout_${ms}ms`)), ms);
-          Promise.resolve(promise)
-            .then((res) => {
-              clearTimeout(id);
-              resolve(res as T);
-            })
-            .catch((err) => {
-              clearTimeout(id);
-              reject(err);
-            });
-        });
-      };
-
-      // Helper: normalize date strings safely
-      const normalizeDate = (d?: string | null): string | null => {
-        if (!d) return null;
-        try {
-          const t = d.includes(' ') ? d.replace(' ', 'T') : d;
-          const dt = new Date(t);
-          return isNaN(dt.getTime()) ? null : dt.toISOString();
-        } catch {
-          return null;
-        }
-      };
-
-      console.log('[Blog] Fetching posts from Supabase...');
-
-      // Try to fetch from database first (with timeout)
-      const { data, error: fetchError } = await withTimeout(
-        supabase
-          .from('blog_posts')
-          .select('*')
-          .eq('is_published', true)
-          .order('created_at', { ascending: false }),
-        4000
-      );
+      // Try to fetch from database first
+      const { data, error: fetchError } = await supabase
+        .from('blog_posts')
+        .select('*')
+        .eq('is_published', true)
+        .order('created_at', { ascending: false });
 
       if (fetchError) {
         throw fetchError;
       }
 
       // If we have posts in database, use them
-      if (data && (data as any[]).length > 0) {
-        console.log('[Blog] Loaded posts from Supabase:', (data as any[]).length);
-        // Normalize all fields to prevent crashes
-        const normalizedPosts = (data as any[]).map((p) => ({
-          id: String(p.id ?? p.slug ?? crypto.randomUUID()),
-          slug: String(p.slug || ''),
-          title: String(p.title || ''),
-          excerpt: String(p.excerpt || ''),
-          content: typeof p.content === 'string' ? p.content : '',
-          image: typeof p.image === 'string' && p.image ? p.image : '/og-image.jpg',
-          author: String(p.author || 'Five London Team'),
-          category: String(p.category || 'Lifestyle'),
-          meta_description: String(p.meta_description || p.excerpt || ''),
-          seo_keywords: String(p.seo_keywords || ''),
-          read_time: Number(p.read_time || 0) || 0,
-          is_published: p.is_published === true,
-          published_at: normalizeDate(p.published_at) || new Date().toISOString(),
-          service_keywords: Array.isArray(p.service_keywords) ? p.service_keywords : [],
-          created_at: normalizeDate(p.created_at) || new Date().toISOString(),
-          updated_at: normalizeDate(p.updated_at) || new Date().toISOString(),
-        }));
-        setPosts(normalizedPosts);
+      if (data && data.length > 0) {
+        setPosts(data);
       } else {
-        console.warn('[Blog] No DB posts. Falling back to static articles.');
         // Import static articles as fallback
         const { blogArticles } = await import('@/data/blog-articles');
         const staticPosts = blogArticles.map(article => ({
@@ -121,11 +67,10 @@ export const useBlogPosts = () => {
         }));
         setPosts(staticPosts);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching blog posts:', err);
       // Try to load static articles as final fallback
       try {
-        console.warn('[Blog] Attempting static fallback due to error...');
         const { blogArticles } = await import('@/data/blog-articles');
         const staticPosts = blogArticles.map(article => ({
           id: article.slug,
@@ -140,15 +85,15 @@ export const useBlogPosts = () => {
           seo_keywords: article.seoKeywords,
           read_time: article.readTime,
           is_published: true,
-          published_at: article.publishedAt ? article.publishedAt.replace(' ', 'T') : article.publishedAt,
+          published_at: article.publishedAt,
           service_keywords: article.serviceAreas || [],
-          created_at: article.publishedAt ? article.publishedAt.replace(' ', 'T') : article.publishedAt,
+          created_at: article.publishedAt,
           updated_at: new Date().toISOString()
         }));
         setPosts(staticPosts);
         setError(null); // Clear error since we have fallback data
-      } catch (fallbackErr: any) {
-        setError(err?.message || 'Failed to load blog posts');
+      } catch (fallbackErr) {
+        setError(err.message);
       }
     } finally {
       setLoading(false);
@@ -194,7 +139,7 @@ export const useBlogPosts = () => {
       .slice(0, limit);
   };
 
-  const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
+  const categories = [...new Set(posts.map(post => post.category))];
 
   return {
     posts,

@@ -59,6 +59,3 @@ verify_jwt = false
 
 [functions.admin-auth-validation]
 verify_jwt = false
-
-[functions.blog-reset-seed]
-verify_jwt = false

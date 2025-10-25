@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { ContactBar } from '@/components/ContactBar';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Heart, ArrowRight } from 'lucide-react';
@@ -49,7 +48,7 @@ const Characteristics = () => {
                   >
                     <Button 
                       variant="outline" 
-                      className="w-full h-12 sm:h-14 md:h-16 px-3 sm:px-4 md:px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary text-xs sm:text-sm md:text-base bg-white border-black text-black hover:bg-white"
+                      className="w-full h-12 sm:h-14 md:h-16 px-3 sm:px-4 md:px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary text-xs sm:text-sm md:text-base"
                     >
                       <span className="luxury-body-sm font-medium group-hover:text-primary transition-colors leading-tight text-center">
                         {characteristic.name}
@@ -127,7 +126,6 @@ const Characteristics = () => {
           </section>
         </main>
         
-        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

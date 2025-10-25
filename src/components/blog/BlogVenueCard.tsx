@@ -76,7 +76,7 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
                       {key === 'Atmosphere' && <Clock className="w-5 h-5 text-blue-500" />}
                       <span className="luxury-body-md">{key}</span>
                     </TableCell>
-                    <TableCell className="text-gray-700 py-4">
+                    <TableCell className="text-black py-4">
                       {key === 'Average price' ? (
                         <Badge variant="secondary" className="font-semibold bg-green-100 text-green-800 px-4 py-2">
                           {value}

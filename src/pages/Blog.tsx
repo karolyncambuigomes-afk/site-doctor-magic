@@ -283,7 +283,7 @@ const Blog = () => {
                     </CardHeader>
 
                     <CardContent className="pt-0 px-6 pb-6">
-                      <p className="text-gray-600 leading-relaxed mb-6 text-sm">
+                      <p className="text-black leading-relaxed mb-6 text-sm">
                         {post.excerpt}
                       </p>
 
@@ -316,14 +316,14 @@ const Blog = () => {
                     <h3 className="luxury-heading-md text-black">
                       Exclusive Restaurants and Dining Experiences
                     </h3>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-black leading-relaxed">
                       Discover London's most prestigious dining venues, from
                       Michelin-starred establishments in Mayfair to exclusive
                       private dining rooms in Knightsbridge. Our curated guide
                       features insider recommendations for romantic dinners,
                       business lunches, and special celebrations.
                     </p>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <p className="luxury-body-md text-black leading-relaxed">
                       Experience world-class cuisine at venues like Sketch,
                       Hakkasan, and The Ritz Restaurant, where exceptional
                       service meets culinary artistry. Perfect for sophisticated
@@ -339,7 +339,7 @@ const Blog = () => {
                         <h4 className="luxury-body-sm font-medium text-black">
                           Luxury Accommodations
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-black">
                           Five-star hotels including Claridge's, The Langham,
                           and The Ned, offering world-class amenities and
                           impeccable service.
@@ -349,7 +349,7 @@ const Blog = () => {
                         <h4 className="luxury-body-sm font-medium text-black">
                           Cultural Attractions
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-black">
                           Premium experiences at Royal Opera House, Tate Modern,
                           and exclusive gallery openings in Chelsea and
                           Shoreditch.
@@ -359,7 +359,7 @@ const Blog = () => {
                         <h4 className="luxury-body-sm font-medium text-black">
                           Entertainment Venues
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-black">
                           Sophisticated nightlife at exclusive members' clubs,
                           rooftop bars, and luxury entertainment venues across
                           Central London.

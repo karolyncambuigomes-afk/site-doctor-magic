@@ -97,10 +97,10 @@ export const Reviews: React.FC = () => {
         <section className="pt-20 pb-16 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                 Client Reviews
               </h1>
-              <p className="luxury-body-lg text-black mb-12 md:mb-12">
+              <p className="luxury-body-lg text-primary-content mb-12 md:mb-12">
                 Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
               </p>
             </div>
@@ -114,7 +114,7 @@ export const Reviews: React.FC = () => {
           <div className="container mx-auto px-4 mb-8">
             <Breadcrumbs 
               items={[{ label: "Reviews" }]}
-              className="text-gray-600"
+              className="text-muted-foreground"
             />
           </div>
           <div className="container mx-auto px-4">
@@ -127,10 +127,10 @@ export const Reviews: React.FC = () => {
                         <Star key={i} className="w-4 h-4 fill-gray-600 text-gray-600" />
                       ))}
                     </div>
-                    <p className="luxury-body-md text-gray-800 italic flex-grow leading-relaxed">"{testimonial.content}"</p>
+                    <p className="luxury-body-md text-secondary-content italic flex-grow leading-relaxed">"{testimonial.content}"</p>
                     <div className="space-y-1 mt-auto">
-                      <p className="luxury-heading-xs text-black">{testimonial.name}</p>
-                      <p className="luxury-body-sm text-gray-600">{testimonial.role}</p>
+                      <p className="luxury-heading-xs text-primary-content">{testimonial.name}</p>
+                      <p className="luxury-body-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export const Reviews: React.FC = () => {
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="mb-8">
-              <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">What Our Clients Say</h2>
+              <h2 className="luxury-heading-lg text-center mb-6 text-secondary-content">What Our Clients Say</h2>
               <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Service Quality Reviews</h3>
@@ -185,8 +185,8 @@ export const Reviews: React.FC = () => {
         {/* CTA Section */}
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="luxury-heading-lg mb-6 text-black">Experience Excellence</h2>
-            <p className="luxury-body-lg text-gray-800 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <h2 className="luxury-heading-lg mb-6 text-primary-content">Experience Excellence</h2>
+            <p className="luxury-body-lg text-secondary-content mb-8 max-w-2xl mx-auto leading-relaxed">
               Join our satisfied clients and discover the Five London difference. Contact us today to experience the finest luxury companionship services in London.
             </p>
           </div>

@@ -284,10 +284,10 @@ const JoinUs = () => {
       <section className="pt-20 pb-12 md:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
-              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+              <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                 Join Our Agency
               </h1>
-              <p className="luxury-body-lg text-black mb-12 md:mb-12">
+              <p className="luxury-body-lg text-primary-content mb-12 md:mb-12">
                 Be part of a prestigious agency and build a successful career
               </p>
             </div>

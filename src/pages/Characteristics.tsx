@@ -24,10 +24,10 @@ const Characteristics = () => {
           <section className="pt-20 pb-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                   Escorts by Characteristics
                 </h1>
-                <p className="luxury-body-lg text-black">
+                <p className="luxury-body-lg text-primary-content">
                   Discover companions with specific traits that match your preferences.
                 </p>
               </div>
@@ -63,7 +63,7 @@ const Characteristics = () => {
           {/* SEO Content Section */}
           <section className="py-16 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <h2 className="luxury-heading-lg text-center mb-8 text-gray-800">
+              <h2 className="luxury-heading-lg text-center mb-8 text-secondary-content">
                 Find Your Perfect Companion
               </h2>
               <div className="grid md:grid-cols-2 gap-8">
@@ -107,10 +107,10 @@ const Characteristics = () => {
           <section className="py-12 md:py-20 lg:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-black">
+                <h2 className="luxury-heading-lg mb-4 sm:mb-6 text-primary-content">
                   Looking for Something Specific?
                 </h2>
-                <p className="luxury-body-lg text-black mb-6 sm:mb-8">
+                <p className="luxury-body-lg text-primary-content mb-6 sm:mb-8">
                   Can't find the exact characteristics you're looking for? Contact us to find your perfect match.
                 </p>
                 <a

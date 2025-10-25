@@ -1,16 +1,14 @@
 import { generateOrganizationSchema, generateLocationSchema, generateServiceSchema } from '@/utils/structuredData';
-import { BUSINESS_INFO } from '@/constants/businessInfo';
-import { getLocationUrl } from '@/utils/urlHelpers';
 
 export const generateLocalBusinessSchema = (location: any) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": `${BUSINESS_INFO.name} - ${location.name}`,
+  "name": `Five London - ${location.name}`,
   "description": `Premium escort services in ${location.name}, London. ${location.description}`,
-  "url": getLocationUrl(location.slug),
-  "telephone": BUSINESS_INFO.phone,
-  "priceRange": BUSINESS_INFO.priceRange,
-  "image": BUSINESS_INFO.ogImage,
+  "url": `https://fivelondon.com/locations/${location.slug}`,
+  "telephone": "+447436190679",
+  "priceRange": "£500-£1000",
+  "image": "https://fivelondon.com/og-image.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": location.name,
@@ -68,9 +66,9 @@ export const generateLocalBusinessSchema = (location: any) => ({
 export const generateGeoTargetingSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": BUSINESS_INFO.name,
+  "name": "Five London",
   "alternateName": ["Five London Escorts", "Elite Companions London"],
-  "url": BUSINESS_INFO.domain,
+  "url": "https://fivelondon.com",
   "areaServed": [
     {
       "@type": "AdministrativeArea",

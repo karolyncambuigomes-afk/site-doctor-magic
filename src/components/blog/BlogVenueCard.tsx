@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { MapPin, Star, Clock, DollarSign } from 'lucide-react';
-import { OptimizedImage } from '@/components/OptimizedImage';
 
 interface BlogVenueCardProps {
   title: string;
@@ -27,11 +26,11 @@ export const BlogVenueCard: React.FC<BlogVenueCardProps> = ({ title, content, im
       <Card className="border border-gray-200 bg-white shadow-2xl overflow-hidden rounded-3xl hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-2">
         {imageSrc && (
           <div className="aspect-[21/9] bg-gray-100 relative overflow-hidden">
-            <OptimizedImage 
+            <img 
               src={imageSrc}
               alt={title}
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-              aspectRatio="21/9"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
             <div className="absolute bottom-8 left-8">

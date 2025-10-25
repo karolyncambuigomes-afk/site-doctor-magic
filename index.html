@@ -67,58 +67,117 @@
     <link rel="alternate" hreflang="en-ca" href="https://fivelondon.com/" />
     <link rel="alternate" hreflang="x-default" href="https://fivelondon.com/" />
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://fivelondon.com/" />
-    
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
     
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="dns-prefetch" href="https://jiegopvbwpyfohhfvmwo.supabase.co">
+    <!-- Ultra-fast font loading for all browsers -->
+    <script>
+      (function() {
+        var isPrivate = false;
+        try {
+          localStorage.setItem('fonttest', '1');
+          localStorage.removeItem('fonttest');
+        } catch(e) {
+          isPrivate = true;
+        }
+        
+        if (isPrivate) {
+          // Private mode - immediate system fonts
+          document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+          console.log('Private mode: using system fonts');
+        } else {
+          // Normal mode - load fonts with aggressive timeout
+          var fontTimeout = setTimeout(function() {
+            document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+            console.log('Font timeout: switching to system fonts');
+          }, 1000); // Very aggressive 1s timeout
+          
+          var fontLink = document.createElement('link');
+          fontLink.rel = 'stylesheet';
+          fontLink.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap';
+          fontLink.onload = function() { 
+            clearTimeout(fontTimeout);
+          };
+          fontLink.onerror = function() { 
+            clearTimeout(fontTimeout);
+            document.documentElement.style.fontFamily = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+          };
+          document.head.appendChild(fontLink);
+        }
+      })();
+    </script>
     
     <title>Five London - Premier Luxury Companion Services</title>
     <meta name="description" content="Five London represents the epitome of luxury companion services in the heart of London. Sophisticated, intelligent, and elegant companions for the most discerning clientele." />
     <meta name="author" content="Five London" />
 
-    <!-- Optimized font loading with defer -->
-    <script defer>
+    <!-- Enhanced font loading for private browsers -->
+    <script>
       (function() {
         let privateModeDetected = false;
         
         try {
+          // Enhanced private mode detection
           localStorage.setItem('privateModeTest', 'test');
           localStorage.removeItem('privateModeTest');
+          
+          // Additional check - storage quota
+          if ('storage' in navigator && 'estimate' in navigator.storage) {
+            navigator.storage.estimate().then(estimate => {
+              if (estimate.quota && estimate.quota < 50000000) {
+                console.log('Low storage quota - likely private mode');
+                privateModeDetected = true;
+              }
+            });
+          }
+          
         } catch (e) {
+          console.log('Private mode detected via localStorage test');
           privateModeDetected = true;
           document.documentElement.classList.add('private-mode');
           return;
         }
         
+        // Only proceed if not in private mode and online
         if (!privateModeDetected && navigator.onLine) {
+          // Quick preconnect
+          const preconnect1 = document.createElement('link');
+          preconnect1.rel = 'preconnect';
+          preconnect1.href = 'https://fonts.googleapis.com';
+          document.head.appendChild(preconnect1);
+          
+          const preconnect2 = document.createElement('link');
+          preconnect2.rel = 'preconnect';
+          preconnect2.href = 'https://fonts.gstatic.com';
+          preconnect2.crossOrigin = 'anonymous';
+          document.head.appendChild(preconnect2);
+          
+          // Load fonts with aggressive timeout
           const fontLink = document.createElement('link');
           fontLink.rel = 'stylesheet';
           fontLink.href = 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap';
           
           const timeout = setTimeout(() => {
+            console.log('Font timeout - using system fonts');
             if (fontLink.parentNode) fontLink.remove();
             document.documentElement.classList.add('fonts-timeout');
-          }, 500);
+          }, 1500);
           
           fontLink.onload = () => {
             clearTimeout(timeout);
+            console.log('Fonts loaded successfully');
             document.documentElement.classList.add('fonts-loaded');
           };
           
           fontLink.onerror = () => {
             clearTimeout(timeout);
+            console.log('Font error - using system fonts');
             document.documentElement.classList.add('fonts-error');
           };
           
           document.head.appendChild(fontLink);
         } else {
+          console.log('Using system fonts (private mode or offline)');
           document.documentElement.classList.add('system-fonts');
         }
       })();
@@ -127,13 +186,20 @@
     <meta property="og:title" content="Five London - Premier Luxury Companion Services" />
     <meta property="og:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fivelondon.com/" />
-    <meta property="og:image" content="https://fivelondon.com/og-image.jpg" />
+    <meta property="og:image" content="/hero-elegant-woman.jpg" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Five London - Premier Luxury Companion Services" />
     <meta name="twitter:description" content="Experience the pinnacle of sophistication with our exclusive collection of elite companions in London." />
-    <meta name="twitter:image" content="https://fivelondon.com/og-image.jpg" />
+    <meta name="twitter:image" content="/hero-elegant-woman.jpg" />
+    
+    <!-- Resource hints for non-critical CSS -->
+    <link rel="preload" href="/src/styles/components.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/src/styles/utilities.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="/src/styles/components.css">
+      <link rel="stylesheet" href="/src/styles/utilities.css">
+    </noscript>
   </head>
 
   <body>

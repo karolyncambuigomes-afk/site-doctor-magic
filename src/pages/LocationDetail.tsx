@@ -11,7 +11,6 @@ import { Button } from '@/components/ui/button';
 import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star } from 'lucide-react';
 import { SafeHTML } from '@/components/ui/safe-html';
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
-import { getCanonicalUrl, getLocationUrl } from '@/utils/urlHelpers';
 
 const LocationDetail = () => {
   const params = useSafeParams();
@@ -96,9 +95,9 @@ const LocationDetail = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: getCanonicalUrl('/') },
-      { name: "Locations", url: getCanonicalUrl('/locations') },
-      { name: location.name, url: getLocationUrl(location.slug) }
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "Locations", url: "https://fivelondon.com/locations" },
+      { name: location.name, url: `https://fivelondon.com/locations/${location.slug}` }
     ]),
     generateLocationSchema({
       name: location.name,
@@ -125,7 +124,7 @@ const LocationDetail = () => {
         }
       },
       "telephone": "+447436190679",
-      "url": getLocationUrl(location.slug),
+      "url": `https://fivelondon.com/locations/${location.slug}`,
       "priceRange": "£500-£1000",
       "serviceType": "Luxury Companion Services"
     }

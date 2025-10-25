@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, ZoomIn, AlertCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { OptimizedImage } from '@/components/OptimizedImage';
+
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 interface GalleryImage {
@@ -306,17 +306,12 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
       {/* Main Gallery Display */}
       <div className="space-y-4">
         {/* Main Image */}
-        <div 
-          className="relative aspect-[3/4] rounded-lg overflow-hidden group cursor-pointer"
-          onClick={() => openLightbox(currentImageIndex)}
-        >
-          <OptimizedImage
+        <div className="relative aspect-[3/4] rounded-lg overflow-hidden group cursor-pointer">
+          <img
             src={allImages[currentImageIndex]?.image_url}
             alt={allImages[currentImageIndex]?.caption || `${modelName} - Photo ${currentImageIndex + 1}`}
             className="w-full h-full object-cover object-[center_15%] transition-transform duration-300 group-hover:scale-105"
-            aspectRatio="3/4"
-            priority={currentImageIndex === 0}
-            fallbackSrc="/images/placeholders/model.jpg"
+            onClick={() => openLightbox(currentImageIndex)}
           />
           
           {/* Zoom indicator */}
@@ -374,12 +369,10 @@ export const ModelGallery: React.FC<ModelGalleryProps> = ({
                     : 'border-border'
                 }`}
               >
-                <OptimizedImage
+                <img
                   src={image.image_url}
                   alt={`Thumbnail ${index + 1}`}
                   className="w-full h-full object-cover object-[center_25%]"
-                  aspectRatio="1/1"
-                  fallbackSrc="/images/placeholders/model.jpg"
                 />
               </button>
             ))}

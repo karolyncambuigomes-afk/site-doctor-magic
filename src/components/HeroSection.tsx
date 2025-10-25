@@ -3,7 +3,6 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useBannerContent } from '@/hooks/useBannerContent';
-import { getWhatsAppUrl } from '@/utils/urlHelpers';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
@@ -54,7 +53,7 @@ export const HeroSection: React.FC = () => {
                   {heroContent?.button_primary_text || "View Models"}
                 </button>
               </SafeLink>
-              <a href={heroContent?.button_secondary_url || getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+              <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
                 {heroContent?.button_secondary_text || "Book Now"}
               </a>
             </div>
@@ -103,7 +102,7 @@ export const HeroSection: React.FC = () => {
               </button>
             </SafeLink>
             
-            <a href={heroContent?.button_secondary_url || getWhatsAppUrl()} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
+            <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
               {heroContent?.button_secondary_text || "Book Now"}
             </a>
           </div>

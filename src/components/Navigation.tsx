@@ -11,8 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getWhatsAppUrl, getPhoneUrl } from '@/utils/urlHelpers';
-import { BUSINESS_INFO } from '@/constants/businessInfo';
 
 const navItems = [
   { href: "/locations", label: "Locations" },
@@ -77,10 +75,10 @@ export const Navigation: React.FC = () => {
           {/* Contact & Auth (Desktop) */}
           <div className="hidden lg:flex items-center space-x-4">
             <a
-              href={getPhoneUrl()}
+              href="tel:+447436190679"
               className="body-sm transition-smooth text-secondary-content hover:text-primary-content"
             >
-              {BUSINESS_INFO.phoneFormatted}
+              +44 7436 190679
             </a>
             {user ? (
               <DropdownMenu>
@@ -115,7 +113,7 @@ export const Navigation: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <a href={getWhatsAppUrl()}>
+              <a href="https://wa.me/447436190679">
                 <Button variant="outline">Contact Us</Button>
               </a>
             )}
@@ -158,10 +156,10 @@ export const Navigation: React.FC = () => {
               <div className="pt-8 border-t border-primary-line flex flex-col gap-element">
                 <div className="flex items-center justify-between">
                   <a
-                    href={getPhoneUrl()}
+                    href="tel:+447436190679"
                     className="block body-sm text-secondary-content hover:text-primary-content transition-smooth"
                   >
-                    {BUSINESS_INFO.phoneFormatted}
+                    +44 7436 190679
                   </a>
                 </div>
                 {user ? (
@@ -190,7 +188,7 @@ export const Navigation: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <a href={getWhatsAppUrl()}>
+                  <a href="https://wa.me/447436190679">
                     <Button className="w-full">Contact Us</Button>
                   </a>
                 )}

@@ -9,10 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import { SafeHTML } from "@/components/ui/safe-html";
-import { OptimizedImage } from "@/components/OptimizedImage";
 import NotFound from "./NotFound";
-import { getBlogPostUrl } from "@/utils/urlHelpers";
-import { BUSINESS_INFO } from "@/constants/businessInfo";
 
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
@@ -56,19 +53,19 @@ const BlogPost = () => {
     author: {
       "@type": "Organization",
       name: article.author,
-      url: BUSINESS_INFO.domain,
+      url: "https://fivelondon.com",
     },
     publisher: {
       "@type": "Organization",
       name: "Five London",
       logo: {
         "@type": "ImageObject",
-        url: BUSINESS_INFO.logo,
+        url: "https://fivelondon.com/logo.png",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": getBlogPostUrl(article.slug),
+      "@id": `https://fivelondon.com/blog/${article.slug}`,
     },
     keywords: article.seo_keywords,
     articleSection: article.category,
@@ -149,12 +146,11 @@ const BlogPost = () => {
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
                 <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                  <OptimizedImage
+                  <img
                     src={article.image}
                     alt={article.title}
                     className="w-full h-full object-cover"
-                    aspectRatio="16/9"
-                    priority={true}
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -187,11 +183,11 @@ const BlogPost = () => {
                         className="group hover:shadow-luxury transition-all duration-300 border border-border/50 hover:border-border overflow-hidden"
                       >
                         <div className="aspect-video bg-muted/50 relative overflow-hidden">
-                          <OptimizedImage
+                          <img
                             src={relatedArticle.image}
                             alt={relatedArticle.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            aspectRatio="16/9"
+                            loading="lazy"
                           />
                           <div className="absolute top-4 left-4">
                             <Badge

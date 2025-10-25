@@ -9,7 +9,6 @@ import { generateLocationAwareFAQSchema, generateBreadcrumbSchema as generateAdv
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useFAQs } from '@/hooks/useFAQs';
 import { useBookingContent } from '@/hooks/useBookingContent';
-import { getCanonicalUrl } from '@/utils/urlHelpers';
 
 const FAQ = () => {
   const { faqs, loading, error } = useFAQs();
@@ -26,7 +25,7 @@ const FAQ = () => {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Five London - Premium Companion Services",
-      "url": getCanonicalUrl('/faq'),
+      "url": "https://fivelondon.com/faq",
       "telephone": "+447436190679",
       "areaServed": [
         { "@type": "City", "name": "London", "addressCountry": "GB" },

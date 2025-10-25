@@ -4,12 +4,10 @@ import { Footer } from "@/components/Footer";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactBar } from "@/components/ContactBar";
-import { OptimizedImage } from "@/components/OptimizedImage";
 import {
   generateOrganizationSchema,
   generateBreadcrumbSchema,
 } from "@/utils/structuredData";
-import { getCanonicalUrl } from "@/utils/urlHelpers";
 import {
   Shield,
   Award,
@@ -24,13 +22,16 @@ import {
   Diamond,
   Crown,
 } from "lucide-react";
+import aboutLuxury1 from "@/assets/about-luxury-1.webp";
+import aboutLuxury2 from "@/assets/about-luxury-2.webp";
+import aboutLuxury3 from "@/assets/about-luxury-3.webp";
 
 const About = () => {
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
-      { name: "Home", url: getCanonicalUrl('/') },
-      { name: "About Us", url: getCanonicalUrl('/about') },
+      { name: "Home", url: "https://fivelondon.com/" },
+      { name: "About Us", url: "https://fivelondon.com/about" },
     ]),
     {
       "@context": "https://schema.org",
@@ -169,12 +170,11 @@ const About = () => {
         <section className="section-padding-md">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <OptimizedImage
-                src="/images/about-luxury-1.webp"
+              <img
+                src={aboutLuxury1}
                 alt="Luxury lifestyle and elegance representing Five London's premium services"
-                className="rounded-2xl shadow-2xl w-full"
-                aspectRatio="auto"
-                priority={true}
+                className="rounded-2xl shadow-2xl w-full h-[500px] object-cover"
+                loading="lazy"
               />
             </div>
           </div>
@@ -185,11 +185,11 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-content items-center">
               <div className="order-2 lg:order-1">
-                <OptimizedImage
-                  src="/images/about-luxury-2.webp"
+                <img
+                  src={aboutLuxury2}
                   alt="Sophisticated dining and entertainment experiences in London"
-                  className="rounded-2xl shadow-xl w-full"
-                  aspectRatio="auto"
+                  className="rounded-2xl shadow-xl w-full h-[450px] object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="order-1 lg:order-2 flex flex-col gap-element">
@@ -252,11 +252,11 @@ const About = () => {
             </div>
 
             <div className="relative">
-              <OptimizedImage
-                src="/images/about-luxury-3.webp"
+              <img
+                src={aboutLuxury3}
                 alt="Exclusive events and premium lifestyle experiences in London"
-                className="rounded-2xl shadow-2xl w-full"
-                aspectRatio="auto"
+                className="rounded-2xl shadow-2xl w-full h-[400px] object-cover"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-black/40 rounded-2xl flex items-center justify-center">
                 <div className="text-center text-white p-8">

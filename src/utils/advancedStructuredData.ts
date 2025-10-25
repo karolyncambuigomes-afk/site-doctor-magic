@@ -1,6 +1,4 @@
 import { ReviewAggregateData } from '@/hooks/useReviews';
-import { BUSINESS_INFO } from '@/constants/businessInfo';
-import { getLocationUrl, getCanonicalUrl } from '@/utils/urlHelpers';
 
 // Advanced Review Schema Generator
 export const generateReviewAggregateSchema = (
@@ -44,12 +42,12 @@ export const generateReviewAggregateSchema = (
     "review": reviews,
     "provider": {
       "@type": "Organization",
-      "name": BUSINESS_INFO.name,
-      "url": BUSINESS_INFO.domain,
+      "name": "Five London",
+      "url": "https://fivelondon.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": BUSINESS_INFO.address.locality,
-        "addressCountry": BUSINESS_INFO.address.country
+        "addressLocality": "London",
+        "addressCountry": "GB"
       }
     }
   };
@@ -81,11 +79,11 @@ export const generateLocalBusinessByPostcode = (
   const baseSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": `${BUSINESS_INFO.name} - ${areaName}`,
+    "name": `Five London - ${areaName}`,
     "description": `Premium luxury companion services in ${areaName}, London ${postcode}. Sophisticated, elite companions for high-end social events, business functions, and cultural experiences.`,
-    "url": getLocationUrl(areaName.toLowerCase().replace(/\s+/g, '-')),
-    "telephone": BUSINESS_INFO.phone,
-    "email": BUSINESS_INFO.email,
+    "url": `https://fivelondon.com/locations/${areaName.toLowerCase().replace(/\s+/g, '-')}`,
+    "telephone": "+44 20 7946 0000",
+    "email": "info@fivelondon.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": `${areaName}`,
@@ -115,9 +113,9 @@ export const generateLocalBusinessByPostcode = (
       },
       "geoRadius": "5000"
     },
-    "priceRange": BUSINESS_INFO.priceRangeSymbol,
-    "currenciesAccepted": BUSINESS_INFO.currency,
-    "paymentAccepted": BUSINESS_INFO.paymentMethods.join(", "),
+    "priceRange": "£££",
+    "currenciesAccepted": "GBP",
+    "paymentAccepted": "Credit Card, Bank Transfer",
     "openingHours": [
       "Mo-Su 00:00-23:59"
     ],
@@ -151,7 +149,7 @@ export const generateLocalBusinessByPostcode = (
 
 // Enhanced Breadcrumb Schema
 export const generateBreadcrumbSchema = (breadcrumbs: Array<{label: string, href: string}>) => {
-  const siteUrl = BUSINESS_INFO.domain;
+  const siteUrl = "https://fivelondon.com";
   
   return {
     "@context": "https://schema.org",
@@ -179,12 +177,12 @@ export const generateServiceWithPricingSchema = (
     "description": description,
     "provider": {
       "@type": "Organization",
-      "name": BUSINESS_INFO.name,
-      "url": BUSINESS_INFO.domain,
+      "name": "Five London",
+      "url": "https://fivelondon.com",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": BUSINESS_INFO.address.locality,
-        "addressCountry": BUSINESS_INFO.address.country
+        "addressLocality": "London",
+        "addressCountry": "GB"
       }
     },
     "serviceType": "Companion Services",
@@ -240,15 +238,15 @@ export const generateServiceAvailabilityEventSchema = (areaName: string, postcod
     },
     "organizer": {
       "@type": "Organization",
-      "name": BUSINESS_INFO.name,
-      "url": BUSINESS_INFO.domain
+      "name": "Five London",
+      "url": "https://fivelondon.com"
     },
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "GBP",
       "availability": "https://schema.org/InStock",
-      "url": getCanonicalUrl('/contact')
+      "url": "https://fivelondon.com/contact"
     },
     "eventStatus": "https://schema.org/EventScheduled",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
@@ -297,10 +295,10 @@ export const generateContactPointSchema = () => {
   return {
     "@context": "https://schema.org",
     "@type": "ContactPoint",
-    "telephone": BUSINESS_INFO.phone,
+    "telephone": "+44 20 7946 0000",
     "contactType": "customer service",
-    "email": BUSINESS_INFO.email,
-    "availableLanguage": BUSINESS_INFO.languages,
+    "email": "info@fivelondon.com",
+    "availableLanguage": ["en", "fr", "es", "it", "de"],
     "hoursAvailable": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": [

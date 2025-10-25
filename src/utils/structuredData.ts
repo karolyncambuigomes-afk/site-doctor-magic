@@ -1,28 +1,25 @@
-import { BUSINESS_INFO } from '@/constants/businessInfo';
-import { getBlogPostUrl } from '@/utils/urlHelpers';
-
 // Enhanced Organization Schema with Multiple Locations
 export const generateOrganizationSchema = (includeLocations: boolean = true) => {
   const baseSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": BUSINESS_INFO.name,
-  "description": BUSINESS_INFO.description,
-  "url": BUSINESS_INFO.domain,
-  "logo": BUSINESS_INFO.logo,
-  "image": BUSINESS_INFO.ogImage,
-  "telephone": BUSINESS_INFO.phone,
+  "name": "Five London",
+  "description": "Premium luxury escort services in London offering sophisticated companionship for discerning clients.",
+  "url": "https://fivelondon.com",
+  "logo": "https://fivelondon.com/logo.png",
+  "image": "https://fivelondon.com/og-image.jpg",
+  "telephone": "+447436190679",
   "address": {
     "@type": "PostalAddress",
-    "addressCountry": BUSINESS_INFO.address.country,
-    "addressLocality": BUSINESS_INFO.address.locality,
-    "addressRegion": BUSINESS_INFO.address.region,
-    "postalCode": BUSINESS_INFO.address.postalCode
+    "addressCountry": "GB",
+    "addressLocality": "London",
+    "addressRegion": "England",
+    "postalCode": "W1K 6DJ"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": BUSINESS_INFO.coordinates.lat.toString(),
-    "longitude": BUSINESS_INFO.coordinates.lng.toString()
+    "latitude": "51.5074",
+    "longitude": "-0.1278"
   },
   "areaServed": [
     {
@@ -36,11 +33,11 @@ export const generateOrganizationSchema = (includeLocations: boolean = true) => 
       "addressCountry": "GB"
     }
   ],
-  "serviceType": BUSINESS_INFO.serviceType,
-  "priceRange": BUSINESS_INFO.priceRange,
+  "serviceType": "Luxury Companion Services",
+  "priceRange": "£500-£1000",
   "sameAs": [],
   "hasMap": "https://www.google.com/maps/place/London,+UK",
-  "openingHours": BUSINESS_INFO.openingHours
+  "openingHours": "Mo-Su 00:00-23:59"
   };
 
   if (includeLocations) {
@@ -77,12 +74,12 @@ export const generateOrganizationSchema = (includeLocations: boolean = true) => 
 export const generateWebsiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": BUSINESS_INFO.name,
-  "description": BUSINESS_INFO.description,
-  "url": BUSINESS_INFO.domain,
+  "name": "Five London",
+  "description": "Premium luxury escort services in London",
+  "url": "https://fivelondon.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": `${BUSINESS_INFO.domain}/models?search={search_term_string}`,
+    "target": "https://fivelondon.com/models?search={search_term_string}",
     "query-input": "required name=search_term_string"
   },
   "publisher": {
@@ -98,12 +95,12 @@ export const generateServiceSchema = (serviceName: string, description: string, 
   "description": description,
   "provider": {
     "@type": "Organization",
-    "name": BUSINESS_INFO.name,
-    "telephone": BUSINESS_INFO.phone,
+    "name": "Five London",
+    "telephone": "+447436190679",
     "address": {
       "@type": "PostalAddress",
-      "addressCountry": BUSINESS_INFO.address.country,
-      "addressLocality": BUSINESS_INFO.address.locality
+      "addressCountry": "GB",
+      "addressLocality": "London"
     }
   },
   "areaServed": {
@@ -179,15 +176,15 @@ export const generateBlogSchema = (article: any) => ({
   },
   "publisher": {
     "@type": "Organization",
-    "name": BUSINESS_INFO.name,
+    "name": "Five London",
     "logo": {
       "@type": "ImageObject",
-      "url": BUSINESS_INFO.logo
+      "url": "https://fivelondon.com/logo.png"
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": getBlogPostUrl(article.slug)
+    "@id": `https://fivelondon.com/blog/${article.slug}`
   },
   // Enhanced GEO data for location-based articles
   ...(article.coordinates && {
@@ -221,9 +218,9 @@ export const generateLocalBusinessSchemaForArea = (area: any) => ({
   "@type": "LocalBusiness",
   "name": `Five London - ${area.name}`,
   "description": `Premium luxury escort services in ${area.name}, offering sophisticated companionship for discerning clients in the ${area.postcode} area.`,
-  "url": BUSINESS_INFO.domain,
-  "telephone": BUSINESS_INFO.phone,
-  "priceRange": BUSINESS_INFO.priceRange,
+  "url": "https://fivelondon.com",
+  "telephone": "+447436190679",
+  "priceRange": "£500-£1000",
   "currenciesAccepted": "GBP",
   "paymentAccepted": "Cash, Credit Card, Bank Transfer",
   "address": {
@@ -285,7 +282,7 @@ export const generateEventSchema = (eventData: any) => ({
   "organizer": {
     "@type": "Organization",
     "name": "Five London",
-    "url": BUSINESS_INFO.domain
+    "url": "https://fivelondon.com"
   }
 });
 

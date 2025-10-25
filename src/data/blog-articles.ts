@@ -79,7 +79,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each of these restaurants offers a unique experience, perfect for creating special memories during your stay in London. For post-dinner entertainment, discover <a href="/blog/london-annual-events-luxury-experiences">London's exclusive events calendar</a>.</p>
     `,
-    image: "/src/assets/blog-restaurant-dining.webp",
+    image: "/images/sketch-restaurant.webp",
     publishedAt: "2024-01-15",
     author: "Five London Team",
     category: "Dining",
@@ -158,7 +158,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These events represent the best of London's social life and offer unique opportunities to experience British culture and traditions in their most refined form. Explore <a href="/blog/mayfair-hidden-gems-luxury-lifestyle">Mayfair's exclusive venues</a> before or after events.</p>
     `,
-    image: "/src/assets/blog-london-events.webp",
+    image: "/images/london-gala-event.webp",
     publishedAt: "2024-01-10",
     author: "Five London Team",
     category: "Events",
@@ -258,7 +258,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These experiences represent the best London has to offer for visitors seeking something truly special and memorable, providing access to aspects of the city that few have the privilege to know. Discover more in our <a href="/blog/mayfair-companion-guide-luxury-london">complete Mayfair companion guide</a>.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.webp",
+    image: "/images/luxury-spa-treatment.webp",
     publishedAt: "2024-01-05",
     author: "Five London Team",
     category: "Experiences",
@@ -399,7 +399,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Each hotel offers a unique interpretation of London luxury, from centuries-old tradition to contemporary innovation. The right choice depends on personal style and desired experiences during your stay in the British capital. Discover <a href="/blog/exclusive-experiences-london-luxury">exclusive London experiences</a> to complement your stay.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/clariges-lobby.webp",
     publishedAt: "2023-12-28",
     author: "Five London Team",
     category: "Accommodation",
@@ -480,7 +480,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Mayfair continues to set the standard for luxury living in London, offering unmatched experiences for those who appreciate the finest things in life. Explore nearby <a href="/blog/chelsea-kensington-sophisticated-living-guide">Chelsea & Kensington</a> for more cultural experiences.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/ritz-london-exterior.webp",
     publishedAt: "2024-01-20",
     author: "Five London Team",
     category: "Lifestyle",
@@ -584,7 +584,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Chelsea's cultural scene offers an unmatched combination of historic significance and contemporary innovation, making it essential for anyone seeking sophisticated artistic experiences in London.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.webp",
+    image: "/images/ned-banking-hall.webp",
     publishedAt: "2024-01-14",
     author: "Five London Team",
     category: "Culture",
@@ -688,7 +688,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Belgravia's combination of diplomatic prestige, architectural beauty, and exclusive venues makes it London's premier destination for those seeking the highest levels of sophistication and discretion.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/savoy-thames-foyer.webp",
     publishedAt: "2024-01-12",
     author: "Five London Team",
     category: "Luxury",
@@ -804,7 +804,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>South Kensington offers an unmatched combination of world-class culture and exceptional dining, making it essential for anyone seeking sophisticated intellectual and culinary experiences in London.</p>
     `,
-    image: "/src/assets/blog-entertainment-culture.webp",
+    image: "/images/london-gala-event.webp",
     publishedAt: "2024-01-10",
     author: "Five London Team",
     category: "Culture",
@@ -969,7 +969,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>These five Mayfair hotels represent the pinnacle of discreet luxury accommodation in London. Each offers its own unique interpretation of hospitality excellence, but all share an unwavering commitment to guest privacy, impeccable service, and creating unforgettable experiences. Whether you choose the Art Deco glamour of Claridge's, the timeless elegance of The Connaught, the park-side majesty of The Dorchester, the modern luxury of Four Seasons, or the intimate sophistication of 45 Park Lane, you're guaranteed an exceptional stay in London's most prestigious neighborhood.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/shangri-la-shard-view.webp",
     publishedAt: "2024-02-15",
     author: "Five London Team",
     category: "Hotels",
@@ -1159,7 +1159,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Whether you choose The Berkeley's contemporary elegance, Mandarin Oriental's spa excellence, Bulgari's Italian sophistication, or The Cadogan's Victorian charm, Knightsbridge offers sophisticated accommodations that understand the needs of discerning guests traveling with elite companions. The combination of luxury shopping, exceptional dining, cultural attractions, and discreet five-star service makes Knightsbridge one of London's most desirable neighborhoods for luxury stays.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/clariges-lobby.webp",
     publishedAt: "2024-02-12",
     author: "Five London Team",
     category: "Hotels",
@@ -1383,7 +1383,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Whether you choose The Soho Hotel's bold design, Dean Street Townhouse's Georgian intimacy, Ham Yard Hotel's entertainment complex, or The Nadler's contemporary efficiency, Soho's boutique hotels offer an alternative to traditional luxury properties. The neighborhood's creative energy, exceptional dining, legendary nightlife, and central location create an unforgettable London experience for those seeking intimate luxury in the city's most vibrant district.</p>
     `,
-    image: "/src/assets/blog-luxury-hotels.webp",
+    image: "/images/ritz-london-exterior.webp",
     publishedAt: "2024-02-08",
     author: "Five London Team",
     category: "Hotels",
@@ -1666,7 +1666,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>For those seeking the finest London experiences with elite companions, Mayfair offers unmatched sophistication. From Art Deco hotels to Michelin-starred restaurants, from designer shopping to exclusive bars, every element combines to create the perfect environment for memorable moments. Understanding Mayfair's geography, culture, and offerings ensures you experience this legendary district like a true insider, accessing its best-kept secrets while enjoying world-class luxury at every turn.</p>
     `,
-    image: "/src/assets/blog-london-events.webp",
+    image: "/images/sketch-restaurant.webp",
     publishedAt: "2024-02-05",
     author: "Five London Team",
     category: "Locations",
@@ -1950,7 +1950,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Chelsea and Kensington offer a sophisticated alternative to Mayfair's business focus or Soho's entertainment energy. The combination of world-class culture, refined dining, beautiful architecture, and green spaces creates the perfect environment for memorable experiences with elite companions. Whether exploring museum collections, enjoying Michelin-starred dining, attending performances at Royal Albert Hall, or simply strolling through Kensington Gardens, these neighborhoods provide endless opportunities for sophisticated enjoyment in one of London's most cultured districts.</p>
     `,
-    image: "/src/assets/blog-entertainment-culture.webp",
+    image: "/images/luxury-spa-treatment.webp",
     publishedAt: "2024-02-02",
     author: "Five London Team",
     category: "Locations",
@@ -2242,7 +2242,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>London's Michelin-starred restaurants offer more than exceptional cuisine - they provide complete experiences designed to create lasting memories. Whether celebrating at three-star temples of gastronomy like Restaurant Gordon Ramsay and Core, or enjoying the relaxed sophistication of The Ledbury, these venues understand that romantic dining combines exceptional food with atmosphere, service, and attention to detail that makes guests feel truly special. For those seeking to impress elite companions with unforgettable culinary experiences, London's Michelin-starred restaurants represent the pinnacle of sophisticated dining.</p>
     `,
-    image: "/src/assets/blog-restaurant-dining.webp",
+    image: "/images/sketch-restaurant.webp",
     publishedAt: "2024-01-30",
     author: "Five London Team",
     category: "Dining",
@@ -2495,7 +2495,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>London's hidden gem restaurants offer alternatives to Michelin-starred formality while maintaining exceptional quality. Whether discovering intimate neighborhood favorites like Portland, experiencing counter dining at Sabor's upstairs kitchen, or enjoying the magical atmosphere of Clos Maggiore, these venues provide sophisticated dining experiences with genuine character. For those seeking to impress elite companions with insider knowledge rather than obvious choices, London's hidden restaurants deliver memorable experiences that feel like personal discoveries rather than tourist attractions.</p>
     `,
-    image: "/src/assets/blog-restaurant-dining.webp",
+    image: "/images/ned-banking-hall.webp",
     publishedAt: "2024-01-25",
     author: "Five London Team",
     category: "Dining",
@@ -2803,7 +2803,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>London's diversity of experiences allows you to create perfectly tailored dates for any companion and occasion. Whether combining culture and dining, focusing on relaxation and luxury, or seeking adventure and discovery, the city offers endless possibilities. The key is thoughtful planning that considers your companion's interests while creating opportunities for connection through shared experiences. From private Thames cruises to West End theatre, spa days to gallery tours, London provides the perfect backdrop for creating unforgettable moments with elite companions.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.webp",
+    image: "/images/savoy-thames-foyer.webp",
     publishedAt: "2024-01-20",
     author: "Five London Team",
     category: "Experiences",
@@ -3229,7 +3229,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>London's luxury spa landscape offers world-class wellness experiences in settings that combine historic elegance with contemporary expertise. Whether seeking comprehensive thermal journeys at ESPA Life, intimate couples' experiences at Mandarin Oriental, unique vault treatments at The Ned, Park views at Four Seasons, or fashion-forward beauty at The Berkeley, the capital provides exceptional wellness destinations. These spas understand the needs of sophisticated international guests, delivering personalized treatments with complete discretion in sublime environments. Incorporating spa experiences into your London visit enhances overall enjoyment, promotes well-being, and creates peaceful interludes within the city's vibrant energy.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.webp",
+    image: "/images/shangri-la-shard-view.webp",
     publishedAt: "2024-01-22",
     author: "Five London Team",
     category: "Experiences",
@@ -3701,7 +3701,7 @@ export const blogArticles: BlogArticle[] = [
 
       <p>Approaching elite companionship with respect, preparation, and proper etiquette ensures positive experiences for both you and your companion. These professionals provide sophisticated services deserving of gentlemanly behavior and consideration. By following established protocols, communicating clearly, respecting boundaries, and treating companions with dignity, you create the foundation for memorable encounters. Whether booking for social companionship, intimate time, or special events, understanding and practicing proper etiquette transforms nervous first experiences into confident, enjoyable interactions that both parties appreciate. The key lies in approaching companionship as the professional service it is, while maintaining the warmth and respect that make human connections meaningful.</p>
     `,
-    image: "/src/assets/blog-exclusive-experiences.webp",
+    image: "/images/clariges-lobby.webp",
     publishedAt: "2024-01-25",
     author: "Five London Team",
     category: "Guides",

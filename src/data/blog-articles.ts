@@ -475,11 +475,7 @@ export const blogArticles: BlogArticle[] = [
     publishedAt: "2024-01-20",
     author: "Five London Team",
     category: "Lifestyle",
-    readTime: 9
   },
-  {
-    id: "7",
-    slug: "knightsbridge-after-dark-premium-entertainment",
     title: "Knightsbridge After Dark: Premium Entertainment Guide",
     excerpt: "Experience Knightsbridge's sophisticated nightlife, from exclusive cocktail bars to luxury late-night dining in London's most elegant district.",
     metaDescription: "Discover Knightsbridge's premium nightlife and entertainment venues. Guide to exclusive bars, luxury dining, and sophisticated evening experiences in SW1X.",
@@ -646,10 +642,8 @@ export const blogArticles: BlogArticle[] = [
     publishedAt: "2024-01-16",
     author: "Five London Team",
     category: "Business",
-    readTime: 7
-  },
   {
-    id: "9",
+    id: "7",
     slug: "chelsea-art-culture-sophisticated-experiences",
     title: "Chelsea's Art & Culture Scene: Sophisticated Experiences",
     excerpt: "Explore Chelsea's vibrant cultural landscape, from contemporary galleries to historic venues, offering refined experiences in London's most artistic district.",
@@ -753,7 +747,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 10
   },
   {
-    id: "10",
+    id: "8",
     slug: "belgravia-exclusive-venues-diplomatic-district",
     title: "Belgravia's Exclusive Venues: A Diplomatic District",
     excerpt: "Experience Belgravia's refined elegance with our guide to exclusive venues, luxury hotels, and sophisticated dining in London's most prestigious SW1A district.",
@@ -857,7 +851,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 9
   },
   {
-    id: "11",
+    id: "9",
     slug: "kensington-museums-fine-dining-cultural-luxury",
     title: "Kensington Museums & Fine Dining: Cultural Luxury",
     excerpt: "Explore South Kensington's world-class museums and exceptional dining scene, where culture meets culinary excellence in London's most sophisticated cultural district.",
@@ -973,7 +967,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 11
   },
   {
-    id: "7",
+    id: "10",
     slug: "escort-friendly-hotels-mayfair-luxury-discretion",
     title: "Top 5 Escort-Friendly Hotels in Mayfair: Discretion Meets Luxury",
     excerpt: "Discover Mayfair's most discreet and luxurious hotels, where privacy meets world-class service for unforgettable experiences with elite companions.",
@@ -1138,7 +1132,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 12
   },
   {
-    id: "8",
+    id: "11",
     slug: "knightsbridge-luxury-hotels-elite-companions",
     title: "Knightsbridge Luxury Hotels: The Ultimate Guide for Elite Companions",
     excerpt: "Explore Knightsbridge's most prestigious hotels offering world-class luxury, impeccable discretion, and proximity to London's finest shopping and dining.",
@@ -1328,7 +1322,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 11
   },
   {
-    id: "9",
+    id: "12",
     slug: "boutique-hotels-soho-intimate-luxury-central-london",
     title: "Boutique Hotels in Soho: Intimate Luxury in Central London",
     excerpt: "Discover Soho's finest boutique hotels offering intimate elegance, vibrant nightlife access, and the perfect blend of privacy and entertainment.",
@@ -1552,7 +1546,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 10
   },
   {
-    id: "10",
+    id: "13",
     slug: "mayfair-companion-guide-luxury-london",
     title: "Mayfair Companion Guide: The Heart of Luxury London",
     excerpt: "Explore Mayfair's refined elegance, from Michelin-starred restaurants and exclusive bars to designer shopping and hidden gems in London's most prestigious district.",
@@ -1835,7 +1829,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 15
   },
   {
-    id: "11",
+    id: "14",
     slug: "chelsea-kensington-sophisticated-companion-paradise",
     title: "Chelsea & Kensington: A Sophisticated Companion's Paradise",
     excerpt: "Discover the cultural richness and refined elegance of Chelsea and Kensington, from world-class museums to exclusive restaurants and beautiful gardens.",
@@ -2119,7 +2113,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 14
   },
   {
-    id: "12",
+    id: "15",
     slug: "michelin-starred-romance-intimate-fine-dining-london",
     title: "Michelin-Starred Romance: London's Most Intimate Fine Dining",
     excerpt: "Experience culinary excellence in intimate settings at London's finest Michelin-starred restaurants, perfect for sophisticated dining with elite companions.",
@@ -2411,7 +2405,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 13
   },
   {
-    id: "13",
+    id: "16",
     slug: "hidden-gem-restaurants-london-elite-private-dining",
     title: "Hidden Gem Restaurants: Where London's Elite Dine in Private",
     excerpt: "Discover London's most exclusive and discreet restaurants, from private dining rooms to intimate venues known only to insiders.",
@@ -2664,7 +2658,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 12
   },
   {
-    id: "14",
+    id: "17",
     slug: "ultimate-date-ideas-unique-experiences-london-couples",
     title: "Ultimate Date Ideas: Unique Experiences in London for Couples",
     excerpt: "Discover unforgettable date experiences in London, from private Thames cruises to exclusive West End shows, creating perfect moments with your companion.",
@@ -2972,7 +2966,7 @@ export const blogArticles: BlogArticle[] = [
     readTime: 14
   },
   {
-    id: "15",
+    id: "18",
     slug: "luxury-spa-experiences-london-wellness-retreats",
     title: "Luxury Spa Experiences: Pamper Yourself in London's Best Wellness Retreats",
     excerpt: "Discover London's most exclusive spa destinations offering world-class treatments, serene environments, and unparalleled wellness experiences for discerning guests.",
@@ -3399,7 +3393,7 @@ export const blogArticles: BlogArticle[] = [
     serviceAreas: ["luxury-spa-london", "wellness-retreats", "couples-spa-treatments", "mayfair-spa", "knightsbridge-wellness"]
   },
   {
-    id: "16",
+    id: "19",
     slug: "first-time-elite-companion-etiquette-guide",
     title: "First Time with an Elite Companion? Your Complete Etiquette Guide",
     excerpt: "Navigate your first experience with confidence. Learn proper etiquette, expectations, communication, and how to ensure a memorable, respectful encounter with elite companions.",

@@ -230,7 +230,7 @@ const BlogPost = () => {
                 <h2 className="luxury-heading-xl mb-6 text-black">
                   Ready for Your London Experience?
                 </h2>
-                <p className="luxury-body-lg text-gray-700 mb-8">
+                <p className="luxury-body-lg text-black mb-8">
                   Contact us to plan your exclusive experience in London with
                   our luxury companion services.
                 </p>
@@ -249,8 +249,7 @@ const BlogPost = () => {
                   <Link to="/services">
                     <Button
                       size="lg"
-                      variant="outline"
-                      className="border-black text-black hover:bg-black hover:text-white"
+                      className="bg-black text-white hover:bg-gray-800"
                     >
                       Our Services
                     </Button>

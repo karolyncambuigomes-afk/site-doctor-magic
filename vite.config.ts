@@ -102,6 +102,7 @@ export default defineConfig(({ mode }) => ({
     assetsInlineLimit: 512,
     chunkSizeWarningLimit: 800,
     minify: mode === "production" ? "terser" : false,
+    cssCodeSplit: true,
     terserOptions:
       mode === "production"
         ? {

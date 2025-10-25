@@ -194,7 +194,7 @@ const About = () => {
               </div>
               <div className="order-1 lg:order-2">
                 <h2 className="luxury-heading-lg mb-6 text-black">Our Story</h2>
-                <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
+                <p className="luxury-body-md text-gray-700 mb-6 leading-relaxed">
                   Five London was born from a vision to redefine the luxury
                   companionship industry in London. Recognizing the need for a
                   service that truly understands the discerning tastes of
@@ -202,7 +202,7 @@ const About = () => {
                   would set new standards in elegance, discretion, and
                   personalized service.
                 </p>
-                <p className="luxury-body-md text-gray-800 mb-6 leading-relaxed">
+                <p className="luxury-body-md text-gray-700 mb-6 leading-relaxed">
                   Over the years, we have carefully curated a portfolio of
                   exceptional companions who embody the qualities our clients
                   value most: intelligence, elegance, sophistication, and
@@ -210,7 +210,7 @@ const About = () => {
                   beauty but for their ability to engage in meaningful
                   conversations and adapt to any social setting.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-gray-700 leading-relaxed">
                   Today, Five London is recognized as London's most exclusive
                   luxury escort agency, serving clients from around the world
                   who seek unparalleled companionship experiences in one of the
@@ -228,7 +228,7 @@ const About = () => {
               <h2 className="luxury-heading-lg mb-6 text-black">
                 Why Choose Five London
               </h2>
-              <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
+              <p className="luxury-body-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
                 We distinguish ourselves through our unwavering commitment to
                 excellence, attention to detail, and understanding of what truly
                 matters to our discerning clientele.
@@ -243,7 +243,7 @@ const About = () => {
                     <h3 className="luxury-heading-sm mb-3 text-black">
                       {value.title}
                     </h3>
-                    <p className="luxury-body-md text-gray-800 leading-relaxed">
+                    <p className="luxury-body-md text-gray-700 leading-relaxed">
                       {value.description}
                     </p>
                   </div>
@@ -281,7 +281,7 @@ const About = () => {
               <h2 className="luxury-heading-lg mb-6 text-black">
                 Our Achievements
               </h2>
-              <p className="luxury-body-lg text-gray-800 max-w-3xl mx-auto leading-relaxed">
+              <p className="luxury-body-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
                 Our track record speaks for itself. These milestones represent
                 our commitment to excellence and the trust our clients place in
                 us.
@@ -314,20 +314,20 @@ const About = () => {
                 Our Commitment to Excellence
               </h2>
               <div className="space-y-8">
-                <p className="luxury-body-lg text-gray-800 leading-relaxed">
+                <p className="luxury-body-lg text-gray-700 leading-relaxed">
                   At Five London, we understand that our clients are successful,
                   sophisticated individuals who expect nothing less than
                   perfection. This understanding drives every aspect of our
                   service, from the initial consultation to the final farewell.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-gray-700 leading-relaxed">
                   We continuously invest in training our team, refining our
                   processes, and staying ahead of industry trends to ensure that
                   we always exceed expectations. Our commitment extends beyond
                   just providing companionship – we create experiences that are
                   truly unforgettable.
                 </p>
-                <p className="luxury-body-md text-gray-800 leading-relaxed">
+                <p className="luxury-body-md text-gray-700 leading-relaxed">
                   Whether you're attending a business function, exploring
                   London's cultural offerings, or simply seeking sophisticated
                   company for an evening out, Five London provides the perfect

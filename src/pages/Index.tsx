@@ -87,10 +87,10 @@ const Index = () => {
         <section className="py-12 md:py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="space-y-4 text-center">
-              <p className="luxury-body-md text-gray-700 leading-relaxed">
+              <p className="luxury-body-lg text-gray-700 leading-relaxed">
                 Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
               </p>
-              <p className="luxury-body-md text-gray-700 leading-relaxed">
+              <p className="luxury-body-lg text-gray-700 leading-relaxed">
                 Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
               </p>
             </div>

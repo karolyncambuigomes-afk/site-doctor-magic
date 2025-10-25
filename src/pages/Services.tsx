@@ -203,7 +203,7 @@ const Services = () => {
                         </div>
                         <div className="flex-1 text-left">
                           <h3 className="luxury-heading-sm mb-1 text-black">{service.title}</h3>
-                          <p className="luxury-body-xs text-black hidden sm:block">{service.description}</p>
+                          <p className="luxury-body-sm text-black hidden sm:block">{service.description}</p>
                         </div>
                         <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-xs sm:luxury-body-sm text-black">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
@@ -216,7 +216,7 @@ const Services = () => {
                       <div className="ml-6 sm:ml-12 md:ml-16 space-y-4 sm:space-y-6">
                          {/* Mobile description */}
                           <div className="sm:hidden">
-                            <p className="luxury-body-xs text-black">{service.description}</p>
+                            <p className="luxury-body-sm text-black">{service.description}</p>
                           </div>
                         
                         {/* Extended Content (Hidden SEO) */}

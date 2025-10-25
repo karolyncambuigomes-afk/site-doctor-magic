@@ -1,3 +1,4 @@
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useSafeParams } from "@/hooks/useSafeRouter";
 import { Navigation } from "@/components/Navigation";
@@ -9,11 +10,16 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SkipToContent } from "@/components/SkipToContent";
 import NotFound from "./NotFound";
 
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
   const { getPostBySlug, getRelatedPosts, loading } = useBlogPosts();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   if (!slug) {
     return <NotFound />;
@@ -23,12 +29,38 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-white">
         <Navigation />
-        <div className="container-width py-16 text-center">
-          <div className="flex items-center justify-center gap-2">
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
-            <span>Loading article...</span>
+        <SkipToContent />
+        
+        <main className="container mx-auto px-4 py-12 sm:py-16">
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Title Skeleton */}
+            <Skeleton className="h-16 w-3/4 mx-auto" />
+            
+            {/* Excerpt Skeleton */}
+            <Skeleton className="h-6 w-full" />
+            <Skeleton className="h-6 w-5/6" />
+            
+            {/* Meta Info Skeleton */}
+            <div className="flex items-center gap-4 justify-center">
+              <Skeleton className="h-10 w-10 rounded-full" />
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-5 w-24" />
+            </div>
+            
+            {/* Image Skeleton */}
+            <Skeleton className="aspect-video w-full rounded-lg" />
+            
+            {/* Content Skeleton */}
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-4/5" />
+            </div>
           </div>
-        </div>
+        </main>
+        
         <Footer />
       </div>
     );
@@ -41,6 +73,23 @@ const BlogPost = () => {
   }
 
   const relatedArticles = getRelatedPosts(slug, 3);
+
+  // Process content for better performance and accessibility
+  const processedContent = useMemo(() => {
+    if (!article) return '';
+    
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = article.content;
+    
+    // Add IDs to headers for navigation
+    tempDiv.querySelectorAll('h2, h3, h4').forEach((heading, index) => {
+      if (!heading.id) {
+        heading.id = `section-${index}`;
+      }
+    });
+    
+    return tempDiv.innerHTML;
+  }, [article]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -109,16 +158,19 @@ const BlogPost = () => {
                   {article.category}
                 </Badge>
 
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 
+                  id="article-title"
+                  className="luxury-heading-xl mb-4 sm:mb-6 text-gray-900 font-light"
+                >
                   {article.title}
                 </h1>
 
-                <p className="luxury-body-lg text-black">{article.excerpt}</p>
+                <p className="luxury-body-lg text-gray-700 font-light">{article.excerpt}</p>
 
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <time dateTime={article.published_at}>
+                    <time dateTime={article.published_at} className="text-gray-600">
                       {new Date(article.published_at).toLocaleDateString(
                         "en-GB",
                         {
@@ -131,9 +183,9 @@ const BlogPost = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4" />
-                    <span>{article.read_time} minutes read</span>
+                    <span className="text-gray-600">{article.read_time} minutes read</span>
                   </div>
-                  <div>By {article.author}</div>
+                  <div className="text-gray-900 font-medium">By {article.author}</div>
                 </div>
               </div>
             </div>
@@ -145,27 +197,51 @@ const BlogPost = () => {
           <section className="py-8 bg-white">
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
-                <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
+                {article.image && (
+                  <div className="aspect-video relative overflow-hidden rounded-lg mb-12 bg-gray-100">
+                    <OptimizedImage
+                      src={article.image}
+                      alt={`Featured image for article: ${article.title}. ${article.excerpt.substring(0, 100)}`}
+                      className="w-full h-full object-cover transition-opacity duration-300"
+                      priority={true}
+                      onLoad={() => setImageLoaded(true)}
+                      onError={() => setImageError(true)}
+                    />
+                    {!imageLoaded && !imageError && (
+                      <Skeleton className="absolute inset-0" />
+                    )}
+                    {imageError && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+                        <p className="text-gray-500">Image not available</p>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </section>
 
-          <section className="pb-20 bg-white">
+          <article 
+            className="pb-20 bg-white"
+            role="article"
+            aria-labelledby="article-title"
+          >
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
-                <div className="prose prose-lg max-w-none [&>*]:text-black [&>p]:text-black [&>h1]:text-black [&>h2]:text-black [&>h3]:text-black [&>h4]:text-black [&>li]:text-black [&>strong]:text-black">
-                  <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                <div className="blog-content prose prose-lg max-w-none
+                  [&>p]:mb-6 [&>p]:leading-8 [&>p]:text-gray-800
+                  [&>h2]:mt-12 [&>h2]:mb-6 [&>h2]:text-3xl [&>h2]:font-light [&>h2]:text-gray-900
+                  [&>h3]:mt-10 [&>h3]:mb-5 [&>h3]:text-2xl [&>h3]:font-normal [&>h3]:text-gray-900
+                  [&>h4]:mt-8 [&>h4]:mb-4 [&>h4]:text-xl [&>h4]:font-medium [&>h4]:text-gray-900
+                  [&>ul]:my-6 [&>ul]:space-y-3 [&>ul>li]:leading-7 [&>ul>li]:text-gray-800
+                  [&>ol]:my-6 [&>ol]:space-y-3 [&>ol>li]:leading-7 [&>ol>li]:text-gray-800
+                  [&>strong]:text-gray-900 [&>strong]:font-semibold"
+                >
+                  <div dangerouslySetInnerHTML={{ __html: processedContent }} />
                 </div>
               </div>
             </div>
-          </section>
+          </article>
 
           {/* Related Articles */}
           {relatedArticles.length > 0 && (

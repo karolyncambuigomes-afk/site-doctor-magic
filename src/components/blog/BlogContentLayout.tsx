@@ -98,11 +98,14 @@ export const BlogContentLayout: React.FC<BlogContentLayoutProps> = ({ content, s
       
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 relative">
         {/* Content Index - Sidebar */}
-        <div className="lg:col-span-1 order-2 lg:order-1">
-          <div className="lg:sticky lg:top-24">
+        <aside 
+          className="lg:col-span-1 order-2 lg:order-1"
+          aria-label="Table of Contents"
+        >
+          <div className="lg:sticky lg:top-24 md:bg-gray-50 md:p-6 md:rounded-lg">
             <BlogContentIndex content={processedContent} slug={slug} />
           </div>
-        </div>
+        </aside>
 
         {/* Main Content */}
         <div className="lg:col-span-3 order-1 lg:order-2">

@@ -27,7 +27,7 @@ const Characteristics = () => {
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Escorts by Characteristics
                 </h1>
-                <p className="luxury-body-lg text-black">
+                <p className="luxury-body-lg text-black mb-12 md:mb-12">
                   Discover companions with specific traits that match your preferences.
                 </p>
               </div>

@@ -65,7 +65,12 @@ export const useBlogPosts = () => {
       // If we have posts in database, use them
       if (data && (data as any[]).length > 0) {
         console.log('[Blog] Loaded posts from Supabase:', (data as any[]).length);
-        setPosts(data as any);
+        // Normalize published_at to ensure cross-browser compatibility
+        const normalizedPosts = (data as any[]).map(post => ({
+          ...post,
+          published_at: post.published_at ? post.published_at.replace(' ', 'T') : post.published_at
+        }));
+        setPosts(normalizedPosts);
       } else {
         console.warn('[Blog] No DB posts. Falling back to static articles.');
         // Import static articles as fallback
@@ -109,9 +114,9 @@ export const useBlogPosts = () => {
           seo_keywords: article.seoKeywords,
           read_time: article.readTime,
           is_published: true,
-          published_at: article.publishedAt,
+          published_at: article.publishedAt ? article.publishedAt.replace(' ', 'T') : article.publishedAt,
           service_keywords: article.serviceAreas || [],
-          created_at: article.publishedAt,
+          created_at: article.publishedAt ? article.publishedAt.replace(' ', 'T') : article.publishedAt,
           updated_at: new Date().toISOString()
         }));
         setPosts(staticPosts);
@@ -163,7 +168,7 @@ export const useBlogPosts = () => {
       .slice(0, limit);
   };
 
-  const categories = [...new Set(posts.map(post => post.category))];
+  const categories = [...new Set(posts.map(post => post.category).filter(Boolean))];
 
   return {
     posts,

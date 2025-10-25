@@ -27,6 +27,23 @@ const Blog = () => {
   
   const { posts, loading, error, categories, refetch } = useBlogPosts();
 
+  // Safe date parser to handle various date formats from Supabase
+  const getSafeDate = (dateString: string | undefined): Date | null => {
+    if (!dateString) return null;
+    try {
+      // Try parsing directly first
+      let date = new Date(dateString);
+      if (!isNaN(date.getTime())) return date;
+      
+      // If it fails, try replacing space with T for ISO format
+      const normalizedDate = dateString.replace(' ', 'T');
+      date = new Date(normalizedDate);
+      return !isNaN(date.getTime()) ? date : null;
+    } catch {
+      return null;
+    }
+  };
+
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
@@ -195,7 +212,7 @@ const Blog = () => {
                     All Articles
                   </Badge>
                 </Link>
-                {categories.map((category) => (
+                {categories.filter(Boolean).map((category) => (
                   <Link
                     key={category}
                     to={`/blog?category=${category.toLowerCase()}`}
@@ -216,7 +233,9 @@ const Blog = () => {
           <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
-                {posts.map((post) => (
+                {posts.map((post) => {
+                  const dateObj = getSafeDate(post.published_at);
+                  return (
                   <Card
                     key={post.id}
                     className="group hover:shadow-elegant transition-all duration-300 border border-gray-200 hover:border-gray-400 overflow-hidden bg-white"
@@ -244,38 +263,42 @@ const Blog = () => {
 
                     <CardHeader className="pb-4 px-6 pt-6">
                       <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <time
-                            dateTime={post.published_at}
-                            className="hidden sm:inline"
-                          >
-                            {new Date(post.published_at).toLocaleDateString(
-                              "en-GB",
-                              {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              }
-                            )}
-                          </time>
-                          <time
-                            dateTime={post.published_at}
-                            className="sm:hidden"
-                          >
-                            {new Date(post.published_at).toLocaleDateString(
-                              "en-GB",
-                              {
-                                day: "numeric",
-                                month: "short",
-                              }
-                            )}
-                          </time>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{post.read_time} min</span>
-                        </div>
+                        {dateObj && (
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <time
+                              dateTime={dateObj.toISOString()}
+                              className="hidden sm:inline"
+                            >
+                              {dateObj.toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                }
+                              )}
+                            </time>
+                            <time
+                              dateTime={dateObj.toISOString()}
+                              className="sm:hidden"
+                            >
+                              {dateObj.toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "short",
+                                }
+                              )}
+                            </time>
+                          </div>
+                        )}
+                        {Number(post.read_time) > 0 && (
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span>{post.read_time} min</span>
+                          </div>
+                        )}
                       </div>
 
                       <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
@@ -285,7 +308,7 @@ const Blog = () => {
 
                     <CardContent className="pt-0 px-6 pb-6">
                       <p className="text-black leading-relaxed mb-6 text-sm">
-                        {post.excerpt}
+                        {post.excerpt || ''}
                       </p>
 
                       <Link to={`/blog/${post.slug}`}>
@@ -299,7 +322,8 @@ const Blog = () => {
                       </Link>
                     </CardContent>
                   </Card>
-                ))}
+                )})}
+              
               </div>
             </div>
           </section>

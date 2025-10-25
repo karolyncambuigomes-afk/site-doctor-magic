@@ -971,6 +971,868 @@ export const blogArticles: BlogArticle[] = [
     author: "Five London Team",
     category: "Culture",
     readTime: 11
+  },
+  {
+    id: "7",
+    slug: "escort-friendly-hotels-mayfair-luxury-discretion",
+    title: "Top 5 Escort-Friendly Hotels in Mayfair: Discretion Meets Luxury",
+    excerpt: "Discover Mayfair's most discreet and luxurious hotels, where privacy meets world-class service for unforgettable experiences with elite companions.",
+    metaDescription: "Guide to the best escort-friendly hotels in Mayfair. Discover discreet luxury accommodation with impeccable service and absolute privacy for elite companions.",
+    seoKeywords: "escort-friendly hotels Mayfair, luxury hotels London, discreet accommodation, VIP hotel services, Mayfair hotels",
+    serviceAreas: ["escort-friendly hotels", "Mayfair luxury accommodation", "discreet hotels London", "VIP hotel services", "elite companion hotels"],
+    content: `
+      <h2>Mayfair: Where Discretion Defines Luxury</h2>
+      
+      <p>Mayfair stands as London's most prestigious district, renowned not only for its elegant Georgian architecture and exclusive boutiques, but also for its world-class hotels that understand the importance of privacy and discretion. For those seeking sophisticated accommodation with elite companions, Mayfair's finest establishments offer the perfect blend of impeccable service, absolute privacy, and luxurious amenities.</p>
+
+      <p>These hotels have mastered the art of discreet hospitality, ensuring guests enjoy complete privacy while experiencing the finest London has to offer. From private entrances to dedicated concierge services, every detail is designed to provide a seamless and confidential experience.</p>
+
+      <h3>1. Claridge's - The Art Deco Icon</h3>
+      
+      <p>Claridge's epitomizes British elegance and discretion. This legendary Art Deco masterpiece has been the preferred choice of royalty, celebrities, and discerning guests for over 150 years. The hotel's reputation for absolute discretion makes it ideal for those seeking privacy with elite companions.</p>
+
+      <p><strong>Why Choose Claridge's:</strong><br>
+      <strong>Privacy Features:</strong> Multiple discreet entrances, private lifts to suites, dedicated 24/7 concierge<br>
+      <strong>Accommodation:</strong> Brook Penthouse with private terrace, Grand Piano Suite, Art Deco Suites<br>
+      <strong>Amenities:</strong> AKASHA Spa with private treatment rooms, in-suite dining by Davies and Brook<br>
+      <strong>Location:</strong> Heart of Mayfair, walking distance to Bond Street and Hyde Park<br>
+      <strong>Average Rate:</strong> £800-3,500 per night</p>
+
+      <h4>The Claridge's Experience</h4>
+      <p>The hotel's impeccable staff are trained in the highest standards of discretion. Private check-in arrangements can be made, and suites feature separate living areas perfect for entertaining. The legendary Claridge's Bar offers an intimate setting for pre-dinner cocktails, while the hotel's restaurants provide private dining options.</p>
+
+      <p><strong>Insider Tip:</strong> Request a suite with a separate entrance for ultimate privacy. The Brook Penthouse offers a private terrace with stunning London views, perfect for intimate champagne moments.</p>
+
+      <h3>2. The Connaught - Timeless Elegance</h3>
+      
+      <p>The Connaught represents the pinnacle of understated luxury. This Mayfair institution combines Edwardian grandeur with contemporary sophistication, offering an unparalleled level of personalized service and discretion that has made it a favorite among international elite.</p>
+
+      <p><strong>Distinguished Features:</strong><br>
+      <strong>Privacy:</strong> Discreet Carlos Place entrance, private key-only lift access, dedicated butler service<br>
+      <strong>Suites:</strong> Grand Apartments by David Collins, Mayfair Townhouse Suites<br>
+      <strong>Dining:</strong> Hélène Darroze Michelin-starred restaurant, intimate Jean-Georges at The Connaught<br>
+      <strong>Wellness:</strong> Aman Spa with private treatment suites and vitality pool<br>
+      <strong>Investment:</strong> £750-4,000 per night</p>
+
+      <h4>Bespoke Experiences</h4>
+      <p>The Connaught's legendary butler service ensures every request is handled with utmost discretion. From arranging private car service to coordinating special in-suite experiences, the staff anticipate needs before they're expressed. The hotel's Mayfair Townhouse Suites offer residential-style privacy with multiple rooms and separate entrances.</p>
+
+      <p><strong>Connaught Bar:</strong> One of the world's finest cocktail bars, offering intimate booth seating and an extensive champagne selection for sophisticated pre-dinner drinks.</p>
+
+      <h3>3. The Dorchester - Park Lane Majesty</h3>
+      
+      <p>Overlooking Hyde Park, The Dorchester has been synonymous with luxury and discretion since 1931. This iconic hotel offers spacious suites with park views, multiple dining options, and world-renowned spa facilities, making it perfect for extended stays with companions.</p>
+
+      <p><strong>The Dorchester Advantage:</strong><br>
+      <strong>Space & Privacy:</strong> Exceptionally spacious suites (starting at 55m²), some with private terraces<br>
+      <strong>Gastronomy:</strong> Alain Ducasse at The Dorchester (3 Michelin stars), The Grill by Tom Booton<br>
+      <strong>Wellness:</strong> The Spatisserie with couple's treatment rooms and Cristiano Ronaldo-approved gym<br>
+      <strong>Views:</strong> Stunning Hyde Park vistas from all park-facing suites<br>
+      <strong>Rates:</strong> £650-5,000+ per night</p>
+
+      <h4>Suite Selection</h4>
+      <p>The Harlequin Suite combines Art Deco glamour with modern amenities, featuring separate living and dining areas. For ultimate luxury, the Audley and Pavilion Penthouse Suites offer multiple bedrooms, private terraces, and dedicated butler pantries. All suites feature marble bathrooms with separate showers and deep soaking tubs.</p>
+
+      <p><strong>Perfect For:</strong> Extended stays and entertaining, with spacious living areas ideal for private dinners arranged by the hotel's Michelin-starred chef.</p>
+
+      <h3>4. Four Seasons Hotel London at Park Lane</h3>
+      
+      <p>This modern interpretation of British luxury combines contemporary design with traditional Four Seasons service excellence. The hotel's position overlooking Hyde Park and its sophisticated atmosphere make it an ideal choice for discerning guests seeking both privacy and accessibility.</p>
+
+      <p><strong>Modern Luxury Features:</strong><br>
+      <strong>Contemporary Design:</strong> Sleek, modern suites with floor-to-ceiling windows and park views<br>
+      <strong>Technology:</strong> Advanced in-room entertainment, automated controls, high-speed WiFi<br>
+      <strong>Dining:</strong> Pavyllon London by Yannick Alléno (Michelin-starred), Lanes Bar & Lounge<br>
+      <strong>Spa:</strong> Four Seasons Spa with 10th-floor pool, gym, and treatment rooms<br>
+      <strong>Pricing:</strong> £600-3,000 per night</p>
+
+      <h4>Service Excellence</h4>
+      <p>Four Seasons' legendary service extends to complete discretion and personalized attention. The concierge team can arrange everything from private shopping experiences on Bond Street to exclusive restaurant reservations. Suites feature separate living areas and luxurious marble bathrooms with separate showers and tubs.</p>
+
+      <p><strong>Rooftop Terrace:</strong> The Presidential Suite includes a wraparound terrace with spectacular Hyde Park and London skyline views, perfect for private champagne receptions.</p>
+
+      <h3>5. 45 Park Lane - Contemporary Sophistication</h3>
+      
+      <p>The younger sibling of The Dorchester offers a more contemporary, intimate experience while maintaining the same exceptional service standards. This boutique luxury hotel is ideal for those seeking modern sophistication with absolute discretion.</p>
+
+      <p><strong>Boutique Excellence:</strong><br>
+      <strong>Design:</strong> Contemporary art deco by Thierry Despont, intimate 46-room property<br>
+      <strong>Dining:</strong> CUT at 45 Park Lane by Wolfgang Puck, rooftop bar with Hyde Park views<br>
+      <strong>Exclusivity:</strong> Small property ensures personalized attention and privacy<br>
+      <strong>Technology:</strong> State-of-the-art room controls and entertainment systems<br>
+      <strong>Investment:</strong> £500-2,500 per night</p>
+
+      <h4>Intimate Luxury</h4>
+      <p>With only 46 rooms, 45 Park Lane offers a more intimate experience than larger properties. The staff quickly learn guest preferences, ensuring seamless service. Suites feature contemporary design, marble bathrooms, and many offer Hyde Park views. The rooftop bar provides a sophisticated setting for evening drinks with spectacular views.</p>
+
+      <h3>Booking Strategies for Ultimate Discretion</h3>
+      
+      <h4>Advance Planning</h4>
+      <p>For the best suite selection and to ensure all privacy arrangements are in place, book at least 2-4 weeks in advance. Contact the hotel directly rather than using third-party booking sites to discuss specific privacy requirements.</p>
+
+      <h4>Communication with Concierge</h4>
+      <p>Mayfair's finest hotels have concierge teams experienced in discreet arrangements. Don't hesitate to communicate your needs for privacy, whether it's arranging separate check-in, coordinating arrival times, or requesting specific suite locations.</p>
+
+      <h4>Suite Selection Tips</h4>
+      <ul>
+        <li><strong>Corner Suites:</strong> Often offer more privacy with fewer adjacent rooms</li>
+        <li><strong>Higher Floors:</strong> Provide additional privacy and better views</li>
+        <li><strong>Multiple Rooms:</strong> Suites with separate living areas offer more space for entertaining</li>
+        <li><strong>Private Terraces:</strong> When available, these provide secluded outdoor space</li>
+        <li><strong>Butler Service:</strong> Ensures discreet handling of all requests</li>
+      </ul>
+
+      <h3>Dining and Entertainment</h3>
+      
+      <h4>In-Suite Dining</h4>
+      <p>All five hotels offer exceptional room service with full restaurant menus available 24/7. For special occasions, private chefs can be arranged to prepare Michelin-quality meals in your suite, accompanied by sommelier-selected wines.</p>
+
+      <h4>Restaurant Reservations</h4>
+      <p>The hotel concierge can secure reservations at London's most exclusive restaurants, often with preferred seating in more private areas. Many Mayfair restaurants offer private dining rooms perfect for intimate dinners.</p>
+
+      <h4>Bar Experiences</h4>
+      <p>Each hotel features exceptional bars perfect for pre-dinner cocktails or late-night champagne. Claridge's Bar, The Connaught Bar, and The Dorchester Bar are among London's finest, offering both sophistication and discretion.</p>
+
+      <h3>Dress Code and Etiquette</h3>
+      
+      <h4>Hotel Public Areas</h4>
+      <p>Mayfair hotels maintain elegant dress codes in public spaces, particularly restaurants and bars. Smart casual is the minimum, with many guests choosing business attire or evening wear. Jeans, trainers, and casual sportswear are generally not appropriate in restaurants and bars.</p>
+
+      <h4>Suite Attire</h4>
+      <p>Within your suite, comfort is paramount. Hotels provide luxury robes and slippers for relaxation. For in-suite dining, dress as formally or casually as you prefer.</p>
+
+      <h3>Transportation and Arrival</h3>
+      
+      <h4>Discreet Arrivals</h4>
+      <p>All five hotels can arrange private car service from airports or stations. Many have discrete side entrances that can be used for arrivals and departures, bypassing main lobby areas.</p>
+
+      <h4>In-Mayfair Transport</h4>
+      <p>Mayfair's compact size makes it ideal for walking between attractions. However, hotels can provide chauffeur service for longer journeys or when discretion is paramount. Private car hire ensures complete privacy during transport.</p>
+
+      <h3>Seasonal Considerations</h3>
+      
+      <h4>Peak Seasons</h4>
+      <p>Book well in advance for peak seasons (June-August, December). Major London events like Royal Ascot, Wimbledon, and London Fashion Week drive significant demand for Mayfair's finest hotels.</p>
+
+      <h4>Off-Peak Advantages</h4>
+      <p>November, January, and February often offer better rates while maintaining the same exceptional service. These periods can provide better suite availability and more personalized attention.</p>
+
+      <h3>Additional Services and Amenities</h3>
+      
+      <ul>
+        <li><strong>Spa Services:</strong> All hotels offer world-class spa facilities with private treatment rooms</li>
+        <li><strong>Personal Shopping:</strong> Concierge can arrange private shopping experiences on Bond Street</li>
+        <li><strong>Theatre Tickets:</strong> Access to sold-out West End shows and premium seating</li>
+        <li><strong>Private Tours:</strong> Exclusive guided experiences of London's attractions after hours</li>
+        <li><strong>Florist Services:</strong> Same-day delivery of premium floral arrangements</li>
+        <li><strong>Photography:</strong> Professional photographers for special occasions</li>
+        <li><strong>Personal Trainers:</strong> Private fitness sessions in hotel gyms or Hyde Park</li>
+      </ul>
+
+      <p>These five Mayfair hotels represent the pinnacle of discreet luxury accommodation in London. Each offers its own unique interpretation of hospitality excellence, but all share an unwavering commitment to guest privacy, impeccable service, and creating unforgettable experiences. Whether you choose the Art Deco glamour of Claridge's, the timeless elegance of The Connaught, the park-side majesty of The Dorchester, the modern luxury of Four Seasons, or the intimate sophistication of 45 Park Lane, you're guaranteed an exceptional stay in London's most prestigious neighborhood.</p>
+    `,
+    image: "/src/assets/blog-luxury-hotels.webp",
+    publishedAt: "2024-02-15",
+    author: "Five London Team",
+    category: "Hotels",
+    readTime: 12
+  },
+  {
+    id: "8",
+    slug: "knightsbridge-luxury-hotels-elite-companions",
+    title: "Knightsbridge Luxury Hotels: The Ultimate Guide for Elite Companions",
+    excerpt: "Explore Knightsbridge's most prestigious hotels offering world-class luxury, impeccable discretion, and proximity to London's finest shopping and dining.",
+    metaDescription: "Complete guide to Knightsbridge luxury hotels. Discover The Berkeley, Mandarin Oriental, and Bulgari Hotel - perfect for elite companions seeking discretion.",
+    seoKeywords: "Knightsbridge hotels, luxury accommodation London, The Berkeley, Mandarin Oriental, elite companions",
+    serviceAreas: ["Knightsbridge hotels", "luxury hotels London", "elite companion accommodation", "discreet hotels Knightsbridge", "Harrods hotels"],
+    content: `
+      <h2>Knightsbridge: London's Luxury Shopping and Hotel District</h2>
+      
+      <p>Knightsbridge represents the epitome of London luxury, where world-famous department stores meet five-star hospitality. Home to Harrods and Harvey Nichols, this prestigious neighborhood offers some of London's most sophisticated hotels, each providing the perfect base for elite companions seeking both privacy and access to the city's finest experiences.</p>
+
+      <p>The district's central location provides easy access to Hyde Park, South Kensington's cultural attractions, and Mayfair's exclusive dining scene, while maintaining an atmosphere of refined elegance and discretion.</p>
+
+      <h3>1. The Berkeley - Contemporary Elegance with Park Views</h3>
+      
+      <p>The Berkeley perfectly balances traditional British hospitality with contemporary design. Located between Knightsbridge and Belgravia, this luxury hotel offers sophisticated accommodations, innovative dining, and London's only rooftop hotel pool, making it an ideal choice for extended stays with companions.</p>
+
+      <p><strong>The Berkeley Excellence:</strong><br>
+      <strong>Accommodation:</strong> Spacious contemporary suites with separate living areas, many with Hyde Park views<br>
+      <strong>Signature Feature:</strong> Rooftop pool with retractable roof and cabanas overlooking Hyde Park<br>
+      <strong>Dining:</strong> Marcus by Marcus Wareing (Michelin-starred), Cédric Grolet at The Berkeley<br>
+      <strong>Wellness:</strong> Bamford Haybarn Spa with holistic treatments<br>
+      <strong>Average Rates:</strong> £700-4,500 per night</p>
+
+      <h4>Suite Highlights</h4>
+      <p>The Berkeley's suites showcase contemporary British design with bespoke furnishings and marble bathrooms featuring separate showers and deep soaking tubs. The Pavilion Suite offers direct access to the rooftop terrace, while the Grand Pavilion Suite provides multiple bedrooms and a private screening room.</p>
+
+      <p><strong>Blue Bar:</strong> Designed by David Collins, this sophisticated bar offers an extensive cocktail menu in an intimate setting with rich blue leather and illuminated onyx walls. Perfect for evening aperitifs before dinner.</p>
+
+      <h4>The Rooftop Experience</h4>
+      <p>The Berkeley's rooftop pool area is truly exceptional. The heated pool features a retractable roof for year-round use, surrounded by private cabanas and a stylish lounge area. This exclusive space provides a serene escape with stunning park views, ideal for relaxation between shopping expeditions.</p>
+
+      <h3>2. Mandarin Oriental Hyde Park - Asian Excellence Meets British Tradition</h3>
+      
+      <p>Occupying a prime position overlooking Hyde Park and just steps from Harrods, the Mandarin Oriental represents the perfect fusion of Asian hospitality and British heritage. This Knightsbridge icon offers exceptional service, Michelin-starred dining, and one of London's finest spas.</p>
+
+      <p><strong>Mandarin Oriental Distinction:</strong><br>
+      <strong>Location:</strong> Direct Hyde Park views, 100 meters from Harrods<br>
+      <strong>Suites:</strong> Elegantly appointed with park views, marble bathrooms, and classic British design<br>
+      <strong>Gastronomy:</strong> Dinner by Heston Blumenthal (2 Michelin stars), The Aubrey<br>
+      <strong>Spa:</strong> Two-floor sanctuary offering Asian-inspired treatments and vitality pool<br>
+      <strong>Investment:</strong> £800-5,000+ per night</p>
+
+      <h4>The Spa Sanctuary</h4>
+      <p>The Mandarin Oriental Spa is legendary among London hotels. Spanning two floors, it offers 13 treatment rooms, a vitality pool, sanarium, and crystal steam rooms. The spa menu features signature treatments combining Eastern and Western techniques, with couple's treatment rooms available for shared experiences.</p>
+
+      <p><strong>Heat & Water Experience:</strong> Access to the spa's oriental-inspired relaxation areas, including the amethyst crystal steam room and vitality pool with fiber-optic stars.</p>
+
+      <h4>Culinary Excellence</h4>
+      <p>Dinner by Heston Blumenthal offers innovative British cuisine inspired by historic recipes, presented with modern techniques. The restaurant's intimate atmosphere and exceptional wine list make it perfect for special evening dining. For breakfast and afternoon tea, The Rosebery overlooks Hyde Park, providing natural light and park views.</p>
+
+      <h3>3. The Bulgari Hotel - Italian Sophistication in London</h3>
+      
+      <p>Hidden away on a quiet street near Harrods, The Bulgari Hotel brings Italian luxury and design excellence to Knightsbridge. This intimate property offers contemporary sophistication with impeccable service, making it ideal for those seeking a more private, residential-style experience.</p>
+
+      <p><strong>Bulgari Signature Features:</strong><br>
+      <strong>Design:</strong> Contemporary Italian design by renowned architects ACPV<br>
+      <strong>Exclusivity:</strong> Intimate 85-suite property ensuring personalized attention<br>
+      <strong>Dining:</strong> Sette by Sette Meo, authentic Italian cuisine<br>
+      <strong>Wellness:</strong> 25-meter swimming pool (rare in London), fully equipped spa<br>
+      <strong>Rates:</strong> £750-6,000 per night</p>
+
+      <h4>The Private Residential Feel</h4>
+      <p>The Bulgari's design emphasizes privacy and residential comfort. Suites feature contemporary Italian furnishings, oak floors, and bathrooms clad in silver travertine with deep soaking tubs. Many suites include private balconies or terraces, unusual for central London hotels.</p>
+
+      <p><strong>The Cinema:</strong> Private 47-seat cinema showing classic and contemporary films, available for exclusive hire with champagne and canapés service.</p>
+
+      <h4>The Swimming Pool</h4>
+      <p>The Bulgari's 25-meter pool is a rarity in London hotels. Located in the spa, it's complemented by a vitality pool, steam rooms, and a fully equipped gym. The spa offers treatments using Bulgari's own luxury skincare line, with private treatment suites for couples.</p>
+
+      <h3>4. The Cadogan - Chelsea Meets Knightsbridge</h3>
+      
+      <p>Perfectly positioned between Knightsbridge and Chelsea, The Cadogan occupies a historic building on Sloane Street. This elegant hotel combines Victorian charm with contemporary luxury, offering sophisticated accommodations steps from the finest shopping.</p>
+
+      <p><strong>The Cadogan Character:</strong><br>
+      <strong>Heritage:</strong> Historic building with connections to Oscar Wilde and Lillie Langtry<br>
+      <strong>Position:</strong> Sloane Street shopping, walking distance to both neighborhoods<br>
+      <strong>Dining:</strong> Adam Handling Chelsea, modern British seasonal cuisine<br>
+      <strong>Style:</strong> Classic British elegance with contemporary touches<br>
+      <strong>Pricing:</strong> £500-2,500 per night</p>
+
+      <h4>Victorian Elegance Modernized</h4>
+      <p>The hotel beautifully preserves Victorian architectural details while incorporating modern amenities. Suites feature period moldings, fireplaces, and large windows, combined with contemporary bathrooms and technology. The Langtry Suite occupies the former apartment of Victorian actress Lillie Langtry.</p>
+
+      <p><strong>The Garden:</strong> Rare for central London, The Cadogan features a private garden where guests can enjoy outdoor dining and afternoon tea in warmer months.</p>
+
+      <h3>Knightsbridge Shopping: A Companion's Paradise</h3>
+      
+      <h4>Harrods</h4>
+      <p>The world's most famous department store is just steps from these hotels. Beyond shopping, Harrods offers exceptional dining options and services that hotel concierges can arrange, including personal shopping experiences and private appointments.</p>
+
+      <p><strong>Harrods VIP Services:</strong><br>
+      • Personal shopping by appointment<br>
+      • Private dining in the Harrods restaurants<br>
+      • Priority access during sales periods<br>
+      • Delivery to your hotel suite<br>
+      • Gift wrapping and international shipping</p>
+
+      <h4>Sloane Street</h4>
+      <p>Running through the heart of Knightsbridge, Sloane Street features flagship stores of every major luxury brand: Louis Vuitton, Hermès, Chanel, Dior, Gucci, Prada, and more. Personal shopping services can be arranged through hotel concierges.</p>
+
+      <h4>Harvey Nichols</h4>
+      <p>This luxury department store offers cutting-edge fashion, beauty, and homewares. The Fifth Floor restaurant and bar provide excellent dining with views over Knightsbridge, ideal for a shopping break.</p>
+
+      <h3>Dining in Knightsbridge</h3>
+      
+      <h4>Michelin-Starred Experiences</h4>
+      <p>Beyond hotel restaurants, Knightsbridge offers exceptional dining:</p>
+
+      <ul>
+        <li><strong>Dinner by Heston Blumenthal:</strong> Mandarin Oriental's 2-Michelin-star restaurant</li>
+        <li><strong>Marcus:</strong> Marcus Wareing's restaurant at The Berkeley</li>
+        <li><strong>Petrus:</strong> Gordon Ramsay's sophisticated French restaurant nearby</li>
+        <li><strong>Zuma:</strong> Contemporary Japanese dining in a sophisticated setting</li>
+      </ul>
+
+      <h4>Afternoon Tea Tradition</h4>
+      <p>Several Knightsbridge hotels offer exceptional afternoon tea experiences:</p>
+
+      <p><strong>The Berkeley Prêt-à-Portage:</strong> Fashion-inspired afternoon tea featuring miniature couture cakes designed to reflect the latest runway shows. Served in Collins Room or the rooftop garden in summer.</p>
+
+      <p><strong>Mandarin Oriental Rosebery:</strong> Traditional afternoon tea with park views, featuring classic British treats and premium teas.</p>
+
+      <h3>Proximity to Cultural Attractions</h3>
+      
+      <h4>Hyde Park</h4>
+      <p>Just across from the hotels, Hyde Park offers 350 acres of green space perfect for morning walks, jogging, or romantic strolls. The Serpentine Gallery showcases contemporary art, while the park's various gardens provide peaceful retreats.</p>
+
+      <h4>South Kensington Museums</h4>
+      <p>A short walk brings you to Museum Mile, featuring:</p>
+      <ul>
+        <li>Victoria & Albert Museum - decorative arts and design</li>
+        <li>Natural History Museum - architectural masterpiece with world-class exhibits</li>
+        <li>Science Museum - interactive exhibits and IMAX cinema</li>
+      </ul>
+
+      <h4>Royal Albert Hall</h4>
+      <p>This iconic concert venue hosts world-class performances from classical concerts to rock shows. Hotel concierges can secure premium seating and arrange private boxes for special events.</p>
+
+      <h3>Transportation and Accessibility</h3>
+      
+      <h4>Underground Access</h4>
+      <p>Knightsbridge Station (Piccadilly Line) provides direct access from Heathrow Airport and connections throughout London. The station is just minutes from all four hotels, though most guests prefer hotel car service for arrivals.</p>
+
+      <h4>Private Transportation</h4>
+      <p>All hotels offer chauffeured car services for airport transfers and city touring. This ensures maximum privacy and comfort, particularly beneficial when arriving or departing with companions.</p>
+
+      <h3>Seasonal Considerations</h3>
+      
+      <h4>Sale Seasons</h4>
+      <p>Harrods and other Knightsbridge retailers hold major sales in January and July. While these periods offer shopping opportunities, they also bring crowds. If privacy is a priority, visit during other months when the area is quieter.</p>
+
+      <h4>Chelsea Flower Show</h4>
+      <p>In May, nearby Chelsea hosts the prestigious flower show. Hotels are in high demand during this week, so book well in advance if visiting during this period.</p>
+
+      <h3>Practical Tips for Your Stay</h3>
+      
+      <ul>
+        <li><strong>Advance Booking:</strong> Reserve suites 3-4 weeks ahead, longer for peak seasons</li>
+        <li><strong>Restaurant Reservations:</strong> Book Michelin-starred restaurants when confirming your hotel</li>
+        <li><strong>Spa Appointments:</strong> Popular treatment times fill quickly, especially weekends</li>
+        <li><strong>Personal Shopping:</strong> Arrange appointments through concierge before arrival</li>
+        <li><strong>Theatre Tickets:</strong> Request assistance booking West End shows in advance</li>
+        <li><strong>Special Occasions:</strong> Inform hotels of celebrations for personalized touches</li>
+      </ul>
+
+      <h3>Why Choose Knightsbridge</h3>
+      
+      <p>Knightsbridge offers several advantages for those traveling with elite companions:</p>
+
+      <ul>
+        <li><strong>Central Location:</strong> Easy access to Mayfair, Chelsea, and South Kensington</li>
+        <li><strong>Shopping Paradise:</strong> World's finest luxury retail at your doorstep</li>
+        <li><strong>Dining Excellence:</strong> Multiple Michelin-starred restaurants within walking distance</li>
+        <li><strong>Park Access:</strong> Hyde Park provides green space and romantic walking paths</li>
+        <li><strong>Cultural Proximity:</strong> Museums, Royal Albert Hall, and galleries nearby</li>
+        <li><strong>Discretion:</strong> Hotels understand the importance of privacy and VIP service</li>
+        <li><strong>Transportation:</strong> Excellent tube access and hotel car services</li>
+      </ul>
+
+      <p>Whether you choose The Berkeley's contemporary elegance, Mandarin Oriental's spa excellence, Bulgari's Italian sophistication, or The Cadogan's Victorian charm, Knightsbridge offers sophisticated accommodations that understand the needs of discerning guests traveling with elite companions. The combination of luxury shopping, exceptional dining, cultural attractions, and discreet five-star service makes Knightsbridge one of London's most desirable neighborhoods for luxury stays.</p>
+    `,
+    image: "/src/assets/blog-luxury-hotels.webp",
+    publishedAt: "2024-02-12",
+    author: "Five London Team",
+    category: "Hotels",
+    readTime: 11
+  },
+  {
+    id: "9",
+    slug: "boutique-hotels-soho-intimate-luxury-central-london",
+    title: "Boutique Hotels in Soho: Intimate Luxury in Central London",
+    excerpt: "Discover Soho's finest boutique hotels offering intimate elegance, vibrant nightlife access, and the perfect blend of privacy and entertainment.",
+    metaDescription: "Guide to Soho's best boutique hotels. Discover intimate luxury accommodation in London's entertainment district with discreet service and vibrant surroundings.",
+    seoKeywords: "boutique hotels Soho, intimate hotels London, Soho luxury accommodation, discreet hotels",
+    serviceAreas: ["Soho boutique hotels", "intimate hotels London", "Soho accommodation", "central London hotels", "theatre district hotels"],
+    content: `
+      <h2>Soho: Where London's Creative Heart Beats</h2>
+      
+      <p>Soho represents London's most vibrant and eclectic neighborhood, where historic theatres meet contemporary creativity, and Michelin-starred restaurants share streets with legendary jazz clubs. For those seeking intimate luxury in the heart of London's entertainment district, Soho's boutique hotels offer the perfect blend of sophisticated accommodations, personalized service, and immediate access to the city's most exciting dining and nightlife scene.</p>
+
+      <p>Unlike the grand hotels of Mayfair, Soho's boutique properties provide a more intimate, residential experience while maintaining exceptional service standards and absolute discretion. The neighborhood's central location offers unparalleled convenience, with West End theatres, Covent Garden, and Mayfair all within walking distance.</p>
+
+      <h3>1. The Soho Hotel - Filmhouse Chic</h3>
+      
+      <p>The Soho Hotel embodies contemporary British luxury with a distinctive creative flair. Designed by Kit Kemp, this Firmdale Hotel property combines bold colors, unique artworks, and exceptional comfort to create an atmosphere unlike any other London hotel. Perfect for those who appreciate design and seek a more artistic, intimate hotel experience.</p>
+
+      <p><strong>The Soho Hotel Character:</strong><br>
+      <strong>Design:</strong> Kit Kemp's signature eclectic British style with bold colors and bespoke furnishings<br>
+      <strong>Accommodation:</strong> 91 individually designed rooms including duplex suites with private screening rooms<br>
+      <strong>Dining:</strong> Refuel Restaurant & Bar serving modern British cuisine in a vibrant setting<br>
+      <strong>Wellness:</strong> Fully equipped gym and treatment rooms<br>
+      <strong>Rates:</strong> £400-2,000 per night</p>
+
+      <h4>Distinctive Design</h4>
+      <p>Each room at The Soho Hotel showcases Kit Kemp's talent for mixing colors, patterns, and textures. Expect vibrant fabrics, contemporary artworks, handmade furniture, and granite and oak bathrooms. The duplex suites feature separate living areas and private screening rooms perfect for intimate film viewings.</p>
+
+      <p><strong>The Drawing Room:</strong> A stunning two-story space filled with natural light, perfect for afternoon tea, cocktails, or simply relaxing with newspapers and magazines in comfortable sofas.</p>
+
+      <h4>Soho Location Advantages</h4>
+      <p>The hotel sits just off Dean Street, surrounded by Soho's best restaurants, bars, and entertainment. Theatre-goers appreciate the proximity to Leicester Square and Shaftesbury Avenue, while food enthusiasts enjoy being steps from some of London's most exciting dining destinations.</p>
+
+      <h3>2. Dean Street Townhouse - Georgian Elegance</h3>
+      
+      <p>Occupying a beautifully restored Georgian townhouse on Dean Street, this Soho House property offers an intimate boutique experience with just 39 rooms. The hotel combines 18th-century architecture with contemporary comfort, creating a sophisticated retreat in Soho's energetic heart.</p>
+
+      <p><strong>Dean Street Distinction:</strong><br>
+      <strong>Heritage:</strong> Grade II-listed Georgian building with original features<br>
+      <strong>Intimacy:</strong> Only 39 rooms ensuring personalized service<br>
+      <strong>Dining:</strong> All-day British dining room frequented by media and creative industry<br>
+      <strong>Style:</strong> Classic Georgian architecture with vintage furnishings<br>
+      <strong>Investment:</strong> £350-1,500 per night</p>
+
+      <h4>The Soho House Collection Experience</h4>
+      <p>As part of the Soho House collection, Dean Street Townhouse offers hotel guests access to Soho House members' clubs worldwide (membership required). The hotel's restaurant and bar provide a sophisticated meeting place frequented by London's creative community, offering excellent people-watching alongside exceptional British cuisine.</p>
+
+      <p><strong>Room Design:</strong> Vintage-style rooms feature brass beds, freestanding bathtubs, Egyptian cotton linens, and original Georgian windows overlooking Dean Street. The intimate scale means every guest receives highly personalized attention.</p>
+
+      <h4>Central Soho Position</h4>
+      <p>Located in the absolute heart of Soho, the hotel offers immediate access to the neighborhood's best attractions. Theatres, restaurants, cocktail bars, and galleries are literally steps from the entrance. Despite the vibrant surroundings, rooms maintain remarkable quiet thanks to quality soundproofing.</p>
+
+      <h3>3. Ham Yard Hotel - Urban Village Concept</h3>
+      
+      <p>Another Kit Kemp masterpiece, Ham Yard Hotel occupies a peaceful courtyard just off Regent Street. This 91-room hotel creates an "urban village" atmosphere with its own theatre, rooftop terrace, and bowling alley, offering guests a complete entertainment destination alongside luxury accommodations.</p>
+
+      <p><strong>Ham Yard Highlights:</strong><br>
+      <strong>Location:</strong> Quiet courtyard setting despite central location<br>
+      <strong>Entertainment:</strong> 190-seat theatre hosting regular performances<br>
+      <strong>Rooftop:</strong> Terrace with garden, bar, and spectacular city views<br>
+      <strong>Facilities:</strong> Bowling alley, gym, spa treatment rooms<br>
+      <strong>Pricing:</strong> £400-2,500 per night</p>
+
+      <h4>The Complete Destination</h4>
+      <p>Ham Yard Hotel functions as a destination in itself. The private theatre hosts regular film screenings, comedy shows, and live performances. The rooftop terrace features a garden designed by the Royal Botanical Gardens, a bar serving creative cocktails, and views across central London. Even a vintage bowling alley provides unique entertainment.</p>
+
+      <p><strong>Design Excellence:</strong> Kit Kemp's signature style shines throughout, with each room individually designed featuring bold colors, bespoke furniture, and luxury bathrooms with granite and oak finishes.</p>
+
+      <h4>Dining at Ham Yard</h4>
+      <p>The ground-floor restaurant and bar serve modern British cuisine throughout the day in a vibrant setting. The menu focuses on seasonal British ingredients prepared with contemporary techniques. The terrace offers al fresco dining during warmer months.</p>
+
+      <h3>4. The Nadler Soho - Contemporary Value Luxury</h3>
+      
+      <p>The Nadler Soho offers a different boutique experience, focusing on contemporary design, excellent location, and exceptional value. While more accessible in pricing, it maintains high standards of comfort and service, making it ideal for extended stays or those seeking modern simplicity.</p>
+
+      <p><strong>The Nadler Approach:</strong><br>
+      <strong>Style:</strong> Contemporary minimalist design with smart space planning<br>
+      <strong>Location:</strong> Corner of Carlisle Street and Dean Street<br>
+      <strong>Rooms:</strong> Compact but efficiently designed with kitchenettes<br>
+      <strong>Value:</strong> Complimentary WiFi, premium TV channels, continental breakfast<br>
+      <strong>Rates:</strong> £200-600 per night</p>
+
+      <h4>Smart Design</h4>
+      <p>The Nadler's rooms maximize limited space through clever design. Each includes a mini-kitchen with microwave, sink, and fridge, allowing guests to prepare light meals or store drinks. Modern bathrooms feature walk-in showers, and beds provide excellent comfort. While smaller than traditional luxury hotels, the efficiency and quality make them perfect for short stays.</p>
+
+      <p><strong>Self-Service Approach:</strong> The hotel emphasizes independence with 24/7 access, self-check-in kiosks (staff available when needed), and complimentary continental breakfast in the lounge. This approach suits those who value privacy and flexibility.</p>
+
+      <h3>Soho's Culinary Excellence</h3>
+      
+      <h4>Michelin-Starred Dining</h4>
+      <p>Soho and surrounding areas offer exceptional dining within walking distance of these hotels:</p>
+
+      <ul>
+        <li><strong>Quo Vadis:</strong> Jeremy Lee's seasonal British cuisine in a historic Soho townhouse</li>
+        <li><strong>The Palomar:</strong> Contemporary Jerusalem cuisine in a vibrant atmosphere</li>
+        <li><strong>Social Eating House:</strong> Modern British cooking by Jason Atherton</li>
+        <li><strong>Kiln:</strong> Thai clay-pot cooking in an intimate setting</li>
+        <li><strong>Barrafina:</strong> Exceptional Spanish tapas at a marble counter</li>
+      </ul>
+
+      <h4>International Flavors</h4>
+      <p>Soho's multicultural heritage ensures diverse, high-quality dining:</p>
+
+      <p><strong>Chinatown:</strong> Authentic Chinese cuisine from Cantonese to Sichuan, just minutes from Soho hotels<br>
+      <strong>Italian Excellence:</strong> Bocca di Lupo serves regional Italian dishes<br>
+      <strong>Japanese Quality:</strong> Chotto Matte offers Nikkei cuisine in a stylish setting<br>
+      <strong>French Sophistication:</strong> Blanchette and Frenchie Covent Garden provide Parisian bistro experiences</p>
+
+      <h3>Soho's Legendary Nightlife</h3>
+      
+      <h4>Classic Cocktail Bars</h4>
+      <p>Soho pioneered London's cocktail scene, and remains home to exceptional bars:</p>
+
+      <p><strong>The Blind Pig:</strong> Speakeasy-style cocktail bar above Social Eating House<br>
+      <strong>Swift:</strong> Three-level cocktail destination with different experiences on each floor<br>
+      <strong>Bar Termini:</strong> Italian aperitivo bar perfect for Negronis and Campari<br>
+      <strong>Milk & Honey:</strong> The original London speakeasy, now open to public (reservations recommended)</p>
+
+      <h4>Jazz and Live Music</h4>
+      <p>Soho's musical heritage continues in legendary venues:</p>
+
+      <p><strong>Ronnie Scott's:</strong> World-famous jazz club hosting international artists since 1959<br>
+      <strong>Pizza Express Jazz Club:</strong> Intimate venue featuring top jazz performers<br>
+      <strong>The Borderline:</strong> Legendary live music venue for rock and indie performances</p>
+
+      <h3>West End Theatre</h3>
+      
+      <h4>Premier Theatres</h4>
+      <p>Staying in Soho places you at the heart of London's theatre district. Major venues within 10-minute walk include:</p>
+
+      <ul>
+        <li>Apollo Theatre - contemporary plays and musicals</li>
+        <li>Lyric Theatre - major West End productions</li>
+        <li>Prince Edward Theatre - large-scale musicals</li>
+        <li>Queen's Theatre - long-running hits</li>
+        <li>Palace Theatre - spectacular musicals</li>
+      </ul>
+
+      <p><strong>Hotel Concierge Services:</strong> All hotels can secure tickets for sold-out shows, arrange preferred seating, and coordinate dinner reservations before or after performances.</p>
+
+      <h3>Shopping and Culture</h3>
+      
+      <h4>Regent Street</h4>
+      <p>Just steps from Ham Yard Hotel, Regent Street offers flagship stores of major British brands: Liberty, Hamleys, Burberry, and numerous international retailers. The street's elegant curve and impressive architecture make shopping a pleasure.</p>
+
+      <h4>Independent Boutiques</h4>
+      <p>Soho's side streets house independent boutiques selling vintage clothing, records, art, and books. Carnaby Street offers contemporary fashion, while Berwick Street remains London's premier destination for vinyl records.</p>
+
+      <h4>Cultural Attractions</h4>
+      <p>Beyond entertainment, Soho offers cultural experiences:</p>
+
+      <p><strong>The Photographers' Gallery:</strong> Free contemporary photography exhibitions<br>
+      <strong>The French House:</strong> Historic pub with artistic heritage<br>
+      <strong>Soho Theatre:</strong> New comedy and theatre talent showcase</p>
+
+      <h3>Practical Considerations</h3>
+      
+      <h4>Noise Management</h4>
+      <p>While Soho's vibrancy is part of its appeal, consider these factors:</p>
+
+      <ul>
+        <li>All recommended hotels feature excellent soundproofing</li>
+        <li>Request rooms on higher floors for additional quiet</li>
+        <li>Rear-facing rooms often quieter than street-facing</li>
+        <li>Weekend nights are busier than weekdays</li>
+      </ul>
+
+      <h4>Safety and Discretion</h4>
+      <p>Despite its nightlife reputation, Soho is safe and well-patrolled. Hotels maintain discreet entrances and excellent security. The neighborhood's 24-hour activity actually enhances safety through constant presence of people.</p>
+
+      <h3>Transportation</h3>
+      
+      <h4>Underground Access</h4>
+      <p>Soho is served by multiple stations:</p>
+
+      <ul>
+        <li><strong>Tottenham Court Road:</strong> Central and Northern lines, just renovated</li>
+        <li><strong>Leicester Square:</strong> Northern and Piccadilly lines</li>
+        <li><strong>Oxford Circus:</strong> Central, Victoria, and Bakerloo lines</li>
+        <li><strong>Piccadilly Circus:</strong> Piccadilly and Bakerloo lines</li>
+      </ul>
+
+      <h4>Walking Distance</h4>
+      <p>Soho's central location means walking to most major areas:</p>
+
+      <ul>
+        <li>Covent Garden: 5-minute walk</li>
+        <li>Mayfair: 10-minute walk via Regent Street</li>
+        <li>Fitzrovia: 5-minute walk north</li>
+        <li>Bloomsbury: 15-minute walk via Tottenham Court Road</li>
+        <li>Knightsbridge: 20-minute walk via Hyde Park (or 10-minute taxi)</li>
+      </ul>
+
+      <h3>Best Times to Visit</h3>
+      
+      <h4>Theatre Season</h4>
+      <p>The West End operates year-round, but new productions typically premiere in October-November and March-April. These periods bring excitement but also higher hotel demand, so book early.</p>
+
+      <h4>Quieter Periods</h4>
+      <p>January-February and August offer better hotel rates while maintaining access to all Soho attractions. Restaurants and bars are typically less crowded during these months.</p>
+
+      <h3>Why Choose Soho</h3>
+      
+      <p>Soho offers distinct advantages for sophisticated travelers:</p>
+
+      <ul>
+        <li><strong>Central Location:</strong> Walking distance to most major London areas</li>
+        <li><strong>Dining Diversity:</strong> More restaurants per square meter than anywhere in London</li>
+        <li><strong>Entertainment Access:</strong> West End theatres, jazz clubs, cocktail bars at your doorstep</li>
+        <li><strong>Vibrant Atmosphere:</strong> 24-hour energy and creative spirit</li>
+        <li><strong>Boutique Character:</strong> Intimate hotels with personalized service</li>
+        <li><strong>Artistic Heritage:</strong> Historic connection to London's creative community</li>
+        <li><strong>Value Options:</strong> Range of price points while maintaining quality</li>
+      </ul>
+
+      <p>Whether you choose The Soho Hotel's bold design, Dean Street Townhouse's Georgian intimacy, Ham Yard Hotel's entertainment complex, or The Nadler's contemporary efficiency, Soho's boutique hotels offer an alternative to traditional luxury properties. The neighborhood's creative energy, exceptional dining, legendary nightlife, and central location create an unforgettable London experience for those seeking intimate luxury in the city's most vibrant district.</p>
+    `,
+    image: "/src/assets/blog-luxury-hotels.webp",
+    publishedAt: "2024-02-08",
+    author: "Five London Team",
+    category: "Hotels",
+    readTime: 10
+  },
+  {
+    id: "10",
+    slug: "mayfair-companion-guide-luxury-london",
+    title: "Mayfair Companion Guide: The Heart of Luxury London",
+    excerpt: "Explore Mayfair's refined elegance, from Michelin-starred restaurants and exclusive bars to designer shopping and hidden gems in London's most prestigious district.",
+    metaDescription: "Complete Mayfair companion guide. Discover luxury restaurants, exclusive bars, designer shopping, and elite experiences in London's most sophisticated neighborhood.",
+    seoKeywords: "Mayfair London, luxury district London, Mayfair restaurants, Mayfair nightlife, elite companions Mayfair",
+    serviceAreas: ["Mayfair guide", "luxury London", "Mayfair dining", "Mayfair nightlife", "elite companions London"],
+    content: `
+      <h2>Mayfair: London's Timeless Aristocratic Quarter</h2>
+      
+      <p>Mayfair represents the pinnacle of London sophistication, where Georgian elegance meets contemporary luxury. Bounded by Hyde Park, Piccadilly, Regent Street, and Oxford Street, this prestigious W1 district has been synonymous with wealth and refinement for over 300 years. For those seeking the finest experiences with elite companions, Mayfair offers unparalleled dining, exclusive nightlife, world-class shopping, and some of London's most luxurious hotels.</p>
+
+      <p>This comprehensive guide explores every facet of Mayfair, from hidden mews to legendary establishments, ensuring you experience the district like a true insider rather than a tourist.</p>
+
+      <h3>Mayfair's Historical Significance</h3>
+      
+      <p>The district's name derives from the annual May Fair held here until 1764. Throughout the 18th century, aristocratic families built grand townhouses that still define Mayfair's architectural character. Berkeley Square, Grosvenor Square, and Hanover Square showcase Georgian elegance at its finest.</p>
+
+      <p>Today, Mayfair maintains its aristocratic heritage while embracing modernity. International embassies, art galleries, hedge funds, and luxury retailers occupy these historic buildings, creating a unique blend of tradition and contemporary sophistication.</p>
+
+      <h3>Michelin-Starred Gastronomy</h3>
+      
+      <h4>1. Sketch - The Artistic Experience</h4>
+      <p>More than a restaurant, Sketch is an immersive art installation featuring multiple dining spaces, each with its own character. The Gallery showcases pink velvet seating and modern art, while the Lecture Room & Library holds two Michelin stars for innovative French cuisine.</p>
+
+      <p><strong>The Experience:</strong><br>
+      <strong>Cuisine:</strong> Modern French tasting menus by Chef Javier<br>
+      <strong>Atmosphere:</strong> Surrealist décor by India Mahdavi<br>
+      <strong>Signature:</strong> Instagram-famous pink Gallery and egg-shaped bathroom pods<br>
+      <strong>Dress Code:</strong> Smart elegant<br>
+      <strong>Investment:</strong> £60-300 per person</p>
+
+      <p><strong>Perfect For:</strong> First impressions and Instagram-worthy moments. The pink Gallery offers all-day dining and afternoon tea in an unforgettable setting.</p>
+
+      <h4>2. Core by Clare Smyth - British Excellence</h4>
+      <p>Though technically in Notting Hill, this three-Michelin-starred restaurant deserves mention for its proximity and excellence. Clare Smyth, the first British female chef to hold three stars, creates exceptional tasting menus showcasing the finest British ingredients.</p>
+
+      <p><strong>The Core Experience:</strong><br>
+      <strong>Achievement:</strong> Three Michelin stars, World's Best Female Chef<br>
+      <strong>Philosophy:</strong> "Nature to Plate" using UK's finest ingredients<br>
+      <strong>Setting:</strong> Elegant but understated, focusing attention on cuisine<br>
+      <strong>Booking:</strong> Reserve 1-2 months advance<br>
+      <strong>Price:</strong> £180-250 per person</p>
+
+      <h4>3. Hélène Darroze at The Connaught</h4>
+      <p>This two-Michelin-starred restaurant celebrates French and British ingredients through innovative tasting menus. The intimate dining room provides the perfect setting for an exceptional culinary journey.</p>
+
+      <p><strong>Highlights:</strong><br>
+      • Two Michelin stars<br>
+      • Seasonal tasting menus with wine pairing<br>
+      • Intimate 60-seat dining room<br>
+      • Focus on British and French terroir<br>
+      • Exemplary service in refined setting</p>
+
+      <h4>4. Alain Ducasse at The Dorchester</h4>
+      <p>Three Michelin stars shine at this temple of French haute cuisine. The Table Lumière, a circular table within the kitchen surrounded by fiber-optic curtains, offers the ultimate chef's table experience.</p>
+
+      <p><strong>The Ducasse Standard:</strong><br>
+      <strong>Stars:</strong> Three Michelin stars<br>
+      <strong>Style:</strong> Modern French haute cuisine<br>
+      <strong>Feature:</strong> Table Lumière for unique dining experience<br>
+      <strong>Wine:</strong> Legendary 3,300-label cellar<br>
+      <strong>Price:</strong> £200-400 per person</p>
+
+      <h4>5. Le Gavroche - Classic French Tradition</h4>
+      <p>London's first three-Michelin-starred restaurant (now two stars) continues its legacy of classic French cuisine. While Michel Roux Jr. has announced closure plans, the restaurant maintains impeccable standards in its final years.</p>
+
+      <h3>Exclusive Bars and Nightlife</h3>
+      
+      <h4>The Connaught Bar</h4>
+      <p>Consistently ranked among the world's best bars, The Connaught Bar combines Art Deco elegance with contemporary mixology. David Collins' design creates an intimate atmosphere perfect for sophisticated conversation.</p>
+
+      <p><strong>What Makes It Special:</strong><br>
+      • Platinum Martini Trolley service<br>
+      • Bespoke cocktail creation<br>
+      • Extensive rare spirits collection<br>
+      • Live music evenings<br>
+      • Intimate booth seating</p>
+
+      <p><strong>Signature:</strong> The bartender brings a trolley to your table, mixing bespoke martinis based on your preferences, using premium spirits and house-infused ingredients.</p>
+
+      <h4>The Beaumont Bar</h4>
+      <p>This Art Deco-inspired bar captures 1920s glamour with live jazz performances most evenings. The intimate space attracts a sophisticated crowd appreciating classic cocktails and timeless ambiance.</p>
+
+      <h4>Claridge's Bar</h4>
+      <p>Dale DeGroff and Erik Lorincz created a menu celebrating Art Deco elegance. The bar's signature cocktails and extensive champagne list make it perfect for special celebrations or intimate evening drinks.</p>
+
+      <h4>The Punch Room at The London EDITION</h4>
+      <p>Hidden behind bookshelves, this intimate bar serves innovative punch bowls designed for sharing, creating a social atmosphere in a discreet setting. Perfect for couples seeking something different.</p>
+
+      <h4>Scarfes Bar at Rosewood London</h4>
+      <p>This theatrical bar showcases caricatures by British artist Gerald Scarfe. Expert mixologists create bespoke cocktails while live piano music provides elegant entertainment.</p>
+
+      <h3>Designer Shopping</h3>
+      
+      <h4>Bond Street - Luxury Fashion Central</h4>
+      <p>Old and New Bond Street form London's premier luxury shopping destination. Every major fashion house maintains flagship stores here:</p>
+
+      <p><strong>New Bond Street Highlights:</strong><br>
+      • Louis Vuitton flagship<br>
+      • Tiffany & Co.<br>
+      • Bulgari<br>
+      • Cartier<br>
+      • Chanel Fine Jewelry<br>
+      • Ralph Lauren flagship</p>
+
+      <p><strong>Old Bond Street Treasures:</strong><br>
+      • Hermès<br>
+      • Chanel fashion<br>
+      • Alexander McQueen<br>
+      • Dolce & Gabbana<br>
+      • Prada<br>
+      • Gucci</p>
+
+      <h4>Mount Street - Boutique Elegance</h4>
+      <p>This picturesque street features smaller boutiques and lifestyle brands in beautiful Victorian and Edwardian buildings:</p>
+
+      <ul>
+        <li><strong>Balenciaga:</strong> Flagship store with full collections</li>
+        <li><strong>Christian Louboutin:</strong> Complete shoe collection</li>
+        <li><strong>Lanvin:</strong> Elegant fashion house</li>
+        <li><strong>Marc Jacobs:</strong> Contemporary American design</li>
+        <li><strong>The Connaught Shop:</strong> Curated luxury homewares and gifts</li>
+      </ul>
+
+      <h4>Dover Street - Avant-Garde Fashion</h4>
+      <p>Dover Street Market offers cutting-edge fashion in a department store concept created by Comme des Garçons. The multi-level space features emerging designers alongside established brands.</p>
+
+      <h4>Savile Row - Bespoke Tailoring</h4>
+      <p>The world's most famous tailoring street creates bespoke suits for discerning gentlemen. Traditional houses like Huntsman, Anderson & Sheppard, and Gieves & Hawkes maintain centuries-old craftsmanship.</p>
+
+      <h4>Burlington Arcade - Historic Shopping</h4>
+      <p>This covered arcade dating from 1819 houses jewelers, luxury accessory boutiques, and specialist retailers. The arcade's beadles (traditional guards) maintain decorum, prohibiting whistling, singing, and running.</p>
+
+      <h3>Art Galleries and Culture</h3>
+      
+      <h4>Cork Street - Contemporary Art</h4>
+      <p>London's highest concentration of commercial art galleries showcases contemporary and modern art. Major galleries include:</p>
+
+      <ul>
+        <li>Pace Gallery - International contemporary artists</li>
+        <li>Waddington Custot - Modern and contemporary masters</li>
+        <li>Maddox Gallery - Contemporary urban art</li>
+      </ul>
+
+      <h4>Royal Academy of Arts - Burlington House</h4>
+      <p>This prestigious institution hosts major exhibitions throughout the year, including the famous Summer Exhibition showcasing contemporary art across all media.</p>
+
+      <h4>The Wallace Collection - Hertford House</h4>
+      <p>Free entry to this magnificent collection of French 18th-century paintings, furniture, and Sèvres porcelain. The courtyard restaurant offers elegant dining in a glass-roofed atrium.</p>
+
+      <h3>Hidden Mayfair Gems</h3>
+      
+      <h4>Shepherd Market</h4>
+      <p>This charming village-like area within Mayfair features narrow pedestrian streets lined with cozy pubs, restaurants, and independent shops. Le Boudin Blanc offers excellent French bistro dining, while Shepherd's Tavern provides traditional pub atmosphere.</p>
+
+      <h4>Mayfair's Secret Mews</h4>
+      <p>Former stables converted into elegant residences create some of London's most charming streets:</p>
+
+      <ul>
+        <li><strong>Grosvenor Hill Mews:</strong> Picture-perfect cobbled street</li>
+        <li><strong>Adams Row Mews:</strong> Hidden behind Mount Street</li>
+        <li><strong>Lees Place:</strong> Quiet residential mews</li>
+      </ul>
+
+      <h4>St. George's Hanover Square</h4>
+      <p>This beautiful church has hosted society weddings for centuries, including those of George Eliot, Theodore Roosevelt, and former Prime Minister Benjamin Disraeli. The surrounding square offers peaceful gardens.</p>
+
+      <h3>Dining Beyond Michelin Stars</h3>
+      
+      <h4>Scott's - Mayfair Institution</h4>
+      <p>This 1851-established seafood restaurant attracts celebrities, politicians, and business leaders. The oyster bar and classic British seafood dishes maintain exceptional quality in an elegant yet relaxed setting.</p>
+
+      <h4>34 Mayfair - Steak Excellence</h4>
+      <p>Premium steakhouse specializing in grass-fed British beef dry-aged on-site. The 34 Cut (a bone-in prime rib) is legendary. Excellent wine list and sophisticated atmosphere.</p>
+
+      <h4>Coya - Peruvian Sophistication</h4>
+      <p>Contemporary Peruvian cuisine in a stylish setting. The ceviche bar, pisco cocktails, and energetic atmosphere create memorable dining experiences.</p>
+
+      <h4>Hide - Michelin-Starred Modern</h4>
+      <p>This three-floor restaurant from Ollie Dabbous offers different experiences on each level. The ground floor focuses on small plates, the main restaurant (Michelin-starred) serves tasting menus, and the rooftop provides casual dining with views.</p>
+
+      <h3>Afternoon Tea Experiences</h3>
+      
+      <h4>Claridge's Afternoon Tea</h4>
+      <p>The ultimate London afternoon tea experience in the Art Deco Foyer. Pianist accompaniment, impeccable service, and the finest teas and pastries make this a must-do Mayfair experience.</p>
+
+      <p><strong>Details:</strong><br>
+      <strong>Setting:</strong> Art Deco Foyer with live piano<br>
+      <strong>Price:</strong> £70-90 per person<br>
+      <strong>Booking:</strong> Essential, reserve weeks ahead<br>
+      <strong>Dress:</strong> Smart casual minimum, many dress elegantly</p>
+
+      <h4>The Dorchester Promenade</h4>
+      <p>Traditional afternoon tea in the opulent Promenade lounge, featuring seasonally inspired menus and an extensive tea selection. The Spatisserie Afternoon Tea adds champagne and spa access.</p>
+
+      <h3>Mayfair Parks and Green Spaces</h3>
+      
+      <h4>Hyde Park Access</h4>
+      <p>Mayfair's eastern boundary provides immediate access to Hyde Park's 350 acres. Perfect for morning walks, jogging, or romantic strolls. The Serpentine lake offers boat rentals in summer.</p>
+
+      <h4>Berkeley Square Gardens</h4>
+      <p>These private gardens (open to public during lunch hours) provide a peaceful retreat among plane trees dating from 1789. The square's Georgian architecture creates a beautiful backdrop.</p>
+
+      <h4>Grosvenor Square</h4>
+      <p>Recently redesigned gardens offer modern landscaping and seating areas. The square houses the Canadian Embassy and Eagle Squadron Memorial.</p>
+
+      <h3>Transportation</h3>
+      
+      <h4>Underground Stations</h4>
+      <ul>
+        <li><strong>Green Park:</strong> Piccadilly, Victoria, and Jubilee lines</li>
+        <li><strong>Bond Street:</strong> Central and Elizabeth lines (recently upgraded)</li>
+        <li><strong>Marble Arch:</strong> Central line, northern boundary</li>
+        <li><strong>Hyde Park Corner:</strong> Piccadilly line, southeastern corner</li>
+      </ul>
+
+      <h4>Private Transportation</h4>
+      <p>Mayfair's hotels offer chauffeur services, ensuring discreet, comfortable transportation throughout London. Black cabs are readily available, though many prefer hotel cars for privacy.</p>
+
+      <h3>Seasonal Events</h3>
+      
+      <h4>Mayfair Art Weekend (June)</h4>
+      <p>Cork Street galleries and auction houses open for this three-day celebration of art, featuring exhibitions, talks, and special events.</p>
+
+      <h4>London Fashion Week</h4>
+      <p>Twice yearly, Mayfair becomes fashion's focal point with shows, presentations, and exclusive parties at hotels and venues throughout the district.</p>
+
+      <h3>Accommodation Recommendations</h3>
+      
+      <p>For detailed hotel information, see our comprehensive guide "Top 5 Escort-Friendly Hotels in Mayfair." Key recommendations include:</p>
+
+      <ul>
+        <li><strong>Claridge's:</strong> Art Deco icon with supreme discretion</li>
+        <li><strong>The Connaught:</strong> Timeless elegance and personalized service</li>
+        <li><strong>The Dorchester:</strong> Park Lane majesty with spacious suites</li>
+        <li><strong>Four Seasons Park Lane:</strong> Contemporary luxury with technology</li>
+        <li><strong>45 Park Lane:</strong> Boutique sophistication</li>
+      </ul>
+
+      <h3>Practical Tips for Visiting Mayfair</h3>
+      
+      <h4>Dress Code</h4>
+      <p>Mayfair maintains elegant standards. Smart casual is the minimum for restaurants and bars, with many venues expecting business attire or evening wear. Jeans and trainers may be refused entry at prestigious establishments.</p>
+
+      <h4>Reservations</h4>
+      <p>Book restaurants and bars well in advance, particularly for Michelin-starred establishments and popular venues. Hotel concierges can often secure difficult reservations.</p>
+
+      <h4>Walking Mayfair</h4>
+      <p>The district is highly walkable, with most attractions within 15-minute walk of each other. Comfortable elegant shoes are essential for exploring the beautiful streets.</p>
+
+      <h4>Best Times</h4>
+      <ul>
+        <li><strong>Weekdays:</strong> Quieter streets, easier restaurant bookings</li>
+        <li><strong>Weekends:</strong> More tourists but vibrant atmosphere</li>
+        <li><strong>Early Evening:</strong> Perfect for bar hopping before dinner</li>
+        <li><strong>Late Night:</strong> Mayfair quiets after midnight, maintain discretion</li>
+      </ul>
+
+      <h3>Why Mayfair Remains London's Premier District</h3>
+      
+      <p>Mayfair's enduring appeal lies in its unique combination of factors:</p>
+
+      <ul>
+        <li><strong>History:</strong> Three centuries of aristocratic heritage</li>
+        <li><strong>Architecture:</strong> Georgian elegance beautifully preserved</li>
+        <li><strong>Dining:</strong> Highest concentration of Michelin stars in London</li>
+        <li><strong>Shopping:</strong> World's premier luxury retail destination</li>
+        <li><strong>Hotels:</strong> London's finest hospitality with absolute discretion</li>
+        <li><strong>Location:</strong> Central position with Hyde Park access</li>
+        <li><strong>Culture:</strong> Art galleries, theaters, and cultural institutions</li>
+        <li><strong>Exclusivity:</strong> Maintained standards ensure quality experiences</li>
+      </ul>
+
+      <p>For those seeking the finest London experiences with elite companions, Mayfair offers unmatched sophistication. From Art Deco hotels to Michelin-starred restaurants, from designer shopping to exclusive bars, every element combines to create the perfect environment for memorable moments. Understanding Mayfair's geography, culture, and offerings ensures you experience this legendary district like a true insider, accessing its best-kept secrets while enjoying world-class luxury at every turn.</p>
+    `,
+    image: "/src/assets/blog-london-events.webp",
+    publishedAt: "2024-02-05",
+    author: "Five London Team",
+    category: "Locations",
+    readTime: 15
   }
 ];
 

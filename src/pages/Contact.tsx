@@ -126,9 +126,9 @@ const Contact = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <div className="text-center mb-6">
                   <h2 className="luxury-heading-lg text-primary-content">Contact Our London Team</h2>
@@ -181,7 +181,7 @@ const Contact = () => {
                 For urgent bookings or questions, contact us directly.
               </p>
               <Button 
-                className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-full"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Contact Us Now

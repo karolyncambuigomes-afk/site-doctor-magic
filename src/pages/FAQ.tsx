@@ -77,7 +77,7 @@ const FAQ = () => {
         </section>
 
         {/* FAQ Accordion */}
-        <section className="py-16 md:py-24 bg-gray-50">
+        <section className="py-16 md:py-24 bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4">
             {loading ? (
               <div className="text-center py-12">
@@ -97,7 +97,7 @@ const FAQ = () => {
                   <AccordionItem 
                     key={faq.id} 
                     value={`item-${index}`}
-                    className="bg-white border border-gray-200 rounded-lg shadow-sm"
+                    className="bg-card border border-border rounded-lg shadow-sm"
                     itemScope
                     itemType="https://schema.org/Question"
                   >
@@ -117,13 +117,13 @@ const FAQ = () => {
         {/* Important Information Section */}
         <section className="py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-gray-50 p-8 rounded-lg">
+            <div className="bg-secondary-surface p-8 rounded-lg">
               <h2 className="luxury-heading-lg text-primary-content mb-8 text-center">
                 Important Information
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 {bookingInfo.map((info, index) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                  <div key={index} className="bg-card p-6 rounded-lg shadow-sm border border-border/50">
                     <h3 className="luxury-heading-sm text-primary-content mb-3">{info.title}</h3>
                     <p className="luxury-body-sm text-muted-foreground leading-relaxed">
                       {info.content}
@@ -136,11 +136,11 @@ const FAQ = () => {
         </section>
 
         {/* Trust Indicators */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-secondary-surface">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
                   <Shield className="w-8 h-8 text-primary-content" />
                 </div>
                 <h3 className="luxury-heading-sm text-primary-content mb-2">100% Discrete</h3>
@@ -148,7 +148,7 @@ const FAQ = () => {
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
                   <Clock className="w-8 h-8 text-primary-content" />
                 </div>
                 <h3 className="luxury-heading-sm text-primary-content mb-2">24/7 Available</h3>
@@ -156,7 +156,7 @@ const FAQ = () => {
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
                   <Users className="w-8 h-8 text-primary-content" />
                 </div>
                 <h3 className="luxury-heading-sm text-primary-content mb-2">Elite Companions</h3>
@@ -164,7 +164,7 @@ const FAQ = () => {
               </div>
               
               <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-black/5 rounded-full flex items-center justify-center mb-4">
+                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center mb-4">
                   <Star className="w-8 h-8 text-primary-content" />
                 </div>
                 <h3 className="luxury-heading-sm text-primary-content mb-2">Premium Service</h3>
@@ -175,9 +175,9 @@ const FAQ = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-16 bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
                 <h2 className="luxury-heading-lg text-center mb-6 text-secondary-content">Common Questions About Our Services</h2>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
@@ -220,7 +220,7 @@ const FAQ = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-secondary-surface">
           <div className="container-width text-center">
             <h2 className="luxury-heading-xl mb-6 text-primary-content">
               Still Have Questions?
@@ -231,7 +231,7 @@ const FAQ = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="tel:+447436190679"
-                className="inline-flex items-center justify-center gap-2 bg-black text-white hover:bg-gray-800 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <Phone className="h-5 w-5" />
                 Call Us
@@ -240,14 +240,14 @@ const FAQ = () => {
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 border border-primary text-primary-content hover:bg-primary hover:text-primary-foreground px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <MessageCircle className="h-5 w-5" />
                 WhatsApp
               </a>
               <a
                 href="mailto:models@exclusivefivelondon.com"
-                className="inline-flex items-center justify-center gap-2 border border-black text-black hover:bg-black hover:text-white px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-flex items-center justify-center gap-2 border border-primary text-primary-content hover:bg-primary hover:text-primary-foreground px-8 py-4 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 <Mail className="h-5 w-5" />
                 Email

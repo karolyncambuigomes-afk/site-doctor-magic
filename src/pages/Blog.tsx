@@ -228,7 +228,7 @@ const Blog = () => {
                   >
                     <Badge
                       variant="outline"
-                      className="px-6 py-2 text-sm font-medium bg-white border-gray-200 hover:bg-black hover:text-white hover:border-black transition-all"
+                      className="px-6 py-2 text-sm font-medium bg-card border-border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
                     >
                       {category}
                     </Badge>
@@ -245,9 +245,9 @@ const Blog = () => {
                 {posts.map((post) => (
                   <Card
                     key={post.id}
-                    className="group hover:shadow-elegant transition-all duration-300 border border-gray-200 hover:border-gray-400 overflow-hidden bg-white"
+                    className="group hover:shadow-elegant transition-all duration-300 border border-border hover:border-primary/30 overflow-hidden bg-card"
                   >
-                    <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                    <div className="aspect-video bg-secondary-surface relative overflow-hidden">
                       <OptimizedImage
                         src={post.image || 
                           (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
@@ -261,7 +261,7 @@ const Blog = () => {
                       <div className="absolute top-4 left-4">
                         <Badge
                           variant="secondary"
-                          className="bg-white/95 backdrop-blur-sm text-black text-xs font-medium border border-gray-200 shadow-minimal"
+                          className="bg-card/95 backdrop-blur-sm text-primary-content text-xs font-medium border border-border shadow-minimal"
                         >
                           {post.category}
                         </Badge>
@@ -269,7 +269,7 @@ const Blog = () => {
                     </div>
 
                     <CardHeader className="pb-4 px-6 pt-6">
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                           <time
@@ -304,20 +304,20 @@ const Blog = () => {
                         </div>
                       </div>
 
-                      <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
+                      <h2 className="text-xl font-semibold text-primary-content group-hover:text-secondary-content transition-colors leading-tight">
                         {post.title}
                       </h2>
                     </CardHeader>
 
                     <CardContent className="pt-0 px-6 pb-6">
-                      <p className="text-gray-600 leading-relaxed mb-6 text-sm">
+                      <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
                         {post.excerpt}
                       </p>
 
                       <Link to={`/blog/${post.slug}`}>
                         <Button
                           variant="ghost"
-                          className="group/btn p-0 h-auto font-medium text-black hover:text-gray-700 text-sm"
+                          className="group/btn p-0 h-auto font-medium text-primary-content hover:text-secondary-content text-sm"
                         >
                           Read full article
                           <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -331,9 +331,9 @@ const Blog = () => {
           </section>
 
           {/* About London Lifestyle Guide - Collapsible Rich Content */}
-          <section className="py-16 bg-gray-100">
+          <section className="py-16 bg-secondary-surface">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-border/50 shadow-sm p-6 md:p-8">
                 <div className="mb-8">
                   <div className="text-center mb-6">
                     <h2 className="luxury-heading-lg text-primary-content">About London Luxury Lifestyle Guide</h2>
@@ -366,7 +366,7 @@ const Blog = () => {
                         <h4 className="luxury-body-sm font-medium text-primary-content">
                           Luxury Accommodations
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-muted-foreground">
                           Five-star hotels including Claridge's, The Langham,
                           and The Ned, offering world-class amenities and
                           impeccable service.
@@ -386,7 +386,7 @@ const Blog = () => {
                         <h4 className="luxury-body-sm font-medium text-primary-content">
                           Entertainment Venues
                         </h4>
-                        <p className="luxury-body-xs text-gray-600">
+                        <p className="luxury-body-xs text-muted-foreground">
                           Sophisticated nightlife at exclusive members' clubs,
                           rooftop bars, and luxury entertainment venues across
                           Central London.

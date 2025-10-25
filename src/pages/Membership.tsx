@@ -178,7 +178,7 @@ export const Membership: React.FC = () => {
                       <CardTitle className="heading-3 text-primary-content">
                         Welcome Back!
                       </CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardDescription className="text-muted-foreground">
                         You are currently signed in as {user.email}
                       </CardDescription>
                     </CardHeader>
@@ -199,7 +199,7 @@ export const Membership: React.FC = () => {
 
                         <div className="space-y-3">
                           <Link to="/models">
-                            <Button className="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
+                            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm">
                               <User className="w-4 h-4 mr-2" />
                               Browse Models
                             </Button>
@@ -232,7 +232,7 @@ export const Membership: React.FC = () => {
                   {/* Back link */}
                   <Link 
                     to="/" 
-                    className="inline-flex items-center luxury-body-sm text-gray-600 hover:text-black mb-8 transition-colors"
+                    className="inline-flex items-center luxury-body-sm text-muted-foreground hover:text-primary-content mb-8 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to home
@@ -240,10 +240,10 @@ export const Membership: React.FC = () => {
 
                   <Card className="border border-border/50 shadow-luxury">
                     <CardHeader className="text-center pb-6">
-                      <CardTitle className="luxury-heading-md text-black">
+                      <CardTitle className="luxury-heading-md text-primary-content">
                         Member Access
                       </CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardDescription className="text-muted-foreground">
                         Sign in to your membership account
                       </CardDescription>
                     </CardHeader>
@@ -295,7 +295,7 @@ export const Membership: React.FC = () => {
 
                           <Button
                             type="submit"
-                            className="w-full bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm disabled:opacity-50"
+                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm disabled:opacity-50"
                             disabled={loading}
                           >
                             {loading ? 'Signing In...' : 'Sign In'}
@@ -304,7 +304,7 @@ export const Membership: React.FC = () => {
                         
                         <div className="mt-6 pt-6 border-t border-border">
                           <div className="text-center">
-                            <p className="luxury-body-xs text-gray-600 mb-4">
+                            <p className="luxury-body-xs text-muted-foreground mb-4">
                               Need help accessing your account?
                             </p>
                             <Button variant="outline" size="sm" asChild>
@@ -341,49 +341,49 @@ export const Membership: React.FC = () => {
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium text-black">Exclusive Gallery Access</h4>
-                          <p className="text-sm text-gray-600">Private viewing of our premium model portfolio</p>
+                          <h4 className="font-medium text-primary-content">Exclusive Gallery Access</h4>
+                          <p className="text-sm text-muted-foreground">Private viewing of our premium model portfolio</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium text-black">Priority Booking</h4>
-                          <p className="text-sm text-gray-600">24/7 concierge service with priority scheduling</p>
+                          <h4 className="font-medium text-primary-content">Priority Booking</h4>
+                          <p className="text-sm text-muted-foreground">24/7 concierge service with priority scheduling</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-green-600 mt-0.5" />
                         <div>
-                          <h4 className="font-medium text-black">Exclusive Events</h4>
-                          <p className="text-sm text-gray-600">Access to special events and experiences</p>
+                          <h4 className="font-medium text-primary-content">Exclusive Events</h4>
+                          <p className="text-sm text-muted-foreground">Access to special events and experiences</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <div className="space-y-6">
-                    <h3 className="luxury-heading-md text-black">Membership Process</h3>
-                    <p className="luxury-body-md text-gray-700 leading-relaxed">
+                    <h3 className="luxury-heading-md text-primary-content">Membership Process</h3>
+                    <p className="luxury-body-md text-secondary-content leading-relaxed">
                       Our membership approval process ensures the highest standards of discretion and quality for all members.
                     </p>
                     
                     <div className="space-y-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">1</div>
-                        <span className="text-sm text-black">Contact us for membership inquiry</span>
+                        <span className="text-sm text-primary-content">Contact us for membership inquiry</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">2</div>
-                        <span className="text-sm text-black">Account review and verification process</span>
+                        <span className="text-sm text-primary-content">Account review and verification process</span>
                       </div>
                       
                       <div className="flex items-center space-x-3">
                         <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-medium">3</div>
-                        <span className="text-sm text-black">Membership approval and full access granted</span>
+                        <span className="text-sm text-primary-content">Membership approval and full access granted</span>
                       </div>
                     </div>
                   </div>

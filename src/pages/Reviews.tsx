@@ -120,11 +120,11 @@ export const Reviews: React.FC = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="bg-white p-8 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow h-full">
+                <div key={index} className="bg-card p-8 rounded-xl border border-border shadow-sm hover:shadow-md transition-shadow h-full">
                   <div className="space-y-4 h-full flex flex-col">
                     <div className="flex items-center space-x-1">
                       {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-gray-600 text-gray-600" />
+                        <Star key={i} className="w-4 h-4 fill-primary text-primary" />
                       ))}
                     </div>
                     <p className="luxury-body-md text-secondary-content italic flex-grow leading-relaxed">"{testimonial.content}"</p>
@@ -140,7 +140,7 @@ export const Reviews: React.FC = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-secondary-surface">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="mb-8">
               <h2 className="luxury-heading-lg text-center mb-6 text-secondary-content">What Our Clients Say</h2>

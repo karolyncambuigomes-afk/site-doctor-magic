@@ -36,7 +36,7 @@ export const HeroSection: React.FC = () => {
   if (!heroImage) {
     return (
       <section className="relative h-screen w-full flex items-end snap-start">
-        <div className="absolute inset-0 z-0 bg-gray-900">
+      <div className="absolute inset-0 z-0 bg-white">
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
@@ -67,7 +67,7 @@ export const HeroSection: React.FC = () => {
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image - loads immediately */}
-      <div className="absolute inset-0 z-0 bg-gray-900">
+      <div className="absolute inset-0 z-0 bg-white">
         <img
           src={heroImage}
           alt={heroContent?.title || 'Elegant companion services'}

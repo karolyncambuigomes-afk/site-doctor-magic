@@ -106,7 +106,7 @@ export const Models: React.FC = () => {
                 href="https://wa.me/447436190679"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
+                className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"
               >
                 Contact Now
               </a>

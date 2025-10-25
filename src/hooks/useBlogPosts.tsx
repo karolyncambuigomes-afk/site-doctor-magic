@@ -46,6 +46,18 @@ export const useBlogPosts = () => {
         });
       };
 
+      // Helper: normalize date strings safely
+      const normalizeDate = (d?: string | null): string | null => {
+        if (!d) return null;
+        try {
+          const t = d.includes(' ') ? d.replace(' ', 'T') : d;
+          const dt = new Date(t);
+          return isNaN(dt.getTime()) ? null : dt.toISOString();
+        } catch {
+          return null;
+        }
+      };
+
       console.log('[Blog] Fetching posts from Supabase...');
 
       // Try to fetch from database first (with timeout)
@@ -65,10 +77,24 @@ export const useBlogPosts = () => {
       // If we have posts in database, use them
       if (data && (data as any[]).length > 0) {
         console.log('[Blog] Loaded posts from Supabase:', (data as any[]).length);
-        // Normalize published_at to ensure cross-browser compatibility
-        const normalizedPosts = (data as any[]).map(post => ({
-          ...post,
-          published_at: post.published_at ? post.published_at.replace(' ', 'T') : post.published_at
+        // Normalize all fields to prevent crashes
+        const normalizedPosts = (data as any[]).map((p) => ({
+          id: String(p.id ?? p.slug ?? crypto.randomUUID()),
+          slug: String(p.slug || ''),
+          title: String(p.title || ''),
+          excerpt: String(p.excerpt || ''),
+          content: typeof p.content === 'string' ? p.content : '',
+          image: typeof p.image === 'string' && p.image ? p.image : '/og-image.jpg',
+          author: String(p.author || 'Five London Team'),
+          category: String(p.category || 'Lifestyle'),
+          meta_description: String(p.meta_description || p.excerpt || ''),
+          seo_keywords: String(p.seo_keywords || ''),
+          read_time: Number(p.read_time || 0) || 0,
+          is_published: p.is_published === true,
+          published_at: normalizeDate(p.published_at) || new Date().toISOString(),
+          service_keywords: Array.isArray(p.service_keywords) ? p.service_keywords : [],
+          created_at: normalizeDate(p.created_at) || new Date().toISOString(),
+          updated_at: normalizeDate(p.updated_at) || new Date().toISOString(),
         }));
         setPosts(normalizedPosts);
       } else {

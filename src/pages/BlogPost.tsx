@@ -115,14 +115,37 @@ const BlogPost = () => {
 
   const article = getPostBySlug(slug) || fallbackArticle;
 
+  // Create safe article with defaults to prevent crashes
+  const safeArticle = useMemo(() => {
+    if (!article) return null;
+    return {
+      id: String(article.id || article.slug || ''),
+      slug: String(article.slug || ''),
+      title: String(article.title || ''),
+      excerpt: String(article.excerpt || ''),
+      content: typeof article.content === 'string' ? article.content : '',
+      image: (typeof article.image === 'string' && article.image) ? article.image : '/og-image.jpg',
+      author: String(article.author || 'Five London Team'),
+      category: String(article.category || 'Lifestyle'),
+      meta_description: String(article.meta_description || article.excerpt || ''),
+      seo_keywords: String(article.seo_keywords || ''),
+      read_time: Number(article.read_time || 0) || 0,
+      is_published: article.is_published === true,
+      published_at: article.published_at || new Date().toISOString(),
+      service_keywords: Array.isArray(article.service_keywords) ? article.service_keywords : [],
+      created_at: article.created_at || new Date().toISOString(),
+      updated_at: article.updated_at || new Date().toISOString(),
+    };
+  }, [article]);
+
   // Debug logging to capture runtime issues
   React.useEffect(() => {
     try {
-      console.log('[BlogPost] Render', { slug, hasArticle: !!article, articleKeys: article ? Object.keys(article) : [] });
+      console.log('[BlogPost] Render', { slug, hasArticle: !!safeArticle, articleKeys: safeArticle ? Object.keys(safeArticle) : [] });
     } catch {}
-  }, [slug, article]);
+  }, [slug, safeArticle]);
 
-  if (!article) {
+  if (!safeArticle) {
     return <NotFound />;
   }
 
@@ -131,9 +154,9 @@ const BlogPost = () => {
   // Process content for better performance and accessibility
   const processedContent = useMemo(() => {
     try {
-      if (!article || typeof article.content !== 'string') return '';
+      if (!safeArticle || typeof safeArticle.content !== 'string') return '';
       const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = article.content || '';
+      tempDiv.innerHTML = safeArticle.content || '';
       // Add IDs to headers for navigation
       tempDiv.querySelectorAll('h2, h3, h4').forEach((heading, index) => {
         try { (heading as HTMLElement).id = (heading as HTMLElement).id || `section-${index}`; } catch {}
@@ -141,23 +164,23 @@ const BlogPost = () => {
       return tempDiv.innerHTML;
     } catch (e) {
       console.warn('[Blog] Failed to process content', e);
-      return article?.content || '';
+      return safeArticle?.content || '';
     }
-  }, [article]);
+  }, [safeArticle]);
 
   const structuredData = useMemo(() => {
     try {
       return {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        headline: article.title || '',
-        description: article.excerpt || '',
-        image: article.image || '',
-        datePublished: article.published_at || undefined,
-        dateModified: article.updated_at || undefined,
+        headline: safeArticle.title,
+        description: safeArticle.excerpt,
+        image: safeArticle.image,
+        datePublished: safeArticle.published_at,
+        dateModified: safeArticle.updated_at,
         author: {
           "@type": "Organization",
-          name: article.author || 'Five London',
+          name: safeArticle.author,
           url: "https://fivelondon.com",
         },
         publisher: {
@@ -170,27 +193,27 @@ const BlogPost = () => {
         },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://fivelondon.com/blog/${article.slug}`,
+          "@id": `https://fivelondon.com/blog/${safeArticle.slug}`,
         },
-        keywords: article.seo_keywords || '',
-        articleSection: article.category || '',
-        wordCount: (article.content || '').length,
-        timeRequired: `PT${Number(article.read_time || 0)}M`,
+        keywords: safeArticle.seo_keywords,
+        articleSection: safeArticle.category,
+        wordCount: safeArticle.content.length,
+        timeRequired: `PT${safeArticle.read_time}M`,
       } as const;
     } catch (e) {
       console.warn('[Blog] Failed to build structured data', e);
       return undefined;
     }
-  }, [article]);
+  }, [safeArticle]);
 
   return (
     <>
       <SEOOptimized
-        title={article.title}
-        description={article.meta_description}
-        keywords={article.seo_keywords}
-        canonicalUrl={`/blog/${article.slug}`}
-        ogImage={article.image}
+        title={safeArticle.title}
+        description={safeArticle.meta_description}
+        keywords={safeArticle.seo_keywords}
+        canonicalUrl={`/blog/${safeArticle.slug}`}
+        ogImage={safeArticle.image}
         structuredData={structuredData}
       />
 
@@ -214,40 +237,40 @@ const BlogPost = () => {
           {/* Article Header */}
           <section className="pt-20 pb-16 md:py-24 bg-white">
             <div className="container-width text-center">
-              <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <Badge variant="secondary" className="mb-4">
-                  {article.category}
+                  {safeArticle.category}
                 </Badge>
 
                 <h1 
                   id="article-title"
                   className="luxury-heading-xl mb-4 sm:mb-6 text-gray-900 font-light"
                 >
-                  {article.title}
+                  {safeArticle.title}
                 </h1>
 
-                <p className="luxury-body-lg text-gray-700 font-light">{article.excerpt}</p>
+                <p className="luxury-body-lg text-gray-700 font-light">{safeArticle.excerpt}</p>
 
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
-                  {article.published_at && !isNaN(new Date(article.published_at as string).getTime()) && (
+                  {safeArticle.published_at && !isNaN(new Date(safeArticle.published_at).getTime()) && (
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" />
-                      <time dateTime={article.published_at} className="text-gray-600">
-                        {new Date(article.published_at as string).toLocaleDateString(
+                      <time dateTime={safeArticle.published_at} className="text-gray-600">
+                        {new Date(safeArticle.published_at).toLocaleDateString(
                           "en-GB",
                           { day: "numeric", month: "long", year: "numeric" }
                         )}
                       </time>
                     </div>
                   )}
-                  {Number(article.read_time) > 0 && (
+                  {safeArticle.read_time > 0 && (
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4" />
-                      <span className="text-gray-600">{article.read_time} minutes read</span>
+                      <span className="text-gray-600">{safeArticle.read_time} minutes read</span>
                     </div>
                   )}
-                  {article.author && (
-                    <div className="text-gray-900 font-medium">By {article.author}</div>
+                  {safeArticle.author && (
+                    <div className="text-gray-900 font-medium">By {safeArticle.author}</div>
                   )}
                 </div>
               </div>
@@ -260,11 +283,11 @@ const BlogPost = () => {
           <section className="py-8 bg-white">
             <div className="container-width">
               <div className="max-w-4xl mx-auto">
-                {article.image && (
+                {safeArticle.image && (
                   <div className="aspect-video relative overflow-hidden rounded-lg mb-12 bg-gray-100">
                     <OptimizedImage
-                      src={article.image}
-                      alt={`Featured image for article: ${article.title}. ${(article.excerpt || '').substring(0, 100)}`}
+                      src={safeArticle.image}
+                      alt={`Featured image for article: ${safeArticle.title}. ${safeArticle.excerpt.substring(0, 100)}`}
                       className="w-full h-full object-cover transition-opacity duration-300"
                       priority={true}
                       onLoad={() => setImageLoaded(true)}
@@ -322,8 +345,8 @@ const BlogPost = () => {
                       >
                         <div className="aspect-video bg-muted/50 relative overflow-hidden">
                           <img
-                            src={relatedArticle.image}
-                            alt={relatedArticle.title}
+                            src={relatedArticle.image || '/og-image.jpg'}
+                            alt={relatedArticle.title || 'Related article'}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
                           />
@@ -332,7 +355,7 @@ const BlogPost = () => {
                               variant="secondary"
                               className="bg-background/90 text-foreground"
                             >
-                              {relatedArticle.category}
+                              {relatedArticle.category || 'Lifestyle'}
                             </Badge>
                           </div>
                         </div>

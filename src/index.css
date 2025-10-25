@@ -117,62 +117,65 @@
   }
 
   /**
-   * LUXURY TYPOGRAPHY SYSTEM
+   * LUXURY TYPOGRAPHY SYSTEM (2025 - Optimized for Desktop)
    * 
-   * Hierarquia consistente para todo o site com breakpoints responsivos:
+   * Baseado em melhores práticas de sites de luxo (Dior, Chanel, YSL)
+   * e research de UX para legibilidade otimizada em desktop.
+   * 
+   * DESKTOP SIZES (xl breakpoint):
    * 
    * HEADINGS:
-   * - luxury-heading-display: Hero banners principais (3xl -> 6xl em desktop)
-   * - luxury-heading-xl: H1 de página (2xl -> 5xl em desktop)
-   * - luxury-heading-lg: H2 seções principais (xl -> 4xl em desktop)
-   * - luxury-heading-md: H3 sub-seções (lg -> 3xl em desktop)
-   * - luxury-heading-sm: H4 títulos menores (base -> 2xl em desktop)
+   * - luxury-heading-display: 48px (Hero banners principais)
+   * - luxury-heading-xl: 36px (H1 de página)
+   * - luxury-heading-lg: 30px (H2 seções principais)
+   * - luxury-heading-md: 24px (H3 sub-seções)
+   * - luxury-heading-sm: 20px (H4 títulos menores)
    * 
    * BODY TEXT:
-   * - luxury-body-lg: Parágrafos introdutórios (base -> xl em desktop)
-   * - luxury-body-md: Texto padrão (sm -> lg em desktop)
-   * - luxury-body-sm: Texto secundário (xs -> base em desktop)
-   * - luxury-body-xs: Labels e captions (xs -> sm em desktop)
+   * - luxury-body-lg: 18px (Parágrafos introdutórios)
+   * - luxury-body-md: 16px (Texto padrão - ideal para leitura)
+   * - luxury-body-sm: 14px (Texto secundário)
+   * - luxury-body-xs: 12px (Labels e captions)
    * 
    * Breakpoints: base | md (768px) | lg (1024px) | xl (1280px)
    */
 
-  /* Main Heading Variants */
+  /* Main Heading Variants - Optimized Sizes */
   .luxury-heading-display {
-    @apply luxury-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-wide;
+    @apply luxury-heading text-3xl md:text-4xl lg:text-5xl font-light tracking-wide;
   }
 
   .luxury-heading-xl {
-    @apply luxury-heading text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal tracking-wide;
+    @apply luxury-heading text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide;
   }
 
   .luxury-heading-lg {
-    @apply luxury-heading text-xl md:text-2xl lg:text-3xl xl:text-4xl font-normal tracking-wide;
+    @apply luxury-heading text-xl md:text-2xl lg:text-3xl font-normal tracking-wide;
   }
 
   .luxury-heading-md {
-    @apply luxury-heading text-lg md:text-xl lg:text-2xl xl:text-3xl font-medium tracking-wide;
+    @apply luxury-heading text-lg md:text-xl lg:text-2xl font-medium tracking-wide;
   }
 
   .luxury-heading-sm {
-    @apply luxury-heading text-base md:text-lg lg:text-xl xl:text-2xl font-medium tracking-wide;
+    @apply luxury-heading text-base md:text-lg lg:text-xl font-medium tracking-wide;
   }
 
-  /* Body Text Variants */
+  /* Body Text Variants - Optimized Sizes */
   .luxury-body-lg {
-    @apply luxury-body text-base md:text-lg lg:text-xl leading-relaxed font-normal;
+    @apply luxury-body text-base md:text-lg leading-relaxed font-normal;
   }
 
   .luxury-body-md {
-    @apply luxury-body text-sm md:text-base lg:text-lg leading-relaxed font-normal;
+    @apply luxury-body text-sm md:text-base leading-relaxed font-normal;
   }
 
   .luxury-body-sm {
-    @apply luxury-body text-xs md:text-sm lg:text-base leading-relaxed font-medium;
+    @apply luxury-body text-xs md:text-sm leading-relaxed font-medium;
   }
 
   .luxury-body-xs {
-    @apply luxury-body text-xs md:text-sm leading-relaxed font-medium;
+    @apply luxury-body text-xs leading-relaxed font-medium;
   }
   
   .caption {

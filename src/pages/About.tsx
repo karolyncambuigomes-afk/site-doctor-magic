@@ -155,7 +155,7 @@ const About = () => {
               <h1 className="heading-1 title-margin-md text-primary-content">
                 About Five London
               </h1>
-              <p className="body-lead text-primary-content mb-12 md:mb-12">
+              <p className="body-lead text-secondary-content mb-12 md:mb-12">
                 London's premier luxury escort agency. Discover our commitment
                 to excellence, discretion, and sophisticated companionship
                 services.
@@ -425,10 +425,10 @@ const About = () => {
         {/* Contact Section */}
         <section className="py-16 md:py-20 bg-white">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="luxury-heading-lg mb-6 text-black">
+            <h2 className="luxury-heading-lg mb-6 text-primary-content">
               Ready to Experience Excellence?
             </h2>
-            <p className="luxury-body-lg text-gray-800 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="luxury-body-lg text-secondary-content mb-8 max-w-3xl mx-auto leading-relaxed">
               Contact us today to discover how Five London can provide you with
               an unforgettable luxury companionship experience. Our dedicated
               team is ready to assist you in creating the perfect arrangement

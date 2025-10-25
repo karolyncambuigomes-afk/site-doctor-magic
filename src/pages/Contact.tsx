@@ -79,13 +79,13 @@ const Contact = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                 Contact for Same Day Booking
               </h1>
-              <p className="luxury-body-lg text-primary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-secondary-content mb-12 md:mb-12">
                 Most companions available today. Call now for instant confirmation.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          <div className="separator-elegant"></div>
         </section>
 
         {/* Contact Methods */}
@@ -105,7 +105,7 @@ const Contact = () => {
                     <p className="text-primary-content break-all luxury-body-sm px-2">{method.details}</p>
                     <p className="luxury-body-sm text-primary-content">{method.description}</p>
                     <Button 
-                      className="w-full bg-black text-white hover:bg-gray-800"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                       onClick={() => {
                         if (method.title === 'WhatsApp') {
                           window.open('https://wa.me/447436190679', '_blank');

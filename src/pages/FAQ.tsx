@@ -67,13 +67,13 @@ const FAQ = () => {
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                 Frequently Asked Questions
               </h1>
-              <p className="luxury-body-lg text-primary-content mb-12 md:mb-12">
+              <p className="luxury-body-lg text-secondary-content mb-12 md:mb-12">
                 Find answers to the most common questions about our luxury companion services.
               </p>
             </div>
           </div>
           {/* Elegant separator */}
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+          <div className="separator-elegant"></div>
         </section>
 
         {/* FAQ Accordion */}
@@ -81,15 +81,15 @@ const FAQ = () => {
           <div className="max-w-4xl mx-auto px-4">
             {loading ? (
               <div className="text-center py-12">
-                <p className="text-gray-600">Loading FAQs...</p>
+                <p className="text-muted-foreground">Loading FAQs...</p>
               </div>
             ) : error ? (
               <div className="text-center py-12">
-                <p className="text-red-600">Error loading FAQs: {error}</p>
+                <p className="text-destructive">Error loading FAQs: {error}</p>
               </div>
             ) : faqs.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-600">No FAQs available at the moment.</p>
+                <p className="text-muted-foreground">No FAQs available at the moment.</p>
               </div>
             ) : (
               <Accordion type="multiple" defaultValue={faqs.map((_, index) => `item-${index}`)} className="space-y-4">

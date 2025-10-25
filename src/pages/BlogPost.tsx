@@ -109,11 +109,11 @@ const BlogPost = () => {
                   {article.category}
                 </Badge>
 
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-primary-content">
                   {article.title}
                 </h1>
 
-                <p className="luxury-body-lg text-black">{article.excerpt}</p>
+                <p className="luxury-body-lg text-secondary-content">{article.excerpt}</p>
 
                 <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground mt-6">
                   <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ const BlogPost = () => {
             <section className="py-16 bg-gray-50">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
-                  <h2 className="luxury-heading-xl mb-12 text-center text-black">
+                  <h2 className="luxury-heading-xl mb-12 text-center text-primary-content">
                     Related Articles
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -199,18 +199,18 @@ const BlogPost = () => {
                           </div>
                         </div>
                         <CardHeader className="pb-4">
-                          <h3 className="luxury-heading-sm font-medium text-black group-hover:text-gray-700 transition-colors leading-tight">
+                          <h3 className="luxury-heading-sm font-medium text-primary-content group-hover:text-secondary-content transition-colors leading-tight">
                             {relatedArticle.title}
                           </h3>
                         </CardHeader>
                         <CardContent className="pt-0">
-                          <p className="luxury-body-sm text-gray-600 leading-relaxed mb-6">
+                          <p className="luxury-body-sm text-secondary-content leading-relaxed mb-6">
                             {relatedArticle.excerpt.substring(0, 120)}...
                           </p>
                           <Link to={`/blog/${relatedArticle.slug}`}>
                             <Button
                               variant="ghost"
-                              className="group/btn p-0 h-auto font-medium text-gray-600 hover:text-gray-800"
+                              className="group/btn p-0 h-auto font-medium text-secondary-content hover:text-primary-content"
                             >
                               Read article
                               <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
@@ -229,10 +229,10 @@ const BlogPost = () => {
           <section className="py-16 bg-white">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
-                <h2 className="luxury-heading-xl mb-6 text-black">
+                <h2 className="luxury-heading-xl mb-6 text-primary-content">
                   Ready for Your London Experience?
                 </h2>
-                <p className="luxury-body-lg text-gray-700 mb-8">
+                <p className="luxury-body-lg text-secondary-content mb-8">
                   Contact us to plan your exclusive experience in London with
                   our luxury companion services.
                 </p>
@@ -240,7 +240,7 @@ const BlogPost = () => {
                   <Link to="/contact">
                     <Button
                       size="lg"
-                      className="bg-black text-white hover:bg-gray-800"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
                       onClick={() =>
                         window.open("https://wa.me/447436190679", "_blank")
                       }
@@ -252,7 +252,6 @@ const BlogPost = () => {
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-black text-black hover:bg-black hover:text-white"
                     >
                       Our Services
                     </Button>

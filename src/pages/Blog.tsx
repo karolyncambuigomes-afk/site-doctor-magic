@@ -206,7 +206,7 @@ const Blog = () => {
               </div>
             </div>
             {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
+            <div className="separator-elegant"></div>
           </section>
 
           {/* Categories */}
@@ -216,7 +216,7 @@ const Blog = () => {
                 <Link to="/blog">
                   <Badge
                     variant="secondary"
-                    className="px-6 py-2 text-sm font-medium hover:bg-black hover:text-white transition-colors"
+                    className="px-6 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
                     All Articles
                   </Badge>

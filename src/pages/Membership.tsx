@@ -146,12 +146,12 @@ export const Membership: React.FC = () => {
           <section className="section-padding-lg bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="heading-1 title-margin-md text-primary-content">
-                  Members Area
-                </h1>
-                <p className="body-lead text-primary-content mb-12 md:mb-12">
-                  Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
-                </p>
+              <h1 className="heading-1 title-margin-md text-primary-content">
+                Members Area
+              </h1>
+              <p className="body-lead text-secondary-content mb-12 md:mb-12">
+                Exclusive access to our sophisticated companion collection. Membership is by invitation or approval only.
+              </p>
               </div>
             </div>
             {/* Elegant separator */}
@@ -284,12 +284,12 @@ export const Membership: React.FC = () => {
                                 required
                               />
                               <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-black transition-colors"
-                              >
-                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                              </button>
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary-content transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
                             </div>
                           </div>
 

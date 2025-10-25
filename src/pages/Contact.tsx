@@ -177,7 +177,7 @@ const Contact = () => {
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
               <h2 className="luxury-heading-lg mb-4">Need Immediate Assistance?</h2>
-              <p className="luxury-body-base text-gray-600 mb-8">
+              <p className="luxury-body-base text-black mb-8">
                 For urgent bookings or questions, contact us directly.
               </p>
               <Button 

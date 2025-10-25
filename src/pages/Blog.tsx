@@ -25,8 +25,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 const Blog = () => {
   
   const { posts, loading, error, categories, refetch } = useBlogPosts();
-  
-  const [refreshing, setRefreshing] = useState(false);
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -178,31 +176,6 @@ const Blog = () => {
                   Your exclusive guide to sophisticated experiences, exquisite
                   restaurants, and London's best-kept secrets.
                 </p>
-                <Button
-                  onClick={async () => {
-                    setRefreshing(true);
-                    try {
-                      // Simple refresh fallback
-                      await refetch();
-                      toast.success('Blog content refreshed!');
-                    } catch (error) {
-                      toast.error('Failed to refresh content');
-                    } finally {
-                      setRefreshing(false);
-                    }
-                  }}
-                  disabled={refreshing}
-                  variant="outline"
-                  size="sm"
-                  className="mb-4"
-                >
-                  {refreshing ? (
-                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  ) : (
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                  )}
-                  Refresh Content
-                </Button>
               </div>
             </div>
             {/* Elegant separator */}
@@ -215,8 +188,8 @@ const Blog = () => {
               <div className="flex flex-wrap gap-3 justify-center px-4">
                 <Link to="/blog">
                   <Badge
-                    variant="secondary"
-                    className="px-6 py-2 text-sm font-medium hover:bg-black hover:text-white transition-colors"
+                    variant="outline"
+                    className="px-6 py-2 text-sm font-medium bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black transition-all"
                   >
                     All Articles
                   </Badge>
@@ -228,7 +201,7 @@ const Blog = () => {
                   >
                     <Badge
                       variant="outline"
-                      className="px-6 py-2 text-sm font-medium bg-white border-gray-200 hover:bg-black hover:text-white hover:border-black transition-all"
+                      className="px-6 py-2 text-sm font-medium bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black transition-all"
                     >
                       {category}
                     </Badge>

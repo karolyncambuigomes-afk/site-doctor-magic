@@ -115,6 +115,13 @@ const BlogPost = () => {
 
   const article = getPostBySlug(slug) || fallbackArticle;
 
+  // Debug logging to capture runtime issues
+  React.useEffect(() => {
+    try {
+      console.log('[BlogPost] Render', { slug, hasArticle: !!article, articleKeys: article ? Object.keys(article) : [] });
+    } catch {}
+  }, [slug, article]);
+
   if (!article) {
     return <NotFound />;
   }
@@ -123,51 +130,58 @@ const BlogPost = () => {
 
   // Process content for better performance and accessibility
   const processedContent = useMemo(() => {
-    if (!article) return '';
-    
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = article.content;
-    
-    // Add IDs to headers for navigation
-    tempDiv.querySelectorAll('h2, h3, h4').forEach((heading, index) => {
-      if (!heading.id) {
-        heading.id = `section-${index}`;
-      }
-    });
-    
-    return tempDiv.innerHTML;
+    try {
+      if (!article || typeof article.content !== 'string') return '';
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = article.content || '';
+      // Add IDs to headers for navigation
+      tempDiv.querySelectorAll('h2, h3, h4').forEach((heading, index) => {
+        try { (heading as HTMLElement).id = (heading as HTMLElement).id || `section-${index}`; } catch {}
+      });
+      return tempDiv.innerHTML;
+    } catch (e) {
+      console.warn('[Blog] Failed to process content', e);
+      return article?.content || '';
+    }
   }, [article]);
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: article.title,
-    description: article.excerpt,
-    image: article.image,
-    datePublished: article.published_at,
-    dateModified: article.updated_at,
-    author: {
-      "@type": "Organization",
-      name: article.author,
-      url: "https://fivelondon.com",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Five London",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://fivelondon.com/logo.png",
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://fivelondon.com/blog/${article.slug}`,
-    },
-    keywords: article.seo_keywords,
-    articleSection: article.category,
-    wordCount: article.content.length,
-    timeRequired: `PT${article.read_time}M`,
-  };
+  const structuredData = useMemo(() => {
+    try {
+      return {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: article.title || '',
+        description: article.excerpt || '',
+        image: article.image || '',
+        datePublished: article.published_at || undefined,
+        dateModified: article.updated_at || undefined,
+        author: {
+          "@type": "Organization",
+          name: article.author || 'Five London',
+          url: "https://fivelondon.com",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Five London",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://fivelondon.com/logo.png",
+          },
+        },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://fivelondon.com/blog/${article.slug}`,
+        },
+        keywords: article.seo_keywords || '',
+        articleSection: article.category || '',
+        wordCount: (article.content || '').length,
+        timeRequired: `PT${Number(article.read_time || 0)}M`,
+      } as const;
+    } catch (e) {
+      console.warn('[Blog] Failed to build structured data', e);
+      return undefined;
+    }
+  }, [article]);
 
   return (
     <>
@@ -248,7 +262,7 @@ const BlogPost = () => {
                   <div className="aspect-video relative overflow-hidden rounded-lg mb-12 bg-gray-100">
                     <OptimizedImage
                       src={article.image}
-                      alt={`Featured image for article: ${article.title}. ${article.excerpt.substring(0, 100)}`}
+                      alt={`Featured image for article: ${article.title}. ${(article.excerpt || '').substring(0, 100)}`}
                       className="w-full h-full object-cover transition-opacity duration-300"
                       priority={true}
                       onLoad={() => setImageLoaded(true)}

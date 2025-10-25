@@ -30,21 +30,44 @@ export const useBlogPosts = () => {
       setLoading(true);
       setError(null);
 
-      // Try to fetch from database first
-      const { data, error: fetchError } = await supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('is_published', true)
-        .order('created_at', { ascending: false });
+      // Helper: timeout wrapper to avoid hanging requests
+      const withTimeout = <T,>(promise: PromiseLike<T>, ms = 4000): Promise<T> => {
+        return new Promise((resolve, reject) => {
+          const id = setTimeout(() => reject(new Error(`supabase_timeout_${ms}ms`)), ms);
+          Promise.resolve(promise)
+            .then((res) => {
+              clearTimeout(id);
+              resolve(res as T);
+            })
+            .catch((err) => {
+              clearTimeout(id);
+              reject(err);
+            });
+        });
+      };
+
+      console.log('[Blog] Fetching posts from Supabase...');
+
+      // Try to fetch from database first (with timeout)
+      const { data, error: fetchError } = await withTimeout(
+        supabase
+          .from('blog_posts')
+          .select('*')
+          .eq('is_published', true)
+          .order('created_at', { ascending: false }),
+        4000
+      );
 
       if (fetchError) {
         throw fetchError;
       }
 
       // If we have posts in database, use them
-      if (data && data.length > 0) {
-        setPosts(data);
+      if (data && (data as any[]).length > 0) {
+        console.log('[Blog] Loaded posts from Supabase:', (data as any[]).length);
+        setPosts(data as any);
       } else {
+        console.warn('[Blog] No DB posts. Falling back to static articles.');
         // Import static articles as fallback
         const { blogArticles } = await import('@/data/blog-articles');
         const staticPosts = blogArticles.map(article => ({
@@ -67,10 +90,11 @@ export const useBlogPosts = () => {
         }));
         setPosts(staticPosts);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching blog posts:', err);
       // Try to load static articles as final fallback
       try {
+        console.warn('[Blog] Attempting static fallback due to error...');
         const { blogArticles } = await import('@/data/blog-articles');
         const staticPosts = blogArticles.map(article => ({
           id: article.slug,
@@ -92,8 +116,8 @@ export const useBlogPosts = () => {
         }));
         setPosts(staticPosts);
         setError(null); // Clear error since we have fallback data
-      } catch (fallbackErr) {
-        setError(err.message);
+      } catch (fallbackErr: any) {
+        setError(err?.message || 'Failed to load blog posts');
       }
     } finally {
       setLoading(false);

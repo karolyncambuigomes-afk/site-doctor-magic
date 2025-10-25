@@ -21,11 +21,58 @@ const BlogPost = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  // Fallback: load static article if slug not found in DB posts
+  const [fallbackArticle, setFallbackArticle] = useState<any | null>(null);
+  const [attemptedFallback, setAttemptedFallback] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setAttemptedFallback(false);
+      setFallbackArticle(null);
+      if (!slug) return;
+      const inState = getPostBySlug(slug);
+      if (!inState) {
+        try {
+          const { blogArticles } = await import('@/data/blog-articles');
+          const a = blogArticles.find((x: any) => x.slug === slug);
+          if (!cancelled && a) {
+            setFallbackArticle({
+              id: a.slug,
+              slug: a.slug,
+              title: a.title,
+              excerpt: a.excerpt,
+              content: a.content,
+              image: a.image,
+              author: a.author,
+              category: a.category,
+              meta_description: a.metaDescription,
+              seo_keywords: a.seoKeywords,
+              read_time: a.readTime,
+              is_published: true,
+              published_at: a.publishedAt,
+              service_keywords: a.serviceAreas || [],
+              created_at: a.publishedAt,
+              updated_at: new Date().toISOString()
+            });
+          }
+        } catch (e) {
+          console.warn('[Blog] Static fallback load failed', e);
+        } finally {
+          if (!cancelled) setAttemptedFallback(true);
+        }
+      } else {
+        if (!cancelled) setAttemptedFallback(true);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [slug, getPostBySlug]);
+
   if (!slug) {
     return <NotFound />;
   }
 
-  if (loading) {
+  if (loading && !attemptedFallback) {
     return (
       <div className="min-h-screen bg-white">
         <Navigation />
@@ -52,10 +99,10 @@ const BlogPost = () => {
             
             {/* Content Skeleton */}
             <div className="space-y-4">
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w/full" />
+              <Skeleton className="h-4 w/full" />
               <Skeleton className="h-4 w-5/6" />
-              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w/full" />
               <Skeleton className="h-4 w-4/5" />
             </div>
           </div>
@@ -66,7 +113,7 @@ const BlogPost = () => {
     );
   }
 
-  const article = getPostBySlug(slug);
+  const article = getPostBySlug(slug) || fallbackArticle;
 
   if (!article) {
     return <NotFound />;

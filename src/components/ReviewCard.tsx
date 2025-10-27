@@ -30,10 +30,8 @@ export const ReviewCard = ({ rating, reviewText, authorInitial, createdAt }: Rev
           "{reviewText}"
         </p>
 
-        {/* Author Info (Initials + Date) */}
+        {/* Author Info (Date Only) */}
         <div className="flex items-center gap-2 text-gray-600 mt-auto">
-          <span className="luxury-heading-xs text-black">{authorInitial}</span>
-          <span className="text-gray-400">•</span>
           <span className="luxury-body-sm">{formatDate(createdAt)}</span>
         </div>
       </CardContent>

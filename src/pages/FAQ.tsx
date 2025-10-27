@@ -179,7 +179,7 @@ const FAQ = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
-                <h2 className="luxury-heading-lg text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center mb-6 text-gray-800">Common Questions About Our Services</h2>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Booking Process</h3>

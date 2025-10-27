@@ -63,9 +63,9 @@ const Characteristics = () => {
           {/* SEO Content Section */}
           <section className="py-16 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
-              <h2 className="luxury-heading-lg text-center mb-8 text-gray-800">
-                Find Your Perfect Companion
-              </h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center mb-8 text-gray-800">
+            Find Your Perfect Companion
+          </h2>
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <h3 className="luxury-heading-md">Physical Characteristics</h3>

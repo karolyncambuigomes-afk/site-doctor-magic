@@ -107,9 +107,6 @@ export const Footer = () => {
               <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 FAQ
               </SafeLink>
-              <SafeLink to="/about" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                About Us
-              </SafeLink>
               <SafeLink to="/reviews" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Reviews
               </SafeLink>

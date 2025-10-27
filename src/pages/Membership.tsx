@@ -307,7 +307,7 @@ export const Membership: React.FC = () => {
                             <p className="luxury-body-xs text-gray-600 mb-4">
                               Need help accessing your account?
                             </p>
-                            <Button variant="outline" size="sm" asChild>
+                            <Button variant="default" size="sm" className="bg-black text-white hover:bg-gray-800" asChild>
                               <Link to="/contact">Contact Support</Link>
                             </Button>
                           </div>

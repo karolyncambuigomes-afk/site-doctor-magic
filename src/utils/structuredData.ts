@@ -6,8 +6,13 @@ export const generateOrganizationSchema = (includeLocations: boolean = true) => 
   "name": "Five London",
   "description": "Premium luxury escort services in London offering sophisticated companionship for discerning clients.",
   "url": "https://fivelondon.com",
-  "logo": "https://fivelondon.com/logo.png",
-  "image": "https://fivelondon.com/og-image.jpg",
+  "logo": "https://fivelondon.com/og-image.jpg",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://fivelondon.com/og-image.jpg",
+    "width": 1200,
+    "height": 630
+  },
   "telephone": "+447436190679",
   "address": {
     "@type": "PostalAddress",
@@ -179,7 +184,7 @@ export const generateBlogSchema = (article: any) => ({
     "name": "Five London",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://fivelondon.com/logo.png"
+      "url": "https://fivelondon.com/og-image.jpg"
     }
   },
   "mainEntityOfPage": {

@@ -18,7 +18,7 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
   description = "Five London offers exclusive escort services with sophisticated companions for discerning clients. Professional, discreet, and elegant experiences in London's finest locations.",
   keywords = "elite escort london, premium companionship, luxury escort services, london escort agency, high-class escorts",
   canonicalUrl,
-  ogImage = "/og-image.jpg",
+  ogImage = "https://fivelondon.com/og-image.jpg",
   structuredData,
   noIndex = false,
   additionalMeta,
@@ -27,6 +27,11 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
   const fullTitle = title.includes('Five London') ? title : `${title} | Five London`;
   const optimizedDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
   const fullCanonicalUrl = canonicalUrl ? `https://fivelondon.com${canonicalUrl}` : undefined;
+  
+  // Ensure OG images always use absolute URLs
+  const fullOgImage = ogImage.startsWith('http') 
+    ? ogImage 
+    : `https://fivelondon.com${ogImage}`;
 
   return (
     <>
@@ -43,7 +48,7 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
         <meta property="og:type" content="website" />
         <meta property="og:title" content={fullTitle} />
         <meta property="og:description" content={optimizedDescription} />
-        <meta property="og:image" content={ogImage} />
+        <meta property="og:image" content={fullOgImage} />
         {fullCanonicalUrl && <meta property="og:url" content={fullCanonicalUrl} />}
         <meta property="og:site_name" content="Five London" />
 
@@ -51,19 +56,8 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={fullTitle} />
         <meta name="twitter:description" content={optimizedDescription} />
-        <meta name="twitter:image" content={ogImage} />
+        <meta name="twitter:image" content={fullOgImage} />
 
-        {/* Additional SEO */}
-        <meta name="author" content="Five London" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta httpEquiv="content-language" content="en-GB" />
-        <meta name="geo.region" content="GB-LND" />
-        <meta name="geo.placename" content="London" />
-        
-        {/* Performance & Caching */}
-        <meta httpEquiv="Cache-Control" content="public, max-age=31536000" />
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
         {/* Additional custom meta tags */}
         {additionalMeta && Object.entries(additionalMeta).map(([key, value]) => (

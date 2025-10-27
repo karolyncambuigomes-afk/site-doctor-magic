@@ -5,7 +5,7 @@ import { SEOOptimized } from "@/components/SEOOptimized";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Calendar, Clock, ArrowRight, Loader2, RefreshCw } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import {
@@ -22,9 +22,29 @@ import { blogArticles } from "@/data/blog-articles";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+// Helper function to normalize category display (Portuguese to English)
+const normalizeCategoryDisplay = (category: string): string => {
+  const translations: Record<string, string> = {
+    'Gastronomia': 'Dining',
+    'Cultura': 'Culture',
+    'Negócios': 'Business',
+    'Hotéis': 'Hotels',
+    'Entretenimento': 'Entertainment'
+  };
+  return translations[category] || category;
+};
+
 const Blog = () => {
-  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedCategory = searchParams.get('category');
   const { posts, loading, error, categories, refetch } = useBlogPosts();
+
+  // Filter posts by selected category
+  const filteredPosts = selectedCategory 
+    ? posts.filter(post => 
+        normalizeCategoryDisplay(post.category).toLowerCase() === selectedCategory.toLowerCase()
+      )
+    : posts;
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -186,27 +206,36 @@ const Blog = () => {
           <section className="py-8 border-b border-gray-200 bg-gray-50">
             <div className="container-width">
               <div className="flex flex-wrap gap-3 justify-center px-4">
-                <Link to="/blog">
-                  <Badge
-                    variant="outline"
-                    className="px-6 py-2 text-sm font-medium bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black transition-all"
-                  >
-                    All Articles
-                  </Badge>
-                </Link>
-                {categories.map((category) => (
-                  <Link
-                    key={category}
-                    to={`/blog?category=${category.toLowerCase()}`}
-                  >
+                <Badge
+                  variant="outline"
+                  className={`px-6 py-2 text-sm font-medium cursor-pointer transition-all ${
+                    !selectedCategory 
+                      ? 'bg-black text-white border-black' 
+                      : 'bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black'
+                  }`}
+                  onClick={() => setSearchParams({})}
+                >
+                  All Articles
+                </Badge>
+                {categories.map((category) => {
+                  const normalizedCategory = normalizeCategoryDisplay(category);
+                  const isActive = selectedCategory?.toLowerCase() === normalizedCategory.toLowerCase();
+                  
+                  return (
                     <Badge
+                      key={category}
                       variant="outline"
-                      className="px-6 py-2 text-sm font-medium bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black transition-all"
+                      className={`px-6 py-2 text-sm font-medium cursor-pointer transition-all ${
+                        isActive
+                          ? 'bg-black text-white border-black'
+                          : 'bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black'
+                      }`}
+                      onClick={() => setSearchParams({ category: normalizedCategory.toLowerCase() })}
                     >
-                      {category}
+                      {normalizedCategory}
                     </Badge>
-                  </Link>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </section>
@@ -215,89 +244,92 @@ const Blog = () => {
           <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
-                {posts.map((post) => (
-                  <Card
-                    key={post.id}
-                    className="group hover:shadow-elegant transition-all duration-300 border border-gray-200 hover:border-gray-400 overflow-hidden bg-white"
+                {filteredPosts.map((post) => (
+                  <Link 
+                    key={post.id} 
+                    to={`/blog/${post.slug}`}
+                    className="block h-full"
                   >
-                    <div className="aspect-video bg-gray-100 relative overflow-hidden">
-                      <OptimizedImage
-                        src={post.image || 
-                          (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
-                          '/images/blog/michelin-dining.webp'
-                        }
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        data-blog-image="card"
-                        data-post-title={post.title}
-                      />
-                      <div className="absolute top-4 left-4">
-                        <Badge
-                          variant="secondary"
-                          className="bg-white/95 backdrop-blur-sm text-black text-xs font-medium border border-gray-200 shadow-minimal"
-                        >
-                          {post.category}
-                        </Badge>
-                      </div>
-                    </div>
-
-                    <CardHeader className="pb-4 px-6 pt-6">
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <time
-                            dateTime={post.published_at}
-                            className="hidden sm:inline"
+                    <Card
+                      className="group hover:shadow-elegant transition-all duration-300 border border-gray-200 hover:border-gray-400 overflow-hidden bg-white cursor-pointer h-full"
+                    >
+                      <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                        <OptimizedImage
+                          src={post.image || 
+                            (blogArticles.find(a => a.slug === post.slug)?.image as string) ||
+                            '/images/blog/michelin-dining.webp'
+                          }
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          data-blog-image="card"
+                          data-post-title={post.title}
+                        />
+                        <div className="absolute top-4 left-4">
+                          <Badge
+                            variant="secondary"
+                            className="bg-white/95 backdrop-blur-sm text-black text-xs font-medium border border-gray-200 shadow-minimal"
                           >
-                            {new Date(post.published_at).toLocaleDateString(
-                              "en-GB",
-                              {
-                                day: "numeric",
-                                month: "long",
-                                year: "numeric",
-                              }
-                            )}
-                          </time>
-                          <time
-                            dateTime={post.published_at}
-                            className="sm:hidden"
-                          >
-                            {new Date(post.published_at).toLocaleDateString(
-                              "en-GB",
-                              {
-                                day: "numeric",
-                                month: "short",
-                              }
-                            )}
-                          </time>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span>{post.read_time} min</span>
+                            {normalizeCategoryDisplay(post.category)}
+                          </Badge>
                         </div>
                       </div>
 
-                      <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
-                        {post.title}
-                      </h2>
-                    </CardHeader>
+                      <CardHeader className="pb-4 px-6 pt-6">
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <time
+                              dateTime={post.published_at}
+                              className="hidden sm:inline"
+                            >
+                              {new Date(post.published_at).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "long",
+                                  year: "numeric",
+                                }
+                              )}
+                            </time>
+                            <time
+                              dateTime={post.published_at}
+                              className="sm:hidden"
+                            >
+                              {new Date(post.published_at).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "numeric",
+                                  month: "short",
+                                }
+                              )}
+                            </time>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                            <span>{post.read_time} min</span>
+                          </div>
+                        </div>
 
-                    <CardContent className="pt-0 px-6 pb-6">
-                      <p className="text-black leading-relaxed mb-6 text-sm">
-                        {post.excerpt}
-                      </p>
+                        <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
+                          {post.title}
+                        </h2>
+                      </CardHeader>
 
-                      <Link to={`/blog/${post.slug}`}>
+                      <CardContent className="pt-0 px-6 pb-6">
+                        <p className="text-black leading-relaxed mb-6 text-sm">
+                          {post.excerpt}
+                        </p>
+
                         <Button
                           variant="ghost"
-                          className="group/btn p-0 h-auto font-medium text-black hover:text-gray-700 text-sm"
+                          className="group/btn p-0 h-auto font-medium text-black hover:text-gray-700 text-sm pointer-events-none"
                         >
                           Read full article
                           <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>

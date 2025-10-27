@@ -13,8 +13,6 @@ import { DegradedModeProvider, useDegradedMode } from "@/components/DegradedMode
 import { AuthProvider } from "@/components/AuthProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { removeConsoleLogsInProduction } from "@/utils/performanceOptimizer";
-import { cleanConsoleOutput } from "@/utils/cleanConsole";
 import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // Lazy load pages for better performance
 const Auth = lazy(() => import("./pages/Auth").then(m => ({ default: m.Auth })));
@@ -70,12 +68,8 @@ const ConditionalFeatures = () => {
 
 
 
+
 const App = () => {
-  // Remove console logs for better performance
-  React.useEffect(() => {
-    cleanConsoleOutput();
-  }, []);
-  
   return (
     <ErrorBoundary>
       <HelmetProvider>

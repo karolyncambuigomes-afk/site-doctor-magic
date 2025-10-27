@@ -1,13 +1,25 @@
 // Performance optimization utilities
 
-// Remove console logs in production and development for better performance
-export const removeConsoleLogsInProduction = () => {
-  // Always remove console logs for better performance
-  console.log = () => {};
-  console.warn = () => {};
-  console.debug = () => {};
-  console.info = () => {};
+// Unified console output cleaner for production
+export const cleanConsoleOutput = () => {
+  const noop = () => {};
+  console.log = noop;
+  console.warn = noop;
+  console.error = noop;
+  console.info = noop;
+  console.debug = noop;
+  console.trace = noop;
+  console.group = noop;
+  console.groupEnd = noop;
+  console.table = noop;
+  console.time = noop;
+  console.timeEnd = noop;
 };
+
+// Initialize immediately in production builds
+if (import.meta.env.PROD) {
+  cleanConsoleOutput();
+}
 
 // Debounce function for performance
 export const debounce = <T extends (...args: any[]) => any>(

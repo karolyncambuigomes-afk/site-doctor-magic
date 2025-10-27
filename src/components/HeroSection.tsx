@@ -48,11 +48,17 @@ export const HeroSection: React.FC = () => {
               {heroContent?.subtitle || "Unparalleled sophistication in Mayfair, Knightsbridge and Chelsea"}
             </h2>
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
-                <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
-                  {heroContent?.button_primary_text || "View Models"}
-                </button>
-              </SafeLink>
+            <button 
+              onClick={() => {
+                const modelsSection = document.getElementById('models-section');
+                if (modelsSection) {
+                  modelsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs cursor-pointer"
+            >
+              {heroContent?.button_primary_text || "View Models"}
+            </button>
               <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
                 {heroContent?.button_secondary_text || "Book Now"}
               </a>
@@ -96,11 +102,17 @@ export const HeroSection: React.FC = () => {
           </h2>
           
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <SafeLink to={heroContent?.button_primary_url || "/models"} className="inline-block">
-              <button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs">
-                {heroContent?.button_primary_text || "View Models"}
-              </button>
-            </SafeLink>
+            <button 
+              onClick={() => {
+                const modelsSection = document.getElementById('models-section');
+                if (modelsSection) {
+                  modelsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
+              className="w-full sm:w-auto bg-white text-black hover:bg-gray-100 px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs cursor-pointer"
+            >
+              {heroContent?.button_primary_text || "View Models"}
+            </button>
             
             <a href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} target="_blank" rel="noopener noreferrer" className="inline-block w-full sm:w-auto border border-white text-white hover:bg-white hover:text-black px-6 py-3 sm:py-2 transition-all duration-300 luxury-body font-medium tracking-wider uppercase text-xs text-center">
               {heroContent?.button_secondary_text || "Book Now"}

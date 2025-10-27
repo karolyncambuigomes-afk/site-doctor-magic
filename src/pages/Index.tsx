@@ -98,7 +98,7 @@ const Index = () => {
         </section>
 
         {/* All Models Gallery Section */}
-        <section className="py-12 md:py-16 bg-white">
+        <section id="models-section" className="py-12 md:py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <ModelsGallery />
           </div>

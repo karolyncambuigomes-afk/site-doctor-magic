@@ -55,7 +55,7 @@ export const CategoryFilters: React.FC = () => {
         
         <div className="text-center mt-6 sm:mt-8">
           <a href="https://wa.me/447436190679" target="_blank" rel="noopener noreferrer" className="inline-block border border-border hover:border-foreground px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 transition-all duration-300">
-            <span className="text-[10px] sm:text-xs lg:text-sm tracking-[0.2em] sm:tracking-[0.25em] lg:tracking-[0.3em] uppercase font-light text-black">BOOK NOW</span>
+            <span className="text-xs sm:text-sm md:text-base uppercase font-medium tracking-wider text-black">BOOK NOW</span>
           </a>
         </div>
       </div>

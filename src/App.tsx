@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
-import { ServiceWorkerManager } from "@/components/ServiceWorkerManager";
 import { ContactBar } from "@/components/ContactBar";
 
 import { SkipToContent } from "@/components/SkipToContent";
@@ -63,7 +62,6 @@ const ConditionalFeatures = () => {
   
   return (
     <>
-      <ServiceWorkerManager />
       {!isDegradedMode && <CookieConsent />}
     </>
   );

@@ -4,11 +4,9 @@
   "version": "1.0.4",
   "description": "Five London represents the epitome of luxury companion services in the heart of London. Sophisticated, intelligent, and elegant companions for the most discerning clientele.",
   "start_url": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#0a0a0a",
   "theme_color": "#171717",
-  "orientation": "portrait-primary",
-  "categories": ["lifestyle", "business"],
   "lang": "en-GB",
   "icons": [
     {
@@ -29,15 +27,5 @@
       "purpose": "any maskable"
     }
   ],
-  "scope": "/",
-  "id": "five-london-app",
-  "shortcuts": [
-    {
-      "name": "Contact",
-      "short_name": "Contact",
-      "description": "Contact us",
-      "url": "/contact",
-      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
-    }
-  ]
+  "scope": "/"
 }

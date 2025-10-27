@@ -20,7 +20,7 @@ export type Database = {
           admin_user_id: string | null
           created_at: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_values: Json | null
           old_values: Json | null
           resource_id: string | null
@@ -34,7 +34,7 @@ export type Database = {
           admin_user_id?: string | null
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           resource_id?: string | null
@@ -48,7 +48,7 @@ export type Database = {
           admin_user_id?: string | null
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           resource_id?: string | null
@@ -65,7 +65,7 @@ export type Database = {
           email: string
           failure_reason: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           success: boolean
           two_factor_used: boolean | null
           user_agent: string | null
@@ -76,7 +76,7 @@ export type Database = {
           email: string
           failure_reason?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           success?: boolean
           two_factor_used?: boolean | null
           user_agent?: string | null
@@ -87,13 +87,51 @@ export type Database = {
           email?: string
           failure_reason?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           success?: boolean
           two_factor_used?: boolean | null
           user_agent?: string | null
           user_id?: string | null
         }
         Relationships: []
+      }
+      admin_pii_access_log: {
+        Row: {
+          access_reason: string | null
+          admin_user_id: string
+          application_id: string
+          created_at: string | null
+          fields_accessed: string[]
+          id: string
+          ip_address: unknown
+        }
+        Insert: {
+          access_reason?: string | null
+          admin_user_id: string
+          application_id: string
+          created_at?: string | null
+          fields_accessed: string[]
+          id?: string
+          ip_address?: unknown
+        }
+        Update: {
+          access_reason?: string | null
+          admin_user_id?: string
+          application_id?: string
+          created_at?: string | null
+          fields_accessed?: string[]
+          id?: string
+          ip_address?: unknown
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_pii_access_log_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "model_applications"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       admin_rate_limits: {
         Row: {
@@ -129,7 +167,7 @@ export type Database = {
           expires_at: string
           id: string
           idle_timeout_at: string | null
-          ip_address: unknown | null
+          ip_address: unknown
           is_active: boolean | null
           last_activity: string | null
           security_level: string | null
@@ -144,7 +182,7 @@ export type Database = {
           expires_at: string
           id?: string
           idle_timeout_at?: string | null
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_active?: boolean | null
           last_activity?: string | null
           security_level?: string | null
@@ -159,7 +197,7 @@ export type Database = {
           expires_at?: string
           id?: string
           idle_timeout_at?: string | null
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_active?: boolean | null
           last_activity?: string | null
           security_level?: string | null
@@ -175,7 +213,7 @@ export type Database = {
           created_at: string | null
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           is_active: boolean | null
           last_activity: string | null
           session_token: string
@@ -186,7 +224,7 @@ export type Database = {
           created_at?: string | null
           expires_at: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_active?: boolean | null
           last_activity?: string | null
           session_token: string
@@ -197,7 +235,7 @@ export type Database = {
           created_at?: string | null
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_active?: boolean | null
           last_activity?: string | null
           session_token?: string
@@ -250,7 +288,7 @@ export type Database = {
           created_at: string | null
           email: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           last_submission: string | null
           submission_count: number | null
         }
@@ -258,7 +296,7 @@ export type Database = {
           created_at?: string | null
           email: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_submission?: string | null
           submission_count?: number | null
         }
@@ -266,7 +304,7 @@ export type Database = {
           created_at?: string | null
           email?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_submission?: string | null
           submission_count?: number | null
         }
@@ -276,7 +314,7 @@ export type Database = {
         Row: {
           email: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           submitted_at: string
           user_agent: string | null
           user_id: string
@@ -284,7 +322,7 @@ export type Database = {
         Insert: {
           email: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           submitted_at?: string
           user_agent?: string | null
           user_id: string
@@ -292,7 +330,7 @@ export type Database = {
         Update: {
           email?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           submitted_at?: string
           user_agent?: string | null
           user_id?: string
@@ -1499,6 +1537,36 @@ export type Database = {
         }
         Relationships: []
       }
+      role_change_audit: {
+        Row: {
+          changed_by: string | null
+          created_at: string | null
+          id: string
+          ip_address: unknown
+          new_role: Database["public"]["Enums"]["app_role"] | null
+          old_role: Database["public"]["Enums"]["app_role"] | null
+          user_id: string
+        }
+        Insert: {
+          changed_by?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown
+          new_role?: Database["public"]["Enums"]["app_role"] | null
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          user_id: string
+        }
+        Update: {
+          changed_by?: string | null
+          created_at?: string | null
+          id?: string
+          ip_address?: unknown
+          new_role?: Database["public"]["Enums"]["app_role"] | null
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       role_permissions: {
         Row: {
           created_at: string | null
@@ -1532,7 +1600,7 @@ export type Database = {
         Row: {
           action: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_values: Json | null
           old_values: Json | null
           record_id: string | null
@@ -1544,7 +1612,7 @@ export type Database = {
         Insert: {
           action: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -1556,7 +1624,7 @@ export type Database = {
         Update: {
           action?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -1806,7 +1874,7 @@ export type Database = {
           action: string
           admin_user_id: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_values: Json | null
           old_values: Json | null
           target_user_id: string | null
@@ -1817,7 +1885,7 @@ export type Database = {
           action: string
           admin_user_id?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           target_user_id?: string | null
@@ -1828,12 +1896,66 @@ export type Database = {
           action?: string
           admin_user_id?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           target_user_id?: string | null
           timestamp?: string | null
           user_agent?: string | null
+        }
+        Relationships: []
+      }
+      user_role_audit: {
+        Row: {
+          changed_at: string | null
+          changed_by: string | null
+          id: string
+          new_role: Database["public"]["Enums"]["app_role"] | null
+          old_role: Database["public"]["Enums"]["app_role"] | null
+          reason: string | null
+          user_id: string
+        }
+        Insert: {
+          changed_at?: string | null
+          changed_by?: string | null
+          id?: string
+          new_role?: Database["public"]["Enums"]["app_role"] | null
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          reason?: string | null
+          user_id: string
+        }
+        Update: {
+          changed_at?: string | null
+          changed_by?: string | null
+          id?: string
+          new_role?: Database["public"]["Enums"]["app_role"] | null
+          old_role?: Database["public"]["Enums"]["app_role"] | null
+          reason?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -1884,6 +2006,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_admin_pii_rate_limit: {
+        Args: { admin_id: string }
+        Returns: boolean
+      }
       check_admin_rate_limit: {
         Args: { identifier_value: string }
         Returns: Json
@@ -1896,34 +2022,13 @@ export type Database = {
         Args: { user_email: string; user_ip?: unknown }
         Returns: Json
       }
-      check_user_subscription: {
-        Args: { user_uuid: string }
-        Returns: boolean
-      }
-      cleanup_admin_security_data: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      cleanup_expired_sessions: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      cleanup_orphaned_records: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      cleanup_plaintext_2fa_data: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      cleanup_plaintext_pii_data: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      convert_html_content_to_blocks: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      check_user_subscription: { Args: { user_uuid: string }; Returns: boolean }
+      cleanup_admin_security_data: { Args: never; Returns: undefined }
+      cleanup_expired_sessions: { Args: never; Returns: string }
+      cleanup_orphaned_records: { Args: never; Returns: string }
+      cleanup_plaintext_2fa_data: { Args: never; Returns: string }
+      cleanup_plaintext_pii_data: { Args: never; Returns: string }
+      convert_html_content_to_blocks: { Args: never; Returns: undefined }
       create_admin_session: {
         Args: {
           p_ip_address?: unknown
@@ -1939,10 +2044,7 @@ export type Database = {
         Args: { content_id: string; preview_data?: Json }
         Returns: string
       }
-      decrypt_2fa_data: {
-        Args: { encrypted_text: string }
-        Returns: string
-      }
+      decrypt_2fa_data: { Args: { encrypted_text: string }; Returns: string }
       decrypt_pii_data: {
         Args: { encrypted_text: string; field_type?: string }
         Returns: string
@@ -1951,14 +2053,8 @@ export type Database = {
         Args: { encrypted_text: string; encryption_key?: string }
         Returns: string
       }
-      encrypt_2fa_data: {
-        Args: { plain_text: string }
-        Returns: string
-      }
-      encrypt_existing_application_data: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      encrypt_2fa_data: { Args: { plain_text: string }; Returns: string }
+      encrypt_existing_application_data: { Args: never; Returns: string }
       encrypt_pii_data: {
         Args: { field_type?: string; plain_text: string }
         Returns: string
@@ -1967,6 +2063,7 @@ export type Database = {
         Args: { encryption_key?: string; plain_text: string }
         Returns: string
       }
+      expire_old_subscriptions: { Args: never; Returns: number }
       fetch_migration_items: {
         Args: { query_text: string }
         Returns: {
@@ -1980,28 +2077,36 @@ export type Database = {
           title: string
         }[]
       }
-      get_2fa_data_secure: {
-        Args: { user_id_param: string }
+      get_2fa_data_secure: { Args: { user_id_param: string }; Returns: Json }
+      get_application_pii_secure: {
+        Args: { p_access_reason?: string; p_application_id: string }
         Returns: Json
       }
-      get_auth_security_status: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
+      get_applications_summary: {
+        Args: never
+        Returns: {
+          age: number
+          created_at: string
+          eye_color: string
+          hair_color: string
+          has_photos: boolean
+          has_videos: boolean
+          id: string
+          languages: string[]
+          nationality: string
+          reviewed_at: string
+          status: string
+        }[]
       }
-      get_current_user_role: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      get_current_user_status: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_auth_security_status: { Args: never; Returns: Json }
+      get_current_user_role: { Args: never; Returns: string }
+      get_current_user_status: { Args: never; Returns: string }
       get_masked_application_data: {
         Args: { application_id: string }
         Returns: Json
       }
       get_model_applications_admin: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           created_at: string
           email: string
@@ -2027,7 +2132,7 @@ export type Database = {
         }[]
       }
       get_model_applications_summary: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           age: number
           availability: string
@@ -2046,7 +2151,7 @@ export type Database = {
         }[]
       }
       get_public_models: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           age: number
           availability: string
@@ -2085,26 +2190,24 @@ export type Database = {
           videos: string[]
         }[]
       }
-      get_security_status: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
+      get_security_status: { Args: never; Returns: Json }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
       }
       invalidate_admin_session: {
         Args: { session_token: string }
         Returns: boolean
       }
-      is_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_approved_user: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_super_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      is_admin: { Args: never; Returns: boolean }
+      is_admin_roles: { Args: never; Returns: boolean }
+      is_admin_secure: { Args: never; Returns: boolean }
+      is_approved_user: { Args: never; Returns: boolean }
+      is_super_admin: { Args: never; Returns: boolean }
+      is_team_secure: { Args: never; Returns: boolean }
       log_admin_action: {
         Args: {
           action_type: string
@@ -2116,10 +2219,7 @@ export type Database = {
         }
         Returns: undefined
       }
-      log_admin_login: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      log_admin_login: { Args: never; Returns: undefined }
       log_security_event: {
         Args: {
           p_action: string
@@ -2130,21 +2230,24 @@ export type Database = {
         }
         Returns: undefined
       }
-      log_sensitive_data_access: {
-        Args:
-          | {
-              access_reason?: string
-              accessed_fields: string[]
-              accessed_table: string
-            }
-          | {
+      log_sensitive_data_access:
+        | {
+            Args: {
               access_type: string
               field_accessed?: string
               record_id: string
               table_name: string
             }
-        Returns: undefined
-      }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              access_reason?: string
+              accessed_fields: string[]
+              accessed_table: string
+            }
+            Returns: undefined
+          }
       mask_sensitive_application_data: {
         Args: { access_level?: string; data_text: string; field_type: string }
         Returns: string
@@ -2153,14 +2256,8 @@ export type Database = {
         Args: { data_text: string; mask_type?: string }
         Returns: string
       }
-      migrate_existing_sensitive_data: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      migrate_gallery_arrays_to_table: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      migrate_existing_sensitive_data: { Args: never; Returns: string }
+      migrate_gallery_arrays_to_table: { Args: never; Returns: undefined }
       publish_content: {
         Args: { change_summary?: string; content_id: string }
         Returns: Json
@@ -2198,7 +2295,7 @@ export type Database = {
         Returns: Json
       }
       validate_profile_relationships: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           description: string
           issue_count: number
@@ -2207,7 +2304,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "team" | "member"
+      app_role: "admin" | "team" | "member" | "super_admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2335,7 +2432,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "team", "member"],
+      app_role: ["admin", "team", "member", "super_admin", "user"],
     },
   },
 } as const

@@ -82,7 +82,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.38.0",
-    "vite": "^7.1.11",
-    "vite-plugin-prerender": "^1.0.8"
+    "vite": "^7.1.11"
   }
 }

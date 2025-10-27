@@ -236,14 +236,14 @@ FileETag MTime Size
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
     
-    # Pre-rendered HTML for SEO (vite-plugin-prerender)
+    # Image proxy: /images/* → /api/i/*
+    RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]
+    
+    # Pre-rendered HTML for SEO (custom build script)
     # Serve static pre-rendered HTML when directory exists
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME}/index.html -f
     RewriteRule ^(.*)$ /$1/index.html [L]
-    
-    # Image proxy: /images/* → /api/i/*
-    RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]
     
     # SPA Routing - Serve index.html for all non-file requests
     RewriteCond %{REQUEST_FILENAME} !-f

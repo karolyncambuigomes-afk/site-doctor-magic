@@ -236,14 +236,21 @@ FileETag MTime Size
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
     
+    # Prerender.io Middleware for SEO
+    # Detect bots and crawlers
+    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp|duckduckbot [NC,OR]
+    RewriteCond %{QUERY_STRING} _escaped_fragment_
+    # Don't proxy if already proxied or if it's a static file
+    RewriteCond %{REQUEST_URI} !^/api/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{HTTP:X-Prerender} !1
+    # Proxy to Prerender.io
+    RewriteRule ^(.*)$ https://service.prerender.io/https://%{HTTP_HOST}/$1 [P,L]
+    # Add Prerender token header
+    RequestHeader set X-Prerender-Token %{PRERENDER_TOKEN}e
+    
     # Image proxy: /images/* → /api/i/*
     RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]
-    
-    # Pre-rendered HTML for SEO (custom build script)
-    # Serve static pre-rendered HTML when directory exists
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME}/index.html -f
-    RewriteRule ^(.*)$ /$1/index.html [L]
     
     # SPA Routing - Serve index.html for all non-file requests
     RewriteCond %{REQUEST_FILENAME} !-f

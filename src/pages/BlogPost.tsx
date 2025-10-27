@@ -159,7 +159,18 @@ const BlogPost = () => {
           <section className="pb-20 bg-white">
             <div className="container mx-auto px-4">
               <div className="max-w-5xl mx-auto">
-                <div className="prose prose-lg max-w-none [&>*]:text-black [&>p]:text-black [&>h1]:text-black [&>h2]:text-black [&>h3]:text-black [&>h4]:text-black [&>li]:text-black [&>strong]:text-black">
+                <div className="blog-content prose prose-lg max-w-none 
+  [&>*]:text-black 
+  [&>p]:text-black [&>p]:mb-6 [&>p]:leading-relaxed
+  [&>h1]:text-black [&>h1]:mb-6 [&>h1]:mt-12
+  [&>h2]:text-black [&>h2]:mb-5 [&>h2]:mt-10
+  [&>h3]:text-black [&>h3]:mb-4 [&>h3]:mt-8
+  [&>h4]:text-black [&>h4]:mb-3 [&>h4]:mt-6
+  [&>li]:text-black [&>li]:mb-2
+  [&>ul]:mb-6 [&>ul]:mt-4
+  [&>ol]:mb-6 [&>ol]:mt-4
+  [&>strong]:text-black [&>strong]:font-semibold
+  [&>br]:hidden">
                   <div dangerouslySetInnerHTML={{ __html: article.content }} />
                 </div>
               </div>

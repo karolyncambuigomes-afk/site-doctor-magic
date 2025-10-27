@@ -235,5 +235,51 @@
       overflow: visible !important;
     }
   }
+
+/* Blog Article Styles */
+.blog-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.75;
+}
+
+.blog-content h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+.blog-content h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.blog-content h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.blog-content ul, 
+.blog-content ol {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content strong {
+  font-weight: 600;
+}
+
+.blog-content br {
+  display: none;
+}
 }
 

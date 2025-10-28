@@ -195,7 +195,7 @@ const Index = () => {
         </section>
       </main>
 
-      <ContactBar showOnScroll={false} />
+      <ContactBar showOnScroll={true} />
       <Footer />
     </>
   );

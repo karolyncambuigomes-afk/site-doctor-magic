@@ -50,7 +50,7 @@ const Characteristics = () => {
                       variant="outline" 
                       className="w-full h-12 sm:h-14 md:h-16 px-3 sm:px-4 md:px-6 justify-center hover:shadow-elegant transition-smooth group-hover:border-primary"
                     >
-                      <span className="text-xs sm:text-sm md:text-base font-medium uppercase tracking-wider group-hover:text-primary transition-colors text-center">
+                      <span className="luxury-body-sm uppercase tracking-wider group-hover:text-primary transition-colors text-center">
                         {characteristic.name}
                       </span>
                     </Button>

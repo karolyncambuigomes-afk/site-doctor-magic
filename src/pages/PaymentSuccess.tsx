@@ -3,6 +3,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, Crown, ArrowRight, Loader2 } from 'lucide-react';
@@ -155,6 +156,7 @@ export const PaymentSuccess: React.FC = () => {
         </div>
       </div>
       
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

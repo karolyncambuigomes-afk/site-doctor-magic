@@ -1,7 +1,8 @@
 import React from 'react';
+import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
-import { SEOOptimized } from '@/components/SEOOptimized';
+import { ContactBar } from '@/components/ContactBar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
 import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
@@ -157,6 +158,7 @@ export const Reviews: React.FC = () => {
         </section>
       </main>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

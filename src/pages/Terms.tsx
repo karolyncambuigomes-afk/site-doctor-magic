@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { SEOOptimized } from '@/components/SEOOptimized';
 
 const Terms = () => {
@@ -117,6 +118,7 @@ const Terms = () => {
         </section>
       </main>
       
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

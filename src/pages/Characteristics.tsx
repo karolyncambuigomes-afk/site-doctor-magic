@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Heart, ArrowRight } from 'lucide-react';
@@ -126,6 +127,7 @@ const Characteristics = () => {
           </section>
         </main>
         
+        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

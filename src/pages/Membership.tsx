@@ -5,6 +5,7 @@ import { useAuth } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -393,6 +394,7 @@ export const Membership: React.FC = () => {
           </div>
         </main>
 
+        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

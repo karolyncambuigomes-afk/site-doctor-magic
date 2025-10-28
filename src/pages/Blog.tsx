@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ContactBar } from "@/components/ContactBar";
 import { SEOOptimized } from "@/components/SEOOptimized";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -429,6 +430,7 @@ const Blog = () => {
           </section>
         </main>
 
+        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

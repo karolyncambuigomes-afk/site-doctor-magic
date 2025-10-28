@@ -18,6 +18,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ContactBar } from "@/components/ContactBar";
 import { SEOOptimized } from "@/components/SEOOptimized";
 import { Eye, EyeOff, ArrowLeft, Settings } from "lucide-react";
 
@@ -328,6 +329,7 @@ export const Auth: React.FC = () => {
         </div>
       </div>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>
   );

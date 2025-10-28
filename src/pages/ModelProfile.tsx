@@ -9,6 +9,7 @@ import { ArrowLeft, MapPin, Clock, Star, MessageCircle, Phone, ChevronLeft, Chev
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { ModelGallery } from '@/components/ModelGallery';
 export const ModelProfile: React.FC = () => {
   const { id } = useSafeParams() as { id?: string };
@@ -319,6 +320,7 @@ export const ModelProfile: React.FC = () => {
         </div>
       </section>
 
+      <ContactBar showOnScroll={false} />
       <Footer />
     </>;
 };

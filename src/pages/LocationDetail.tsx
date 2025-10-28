@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { ContactBar } from '@/components/ContactBar';
 import { locations } from '@/data/locations';
 import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
@@ -321,6 +322,7 @@ const LocationDetail = () => {
           </section>
         </main>
         
+        <ContactBar showOnScroll={false} />
         <Footer />
       </div>
     </>

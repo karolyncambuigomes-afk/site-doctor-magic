@@ -261,7 +261,7 @@ const LocationDetail = () => {
                     to={`/${loc.slug}`}
                     className="group p-3 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300 text-center"
                   >
-                    <h3 className="luxury-body-sm uppercase tracking-wider text-black">
+                    <h3 className="luxury-body-sm tracking-wider text-black">
                       {loc.name}
                     </h3>
                   </Link>

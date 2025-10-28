@@ -90,8 +90,8 @@ async function prerenderRoutes() {
 
   const template = fs.readFileSync(templatePath, 'utf-8');
 
-  // Import the server entry point
-  const { render } = await import('../dist-server/entry-server.js');
+  // Import the server entry point (compiled from TypeScript)
+  const { render } = await import('../dist-server/entry-server.mjs');
 
   console.log(`🔄 Pre-rendering ${staticRoutes.length} static routes...`);
 

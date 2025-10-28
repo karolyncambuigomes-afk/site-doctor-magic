@@ -2,10 +2,16 @@
 # Maximum compatibility for PageSpeed, GTmetrix, and all crawlers
 
 # Prerender.io Token Configuration
-SetEnv PRERENDER_TOKEN ${PRERENDER_TOKEN}
+SetEnv PRERENDER_TOKEN "fBgWp4mlMc6fTWbH2aTf"
 
 # Security Headers for Admin Protection
 <IfModule mod_headers.c>
+    # Exception for Prerender.io - Allow rendering without CSP/Frame restrictions
+    <If "%{HTTP:X-Prerender} == '1' || %{REMOTE_ADDR} =~ /^52\.22\.75\.211|54\.197\.235\.182|107\.21\.233\.120$/">
+        Header unset Content-Security-Policy
+        Header unset X-Frame-Options
+    </If>
+    
     # Strict Transport Security (HSTS)
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     
@@ -247,7 +253,7 @@ FileETag MTime Size
     # Proxy to Prerender.io
     RewriteRule ^(.*)$ https://service.prerender.io/https://%{HTTP_HOST}/$1 [P,L]
     # Add Prerender token header
-    RequestHeader set X-Prerender-Token %{PRERENDER_TOKEN}e
+    RequestHeader set X-Prerender-Token "fBgWp4mlMc6fTWbH2aTf"
     
     # Image proxy: /images/* → /api/i/*
     RewriteRule ^images/(.*)$ /api/i/$1 [L,QSA]

@@ -93,7 +93,8 @@ export const useBlogPosts = () => {
         setPosts(staticPosts);
         setError(null); // Clear error since we have fallback data
       } catch (fallbackErr) {
-        setError(err.message);
+        console.error('Error loading fallback articles:', fallbackErr);
+        setError((err as Error)?.message || 'Failed to load blog posts');
       }
     } finally {
       setLoading(false);

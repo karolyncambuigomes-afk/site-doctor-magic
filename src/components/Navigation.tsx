@@ -61,49 +61,59 @@ export const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-6">
-            {/* Locations Dropdown */}
+            {/* Locations Mega Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger className="luxury-body-sm font-medium transition-colors text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
                 Locations
                 <ChevronDown className="h-3 w-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent 
-                align="start" 
-                className="w-64 max-h-[400px] overflow-y-auto bg-white z-[60] shadow-lg"
+                align="center" 
+                className="w-[600px] max-h-[500px] overflow-y-auto bg-white z-[60] shadow-2xl border-t-2 border-primary/10 p-6"
               >
-                {locations.map((loc) => (
-                  <DropdownMenuItem key={loc.id} asChild>
-                    <SafeLink 
-                      to={`/${loc.slug}`}
-                      className="cursor-pointer text-foreground hover:text-foreground"
-                    >
-                      {loc.name}
-                    </SafeLink>
-                  </DropdownMenuItem>
-                ))}
+                <div className="grid grid-cols-2 gap-4">
+                  {locations.map((loc) => (
+                    <DropdownMenuItem key={loc.id} asChild>
+                      <SafeLink 
+                        to={`/${loc.slug}`}
+                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all"
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium">{loc.name}</span>
+                          <span className="text-xs text-muted-foreground mt-1">Discover companions</span>
+                        </div>
+                      </SafeLink>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Companion Types Dropdown */}
+            {/* Companion Types Mega Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger className="luxury-body-sm font-medium transition-colors text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
                 Companion Types
                 <ChevronDown className="h-3 w-3" />
               </DropdownMenuTrigger>
               <DropdownMenuContent 
-                align="start" 
-                className="w-64 max-h-[400px] overflow-y-auto bg-white z-[60] shadow-lg"
+                align="center" 
+                className="w-[600px] max-h-[500px] overflow-y-auto bg-white z-[60] shadow-2xl border-t-2 border-primary/10 p-6"
               >
-                {characteristics.map((char) => (
-                  <DropdownMenuItem key={char.id} asChild>
-                    <SafeLink 
-                      to={`/${char.slug}`}
-                      className="cursor-pointer text-foreground hover:text-foreground"
-                    >
-                      {char.name}
-                    </SafeLink>
-                  </DropdownMenuItem>
-                ))}
+                <div className="grid grid-cols-2 gap-4">
+                  {characteristics.map((char) => (
+                    <DropdownMenuItem key={char.id} asChild>
+                      <SafeLink 
+                        to={`/${char.slug}`}
+                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all"
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium">{char.name}</span>
+                          <span className="text-xs text-muted-foreground mt-1">Browse companions</span>
+                        </div>
+                      </SafeLink>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 

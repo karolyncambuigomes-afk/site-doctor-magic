@@ -69,13 +69,13 @@ export const Navigation: React.FC = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="start" 
-                className="w-64 max-h-[500px] overflow-y-auto bg-white z-[60] shadow-lg"
+                className="w-64 max-h-[400px] overflow-y-auto bg-white z-[60] shadow-lg"
               >
                 {locations.map((loc) => (
                   <DropdownMenuItem key={loc.id} asChild>
                     <SafeLink 
                       to={`/${loc.slug}`}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-foreground hover:text-foreground"
                     >
                       {loc.name}
                     </SafeLink>
@@ -92,13 +92,13 @@ export const Navigation: React.FC = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="start" 
-                className="w-64 max-h-[500px] overflow-y-auto bg-white z-[60] shadow-lg"
+                className="w-64 max-h-[400px] overflow-y-auto bg-white z-[60] shadow-lg"
               >
                 {characteristics.map((char) => (
                   <DropdownMenuItem key={char.id} asChild>
                     <SafeLink 
                       to={`/${char.slug}`}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-foreground hover:text-foreground"
                     >
                       {char.name}
                     </SafeLink>
@@ -202,7 +202,7 @@ export const Navigation: React.FC = () => {
                     <SafeLink
                       key={loc.id}
                       to={`/${loc.slug}`}
-                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="block luxury-body-sm text-foreground hover:text-foreground transition-colors"
                     >
                       {loc.name}
                     </SafeLink>
@@ -221,7 +221,7 @@ export const Navigation: React.FC = () => {
                     <SafeLink
                       key={char.id}
                       to={`/${char.slug}`}
-                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="block luxury-body-sm text-foreground hover:text-foreground transition-colors"
                     >
                       {char.name}
                     </SafeLink>

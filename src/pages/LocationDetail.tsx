@@ -289,13 +289,13 @@ const LocationDetail = () => {
                         !text-black
                         [&_*]:!text-black
                         [&>*]:!text-black
-                        [&>p]:!text-black [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
-                        [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:!text-black [&>h1]:mb-6 [&>h1]:mt-10 [&>h1]:first:mt-0
-                        [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:!text-black [&>h2]:mb-5 [&>h2]:mt-8 [&>h2]:first:mt-0
-                        [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:!text-black [&>h3]:mb-4 [&>h3]:mt-6
-                        [&>h4]:text-lg [&>h4]:font-semibold [&>h4]:!text-black [&>h4]:mb-3 [&>h4]:mt-5
-                        [&>ul]:!text-black [&>ul]:my-6 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
-                        [&>li]:!text-black [&>li]:my-2 [&>li]:leading-relaxed
+                        [&>p]:!text-black [&>p]:leading-relaxed [&>p]:mb-8 [&>p]:text-base
+                        [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:!text-black [&>h1]:mb-8 [&>h1]:mt-12 [&>h1]:first:mt-0
+                        [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:!text-black [&>h2]:mb-6 [&>h2]:mt-12 [&>h2]:first:mt-0
+                        [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:!text-black [&>h3]:mb-5 [&>h3]:mt-10
+                        [&>h4]:text-lg [&>h4]:font-semibold [&>h4]:!text-black [&>h4]:mb-4 [&>h4]:mt-8
+                        [&>ul]:!text-black [&>ul]:my-8 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
+                        [&>li]:!text-black [&>li]:my-3 [&>li]:leading-relaxed
                         [&>strong]:!text-black [&>b]:!text-black [&>em]:!text-black [&>i]:!text-black
                         [&>span]:!text-black [&>div]:!text-black
                         [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2

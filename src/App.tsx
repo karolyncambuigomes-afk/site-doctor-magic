@@ -17,7 +17,6 @@ import { useAutoRefresh } from "@/hooks/useAutoRefresh";
 // Lazy load pages for better performance
 const Auth = lazy(() => import("./pages/Auth").then(m => ({ default: m.Auth })));
 const Index = lazy(() => import("./pages/Index"));
-const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
 const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -89,7 +88,6 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="/about" element={<About />} />
                     <Route path="/services" element={<Services />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:slug" element={<BlogPost />} />

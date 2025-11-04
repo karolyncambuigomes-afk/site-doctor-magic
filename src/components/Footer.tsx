@@ -45,18 +45,9 @@ export const Footer = () => {
             {/* Social Media */}
             <div>
               <h4 className="luxury-body-sm font-medium text-black mb-4 tracking-wider uppercase">
-                Follow Us
+                Contact Us
               </h4>
               <div className="flex space-x-4">
-                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Instagram">
-                  <Instagram className="w-4 h-4" />
-                </button>
-                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Facebook">
-                  <Facebook className="w-4 h-4" />
-                </button>
-                <button onClick={() => {}} className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="Twitter">
-                  <Twitter className="w-4 h-4" />
-                </button>
                 <a href="https://wa.me/447436190679" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>

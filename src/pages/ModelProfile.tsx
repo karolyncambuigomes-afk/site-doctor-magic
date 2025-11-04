@@ -269,7 +269,7 @@ export const ModelProfile: React.FC = () => {
               // Find the corresponding characteristic object to get the slug
               const characteristicData = characteristics.find(char => char.name.toLowerCase() === characteristic.toLowerCase());
               if (characteristicData) {
-                return <Link key={characteristic} to={`/${characteristicData.slug}`}>
+                return <Link key={characteristic} to={`/characteristics/${characteristicData.slug}`}>
                         <Badge variant="outline" className="luxury-body-sm px-3 py-1 text-black hover:bg-accent hover:text-accent-foreground transition-luxury cursor-pointer">
                           {characteristic}
                         </Badge>

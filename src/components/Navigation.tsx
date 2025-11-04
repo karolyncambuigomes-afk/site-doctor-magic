@@ -76,12 +76,9 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={loc.id} asChild>
                       <SafeLink 
                         to={`/${loc.slug}`}
-                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all"
+                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
-                        <div className="flex flex-col">
-                          <span className="font-medium">{loc.name}</span>
-                          <span className="text-xs text-muted-foreground mt-1">Discover companions</span>
-                        </div>
+                        {loc.name}
                       </SafeLink>
                     </DropdownMenuItem>
                   ))}
@@ -104,12 +101,9 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={char.id} asChild>
                       <SafeLink 
                         to={`/${char.slug}`}
-                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all"
+                        className="cursor-pointer text-foreground hover:text-foreground hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
-                        <div className="flex flex-col">
-                          <span className="font-medium">{char.name}</span>
-                          <span className="text-xs text-muted-foreground mt-1">Browse companions</span>
-                        </div>
+                        {char.name}
                       </SafeLink>
                     </DropdownMenuItem>
                   ))}

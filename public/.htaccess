@@ -239,6 +239,10 @@ FileETag MTime Size
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    # Domain Redirect: exclusivefivelondon.com → fivelondon.com
+    RewriteCond %{HTTP_HOST} ^(www\.)?exclusivefivelondon\.com$ [NC]
+    RewriteRule ^(.*)$ https://www.fivelondon.com/$1 [R=301,L]
+    
     # HTTPS and WWW redirects disabled for maximum compatibility
     # This ensures the site works in private browsers and internationally
     

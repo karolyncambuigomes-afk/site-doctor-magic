@@ -118,7 +118,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
               <>
                 {/* Main Image */}
                 <OptimizedImage
-                  src={imageConfig.primary}
+                  src={imageError ? '/images/placeholders/model.jpg' : imageConfig.primary}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full object-cover object-top transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'

@@ -65,14 +65,14 @@ export const Footer = () => {
               <SafeLink to="/services" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 Premium Services
               </SafeLink>
-              <SafeLink to="/locations" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                London Locations
+              <SafeLink to="/membership" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Membership
               </SafeLink>
-              <SafeLink to="/characteristics" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Companion Types
+              <SafeLink to="/join-us" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Become a Companion
               </SafeLink>
-              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Lifestyle Blog
+              <SafeLink to="/reviews" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Client Reviews
               </SafeLink>
             </div>
           </div>
@@ -98,8 +98,8 @@ export const Footer = () => {
               <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 FAQ
               </SafeLink>
-              <SafeLink to="/reviews" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Reviews
+              <SafeLink to="/privacy-policy" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Privacy Policy
               </SafeLink>
             </div>
           </div>
@@ -107,20 +107,20 @@ export const Footer = () => {
           {/* Local Information - New GEO Section */}
           <div className="space-y-4">
             <h4 className="luxury-body-sm font-medium text-black tracking-wider uppercase">
-              Local Information
+              London Areas
             </h4>
             <div className="space-y-3">
-              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Area Guides
-              </SafeLink>
-              <SafeLink to="/faq" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Local Services FAQ
-              </SafeLink>
               <SafeLink to="/locations" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
-                Premium Districts
+                All Locations
               </SafeLink>
-              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors" rel="nofollow">
-                Business Services
+              <SafeLink to="/characteristics" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Companion Types
+              </SafeLink>
+              <SafeLink to="/blog" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                Lifestyle & Events
+              </SafeLink>
+              <SafeLink to="/about" className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+                About Five London
               </SafeLink>
             </div>
           </div>

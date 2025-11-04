@@ -100,7 +100,7 @@ export const Navigation: React.FC = () => {
                   {characteristics.map((char) => (
                     <DropdownMenuItem key={char.id} asChild>
                       <SafeLink 
-                        to={`/${char.slug}-london`}
+                        to={`/${char.slug}`}
                         className="cursor-pointer !text-black hover:!text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
                         {char.name}
@@ -224,7 +224,7 @@ export const Navigation: React.FC = () => {
                   {characteristics.map((char) => (
                     <SafeLink
                       key={char.id}
-                      to={`/${char.slug}-london`}
+                      to={`/${char.slug}`}
                       className="block luxury-body-sm !text-black hover:!text-black transition-colors font-medium"
                     >
                       {char.name}

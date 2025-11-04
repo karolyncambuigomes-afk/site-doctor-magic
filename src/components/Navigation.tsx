@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeLink } from "@/components/ui/safe-link";
 import { useSafeLocation } from "@/hooks/useSafeRouter";
-import { Menu, X, User, LogOut, Settings } from "lucide-react";
+import { Menu, X, User, LogOut, ChevronDown } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +11,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { locations } from "@/data/locations";
+import { characteristics } from "@/data/characteristics";
 
-const navItems = [
-  { href: "/locations", label: "Locations" },
-  { href: "/characteristics", label: "Companion Types" },
+const simpleNavItems = [
   { href: "/membership", label: "Membership" },
   { href: "/services", label: "Services" },
   { href: "/blog", label: "Blog" },
@@ -55,8 +60,55 @@ export const Navigation: React.FC = () => {
           </SafeLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navItems.map((item) => (
+          <div className="hidden lg:flex items-center space-x-6">
+            {/* Locations Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="luxury-body-sm font-medium transition-colors text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
+                Locations
+                <ChevronDown className="h-3 w-3" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="start" 
+                className="w-64 max-h-[500px] overflow-y-auto bg-white z-[60] shadow-lg"
+              >
+                {locations.map((loc) => (
+                  <DropdownMenuItem key={loc.id} asChild>
+                    <SafeLink 
+                      to={`/${loc.slug}`}
+                      className="cursor-pointer"
+                    >
+                      {loc.name}
+                    </SafeLink>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Companion Types Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="luxury-body-sm font-medium transition-colors text-muted-foreground hover:text-foreground inline-flex items-center gap-1">
+                Companion Types
+                <ChevronDown className="h-3 w-3" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="start" 
+                className="w-64 max-h-[500px] overflow-y-auto bg-white z-[60] shadow-lg"
+              >
+                {characteristics.map((char) => (
+                  <DropdownMenuItem key={char.id} asChild>
+                    <SafeLink 
+                      to={`/${char.slug}`}
+                      className="cursor-pointer"
+                    >
+                      {char.name}
+                    </SafeLink>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Simple Nav Items */}
+            {simpleNavItems.map((item) => (
               <SafeLink
                 key={item.href}
                 to={item.href}
@@ -138,8 +190,47 @@ export const Navigation: React.FC = () => {
       {isOpen && (
         <div className="lg:hidden border-t border-border bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col space-y-8">
-              {navItems.map((item) => (
+            <div className="flex flex-col space-y-6">
+              {/* Locations Collapsible */}
+              <Collapsible>
+                <CollapsibleTrigger className="luxury-body-base font-medium transition-colors text-muted-foreground hover:text-foreground flex items-center justify-between w-full">
+                  <span>Locations</span>
+                  <ChevronDown className="h-4 w-4" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-3 ml-4 space-y-3">
+                  {locations.map((loc) => (
+                    <SafeLink
+                      key={loc.id}
+                      to={`/${loc.slug}`}
+                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {loc.name}
+                    </SafeLink>
+                  ))}
+                </CollapsibleContent>
+              </Collapsible>
+
+              {/* Companion Types Collapsible */}
+              <Collapsible>
+                <CollapsibleTrigger className="luxury-body-base font-medium transition-colors text-muted-foreground hover:text-foreground flex items-center justify-between w-full">
+                  <span>Companion Types</span>
+                  <ChevronDown className="h-4 w-4" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="mt-3 ml-4 space-y-3">
+                  {characteristics.map((char) => (
+                    <SafeLink
+                      key={char.id}
+                      to={`/${char.slug}`}
+                      className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {char.name}
+                    </SafeLink>
+                  ))}
+                </CollapsibleContent>
+              </Collapsible>
+
+              {/* Simple Nav Items */}
+              {simpleNavItems.map((item) => (
                 <SafeLink
                   key={item.href}
                   to={item.href}

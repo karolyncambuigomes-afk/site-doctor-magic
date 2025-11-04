@@ -76,7 +76,7 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={loc.id} asChild>
                       <SafeLink 
                         to={`/${loc.slug}`}
-                        className="cursor-pointer text-black hover:text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
+                        className="cursor-pointer !text-black hover:!text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
                         {loc.name}
                       </SafeLink>
@@ -101,7 +101,7 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={char.id} asChild>
                       <SafeLink 
                         to={`/${char.slug}`}
-                        className="cursor-pointer text-black hover:text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
+                        className="cursor-pointer !text-black hover:!text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
                         {char.name}
                       </SafeLink>
@@ -206,7 +206,7 @@ export const Navigation: React.FC = () => {
                     <SafeLink
                       key={loc.id}
                       to={`/${loc.slug}`}
-                      className="block luxury-body-sm text-black hover:text-black transition-colors font-medium"
+                      className="block luxury-body-sm !text-black hover:!text-black transition-colors font-medium"
                     >
                       {loc.name}
                     </SafeLink>
@@ -225,7 +225,7 @@ export const Navigation: React.FC = () => {
                     <SafeLink
                       key={char.id}
                       to={`/${char.slug}`}
-                      className="block luxury-body-sm text-black hover:text-black transition-colors font-medium"
+                      className="block luxury-body-sm !text-black hover:!text-black transition-colors font-medium"
                     >
                       {char.name}
                     </SafeLink>

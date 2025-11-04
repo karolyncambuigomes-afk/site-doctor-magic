@@ -52,14 +52,15 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
           .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))[0]?.image_url
       : undefined;
 
-    // HOTFIX: Prioritize external URLs to fix missing local images
     const external = model.image || fallbackFromGallery;
     const local = model.image_url_local_main;
     
+    // Try local first if preferred and available, then external, then placeholder
+    const primarySource = preferLocalImages && local ? local : (external || local);
+    
     return {
-      local: null, // Temporarily disable local images
-      external: external,
-      placeholder: '/images/placeholders/model.jpg'
+      primary: primarySource || '/images/placeholders/model.jpg',
+      hasValidImage: !!(primarySource)
     };
   }, [model.image_url_local_main, model.image, model.gallery, preferLocalImages]);
 
@@ -71,11 +72,10 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
         .sort((a, b) => (a.order_index || 0) - (b.order_index || 0));
       
       const secondImg = publicImages[1] || publicImages[0];
-      const primarySrc = preferLocalImages ? imageConfig.local : imageConfig.external;
-      return secondImg?.image_url !== primarySrc ? secondImg?.image_url : null;
+      return secondImg?.image_url !== imageConfig.primary ? secondImg?.image_url : null;
     }
     return null;
-  }, [model.gallery, imageConfig, preferLocalImages]);
+  }, [model.gallery, imageConfig]);
 
   const getAvailabilityStatus = (availability: Model['availability']) => {
     switch (availability) {
@@ -114,17 +114,17 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
               </div>
             )}
             
-            {imageConfig.local || imageConfig.external ? (
+            {imageConfig.hasValidImage ? (
               <>
                 {/* Main Image */}
                 <OptimizedImage
-                  src={imageConfig.external || imageConfig.local || imageConfig.placeholder || '/images/placeholders/model.jpg'}
+                  src={imageConfig.primary}
                   alt={`${model.name} - Sophisticated companion in ${model.location}`}
                   className={`w-full h-full object-cover object-top transition-all duration-700 ${
                     secondaryImage ? 'group-hover:opacity-0 absolute inset-0' : 'group-hover:scale-105'
                   }`}
-                  data-model-image="true"
-                  data-model-name={model.name}
+                  onError={() => setImageError(true)}
+                  onLoad={() => setImageLoaded(true)}
                 />
                 
                 {/* Second Image (from gallery) - only if available */}

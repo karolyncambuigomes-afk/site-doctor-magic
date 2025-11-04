@@ -6,24 +6,12 @@ interface ContactBarProps {
 }
 
 export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
-  const [isVisible, setIsVisible] = useState(!showOnScroll); // Se não precisa scroll, já começa visível
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (!showOnScroll) {
-      setIsVisible(true);
-      return;
-    }
-
-    const handleScroll = () => {
-      // Show bar after scrolling past the hero section (approximately 700px)
-      setIsVisible(window.scrollY > 700);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check initial state
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [showOnScroll]);
+    // Always show the contact bar from the start on all pages
+    setIsVisible(true);
+  }, []);
 
   return (
     <div

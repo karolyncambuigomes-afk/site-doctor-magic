@@ -286,14 +286,19 @@ const LocationDetail = () => {
                   <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
                     <div 
                       className="location-content
+                        !text-black
+                        [&_*]:!text-black
                         [&>*]:!text-black
                         [&>p]:!text-black [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base
                         [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:!text-black [&>h2]:mb-6 [&>h2]:mt-8 [&>h2]:first:mt-0
                         [&>h3]:text-xl [&>h3]:font-semibold [&>h3]:!text-black [&>h3]:mb-4 [&>h3]:mt-6
                         [&>ul]:!text-black [&>ul]:my-6 [&>ul]:ml-6 [&>ul]:list-disc [&>ul]:text-base
                         [&>li]:!text-black [&>li]:my-2 [&>li]:leading-relaxed
+                        [&>strong]:!text-black [&>b]:!text-black [&>em]:!text-black [&>i]:!text-black
+                        [&>span]:!text-black [&>div]:!text-black
                         [&>a]:text-primary [&>a]:font-medium [&>a]:underline [&>a]:underline-offset-2
                         hover:[&>a]:text-primary/80"
+                      style={{ color: '#000000' }}
                       dangerouslySetInnerHTML={{ __html: location.content }}
                     />
                   </div>

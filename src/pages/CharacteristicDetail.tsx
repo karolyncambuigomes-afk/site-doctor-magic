@@ -23,7 +23,7 @@ const CharacteristicDetail = () => {
     return <div>Loading...</div>;
   }
   
-  // Path mapping for SEO routes
+  // Path mapping for SEO routes - must match slugs in characteristics.ts
   const pathMap: { [key: string]: string } = {
     '/blonde-escorts-london': 'blonde-escorts',
     '/brunette-escorts-london': 'brunette-escorts',
@@ -35,8 +35,8 @@ const CharacteristicDetail = () => {
     '/international-escorts-london': 'international-escorts',
     '/young-escorts-london': 'young-escorts',
     '/mature-escorts-london': 'mature-escorts',
-    '/vip-escorts-london': 'vip-escorts',
-    '/gfe-escorts-london': 'gfe-escorts',
+    '/vip-escorts-london': 'vip-elite-escorts',
+    '/gfe-escorts-london': 'gfe-girlfriend-experience-escorts',
     '/redhead-escorts-london': 'redhead-escorts',
     '/asian-escorts-london': 'asian-escorts',
     '/european-escorts-london': 'european-escorts',

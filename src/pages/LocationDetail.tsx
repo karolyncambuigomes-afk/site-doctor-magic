@@ -278,12 +278,12 @@ const LocationDetail = () => {
                       className="location-content
                         !text-black
                         [&_*]:!text-black
-                        [&_p]:!text-black [&_p]:leading-relaxed [&_p]:mb-6 [&_p]:text-lg
-                        [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:!text-black [&_h1]:mb-6 [&_h1]:mt-12 [&_h1]:first:mt-0
-                        [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:!text-black [&_h2]:mb-5 [&_h2]:mt-10 [&_h2]:first:mt-0
-                        [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:!text-black [&_h3]:mb-4 [&_h3]:mt-8
-                        [&_h4]:text-lg [&_h4]:font-semibold [&_h4]:!text-black [&_h4]:mb-4 [&_h4]:mt-6
-                        [&_ul]:!text-black [&_ul]:my-6 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:text-lg
+                        [&_p]:!text-black [&_p]:leading-relaxed [&_p]:mb-5 [&_p]:text-base
+                        [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:!text-black [&_h1]:mb-5 [&_h1]:mt-10 [&_h1]:first:mt-0
+                        [&_h2]:text-xl [&_h2]:font-bold [&_h2]:!text-black [&_h2]:mb-4 [&_h2]:mt-8 [&_h2]:first:mt-0
+                        [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:!text-black [&_h3]:mb-3 [&_h3]:mt-6
+                        [&_h4]:text-base [&_h4]:font-semibold [&_h4]:!text-black [&_h4]:mb-3 [&_h4]:mt-5
+                        [&_ul]:!text-black [&_ul]:my-5 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:text-base
                         [&_li]:!text-black [&_li]:my-2 [&_li]:leading-relaxed
                         [&_strong]:!text-black [&_b]:!text-black [&_em]:!text-black [&_i]:!text-black
                         [&_span]:!text-black [&_div]:!text-black

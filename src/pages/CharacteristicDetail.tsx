@@ -102,20 +102,28 @@ const CharacteristicDetail = () => {
         <Navigation />
         
         <main className="pt-0">
-          {/* Minimal Hero */}
-          <section className="pt-20 pb-16 md:py-24 bg-white">
-            <div className="container-width text-center">
-              <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
+          {/* Hero */}
+          <section className="pt-20 md:pt-24 bg-white border-b border-gray-100">
+            <div className="container-width">
+              {/* Breadcrumbs */}
+              <div className="px-4 sm:px-6 pt-6 pb-4">
+                <nav className="flex items-center gap-2 luxury-body-sm text-gray-600">
+                  <Link to="/" className="hover:text-black transition-colors">Home</Link>
+                  <span>/</span>
+                  <Link to="/characteristics" className="hover:text-black transition-colors">Characteristics</Link>
+                  <span>/</span>
+                  <span className="text-black">{characteristic.name}</span>
+                </nav>
+              </div>
+              
+              {/* Title */}
+              <div className="text-center px-4 sm:px-6 pb-12">
+                <h1 className="luxury-heading-xl text-black mb-4">
                   {characteristic.name} Escorts
                 </h1>
-                <p className="luxury-body-lg text-black">
-                  Discover sophisticated companions with {characteristic.name.toLowerCase()} characteristics.
-                </p>
+                <div className="w-24 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent mx-auto"></div>
               </div>
             </div>
-            {/* Elegant separator */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
           {/* Models Gallery */}

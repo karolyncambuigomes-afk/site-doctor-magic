@@ -161,7 +161,7 @@ const LocationDetail = () => {
               {/* Title */}
               <div className="text-center px-4 sm:px-6 pb-12">
                 <h1 className="luxury-heading-xl text-black mb-4">
-                  {location.name}
+                  Escorts in {location.name}
                 </h1>
                 <div className="w-24 h-px bg-gradient-to-r from-transparent via-black/20 to-transparent mx-auto"></div>
               </div>
@@ -173,11 +173,6 @@ const LocationDetail = () => {
           {loading ? (
             <section className="py-6 md:py-10 bg-white">
               <div className="container-width mx-auto px-4">
-                <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-black">
-                    Available in {location.name}
-                  </h2>
-                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
                   {[...Array(6)].map((_, i) => (
                     <div key={i} className="space-y-3">
@@ -194,11 +189,6 @@ const LocationDetail = () => {
           ) : locationModels.length > 0 ? (
             <section className="py-6 md:py-10 bg-white">
               <div className="container-width mx-auto px-4">
-                <div className="text-center mb-6">
-                  <h2 className="luxury-heading-lg text-black">
-                    Available in {location.name}
-                  </h2>
-                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
                   {locationModels.map((model) => (
                     <ModelCard key={model.id} model={model} />
@@ -213,7 +203,7 @@ const LocationDetail = () => {
                 <div className="text-center">
                   <div className="max-w-lg mx-auto space-y-4">
                     <h2 className="luxury-heading-lg text-black">
-                      No Models Currently Available in {location.name}
+                      No Companions Currently Available
                     </h2>
                     
                     <p className="text-gray-600 luxury-body-sm">

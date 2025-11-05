@@ -15,6 +15,10 @@ export default defineConfig(({ mode }) => ({
       "X-XSS-Protection": "1; mode=block",
     },
   },
+  ssr: {
+    noExternal: ['react-helmet-async'],
+    target: 'node',
+  },
   build: {
     rollupOptions: {
       output: {

@@ -11,6 +11,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
 import { ModelGallery } from '@/components/ModelGallery';
+import { sanitizeHtml } from '@/utils/sanitizeHtml';
 export const ModelProfile: React.FC = () => {
   const { id } = useSafeParams() as { id?: string };
   const { getModelById, models, loading, error } = useModels();
@@ -158,9 +159,10 @@ export const ModelProfile: React.FC = () => {
           {/* About Section */}
           <div className="mb-8">
             <h2 className="luxury-heading-lg text-black mb-4">About {model.name}</h2>
-            <p className="text-muted-foreground leading-relaxed luxury-body-base">
-              {model.description}
-            </p>
+            <div 
+              className="text-muted-foreground leading-relaxed luxury-body-base prose prose-sm max-w-none"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(model.description || '') }}
+            />
           </div>
 
           {/* Pricing Section */}

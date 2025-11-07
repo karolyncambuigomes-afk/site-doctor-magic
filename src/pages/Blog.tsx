@@ -101,13 +101,13 @@ const Blog = () => {
           <Navigation />
           <main className="pt-0">
             {/* Hero Section with Loading State */}
-            <section className="py-16 md:py-24 bg-white">
+            <section className="pt-20 pb-16 md:py-24 bg-white">
               <div className="container-width text-center">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6">
-                  <h1 className="text-4xl font-bold mb-6 text-black">
+                  <h1 className="luxury-heading-xl mb-6 text-black">
                     Discover London
                   </h1>
-                  <p className="text-lg text-gray-600 mb-12">
+                  <p className="luxury-body-lg text-gray-600 mb-12">
                     Your exclusive guide to sophisticated experiences, exquisite
                     restaurants, and London's best-kept secrets.
                   </p>
@@ -187,7 +187,7 @@ const Blog = () => {
 
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="pt-24 pb-16 md:py-24 bg-white">
+          <section className="pt-20 pb-16 md:py-24 bg-white">
             <div className="container-width text-center">
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
@@ -311,7 +311,7 @@ const Blog = () => {
                           </div>
                         </div>
 
-                        <h2 className="text-xl font-semibold text-black group-hover:text-gray-700 transition-colors leading-tight">
+                        <h2 className="luxury-heading-md text-black group-hover:text-gray-700 transition-colors leading-tight">
                           {post.title}
                         </h2>
                       </CardHeader>
@@ -337,7 +337,7 @@ const Blog = () => {
           </section>
 
           {/* About London Lifestyle Guide - Collapsible Rich Content */}
-          <section className="py-16 bg-gray-100">
+          <section className="py-12 md:py-16 lg:py-20 bg-gray-100">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
                 <div className="mb-8">

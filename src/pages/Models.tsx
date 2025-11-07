@@ -47,9 +47,7 @@ export const Models: React.FC = () => {
         </section>
 
         {/* Models Gallery */}
-        <section className="bg-white">
         <ModelsGallery />
-        </section>
 
         {/* About Our Elite Models - Collapsible Rich Content */}
         <section className="py-12 md:py-16 lg:py-20 bg-gray-100">

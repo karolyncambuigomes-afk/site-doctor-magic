@@ -138,7 +138,7 @@ export const ModelsGallery: React.FC = () => {
         </section>
 
         {/* Models Gallery */}
-        <section className="py-16">
+        <section className="py-12 md:py-16 lg:py-20">
           <div className="container-width-lg">
             {loading ? (
               <div className="text-center py-24">

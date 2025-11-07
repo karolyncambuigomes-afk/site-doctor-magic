@@ -186,7 +186,7 @@ const Services = () => {
         </section>
 
         {/* Minimal Services Accordion */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <Accordion type="multiple" defaultValue={["item-0", "item-1", "item-2", "item-3", "item-4", "item-5", "item-6", "item-7"]} className="space-y-3 sm:space-y-4">

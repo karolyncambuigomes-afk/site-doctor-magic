@@ -159,9 +159,10 @@ export const Membership: React.FC = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
-          <div className="container-width px-6">
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
+            <div className="container-width px-6">
 
-            {/* Logged In User Section */}
+              {/* Logged In User Section */}
             {user && (
               <section className="py-16 bg-white">
                 <div className="max-w-md mx-auto">
@@ -391,7 +392,8 @@ export const Membership: React.FC = () => {
                 </div>
               </div>
             </section>
-          </div>
+            </div>
+          </section>
         </main>
 
         <ContactBar showOnScroll={false} />

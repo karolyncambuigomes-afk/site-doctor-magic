@@ -137,7 +137,7 @@ const LondonEscortGuide = () => {
         </div>
 
         {/* Visible Summary Cards */}
-        <section className="py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
               <Card className="text-center">

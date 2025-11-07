@@ -32,7 +32,7 @@ const Terms = () => {
           <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
         </section>
         
-        <section className="py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <div className="prose max-w-none">
             <p className="text-gray-600 mb-6">Last updated: {new Date().toLocaleDateString()}</p>

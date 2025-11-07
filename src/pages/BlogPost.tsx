@@ -180,7 +180,7 @@ const BlogPost = () => {
 
           {/* Related Articles */}
           {relatedArticles.length > 0 && (
-            <section className="py-16 bg-gray-50">
+            <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
               <div className="container-width">
                 <div className="max-w-6xl mx-auto">
                   <h2 className="luxury-heading-xl mb-12 text-center text-black">
@@ -236,7 +236,7 @@ const BlogPost = () => {
           )}
 
           {/* CTA Section */}
-          <section className="py-16 bg-white">
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="text-center max-w-2xl mx-auto">
                 <h2 className="luxury-heading-xl mb-6 text-black">

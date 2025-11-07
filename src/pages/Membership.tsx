@@ -164,7 +164,7 @@ export const Membership: React.FC = () => {
 
               {/* Logged In User Section */}
             {user && (
-              <section className="py-16 bg-white">
+              <section className="bg-white">
                 <div className="max-w-md mx-auto">
                   {/* Back link */}
                   <Link 
@@ -229,7 +229,7 @@ export const Membership: React.FC = () => {
 
             {/* Authentication Section for Non-Logged In Users */}
             {!user && (
-              <section className="py-16 bg-white">
+              <section className="bg-white">
                 <div className="max-w-md mx-auto">
                   {/* Back link */}
                   <Link 
@@ -322,7 +322,7 @@ export const Membership: React.FC = () => {
             )}
 
             {/* VIP Membership Benefits */}
-            <section className="py-16 bg-gray-50">
+            <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
               <div className="max-w-4xl mx-auto px-4 sm:px-6">
                 <div className="text-center mb-12">
                   <h2 className="luxury-heading-lg mb-4 text-black">VIP Membership Benefits</h2>

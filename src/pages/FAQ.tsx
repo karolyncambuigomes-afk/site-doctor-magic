@@ -78,7 +78,7 @@ const FAQ = () => {
         </section>
 
         {/* FAQ Accordion */}
-        <section className="py-16 md:py-24 bg-gray-50">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
             {loading ? (
               <div className="text-center py-12">
@@ -116,7 +116,7 @@ const FAQ = () => {
         </section>
 
         {/* Important Information Section */}
-        <section className="py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gray-50 p-8 rounded-lg">
               <h2 className="luxury-heading-lg text-black mb-8 text-center">
@@ -137,7 +137,7 @@ const FAQ = () => {
         </section>
 
         {/* Trust Indicators */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div className="flex flex-col items-center">
@@ -176,7 +176,7 @@ const FAQ = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">
@@ -221,7 +221,7 @@ const FAQ = () => {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
           <div className="container-width text-center">
             <h2 className="luxury-heading-xl mb-6 text-black">
               Still Have Questions?

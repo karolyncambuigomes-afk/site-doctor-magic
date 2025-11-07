@@ -89,7 +89,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Methods */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -126,7 +126,7 @@ const Contact = () => {
         </section>
 
         {/* SEO Content Section */}
-        <section className="py-16 bg-gray-100">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
               <div className="mb-8">

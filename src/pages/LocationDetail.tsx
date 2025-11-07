@@ -263,7 +263,7 @@ const LocationDetail = () => {
 
           {/* SEO Content Section - Complete Content */}
           {location?.content && (
-            <section className="py-12 md:py-16 bg-gray-50">
+            <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-8">

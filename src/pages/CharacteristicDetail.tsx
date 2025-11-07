@@ -175,7 +175,7 @@ const CharacteristicDetail = () => {
 
           {/* SEO Content Section - Always Expanded */}
           {characteristic.content && (
-            <section className="py-16 md:py-20 bg-gray-100">
+            <section className="py-12 md:py-16 lg:py-20 bg-gray-100">
               <div className="container-width mx-auto px-6">
                 <div className="bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200/50 shadow-sm p-6 md:p-8">
                   <div className="text-center mb-8">

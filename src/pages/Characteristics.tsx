@@ -38,7 +38,7 @@ const Characteristics = () => {
           </section>
 
           {/* Characteristics Grid */}
-          <section className="py-12 bg-white">
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-4 sm:px-6">
                 {characteristics.map((characteristic) => (
@@ -62,7 +62,7 @@ const Characteristics = () => {
           </section>
 
           {/* SEO Content Section */}
-          <section className="py-16 bg-gray-50">
+          <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center mb-8 text-gray-800">
             Find Your Perfect Companion

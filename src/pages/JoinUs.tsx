@@ -298,7 +298,7 @@ const JoinUs = () => {
         </section>
 
         {/* Application Form */}
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
 
@@ -636,7 +636,7 @@ const JoinUs = () => {
         </div>
         
         {/* About Career Opportunities - Always Visible for SEO */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="mb-8">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-center mb-6 text-gray-900">

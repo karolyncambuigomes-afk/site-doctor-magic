@@ -41,61 +41,12 @@ export const useBlogPosts = () => {
         throw fetchError;
       }
 
-      // If we have posts in database, use them
-      if (data && data.length > 0) {
-        setPosts(data);
-      } else {
-        // Import static articles as fallback
-        const { blogArticles } = await import('@/data/blog-articles');
-        const staticPosts = blogArticles.map(article => ({
-          id: article.slug,
-          slug: article.slug,
-          title: article.title,
-          excerpt: article.excerpt,
-          content: article.content,
-          image: article.image,
-          author: article.author,
-          category: article.category,
-          meta_description: article.metaDescription,
-          seo_keywords: article.seoKeywords,
-          read_time: article.readTime,
-          is_published: true,
-          published_at: article.publishedAt,
-          service_keywords: article.serviceAreas || [],
-          created_at: article.publishedAt,
-          updated_at: new Date().toISOString()
-        }));
-        setPosts(staticPosts);
-      }
+      // Always use database posts (no fallback to static articles)
+      setPosts(data || []);
     } catch (err) {
       console.error('Error fetching blog posts:', err);
-      // Try to load static articles as final fallback
-      try {
-        const { blogArticles } = await import('@/data/blog-articles');
-        const staticPosts = blogArticles.map(article => ({
-          id: article.slug,
-          slug: article.slug,
-          title: article.title,
-          excerpt: article.excerpt,
-          content: article.content,
-          image: article.image,
-          author: article.author,
-          category: article.category,
-          meta_description: article.metaDescription,
-          seo_keywords: article.seoKeywords,
-          read_time: article.readTime,
-          is_published: true,
-          published_at: article.publishedAt,
-          service_keywords: article.serviceAreas || [],
-          created_at: article.publishedAt,
-          updated_at: new Date().toISOString()
-        }));
-        setPosts(staticPosts);
-        setError(null); // Clear error since we have fallback data
-      } catch (fallbackErr) {
-        console.error('Error loading fallback articles:', fallbackErr);
-        setError((err as Error)?.message || 'Failed to load blog posts');
-      }
+      setError((err as Error)?.message || 'Failed to load blog posts');
+      setPosts([]);
     } finally {
       setLoading(false);
     }

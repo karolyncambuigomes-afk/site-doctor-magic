@@ -91,7 +91,7 @@ export const useBlogPosts = () => {
       .slice(0, limit);
   };
 
-  const categories = [...new Set(posts.map(post => post.category))];
+  const categories = [...new Set(posts.map(post => post.category))].filter(Boolean);
 
   return {
     posts,

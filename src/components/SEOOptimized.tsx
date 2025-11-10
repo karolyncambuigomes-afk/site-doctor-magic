@@ -25,7 +25,7 @@ export const SEOOptimized: React.FC<SEOOptimizedProps> = ({
   children
 }) => {
   const fullTitle = title.includes('Five London') ? title : `${title} | Five London`;
-  const optimizedDescription = description.length > 160 ? description.substring(0, 157) + '...' : description;
+  const optimizedDescription = description && description.length > 160 ? description.substring(0, 157) + '...' : description;
   const fullCanonicalUrl = canonicalUrl ? `https://fivelondon.com${canonicalUrl}` : undefined;
   
   // Ensure OG images always use absolute URLs

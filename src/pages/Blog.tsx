@@ -16,6 +16,8 @@ import {
 
 import { toast } from "sonner";
 import { useState } from "react";
+import { useAuth } from "@/components/AuthProvider";
+import { supabase } from "@/integrations/supabase/client";
 
 // Removed image mapper import for better performance
 import { OptimizedImage } from "@/components/OptimizedImage";
@@ -39,6 +41,27 @@ const Blog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category');
   const { posts, loading, error, categories, refetch } = useBlogPosts();
+  const { isAdmin } = useAuth();
+  const [purgingCache, setPurgingCache] = useState(false);
+
+  const handlePurgeCache = async () => {
+    setPurgingCache(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('purge-blog-cache', {
+        body: { urls: ['/blog', '/blog/*'] }
+      });
+
+      if (error) throw error;
+
+      toast.success('Cache do blog limpo com sucesso! As alterações devem aparecer em alguns segundos.');
+      console.log('Cache purge result:', data);
+    } catch (error) {
+      console.error('Error purging cache:', error);
+      toast.error('Erro ao limpar cache. Verifique os logs da função.');
+    } finally {
+      setPurgingCache(false);
+    }
+  };
 
   // Filter posts by selected category
   const filteredPosts = selectedCategory 
@@ -206,6 +229,29 @@ const Blog = () => {
           {/* Categories */}
           <section className="py-8 border-b border-gray-200 bg-gray-50">
             <div className="container-width">
+              {isAdmin && (
+                <div className="flex justify-end px-4 mb-4">
+                  <Button
+                    onClick={handlePurgeCache}
+                    disabled={purgingCache}
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                  >
+                    {purgingCache ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Limpando cache...
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="w-4 h-4" />
+                        Limpar Cache do Blog
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
               <div className="flex flex-wrap gap-3 justify-center px-4">
                 <Badge
                   variant="outline"

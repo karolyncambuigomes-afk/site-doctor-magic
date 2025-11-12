@@ -42,24 +42,24 @@ const Blog = () => {
   const selectedCategory = searchParams.get('category');
   const { posts, loading, error, categories, refetch } = useBlogPosts();
   const { isAdmin } = useAuth();
-  const [purgingCache, setPurgingCache] = useState(false);
+  const [recachingFull, setRecachingFull] = useState(false);
 
-  const handlePurgeCache = async () => {
-    setPurgingCache(true);
+  const handleFullRecache = async () => {
+    setRecachingFull(true);
     try {
       const { data, error } = await supabase.functions.invoke('purge-blog-cache', {
-        body: { urls: ['/blog', '/blog/*'] }
+        body: { fullRecache: true }
       });
 
       if (error) throw error;
 
-      toast.success('Cache do blog limpo com sucesso! As alterações devem aparecer em alguns segundos.');
-      console.log('Cache purge result:', data);
+      toast.success('Recache completo iniciado! Cloudflare + Prerender.io atualizando todos os posts.');
+      console.log('Full recache result:', data);
     } catch (error) {
-      console.error('Error purging cache:', error);
-      toast.error('Erro ao limpar cache. Verifique os logs da função.');
+      console.error('Error during full recache:', error);
+      toast.error('Erro ao fazer recache completo. Verifique os logs.');
     } finally {
-      setPurgingCache(false);
+      setRecachingFull(false);
     }
   };
 
@@ -230,23 +230,23 @@ const Blog = () => {
           <section className="py-8 border-b border-gray-200 bg-gray-50">
             <div className="container-width">
               {isAdmin && (
-                <div className="flex justify-end px-4 mb-4">
+                <div className="flex justify-end gap-3 px-4 mb-4">
                   <Button
-                    onClick={handlePurgeCache}
-                    disabled={purgingCache}
-                    variant="outline"
+                    onClick={handleFullRecache}
+                    disabled={recachingFull}
+                    variant="default"
                     size="sm"
                     className="gap-2"
                   >
-                    {purgingCache ? (
+                    {recachingFull ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        Limpando cache...
+                        Recachando tudo...
                       </>
                     ) : (
                       <>
                         <RefreshCw className="w-4 h-4" />
-                        Limpar Cache do Blog
+                        Recache Completo
                       </>
                     )}
                   </Button>

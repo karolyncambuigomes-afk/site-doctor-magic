@@ -31,10 +31,8 @@ serve(async (req) => {
       try {
         const fullUrls = urls.map((url: string) => {
           // Handle wildcards - Cloudflare doesn't support wildcards in purge
-          if (url.endsWith('/*')) {
-            return url.replace('/*', ''); // Just purge the base path
-          }
-          return `${DOMAIN}${url}`;
+          const path = url.endsWith('/*') ? url.replace('/*', '') : url;
+          return `${DOMAIN}${path}`;
         });
 
         console.log('Purging Cloudflare URLs:', fullUrls);
@@ -94,35 +92,42 @@ serve(async (req) => {
 
         console.log('Recaching Prerender URLs:', fullUrls);
 
-        const prerenderResponse = await fetch(
-          'https://api.prerender.io/recache',
-          {
-            method: 'POST',
-            headers: {
-              'X-Prerender-Token': PRERENDER_TOKEN,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              prerenderToken: PRERENDER_TOKEN,
-              url: fullUrls
-            })
-          }
-        );
+        let successCount = 0;
+        for (const url of fullUrls) {
+          try {
+            const resp = await fetch(
+              'https://api.prerender.io/recache',
+              {
+                method: 'POST',
+                headers: {
+                  'X-Prerender-Token': PRERENDER_TOKEN,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  prerenderToken: PRERENDER_TOKEN,
+                  url
+                })
+              }
+            );
 
-        if (prerenderResponse.ok) {
-          results.prerender = { 
-            success: true, 
-            message: `Recached ${fullUrls.length} URLs in Prerender.io` 
-          };
-          console.log('Prerender recache successful');
-        } else {
-          const prerenderData = await prerenderResponse.text();
-          results.prerender = { 
-            success: false, 
-            message: `Prerender error: ${prerenderData}` 
-          };
-          console.error('Prerender recache failed:', prerenderData);
+            if (resp.ok) {
+              successCount++;
+              console.log('Prerender recache successful for', url);
+            } else {
+              const txt = await resp.text();
+              console.error('Prerender recache failed for', url, txt);
+            }
+          } catch (e) {
+            console.error('Prerender recache exception for', url, e);
+          }
         }
+
+        results.prerender = {
+          success: successCount > 0,
+          message: successCount > 0
+            ? `Recached ${successCount}/${fullUrls.length} URLs in Prerender.io`
+            : 'Prerender recache failed for all URLs'
+        };
       } catch (error) {
         results.prerender = { 
           success: false, 

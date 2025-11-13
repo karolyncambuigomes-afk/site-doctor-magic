@@ -44,12 +44,32 @@ export const Navigation: React.FC = () => {
   // Block body scroll when mobile menu is open
   React.useEffect(() => {
     if (isOpen) {
+      // Get current scroll position
+      const scrollY = window.scrollY;
+      
+      // Lock body scroll and position
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
+      // Restore body scroll
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
+      
+      // Restore scroll position
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
     
     return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
       document.body.style.overflow = '';
     };
   }, [isOpen]);
@@ -220,7 +240,7 @@ export const Navigation: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden border-t border-border bg-white fixed top-[var(--nav-height,60px)] left-0 right-0 bottom-0 overflow-y-auto z-40">
+        <div className="lg:hidden border-t border-border bg-white fixed top-[var(--nav-height,60px)] left-0 right-0 bottom-0 overflow-y-auto overscroll-behavior-y-contain z-40" style={{ WebkitOverflowScrolling: 'touch' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
             <div className="flex flex-col space-y-6">
               {/* Locations Collapsible */}

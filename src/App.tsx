@@ -7,6 +7,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
 import { ContactBar } from "@/components/ContactBar";
 import { ScriptInjector } from "@/components/ScriptInjector";
+import { HeadScriptInjector } from "@/components/HeadScriptInjector";
 
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -77,9 +78,7 @@ const App = () => {
           <DegradedModeProvider>
             <BrowserRouter>
               <AuthProvider>
-                <Helmet>
-                  <ScriptInjector position="head" />
-                </Helmet>
+                <HeadScriptInjector />
                 <ScriptInjector position="body_start" />
                 <ScrollToTop />
                 <ConditionalFeatures />

@@ -6,7 +6,7 @@ import { SEOOptimized } from "@/components/SEOOptimized";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Calendar, Clock, ArrowRight, Loader2, RefreshCw } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import {
@@ -38,8 +38,6 @@ const normalizeCategoryDisplay = (category: string): string => {
 };
 
 const Blog = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectedCategory = searchParams.get('category');
   const { posts, loading, error, categories, refetch } = useBlogPosts();
   const { isAdmin } = useAuth();
   const [recachingFull, setRecachingFull] = useState(false);
@@ -63,12 +61,6 @@ const Blog = () => {
     }
   };
 
-  // Filter posts by selected category
-  const filteredPosts = selectedCategory 
-    ? posts.filter(post => 
-        normalizeCategoryDisplay(post.category).toLowerCase() === selectedCategory.toLowerCase()
-      )
-    : posts;
 
   const structuredData = [
     generateOrganizationSchema(),
@@ -210,8 +202,31 @@ const Blog = () => {
 
         <main className="pt-0">
           {/* Hero Section */}
-          <section className="pt-20 pb-16 md:py-24 bg-white">
+          <section className="pt-20 pb-16 md:py-24 bg-white relative">
             <div className="container-width text-center">
+              {isAdmin && (
+                <div className="absolute top-4 right-4">
+                  <Button
+                    onClick={handleFullRecache}
+                    disabled={recachingFull}
+                    variant="outline"
+                    size="sm"
+                    className="gap-2"
+                  >
+                    {recachingFull ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Recachando...
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="w-4 h-4" />
+                        Recache
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
               <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
                   Discover London
@@ -226,72 +241,11 @@ const Blog = () => {
             <div className="w-full h-px bg-gradient-to-r from-transparent via-black/20 to-transparent"></div>
           </section>
 
-          {/* Categories */}
-          <section className="py-8 border-b border-gray-200 bg-gray-50">
-            <div className="container-width">
-              {isAdmin && (
-                <div className="flex justify-end gap-3 px-4 mb-4">
-                  <Button
-                    onClick={handleFullRecache}
-                    disabled={recachingFull}
-                    variant="default"
-                    size="sm"
-                    className="gap-2"
-                  >
-                    {recachingFull ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Recachando tudo...
-                      </>
-                    ) : (
-                      <>
-                        <RefreshCw className="w-4 h-4" />
-                        Recache Completo
-                      </>
-                    )}
-                  </Button>
-                </div>
-              )}
-              <div className="flex flex-wrap gap-3 justify-center px-4">
-                <Badge
-                  variant="outline"
-                  className={`px-6 py-2 text-sm font-medium cursor-pointer transition-all ${
-                    !selectedCategory 
-                      ? 'bg-black text-white border-black' 
-                      : 'bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black'
-                  }`}
-                  onClick={() => setSearchParams({})}
-                >
-                  All Articles
-                </Badge>
-                {categories.map((category) => {
-                  const normalizedCategory = normalizeCategoryDisplay(category);
-                  const isActive = selectedCategory?.toLowerCase() === normalizedCategory.toLowerCase();
-                  
-                  return (
-                    <Badge
-                      key={category}
-                      variant="outline"
-                      className={`px-6 py-2 text-sm font-medium cursor-pointer transition-all ${
-                        isActive
-                          ? 'bg-black text-white border-black'
-                          : 'bg-white text-black border-gray-300 hover:bg-black hover:text-white hover:border-black'
-                      }`}
-                      onClick={() => setSearchParams({ category: normalizedCategory.toLowerCase() })}
-                    >
-                      {normalizedCategory}
-                    </Badge>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
           {/* Articles Grid */}
           <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="container-width">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6">
-                {filteredPosts.map((post) => (
+                {posts.map((post) => (
                   <Link 
                     key={post.id} 
                     to={`/blog/${post.slug}`}

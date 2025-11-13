@@ -1,6 +1,6 @@
 import { Navigate, Link } from 'react-router-dom';
 import { useSafeParams } from '@/hooks/useSafeRouter';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
@@ -11,11 +11,14 @@ import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { MapPin, ArrowRight, Phone, MessageCircle, Clock, Shield, Star } from 'lucide-react';
 import { generateLocationSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { supabase } from '@/integrations/supabase/client';
 
 const LocationDetail = () => {
   const params = useSafeParams();
   const { locationSlug } = params;
   const { models, loading, error } = useModels();
+  const [locationFromDB, setLocationFromDB] = useState<any>(null);
+  const [loadingLocation, setLoadingLocation] = useState(true);
   
   // Safety check for router context
   if (!params) {
@@ -35,9 +38,44 @@ const LocationDetail = () => {
     location = locations.find(loc => loc.slug === `escorts-in-${locationName}`);
   }
   
+  // Extract seo_path from URL for Supabase query
+  const seoPath = currentPath.startsWith('/escorts-in-') 
+    ? currentPath.replace('/escorts-in-', '')
+    : locationSlug;
+  
   if (!location) {
     return <Navigate to="/404" replace />;
   }
+
+  // Fetch location content from Supabase
+  useEffect(() => {
+    const fetchLocationContent = async () => {
+      if (!seoPath) {
+        setLoadingLocation(false);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from('locations')
+          .select('*')
+          .eq('seo_path', seoPath)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error fetching location from Supabase:', error);
+        } else if (data) {
+          setLocationFromDB(data);
+        }
+      } catch (err) {
+        console.error('Exception fetching location:', err);
+      } finally {
+        setLoadingLocation(false);
+      }
+    };
+
+    fetchLocationContent();
+  }, [seoPath]);
 
   // Create flexible location matching
   const createLocationMatcher = (locationName: string) => {
@@ -261,8 +299,22 @@ const LocationDetail = () => {
             </div>
           </section>
 
-          {/* SEO Content Section - Complete Content */}
-          {location?.content && (
+          {/* Dynamic Content from Supabase */}
+          {loadingLocation ? (
+            <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
+              <div className="container-width mx-auto px-4">
+                <div className="max-w-4xl mx-auto">
+                  <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
+                    <div className="space-y-4">
+                      <div className="h-6 bg-gray-200 animate-pulse rounded w-3/4" />
+                      <div className="h-4 bg-gray-200 animate-pulse rounded" />
+                      <div className="h-4 bg-gray-200 animate-pulse rounded w-5/6" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : locationFromDB?.blocks && Array.isArray(locationFromDB.blocks) && locationFromDB.blocks.length > 0 ? (
             <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
               <div className="container-width mx-auto px-4">
                 <div className="max-w-4xl mx-auto">
@@ -274,29 +326,70 @@ const LocationDetail = () => {
                   </div>
                   
                   <div className="bg-white p-8 md:p-12 rounded-lg shadow-sm">
-                    <div 
-                      className="location-content
-                        !text-black
-                        [&_*]:!text-black
-                        [&_p]:!text-black [&_p]:leading-relaxed [&_p]:mb-5 [&_p]:text-base
-                        [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:!text-black [&_h1]:mb-5 [&_h1]:mt-10 [&_h1]:first:mt-0
-                        [&_h2]:text-xl [&_h2]:font-bold [&_h2]:!text-black [&_h2]:mb-4 [&_h2]:mt-8 [&_h2]:first:mt-0
-                        [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:!text-black [&_h3]:mb-3 [&_h3]:mt-6
-                        [&_h4]:text-base [&_h4]:font-semibold [&_h4]:!text-black [&_h4]:mb-3 [&_h4]:mt-5
-                        [&_ul]:!text-black [&_ul]:my-5 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:text-base
-                        [&_li]:!text-black [&_li]:my-2 [&_li]:leading-relaxed
-                        [&_strong]:!text-black [&_b]:!text-black [&_em]:!text-black [&_i]:!text-black
-                        [&_span]:!text-black [&_div]:!text-black
-                        [&_a]:text-primary [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-2
-                        hover:[&_a]:text-primary/80"
-                      style={{ color: '#000000' }}
-                      dangerouslySetInnerHTML={{ __html: location.content }}
-                    />
+                    <div className="space-y-8">
+                      {locationFromDB.blocks.map((block: any, index: number) => {
+                        if (block.type === 'text') {
+                          return (
+                            <div 
+                              key={block.id || index} 
+                              className="space-y-4
+                                [&_*]:!text-black
+                                [&_p]:!text-black [&_p]:leading-relaxed [&_p]:mb-5 [&_p]:text-base
+                                [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:!text-black [&_h1]:mb-5 [&_h1]:mt-10 [&_h1]:first:mt-0
+                                [&_h2]:text-xl [&_h2]:font-bold [&_h2]:!text-black [&_h2]:mb-4 [&_h2]:mt-8 [&_h2]:first:mt-0
+                                [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:!text-black [&_h3]:mb-3 [&_h3]:mt-6
+                                [&_h4]:text-base [&_h4]:font-semibold [&_h4]:!text-black [&_h4]:mb-3 [&_h4]:mt-5
+                                [&_ul]:!text-black [&_ul]:my-5 [&_ul]:ml-6 [&_ul]:list-disc [&_ul]:text-base
+                                [&_li]:!text-black [&_li]:my-2 [&_li]:leading-relaxed
+                                [&_strong]:!text-black [&_b]:!text-black [&_em]:!text-black [&_i]:!text-black
+                                [&_a]:text-primary [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-2
+                                hover:[&_a]:text-primary/80"
+                            >
+                              {block.title && (
+                                <h3 className="text-xl font-semibold !text-black mb-3">
+                                  {block.title}
+                                </h3>
+                              )}
+                              <div 
+                                dangerouslySetInnerHTML={{ __html: block.content }}
+                                style={{ color: '#000000' }}
+                              />
+                            </div>
+                          );
+                        }
+                        
+                        if (block.type === 'image') {
+                          return (
+                            <figure key={block.id || index} className="space-y-2">
+                              {block.title && (
+                                <h3 className="text-xl font-semibold !text-black mb-4">
+                                  {block.title}
+                                </h3>
+                              )}
+                              <img 
+                                src={block.content} 
+                                alt={block.alt || block.caption || `${location.name} location image`}
+                                className="w-full h-64 object-cover rounded-lg"
+                                loading="lazy"
+                              />
+                              {(block.caption || block.description) && (
+                                <figcaption className="text-sm text-gray-600">
+                                  {block.caption && <strong>{block.caption}</strong>}
+                                  {block.description && <span> {block.description}</span>}
+                                </figcaption>
+                              )}
+                            </figure>
+                          );
+                        }
+                        
+                        return null;
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
             </section>
-          )}
+          ) : null}
 
           {/* Contact Section - Minimal */}
           <section className="py-4 md:py-6 bg-white">

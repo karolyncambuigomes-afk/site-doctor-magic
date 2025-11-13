@@ -3,6 +3,7 @@ import { SafeLink } from '@/components/ui/safe-link';
 import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { ScriptInjector } from '@/components/ScriptInjector';
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
@@ -152,5 +153,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
+      <ScriptInjector position="footer" />
     </footer>;
 };

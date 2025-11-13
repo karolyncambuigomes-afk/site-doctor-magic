@@ -212,6 +212,8 @@ const Blog = () => {
                     variant="outline"
                     size="sm"
                     className="gap-2"
+                    trackingLabel="Recache Completo - Blog Admin"
+                    trackingCategory="admin_action"
                   >
                     {recachingFull ? (
                       <>

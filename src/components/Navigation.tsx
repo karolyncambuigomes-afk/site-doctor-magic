@@ -4,6 +4,7 @@ import { useSafeLocation } from "@/hooks/useSafeRouter";
 import { Menu, X, User, LogOut, ChevronDown } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/utils/tracking";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -51,6 +52,9 @@ export const Navigation: React.FC = () => {
           {/* Logo */}
           <SafeLink
             to="/"
+            onClick={() => trackEvent('navigation_click', 'header', 'Logo - Home')}
+            data-tracking-label="Logo - Home"
+            data-tracking-category="navigation"
             className="luxury-heading-sm font-medium uppercase transition-colors hover:text-gray-600 text-black"
           >
             Five London
@@ -76,6 +80,9 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={loc.id} asChild>
                       <SafeLink 
                         to={`/${loc.slug}`}
+                        onClick={() => trackEvent('navigation_click', 'locations_menu', `Location - ${loc.name}`)}
+                        data-tracking-label={`Location - ${loc.name}`}
+                        data-tracking-category="navigation"
                         className="cursor-pointer !text-black hover:!text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
                         {loc.name}
@@ -101,6 +108,9 @@ export const Navigation: React.FC = () => {
                     <DropdownMenuItem key={char.id} asChild>
                       <SafeLink 
                         to={`/characteristics/${char.slug}`}
+                        onClick={() => trackEvent('navigation_click', 'companion_types_menu', `Companion Type - ${char.name}`)}
+                        data-tracking-label={`Companion Type - ${char.name}`}
+                        data-tracking-category="navigation"
                         className="cursor-pointer !text-black hover:!text-black hover:bg-accent/50 p-3 rounded-md transition-all font-medium"
                       >
                         {char.name}
@@ -160,7 +170,12 @@ export const Navigation: React.FC = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={signOut}
+                    onClick={() => {
+                      trackEvent('auth_action', 'header', 'Sign Out');
+                      signOut?.();
+                    }}
+                    data-tracking-label="Sign Out - Header"
+                    data-tracking-category="auth"
                     className="text-red-600"
                   >
                     <LogOut className="w-4 h-4 mr-2" />

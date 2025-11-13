@@ -1,0 +1,31 @@
+-- Adicionar as 27 locations com INSERT ON CONFLICT para não duplicar existentes
+INSERT INTO locations (name, seo_path, is_active, order_index, blocks, description, meta_description)
+VALUES
+  ('Belgravia', 'belgravia', true, 1, '[]'::jsonb, 'Premium escort services in Belgravia', 'Discover elite escort services in Belgravia, London. Professional and discreet companions available 24/7.'),
+  ('Knightsbridge', 'knightsbridge', true, 2, '[]'::jsonb, 'Premium escort services in Knightsbridge', 'Discover elite escort services in Knightsbridge, London. Professional and discreet companions available 24/7.'),
+  ('Mayfair', 'mayfair', true, 3, '[]'::jsonb, 'Premium escort services in Mayfair', 'Discover elite escort services in Mayfair, London. Professional and discreet companions available 24/7.'),
+  ('Chelsea', 'chelsea', true, 4, '[]'::jsonb, 'Premium escort services in Chelsea', 'Discover elite escort services in Chelsea, London. Professional and discreet companions available 24/7.'),
+  ('Kensington', 'kensington', true, 5, '[]'::jsonb, 'Premium escort services in Kensington', 'Discover elite escort services in Kensington, London. Professional and discreet companions available 24/7.'),
+  ('Marylebone', 'marylebone', true, 6, '[]'::jsonb, 'Premium escort services in Marylebone', 'Discover elite escort services in Marylebone, London. Professional and discreet companions available 24/7.'),
+  ('Canary Wharf', 'canary-wharf', true, 7, '[]'::jsonb, 'Premium escort services in Canary Wharf', 'Discover elite escort services in Canary Wharf, London. Professional and discreet companions available 24/7.'),
+  ('City of London', 'city-of-london', true, 8, '[]'::jsonb, 'Premium escort services in City of London', 'Discover elite escort services in City of London. Professional and discreet companions available 24/7.'),
+  ('Covent Garden', 'covent-garden', true, 9, '[]'::jsonb, 'Premium escort services in Covent Garden', 'Discover elite escort services in Covent Garden, London. Professional and discreet companions available 24/7.'),
+  ('Notting Hill', 'notting-hill', true, 10, '[]'::jsonb, 'Premium escort services in Notting Hill', 'Discover elite escort services in Notting Hill, London. Professional and discreet companions available 24/7.'),
+  ('Westminster', 'westminster', true, 11, '[]'::jsonb, 'Premium escort services in Westminster', 'Discover elite escort services in Westminster, London. Professional and discreet companions available 24/7.'),
+  ('South Kensington', 'south-kensington', true, 12, '[]'::jsonb, 'Premium escort services in South Kensington', 'Discover elite escort services in South Kensington, London. Professional and discreet companions available 24/7.'),
+  ('Piccadilly', 'piccadilly', true, 13, '[]'::jsonb, 'Premium escort services in Piccadilly', 'Discover elite escort services in Piccadilly, London. Professional and discreet companions available 24/7.'),
+  ('Soho', 'soho', true, 14, '[]'::jsonb, 'Premium escort services in Soho', 'Discover elite escort services in Soho, London. Professional and discreet companions available 24/7.'),
+  ('Fitzrovia', 'fitzrovia', true, 15, '[]'::jsonb, 'Premium escort services in Fitzrovia', 'Discover elite escort services in Fitzrovia, London. Professional and discreet companions available 24/7.'),
+  ('Camden', 'camden', true, 16, '[]'::jsonb, 'Premium escort services in Camden', 'Discover elite escort services in Camden, London. Professional and discreet companions available 24/7.'),
+  ('Shoreditch', 'shoreditch', true, 17, '[]'::jsonb, 'Premium escort services in Shoreditch', 'Discover elite escort services in Shoreditch, London. Professional and discreet companions available 24/7.'),
+  ('Bloomsbury', 'bloomsbury', true, 18, '[]'::jsonb, 'Premium escort services in Bloomsbury', 'Discover elite escort services in Bloomsbury, London. Professional and discreet companions available 24/7.'),
+  ('Kings Cross', 'kings-cross', true, 19, '[]'::jsonb, 'Premium escort services in Kings Cross', 'Discover elite escort services in Kings Cross, London. Professional and discreet companions available 24/7.'),
+  ('Paddington', 'paddington', true, 20, '[]'::jsonb, 'Premium escort services in Paddington', 'Discover elite escort services in Paddington, London. Professional and discreet companions available 24/7.'),
+  ('Bayswater', 'bayswater', true, 21, '[]'::jsonb, 'Premium escort services in Bayswater', 'Discover elite escort services in Bayswater, London. Professional and discreet companions available 24/7.'),
+  ('St James', 'st-james', true, 22, '[]'::jsonb, 'Premium escort services in St James', 'Discover elite escort services in St James, London. Professional and discreet companions available 24/7.'),
+  ('Victoria', 'victoria', true, 23, '[]'::jsonb, 'Premium escort services in Victoria', 'Discover elite escort services in Victoria, London. Professional and discreet companions available 24/7.'),
+  ('Waterloo', 'waterloo', true, 24, '[]'::jsonb, 'Premium escort services in Waterloo', 'Discover elite escort services in Waterloo, London. Professional and discreet companions available 24/7.'),
+  ('Tower Bridge', 'tower-bridge', true, 25, '[]'::jsonb, 'Premium escort services in Tower Bridge', 'Discover elite escort services in Tower Bridge, London. Professional and discreet companions available 24/7.'),
+  ('Liverpool Street', 'liverpool-street', true, 26, '[]'::jsonb, 'Premium escort services in Liverpool Street', 'Discover elite escort services in Liverpool Street, London. Professional and discreet companions available 24/7.'),
+  ('Hammersmith', 'hammersmith', true, 27, '[]'::jsonb, 'Premium escort services in Hammersmith', 'Discover elite escort services in Hammersmith, London. Professional and discreet companions available 24/7.')
+ON CONFLICT (seo_path) DO NOTHING;

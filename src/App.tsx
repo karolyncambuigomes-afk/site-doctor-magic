@@ -121,6 +121,11 @@ const App = () => {
                   <Route path="/escorts-in-battersea" element={<LocationDetail />} />
                   <Route path="/escorts-in-bermondsey" element={<LocationDetail />} />
                   <Route path="/escorts-in-blackfriars" element={<LocationDetail />} />
+                  <Route path="/escorts-in-covent-garden" element={<LocationDetail />} />
+                  <Route path="/escorts-in-shoreditch" element={<LocationDetail />} />
+                  <Route path="/escorts-in-marylebone" element={<LocationDetail />} />
+                  <Route path="/escorts-in-fitzrovia" element={<LocationDetail />} />
+                  <Route path="/escorts-in-south-kensington" element={<LocationDetail />} />
                   
                   <Route path="/characteristics" element={<Characteristics />} />
                   <Route path="/characteristics/:characteristicSlug" element={<CharacteristicDetail />} />

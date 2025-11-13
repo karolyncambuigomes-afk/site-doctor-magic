@@ -41,6 +41,19 @@ export const Navigation: React.FC = () => {
     }
   }, [location]);
 
+  // Block body scroll when mobile menu is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!location) return null;
 
   const isHomepage = location.pathname === "/";
@@ -207,8 +220,8 @@ export const Navigation: React.FC = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="lg:hidden border-t border-border bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="lg:hidden border-t border-border bg-white fixed top-[var(--nav-height,60px)] left-0 right-0 bottom-0 overflow-y-auto z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24">
             <div className="flex flex-col space-y-6">
               {/* Locations Collapsible */}
               <Collapsible>
@@ -216,7 +229,7 @@ export const Navigation: React.FC = () => {
                   <span>Locations</span>
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-3 ml-4 space-y-3">
+                <CollapsibleContent className="mt-3 ml-4 space-y-3 animate-in slide-in-from-top-2 duration-200">
                   {locations.map((loc) => (
                     <SafeLink
                       key={loc.id}
@@ -235,7 +248,7 @@ export const Navigation: React.FC = () => {
                   <span>Companion Types</span>
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
-                <CollapsibleContent className="mt-3 ml-4 space-y-3">
+                <CollapsibleContent className="mt-3 ml-4 space-y-3 animate-in slide-in-from-top-2 duration-200">
                   {characteristics.map((char) => (
                     <SafeLink
                       key={char.id}

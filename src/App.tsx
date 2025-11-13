@@ -3,9 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { CookieConsent } from "@/components/CookieConsent";
 import { ContactBar } from "@/components/ContactBar";
+import { ScriptInjector } from "@/components/ScriptInjector";
 
 import { SkipToContent } from "@/components/SkipToContent";
 import { ScrollToTop } from "@/components/ScrollToTop";
@@ -76,6 +77,10 @@ const App = () => {
           <DegradedModeProvider>
             <BrowserRouter>
               <AuthProvider>
+                <Helmet>
+                  <ScriptInjector position="head" />
+                </Helmet>
+                <ScriptInjector position="body_start" />
                 <ScrollToTop />
                 <ConditionalFeatures />
                 <Toaster />
@@ -176,6 +181,7 @@ const App = () => {
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>
+                <ScriptInjector position="body_end" />
               </AuthProvider>
             </BrowserRouter>
           </DegradedModeProvider>

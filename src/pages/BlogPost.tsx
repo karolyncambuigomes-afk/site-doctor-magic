@@ -133,7 +133,6 @@ const BlogPost = () => {
                     <Clock className="w-4 h-4" />
                     <span>{article.read_time} minutes read</span>
                   </div>
-                  <div>By {article.author}</div>
                 </div>
               </div>
             </div>

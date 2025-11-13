@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
+import { trackEvent } from "@/utils/tracking"
 
 const ctaButtonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap text-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -32,14 +33,26 @@ export interface CTAButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof ctaButtonVariants> {
   children: React.ReactNode
+  trackingLabel?: string
+  trackingCategory?: string
 }
 
 const CTAButton = React.forwardRef<HTMLButtonElement, CTAButtonProps>(
-  ({ className, variant, size, children, ...props }, ref) => {
+  ({ className, variant, size, children, trackingLabel, trackingCategory = 'cta', onClick, ...props }, ref) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (trackingLabel) {
+        trackEvent('cta_click', trackingCategory, trackingLabel);
+      }
+      onClick?.(e);
+    };
+    
     return (
       <button
         className={cn(ctaButtonVariants({ variant, size, className }))}
         ref={ref}
+        onClick={handleClick}
+        data-tracking-label={trackingLabel}
+        data-tracking-category={trackingCategory}
         {...props}
       >
         {children}

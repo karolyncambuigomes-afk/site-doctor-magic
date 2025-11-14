@@ -676,6 +676,56 @@ export type Database = {
           },
         ]
       }
+      custom_scripts: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          order_index: number
+          pages: string[] | null
+          position: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          order_index?: number
+          pages?: string[] | null
+          position: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          order_index?: number
+          pages?: string[] | null
+          position?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "custom_scripts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       design_settings: {
         Row: {
           accent_color: string
@@ -879,32 +929,41 @@ export type Database = {
       }
       locations: {
         Row: {
+          blocks: Json | null
           created_at: string
           description: string | null
           id: string
           is_active: boolean
+          meta_description: string | null
           name: string
           order_index: number
+          seo_keywords: string[] | null
           seo_path: string | null
           updated_at: string
         }
         Insert: {
+          blocks?: Json | null
           created_at?: string
           description?: string | null
           id?: string
           is_active?: boolean
+          meta_description?: string | null
           name: string
           order_index?: number
+          seo_keywords?: string[] | null
           seo_path?: string | null
           updated_at?: string
         }
         Update: {
+          blocks?: Json | null
           created_at?: string
           description?: string | null
           id?: string
           is_active?: boolean
+          meta_description?: string | null
           name?: string
           order_index?: number
+          seo_keywords?: string[] | null
           seo_path?: string | null
           updated_at?: string
         }

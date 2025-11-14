@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
+import { useIsMobile } from '@/hooks/useMediaQuery';
 
 const safeStorage = {
   getItem: (key: string) => {
@@ -20,6 +21,7 @@ const safeStorage = {
 
 export const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const consent = safeStorage.getItem('cookieConsent');
@@ -38,7 +40,7 @@ export const CookieConsent = () => {
     setShowConsent(false);
   };
 
-  if (!showConsent) return null;
+  if (!showConsent || isMobile) return null;
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border shadow-lg z-[100] p-4">

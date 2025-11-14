@@ -205,7 +205,7 @@ const Services = () => {
                           <h3 className="luxury-heading-sm mb-1 text-black">{service.title}</h3>
                           <p className="luxury-body-sm text-black hidden sm:block">{service.description}</p>
                         </div>
-                        <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-xs sm:luxury-body-sm text-black">
+                        <div className="flex items-center space-x-1 sm:space-x-2 luxury-body-sm text-black">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-black" />
                           <span className="hidden sm:inline">{service.duration}</span>
                           <span className="sm:hidden">{service.duration.split('-')[0]}</span>
@@ -229,7 +229,7 @@ const Services = () => {
                         
                          {/* Features */}
                          <div>
-                           <h4 className="luxury-body-xs sm:luxury-body-sm font-medium text-black mb-2 sm:mb-3">What's Included</h4>
+                           <h4 className="luxury-body-sm font-medium text-black mb-2 sm:mb-3">What's Included</h4>
                           <div className="grid grid-cols-1 gap-1 sm:gap-2">
                             {service.features.map((feature, i) => {
                               const linkableFeatures = {
@@ -270,7 +270,7 @@ const Services = () => {
                               const linkConfig = linkableFeatures[feature];
                               
                                return (
-                                 <div key={i} className="flex items-center luxury-body-xs sm:luxury-body-sm text-black">
+                                 <div key={i} className="flex items-center luxury-body-sm text-black">
                                    <div className="w-1 h-1 bg-black rounded-full mr-2 sm:mr-3 flex-shrink-0"></div>
                                   {linkConfig ? (
                                     (() => {
@@ -307,7 +307,7 @@ const Services = () => {
 
                         {/* Ideal for */}
                         <div>
-                          <p className="luxury-body-xs sm:luxury-body-sm text-muted-foreground italic">
+                          <p className="luxury-body-sm text-muted-foreground italic">
                             {service.ideal}
                           </p>
                         </div>
@@ -316,7 +316,7 @@ const Services = () => {
                         <div className="pt-3 sm:pt-4 border-t border-border/30">
                           <Link 
                             to={service.blogLink}
-                            className="inline-flex items-center luxury-body-xs sm:luxury-body-sm text-primary hover:text-primary/80 transition-colors"
+                            className="inline-flex items-center luxury-body-sm text-primary hover:text-primary/80 transition-colors"
                             title={`Read more about ${service.title.toLowerCase()} - ${service.blogTitle}`}
                             aria-label={`Learn more about ${service.title.toLowerCase()} experiences in London`}
                           >
@@ -357,15 +357,15 @@ const Services = () => {
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Corporate Events</h4>
-                      <p className="luxury-body-xs text-gray-600">Professional accompaniment for business functions, networking events, and corporate entertainment in the City and Canary Wharf.</p>
+                      <p className="luxury-body-sm text-gray-600">Professional accompaniment for business functions, networking events, and corporate entertainment in the City and Canary Wharf.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Travel Companionship</h4>
-                      <p className="luxury-body-xs text-gray-600">Sophisticated travel companions for business trips, weekend getaways, and luxury holidays worldwide.</p>
+                      <p className="luxury-body-sm text-gray-600">Sophisticated travel companions for business trips, weekend getaways, and luxury holidays worldwide.</p>
                     </div>
                     <div>
                       <h4 className="luxury-body-sm font-medium">Cultural Experiences</h4>
-                      <p className="luxury-body-xs text-gray-600">Elegant companions for theatre evenings, gallery openings, and exclusive cultural events throughout London.</p>
+                      <p className="luxury-body-sm text-gray-600">Elegant companions for theatre evenings, gallery openings, and exclusive cultural events throughout London.</p>
                     </div>
                   </div>
                 </div>

@@ -344,16 +344,16 @@ const Services = () => {
                 </div>
                 <div className="grid md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
-                  <h3 className="luxury-heading-md">Dinner Date and Social Companionship</h3>
-                  <p className="luxury-body-md text-muted-foreground leading-relaxed">
+                  <h3 className="luxury-heading-sm">Dinner Date and Social Companionship</h3>
+                  <p className="luxury-body-sm text-muted-foreground leading-relaxed">
                     Experience London's finest dining venues with sophisticated companions who excel in creating memorable social experiences. From intimate dinners at Michelin-starred restaurants to elegant cocktail receptions, our elite escorts provide engaging conversation and refined companionship.
                   </p>
-                  <p className="luxury-body-md text-gray-700 leading-relaxed">
+                  <p className="luxury-body-sm text-muted-foreground leading-relaxed">
                     Perfect for business entertainment, special celebrations, or romantic evenings at prestigious venues including The Ritz, Sketch, and exclusive private dining rooms throughout Mayfair and Knightsbridge.
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="luxury-heading-md">Business and Travel Companion Services</h3>
+                  <h3 className="luxury-heading-sm">Business and Travel Companion Services</h3>
                   <div className="space-y-3">
                     <div>
                       <h4 className="luxury-body-sm font-medium">Corporate Events</h4>
@@ -379,14 +379,16 @@ const Services = () => {
         <section className="py-12 md:py-20 lg:py-24 bg-white">
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4 sm:px-6">
-              <h2 className="text-2xl sm:text-3xl font-extralight mb-3 sm:mb-4 text-black">
+              <h2 className="luxury-heading-md mb-3 sm:mb-4 text-black">
                 Ready to Book? Call Now
               </h2>
-              <p className="text-sm sm:text-base text-black mb-6 sm:mb-8">
+              <p className="luxury-body-sm text-black mb-6 sm:mb-8">
                 Most companions available same day. Call now for instant booking confirmation.
               </p>
               <Button 
-                className="bg-black text-white hover:bg-gray-800 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-full text-sm sm:text-base"
+                variant="luxury"
+                size="lg"
+                className="rounded-full"
                 onClick={() => window.open('https://wa.me/447436190679', '_blank')}
               >
                 Call Now - Same Day Available

@@ -99,12 +99,7 @@ export const useModels = () => {
             age: model.age,
             location: model.location,
             price: model.price,
-            pricing: model.pricing || {
-              oneHour: model.price || '£500',
-              twoHours: '£900',
-              threeHours: '£1,300',
-              additionalHour: '£400'
-            },
+            pricing: model.pricing,
             image: mainImage || '/images/placeholders/model.jpg',
             gallery: galleryImages,
             services: model.services || [],

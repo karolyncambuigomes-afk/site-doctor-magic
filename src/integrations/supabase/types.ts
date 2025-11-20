@@ -2222,6 +2222,7 @@ export type Database = {
           location: string
           name: string
           price: string
+          pricing: Json
           rating: number
           reviews: number
           services: string[]

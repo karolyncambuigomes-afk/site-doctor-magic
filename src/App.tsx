@@ -40,14 +40,14 @@ const Reviews = lazy(() => import("./pages/Reviews"));
 const JoinUs = lazy(() => import("./pages/JoinUs"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Optimized QueryClient
+// Optimized QueryClient with minimal cache for fresh data
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
+      staleTime: 0, // Always fetch fresh data
+      gcTime: 5 * 60 * 1000, // Keep in memory for 5 min for background refetch
       retry: 1,
       refetchOnWindowFocus: false,
-      staleTime: 10 * 60 * 1000, // 10 minutes
-      gcTime: 15 * 60 * 1000, // 15 minutes
     },
   },
 });

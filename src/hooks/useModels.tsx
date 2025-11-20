@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/components/AuthProvider';
-// Removed heavy utilities for better performance
 
 export interface Model {
   id: string;
@@ -38,26 +37,21 @@ export interface Model {
 }
 
 export const useModels = () => {
-  const [models, setModels] = useState<Model[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const auth = useAuth();
   const { user, hasAccess } = auth || {};
+  const queryClient = useQueryClient();
 
-  const fetchModels = async () => {
+  // Data validation helper (filter out test/dummy names)
+  const isValidModel = (model: any) => {
+    if (!model || !model.id || !model.name) return false;
+    const n = String(model.name).trim().toLowerCase();
+    if (n.length <= 2) return false;
+    if (n.includes('test') || n.includes('teste') || n === 'julia') return false;
+    return true;
+  };
+
+  const fetchModels = async (): Promise<Model[]> => {
     try {
-      setLoading(true);
-      setError(null);
-
-      // Data validation helper (filter out test/dummy names)
-      const isValidModel = (model: any) => {
-        if (!model || !model.id || !model.name) return false;
-        const n = String(model.name).trim().toLowerCase();
-        if (n.length <= 2) return false;
-        if (n.includes('test') || n.includes('teste') || n === 'julia') return false;
-        return true;
-      };
-
       console.log('useModels: Fetching models for user:', !!user, 'hasAccess:', hasAccess);
 
       // Simplified logic: if user has access, get all models, otherwise get public models
@@ -74,8 +68,7 @@ export const useModels = () => {
 
         if (queryError) {
           console.error('Error fetching all models:', queryError);
-          setError('Failed to load models');
-          return;
+          throw new Error('Failed to load models');
         }
 
         const transformedModels = data?.filter(isValidModel).map((model: any) => {
@@ -116,10 +109,10 @@ export const useModels = () => {
             gallery: galleryImages,
             services: model.services || [],
             characteristics: model.characteristics || [],
-            availability: model.availability || 'available',
-            rating: model.rating || 0,
-            reviews: model.reviews || 0,
-            description: model.description || '',
+            availability: model.availability,
+            rating: model.rating,
+            reviews: model.reviews,
+            description: model.description,
             height: model.height || '',
             measurements: model.measurements || '',
             hair: model.hair || '',
@@ -128,19 +121,18 @@ export const useModels = () => {
             education: model.education || '',
             interests: model.interests || [],
             members_only: model.members_only || false,
-            face_visible: model.face_visible !== false
+            face_visible: model.face_visible || false
           };
         }) || [];
 
-        setModels(transformedModels);
+        return transformedModels;
       } else {
         // All other users (no user or no access) get public models only
         const { data, error: rpcError } = await supabase.rpc('get_public_models');
 
         if (rpcError) {
           console.error('Error fetching public models:', rpcError);
-          setError('Failed to load models');
-          return;
+          throw new Error('Failed to load models');
         }
 
         console.log('Public models fetched:', data?.length || 0);
@@ -186,59 +178,29 @@ export const useModels = () => {
           };
         }) || [];
 
-        setModels(transformedModels);
+        return transformedModels;
       }
     } catch (err) {
       console.error('useModels: Unexpected error:', err);
-      setError('An unexpected error occurred');
-    } finally {
-      setLoading(false);
+      throw err;
     }
   };
 
-  useEffect(() => {
-    fetchModels();
-    
-    // Set up real-time subscription for models changes
-    const channel = supabase
-      .channel('models-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'models'
-        },
-        (payload) => {
-          console.log('Models database change detected:', payload);
-          fetchModels();
-        }
-      )
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'model_gallery'
-        },
-        (payload) => {
-          console.log('Model gallery database change detected:', payload);
-          fetchModels();
-        }
-      )
-      .subscribe();
+  // Use React Query with ZERO cache for always fresh pricing data
+  const { data: models = [], isLoading: loading, error: queryError, refetch } = useQuery({
+    queryKey: ['models', user?.id, hasAccess],
+    queryFn: fetchModels,
+    staleTime: 0, // NEVER consider data stale - always refetch
+    gcTime: 0, // Don't keep in memory cache (formerly cacheTime in v4)
+    refetchOnMount: true, // Always refetch when component mounts
+    refetchOnWindowFocus: true, // Refetch when window gets focus
+    refetchOnReconnect: true, // Refetch when reconnecting
+  });
 
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [user?.id, hasAccess]);
+  const error = queryError ? (queryError instanceof Error ? queryError.message : 'An error occurred') : null;
 
   const getModelById = (id: string): Model | null => {
     return models.find(model => model.id === id) || null;
-  };
-
-  const refetch = () => {
-    fetchModels();
   };
 
   return {

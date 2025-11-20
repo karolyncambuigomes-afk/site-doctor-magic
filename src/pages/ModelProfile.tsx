@@ -183,20 +183,25 @@ export const ModelProfile: React.FC = () => {
             {model.pricing?.rates && model.pricing.rates.length > 0 && (
               <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
                 <div className="space-y-3">
-                  {model.pricing.rates.map((rateItem: any, index: number) => {
-                    const displayRate = typeof rateItem.rate === 'number' 
-                      ? `£${rateItem.rate}`
-                      : rateItem.rate;
-                    
-                    return (
-                      <div key={index} className="flex justify-between items-center">
-                        <span className="text-luxury-cream luxury-body-sm">{rateItem.duration}</span>
-                        <span className="luxury-body-base font-semibold text-white">
-                          {displayRate}
-                        </span>
-                      </div>
-                    );
-                  })}
+                  {[...model.pricing.rates]
+                    .sort((a: any, b: any) => {
+                      const extractHours = (duration: string) => parseInt(duration.match(/\d+/)?.[0] || '0');
+                      return extractHours(a.duration) - extractHours(b.duration);
+                    })
+                    .map((rateItem: any, index: number) => {
+                      const displayRate = typeof rateItem.rate === 'number' 
+                        ? `£${rateItem.rate}`
+                        : rateItem.rate;
+                      
+                      return (
+                        <div key={index} className="flex justify-between items-center">
+                          <span className="text-luxury-cream luxury-body-sm">{rateItem.duration}</span>
+                          <span className="luxury-body-base font-semibold text-white">
+                            {displayRate}
+                          </span>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             )}

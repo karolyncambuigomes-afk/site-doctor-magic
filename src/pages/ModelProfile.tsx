@@ -231,28 +231,6 @@ export const ModelProfile: React.FC = () => {
               </div>
             )}
             
-            {/* Continuation of old format block */}
-            {model.pricing?.rates && !model.pricing.oneHour && (
-              <div className="bg-luxury-navy border border-luxury-navy rounded-lg p-4">
-                <div className="space-y-3">
-                  {model.pricing.rates.map((rateItem: any, index: number) => {
-                    const displayRate = typeof rateItem.rate === 'number' 
-                      ? `£${rateItem.rate}`
-                      : rateItem.rate;
-                    
-                    return (
-                      <div key={index} className="flex justify-between items-center">
-                        <span className="text-luxury-cream luxury-body-sm">{rateItem.duration}</span>
-                        <span className="luxury-body-base font-semibold text-white">
-                          {displayRate}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            
             {/* No pricing info */}
             {!model.price && !model.pricing && (
               <div className="bg-card border border-border rounded-lg p-4 text-center">

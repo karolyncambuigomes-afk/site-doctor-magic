@@ -21,6 +21,7 @@ export const ScriptInjector = ({ position }: ScriptInjectorProps) => {
           key={script.id}
           data-script-name={script.name}
           data-script-position={position}
+          className="w-full [&_*]:!block [&_*]:!visible [&_*]:!opacity-100"
           dangerouslySetInnerHTML={{ __html: script.code }}
         />
       ))}

@@ -20,6 +20,8 @@ export const useCustomScripts = (position: 'head' | 'body_start' | 'body_end' | 
     queryKey: ['custom_scripts', position],
     queryFn: async () => {
       try {
+        console.log('[CustomScripts] Fetching scripts for position:', position);
+        
         const { data, error } = await supabase
           .from('custom_scripts')
           .select('*')
@@ -28,17 +30,21 @@ export const useCustomScripts = (position: 'head' | 'body_start' | 'body_end' | 
           .order('order_index', { ascending: true });
 
         if (error) {
-          console.error('Error fetching custom scripts:', error);
+          console.error('[CustomScripts] Error fetching custom scripts:', error);
           return [];
         }
 
+        console.log('[CustomScripts] Scripts fetched:', data?.length || 0, 'scripts for position:', position);
         return (data || []) as CustomScript[];
       } catch (err) {
-        console.error('Exception fetching custom scripts:', err);
+        console.error('[CustomScripts] Exception fetching custom scripts:', err);
         return [];
       }
     },
     staleTime: 0,
     gcTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
   });
 };

@@ -155,7 +155,7 @@ export const Footer = () => {
 
         {/* Partner Banners */}
         <div className="mt-8 pt-8 border-t border-border">
-          <div className="grid grid-cols-3 gap-3 lg:flex lg:flex-row lg:justify-center lg:items-center lg:gap-6">
+          <div className="grid grid-cols-3 gap-4 lg:flex lg:flex-row lg:justify-center lg:items-center lg:gap-8">
             <ScriptInjector position="footer" />
           </div>
         </div>

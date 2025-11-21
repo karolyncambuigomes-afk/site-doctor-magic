@@ -152,7 +152,13 @@ export const Footer = () => {
             </div>
           </div>
         </div>
+
+        {/* Partner Banners */}
+        <div className="mt-8 pt-8 border-t border-border">
+          <div className="flex flex-wrap gap-4 justify-center items-center">
+            <ScriptInjector position="footer" />
+          </div>
+        </div>
       </div>
-      <ScriptInjector position="footer" />
     </footer>;
 };

@@ -8,40 +8,41 @@ import { Input } from '@/components/ui/input';
 
 // Extract numeric price value for sorting
 const extractPriceValue = (model: Model): number => {
-  // Priority 1: pricing.oneHour (new format)
-  if (model.pricing?.oneHour) {
-    const rate = model.pricing.oneHour;
-    const numericRate = typeof rate === 'string' 
-      ? parseFloat(rate.replace(/£/g, '').replace(/\./g, '').replace(/,/g, '').replace(/\/hour/g, '').trim())
-      : rate;
-    if (!isNaN(numericRate)) {
-      return numericRate;
+  let extractedValue = 0;
+  let source = 'unknown';
+
+  // Priority 1: pricing.rates[0].rate (most common format)
+  if (model.pricing?.rates?.[0]?.rate) {
+    const rate = model.pricing.rates[0].rate;
+    
+    if (typeof rate === 'number') {
+      extractedValue = rate;
+      source = 'rates[number]';
+    } else if (typeof rate === 'string') {
+      // Remove dots (thousand separator), commas, and any non-digit characters
+      const cleaned = rate.replace(/\./g, '').replace(/,/g, '').replace(/[^\d]/g, '');
+      extractedValue = parseFloat(cleaned) || 0;
+      source = 'rates[string]';
     }
   }
   
-  // Priority 2: pricing.rates[0].rate (old format - Barbara uses this)
-  if (model.pricing?.rates?.[0]?.rate) {
-    const rate = model.pricing.rates[0].rate;
-    const numericRate = typeof rate === 'string'
-      ? parseFloat(rate.replace(/\./g, '').replace(/,/g, ''))
-      : rate;
-    if (!isNaN(numericRate)) {
-      return numericRate;
-    }
+  // Priority 2: pricing.oneHour (new format)
+  if (extractedValue === 0 && model.pricing?.oneHour) {
+    const rate = model.pricing.oneHour;
+    const cleaned = String(rate).replace(/£/g, '').replace(/\./g, '').replace(/,/g, '').replace(/\/hour/g, '').trim();
+    extractedValue = parseFloat(cleaned) || 0;
+    source = 'oneHour';
   }
   
   // Priority 3: Fallback to price field
-  if (model.price) {
-    const match = model.price.match(/(\d+\.?\d*)/);
-    if (match) {
-      const numericPrice = parseFloat(match[1].replace(/\./g, ''));
-      if (!isNaN(numericPrice)) {
-        return numericPrice;
-      }
-    }
+  if (extractedValue === 0 && model.price) {
+    const cleaned = model.price.replace(/[^\d]/g, '');
+    extractedValue = parseFloat(cleaned) || 0;
+    source = 'price_fallback';
   }
-  
-  return 0;
+
+  console.log(`[Price Sort] ${model.name}: £${extractedValue} (source: ${source})`);
+  return extractedValue;
 };
 
 export const ModelsGallery: React.FC = () => {

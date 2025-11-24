@@ -12,7 +12,38 @@ export interface CarouselModel {
   age?: number;
   characteristics?: string[];
   members_only?: boolean;
+  pricing?: {
+    oneHour?: number | string;
+    rates?: Array<{ duration: string; rate: number | string }>;
+  };
 }
+
+// Extract numeric price value from various pricing formats
+const extractPriceValue = (model: CarouselModel): number => {
+  // Try pricing.oneHour first (new format)
+  if (model.pricing?.oneHour) {
+    const oneHourPrice = typeof model.pricing.oneHour === 'string'
+      ? parseFloat(model.pricing.oneHour.replace(/[£,]/g, ''))
+      : model.pricing.oneHour;
+    if (!isNaN(oneHourPrice)) return oneHourPrice;
+  }
+
+  // Try pricing.rates[0].rate (old format)
+  if (model.pricing?.rates?.[0]?.rate) {
+    const ratePrice = typeof model.pricing.rates[0].rate === 'string'
+      ? parseFloat(model.pricing.rates[0].rate.replace(/[£,]/g, ''))
+      : model.pricing.rates[0].rate;
+    if (!isNaN(ratePrice)) return ratePrice;
+  }
+
+  // Fallback to price string
+  if (model.price) {
+    const match = model.price.match(/£?(\d+(?:,\d{3})*)/);
+    if (match) return parseFloat(match[1].replace(/,/g, ''));
+  }
+
+  return 0; // No valid price found
+};
 
 export const useHomepageCarousel = () => {
   const [models, setModels] = useState<CarouselModel[]>([]);
@@ -39,7 +70,7 @@ export const useHomepageCarousel = () => {
       // Get models configured to show on homepage
       const { data: modelsData, error: modelsError } = await supabase
         .from('models')
-        .select('id, name, location, price, age, characteristics, image, members_only')
+        .select('id, name, location, price, age, characteristics, image, members_only, pricing')
         .eq('show_on_homepage', true)
         .order('homepage_order', { ascending: true, nullsFirst: false });
 
@@ -82,8 +113,17 @@ export const useHomepageCarousel = () => {
           age: model.age || null,
           characteristics: model.characteristics || [],
           members_only: model.members_only || false,
+          pricing: model.pricing,
         });
       }
+
+      // Sort by price descending (highest first)
+      transformedModels.sort((a, b) => {
+        const priceA = extractPriceValue(a);
+        const priceB = extractPriceValue(b);
+        console.log(`[Homepage Sort] ${a.name}: £${priceA} vs ${b.name}: £${priceB}`);
+        return priceB - priceA;
+      });
 
       // Fallback: if too few homepage models, append from public models RPC
       if (transformedModels.length < 4) {
@@ -100,11 +140,21 @@ export const useHomepageCarousel = () => {
               age: m.age || null,
               characteristics: m.characteristics || [],
               members_only: false,
+              pricing: m.pricing,
             } as CarouselModel));
+          
+          // Sort fallback by price descending
+          fallback.sort((a, b) => extractPriceValue(b) - extractPriceValue(a));
+          
           const byId = new Map<string, CarouselModel>();
           for (const item of transformedModels) byId.set(item.id, item);
           for (const item of fallback) if (!byId.has(item.id)) byId.set(item.id, item);
-          setModels(Array.from(byId.values()));
+          
+          const finalModels = Array.from(byId.values());
+          // Re-sort combined list by price descending
+          finalModels.sort((a, b) => extractPriceValue(b) - extractPriceValue(a));
+          
+          setModels(finalModels);
           return;
         }
       }

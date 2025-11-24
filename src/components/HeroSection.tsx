@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
 import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -9,6 +9,7 @@ export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
   const { banners: heroBanners } = useBannerContent('hero');
   const isMobile = useIsMobile();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Get the appropriate hero image
   const heroImage = React.useMemo(() => {
@@ -22,6 +23,15 @@ export const HeroSection: React.FC = () => {
     const activeBanner = deviceBanner || allBanner;
     return activeBanner?.image_url || null;
   }, [heroBanners, isMobile]);
+
+  // Preload image for instant display
+  useEffect(() => {
+    if (heroImage) {
+      const img = new Image();
+      img.onload = () => setImageLoaded(true);
+      img.src = heroImage;
+    }
+  }, [heroImage]);
 
   // Progressive loading: Show image immediately if available, text fades in after
   if (!heroImage) {
@@ -71,7 +81,7 @@ export const HeroSection: React.FC = () => {
     );
   }
 
-  // Render hero section with image - show instantly
+  // Render hero section with image - show instantly with minimal transition
   return (
     <section className="relative h-screen w-full flex items-end snap-start">
       {/* Background Image - loads immediately */}
@@ -83,14 +93,18 @@ export const HeroSection: React.FC = () => {
           loading="eager"
           fetchPriority="high"
           decoding="async"
+          onLoad={() => setImageLoaded(true)}
           onError={(e) => e.currentTarget.style.display = 'none'}
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* Content - shows immediately */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white">
-
+      {/* Content - shows instantly with quick fade */}
+      <div 
+        className={`relative z-10 w-full px-4 sm:px-6 lg:px-8 pb-12 sm:pb-8 md:pb-16 text-center text-white transition-opacity duration-200 ${
+          imageLoaded || !loading ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         <div className="max-w-2xl mx-auto">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-2 sm:mb-4 text-white font-light tracking-wide leading-tight">
             {heroContent?.title || "Premium London Escort Agency"}

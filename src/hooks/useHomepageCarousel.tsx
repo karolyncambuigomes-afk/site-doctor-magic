@@ -38,8 +38,13 @@ const extractPriceValue = (model: CarouselModel): number => {
 
   // Fallback to price string
   if (model.price) {
-    const match = model.price.match(/£?(\d+(?:,\d{3})*)/);
-    if (match) return parseFloat(match[1].replace(/,/g, ''));
+    // Support formats like "£1,200/hour", "£1.200/hour", "£1200/hour"
+    const match = model.price.match(/£?([0-9][0-9.,]*)/);
+    if (match) {
+      const numericPart = match[1].replace(/[.,]/g, '');
+      const value = parseFloat(numericPart);
+      if (!isNaN(value)) return value;
+    }
   }
 
   return 0; // No valid price found

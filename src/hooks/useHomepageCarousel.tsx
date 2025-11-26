@@ -23,17 +23,41 @@ const extractPriceValue = (model: CarouselModel): number => {
   // Try pricing.oneHour first (new format)
   if (model.pricing?.oneHour) {
     const oneHourPrice = typeof model.pricing.oneHour === 'string'
-      ? parseFloat(model.pricing.oneHour.replace(/[£,]/g, ''))
+      ? parseFloat(model.pricing.oneHour.replace(/[£,.]/g, ''))
       : model.pricing.oneHour;
     if (!isNaN(oneHourPrice)) return oneHourPrice;
   }
 
-  // Try pricing.rates[0].rate (old format)
-  if (model.pricing?.rates?.[0]?.rate) {
-    const ratePrice = typeof model.pricing.rates[0].rate === 'string'
-      ? parseFloat(model.pricing.rates[0].rate.replace(/[£,]/g, ''))
-      : model.pricing.rates[0].rate;
-    if (!isNaN(ratePrice)) return ratePrice;
+  // Try to find explicit 1-hour rate in pricing.rates (old format)
+  if (model.pricing?.rates && Array.isArray(model.pricing.rates)) {
+    // Prefer entries that clearly represent 1 hour
+    const oneHourEntry = model.pricing.rates.find((rate: any) => {
+      const duration = String(rate.duration || '').toLowerCase();
+      return duration.startsWith('1 ') || duration.includes('1 hour');
+    });
+
+    if (oneHourEntry?.rate != null) {
+      const rawRate = oneHourEntry.rate;
+      const oneHourFromRates = typeof rawRate === 'string'
+        ? parseFloat(String(rawRate).replace(/[£,.]/g, ''))
+        : rawRate;
+      if (!isNaN(oneHourFromRates)) return oneHourFromRates;
+    }
+
+    // Fallback: use the smallest numeric rate as a conservative estimate
+    const numericRates = model.pricing.rates
+      .map((rate: any) => {
+        const raw = rate.rate;
+        if (raw == null) return NaN;
+        return typeof raw === 'string'
+          ? parseFloat(String(raw).replace(/[£,.]/g, ''))
+          : raw;
+      })
+      .filter((v: number) => !isNaN(v));
+
+    if (numericRates.length > 0) {
+      return Math.min(...numericRates);
+    }
   }
 
   // Fallback to price string

@@ -117,13 +117,36 @@ export const useHomepageCarousel = () => {
         });
       }
 
+      // DEBUG: Log all models before sorting
+      console.log('=== HOMEPAGE CAROUSEL DEBUG: BEFORE SORTING ===');
+      transformedModels.forEach(model => {
+        const oneHour = model.pricing?.oneHour;
+        const ratesPrice = model.pricing?.rates?.[0]?.rate;
+        const priceString = model.price;
+        const extractedValue = extractPriceValue(model);
+        
+        console.log(`[Model: ${model.name}]`);
+        console.log(`  - pricing.oneHour: ${oneHour} (type: ${typeof oneHour})`);
+        console.log(`  - pricing.rates[0].rate: ${ratesPrice} (type: ${typeof ratesPrice})`);
+        console.log(`  - price: "${priceString}"`);
+        console.log(`  - EXTRACTED VALUE: £${extractedValue}`);
+        console.log('---');
+      });
+
       // Sort by price descending (highest first)
       transformedModels.sort((a, b) => {
         const priceA = extractPriceValue(a);
         const priceB = extractPriceValue(b);
-        console.log(`[Homepage Sort] ${a.name}: £${priceA} vs ${b.name}: £${priceB}`);
         return priceB - priceA;
       });
+
+      // DEBUG: Log final order after sorting
+      console.log('=== HOMEPAGE CAROUSEL DEBUG: AFTER SORTING ===');
+      transformedModels.forEach((model, index) => {
+        const extractedValue = extractPriceValue(model);
+        console.log(`${index + 1}. ${model.name} - £${extractedValue}`);
+      });
+      console.log('===============================================');
 
       // Fallback: if too few homepage models, append from public models RPC
       if (transformedModels.length < 4) {

@@ -6,8 +6,11 @@ import { ContactBar } from '@/components/ContactBar';
 import { characteristics } from '@/data/characteristics';
 import { Button } from '@/components/ui/button';
 import { Heart, ArrowRight } from 'lucide-react';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 const Characteristics = () => {
+  const { getWhatsAppLink } = useContactSettings();
+  
   return (
     <>
       <SEOOptimized 
@@ -115,7 +118,7 @@ const Characteristics = () => {
                   Can't find the exact characteristics you're looking for? Contact us to find your perfect match.
                 </p>
                 <a
-                  href="https://wa.me/447436190679"
+                  href={getWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"

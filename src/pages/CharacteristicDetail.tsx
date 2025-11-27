@@ -10,12 +10,14 @@ import { useModels } from '@/hooks/useModels';
 import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 const CharacteristicDetail = () => {
   const params = useSafeParams();
   const { characteristicSlug } = params;
   const { models, loading, error } = useModels();
   const currentPath = window.location.pathname;
+  const { getWhatsAppLink } = useContactSettings();
   
   // Safety check for router context
   if (!params) {
@@ -162,7 +164,7 @@ const CharacteristicDetail = () => {
                   Contact our concierge team to arrange your exclusive experience.
                 </p>
                 <a
-                  href="https://wa.me/447436190679"
+                  href={getWhatsAppLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block bg-black text-white hover:bg-gray-800 px-6 py-3 transition-all duration-300 font-medium tracking-wider uppercase text-sm"

@@ -2,15 +2,13 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Shield } from 'lucide-react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 const Contact = () => {
+  const { phone_display, email, getWhatsAppLink, getPhoneLink, getEmailLink } = useContactSettings();
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
@@ -20,14 +18,14 @@ const Contact = () => {
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "telephone": "+44-20-4567-8901",
+          "telephone": phone_display,
           "contactType": "customer service",
           "availableLanguage": "English",
           "serviceArea": "London, United Kingdom"
         },
         {
           "@type": "ContactPoint",
-          "email": "models@exclusivefivelondon.com",
+          "email": email,
           "contactType": "customer service",
           "availableLanguage": "English"
         }
@@ -39,23 +37,26 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Phone",
-      details: "+44 7436 190679",
+      details: phone_display,
       description: "Available 24/7 for immediate booking",
-      action: "Call Now for Same Day"
+      action: "Call Now for Same Day",
+      onClick: () => { window.location.href = getPhoneLink(); }
     },
     {
       icon: Mail,
       title: "Email",
-      details: "models@exclusivefivelondon.com",
+      details: email,
       description: "Get pricing and availability within 1 hour",
-      action: "Email for Prices"
+      action: "Email for Prices",
+      onClick: () => { window.location.href = getEmailLink(); }
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
-      details: "+44 7436 190679",
+      details: phone_display,
       description: "Instant replies - same day booking available",
-      action: "WhatsApp Now"
+      action: "WhatsApp Now",
+      onClick: () => { window.open(getWhatsAppLink(), '_blank'); }
     }
   ];
 
@@ -93,7 +94,7 @@ const Contact = () => {
           <div className="container-width">
             <div className="max-w-4xl mx-auto px-4 sm:px-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {contactMethods.map((method, index) => (
+                {contactMethods.map((method) => (
                   <div 
                     key={method.title}
                     className="text-center space-y-4 p-6 border border-border rounded-xl hover:border-primary/30 transition-all"
@@ -106,15 +107,7 @@ const Contact = () => {
                     <p className="luxury-body-sm text-black">{method.description}</p>
                     <Button 
                       className="w-full bg-black text-white hover:bg-gray-800"
-                      onClick={() => {
-                        if (method.title === 'WhatsApp') {
-                          window.open('https://wa.me/447436190679', '_blank');
-                        } else if (method.title === 'Phone') {
-                          window.location.href = 'tel:+447436190679';
-                        } else if (method.title === 'Email') {
-                          window.location.href = 'mailto:models@exclusivefivelondon.com';
-                        }
-                      }}
+                      onClick={method.onClick}
                     >
                       {method.action}
                     </Button>
@@ -182,7 +175,7 @@ const Contact = () => {
               </p>
               <Button 
                 className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full"
-                onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                onClick={() => window.open(getWhatsAppLink(), '_blank')}
               >
                 Contact Us Now
               </Button>

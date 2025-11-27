@@ -4,12 +4,14 @@ import { useHomepageContent } from '@/hooks/useHomepageContent';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useBannerContent } from '@/hooks/useBannerContent';
 import { trackEvent } from '@/utils/tracking';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 export const HeroSection: React.FC = () => {
   const { heroContent, loading } = useHomepageContent();
   const { banners: heroBanners } = useBannerContent('hero');
   const isMobile = useIsMobile();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const { getWhatsAppLink } = useContactSettings();
 
   // Get the appropriate hero image
   const heroImage = React.useMemo(() => {
@@ -32,6 +34,9 @@ export const HeroSection: React.FC = () => {
       img.src = heroImage;
     }
   }, [heroImage]);
+
+  // Get the button URL - use CMS value or fallback to WhatsApp
+  const bookNowUrl = heroContent?.button_secondary_url || getWhatsAppLink();
 
   // Progressive loading: Show image immediately if available, text fades in after
   if (!heroImage) {
@@ -64,7 +69,7 @@ export const HeroSection: React.FC = () => {
               {heroContent?.button_primary_text || "View Models"}
             </button>
               <a 
-                href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} 
+                href={bookNowUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('link_click', 'hero', 'Book Now - Hero WhatsApp', undefined, { destination: 'whatsapp' })}
@@ -131,7 +136,7 @@ export const HeroSection: React.FC = () => {
             </button>
             
             <a 
-              href={heroContent?.button_secondary_url || "https://wa.me/447436190679"} 
+              href={bookNowUrl} 
               target="_blank" 
               rel="noopener noreferrer"
               onClick={() => trackEvent('link_click', 'hero', 'Book Now - Hero WhatsApp', undefined, { destination: 'whatsapp' })}

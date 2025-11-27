@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import { SafeLink } from '@/components/ui/safe-link';
-import { Phone, Mail, MapPin, Instagram, Facebook, Twitter, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScriptInjector } from '@/components/ScriptInjector';
+import { useContactSettings } from '@/hooks/useContactSettings';
+
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
+  const { phone_display, getWhatsAppLink, getPhoneLink } = useContactSettings();
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle newsletter subscription
     setEmail('');
   };
-  return <footer className="bg-white text-foreground relative z-50 w-full">
-      <div className="container mx-auto px-4 py-16 bg-white">{" "}
+
+  return (
+    <footer className="bg-white text-foreground relative z-50 w-full">
+      <div className="container mx-auto px-4 py-16 bg-white">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
@@ -49,7 +55,13 @@ export const Footer = () => {
                 Contact Us
               </h4>
               <div className="flex space-x-4">
-                <a href="https://wa.me/447436190679" className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" aria-label="WhatsApp">
+                <a 
+                  href={getWhatsAppLink()} 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 border border-border rounded-full flex items-center justify-center hover:bg-muted hover:border-foreground transition-colors text-muted-foreground hover:text-foreground" 
+                  aria-label="WhatsApp"
+                >
                   <MessageCircle className="w-4 h-4" />
                 </a>
               </div>
@@ -84,9 +96,9 @@ export const Footer = () => {
               Support & Information
             </h4>
             <div className="space-y-3">
-              <a href="tel:+447436190679" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href={getPhoneLink()} className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Phone className="w-4 h-4" />
-                <span>+44 7436 190679</span>
+                <span>{phone_display}</span>
               </a>
               <SafeLink to="/contact" className="flex items-center space-x-2 luxury-body-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="w-4 h-4" />
@@ -160,5 +172,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };

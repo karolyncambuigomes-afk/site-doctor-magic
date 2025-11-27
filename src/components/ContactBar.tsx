@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Phone, Send } from 'lucide-react';
 import { trackEvent } from '@/utils/tracking';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 interface ContactBarProps {
   showOnScroll?: boolean; // true = aparece após scroll (Index), false = sempre visível (outras páginas)
@@ -8,6 +9,7 @@ interface ContactBarProps {
 
 export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
   const [isVisible, setIsVisible] = useState(true);
+  const { phone_display, telegram_link, getWhatsAppLink, getPhoneLink } = useContactSettings();
 
   useEffect(() => {
     // Always show the contact bar from the start on all pages
@@ -28,7 +30,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
         {/* Mobile version */}
         <div className="flex sm:hidden items-center justify-around py-3">
           <a
-            href="https://wa.me/447436190679"
+            href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('contact_click', 'contact_bar', 'WhatsApp Mobile', undefined, { device: 'mobile', destination: 'whatsapp' })}
@@ -41,7 +43,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           </a>
 
           <a
-            href="tel:+447436190679"
+            href={getPhoneLink()}
             onClick={() => trackEvent('contact_click', 'contact_bar', 'Phone Mobile', undefined, { device: 'mobile' })}
             data-tracking-label="Phone - Contact Bar Mobile"
             data-tracking-category="contact"
@@ -52,7 +54,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           </a>
 
           <a
-            href="https://t.me/FiveLondon"
+            href={telegram_link}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('contact_click', 'contact_bar', 'Telegram Mobile', undefined, { device: 'mobile', destination: 'telegram' })}
@@ -68,7 +70,7 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
         {/* Desktop version */}
         <div className="hidden sm:flex items-center justify-center gap-8 py-3">
           <a
-            href="https://wa.me/447436190679"
+            href={getWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('contact_click', 'contact_bar', 'WhatsApp Desktop', undefined, { device: 'desktop', destination: 'whatsapp' })}
@@ -83,20 +85,20 @@ export const ContactBar = ({ showOnScroll = true }: ContactBarProps) => {
           <div className="h-4 w-px bg-white/20" />
 
           <a
-            href="tel:+447436190679"
+            href={getPhoneLink()}
             onClick={() => trackEvent('contact_click', 'contact_bar', 'Phone Desktop', undefined, { device: 'desktop' })}
             data-tracking-label="Phone - Contact Bar Desktop"
             data-tracking-category="contact"
             className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
           >
             <Phone className="w-4 h-4" />
-            <span className="text-sm font-light tracking-wide">+44 7436 190679</span>
+            <span className="text-sm font-light tracking-wide">{phone_display}</span>
           </a>
 
           <div className="h-4 w-px bg-white/20" />
 
           <a
-            href="https://t.me/FiveLondon"
+            href={telegram_link}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackEvent('contact_click', 'contact_bar', 'Telegram Desktop', undefined, { device: 'desktop', destination: 'telegram' })}

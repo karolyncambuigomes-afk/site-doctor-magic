@@ -24,6 +24,7 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import { blogArticles } from "@/data/blog-articles";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useContactSettings } from "@/hooks/useContactSettings";
 
 // Helper function to normalize category display (Portuguese to English)
 const normalizeCategoryDisplay = (category: string): string => {
@@ -41,6 +42,7 @@ const Blog = () => {
   const { posts, loading, error, categories, refetch } = useBlogPosts();
   const { isAdmin } = useAuth();
   const [recachingFull, setRecachingFull] = useState(false);
+  const { getWhatsAppLink } = useContactSettings();
 
   const handleFullRecache = async () => {
     setRecachingFull(true);
@@ -422,7 +424,7 @@ const Blog = () => {
                 <Button
                   className="bg-black text-white hover:bg-gray-800 px-8 py-3 rounded-full"
                   onClick={() =>
-                    window.open("https://wa.me/447436190679", "_blank")
+                    window.open(getWhatsAppLink(), "_blank")
                   }
                 >
                   Contact Us

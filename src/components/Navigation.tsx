@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/collapsible";
 import { locations } from "@/data/locations";
 import { characteristics } from "@/data/characteristics";
+import { useContactSettings } from "@/hooks/useContactSettings";
 
 const simpleNavItems = [
   { href: "/membership", label: "Membership" },
@@ -34,6 +35,7 @@ export const Navigation: React.FC = () => {
   const location = useSafeLocation();
   const auth = useAuth();
   const { user, signOut } = auth || {};
+  const { phone_display, getWhatsAppLink, getPhoneLink } = useContactSettings();
 
   React.useEffect(() => {
     if (location) {
@@ -174,10 +176,10 @@ export const Navigation: React.FC = () => {
           {/* Contact & Auth (Desktop) */}
           <div className="hidden lg:flex items-center space-x-4">
             <a
-              href="tel:+447436190679"
+              href={getPhoneLink()}
               className="luxury-body-sm transition-colors text-muted-foreground hover:text-foreground"
             >
-              +44 7436 190679
+              {phone_display}
             </a>
             {user ? (
               <DropdownMenu>
@@ -217,7 +219,7 @@ export const Navigation: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <a href="https://wa.me/447436190679">
+              <a href={getWhatsAppLink()}>
                 <Button variant="outline">Contact Us</Button>
               </a>
             )}
@@ -299,10 +301,10 @@ export const Navigation: React.FC = () => {
               <div className="pt-8 border-t border-border space-y-6">
                 <div className="flex items-center justify-between">
                   <a
-                    href="tel:+447436190679"
+                    href={getPhoneLink()}
                     className="block luxury-body-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    +44 7436 190679
+                    {phone_display}
                   </a>
                 </div>
                 {user ? (
@@ -331,7 +333,7 @@ export const Navigation: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <a href="https://wa.me/447436190679">
+                  <a href={getWhatsAppLink()}>
                     <Button className="w-full">Contact Us</Button>
                   </a>
                 )}

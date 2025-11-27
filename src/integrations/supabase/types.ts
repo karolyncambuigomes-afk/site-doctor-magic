@@ -511,6 +511,39 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_settings: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          phone_display: string | null
+          telegram_link: string | null
+          updated_at: string
+          whatsapp_message: string | null
+          whatsapp_number: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          phone_display?: string | null
+          telegram_link?: string | null
+          updated_at?: string
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          phone_display?: string | null
+          telegram_link?: string | null
+          updated_at?: string
+          whatsapp_message?: string | null
+          whatsapp_number?: string | null
+        }
+        Relationships: []
+      }
       content_items: {
         Row: {
           author_id: string | null

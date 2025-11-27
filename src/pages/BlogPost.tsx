@@ -10,10 +10,12 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, ArrowLeft, ArrowRight } from "lucide-react";
 import { useBlogPosts } from "@/hooks/useBlogPosts";
 import NotFound from "./NotFound";
+import { useContactSettings } from "@/hooks/useContactSettings";
 
 const BlogPost = () => {
   const { slug } = useSafeParams() as { slug?: string };
   const { getPostBySlug, getRelatedPosts, loading } = useBlogPosts();
+  const { getWhatsAppLink } = useContactSettings();
 
   if (!slug) {
     return <NotFound />;
@@ -251,7 +253,7 @@ const BlogPost = () => {
                       size="lg"
                       className="bg-black text-white hover:bg-gray-800"
                       onClick={() =>
-                        window.open("https://wa.me/447436190679", "_blank")
+                        window.open(getWhatsAppLink(), "_blank")
                       }
                     >
                       Contact Us

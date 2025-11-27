@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { useBannerContent } from './useBannerContent';
+import { DEFAULT_CONTACT_SETTINGS } from './useContactSettings';
 
 export interface HeroContent {
   title: string;
@@ -38,7 +39,7 @@ export const useHomepageContent = () => {
     button_primary_text: "View Models",
     button_primary_url: "/models",
     button_secondary_text: "Book Now",
-    button_secondary_url: "https://wa.me/447436190679"
+    button_secondary_url: `https://wa.me/${DEFAULT_CONTACT_SETTINGS.whatsapp_number.replace(/[^\d]/g, '')}`
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

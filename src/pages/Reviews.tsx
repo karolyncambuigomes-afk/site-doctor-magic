@@ -3,6 +3,7 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
+import { SeoTextBlock } from '@/components/SeoTextBlock';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { generateOrganizationSchema } from '@/utils/structuredData';
 import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
@@ -160,6 +161,7 @@ export const Reviews: React.FC = () => {
         </section>
       </main>
 
+      <SeoTextBlock sectionName="reviews_seo_text" />
       <ContactBar showOnScroll={false} />
       <Footer />
     </>

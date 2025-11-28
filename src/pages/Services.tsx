@@ -2,6 +2,7 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
+import { SeoTextBlock } from '@/components/SeoTextBlock';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -400,6 +401,7 @@ const Services = () => {
         </section>
       </main>
 
+      <SeoTextBlock sectionName="services_seo_text" />
       <ContactBar showOnScroll={false} />
       <Footer />
     </>

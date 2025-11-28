@@ -3,8 +3,11 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
 import { SEOOptimized } from '@/components/SEOOptimized';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const Terms = () => {
+  const { getSectionValue } = useSiteContent('terms_');
+
   return (
     <>
       <SEOOptimized 
@@ -21,10 +24,10 @@ const Terms = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                Terms of Service
+                {getSectionValue('terms_hero', 'title', 'Terms of Service')}
               </h1>
               <p className="luxury-body-lg text-black mb-12 md:mb-12">
-                Our terms and conditions for premium escort services in London
+                {getSectionValue('terms_hero', 'subtitle', 'Our terms and conditions for premium escort services in London')}
               </p>
             </div>
           </div>

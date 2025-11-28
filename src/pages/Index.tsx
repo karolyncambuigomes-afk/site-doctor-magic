@@ -5,9 +5,7 @@ import { ModelsGallery } from "@/components/ModelsGallery";
 import { Footer } from "@/components/Footer";
 import { ContactBar } from "@/components/ContactBar";
 
-
-import { Link } from "react-router-dom";
-import { MessageCircle, Phone, MessageSquare, Send } from "lucide-react";
+import { MessageCircle, Phone, Send } from "lucide-react";
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
@@ -23,19 +21,19 @@ import {
 import { useBreadcrumbs } from "@/hooks/useBreadcrumbs";
 import { useRealTimeReviews } from "@/hooks/useRealTimeReviews";
 import { useBookingContent } from "@/hooks/useBookingContent";
-import heroSecondBanner from "@/assets/hero-second-banner-new.webp";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { useContactSettings } from "@/hooks/useContactSettings";
 import {
   faqSchemaData,
   serviceSchemaData,
-  londonAreasData,
 } from "@/data/faq-schema";
 
 const Index = () => {
-  
-  
   const { info: bookingInfo } = useBookingContent();
   const breadcrumbs = useBreadcrumbs();
   const { data: reviewData } = useRealTimeReviews();
+  const { getSectionValue } = useSiteContent('homepage_');
+  const { getWhatsAppLink, getPhoneLink, getTelegramLink } = useContactSettings();
 
   // Generate comprehensive structured data for the homepage
   const structuredData = [
@@ -88,10 +86,10 @@ const Index = () => {
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="space-y-4 text-center">
               <p className="luxury-body-lg text-gray-700 leading-relaxed">
-                Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.
+                {getSectionValue('homepage_intro_1', 'content', 'Five London represents the pinnacle of luxury escort services in the capital, offering sophisticated companions for discerning gentlemen who appreciate excellence, discretion, and uncompromising quality. Our carefully selected international models embody elegance, intelligence, and cultural refinement.')}
               </p>
               <p className="luxury-body-lg text-gray-700 leading-relaxed">
-                Available 24/7 throughout London's most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.
+                {getSectionValue('homepage_intro_2', 'content', 'Available 24/7 throughout London\'s most prestigious districts, our elite companions specialize in business accompaniment, social events, cultural experiences, and intimate dinner dates. Each encounter is tailored to exceed expectations while maintaining the highest standards of professionalism and confidentiality.')}
               </p>
             </div>
           </div>
@@ -113,23 +111,23 @@ const Index = () => {
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
                     <h3 className="luxury-heading-md mb-4 text-gray-900">
-                      Finest High Class Escorts London
+                      {getSectionValue('homepage_about_title', 'title', 'Finest High Class Escorts London')}
                     </h3>
                     <div className="space-y-4">
                       <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        At Exclusive Five London, excellence is not just a promise — it's a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.
+                        {getSectionValue('homepage_about_1', 'content', 'At Exclusive Five London, excellence is not just a promise — it\'s a standard. We represent a carefully chosen selection of elite London escorts, available for elegant dinners, social events, or exclusive travel arrangements. Every encounter is personalised to perfection, offering a bespoke escort experience defined by discretion, grace, and luxury.')}
                       </p>
                       <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.
+                        {getSectionValue('homepage_about_2', 'content', 'As one of the finest escort agencies in London, we understand that true companionship goes beyond appearances. Our high class escorts are multilingual, well-educated, and effortlessly engaging — women who know how to move in the world of refinement, culture, and sophistication. From a VIP escort in Knightsbridge to a luxury companion in Chelsea or Mayfair, each meeting is curated to match your individual preferences with complete confidentiality.')}
                       </p>
                       <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        We believe in quality over quantity. That's why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.
+                        {getSectionValue('homepage_about_3', 'content', 'We believe in quality over quantity. That\'s why every introduction is handled with personal care, ensuring compatibility and comfort for our distinguished clientele. Our reputation as a discreet escort service in London is built on integrity, professionalism, and trust — values that define our brand worldwide.')}
                       </p>
                       <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.
+                        {getSectionValue('homepage_about_4', 'content', 'With global availability, our exclusive London escorts travel frequently to destinations such as Paris, Dubai, Monaco, and New York, providing seamless international experiences. Wherever you are, luxury companionship is only a step away.')}
                       </p>
                       <p className="luxury-body-md text-gray-700 leading-relaxed">
-                        Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.
+                        {getSectionValue('homepage_about_5', 'content', 'Discover the finest high class escorts London has to offer and experience the subtle art of true exclusivity. With Exclusive Five London, every encounter is an expression of luxury, privacy, and authenticity — the essence of an elite escort agency designed for the modern gentleman.')}
                       </p>
                     </div>
                   </div>
@@ -143,14 +141,13 @@ const Index = () => {
         <section className="py-24 md:py-40 bg-white">
           <div className="max-w-md mx-auto px-4 text-center">
             <p className="luxury-body-base text-black mb-16 md:mb-20">
-              Contact us through your preferred method for a discreet
-              consultation
+              {getSectionValue('homepage_contact', 'content', 'Contact us through your preferred method for a discreet consultation')}
             </p>
 
             <div className="flex items-center justify-center gap-12 md:gap-16">
               {/* WhatsApp */}
               <a
-                href="https://wa.me/447436190679"
+                href={getWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
@@ -165,7 +162,7 @@ const Index = () => {
 
               {/* Call */}
               <a
-                href="tel:+447436190679"
+                href={getPhoneLink()}
                 className="group flex flex-col items-center gap-4 transition-all duration-500"
               >
                 <div className="w-16 h-16 md:w-20 md:h-20 border border-black rounded-full flex items-center justify-center group-hover:border-black transition-all duration-500">
@@ -178,7 +175,7 @@ const Index = () => {
 
               {/* Telegram */}
               <a
-                href="https://t.me/FiveLondon"
+                href={getTelegramLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center gap-4 transition-all duration-500"

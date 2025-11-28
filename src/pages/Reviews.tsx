@@ -4,15 +4,17 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
+import { generateOrganizationSchema } from '@/utils/structuredData';
 import { generateReviewAggregateSchema, generateBreadcrumbSchema as generateAdvancedBreadcrumbs } from '@/utils/advancedStructuredData';
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs';
 import { useReviews } from '@/hooks/useReviews';
 import { ReviewCard } from '@/components/ReviewCard';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export const Reviews: React.FC = () => {
   const breadcrumbs = useBreadcrumbs();
   const { data: reviewData, isLoading } = useReviews();
+  const { getSectionValue } = useSiteContent('reviews_');
 
   // Generate enhanced structured data for reviews
   const structuredData = [
@@ -60,10 +62,10 @@ export const Reviews: React.FC = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                Client Reviews
+                {getSectionValue('reviews_hero', 'title', 'Client Reviews')}
               </h1>
               <p className="luxury-body-lg text-black mb-12 md:mb-12">
-                Discover why discerning gentlemen choose Five London for exceptional companionship experiences.
+                {getSectionValue('reviews_hero', 'subtitle', 'Discover why discerning gentlemen choose Five London for exceptional companionship experiences.')}
               </p>
             </div>
           </div>

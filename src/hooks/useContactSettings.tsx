@@ -83,6 +83,11 @@ export const useContactSettings = () => {
     return `mailto:${settings.email}`;
   };
 
+  // Helper function to get Telegram link
+  const getTelegramLink = (): string => {
+    return settings.telegram_link;
+  };
+
   return {
     ...settings,
     loading: query.isLoading,
@@ -90,6 +95,7 @@ export const useContactSettings = () => {
     getWhatsAppLink,
     getPhoneLink,
     getEmailLink,
+    getTelegramLink,
   };
 };
 

@@ -8,9 +8,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Utensils, Briefcase, Plane, Theater, Users, Calendar, Wine, Music, ChevronRight, Clock } from 'lucide-react';
 import { useBlogLinks } from '@/hooks/useBlogLinks';
 import { generateServiceSchema, generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const Services = () => {
   const { getBlogLinkForKeyword, getBlogTitleForKeyword } = useBlogLinks();
+  const { getSectionValue } = useSiteContent('services_');
   
   const structuredData = [
     generateOrganizationSchema(),
@@ -174,10 +176,10 @@ const Services = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                Elite Companion Services
+                {getSectionValue('services_hero', 'title', 'Elite Companion Services')}
               </h1>
               <p className="luxury-body-lg text-black mb-12 md:mb-12">
-                Premium services from £500/hour. London's finest companions ready now.
+                {getSectionValue('services_hero', 'subtitle', 'Premium services from £500/hour. London\'s finest companions ready now.')}
               </p>
             </div>
           </div>

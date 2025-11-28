@@ -5,10 +5,14 @@ import { ContactBar } from '@/components/ContactBar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { MapPin, Clock, Phone, Star, Shield, Crown, Heart, Users } from 'lucide-react';
+import { MapPin, Clock, Star, Shield } from 'lucide-react';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/utils/structuredData';
+import { useSiteContent } from '@/hooks/useSiteContent';
+import { useContactSettings } from '@/hooks/useContactSettings';
 
 const LondonEscortGuide = () => {
+  const { getSectionValue } = useSiteContent('guide_');
+  const { getWhatsAppLink } = useContactSettings();
   const structuredData = [
     generateOrganizationSchema(),
     generateBreadcrumbSchema([
@@ -49,10 +53,10 @@ const LondonEscortGuide = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                London Escort Guide
+                {getSectionValue('guide_hero', 'title', 'London Escort Guide')}
               </h1>
               <p className="luxury-body-lg text-black mb-12 md:mb-12">
-                Your comprehensive guide to elite escort services in London's most prestigious districts
+                {getSectionValue('guide_hero', 'subtitle', 'Your comprehensive guide to elite escort services in London\'s most prestigious districts')}
               </p>
             </div>
           </div>
@@ -196,16 +200,16 @@ const LondonEscortGuide = () => {
           <div className="container-width text-center">
             <div className="max-w-2xl mx-auto px-4">
               <h2 className="luxury-heading-xl mb-4">
-                Ready to Book Your Perfect Companion?
+                {getSectionValue('guide_cta', 'title', 'Ready to Book Your Perfect Companion?')}
               </h2>
               <p className="text-gray-600 mb-8">
-                Our experienced booking coordinators are available 24/7 to help you find the ideal companion.
+                {getSectionValue('guide_cta', 'subtitle', 'Our experienced booking coordinators are available 24/7 to help you find the ideal companion.')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   size="lg"
                   className="bg-black text-white hover:bg-gray-800"
-                  onClick={() => window.open('https://wa.me/447436190679', '_blank')}
+                  onClick={() => window.open(getWhatsAppLink(), '_blank')}
                 >
                   Call Now - Same Day Available
                 </Button>

@@ -5,9 +5,11 @@ import { ContactBar } from '@/components/ContactBar';
 import { Button } from '@/components/ui/button';
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { useContactSettings } from '@/hooks/useContactSettings';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 const Contact = () => {
   const { phone_display, email, getWhatsAppLink, getPhoneLink, getEmailLink } = useContactSettings();
+  const { getSectionValue } = useSiteContent('contact_');
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -38,24 +40,24 @@ const Contact = () => {
       icon: Phone,
       title: "Phone",
       details: phone_display,
-      description: "Available 24/7 for immediate booking",
-      action: "Call Now for Same Day",
+      description: getSectionValue('contact_phone_description', 'content', 'Available 24/7 for immediate booking'),
+      action: getSectionValue('contact_phone_action', 'button_text', 'Call Now for Same Day'),
       onClick: () => { window.location.href = getPhoneLink(); }
     },
     {
       icon: Mail,
       title: "Email",
       details: email,
-      description: "Get pricing and availability within 1 hour",
-      action: "Email for Prices",
+      description: getSectionValue('contact_email_description', 'content', 'Get pricing and availability within 1 hour'),
+      action: getSectionValue('contact_email_action', 'button_text', 'Email for Prices'),
       onClick: () => { window.location.href = getEmailLink(); }
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
       details: phone_display,
-      description: "Instant replies - same day booking available",
-      action: "WhatsApp Now",
+      description: getSectionValue('contact_whatsapp_description', 'content', 'Instant replies - same day booking available'),
+      action: getSectionValue('contact_whatsapp_action', 'button_text', 'WhatsApp Now'),
       onClick: () => { window.open(getWhatsAppLink(), '_blank'); }
     }
   ];
@@ -78,10 +80,10 @@ const Contact = () => {
           <div className="container-width text-center">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
               <h1 className="luxury-heading-xl mb-4 sm:mb-6 text-black">
-                Contact for Same Day Booking
+                {getSectionValue('contact_hero', 'title', 'Contact for Same Day Booking')}
               </h1>
               <p className="luxury-body-lg text-black mb-12 md:mb-12">
-                Most companions available today. Call now for instant confirmation.
+                {getSectionValue('contact_hero', 'subtitle', 'Most companions available today. Call now for instant confirmation.')}
               </p>
             </div>
           </div>

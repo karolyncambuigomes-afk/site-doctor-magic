@@ -28,7 +28,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
 
   // Helper to format price as GBP
   const formatGBP = (num: number): string => {
-    return '£' + num.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+    return '£' + num.toLocaleString('en-GB', { maximumFractionDigits: 0 });
   };
 
   // Get card price with fallback chain
@@ -161,7 +161,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                      </h3>
                      {model.age && (
                        <p className="luxury-body-sm text-white tracking-normal">
-                         {model.age} anos
+                         {model.age} years old
                        </p>
                      )}
                      {model.characteristics?.[0] && (
@@ -181,7 +181,7 @@ export const ModelCard: React.FC<ModelCardProps> = ({ model, index = 0 }) => {
                      <span className="text-2xl">✨</span>
                    </div>
                    <p className="luxury-body-sm">{model.name}</p>
-                   <div className="text-xs mt-1 opacity-70">Imagem não disponível</div>
+                   <div className="text-xs mt-1 opacity-70">Image not available</div>
                 </div>
               </div>
             )}

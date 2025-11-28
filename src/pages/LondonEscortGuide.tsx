@@ -2,6 +2,7 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
+import { SeoTextBlock } from '@/components/SeoTextBlock';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -224,6 +225,7 @@ const LondonEscortGuide = () => {
         </section>
       </main>
       
+      <SeoTextBlock sectionName="guide_seo_text" />
       <ContactBar showOnScroll={false} />
       <Footer />
     </>

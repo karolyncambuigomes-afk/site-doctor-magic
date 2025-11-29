@@ -6,42 +6,48 @@ import { Button } from '@/components/ui/button';
 import { Search, AlertCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
-// Extract numeric price value for sorting
+// Extract numeric price value for sorting - finds 1-hour rate specifically
 const extractPriceValue = (model: Model): number => {
   let extractedValue = 0;
-  let source = 'unknown';
 
-  // Priority 1: pricing.rates[0].rate (most common format)
-  if (model.pricing?.rates?.[0]?.rate) {
-    const rate = model.pricing.rates[0].rate;
-    
+  // Priority 1: pricing.oneHour (explicit 1-hour field)
+  if (model.pricing?.oneHour) {
+    const rate = model.pricing.oneHour;
     if (typeof rate === 'number') {
       extractedValue = rate;
-      source = 'rates[number]';
-    } else if (typeof rate === 'string') {
-      // Remove dots (thousand separator), commas, and any non-digit characters
-      const cleaned = rate.replace(/\./g, '').replace(/,/g, '').replace(/[^\d]/g, '');
+    } else {
+      const cleaned = String(rate).replace(/[£,]/g, '').trim();
       extractedValue = parseFloat(cleaned) || 0;
-      source = 'rates[string]';
+    }
+    if (extractedValue > 0) return extractedValue;
+  }
+
+  // Priority 2: Find 1-hour rate in pricing.rates array
+  if (model.pricing?.rates && Array.isArray(model.pricing.rates)) {
+    const oneHourEntry = model.pricing.rates.find((r: any) => {
+      const duration = String(r.duration || '').toLowerCase();
+      return duration.startsWith('1 ') || duration.includes('1 hour');
+    });
+
+    if (oneHourEntry?.rate != null) {
+      const rate = oneHourEntry.rate;
+      if (typeof rate === 'number') {
+        extractedValue = rate;
+      } else {
+        // Handle European format (1.400 = 1400) and other formats
+        const cleaned = String(rate).replace(/[£,]/g, '').replace(/\.(?=\d{3})/g, '').trim();
+        extractedValue = parseFloat(cleaned) || 0;
+      }
+      if (extractedValue > 0) return extractedValue;
     }
   }
   
-  // Priority 2: pricing.oneHour (new format)
-  if (extractedValue === 0 && model.pricing?.oneHour) {
-    const rate = model.pricing.oneHour;
-    const cleaned = String(rate).replace(/£/g, '').replace(/\./g, '').replace(/,/g, '').replace(/\/hour/g, '').trim();
-    extractedValue = parseFloat(cleaned) || 0;
-    source = 'oneHour';
-  }
-  
   // Priority 3: Fallback to price field
-  if (extractedValue === 0 && model.price) {
+  if (model.price) {
     const cleaned = model.price.replace(/[^\d]/g, '');
     extractedValue = parseFloat(cleaned) || 0;
-    source = 'price_fallback';
   }
 
-  console.log(`[Price Sort] ${model.name}: £${extractedValue} (source: ${source})`);
   return extractedValue;
 };
 

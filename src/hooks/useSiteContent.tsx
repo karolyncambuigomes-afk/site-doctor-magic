@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SiteContentSection {
@@ -23,56 +23,41 @@ interface UseSiteContentResult {
 }
 
 export const useSiteContent = (sectionPrefix: string): UseSiteContentResult => {
-  const [sections, setSections] = useState<SiteContentSection[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: sections = [], isLoading, error } = useQuery({
+    queryKey: ['site_content', sectionPrefix],
+    queryFn: async () => {
+      const { data, error: fetchError } = await supabase
+        .from('site_content')
+        .select('id, section, title, subtitle, content, button_text, button_url, image_url, image_alt, is_active')
+        .like('section', `${sectionPrefix}%`)
+        .eq('is_active', true);
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+      if (fetchError) throw fetchError;
+      return (data || []) as SiteContentSection[];
+    },
+    // Fresh data pattern - always fetch latest content
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+  });
 
-        const { data, error: fetchError } = await supabase
-          .from('site_content')
-          .select('id, section, title, subtitle, content, button_text, button_url, image_url, image_alt, is_active')
-          .like('section', `${sectionPrefix}%`)
-          .eq('is_active', true);
+  const getSection = (sectionId: string): SiteContentSection | undefined => {
+    return sections.find(s => s.section === sectionId);
+  };
 
-        if (fetchError) throw fetchError;
-
-        setSections(data || []);
-      } catch (err) {
-        console.error('Error fetching site content:', err);
-        setError('Failed to load content');
-        setSections([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, [sectionPrefix]);
-
-  const getSection = useMemo(() => {
-    return (sectionId: string): SiteContentSection | undefined => {
-      return sections.find(s => s.section === sectionId);
-    };
-  }, [sections]);
-
-  const getSectionValue = useMemo(() => {
-    return (sectionId: string, field: keyof SiteContentSection, fallback: string = ''): string => {
-      const section = sections.find(s => s.section === sectionId);
-      if (!section) return fallback;
-      const value = section[field];
-      return (value as string) || fallback;
-    };
-  }, [sections]);
+  const getSectionValue = (sectionId: string, field: keyof SiteContentSection, fallback: string = ''): string => {
+    const section = sections.find(s => s.section === sectionId);
+    if (!section) return fallback;
+    const value = section[field];
+    return (value as string) || fallback;
+  };
 
   return {
     sections,
-    loading,
-    error,
+    loading: isLoading,
+    error: error?.message || null,
     getSection,
     getSectionValue
   };
@@ -80,37 +65,26 @@ export const useSiteContent = (sectionPrefix: string): UseSiteContentResult => {
 
 // Hook for getting a single section
 export const useSingleSiteContent = (sectionId: string) => {
-  const [section, setSection] = useState<SiteContentSection | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: section, isLoading, error } = useQuery({
+    queryKey: ['site_content_single', sectionId],
+    queryFn: async () => {
+      const { data, error: fetchError } = await supabase
+        .from('site_content')
+        .select('id, section, title, subtitle, content, button_text, button_url, image_url, image_alt, is_active')
+        .eq('section', sectionId)
+        .eq('is_active', true)
+        .maybeSingle();
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const { data, error: fetchError } = await supabase
-          .from('site_content')
-          .select('id, section, title, subtitle, content, button_text, button_url, image_url, image_alt, is_active')
-          .eq('section', sectionId)
-          .eq('is_active', true)
-          .maybeSingle();
-
-        if (fetchError) throw fetchError;
-
-        setSection(data);
-      } catch (err) {
-        console.error('Error fetching site content section:', err);
-        setError('Failed to load content');
-        setSection(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, [sectionId]);
+      if (fetchError) throw fetchError;
+      return data as SiteContentSection | null;
+    },
+    // Fresh data pattern
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+  });
 
   const getValue = (field: keyof SiteContentSection, fallback: string = ''): string => {
     if (!section) return fallback;
@@ -119,9 +93,9 @@ export const useSingleSiteContent = (sectionId: string) => {
   };
 
   return {
-    section,
-    loading,
-    error,
+    section: section || null,
+    loading: isLoading,
+    error: error?.message || null,
     getValue
   };
 };

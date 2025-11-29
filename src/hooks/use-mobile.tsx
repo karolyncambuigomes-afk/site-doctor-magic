@@ -2,8 +2,21 @@ import * as React from "react"
 
 const MOBILE_BREAKPOINT = 768
 
+// Synchronous initial detection for SSR/hydration
+const getInitialMobileState = (): boolean => {
+  if (typeof window === 'undefined') return false;
+  
+  // Quick sync check based on screen width and touch capability
+  const screenMobile = window.innerWidth < MOBILE_BREAKPOINT;
+  const touchCapable = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const userAgentMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent.toLowerCase());
+  
+  return userAgentMobile || (screenMobile && touchCapable);
+};
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  // Initialize synchronously to prevent flash on mobile
+  const [isMobile, setIsMobile] = React.useState<boolean>(() => getInitialMobileState())
 
   React.useEffect(() => {
     // Smart mobile detection with manual override
@@ -99,5 +112,5 @@ export function useIsMobile() {
     }
   }, [])
 
-  return !!isMobile
+  return isMobile
 }

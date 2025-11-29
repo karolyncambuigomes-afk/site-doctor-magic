@@ -10,7 +10,6 @@ import { ModelCard } from '@/components/ModelCard';
 import { Button } from '@/components/ui/button';
 import { generateBreadcrumbSchema, generateOrganizationSchema } from '@/utils/structuredData';
 import { useContactSettings } from '@/hooks/useContactSettings';
-import { useSeoText } from '@/hooks/useSeoText';
 
 const CharacteristicDetail = () => {
   const params = useSafeParams();
@@ -18,18 +17,6 @@ const CharacteristicDetail = () => {
   const { models, loading, error } = useModels();
   const currentPath = window.location.pathname;
   const { getWhatsAppLink } = useContactSettings();
-  
-  // Convert slug to section name for Supabase content
-  // e.g., "bisexual-escorts" -> "characteristics_bisexual_content"
-  // e.g., "vip-elite-escorts" -> "characteristics_vip_elite_content"
-  const getSectionName = (slug: string) => {
-    const cleanSlug = slug?.replace('-escorts', '').replace(/-/g, '_') || '';
-    return `characteristics_${cleanSlug}_content`;
-  };
-  
-  // Get dynamic content from Supabase
-  const sectionName = getSectionName(characteristicSlug || '');
-  const { data: dynamicContent, loading: contentLoading } = useSeoText(sectionName);
   
   // Safety check for router context
   if (!params) {
@@ -186,25 +173,6 @@ const CharacteristicDetail = () => {
               </div>
             </div>
           </section>
-
-          {/* Dynamic SEO Content from Supabase */}
-          {dynamicContent?.content && (
-            <section className="py-12 md:py-16 lg:py-20 bg-muted/30">
-              <div className="container-width px-4 sm:px-6">
-                <div className="max-w-4xl mx-auto">
-                  {dynamicContent.title && (
-                    <h2 className="luxury-heading-lg text-foreground mb-6 text-center">
-                      {dynamicContent.title}
-                    </h2>
-                  )}
-                  <div 
-                    className="prose prose-lg max-w-none text-muted-foreground leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: dynamicContent.content }}
-                  />
-                </div>
-              </div>
-            </section>
-          )}
 
           {/* SEO Content Section - Always Expanded */}
           {characteristic.content && (

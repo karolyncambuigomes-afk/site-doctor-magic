@@ -185,7 +185,12 @@ export const ModelProfile: React.FC = () => {
                 <div className="space-y-3">
                   {[...model.pricing.rates]
                     .sort((a: any, b: any) => {
-                      const extractHours = (duration: string) => parseInt(duration.match(/\d+/)?.[0] || '0');
+                      const extractHours = (duration: string) => {
+                        const lower = duration.toLowerCase();
+                        // Put overnight/dinner at the end
+                        if (lower.includes('overnight') || lower.includes('dinner')) return 999;
+                        return parseInt(duration.match(/\d+/)?.[0] || '0');
+                      };
                       return extractHours(a.duration) - extractHours(b.duration);
                     })
                     .map((rateItem: any, index: number) => {

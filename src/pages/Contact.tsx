@@ -2,7 +2,7 @@ import { SEOOptimized } from '@/components/SEOOptimized';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
-import { SeoTextBlock } from '@/components/SeoTextBlock';
+
 import { Button } from '@/components/ui/button';
 import { Phone, Mail, MessageCircle } from 'lucide-react';
 import { useContactSettings } from '@/hooks/useContactSettings';
@@ -187,7 +187,6 @@ const Contact = () => {
         </section>
       </main>
 
-      <SeoTextBlock sectionName="contact_seo_text" />
       <ContactBar showOnScroll={false} />
       <Footer />
     </>

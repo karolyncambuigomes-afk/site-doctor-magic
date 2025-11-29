@@ -4,7 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { ModelsGallery } from "@/components/ModelsGallery";
 import { Footer } from "@/components/Footer";
 import { ContactBar } from "@/components/ContactBar";
-import { SeoTextBlock } from "@/components/SeoTextBlock";
+
 
 import { MessageCircle, Phone, Send } from "lucide-react";
 import {
@@ -193,7 +193,6 @@ const Index = () => {
         </section>
       </main>
 
-      <SeoTextBlock sectionName="homepage_seo_text" />
       <ContactBar showOnScroll={true} />
       <Footer />
     </>

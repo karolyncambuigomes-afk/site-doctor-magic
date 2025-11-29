@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ContactBar } from '@/components/ContactBar';
-import { SeoTextBlock } from '@/components/SeoTextBlock';
+
 import { SEOOptimized } from '@/components/SEOOptimized';
 import { useSiteContent } from '@/hooks/useSiteContent';
 
@@ -129,7 +129,6 @@ const PrivacyPolicy = () => {
         </section>
       </main>
       
-      <SeoTextBlock sectionName="privacy_seo_text" />
       <ContactBar showOnScroll={false} />
       <Footer />
     </>
